@@ -43,21 +43,36 @@ Partial Class frmTransactionHistory
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.lblname = New System.Windows.Forms.Label()
+        Me.lbldatetime = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.lblposition = New System.Windows.Forms.Label()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TotalSales = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CreatedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.Logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
-        Me.Panel6.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel6.SuspendLayout()
+        Me.Panel13.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -257,7 +272,7 @@ Partial Class frmTransactionHistory
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(267, 74)
+        Me.Label14.Location = New System.Drawing.Point(269, 126)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(112, 17)
         Me.Label14.TabIndex = 33
@@ -267,7 +282,7 @@ Partial Class frmTransactionHistory
         '
         Me.TextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox6.Location = New System.Drawing.Point(385, 72)
+        Me.TextBox6.Location = New System.Drawing.Point(387, 124)
         Me.TextBox6.Name = "TextBox6"
         Me.TextBox6.Size = New System.Drawing.Size(207, 25)
         Me.TextBox6.TabIndex = 32
@@ -275,7 +290,7 @@ Partial Class frmTransactionHistory
         'DateTimePicker1
         '
         Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker1.Location = New System.Drawing.Point(341, 119)
+        Me.DateTimePicker1.Location = New System.Drawing.Point(343, 73)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(251, 27)
         Me.DateTimePicker1.TabIndex = 34
@@ -284,7 +299,7 @@ Partial Class frmTransactionHistory
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(268, 124)
+        Me.Label1.Location = New System.Drawing.Point(270, 78)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 17)
         Me.Label1.TabIndex = 35
@@ -294,7 +309,7 @@ Partial Class frmTransactionHistory
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(601, 124)
+        Me.Label2.Location = New System.Drawing.Point(603, 78)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 37
@@ -303,29 +318,10 @@ Partial Class frmTransactionHistory
         'DateTimePicker2
         '
         Me.DateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker2.Location = New System.Drawing.Point(629, 119)
+        Me.DateTimePicker2.Location = New System.Drawing.Point(631, 73)
         Me.DateTimePicker2.Name = "DateTimePicker2"
         Me.DateTimePicker2.Size = New System.Drawing.Size(251, 27)
         Me.DateTimePicker2.TabIndex = 36
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(914, 124)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(43, 17)
-        Me.Label3.TabIndex = 38
-        Me.Label3.Text = "Status"
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(963, 118)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(115, 28)
-        Me.ComboBox1.TabIndex = 39
         '
         'Label6
         '
@@ -340,7 +336,7 @@ Partial Class frmTransactionHistory
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(1119, 118)
+        Me.Button2.Location = New System.Drawing.Point(905, 73)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(96, 28)
         Me.Button2.TabIndex = 41
@@ -349,21 +345,22 @@ Partial Class frmTransactionHistory
         '
         'Panel5
         '
+        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.DataGridView1)
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(269, 169)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1167, 560)
+        Me.Panel5.Size = New System.Drawing.Size(1167, 570)
         Me.Panel5.TabIndex = 42
         '
-        'Button3
+        'DataGridView1
         '
-        Me.Button3.Location = New System.Drawing.Point(1327, 752)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(109, 28)
-        Me.Button3.TabIndex = 43
-        Me.Button3.Text = "View Detail"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.Category, Me.Size, Me.Quantity, Me.TotalSales, Me.CreatedBy})
+        Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(1167, 579)
+        Me.DataGridView1.TabIndex = 1
         '
         'Panel6
         '
@@ -385,13 +382,154 @@ Partial Class frmTransactionHistory
         Me.Label7.TabIndex = 25
         Me.Label7.Text = "TRANSACTION HISTORY"
         '
-        'DataGridView1
+        'Panel13
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(0, 45)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1167, 515)
-        Me.DataGridView1.TabIndex = 1
+        Me.Panel13.BackColor = System.Drawing.Color.White
+        Me.Panel13.Controls.Add(Me.lblname)
+        Me.Panel13.Controls.Add(Me.lbldatetime)
+        Me.Panel13.Controls.Add(Me.Label29)
+        Me.Panel13.Controls.Add(Me.Label27)
+        Me.Panel13.Controls.Add(Me.Label28)
+        Me.Panel13.Controls.Add(Me.lblposition)
+        Me.Panel13.Location = New System.Drawing.Point(241, 824)
+        Me.Panel13.Name = "Panel13"
+        Me.Panel13.Size = New System.Drawing.Size(1228, 27)
+        Me.Panel13.TabIndex = 70
+        '
+        'lblname
+        '
+        Me.lblname.AutoSize = True
+        Me.lblname.BackColor = System.Drawing.Color.Transparent
+        Me.lblname.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblname.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.lblname.Location = New System.Drawing.Point(54, 3)
+        Me.lblname.Name = "lblname"
+        Me.lblname.Size = New System.Drawing.Size(53, 21)
+        Me.lblname.TabIndex = 64
+        Me.lblname.Text = "Name"
+        '
+        'lbldatetime
+        '
+        Me.lbldatetime.AutoSize = True
+        Me.lbldatetime.BackColor = System.Drawing.Color.Transparent
+        Me.lbldatetime.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbldatetime.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.lbldatetime.Location = New System.Drawing.Point(576, 3)
+        Me.lbldatetime.Name = "lbldatetime"
+        Me.lbldatetime.Size = New System.Drawing.Size(16, 21)
+        Me.lbldatetime.TabIndex = 68
+        Me.lbldatetime.Text = "-"
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.BackColor = System.Drawing.Color.Transparent
+        Me.Label29.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label29.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label29.Location = New System.Drawing.Point(4, 3)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(55, 21)
+        Me.Label29.TabIndex = 63
+        Me.Label29.Text = "Name:"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.Transparent
+        Me.Label27.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label27.Location = New System.Drawing.Point(504, 3)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(65, 21)
+        Me.Label27.TabIndex = 67
+        Me.Label27.Text = "Today is"
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.BackColor = System.Drawing.Color.Transparent
+        Me.Label28.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label28.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label28.Location = New System.Drawing.Point(249, 3)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(68, 21)
+        Me.Label28.TabIndex = 65
+        Me.Label28.Text = "Position:"
+        '
+        'lblposition
+        '
+        Me.lblposition.AutoSize = True
+        Me.lblposition.BackColor = System.Drawing.Color.Transparent
+        Me.lblposition.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblposition.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.lblposition.Location = New System.Drawing.Point(315, 3)
+        Me.lblposition.Name = "lblposition"
+        Me.lblposition.Size = New System.Drawing.Size(82, 21)
+        Me.lblposition.TabIndex = 66
+        Me.lblposition.Text = "NPosition"
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        '
+        'Category
+        '
+        Me.Category.HeaderText = "Category"
+        Me.Category.Name = "Category"
+        '
+        'Size
+        '
+        Me.Size.HeaderText = "Size"
+        Me.Size.Name = "Size"
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        '
+        'TotalSales
+        '
+        Me.TotalSales.HeaderText = "Total Sales"
+        Me.TotalSales.Name = "TotalSales"
+        '
+        'CreatedBy
+        '
+        Me.CreatedBy.HeaderText = "Created By"
+        Me.CreatedBy.Name = "CreatedBy"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(269, 762)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(70, 17)
+        Me.Label3.TabIndex = 72
+        Me.Label3.Text = "Total Sales"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.Location = New System.Drawing.Point(360, 760)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(207, 25)
+        Me.TextBox1.TabIndex = 71
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(1323, 762)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(113, 27)
+        Me.Button3.TabIndex = 73
+        Me.Button3.Text = "Delete Record"
+        Me.Button3.UseVisualStyleBackColor = True
         '
         'frmTransactionHistory
         '
@@ -399,11 +537,12 @@ Partial Class frmTransactionHistory
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1464, 851)
         Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.ComboBox1)
-        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.DateTimePicker2)
         Me.Controls.Add(Me.Label1)
@@ -418,9 +557,11 @@ Partial Class frmTransactionHistory
         Me.Panel2.PerformLayout()
         CType(Me.Logo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel13.ResumeLayout(False)
+        Me.Panel13.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -446,13 +587,27 @@ Partial Class frmTransactionHistory
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents DateTimePicker2 As DateTimePicker
-    Friend WithEvents Label3 As Label
-    Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Button2 As Button
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents Button3 As Button
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
+    Friend WithEvents Panel13 As Panel
+    Friend WithEvents lblname As Label
+    Friend WithEvents lbldatetime As Label
+    Friend WithEvents Label29 As Label
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Label28 As Label
+    Friend WithEvents lblposition As Label
+    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
+    Friend WithEvents ProductName As DataGridViewTextBoxColumn
+    Friend WithEvents Category As DataGridViewTextBoxColumn
+    Friend WithEvents Size As DataGridViewTextBoxColumn
+    Friend WithEvents Quantity As DataGridViewTextBoxColumn
+    Friend WithEvents TotalSales As DataGridViewTextBoxColumn
+    Friend WithEvents CreatedBy As DataGridViewTextBoxColumn
+    Friend WithEvents Label3 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Button3 As Button
 End Class
