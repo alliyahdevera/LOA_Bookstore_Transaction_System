@@ -80,6 +80,12 @@
     <Compile Include="frmAdminDashboard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmDashboard.Designer.vb">
+      <DependentUpon>frmDashboard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDashboard.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmInventory.Designer.vb">
       <DependentUpon>frmInventory.vb</DependentUpon>
     </Compile>
@@ -98,10 +104,10 @@
     <Compile Include="frmPOS.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmReports.Designer.vb">
-      <DependentUpon>frmReports.vb</DependentUpon>
+    <Compile Include="frmProductList.Designer.vb">
+      <DependentUpon>frmProductList.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmReports.vb">
+    <Compile Include="frmProductList.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmTransactionHistory.Designer.vb">
@@ -143,6 +149,9 @@
     <EmbeddedResource Include="frmAdminDashboard.resx">
       <DependentUpon>frmAdminDashboard.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmDashboard.resx">
+      <DependentUpon>frmDashboard.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInventory.resx">
       <DependentUpon>frmInventory.vb</DependentUpon>
     </EmbeddedResource>
@@ -152,8 +161,8 @@
     <EmbeddedResource Include="frmPOS.resx">
       <DependentUpon>frmPOS.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmReports.resx">
-      <DependentUpon>frmReports.vb</DependentUpon>
+    <EmbeddedResource Include="frmProductList.resx">
+      <DependentUpon>frmProductList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTransactionHistory.resx">
       <DependentUpon>frmTransactionHistory.vb</DependentUpon>
