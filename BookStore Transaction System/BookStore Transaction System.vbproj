@@ -116,12 +116,6 @@
     <Compile Include="frmProductList.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmReportDateFilter.Designer.vb">
-      <DependentUpon>frmReportDateFilter.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmReportDateFilter.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="frmReports.Designer.vb">
       <DependentUpon>frmReports.vb</DependentUpon>
     </Compile>

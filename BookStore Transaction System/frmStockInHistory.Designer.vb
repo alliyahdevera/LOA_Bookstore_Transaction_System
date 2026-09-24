@@ -22,6 +22,7 @@ Partial Class frmStockInHistory
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStockInHistory))
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -43,18 +44,23 @@ Partial Class frmStockInHistory
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.ReferenceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductDescription = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.StockInDateTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.StockInDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.StockInTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FullName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Button1
@@ -185,7 +191,7 @@ Partial Class frmStockInHistory
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ReferenceNo, Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Quantity, Me.StockInDateTime, Me.FullName})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ReferenceNo, Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Quantity, Me.StockInDate, Me.StockInTime, Me.FullName})
         Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.Size = New System.Drawing.Size(1167, 544)
@@ -214,7 +220,7 @@ Partial Class frmStockInHistory
         'Button2
         '
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Location = New System.Drawing.Point(663, 77)
+        Me.Button2.Location = New System.Drawing.Point(663, 88)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(96, 28)
         Me.Button2.TabIndex = 82
@@ -236,7 +242,7 @@ Partial Class frmStockInHistory
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(361, 82)
+        Me.Label2.Location = New System.Drawing.Point(361, 93)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 80
@@ -245,7 +251,7 @@ Partial Class frmStockInHistory
         'DateTimePicker2
         '
         Me.DateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker2.Location = New System.Drawing.Point(389, 77)
+        Me.DateTimePicker2.Location = New System.Drawing.Point(389, 88)
         Me.DateTimePicker2.Name = "DateTimePicker2"
         Me.DateTimePicker2.Size = New System.Drawing.Size(251, 27)
         Me.DateTimePicker2.TabIndex = 79
@@ -254,7 +260,7 @@ Partial Class frmStockInHistory
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(28, 82)
+        Me.Label1.Location = New System.Drawing.Point(28, 93)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 17)
         Me.Label1.TabIndex = 78
@@ -263,7 +269,7 @@ Partial Class frmStockInHistory
         'DateTimePicker1
         '
         Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker1.Location = New System.Drawing.Point(101, 77)
+        Me.DateTimePicker1.Location = New System.Drawing.Point(101, 88)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(251, 27)
         Me.DateTimePicker1.TabIndex = 77
@@ -272,20 +278,11 @@ Partial Class frmStockInHistory
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(27, 130)
+        Me.Label14.Location = New System.Drawing.Point(27, 136)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(112, 17)
+        Me.Label14.Size = New System.Drawing.Size(257, 17)
         Me.Label14.TabIndex = 76
-        Me.Label14.Text = "Search by OR No."
-        '
-        'TextBox6
-        '
-        Me.TextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox6.Location = New System.Drawing.Point(145, 128)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(207, 25)
-        Me.TextBox6.TabIndex = 75
+        Me.Label14.Text = "Search by Reference No. or Product Name"
         '
         'ReferenceNo
         '
@@ -312,21 +309,57 @@ Partial Class frmStockInHistory
         Me.Quantity.HeaderText = "Quantity"
         Me.Quantity.Name = "Quantity"
         '
-        'StockInDateTime
+        'StockInDate
         '
-        Me.StockInDateTime.HeaderText = "Stock In Date/Time"
-        Me.StockInDateTime.Name = "StockInDateTime"
+        Me.StockInDate.HeaderText = "Stock In Date"
+        Me.StockInDate.Name = "StockInDate"
+        '
+        'StockInTime
+        '
+        Me.StockInTime.HeaderText = "Stock In Time"
+        Me.StockInTime.Name = "StockInTime"
         '
         'FullName
         '
         Me.FullName.HeaderText = "Property Full Name"
         Me.FullName.Name = "FullName"
         '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.PictureBox1)
+        Me.Panel1.Controls.Add(Me.txtSearch)
+        Me.Panel1.Location = New System.Drawing.Point(290, 130)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(263, 26)
+        Me.Panel1.TabIndex = 88
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox1.Location = New System.Drawing.Point(239, 3)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(19, 19)
+        Me.PictureBox1.TabIndex = 29
+        Me.PictureBox1.TabStop = False
+        '
+        'txtSearch
+        '
+        Me.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSearch.Location = New System.Drawing.Point(3, 3)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(230, 20)
+        Me.txtSearch.TabIndex = 28
+        '
         'frmStockInHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.TextBox1)
@@ -339,7 +372,6 @@ Partial Class frmStockInHistory
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DateTimePicker1)
         Me.Controls.Add(Me.Label14)
-        Me.Controls.Add(Me.TextBox6)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmStockInHistory"
         Me.Text = "frmStockIn"
@@ -349,6 +381,9 @@ Partial Class frmStockInHistory
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -375,12 +410,15 @@ Partial Class frmStockInHistory
     Friend WithEvents Label1 As Label
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents Label14 As Label
-    Friend WithEvents TextBox6 As TextBox
     Friend WithEvents ReferenceNo As DataGridViewTextBoxColumn
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
     Friend WithEvents ProductDescription As DataGridViewTextBoxColumn
     Friend WithEvents Quantity As DataGridViewTextBoxColumn
-    Friend WithEvents StockInDateTime As DataGridViewTextBoxColumn
+    Friend WithEvents StockInDate As DataGridViewTextBoxColumn
+    Friend WithEvents StockInTime As DataGridViewTextBoxColumn
     Friend WithEvents FullName As DataGridViewTextBoxColumn
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents txtSearch As TextBox
 End Class
