@@ -9,7 +9,7 @@ Module DBConnect
             If cn.State = ConnectionState.Open Then
                 cn.Close()
             End If
-            cn.ConnectionString = "server=localhost;userid=root;password=;database=bookstore_db;"
+            cn.ConnectionString = "server=localhost;userid=root;password=;database=loa_bookstore;"
             cn.Open()
             Return True
         Catch ex As MySqlException

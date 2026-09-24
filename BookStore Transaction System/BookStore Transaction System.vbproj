@@ -222,6 +222,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PasswordHelper.vb" />
+    <Compile Include="RolePermissions.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmAdminDashboard.resx">
