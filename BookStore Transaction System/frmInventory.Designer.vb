@@ -27,6 +27,7 @@ Partial Class frmInventory
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnProductList
@@ -76,11 +77,22 @@ Partial Class frmInventory
         Me.Panel1.Size = New System.Drawing.Size(1219, 817)
         Me.Panel1.TabIndex = 6
         '
+        'Button1
+        '
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.Location = New System.Drawing.Point(788, 0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(198, 33)
+        Me.Button1.TabIndex = 7
+        Me.Button1.Text = "Low Level Stocks"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'frmInventory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Button5)
@@ -97,4 +109,5 @@ Partial Class frmInventory
     Friend WithEvents Button4 As Button
     Friend WithEvents Button5 As Button
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents Button1 As Button
 End Class
