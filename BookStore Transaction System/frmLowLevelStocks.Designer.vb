@@ -47,7 +47,6 @@ Partial Class frmLowLevelStocks
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
@@ -56,6 +55,7 @@ Partial Class frmLowLevelStocks
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.btnexportexcel = New System.Windows.Forms.Button()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -165,9 +165,9 @@ Partial Class frmLowLevelStocks
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.DataGridView1)
         Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Location = New System.Drawing.Point(30, 168)
+        Me.Panel5.Location = New System.Drawing.Point(30, 174)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1155, 598)
+        Me.Panel5.Size = New System.Drawing.Size(1155, 592)
         Me.Panel5.TabIndex = 86
         '
         'DataGridView1
@@ -276,16 +276,6 @@ Partial Class frmLowLevelStocks
         Me.Label1.TabIndex = 90
         Me.Label1.Text = "Low Level Stocks"
         '
-        'Button3
-        '
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.Location = New System.Drawing.Point(1055, 126)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(130, 28)
-        Me.Button3.TabIndex = 94
-        Me.Button3.Text = "Export to Excel"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
         'Button2
         '
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -362,13 +352,26 @@ Partial Class frmLowLevelStocks
         Me.txtSearch.Size = New System.Drawing.Size(230, 20)
         Me.txtSearch.TabIndex = 28
         '
+        'btnexportexcel
+        '
+        Me.btnexportexcel.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnexportexcel.FlatAppearance.BorderSize = 0
+        Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnexportexcel.ForeColor = System.Drawing.Color.White
+        Me.btnexportexcel.Location = New System.Drawing.Point(1055, 123)
+        Me.btnexportexcel.Name = "btnexportexcel"
+        Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
+        Me.btnexportexcel.TabIndex = 76
+        Me.btnexportexcel.Text = "Export to Excel"
+        Me.btnexportexcel.UseVisualStyleBackColor = False
+        '
         'frmLowLevelStocks
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1219, 817)
+        Me.Controls.Add(Me.btnexportexcel)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Label1)
@@ -420,7 +423,6 @@ Partial Class frmLowLevelStocks
     Friend WithEvents Label7 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents Button3 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents DateTimePicker2 As DateTimePicker
@@ -429,4 +431,5 @@ Partial Class frmLowLevelStocks
     Friend WithEvents Panel1 As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtSearch As TextBox
+    Friend WithEvents btnexportexcel As Button
 End Class

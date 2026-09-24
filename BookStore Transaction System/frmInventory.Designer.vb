@@ -32,7 +32,7 @@ Partial Class frmInventory
         '
         'btnProductList
         '
-        Me.btnProductList.BackColor = System.Drawing.Color.Navy
+        Me.btnProductList.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btnProductList.FlatAppearance.BorderSize = 0
         Me.btnProductList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnProductList.ForeColor = System.Drawing.Color.White
@@ -45,7 +45,7 @@ Partial Class frmInventory
         '
         'Button3
         '
-        Me.Button3.BackColor = System.Drawing.Color.Navy
+        Me.Button3.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Button3.FlatAppearance.BorderSize = 0
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button3.ForeColor = System.Drawing.Color.White
@@ -58,7 +58,7 @@ Partial Class frmInventory
         '
         'Button4
         '
-        Me.Button4.BackColor = System.Drawing.Color.Navy
+        Me.Button4.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Button4.FlatAppearance.BorderSize = 0
         Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button4.ForeColor = System.Drawing.Color.White
@@ -71,7 +71,7 @@ Partial Class frmInventory
         '
         'Button5
         '
-        Me.Button5.BackColor = System.Drawing.Color.Navy
+        Me.Button5.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Button5.FlatAppearance.BorderSize = 0
         Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button5.ForeColor = System.Drawing.Color.White
@@ -86,12 +86,12 @@ Partial Class frmInventory
         '
         Me.Panel1.Location = New System.Drawing.Point(1, 33)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1219, 817)
+        Me.Panel1.Size = New System.Drawing.Size(1219, 818)
         Me.Panel1.TabIndex = 6
         '
         'Button1
         '
-        Me.Button1.BackColor = System.Drawing.Color.Navy
+        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Button1.FlatAppearance.BorderSize = 0
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.ForeColor = System.Drawing.Color.White

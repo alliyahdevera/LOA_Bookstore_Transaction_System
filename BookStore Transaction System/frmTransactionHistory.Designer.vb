@@ -52,7 +52,6 @@ Partial Class frmTransactionHistory
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.btnexportexcel = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -71,7 +70,7 @@ Partial Class frmTransactionHistory
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(27, 77)
+        Me.Label14.Location = New System.Drawing.Point(27, 80)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(147, 17)
         Me.Label14.TabIndex = 33
@@ -286,10 +285,10 @@ Partial Class frmTransactionHistory
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(24, 782)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(82, 21)
+        Me.Label3.Size = New System.Drawing.Size(80, 20)
         Me.Label3.TabIndex = 72
         Me.Label3.Text = "Total Sales"
         '
@@ -302,35 +301,24 @@ Partial Class frmTransactionHistory
         Me.Button3.Text = "Delete Record"
         Me.Button3.UseVisualStyleBackColor = True
         '
-        'btnexportexcel
-        '
-        Me.btnexportexcel.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnexportexcel.FlatAppearance.BorderSize = 0
-        Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnexportexcel.ForeColor = System.Drawing.Color.White
-        Me.btnexportexcel.Location = New System.Drawing.Point(1064, 781)
-        Me.btnexportexcel.Name = "btnexportexcel"
-        Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
-        Me.btnexportexcel.TabIndex = 74
-        Me.btnexportexcel.Text = "Export to Excel"
-        Me.btnexportexcel.UseVisualStyleBackColor = False
-        '
         'Button2
         '
+        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Location = New System.Drawing.Point(1064, 75)
+        Me.Button2.ForeColor = System.Drawing.Color.White
+        Me.Button2.Location = New System.Drawing.Point(1064, 73)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(130, 28)
         Me.Button2.TabIndex = 75
         Me.Button2.Text = "View Details"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.UseVisualStyleBackColor = False
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label15.Location = New System.Drawing.Point(27, 47)
+        Me.Label15.Location = New System.Drawing.Point(27, 48)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(182, 15)
         Me.Label15.TabIndex = 76
@@ -339,10 +327,10 @@ Partial Class frmTransactionHistory
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(112, 782)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(115, 782)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(16, 21)
+        Me.Label1.Size = New System.Drawing.Size(15, 20)
         Me.Label1.TabIndex = 77
         Me.Label1.Text = "-"
         '
@@ -352,7 +340,7 @@ Partial Class frmTransactionHistory
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(182, 72)
+        Me.Panel1.Location = New System.Drawing.Point(182, 75)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 96
@@ -385,7 +373,6 @@ Partial Class frmTransactionHistory
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.btnexportexcel)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Panel13)
@@ -423,7 +410,6 @@ Partial Class frmTransactionHistory
     Friend WithEvents lblposition As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Button3 As Button
-    Friend WithEvents btnexportexcel As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Label15 As Label
     Friend WithEvents TransactionNo As DataGridViewTextBoxColumn

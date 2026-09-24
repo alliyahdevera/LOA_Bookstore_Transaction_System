@@ -23,7 +23,6 @@ Partial Class frmReports
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmReports))
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel13 = New System.Windows.Forms.Panel()
         Me.lblname = New System.Windows.Forms.Label()
         Me.lbldatetime = New System.Windows.Forms.Label()
@@ -33,19 +32,6 @@ Partial Class frmReports
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.tDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Time = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TotalAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AmountChange = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TotalSales = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CreatedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -56,11 +42,28 @@ Partial Class frmReports
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TotalAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AmountChange = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TotalSales = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Time = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CreatedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.btnexportexcel = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -68,16 +71,6 @@ Partial Class frmReports
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(20, 777)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(70, 17)
-        Me.Label3.TabIndex = 86
-        Me.Label3.Text = "Total Sales"
         '
         'Panel13
         '
@@ -178,76 +171,11 @@ Partial Class frmReports
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.tDate, Me.Time, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.Quantity, Me.TotalAmount, Me.AmountPaid, Me.AmountChange, Me.TotalSales, Me.CreatedBy})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.Quantity, Me.TotalAmount, Me.AmountPaid, Me.AmountChange, Me.TotalSales, Me.tDate, Me.Time, Me.CreatedBy})
         Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.Size = New System.Drawing.Size(1170, 544)
         Me.DataGridView1.TabIndex = 1
-        '
-        'TransactionNo
-        '
-        Me.TransactionNo.HeaderText = "Transaction #"
-        Me.TransactionNo.Name = "TransactionNo"
-        '
-        'tDate
-        '
-        Me.tDate.HeaderText = "Date"
-        Me.tDate.Name = "tDate"
-        '
-        'Time
-        '
-        Me.Time.HeaderText = "Time"
-        Me.Time.Name = "Time"
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        '
-        'Size
-        '
-        Me.Size.HeaderText = "Size"
-        Me.Size.Name = "Size"
-        '
-        'UnitPrice
-        '
-        Me.UnitPrice.HeaderText = "Unit Price"
-        Me.UnitPrice.Name = "UnitPrice"
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        '
-        'TotalAmount
-        '
-        Me.TotalAmount.HeaderText = "Total Amount"
-        Me.TotalAmount.Name = "TotalAmount"
-        '
-        'AmountPaid
-        '
-        Me.AmountPaid.HeaderText = "Amount Paid"
-        Me.AmountPaid.Name = "AmountPaid"
-        '
-        'AmountChange
-        '
-        Me.AmountChange.HeaderText = "Amount Change"
-        Me.AmountChange.Name = "AmountChange"
-        '
-        'TotalSales
-        '
-        Me.TotalSales.HeaderText = "Total Sales"
-        Me.TotalSales.Name = "TotalSales"
-        '
-        'CreatedBy
-        '
-        Me.CreatedBy.HeaderText = "Created By"
-        Me.CreatedBy.Name = "CreatedBy"
         '
         'Panel6
         '
@@ -261,20 +189,20 @@ Partial Class frmReports
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(14, 13)
+        Me.Label7.Location = New System.Drawing.Point(12, 11)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(159, 17)
+        Me.Label7.Size = New System.Drawing.Size(129, 21)
         Me.Label7.TabIndex = 25
-        Me.Label7.Text = "TRANSACTION REPORTS"
+        Me.Label7.Text = "SALES REPORTS"
         '
         'Button2
         '
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button2.Location = New System.Drawing.Point(658, 125)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(96, 28)
+        Me.Button2.Size = New System.Drawing.Size(101, 28)
         Me.Button2.TabIndex = 82
         Me.Button2.Text = "Search"
         Me.Button2.UseVisualStyleBackColor = True
@@ -284,7 +212,7 @@ Partial Class frmReports
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(18, 22)
+        Me.Label6.Location = New System.Drawing.Point(18, 18)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(103, 32)
         Me.Label6.TabIndex = 81
@@ -339,22 +267,12 @@ Partial Class frmReports
         'Button3
         '
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.Location = New System.Drawing.Point(1063, 131)
+        Me.Button3.Location = New System.Drawing.Point(1063, 125)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(130, 28)
         Me.Button3.TabIndex = 88
         Me.Button3.Text = "Released Items"
         Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(107, 777)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(13, 17)
-        Me.Label4.TabIndex = 89
-        Me.Label4.Text = "-"
         '
         'Panel1
         '
@@ -391,22 +309,143 @@ Partial Class frmReports
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label5.Location = New System.Drawing.Point(22, 57)
+        Me.Label5.Location = New System.Drawing.Point(22, 55)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(178, 15)
+        Me.Label5.Size = New System.Drawing.Size(176, 15)
         Me.Label5.TabIndex = 97
-        Me.Label5.Text = "View Performance of the System"
+        Me.Label5.Text = "Generate the sales of the system"
+        '
+        'TransactionNo
+        '
+        Me.TransactionNo.HeaderText = "Transaction #"
+        Me.TransactionNo.Name = "TransactionNo"
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        '
+        'Size
+        '
+        Me.Size.HeaderText = "Size"
+        Me.Size.Name = "Size"
+        '
+        'UnitPrice
+        '
+        Me.UnitPrice.HeaderText = "Unit Price"
+        Me.UnitPrice.Name = "UnitPrice"
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        '
+        'TotalAmount
+        '
+        Me.TotalAmount.HeaderText = "Total Amount"
+        Me.TotalAmount.Name = "TotalAmount"
+        '
+        'AmountPaid
+        '
+        Me.AmountPaid.HeaderText = "Amount Paid"
+        Me.AmountPaid.Name = "AmountPaid"
+        '
+        'AmountChange
+        '
+        Me.AmountChange.HeaderText = "Amount Change"
+        Me.AmountChange.Name = "AmountChange"
+        '
+        'TotalSales
+        '
+        Me.TotalSales.HeaderText = "Total Sales"
+        Me.TotalSales.Name = "TotalSales"
+        '
+        'tDate
+        '
+        Me.tDate.HeaderText = "Date"
+        Me.tDate.Name = "tDate"
+        '
+        'Time
+        '
+        Me.Time.HeaderText = "Time"
+        Me.Time.Name = "Time"
+        '
+        'CreatedBy
+        '
+        Me.CreatedBy.HeaderText = "Created By"
+        Me.CreatedBy.Name = "CreatedBy"
+        '
+        'btnexportexcel
+        '
+        Me.btnexportexcel.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnexportexcel.FlatAppearance.BorderSize = 0
+        Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnexportexcel.ForeColor = System.Drawing.Color.White
+        Me.btnexportexcel.Location = New System.Drawing.Point(1063, 777)
+        Me.btnexportexcel.Name = "btnexportexcel"
+        Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
+        Me.btnexportexcel.TabIndex = 75
+        Me.btnexportexcel.Text = "Export to Excel"
+        Me.btnexportexcel.UseVisualStyleBackColor = False
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(111, 781)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(15, 20)
+        Me.Label3.TabIndex = 99
+        Me.Label3.Text = "-"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(20, 781)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(80, 20)
+        Me.Label4.TabIndex = 98
+        Me.Label4.Text = "Total Sales"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(356, 781)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(15, 20)
+        Me.Label8.TabIndex = 101
+        Me.Label8.Text = "-"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(237, 781)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(113, 20)
+        Me.Label9.TabIndex = 100
+        Me.Label9.Text = "Total Unit Price"
         '
         'frmReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.Label9)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.btnexportexcel)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.Button2)
@@ -432,7 +471,6 @@ Partial Class frmReports
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Label3 As Label
     Friend WithEvents Panel13 As Panel
     Friend WithEvents lblname As Label
     Friend WithEvents lbldatetime As Label
@@ -442,19 +480,6 @@ Partial Class frmReports
     Friend WithEvents lblposition As Label
     Friend WithEvents Panel5 As Panel
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
-    Friend WithEvents tDate As DataGridViewTextBoxColumn
-    Friend WithEvents Time As DataGridViewTextBoxColumn
-    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
-    Friend WithEvents ProductName As DataGridViewTextBoxColumn
-    Friend WithEvents Size As DataGridViewTextBoxColumn
-    Friend WithEvents UnitPrice As DataGridViewTextBoxColumn
-    Friend WithEvents Quantity As DataGridViewTextBoxColumn
-    Friend WithEvents TotalAmount As DataGridViewTextBoxColumn
-    Friend WithEvents AmountPaid As DataGridViewTextBoxColumn
-    Friend WithEvents AmountChange As DataGridViewTextBoxColumn
-    Friend WithEvents TotalSales As DataGridViewTextBoxColumn
-    Friend WithEvents CreatedBy As DataGridViewTextBoxColumn
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
     Friend WithEvents Button2 As Button
@@ -465,9 +490,26 @@ Partial Class frmReports
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents Label14 As Label
     Friend WithEvents Button3 As Button
-    Friend WithEvents Label4 As Label
     Friend WithEvents Panel1 As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtSearch As TextBox
     Friend WithEvents Label5 As Label
+    Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
+    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
+    Friend WithEvents ProductName As DataGridViewTextBoxColumn
+    Friend WithEvents Size As DataGridViewTextBoxColumn
+    Friend WithEvents UnitPrice As DataGridViewTextBoxColumn
+    Friend WithEvents Quantity As DataGridViewTextBoxColumn
+    Friend WithEvents TotalAmount As DataGridViewTextBoxColumn
+    Friend WithEvents AmountPaid As DataGridViewTextBoxColumn
+    Friend WithEvents AmountChange As DataGridViewTextBoxColumn
+    Friend WithEvents TotalSales As DataGridViewTextBoxColumn
+    Friend WithEvents tDate As DataGridViewTextBoxColumn
+    Friend WithEvents Time As DataGridViewTextBoxColumn
+    Friend WithEvents CreatedBy As DataGridViewTextBoxColumn
+    Friend WithEvents btnexportexcel As Button
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label9 As Label
 End Class

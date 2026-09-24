@@ -70,7 +70,7 @@ Partial Class frmStockEntry
         Me.Panel13.Controls.Add(Me.Label27)
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
-        Me.Panel13.Location = New System.Drawing.Point(0, 789)
+        Me.Panel13.Location = New System.Drawing.Point(0, 790)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(1223, 27)
         Me.Panel13.TabIndex = 98
@@ -300,7 +300,7 @@ Partial Class frmStockEntry
         Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button4.Location = New System.Drawing.Point(735, 120)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(110, 25)
+        Me.Button4.Size = New System.Drawing.Size(129, 25)
         Me.Button4.TabIndex = 104
         Me.Button4.Text = "Product List"
         Me.Button4.UseVisualStyleBackColor = True

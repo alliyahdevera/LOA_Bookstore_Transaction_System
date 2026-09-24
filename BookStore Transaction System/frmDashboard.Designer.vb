@@ -184,14 +184,14 @@ Partial Class frmDashboard
         Me.Chart2.ChartAreas.Add(ChartArea3)
         Legend3.Name = "Legend1"
         Me.Chart2.Legends.Add(Legend3)
-        Me.Chart2.Location = New System.Drawing.Point(53, 63)
+        Me.Chart2.Location = New System.Drawing.Point(27, 57)
         Me.Chart2.Name = "Chart2"
         Series3.ChartArea = "ChartArea1"
         Series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
         Series3.Legend = "Legend1"
         Series3.Name = "Series1"
         Me.Chart2.Series.Add(Series3)
-        Me.Chart2.Size = New System.Drawing.Size(475, 198)
+        Me.Chart2.Size = New System.Drawing.Size(517, 198)
         Me.Chart2.TabIndex = 37
         Me.Chart2.Text = "Chart3"
         '
@@ -238,7 +238,7 @@ Partial Class frmDashboard
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label7.Location = New System.Drawing.Point(23, 13)
+        Me.Label7.Location = New System.Drawing.Point(23, 12)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(138, 32)
         Me.Label7.TabIndex = 81

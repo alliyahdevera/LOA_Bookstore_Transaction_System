@@ -57,7 +57,7 @@ Partial Class frmPayment
         Me.Panel12.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel12.Location = New System.Drawing.Point(0, 0)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(451, 47)
+        Me.Panel12.Size = New System.Drawing.Size(451, 54)
         Me.Panel12.TabIndex = 26
         '
         'Label21
@@ -65,7 +65,7 @@ Partial Class frmPayment
         Me.Label21.AutoSize = True
         Me.Label21.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label21.ForeColor = System.Drawing.Color.White
-        Me.Label21.Location = New System.Drawing.Point(12, 11)
+        Me.Label21.Location = New System.Drawing.Point(14, 14)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(169, 25)
         Me.Label21.TabIndex = 9
@@ -108,6 +108,7 @@ Partial Class frmPayment
         Me.TextBox7.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox7.Location = New System.Drawing.Point(177, 333)
         Me.TextBox7.Name = "TextBox7"
+        Me.TextBox7.ReadOnly = True
         Me.TextBox7.Size = New System.Drawing.Size(241, 27)
         Me.TextBox7.TabIndex = 17
         '
@@ -126,6 +127,7 @@ Partial Class frmPayment
         Me.TextBox9.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox9.Location = New System.Drawing.Point(177, 224)
         Me.TextBox9.Name = "TextBox9"
+        Me.TextBox9.ReadOnly = True
         Me.TextBox9.Size = New System.Drawing.Size(241, 27)
         Me.TextBox9.TabIndex = 15
         '
@@ -145,6 +147,7 @@ Partial Class frmPayment
         Me.TextBox12.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox12.Location = New System.Drawing.Point(177, 79)
         Me.TextBox12.Name = "TextBox12"
+        Me.TextBox12.ReadOnly = True
         Me.TextBox12.Size = New System.Drawing.Size(241, 27)
         Me.TextBox12.TabIndex = 32
         '

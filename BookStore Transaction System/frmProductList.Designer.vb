@@ -42,15 +42,6 @@ Partial Class frmProductList
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Panel13 = New System.Windows.Forms.Panel()
-        Me.lblname = New System.Windows.Forms.Label()
-        Me.lbldatetime = New System.Windows.Forms.Label()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.lblposition = New System.Windows.Forms.Label()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductDescription = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -61,9 +52,20 @@ Partial Class frmProductList
         Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ReorderLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.lblname = New System.Windows.Forms.Label()
+        Me.lbldatetime = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.Panel11.SuspendLayout()
         Me.Panel7.SuspendLayout()
         Me.Panel8.SuspendLayout()
@@ -83,7 +85,7 @@ Partial Class frmProductList
         Me.Panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel11.Controls.Add(Me.Label12)
         Me.Panel11.Controls.Add(Me.Label8)
-        Me.Panel11.Location = New System.Drawing.Point(989, 34)
+        Me.Panel11.Location = New System.Drawing.Point(989, 78)
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(197, 87)
         Me.Panel11.TabIndex = 82
@@ -101,19 +103,20 @@ Partial Class frmProductList
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(13, 11)
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(9, 7)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(72, 13)
+        Me.Label8.Size = New System.Drawing.Size(79, 15)
         Me.Label8.TabIndex = 3
         Me.Label8.Text = "Out of Stocks"
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(32, 152)
+        Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(26, 184)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(205, 17)
+        Me.Label14.Size = New System.Drawing.Size(211, 17)
         Me.Label14.TabIndex = 84
         Me.Label14.Text = "Search by Product Code or Name"
         '
@@ -123,7 +126,7 @@ Partial Class frmProductList
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.Label9)
         Me.Panel7.Controls.Add(Me.Label6)
-        Me.Panel7.Location = New System.Drawing.Point(503, 34)
+        Me.Panel7.Location = New System.Drawing.Point(507, 78)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(197, 87)
         Me.Panel7.TabIndex = 81
@@ -141,9 +144,10 @@ Partial Class frmProductList
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(13, 11)
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(10, 8)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(50, 13)
+        Me.Label6.Size = New System.Drawing.Size(55, 15)
         Me.Label6.TabIndex = 3
         Me.Label6.Text = "On Hand"
         '
@@ -154,7 +158,7 @@ Partial Class frmProductList
         Me.Panel8.Controls.Add(Me.Label5)
         Me.Panel8.Controls.Add(Me.Label4)
         Me.Panel8.Controls.Add(Me.Label2)
-        Me.Panel8.Location = New System.Drawing.Point(269, 34)
+        Me.Panel8.Location = New System.Drawing.Point(267, 78)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(197, 87)
         Me.Panel8.TabIndex = 79
@@ -182,9 +186,10 @@ Partial Class frmProductList
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(5, 7)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(8, 8)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(130, 13)
+        Me.Label2.Size = New System.Drawing.Size(146, 15)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Total Quantity of Products"
         '
@@ -194,7 +199,7 @@ Partial Class frmProductList
         Me.Panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel9.Controls.Add(Me.Label10)
         Me.Panel9.Controls.Add(Me.Label3)
-        Me.Panel9.Location = New System.Drawing.Point(748, 34)
+        Me.Panel9.Location = New System.Drawing.Point(748, 78)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(197, 87)
         Me.Panel9.TabIndex = 80
@@ -212,9 +217,10 @@ Partial Class frmProductList
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(11, 11)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(9, 8)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(67, 13)
+        Me.Label3.Size = New System.Drawing.Size(73, 15)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Critical Level"
         '
@@ -224,7 +230,7 @@ Partial Class frmProductList
         Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel10.Controls.Add(Me.Label11)
         Me.Panel10.Controls.Add(Me.Label1)
-        Me.Panel10.Location = New System.Drawing.Point(32, 34)
+        Me.Panel10.Location = New System.Drawing.Point(26, 78)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(197, 87)
         Me.Panel10.TabIndex = 78
@@ -242,9 +248,10 @@ Partial Class frmProductList
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(11, 11)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(7, 8)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(76, 13)
+        Me.Label1.Size = New System.Drawing.Size(83, 15)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Total Products"
         '
@@ -253,9 +260,9 @@ Partial Class frmProductList
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.DataGridView1)
         Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Location = New System.Drawing.Point(31, 189)
+        Me.Panel5.Location = New System.Drawing.Point(25, 215)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1155, 575)
+        Me.Panel5.Size = New System.Drawing.Size(1161, 555)
         Me.Panel5.TabIndex = 77
         '
         'DataGridView1
@@ -264,8 +271,63 @@ Partial Class frmProductList
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeofProduct, Me.Size, Me.UnitPrice, Me.Quantity, Me.ReorderLevel, Me.Status})
         Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1155, 529)
+        Me.DataGridView1.Size = New System.Drawing.Size(1161, 509)
         Me.DataGridView1.TabIndex = 1
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.Width = 120
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.Width = 180
+        '
+        'ProductDescription
+        '
+        Me.ProductDescription.HeaderText = "Product Description"
+        Me.ProductDescription.Name = "ProductDescription"
+        Me.ProductDescription.Width = 200
+        '
+        'Category
+        '
+        Me.Category.HeaderText = "Category"
+        Me.Category.Name = "Category"
+        Me.Category.Width = 130
+        '
+        'TypeofProduct
+        '
+        Me.TypeofProduct.HeaderText = "Type of Product"
+        Me.TypeofProduct.Name = "TypeofProduct"
+        Me.TypeofProduct.Width = 150
+        '
+        'Size
+        '
+        Me.Size.HeaderText = "Size"
+        Me.Size.Name = "Size"
+        '
+        'UnitPrice
+        '
+        Me.UnitPrice.HeaderText = "Unit Price"
+        Me.UnitPrice.Name = "UnitPrice"
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        '
+        'ReorderLevel
+        '
+        Me.ReorderLevel.HeaderText = "Reorder Level"
+        Me.ReorderLevel.Name = "ReorderLevel"
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
         '
         'Panel6
         '
@@ -373,68 +435,13 @@ Partial Class frmProductList
         Me.lblposition.TabIndex = 66
         Me.lblposition.Text = "NPosition"
         '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        Me.ProductCode.Width = 120
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        Me.ProductName.Width = 180
-        '
-        'ProductDescription
-        '
-        Me.ProductDescription.HeaderText = "Product Description"
-        Me.ProductDescription.Name = "ProductDescription"
-        Me.ProductDescription.Width = 200
-        '
-        'Category
-        '
-        Me.Category.HeaderText = "Category"
-        Me.Category.Name = "Category"
-        Me.Category.Width = 130
-        '
-        'TypeofProduct
-        '
-        Me.TypeofProduct.HeaderText = "Type of Product"
-        Me.TypeofProduct.Name = "TypeofProduct"
-        Me.TypeofProduct.Width = 150
-        '
-        'Size
-        '
-        Me.Size.HeaderText = "Size"
-        Me.Size.Name = "Size"
-        '
-        'UnitPrice
-        '
-        Me.UnitPrice.HeaderText = "Unit Price"
-        Me.UnitPrice.Name = "UnitPrice"
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        '
-        'ReorderLevel
-        '
-        Me.ReorderLevel.HeaderText = "Reorder Level"
-        Me.ReorderLevel.Name = "ReorderLevel"
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(246, 148)
+        Me.Panel1.Location = New System.Drawing.Point(242, 180)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 96
@@ -458,11 +465,35 @@ Partial Class frmProductList
         Me.txtSearch.Size = New System.Drawing.Size(230, 20)
         Me.txtSearch.TabIndex = 28
         '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label13.Location = New System.Drawing.Point(24, 50)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(133, 15)
+        Me.Label13.TabIndex = 99
+        Me.Label13.Text = "View All of the Products"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label15.Location = New System.Drawing.Point(20, 18)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(151, 32)
+        Me.Label15.TabIndex = 98
+        Me.Label15.Text = "Product List"
+        '
         'frmProductList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1219, 817)
+        Me.Controls.Add(Me.Label13)
+        Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.Panel11)
@@ -540,4 +571,6 @@ Partial Class frmProductList
     Friend WithEvents Panel1 As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtSearch As TextBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents Label15 As Label
 End Class
