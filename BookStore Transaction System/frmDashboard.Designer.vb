@@ -115,7 +115,7 @@ Partial Class frmDashboard
         Series1.Legend = "Legend1"
         Series1.Name = "Series1"
         Me.Chart1.Series.Add(Series1)
-        Me.Chart1.Size = New System.Drawing.Size(475, 198)
+        Me.Chart1.Size = New System.Drawing.Size(501, 198)
         Me.Chart1.TabIndex = 35
         Me.Chart1.Text = "Chart3"
         '
@@ -153,7 +153,7 @@ Partial Class frmDashboard
         Series2.Legend = "Legend1"
         Series2.Name = "Series1"
         Me.chtMostreqdoc.Series.Add(Series2)
-        Me.chtMostreqdoc.Size = New System.Drawing.Size(475, 198)
+        Me.chtMostreqdoc.Size = New System.Drawing.Size(501, 198)
         Me.chtMostreqdoc.TabIndex = 35
         Me.chtMostreqdoc.Text = "Chart3"
         '
@@ -222,14 +222,14 @@ Partial Class frmDashboard
         Me.chtdocreqpermonth.ChartAreas.Add(ChartArea4)
         Legend4.Name = "Legend1"
         Me.chtdocreqpermonth.Legends.Add(Legend4)
-        Me.chtdocreqpermonth.Location = New System.Drawing.Point(3, 50)
+        Me.chtdocreqpermonth.Location = New System.Drawing.Point(27, 50)
         Me.chtdocreqpermonth.Name = "chtdocreqpermonth"
         Series4.ChartArea = "ChartArea1"
         Series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie
         Series4.Legend = "Legend1"
         Series4.Name = "Series1"
         Me.chtdocreqpermonth.Series.Add(Series4)
-        Me.chtdocreqpermonth.Size = New System.Drawing.Size(541, 198)
+        Me.chtdocreqpermonth.Size = New System.Drawing.Size(517, 198)
         Me.chtdocreqpermonth.TabIndex = 35
         Me.chtdocreqpermonth.Text = "Chart1"
         '

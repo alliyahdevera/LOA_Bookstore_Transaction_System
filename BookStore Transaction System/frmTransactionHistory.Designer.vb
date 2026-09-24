@@ -27,20 +27,6 @@ Partial Class frmTransactionHistory
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Panel13 = New System.Windows.Forms.Panel()
-        Me.lblname = New System.Windows.Forms.Label()
-        Me.lbldatetime = New System.Windows.Forms.Label()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.lblposition = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Label15 = New System.Windows.Forms.Label()
         Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Time = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -55,6 +41,20 @@ Partial Class frmTransactionHistory
         Me.AmountChange = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CreatedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.lblname = New System.Windows.Forms.Label()
+        Me.lbldatetime = New System.Windows.Forms.Label()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.lblposition = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.btnexportexcel = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -106,6 +106,76 @@ Partial Class frmTransactionHistory
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.Size = New System.Drawing.Size(1167, 613)
         Me.DataGridView1.TabIndex = 1
+        '
+        'TransactionNo
+        '
+        Me.TransactionNo.HeaderText = "Transaction #"
+        Me.TransactionNo.Name = "TransactionNo"
+        '
+        'tDate
+        '
+        Me.tDate.HeaderText = "Date"
+        Me.tDate.Name = "tDate"
+        '
+        'Time
+        '
+        Me.Time.HeaderText = "Time"
+        Me.Time.Name = "Time"
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        '
+        'Size
+        '
+        Me.Size.HeaderText = "Size"
+        Me.Size.Name = "Size"
+        '
+        'UnitPrice
+        '
+        Me.UnitPrice.HeaderText = "Unit Price"
+        Me.UnitPrice.Name = "UnitPrice"
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        '
+        'SubTotal
+        '
+        Me.SubTotal.HeaderText = "Sub Total"
+        Me.SubTotal.Name = "SubTotal"
+        '
+        'TotalAmount
+        '
+        Me.TotalAmount.HeaderText = "Total Amount"
+        Me.TotalAmount.Name = "TotalAmount"
+        '
+        'AmountPaid
+        '
+        Me.AmountPaid.HeaderText = "Amount Paid"
+        Me.AmountPaid.Name = "AmountPaid"
+        '
+        'AmountChange
+        '
+        Me.AmountChange.HeaderText = "Amount Change"
+        Me.AmountChange.Name = "AmountChange"
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        '
+        'CreatedBy
+        '
+        Me.CreatedBy.HeaderText = "Created By"
+        Me.CreatedBy.Name = "CreatedBy"
         '
         'Panel6
         '
@@ -216,12 +286,12 @@ Partial Class frmTransactionHistory
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(24, 782)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(73, 17)
+        Me.Label3.Size = New System.Drawing.Size(82, 21)
         Me.Label3.TabIndex = 72
-        Me.Label3.Text = "Total Sales:"
+        Me.Label3.Text = "Total Sales"
         '
         'Button3
         '
@@ -232,15 +302,18 @@ Partial Class frmTransactionHistory
         Me.Button3.Text = "Delete Record"
         Me.Button3.UseVisualStyleBackColor = True
         '
-        'Button1
+        'btnexportexcel
         '
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Location = New System.Drawing.Point(1064, 777)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(130, 28)
-        Me.Button1.TabIndex = 74
-        Me.Button1.Text = "Export to Excel"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnexportexcel.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnexportexcel.FlatAppearance.BorderSize = 0
+        Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnexportexcel.ForeColor = System.Drawing.Color.White
+        Me.btnexportexcel.Location = New System.Drawing.Point(1064, 781)
+        Me.btnexportexcel.Name = "btnexportexcel"
+        Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
+        Me.btnexportexcel.TabIndex = 74
+        Me.btnexportexcel.Text = "Export to Excel"
+        Me.btnexportexcel.UseVisualStyleBackColor = False
         '
         'Button2
         '
@@ -263,83 +336,13 @@ Partial Class frmTransactionHistory
         Me.Label15.TabIndex = 76
         Me.Label15.Text = "View and Manage All Transaction"
         '
-        'TransactionNo
-        '
-        Me.TransactionNo.HeaderText = "Transaction #"
-        Me.TransactionNo.Name = "TransactionNo"
-        '
-        'tDate
-        '
-        Me.tDate.HeaderText = "Date"
-        Me.tDate.Name = "tDate"
-        '
-        'Time
-        '
-        Me.Time.HeaderText = "Time"
-        Me.Time.Name = "Time"
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        '
-        'Size
-        '
-        Me.Size.HeaderText = "Size"
-        Me.Size.Name = "Size"
-        '
-        'UnitPrice
-        '
-        Me.UnitPrice.HeaderText = "Unit Price"
-        Me.UnitPrice.Name = "UnitPrice"
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        '
-        'SubTotal
-        '
-        Me.SubTotal.HeaderText = "Sub Total"
-        Me.SubTotal.Name = "SubTotal"
-        '
-        'TotalAmount
-        '
-        Me.TotalAmount.HeaderText = "Total Amount"
-        Me.TotalAmount.Name = "TotalAmount"
-        '
-        'AmountPaid
-        '
-        Me.AmountPaid.HeaderText = "Amount Paid"
-        Me.AmountPaid.Name = "AmountPaid"
-        '
-        'AmountChange
-        '
-        Me.AmountChange.HeaderText = "Amount Change"
-        Me.AmountChange.Name = "AmountChange"
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        '
-        'CreatedBy
-        '
-        Me.CreatedBy.HeaderText = "Created By"
-        Me.CreatedBy.Name = "CreatedBy"
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(100, 782)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(112, 782)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(13, 17)
+        Me.Label1.Size = New System.Drawing.Size(16, 21)
         Me.Label1.TabIndex = 77
         Me.Label1.Text = "-"
         '
@@ -382,7 +385,7 @@ Partial Class frmTransactionHistory
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnexportexcel)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Panel13)
@@ -420,7 +423,7 @@ Partial Class frmTransactionHistory
     Friend WithEvents lblposition As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Button3 As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnexportexcel As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Label15 As Label
     Friend WithEvents TransactionNo As DataGridViewTextBoxColumn

@@ -23,9 +23,6 @@ Partial Class frmStockInHistory
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStockInHistory))
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Panel13 = New System.Windows.Forms.Panel()
         Me.lblname = New System.Windows.Forms.Label()
         Me.lbldatetime = New System.Windows.Forms.Label()
@@ -44,6 +41,10 @@ Partial Class frmStockInHistory
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.btnexportexcel = New System.Windows.Forms.Button()
         Me.ReferenceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -52,9 +53,9 @@ Partial Class frmStockInHistory
         Me.StockInDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.StockInTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FullName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -62,35 +63,6 @@ Partial Class frmStockInHistory
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'Button1
-        '
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Location = New System.Drawing.Point(1064, 128)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(130, 28)
-        Me.Button1.TabIndex = 87
-        Me.Button1.Text = "Export to Excel"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(28, 784)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(70, 17)
-        Me.Label3.TabIndex = 86
-        Me.Label3.Text = "Total Sales"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(119, 782)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(207, 25)
-        Me.TextBox1.TabIndex = 85
         '
         'Panel13
         '
@@ -101,7 +73,7 @@ Partial Class frmStockInHistory
         Me.Panel13.Controls.Add(Me.Label27)
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
-        Me.Panel13.Location = New System.Drawing.Point(0, 823)
+        Me.Panel13.Location = New System.Drawing.Point(0, 790)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(1228, 27)
         Me.Panel13.TabIndex = 84
@@ -185,7 +157,7 @@ Partial Class frmStockInHistory
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(27, 173)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1167, 590)
+        Me.Panel5.Size = New System.Drawing.Size(1167, 564)
         Me.Panel5.TabIndex = 83
         '
         'DataGridView1
@@ -194,7 +166,7 @@ Partial Class frmStockInHistory
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ReferenceNo, Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Quantity, Me.StockInDate, Me.StockInTime, Me.FullName})
         Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1167, 544)
+        Me.DataGridView1.Size = New System.Drawing.Size(1167, 518)
         Me.DataGridView1.TabIndex = 1
         '
         'Panel6
@@ -209,11 +181,11 @@ Partial Class frmStockInHistory
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(14, 13)
+        Me.Label7.Location = New System.Drawing.Point(11, 11)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(126, 17)
+        Me.Label7.Size = New System.Drawing.Size(151, 21)
         Me.Label7.TabIndex = 25
         Me.Label7.Text = "STOCK IN HISTORY"
         '
@@ -224,7 +196,7 @@ Partial Class frmStockInHistory
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(96, 28)
         Me.Button2.TabIndex = 82
-        Me.Button2.Text = "Search"
+        Me.Button2.Text = "Generate"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Label6
@@ -232,7 +204,7 @@ Partial Class frmStockInHistory
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(21, 23)
+        Me.Label6.Location = New System.Drawing.Point(25, 20)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(196, 32)
         Me.Label6.TabIndex = 81
@@ -284,46 +256,6 @@ Partial Class frmStockInHistory
         Me.Label14.TabIndex = 76
         Me.Label14.Text = "Search by Reference No. or Product Name"
         '
-        'ReferenceNo
-        '
-        Me.ReferenceNo.HeaderText = "Reference Number"
-        Me.ReferenceNo.Name = "ReferenceNo"
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        '
-        'ProductDescription
-        '
-        Me.ProductDescription.HeaderText = "Product Description"
-        Me.ProductDescription.Name = "ProductDescription"
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        '
-        'StockInDate
-        '
-        Me.StockInDate.HeaderText = "Stock In Date"
-        Me.StockInDate.Name = "StockInDate"
-        '
-        'StockInTime
-        '
-        Me.StockInTime.HeaderText = "Stock In Time"
-        Me.StockInTime.Name = "StockInTime"
-        '
-        'FullName
-        '
-        Me.FullName.HeaderText = "Property Full Name"
-        Me.FullName.Name = "FullName"
-        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
@@ -354,15 +286,108 @@ Partial Class frmStockInHistory
         Me.txtSearch.Size = New System.Drawing.Size(230, 20)
         Me.txtSearch.TabIndex = 28
         '
+        'btnexportexcel
+        '
+        Me.btnexportexcel.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnexportexcel.FlatAppearance.BorderSize = 0
+        Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnexportexcel.ForeColor = System.Drawing.Color.White
+        Me.btnexportexcel.Location = New System.Drawing.Point(1064, 130)
+        Me.btnexportexcel.Name = "btnexportexcel"
+        Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
+        Me.btnexportexcel.TabIndex = 75
+        Me.btnexportexcel.Text = "Export to Excel"
+        Me.btnexportexcel.UseVisualStyleBackColor = False
+        '
+        'ReferenceNo
+        '
+        Me.ReferenceNo.HeaderText = "Reference Number"
+        Me.ReferenceNo.Name = "ReferenceNo"
+        Me.ReferenceNo.Width = 130
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.Width = 120
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.Width = 180
+        '
+        'ProductDescription
+        '
+        Me.ProductDescription.HeaderText = "Product Description"
+        Me.ProductDescription.Name = "ProductDescription"
+        Me.ProductDescription.Width = 200
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        Me.Quantity.Width = 120
+        '
+        'StockInDate
+        '
+        Me.StockInDate.HeaderText = "Stock In Date"
+        Me.StockInDate.Name = "StockInDate"
+        Me.StockInDate.Width = 150
+        '
+        'StockInTime
+        '
+        Me.StockInTime.HeaderText = "Stock In Time"
+        Me.StockInTime.Name = "StockInTime"
+        Me.StockInTime.Width = 150
+        '
+        'FullName
+        '
+        Me.FullName.HeaderText = "Property Full Name"
+        Me.FullName.Name = "FullName"
+        Me.FullName.Width = 200
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label5.Location = New System.Drawing.Point(28, 56)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(189, 15)
+        Me.Label5.TabIndex = 98
+        Me.Label5.Text = "Record of the Newly Added Stocks"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(111, 754)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(16, 21)
+        Me.Label3.TabIndex = 100
+        Me.Label3.Text = "-"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(23, 754)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(82, 21)
+        Me.Label4.TabIndex = 99
+        Me.Label4.Text = "Total Sales"
+        '
         'frmStockInHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Button1)
+        Me.ClientSize = New System.Drawing.Size(1219, 817)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.btnexportexcel)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.Button2)
@@ -388,10 +413,6 @@ Partial Class frmStockInHistory
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Label3 As Label
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Panel13 As Panel
     Friend WithEvents lblname As Label
     Friend WithEvents lbldatetime As Label
@@ -410,6 +431,10 @@ Partial Class frmStockInHistory
     Friend WithEvents Label1 As Label
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents Label14 As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents txtSearch As TextBox
+    Friend WithEvents btnexportexcel As Button
     Friend WithEvents ReferenceNo As DataGridViewTextBoxColumn
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
@@ -418,7 +443,7 @@ Partial Class frmStockInHistory
     Friend WithEvents StockInDate As DataGridViewTextBoxColumn
     Friend WithEvents StockInTime As DataGridViewTextBoxColumn
     Friend WithEvents FullName As DataGridViewTextBoxColumn
-    Friend WithEvents Panel1 As Panel
-    Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents txtSearch As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
 End Class

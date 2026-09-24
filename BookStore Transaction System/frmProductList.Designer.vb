@@ -83,7 +83,7 @@ Partial Class frmProductList
         Me.Panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel11.Controls.Add(Me.Label12)
         Me.Panel11.Controls.Add(Me.Label8)
-        Me.Panel11.Location = New System.Drawing.Point(989, 40)
+        Me.Panel11.Location = New System.Drawing.Point(989, 34)
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(197, 87)
         Me.Panel11.TabIndex = 82
@@ -111,7 +111,7 @@ Partial Class frmProductList
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(32, 155)
+        Me.Label14.Location = New System.Drawing.Point(32, 152)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(205, 17)
         Me.Label14.TabIndex = 84
@@ -123,7 +123,7 @@ Partial Class frmProductList
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.Label9)
         Me.Panel7.Controls.Add(Me.Label6)
-        Me.Panel7.Location = New System.Drawing.Point(503, 40)
+        Me.Panel7.Location = New System.Drawing.Point(503, 34)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(197, 87)
         Me.Panel7.TabIndex = 81
@@ -154,7 +154,7 @@ Partial Class frmProductList
         Me.Panel8.Controls.Add(Me.Label5)
         Me.Panel8.Controls.Add(Me.Label4)
         Me.Panel8.Controls.Add(Me.Label2)
-        Me.Panel8.Location = New System.Drawing.Point(269, 40)
+        Me.Panel8.Location = New System.Drawing.Point(269, 34)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(197, 87)
         Me.Panel8.TabIndex = 79
@@ -194,7 +194,7 @@ Partial Class frmProductList
         Me.Panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel9.Controls.Add(Me.Label10)
         Me.Panel9.Controls.Add(Me.Label3)
-        Me.Panel9.Location = New System.Drawing.Point(748, 40)
+        Me.Panel9.Location = New System.Drawing.Point(748, 34)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(197, 87)
         Me.Panel9.TabIndex = 80
@@ -224,7 +224,7 @@ Partial Class frmProductList
         Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel10.Controls.Add(Me.Label11)
         Me.Panel10.Controls.Add(Me.Label1)
-        Me.Panel10.Location = New System.Drawing.Point(32, 40)
+        Me.Panel10.Location = New System.Drawing.Point(32, 34)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(197, 87)
         Me.Panel10.TabIndex = 78
@@ -434,7 +434,7 @@ Partial Class frmProductList
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(246, 151)
+        Me.Panel1.Location = New System.Drawing.Point(246, 148)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 96

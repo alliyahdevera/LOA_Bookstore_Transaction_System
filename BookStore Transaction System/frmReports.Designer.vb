@@ -60,6 +60,7 @@ Partial Class frmReports
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -72,7 +73,7 @@ Partial Class frmReports
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(20, 768)
+        Me.Label3.Location = New System.Drawing.Point(20, 777)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(70, 17)
         Me.Label3.TabIndex = 86
@@ -110,7 +111,7 @@ Partial Class frmReports
         Me.lbldatetime.BackColor = System.Drawing.Color.Transparent
         Me.lbldatetime.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbldatetime.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.lbldatetime.Location = New System.Drawing.Point(576, 3)
+        Me.lbldatetime.Location = New System.Drawing.Point(575, 3)
         Me.lbldatetime.Name = "lbldatetime"
         Me.lbldatetime.Size = New System.Drawing.Size(16, 21)
         Me.lbldatetime.TabIndex = 68
@@ -169,7 +170,7 @@ Partial Class frmReports
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.DataGridView1)
         Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Location = New System.Drawing.Point(23, 162)
+        Me.Panel5.Location = New System.Drawing.Point(23, 175)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1170, 590)
         Me.Panel5.TabIndex = 83
@@ -271,7 +272,7 @@ Partial Class frmReports
         'Button2
         '
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Location = New System.Drawing.Point(658, 118)
+        Me.Button2.Location = New System.Drawing.Point(658, 125)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(96, 28)
         Me.Button2.TabIndex = 82
@@ -283,7 +284,7 @@ Partial Class frmReports
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(17, 20)
+        Me.Label6.Location = New System.Drawing.Point(18, 22)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(103, 32)
         Me.Label6.TabIndex = 81
@@ -293,7 +294,7 @@ Partial Class frmReports
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(356, 124)
+        Me.Label2.Location = New System.Drawing.Point(356, 131)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 80
@@ -302,7 +303,7 @@ Partial Class frmReports
         'DateTimePicker2
         '
         Me.DateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker2.Location = New System.Drawing.Point(384, 119)
+        Me.DateTimePicker2.Location = New System.Drawing.Point(384, 126)
         Me.DateTimePicker2.Name = "DateTimePicker2"
         Me.DateTimePicker2.Size = New System.Drawing.Size(251, 27)
         Me.DateTimePicker2.TabIndex = 79
@@ -311,7 +312,7 @@ Partial Class frmReports
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(23, 124)
+        Me.Label1.Location = New System.Drawing.Point(23, 131)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 17)
         Me.Label1.TabIndex = 78
@@ -320,7 +321,7 @@ Partial Class frmReports
         'DateTimePicker1
         '
         Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker1.Location = New System.Drawing.Point(96, 119)
+        Me.DateTimePicker1.Location = New System.Drawing.Point(96, 126)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(251, 27)
         Me.DateTimePicker1.TabIndex = 77
@@ -329,7 +330,7 @@ Partial Class frmReports
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(22, 77)
+        Me.Label14.Location = New System.Drawing.Point(22, 91)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(160, 17)
         Me.Label14.TabIndex = 76
@@ -338,7 +339,7 @@ Partial Class frmReports
         'Button3
         '
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.Location = New System.Drawing.Point(1063, 118)
+        Me.Button3.Location = New System.Drawing.Point(1063, 131)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(130, 28)
         Me.Button3.TabIndex = 88
@@ -349,7 +350,7 @@ Partial Class frmReports
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(107, 768)
+        Me.Label4.Location = New System.Drawing.Point(107, 777)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(13, 17)
         Me.Label4.TabIndex = 89
@@ -361,7 +362,7 @@ Partial Class frmReports
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(189, 72)
+        Me.Panel1.Location = New System.Drawing.Point(189, 86)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 96
@@ -385,11 +386,23 @@ Partial Class frmReports
         Me.txtSearch.Size = New System.Drawing.Size(230, 20)
         Me.txtSearch.TabIndex = 28
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label5.Location = New System.Drawing.Point(22, 57)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(178, 15)
+        Me.Label5.TabIndex = 97
+        Me.Label5.Text = "View Performance of the System"
+        '
         'frmReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Button3)
@@ -456,4 +469,5 @@ Partial Class frmReports
     Friend WithEvents Panel1 As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtSearch As TextBox
+    Friend WithEvents Label5 As Label
 End Class

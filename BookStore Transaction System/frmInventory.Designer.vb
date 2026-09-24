@@ -32,43 +32,55 @@ Partial Class frmInventory
         '
         'btnProductList
         '
+        Me.btnProductList.BackColor = System.Drawing.Color.Navy
+        Me.btnProductList.FlatAppearance.BorderSize = 0
         Me.btnProductList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnProductList.ForeColor = System.Drawing.Color.White
         Me.btnProductList.Location = New System.Drawing.Point(0, 0)
         Me.btnProductList.Name = "btnProductList"
         Me.btnProductList.Size = New System.Drawing.Size(198, 33)
         Me.btnProductList.TabIndex = 2
         Me.btnProductList.Text = "Product List"
-        Me.btnProductList.UseVisualStyleBackColor = True
+        Me.btnProductList.UseVisualStyleBackColor = False
         '
         'Button3
         '
+        Me.Button3.BackColor = System.Drawing.Color.Navy
+        Me.Button3.FlatAppearance.BorderSize = 0
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.Location = New System.Drawing.Point(197, 0)
+        Me.Button3.ForeColor = System.Drawing.Color.White
+        Me.Button3.Location = New System.Drawing.Point(199, 0)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(198, 33)
         Me.Button3.TabIndex = 3
         Me.Button3.Text = "Manage Products"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.Button3.UseVisualStyleBackColor = False
         '
         'Button4
         '
+        Me.Button4.BackColor = System.Drawing.Color.Navy
+        Me.Button4.FlatAppearance.BorderSize = 0
         Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button4.Location = New System.Drawing.Point(591, 0)
+        Me.Button4.ForeColor = System.Drawing.Color.White
+        Me.Button4.Location = New System.Drawing.Point(597, 0)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(198, 33)
         Me.Button4.TabIndex = 5
         Me.Button4.Text = "Stock In History"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.Button4.UseVisualStyleBackColor = False
         '
         'Button5
         '
+        Me.Button5.BackColor = System.Drawing.Color.Navy
+        Me.Button5.FlatAppearance.BorderSize = 0
         Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button5.Location = New System.Drawing.Point(394, 0)
+        Me.Button5.ForeColor = System.Drawing.Color.White
+        Me.Button5.Location = New System.Drawing.Point(398, 0)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(198, 33)
         Me.Button5.TabIndex = 4
         Me.Button5.Text = "Stock Entry"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.Button5.UseVisualStyleBackColor = False
         '
         'Panel1
         '
@@ -79,13 +91,16 @@ Partial Class frmInventory
         '
         'Button1
         '
+        Me.Button1.BackColor = System.Drawing.Color.Navy
+        Me.Button1.FlatAppearance.BorderSize = 0
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Location = New System.Drawing.Point(788, 0)
+        Me.Button1.ForeColor = System.Drawing.Color.White
+        Me.Button1.Location = New System.Drawing.Point(796, 0)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(198, 33)
         Me.Button1.TabIndex = 7
         Me.Button1.Text = "Low Level Stocks"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.UseVisualStyleBackColor = False
         '
         'frmInventory
         '

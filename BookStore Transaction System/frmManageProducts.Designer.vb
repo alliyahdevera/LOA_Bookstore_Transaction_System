@@ -55,9 +55,6 @@ Partial Class frmManageProducts
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
-        Me.Button7 = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -69,10 +66,13 @@ Partial Class frmManageProducts
         Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ReorderLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.btnclear = New System.Windows.Forms.Button()
+        Me.btnadd = New System.Windows.Forms.Button()
+        Me.btnremove = New System.Windows.Forms.Button()
+        Me.btnupd = New System.Windows.Forms.Button()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -429,36 +429,6 @@ Partial Class frmManageProducts
         Me.Label12.TabIndex = 11
         Me.Label12.Text = "Product Code"
         '
-        'Button2
-        '
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Location = New System.Drawing.Point(1017, 171)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(172, 33)
-        Me.Button2.TabIndex = 96
-        Me.Button2.Text = "Clear"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Button6
-        '
-        Me.Button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button6.Location = New System.Drawing.Point(1017, 31)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(172, 33)
-        Me.Button6.TabIndex = 94
-        Me.Button6.Text = "Add"
-        Me.Button6.UseVisualStyleBackColor = True
-        '
-        'Button7
-        '
-        Me.Button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button7.Location = New System.Drawing.Point(1017, 122)
-        Me.Button7.Name = "Button7"
-        Me.Button7.Size = New System.Drawing.Size(172, 33)
-        Me.Button7.TabIndex = 95
-        Me.Button7.Text = "Remove"
-        Me.Button7.UseVisualStyleBackColor = True
-        '
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
@@ -523,16 +493,6 @@ Partial Class frmManageProducts
         Me.Status.HeaderText = "Status"
         Me.Status.Name = "Status"
         '
-        'Button3
-        '
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.Location = New System.Drawing.Point(1017, 78)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(172, 33)
-        Me.Button3.TabIndex = 98
-        Me.Button3.Text = "Update"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
@@ -563,17 +523,65 @@ Partial Class frmManageProducts
         Me.txtSearch.Size = New System.Drawing.Size(230, 20)
         Me.txtSearch.TabIndex = 28
         '
+        'btnclear
+        '
+        Me.btnclear.BackColor = System.Drawing.Color.Black
+        Me.btnclear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnclear.ForeColor = System.Drawing.Color.White
+        Me.btnclear.Location = New System.Drawing.Point(1012, 171)
+        Me.btnclear.Name = "btnclear"
+        Me.btnclear.Size = New System.Drawing.Size(172, 33)
+        Me.btnclear.TabIndex = 62
+        Me.btnclear.Text = "Clear"
+        Me.btnclear.UseVisualStyleBackColor = False
+        '
+        'btnadd
+        '
+        Me.btnadd.BackColor = System.Drawing.Color.MidnightBlue
+        Me.btnadd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnadd.ForeColor = System.Drawing.Color.White
+        Me.btnadd.Location = New System.Drawing.Point(1012, 30)
+        Me.btnadd.Name = "btnadd"
+        Me.btnadd.Size = New System.Drawing.Size(172, 33)
+        Me.btnadd.TabIndex = 60
+        Me.btnadd.Text = "Add"
+        Me.btnadd.UseVisualStyleBackColor = False
+        '
+        'btnremove
+        '
+        Me.btnremove.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnremove.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnremove.ForeColor = System.Drawing.Color.White
+        Me.btnremove.Location = New System.Drawing.Point(1012, 124)
+        Me.btnremove.Name = "btnremove"
+        Me.btnremove.Size = New System.Drawing.Size(172, 33)
+        Me.btnremove.TabIndex = 61
+        Me.btnremove.Text = "Remove"
+        Me.btnremove.UseVisualStyleBackColor = False
+        '
+        'btnupd
+        '
+        Me.btnupd.BackColor = System.Drawing.Color.Navy
+        Me.btnupd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnupd.ForeColor = System.Drawing.Color.White
+        Me.btnupd.Location = New System.Drawing.Point(1012, 77)
+        Me.btnupd.Name = "btnupd"
+        Me.btnupd.Size = New System.Drawing.Size(172, 33)
+        Me.btnupd.TabIndex = 59
+        Me.btnupd.Text = "Update"
+        Me.btnupd.UseVisualStyleBackColor = False
+        '
         'frmManageProducts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1219, 817)
+        Me.Controls.Add(Me.btnclear)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button6)
-        Me.Controls.Add(Me.Button7)
+        Me.Controls.Add(Me.btnadd)
         Me.Controls.Add(Me.Panel7)
+        Me.Controls.Add(Me.btnremove)
+        Me.Controls.Add(Me.btnupd)
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.Panel5)
@@ -615,9 +623,6 @@ Partial Class frmManageProducts
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents Label12 As Label
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button6 As Button
-    Friend WithEvents Button7 As Button
     Friend WithEvents TextBox7 As TextBox
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents TextBox3 As TextBox
@@ -643,8 +648,11 @@ Partial Class frmManageProducts
     Friend WithEvents Quantity As DataGridViewTextBoxColumn
     Friend WithEvents ReorderLevel As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
-    Friend WithEvents Button3 As Button
     Friend WithEvents Panel1 As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtSearch As TextBox
+    Friend WithEvents btnclear As Button
+    Friend WithEvents btnadd As Button
+    Friend WithEvents btnremove As Button
+    Friend WithEvents btnupd As Button
 End Class

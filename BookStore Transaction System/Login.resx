@@ -121,7 +121,7 @@
   <data name="User.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAADE6SURBVHhe7d0H
+        vwAADr8BOAVTJAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAADE6SURBVHhe7d0H
         0CZVmfbxC4YMCkiUHCVjAAQRFEVRUfxERddVgshiBAQEFVcXVBBJYtjAWiZEVFBEMbFgJAm6ukRREGHI
         GQZwGZiZ/eqCHp25vWfmjadPd/9/VVeVhTBzP919Tj9P9wkSgC5bRdK2kl4r6e2SPiTpJElfkfR9Sb+S
         dK2kP0m6QdJ9TR6W9H9N/L9n/3P/O/53/d/4v/Wf4T/Lf6b/bP8d/rv8d64ciwEAABNnVUm7SDpU0uea
@@ -338,7 +338,7 @@
   <data name="PW.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAACXiSURBVHhe7d0J
+        vwAADr8BOAVTJAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAACXiSURBVHhe7d0J
         tGxHQS7gPwljAmFGTJRRAoKMEREFHJiiiA8FVASJDA+UF0BlUuBpkBkBBQSZhSCG6YECogyiyKAgYZJB
         RkEIJDHMCBlI3lslnbdIWbl9Tt8+1XtXf99a/1pZufeeU927dp3/dPeunQAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAMDQDk1yrSQ/leTOSe6b5OFJ/jjJ8UnekORdi/xLkk8scnKSLy5S/vuc/1/+zjl/
@@ -506,7 +506,7 @@
   <data name="Logo.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAyAAAAMgCAYAAADbcAZoAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DwAACw8BkvkDpQAA/7JJREFUeF7svQecG9XVNp73/33v198k2CvNzJ0iaXfdOwYb2xjbGEzvEHrvNUDo
+        DgAACw4BQL7hQQAA/7JJREFUeF7svQecG9XVNp73/33v198k2CvNzJ0iaXfdOwYb2xjbGEzvEHrvNUDo
         3fQWAiT0QIDQCaH3jrEx2HQDprn3uk1livT8f+fcGWmkXYMBY6/t++R3ot1lvZJGM3PPc885z/Ob3ygo
         KCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCh0aezy21RKyxiOMVjYyXHC1vYX
         ln6SsJIXmbZ2pWHqfxaW/lfTMu4QtrhXWMZDpmX8yzb1ZxxhvGyZxpumaUwUljHFsIzPDMeYLixjhmka
