@@ -12,27 +12,53 @@ Public Class frmPOS
         "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"}
 
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' Set Top-Right User Box
         TextBox4.Text = currentuser.FullName
         TextBox4.ReadOnly = True
 
+        ' Set Bottom Status Bar Labels Directly
+        lblname.Text = currentuser.FullName
+        lblposition.Text = currentuser.Role
+        lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy")
+
+        ' Restrict ComboBoxes to selection-only
+        ComboBox1.DropDownStyle = ComboBoxStyle.DropDownList ' Category
+        ComboBox5.DropDownStyle = ComboBoxStyle.DropDownList ' Type
+        ComboBox2.DropDownStyle = ComboBoxStyle.DropDownList ' Product
+        ComboBox3.DropDownStyle = ComboBoxStyle.DropDownList ' Size
+        ComboBox6.DropDownStyle = ComboBoxStyle.DropDownList ' Grade Level
+        ComboBox4.DropDownStyle = ComboBoxStyle.DropDownList ' Payment Method
+
+        ' Restrict Read-Only Textboxes
+        TextBox10.ReadOnly = True    ' Unit Price
+        TextBox11.ReadOnly = True    ' Subtotal
+        TextBox5.ReadOnly = True     ' Available Stock
+        TextBox1.ReadOnly = True     ' Total Amount
+        TextBox7.ReadOnly = True     ' Reference / OR No.
+        TextBox8.ReadOnly = True     ' Amount Received
+        TextBox9.ReadOnly = True     ' Amount Change
+
+        ' DataGridView Selection Configuration
+        DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        DataGridView1.MultiSelect = False
+
+        ' Populate Grade Levels
         ComboBox6.Items.Clear()
         ComboBox6.Items.AddRange(gradeLevels)
 
+        ' Populate Payment Methods
         ComboBox4.Items.Clear()
         ComboBox4.Items.AddRange(New String() {"Cash", "Salary Deduction"})
         ComboBox4.Enabled = False   ' Unlocked when Settle Payment completes
 
-        TextBox7.ReadOnly = True    ' Reference / OR No.
-        TextBox8.ReadOnly = True    ' Amount Received
-        TextBox9.ReadOnly = True    ' Amount Change
-
-        DateTimePicker1.Value = Today
+        DateTimePicker1.Value = DateTime.Today
 
         LoadCategoryCombo()
+        ResetCustomerInfo()
         ResetProductInfo()
     End Sub
 
-    ' ---------------- Student lookup ----------------
+    ' ---------------- Student Lookup ----------------
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         LookupStudent()
     End Sub
@@ -46,27 +72,35 @@ Public Class frmPOS
 
     Private Sub LookupStudent()
         If String.IsNullOrWhiteSpace(txtSearch.Text) Then Exit Sub
+
         Dim dt As DataTable = GetDataTable("SELECT student_id, first_name, last_name, grade_level, section FROM TBL_STUDENTS WHERE student_no = @n",
                                             New String() {"@n"}, New Object() {txtSearch.Text.Trim()})
+
         If dt.Rows.Count > 0 Then
             Dim r As DataRow = dt.Rows(0)
             foundStudentId = Convert.ToInt32(r("student_id"))
             TextBox2.Text = r("first_name").ToString() & " " & r("last_name").ToString()
+
             Dim grade As String = r("grade_level").ToString()
             If Not ComboBox6.Items.Contains(grade) Then ComboBox6.Items.Add(grade)
             ComboBox6.Text = grade
             TextBox3.Text = If(IsDBNull(r("section")), "", r("section").ToString())
+
+            TextBox2.ReadOnly = True
         Else
             foundStudentId = 0
             TextBox2.Clear()
-            ComboBox6.Text = ""
+            ComboBox6.SelectedIndex = -1
             TextBox3.Clear()
+
+            TextBox2.ReadOnly = False
+
             MsgBox("Student number not found. You can type the buyer's name manually for a walk-in / employee sale.", vbInformation, "Point of Sale")
             TextBox2.Focus()
         End If
     End Sub
 
-    ' ---------------- Product cascading combos ----------------
+    ' ---------------- Product Cascading Dropdowns ----------------
     Private Sub LoadCategoryCombo()
         Dim dt As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
         FillCombo(ComboBox1, dt, "category_name", "category_id")
@@ -112,42 +146,42 @@ Public Class frmPOS
     End Sub
 
     ' ---------------- 1. btnAddToCart ----------------
-    ' Puts selected product information into DataGridView1 (dgv)
     Private Sub btnAddToCart_Click(sender As Object, e As EventArgs) Handles btnAddToCart.Click
-        If selectedVariantId = 0 Then
-            MsgBox("Select a Category, Type, Product, and Size first.", vbExclamation, "Point of Sale")
+        If ComboBox1.SelectedIndex = -1 OrElse ComboBox5.SelectedIndex = -1 OrElse
+           ComboBox2.SelectedIndex = -1 OrElse ComboBox3.SelectedIndex = -1 OrElse selectedVariantId <= 0 Then
+            MsgBox("Please select a valid Category, Type, Product, and Size from the list.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
+
         If Not IsNumeric(TextBox6.Text) OrElse Convert.ToInt32(TextBox6.Text) <= 0 Then
-            MsgBox("Enter a valid quantity.", vbExclamation, "Point of Sale")
+            MsgBox("Please enter a valid positive quantity.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
 
         Dim qty As Integer = Convert.ToInt32(TextBox6.Text)
         If qty > availableStock Then
-            MsgBox("Only " & availableStock & " left in stock.", vbExclamation, "Point of Sale")
+            MsgBox("Only " & availableStock & " item(s) left in stock.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
 
-        ' Add to dgv
         Dim idx As Integer = DataGridView1.Rows.Add(
             ComboBox2.Text, ComboBox3.Text, qty, selectedUnitPrice.ToString("N2"), (qty * selectedUnitPrice).ToString("N2"))
+
         DataGridView1.Rows(idx).Tag = selectedVariantId
 
-        ' Clear product fields after adding to cart
         ResetProductInfo()
         RecalculateTotal()
     End Sub
 
     ' ---------------- 2. btnRemoveItem ----------------
-    ' Removes only selected item(s) from DataGridView1 (dgv)
     Private Sub btnRemoveItem_Click(sender As Object, e As EventArgs) Handles btnRemoveItem.Click
         If DataGridView1.SelectedRows.Count > 0 Then
             For Each row As DataGridViewRow In DataGridView1.SelectedRows
-                If Not row.IsNewRow Then
-                    DataGridView1.Rows.Remove(row)
-                End If
+                If Not row.IsNewRow Then DataGridView1.Rows.Remove(row)
             Next
+            RecalculateTotal()
+        ElseIf DataGridView1.CurrentRow IsNot Nothing AndAlso Not DataGridView1.CurrentRow.IsNewRow Then
+            DataGridView1.Rows.Remove(DataGridView1.CurrentRow)
             RecalculateTotal()
         Else
             MsgBox("Select an item row in the list to remove.", vbExclamation, "Point of Sale")
@@ -155,14 +189,12 @@ Public Class frmPOS
     End Sub
 
     ' ---------------- 3. btnClear ----------------
-    ' Removes only Customer Information and Product Information
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         ResetCustomerInfo()
         ResetProductInfo()
     End Sub
 
     ' ---------------- 4. btnCancelTransaction ----------------
-    ' Removes all (Customer Info, Product Info, DataGridView Cart, and Payment Info)
     Private Sub btnCancelTransaction_Click(sender As Object, e As EventArgs) Handles btnCancelTransaction.Click
         If MsgBox("Cancel this transaction? All entered details and cart items will be cleared.", vbYesNo + vbQuestion, "Point of Sale") = MsgBoxResult.Yes Then
             ResetAll()
@@ -170,20 +202,29 @@ Public Class frmPOS
     End Sub
 
     ' ---------------- 5. btnSaveTransaction ----------------
-    ' Saves transaction and item details to the database
     Private Sub btnSaveTransaction_Click(sender As Object, e As EventArgs) Handles btnSaveTransaction.Click
         If DataGridView1.Rows.Count = 0 Then
             MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
+
         If String.IsNullOrWhiteSpace(TextBox7.Text) Then
             MsgBox("Click 'Settle Payment' first.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
+
         If String.IsNullOrWhiteSpace(TextBox2.Text) Then
             MsgBox("Enter the buyer's name (or look up a Student No.).", vbExclamation, "Point of Sale")
             Exit Sub
         End If
+
+        For Each row As DataGridViewRow In DataGridView1.Rows
+            If row.IsNewRow Then Continue For
+            If row.Tag Is Nothing OrElse Not IsNumeric(row.Tag) OrElse Convert.ToInt32(row.Tag) <= 0 Then
+                MsgBox("The cart contains an invalid product item. Please remove it and select from the product list.", vbExclamation, "Point of Sale")
+                Exit Sub
+            End If
+        Next
 
         Dim buyerType As String = If(foundStudentId > 0, "Student", "Walk-in")
 
@@ -195,6 +236,7 @@ Public Class frmPOS
                 Dim insTxn As String = "INSERT INTO TBL_TRANSACTIONS " &
                     "(transaction_no, buyer_type, student_id, buyer_name, or_no, or_date, payment_method, total_amount, amount_paid, amount_change, created_by, status) " &
                     "VALUES (@tno, @bt, @sid, @bn, @orno, @ord, @pm, @tot, @paid, @chg, @by, 'Completed')"
+
                 Using c1 As New MySqlCommand(insTxn, cn, trans)
                     c1.Parameters.AddWithValue("@tno", NewTransactionNo())
                     c1.Parameters.AddWithValue("@bt", buyerType)
@@ -264,7 +306,7 @@ Public Class frmPOS
         End If
     End Sub
 
-    ' ---------------- Helper Helper Methods ----------------
+    ' ---------------- Helper Methods ----------------
     Private Sub RecalculateTotal()
         Dim total As Decimal = 0
         For Each row As DataGridViewRow In DataGridView1.Rows
@@ -278,7 +320,8 @@ Public Class frmPOS
     Private Sub ResetCustomerInfo()
         txtSearch.Clear()
         TextBox2.Clear()
-        ComboBox6.Text = ""
+        TextBox2.ReadOnly = False
+        ComboBox6.SelectedIndex = -1
         TextBox3.Clear()
         foundStudentId = 0
     End Sub
@@ -301,8 +344,8 @@ Public Class frmPOS
         TextBox7.Clear()
         TextBox8.Clear()
         TextBox9.Clear()
-        ComboBox4.Text = ""
-        DateTimePicker1.Value = Today
+        ComboBox4.SelectedIndex = -1
+        DateTimePicker1.Value = DateTime.Today
     End Sub
 
     Private Sub ResetAll()

@@ -22,6 +22,7 @@ Partial Class frmPOS
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOS))
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -98,6 +99,8 @@ Partial Class frmPOS
         Me.Label20 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.btnRemoveItem = New System.Windows.Forms.Button()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
         Me.Panel5.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -478,6 +481,7 @@ Partial Class frmPOS
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductName, Me.Size, Me.Quantity, Me.UnitPrice, Me.SubTotal})
         Me.DataGridView1.Location = New System.Drawing.Point(-1, 39)
         Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.Size = New System.Drawing.Size(805, 377)
         Me.DataGridView1.TabIndex = 1
         '
@@ -906,6 +910,13 @@ Partial Class frmPOS
         Me.btnRemoveItem.Text = "Remove Item"
         Me.btnRemoveItem.UseVisualStyleBackColor = False
         '
+        'DateTimePicker2
+        '
+        Me.DateTimePicker2.Location = New System.Drawing.Point(824, 661)
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(200, 20)
+        Me.DateTimePicker2.TabIndex = 105
+        '
         'frmPOS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1035,4 +1046,6 @@ Partial Class frmPOS
     Friend WithEvents Label21 As Label
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents ComboBox4 As ComboBox
+    Friend WithEvents Timer1 As Timer
+    Friend WithEvents DateTimePicker2 As DateTimePicker
 End Class

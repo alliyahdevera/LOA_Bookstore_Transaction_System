@@ -7,8 +7,10 @@ Public Class frmReports
     Private Sub frmReports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblname.Text = currentuser.FullName
         lblposition.Text = currentuser.Role
-        DateTimePicker1.Value = New DateTime(Today.Year, Today.Month, 1)
-        DateTimePicker2.Value = Today
+        lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy")
+
+        DateTimePicker1.Value = New DateTime(DateTime.Today.Year, DateTime.Today.Month, 1)
+        DateTimePicker2.Value = DateTime.Today
         btnexportexcel.Visible = (currentuser.Role = ROLE_SUPERVISOR OrElse currentuser.Role = ROLE_MANAGEMENT)
         LoadGrid()
     End Sub
@@ -59,7 +61,7 @@ Public Class frmReports
                             Convert.ToDecimal(localDr("amount_change")).ToString("N2"), Convert.ToDecimal(localDr("subtotal")).ToString("N2"),
                             Convert.ToDateTime(localDr("tdate")).ToString("yyyy-MM-dd"), localDr("ttime").ToString(), localDr("username").ToString())
                     End While
-                    Label8.Text = sumSubtotal.ToString("N2")   ' Total Unit Price
+                    Label8.Text = sumSubtotal.ToString("N2")
                 End Using
             End Using
             cn.Close()
@@ -76,6 +78,17 @@ Public Class frmReports
 
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
         ExportGridToCsv(DataGridView1, "SalesReport")
+    End Sub
+
+    Private Sub SetControlText(parent As Control, controlName As String, textValue As String)
+        For Each ctrl As Control In parent.Controls
+            If String.Equals(ctrl.Name, controlName, StringComparison.OrdinalIgnoreCase) Then
+                ctrl.Text = textValue
+            End If
+            If ctrl.HasChildren Then
+                SetControlText(ctrl, controlName, textValue)
+            End If
+        Next
     End Sub
 
 End Class
