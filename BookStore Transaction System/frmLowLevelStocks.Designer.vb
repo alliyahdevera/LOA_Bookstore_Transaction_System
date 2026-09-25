@@ -155,7 +155,7 @@ Partial Class frmLowLevelStocks
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(28, 90)
+        Me.Label14.Location = New System.Drawing.Point(28, 95)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(205, 17)
         Me.Label14.TabIndex = 88
@@ -268,11 +268,11 @@ Partial Class frmLowLevelStocks
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label4.Location = New System.Drawing.Point(27, 54)
+        Me.Label4.Location = New System.Drawing.Point(28, 59)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(212, 15)
+        Me.Label4.Size = New System.Drawing.Size(225, 15)
         Me.Label4.TabIndex = 91
-        Me.Label4.Text = "List of all products that are critical level"
+        Me.Label4.Text = "List of all products that are in critical level"
         '
         'Label1
         '
@@ -288,7 +288,7 @@ Partial Class frmLowLevelStocks
         'Button2
         '
         Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Location = New System.Drawing.Point(664, 126)
+        Me.Button2.Location = New System.Drawing.Point(664, 133)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(96, 28)
         Me.Button2.TabIndex = 93
@@ -299,7 +299,7 @@ Partial Class frmLowLevelStocks
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(362, 132)
+        Me.Label2.Location = New System.Drawing.Point(362, 139)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 92
@@ -308,7 +308,7 @@ Partial Class frmLowLevelStocks
         'DateTimePicker2
         '
         Me.DateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker2.Location = New System.Drawing.Point(390, 127)
+        Me.DateTimePicker2.Location = New System.Drawing.Point(390, 134)
         Me.DateTimePicker2.Name = "DateTimePicker2"
         Me.DateTimePicker2.Size = New System.Drawing.Size(251, 27)
         Me.DateTimePicker2.TabIndex = 91
@@ -317,7 +317,7 @@ Partial Class frmLowLevelStocks
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(29, 132)
+        Me.Label3.Location = New System.Drawing.Point(29, 139)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(67, 17)
         Me.Label3.TabIndex = 90
@@ -326,7 +326,7 @@ Partial Class frmLowLevelStocks
         'DateTimePicker1
         '
         Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker1.Location = New System.Drawing.Point(102, 127)
+        Me.DateTimePicker1.Location = New System.Drawing.Point(102, 134)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(251, 27)
         Me.DateTimePicker1.TabIndex = 89
@@ -337,7 +337,7 @@ Partial Class frmLowLevelStocks
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(242, 85)
+        Me.Panel1.Location = New System.Drawing.Point(242, 90)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 95

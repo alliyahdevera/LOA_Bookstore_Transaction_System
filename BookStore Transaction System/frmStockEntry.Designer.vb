@@ -152,9 +152,9 @@ Partial Class frmStockEntry
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.DataGridView1)
         Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Location = New System.Drawing.Point(23, 168)
+        Me.Panel5.Location = New System.Drawing.Point(25, 170)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1167, 582)
+        Me.Panel5.Size = New System.Drawing.Size(1171, 582)
         Me.Panel5.TabIndex = 97
         '
         'DataGridView1
@@ -163,7 +163,7 @@ Partial Class frmStockEntry
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeOfProduct, Me.Amount, Me.Quantity, Me.ReorderLevel, Me.Status})
         Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1167, 538)
+        Me.DataGridView1.Size = New System.Drawing.Size(1171, 538)
         Me.DataGridView1.TabIndex = 1
         '
         'ProductCode
@@ -221,7 +221,7 @@ Partial Class frmStockEntry
         Me.Panel6.Controls.Add(Me.Label7)
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1166, 45)
+        Me.Panel6.Size = New System.Drawing.Size(1170, 45)
         Me.Panel6.TabIndex = 0
         '
         'Label7
@@ -240,7 +240,7 @@ Partial Class frmStockEntry
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(18, 16)
+        Me.Label6.Location = New System.Drawing.Point(20, 18)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(143, 32)
         Me.Label6.TabIndex = 95
@@ -250,7 +250,7 @@ Partial Class frmStockEntry
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(20, 84)
+        Me.Label1.Location = New System.Drawing.Point(22, 86)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(91, 17)
         Me.Label1.TabIndex = 92
@@ -260,7 +260,7 @@ Partial Class frmStockEntry
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(20, 122)
+        Me.Label14.Location = New System.Drawing.Point(22, 124)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(70, 17)
         Me.Label14.TabIndex = 90
@@ -270,7 +270,7 @@ Partial Class frmStockEntry
         '
         Me.TextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox6.Location = New System.Drawing.Point(131, 120)
+        Me.TextBox6.Location = New System.Drawing.Point(133, 122)
         Me.TextBox6.Name = "TextBox6"
         Me.TextBox6.ReadOnly = True
         Me.TextBox6.Size = New System.Drawing.Size(207, 25)
@@ -279,7 +279,7 @@ Partial Class frmStockEntry
         'Button1
         '
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Location = New System.Drawing.Point(1080, 120)
+        Me.Button1.Location = New System.Drawing.Point(1086, 123)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(110, 25)
         Me.Button1.TabIndex = 102
@@ -290,7 +290,7 @@ Partial Class frmStockEntry
         '
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(965, 120)
+        Me.TextBox1.Location = New System.Drawing.Point(971, 123)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(109, 25)
         Me.TextBox1.TabIndex = 103
@@ -298,9 +298,9 @@ Partial Class frmStockEntry
         'Button4
         '
         Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button4.Location = New System.Drawing.Point(735, 120)
+        Me.Button4.Location = New System.Drawing.Point(739, 122)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(129, 25)
+        Me.Button4.Size = New System.Drawing.Size(129, 26)
         Me.Button4.TabIndex = 104
         Me.Button4.Text = "Product List"
         Me.Button4.UseVisualStyleBackColor = True
@@ -309,7 +309,7 @@ Partial Class frmStockEntry
         '
         Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(131, 82)
+        Me.TextBox2.Location = New System.Drawing.Point(133, 84)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.ReadOnly = True
         Me.TextBox2.Size = New System.Drawing.Size(207, 25)
@@ -319,7 +319,7 @@ Partial Class frmStockEntry
         '
         Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox4.Location = New System.Drawing.Point(455, 120)
+        Me.TextBox4.Location = New System.Drawing.Point(457, 122)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.ReadOnly = True
         Me.TextBox4.Size = New System.Drawing.Size(207, 25)
@@ -329,7 +329,7 @@ Partial Class frmStockEntry
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(354, 84)
+        Me.Label2.Location = New System.Drawing.Point(356, 86)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(84, 17)
         Me.Label2.TabIndex = 108
@@ -339,7 +339,7 @@ Partial Class frmStockEntry
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(354, 124)
+        Me.Label3.Location = New System.Drawing.Point(356, 126)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(85, 17)
         Me.Label3.TabIndex = 109
@@ -347,7 +347,7 @@ Partial Class frmStockEntry
         '
         'DateTimePicker1
         '
-        Me.DateTimePicker1.Location = New System.Drawing.Point(455, 82)
+        Me.DateTimePicker1.Location = New System.Drawing.Point(457, 84)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(207, 20)
         Me.DateTimePicker1.TabIndex = 110
@@ -357,7 +357,7 @@ Partial Class frmStockEntry
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label5.Location = New System.Drawing.Point(21, 51)
+        Me.Label5.Location = New System.Drawing.Point(23, 53)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(138, 15)
         Me.Label5.TabIndex = 111

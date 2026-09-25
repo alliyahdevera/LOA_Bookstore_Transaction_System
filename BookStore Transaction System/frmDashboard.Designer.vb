@@ -88,16 +88,16 @@ Partial Class frmDashboard
         Me.Panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel9.Controls.Add(Me.Label14)
         Me.Panel9.Controls.Add(Me.Chart1)
-        Me.Panel9.Location = New System.Drawing.Point(29, 513)
+        Me.Panel9.Location = New System.Drawing.Point(29, 522)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(564, 282)
+        Me.Panel9.Size = New System.Drawing.Size(570, 275)
         Me.Panel9.TabIndex = 85
         '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(23, 17)
+        Me.Label14.Location = New System.Drawing.Point(13, 14)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(163, 21)
         Me.Label14.TabIndex = 36
@@ -109,13 +109,13 @@ Partial Class frmDashboard
         Me.Chart1.ChartAreas.Add(ChartArea1)
         Legend1.Name = "Legend1"
         Me.Chart1.Legends.Add(Legend1)
-        Me.Chart1.Location = New System.Drawing.Point(27, 59)
+        Me.Chart1.Location = New System.Drawing.Point(23, 49)
         Me.Chart1.Name = "Chart1"
         Series1.ChartArea = "ChartArea1"
         Series1.Legend = "Legend1"
         Series1.Name = "Series1"
         Me.Chart1.Series.Add(Series1)
-        Me.Chart1.Size = New System.Drawing.Size(501, 198)
+        Me.Chart1.Size = New System.Drawing.Size(520, 200)
         Me.Chart1.TabIndex = 35
         Me.Chart1.Text = "Chart3"
         '
@@ -127,14 +127,14 @@ Partial Class frmDashboard
         Me.pnlmostreqdoc.Controls.Add(Me.chtMostreqdoc)
         Me.pnlmostreqdoc.Location = New System.Drawing.Point(29, 224)
         Me.pnlmostreqdoc.Name = "pnlmostreqdoc"
-        Me.pnlmostreqdoc.Size = New System.Drawing.Size(564, 271)
+        Me.pnlmostreqdoc.Size = New System.Drawing.Size(570, 275)
         Me.pnlmostreqdoc.TabIndex = 83
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(23, 17)
+        Me.Label12.Location = New System.Drawing.Point(13, 13)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(200, 21)
         Me.Label12.TabIndex = 36
@@ -146,14 +146,14 @@ Partial Class frmDashboard
         Me.chtMostreqdoc.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
         Me.chtMostreqdoc.Legends.Add(Legend2)
-        Me.chtMostreqdoc.Location = New System.Drawing.Point(27, 50)
+        Me.chtMostreqdoc.Location = New System.Drawing.Point(17, 46)
         Me.chtMostreqdoc.Name = "chtMostreqdoc"
         Series2.ChartArea = "ChartArea1"
         Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar
         Series2.Legend = "Legend1"
         Series2.Name = "Series1"
         Me.chtMostreqdoc.Series.Add(Series2)
-        Me.chtMostreqdoc.Size = New System.Drawing.Size(501, 198)
+        Me.chtMostreqdoc.Size = New System.Drawing.Size(520, 200)
         Me.chtMostreqdoc.TabIndex = 35
         Me.chtMostreqdoc.Text = "Chart3"
         '
@@ -163,16 +163,16 @@ Partial Class frmDashboard
         Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel10.Controls.Add(Me.Label15)
         Me.Panel10.Controls.Add(Me.Chart2)
-        Me.Panel10.Location = New System.Drawing.Point(609, 513)
+        Me.Panel10.Location = New System.Drawing.Point(625, 522)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(576, 282)
+        Me.Panel10.Size = New System.Drawing.Size(570, 275)
         Me.Panel10.TabIndex = 84
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(26, 17)
+        Me.Label15.Location = New System.Drawing.Point(14, 14)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(150, 21)
         Me.Label15.TabIndex = 38
@@ -184,14 +184,14 @@ Partial Class frmDashboard
         Me.Chart2.ChartAreas.Add(ChartArea3)
         Legend3.Name = "Legend1"
         Me.Chart2.Legends.Add(Legend3)
-        Me.Chart2.Location = New System.Drawing.Point(27, 57)
+        Me.Chart2.Location = New System.Drawing.Point(27, 49)
         Me.Chart2.Name = "Chart2"
         Series3.ChartArea = "ChartArea1"
         Series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
         Series3.Legend = "Legend1"
         Series3.Name = "Series1"
         Me.Chart2.Series.Add(Series3)
-        Me.Chart2.Size = New System.Drawing.Size(517, 198)
+        Me.Chart2.Size = New System.Drawing.Size(520, 200)
         Me.Chart2.TabIndex = 37
         Me.Chart2.Text = "Chart3"
         '
@@ -201,16 +201,16 @@ Partial Class frmDashboard
         Me.pnlDocreqpermonth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pnlDocreqpermonth.Controls.Add(Me.Label13)
         Me.pnlDocreqpermonth.Controls.Add(Me.chtdocreqpermonth)
-        Me.pnlDocreqpermonth.Location = New System.Drawing.Point(609, 224)
+        Me.pnlDocreqpermonth.Location = New System.Drawing.Point(625, 224)
         Me.pnlDocreqpermonth.Name = "pnlDocreqpermonth"
-        Me.pnlDocreqpermonth.Size = New System.Drawing.Size(576, 271)
+        Me.pnlDocreqpermonth.Size = New System.Drawing.Size(570, 275)
         Me.pnlDocreqpermonth.TabIndex = 82
         '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(23, 17)
+        Me.Label13.Location = New System.Drawing.Point(14, 13)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(131, 21)
         Me.Label13.TabIndex = 36
@@ -222,14 +222,14 @@ Partial Class frmDashboard
         Me.chtdocreqpermonth.ChartAreas.Add(ChartArea4)
         Legend4.Name = "Legend1"
         Me.chtdocreqpermonth.Legends.Add(Legend4)
-        Me.chtdocreqpermonth.Location = New System.Drawing.Point(27, 50)
+        Me.chtdocreqpermonth.Location = New System.Drawing.Point(27, 46)
         Me.chtdocreqpermonth.Name = "chtdocreqpermonth"
         Series4.ChartArea = "ChartArea1"
         Series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie
         Series4.Legend = "Legend1"
         Series4.Name = "Series1"
         Me.chtdocreqpermonth.Series.Add(Series4)
-        Me.chtdocreqpermonth.Size = New System.Drawing.Size(517, 198)
+        Me.chtdocreqpermonth.Size = New System.Drawing.Size(520, 200)
         Me.chtdocreqpermonth.TabIndex = 35
         Me.chtdocreqpermonth.Text = "Chart1"
         '
@@ -250,26 +250,27 @@ Partial Class frmDashboard
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.Label11)
         Me.Panel7.Controls.Add(Me.Label6)
-        Me.Panel7.Location = New System.Drawing.Point(903, 80)
+        Me.Panel7.Location = New System.Drawing.Point(925, 77)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(282, 123)
+        Me.Panel7.Size = New System.Drawing.Size(270, 125)
         Me.Panel7.TabIndex = 80
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(113, 48)
+        Me.Label11.Location = New System.Drawing.Point(108, 52)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(56, 45)
         Me.Label11.TabIndex = 4
         Me.Label11.Text = "00"
+        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(77, 8)
+        Me.Label6.Location = New System.Drawing.Point(63, 8)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(139, 25)
         Me.Label6.TabIndex = 3
@@ -281,26 +282,27 @@ Partial Class frmDashboard
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel6.Controls.Add(Me.Label9)
         Me.Panel6.Controls.Add(Me.Label2)
-        Me.Panel6.Location = New System.Drawing.Point(305, 80)
+        Me.Panel6.Location = New System.Drawing.Point(329, 77)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(288, 123)
+        Me.Panel6.Size = New System.Drawing.Size(270, 125)
         Me.Panel6.TabIndex = 78
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(109, 52)
+        Me.Label9.Location = New System.Drawing.Point(101, 52)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(56, 45)
         Me.Label9.TabIndex = 2
         Me.Label9.Text = "00"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(18, 8)
+        Me.Label2.Location = New System.Drawing.Point(11, 8)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(246, 25)
         Me.Label2.TabIndex = 1
@@ -312,26 +314,27 @@ Partial Class frmDashboard
         Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel8.Controls.Add(Me.Label10)
         Me.Panel8.Controls.Add(Me.Label3)
-        Me.Panel8.Location = New System.Drawing.Point(609, 80)
+        Me.Panel8.Location = New System.Drawing.Point(625, 77)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(260, 123)
+        Me.Panel8.Size = New System.Drawing.Size(270, 125)
         Me.Panel8.TabIndex = 79
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(98, 48)
+        Me.Label10.Location = New System.Drawing.Point(108, 52)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(56, 45)
         Me.Label10.TabIndex = 3
         Me.Label10.Text = "00"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(72, 9)
+        Me.Label3.Location = New System.Drawing.Point(78, 8)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(104, 25)
         Me.Label3.TabIndex = 2
@@ -343,26 +346,27 @@ Partial Class frmDashboard
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.Label8)
         Me.Panel5.Controls.Add(Me.Label1)
-        Me.Panel5.Location = New System.Drawing.Point(29, 80)
+        Me.Panel5.Location = New System.Drawing.Point(29, 77)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(241, 123)
+        Me.Panel5.Size = New System.Drawing.Size(270, 125)
         Me.Panel5.TabIndex = 77
         '
         'Label8
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(88, 51)
+        Me.Label8.Location = New System.Drawing.Point(97, 52)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(56, 45)
         Me.Label8.TabIndex = 1
         Me.Label8.Text = "00"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(46, 8)
+        Me.Label1.Location = New System.Drawing.Point(60, 8)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(140, 25)
         Me.Label1.TabIndex = 0

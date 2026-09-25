@@ -45,7 +45,7 @@ Public Class frmUserManagement
         If e.RowIndex < 0 Then Exit Sub
         Dim row As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
         selectedUserId = Convert.ToInt32(row.Tag)
-        TextBox2.Text = row.Cells("Username").Value.ToString()
+        txtusername.Text = row.Cells("Username").Value.ToString()
         TextBox4.Clear() : TextBox7.Clear()   ' never show a password back — leave blank = unchanged
         TextBox3.Text = row.Cells("FirstName").Value.ToString()
         TextBox6.Text = row.Cells("LastName").Value.ToString()
@@ -62,7 +62,7 @@ Public Class frmUserManagement
     End Function
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click   ' Add
-        If String.IsNullOrWhiteSpace(TextBox2.Text) OrElse String.IsNullOrWhiteSpace(TextBox4.Text) OrElse
+        If String.IsNullOrWhiteSpace(txtusername.Text) OrElse String.IsNullOrWhiteSpace(TextBox4.Text) OrElse
            String.IsNullOrWhiteSpace(TextBox3.Text) OrElse String.IsNullOrWhiteSpace(TextBox6.Text) Then
             MsgBox("Username, Password, First Name, and Last Name are required.", vbExclamation, "User Management") : Exit Sub
         End If
@@ -77,7 +77,7 @@ Public Class frmUserManagement
         Dim ok As Boolean = ExecNonQuery(
             "INSERT INTO TBL_USERS (username, password, first_name, last_name, role_id, status) VALUES (@u, @p, @f, @l, @r, @s)",
             New String() {"@u", "@p", "@f", "@l", "@r", "@s"},
-            New Object() {TextBox2.Text.Trim(), HashPassword(TextBox4.Text), TextBox3.Text.Trim(), TextBox6.Text.Trim(), roleId, status})
+            New Object() {txtusername.Text.Trim(), HashPassword(TextBox4.Text), TextBox3.Text.Trim(), TextBox6.Text.Trim(), roleId, status})
 
         If ok Then
             MsgBox("User added.", vbInformation, "User Management")
@@ -104,11 +104,11 @@ Public Class frmUserManagement
         If String.IsNullOrWhiteSpace(TextBox4.Text) Then
             ok = ExecNonQuery("UPDATE TBL_USERS SET username=@u, first_name=@f, last_name=@l, role_id=@r, status=@s WHERE user_id=@id",
                 New String() {"@u", "@f", "@l", "@r", "@s", "@id"},
-                New Object() {TextBox2.Text.Trim(), TextBox3.Text.Trim(), TextBox6.Text.Trim(), roleId, status, selectedUserId})
+                New Object() {txtusername.Text.Trim(), TextBox3.Text.Trim(), TextBox6.Text.Trim(), roleId, status, selectedUserId})
         Else
             ok = ExecNonQuery("UPDATE TBL_USERS SET username=@u, password=@p, first_name=@f, last_name=@l, role_id=@r, status=@s WHERE user_id=@id",
                 New String() {"@u", "@p", "@f", "@l", "@r", "@s", "@id"},
-                New Object() {TextBox2.Text.Trim(), HashPassword(TextBox4.Text), TextBox3.Text.Trim(), TextBox6.Text.Trim(), roleId, status, selectedUserId})
+                New Object() {txtusername.Text.Trim(), HashPassword(TextBox4.Text), TextBox3.Text.Trim(), TextBox6.Text.Trim(), roleId, status, selectedUserId})
         End If
 
         If ok Then
@@ -139,8 +139,8 @@ Public Class frmUserManagement
 
     Private Sub ClearFields()
         selectedUserId = 0
-        TextBox2.Clear() : TextBox4.Clear() : TextBox7.Clear()
-        TextBox3.Clear() : TextBox6.Clear() : TextBox1.Clear() : TextBox5.Clear()
+        txtusername.Clear() : TextBox4.Clear() : TextBox7.Clear()
+        TextBox3.Clear() : TextBox6.Clear() : TextBox1.SelectedIndex = -1 : TextBox5.SelectedIndex = -1
         DataGridView1.ClearSelection()
     End Sub
 
