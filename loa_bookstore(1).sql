@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2026 at 02:55 PM
+-- Generation Time: Sep 25, 2026 at 06:35 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -83,24 +83,25 @@ CREATE TABLE `tbl_products` (
   `product_name` varchar(150) NOT NULL,
   `product_description` varchar(255) DEFAULT NULL,
   `category_type_id` int(11) NOT NULL,
-  `unit_price` decimal(10,2) NOT NULL
+  `unit_price` decimal(10,2) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'Active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_products`
 --
 
-INSERT INTO `tbl_products` (`product_id`, `product_name`, `product_description`, `category_type_id`, `unit_price`) VALUES
-(1, 'Elementary Boys Polo Shirt', 'Official LOA Kinder to Grade 6 boys polo', 1, 285.00),
-(2, 'Junior High Girls Blouse', 'Official LOA Grade 7-10 girls blouse', 2, 310.00),
-(3, 'Senior High Polo Shirt', 'Official LOA Grade 11-12 polo shirt', 3, 340.00),
-(4, 'College Polo Shirt', 'Official LOA college polo shirt', 4, 380.00),
-(5, 'PE T-Shirt', 'Official LOA physical education shirt', 5, 250.00),
-(6, 'Grade 7 English Textbook', 'English textbook for Grade 7', 6, 450.00),
-(7, 'Grade 10 Math Learning Module', 'Mathematics learning module for Grade 10', 7, 180.00),
-(8, 'Ballpen (Blue)', 'Blue ink ballpen, 0.7mm', 8, 12.00),
-(9, 'Notebook 80 Leaves', 'Spiral notebook, 80 leaves', 9, 35.00),
-(10, 'Expanding Folder (Long)', 'Long plastic expanding folder', 10, 65.00);
+INSERT INTO `tbl_products` (`product_id`, `product_name`, `product_description`, `category_type_id`, `unit_price`, `status`) VALUES
+(1, 'Elementary Boys Polo Shirt', 'Official LOA Kinder to Grade 6 boys polo', 1, 285.00, 'Active'),
+(2, 'Junior High Girls Blouse', 'Official LOA Grade 7-10 girls blouse', 2, 310.00, 'Active'),
+(3, 'Senior High Polo Shirt', 'Official LOA Grade 11-12 polo shirt', 3, 340.00, 'Active'),
+(4, 'College Polo Shirt', 'Official LOA college polo shirt', 4, 380.00, 'Active'),
+(5, 'PE T-Shirt', 'Official LOA physical education shirt', 5, 250.00, 'Active'),
+(6, 'Grade 7 English Textbook', 'English textbook for Grade 7', 6, 450.00, 'Active'),
+(7, 'Grade 10 Math Learning Module', 'Mathematics learning module for Grade 10', 7, 180.00, 'Active'),
+(8, 'Ballpen (Blue)', 'Blue ink ballpen, 0.7mm', 8, 12.00, 'Active'),
+(9, 'Notebook 80 Leaves', 'Spiral notebook, 80 leaves', 9, 35.00, 'Active'),
+(10, 'Expanding Folder (Long)', 'Long plastic expanding folder', 10, 65.00, 'Active');
 
 -- --------------------------------------------------------
 
@@ -134,7 +135,7 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (10, 5, 'UNI-PE-M', 'M', 58, 15),
 (11, 6, 'BK-ENG7', 'N/A', 79, 15),
 (12, 7, 'MOD-MATH10', 'N/A', 118, 20),
-(13, 8, 'SUP-BP-BLU', 'N/A', 462, 50),
+(13, 8, 'SUP-BP-BLU', 'N/A', 460, 50),
 (14, 9, 'SUP-NB-80', 'N/A', 241, 40),
 (15, 10, 'OFF-FLD-EXP', 'N/A', 33, 15);
 
@@ -168,25 +169,27 @@ INSERT INTO `tbl_roles` (`role_id`, `role_name`) VALUES
 CREATE TABLE `tbl_stock_ins` (
   `stock_in_id` int(11) NOT NULL,
   `reference_no` varchar(50) NOT NULL,
+  `received_by` varchar(150) DEFAULT NULL,
   `stock_in_date` date NOT NULL,
-  `stock_in_time` time NOT NULL
+  `stock_in_time` time NOT NULL,
+  `created_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_stock_ins`
 --
 
-INSERT INTO `tbl_stock_ins` (`stock_in_id`, `reference_no`, `stock_in_date`, `stock_in_time`) VALUES
-(1, 'DR-2026-001', '2026-06-15', '09:30:00'),
-(2, 'DR-2026-002', '2026-06-15', '14:10:00'),
-(3, 'DR-2026-003', '2026-06-22', '10:00:00'),
-(4, 'DR-2026-004', '2026-06-22', '13:45:00'),
-(5, 'DR-2026-005', '2026-07-06', '09:15:00'),
-(6, 'DR-2026-006', '2026-07-13', '11:20:00'),
-(7, 'DR-2026-007', '2026-07-13', '14:30:00'),
-(8, 'DR-2026-008', '2026-07-20', '10:05:00'),
-(9, 'DR-2026-009', '2026-07-20', '10:40:00'),
-(10, 'DR-2026-010', '2026-08-03', '15:00:00');
+INSERT INTO `tbl_stock_ins` (`stock_in_id`, `reference_no`, `received_by`, `stock_in_date`, `stock_in_time`, `created_by`) VALUES
+(1, 'DR-2026-001', 'Property Department', '2026-06-15', '09:30:00', 4),
+(2, 'DR-2026-002', 'Property Department', '2026-06-15', '14:10:00', 4),
+(3, 'DR-2026-003', 'Property Department', '2026-06-22', '10:00:00', 4),
+(4, 'DR-2026-004', 'Property Department', '2026-06-22', '13:45:00', 4),
+(5, 'DR-2026-005', 'Property Department', '2026-07-06', '09:15:00', 4),
+(6, 'DR-2026-006', 'Property Department', '2026-07-13', '11:20:00', 4),
+(7, 'DR-2026-007', 'Property Department', '2026-07-13', '14:30:00', 4),
+(8, 'DR-2026-008', 'Property Department', '2026-07-20', '10:05:00', 4),
+(9, 'DR-2026-009', 'Property Department', '2026-07-20', '10:40:00', 4),
+(10, 'DR-2026-010', 'Property Department', '2026-08-03', '15:00:00', 4);
 
 -- --------------------------------------------------------
 
@@ -267,25 +270,32 @@ CREATE TABLE `tbl_transactions` (
   `buyer_name` varchar(150) NOT NULL,
   `or_no` varchar(30) NOT NULL,
   `or_date` date NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `payment_method` varchar(30) NOT NULL DEFAULT 'Cash',
   `total_amount` decimal(10,2) NOT NULL,
-  `created_by` int(11) NOT NULL
+  `amount_paid` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `amount_change` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `created_by` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'Completed',
+  `cancel_reason` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_transactions`
 --
 
-INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`, `student_id`, `buyer_name`, `or_no`, `or_date`, `total_amount`, `created_by`) VALUES
-(1, 'TXN-20260817-001', 'Student', 1, 'Miguel Dela Cruz', 'OR-000451', '2026-08-17', 820.00, 2),
-(2, 'TXN-20260817-002', 'Student', 2, 'Isabella Villanueva', 'OR-000452', '2026-08-17', 605.00, 3),
-(3, 'TXN-20260818-001', 'Student', 3, 'Gabriel Ramirez', 'OR-000453', '2026-08-18', 580.00, 2),
-(4, 'TXN-20260818-002', 'Student', 4, 'Sofia Aquino', 'OR-000454', '2026-08-18', 870.00, 6),
-(5, 'TXN-20260819-001', 'Student', 5, 'Lucas Castillo', 'OR-000455', '2026-08-19', 216.00, 3),
-(6, 'TXN-20260820-001', 'Student', 7, 'Joshua Navarro', 'OR-000456', '2026-08-20', 680.00, 2),
-(7, 'TXN-20260821-001', 'Student', 8, 'Bianca Pascual', 'OR-000457', '2026-08-21', 590.00, 6),
-(8, 'TXN-20260824-001', 'Student', 9, 'Carlo Fernandez', 'OR-000458', '2026-08-24', 890.00, 3),
-(9, 'TXN-20260901-001', 'Employee', NULL, 'Teresita Manalo', 'OR-000459', '2026-09-01', 455.00, 2),
-(10, 'TXN-20260902-001', 'Parent', 6, 'Ligaya Mercado', 'OR-000460', '2026-09-02', 800.00, 2);
+INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`, `student_id`, `buyer_name`, `or_no`, `or_date`, `created_at`, `payment_method`, `total_amount`, `amount_paid`, `amount_change`, `created_by`, `status`, `cancel_reason`) VALUES
+(1, 'TXN-20260817-001', 'Student', 1, 'Miguel Dela Cruz', 'OR-000451', '2026-08-17', '2026-09-25 11:28:43', 'Cash', 820.00, 820.00, 0.00, 2, 'Completed', NULL),
+(2, 'TXN-20260817-002', 'Student', 2, 'Isabella Villanueva', 'OR-000452', '2026-08-17', '2026-09-25 11:28:43', 'Cash', 605.00, 605.00, 0.00, 3, 'Completed', NULL),
+(3, 'TXN-20260818-001', 'Student', 3, 'Gabriel Ramirez', 'OR-000453', '2026-08-18', '2026-09-25 11:28:43', 'Cash', 580.00, 580.00, 0.00, 2, 'Completed', NULL),
+(4, 'TXN-20260818-002', 'Student', 4, 'Sofia Aquino', 'OR-000454', '2026-08-18', '2026-09-25 11:28:43', 'Cash', 870.00, 870.00, 0.00, 6, 'Completed', NULL),
+(5, 'TXN-20260819-001', 'Student', 5, 'Lucas Castillo', 'OR-000455', '2026-08-19', '2026-09-25 11:28:43', 'Cash', 216.00, 216.00, 0.00, 3, 'Completed', NULL),
+(6, 'TXN-20260820-001', 'Student', 7, 'Joshua Navarro', 'OR-000456', '2026-08-20', '2026-09-25 11:28:43', 'Cash', 680.00, 680.00, 0.00, 2, 'Completed', NULL),
+(7, 'TXN-20260821-001', 'Student', 8, 'Bianca Pascual', 'OR-000457', '2026-08-21', '2026-09-25 11:28:43', 'Cash', 590.00, 590.00, 0.00, 6, 'Completed', NULL),
+(8, 'TXN-20260824-001', 'Student', 9, 'Carlo Fernandez', 'OR-000458', '2026-08-24', '2026-09-25 11:28:43', 'Cash', 890.00, 890.00, 0.00, 3, 'Completed', NULL),
+(9, 'TXN-20260901-001', 'Employee', NULL, 'Teresita Manalo', 'OR-000459', '2026-09-01', '2026-09-25 11:28:43', 'Cash', 455.00, 455.00, 0.00, 2, 'Completed', NULL),
+(10, 'TXN-20260902-001', 'Parent', 6, 'Ligaya Mercado', 'OR-000460', '2026-09-02', '2026-09-25 11:28:43', 'Cash', 800.00, 800.00, 0.00, 2, 'Completed', NULL),
+(11, 'TXN-20260925115708807', 'Student', 1, 'Miguel Dela Cruz', 'OR-20260925115655352', '2026-09-25', '2026-09-25 11:57:08', 'Cash', 24.00, 25.00, 1.00, 1, 'Completed', NULL);
 
 -- --------------------------------------------------------
 
@@ -325,7 +335,8 @@ INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `v
 (18, 9, 15, 195.00),
 (19, 9, 13, 120.00),
 (20, 10, 4, 620.00),
-(21, 10, 12, 180.00);
+(21, 10, 12, 180.00),
+(22, 11, 13, 24.00);
 
 -- --------------------------------------------------------
 
@@ -339,24 +350,25 @@ CREATE TABLE `tbl_users` (
   `password` varchar(255) NOT NULL,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
-  `role_id` int(11) NOT NULL
+  `role_id` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'Active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`user_id`, `username`, `password`, `first_name`, `last_name`, `role_id`) VALUES
-(1, 'msantos', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Maria', 'Santos', 1),
-(2, 'jreyes', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Jose', 'Reyes', 2),
-(3, 'acruz', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Ana', 'Cruz', 2),
-(4, 'rdelacruz', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Ramon', 'Dela Cruz', 3),
-(5, 'lgarcia', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Luz', 'Garcia', 3),
-(6, 'pbautista', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Paolo', 'Bautista', 2),
-(7, 'cmendoza', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Carla', 'Mendoza', 4),
-(8, 'ftorres', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Fernando', 'Torres', 4),
-(9, 'hramos', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Hazel', 'Ramos', 1),
-(10, 'dlopez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Daniel', 'Lopez', 3);
+INSERT INTO `tbl_users` (`user_id`, `username`, `password`, `first_name`, `last_name`, `role_id`, `status`) VALUES
+(1, 'msantos', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Maria', 'Santos', 1, 'Active'),
+(2, 'jreyes', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Jose', 'Reyes', 2, 'Active'),
+(3, 'acruz', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Ana', 'Cruz', 2, 'Active'),
+(4, 'rdelacruz', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Ramon', 'Dela Cruz', 3, 'Active'),
+(5, 'lgarcia', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Luz', 'Garcia', 3, 'Active'),
+(6, 'pbautista', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Paolo', 'Bautista', 2, 'Active'),
+(7, 'cmendoza', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Carla', 'Mendoza', 4, 'Active'),
+(8, 'ftorres', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Fernando', 'Torres', 4, 'Active'),
+(9, 'hramos', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Hazel', 'Ramos', 1, 'Active'),
+(10, 'dlopez', 'ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f', 'Daniel', 'Lopez', 3, 'Active');
 
 --
 -- Indexes for dumped tables
@@ -403,7 +415,8 @@ ALTER TABLE `tbl_roles`
 --
 ALTER TABLE `tbl_stock_ins`
   ADD PRIMARY KEY (`stock_in_id`),
-  ADD UNIQUE KEY `reference_no` (`reference_no`);
+  ADD UNIQUE KEY `reference_no` (`reference_no`),
+  ADD KEY `fk_stockin_user` (`created_by`);
 
 --
 -- Indexes for table `tbl_stock_in_details`
@@ -502,19 +515,19 @@ ALTER TABLE `tbl_students`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction_items`
 --
 ALTER TABLE `tbl_transaction_items`
-  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -537,6 +550,12 @@ ALTER TABLE `tbl_products`
 --
 ALTER TABLE `tbl_product_variants`
   ADD CONSTRAINT `fk_variant_product` FOREIGN KEY (`product_id`) REFERENCES `tbl_products` (`product_id`);
+
+--
+-- Constraints for table `tbl_stock_ins`
+--
+ALTER TABLE `tbl_stock_ins`
+  ADD CONSTRAINT `fk_stockin_user` FOREIGN KEY (`created_by`) REFERENCES `tbl_users` (`user_id`);
 
 --
 -- Constraints for table `tbl_stock_in_details`
