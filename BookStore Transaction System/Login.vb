@@ -33,9 +33,9 @@ Public Class Login
             If Not connection() Then Exit Sub
 
             sql = "SELECT u.user_id, u.first_name, u.last_name, r.role_name " &
-                  "FROM TBL_USERS u " &
-                  "INNER JOIN TBL_ROLES r ON u.role_id = r.role_id " &
-                  "WHERE u.username = @u AND u.password = @p"
+      "FROM TBL_USERS u " &
+      "INNER JOIN TBL_ROLES r ON u.role_id = r.role_id " &
+      "WHERE u.username = @u AND u.password = @p AND u.status = 'Active'"
             cmd = New MySqlCommand(sql, cn)
             cmd.Parameters.AddWithValue("@u", txtUsername.Text.Trim())
             cmd.Parameters.AddWithValue("@p", HashPassword(txtPassword.Text))
