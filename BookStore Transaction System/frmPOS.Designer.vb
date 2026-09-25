@@ -44,7 +44,7 @@ Partial Class frmPOS
         Me.TextBox10 = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TextBox6 = New System.Windows.Forms.TextBox()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.btnAddToCart = New System.Windows.Forms.Button()
         Me.ComboBox3 = New System.Windows.Forms.ComboBox()
         Me.ComboBox2 = New System.Windows.Forms.ComboBox()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
@@ -64,8 +64,8 @@ Partial Class frmPOS
         Me.SubTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.Button11 = New System.Windows.Forms.Button()
-        Me.Button12 = New System.Windows.Forms.Button()
+        Me.btnSettlePayment = New System.Windows.Forms.Button()
+        Me.btnCancelTransaction = New System.Windows.Forms.Button()
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.lbldatetime = New System.Windows.Forms.Label()
@@ -82,8 +82,9 @@ Partial Class frmPOS
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.btnClear = New System.Windows.Forms.Button()
+        Me.btnSaveTransaction = New System.Windows.Forms.Button()
         Me.TextBox7 = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.TextBox8 = New System.Windows.Forms.TextBox()
@@ -91,13 +92,12 @@ Partial Class frmPOS
         Me.TextBox9 = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.ComboBox4 = New System.Windows.Forms.ComboBox()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.Label20 = New System.Windows.Forms.Label()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label21 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.ComboBox4 = New System.Windows.Forms.ComboBox()
+        Me.btnRemoveItem = New System.Windows.Forms.Button()
         Me.Panel5.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -109,9 +109,9 @@ Partial Class frmPOS
         Me.Panel11.SuspendLayout()
         Me.Panel13.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.Panel3.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel9.SuspendLayout()
-        Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel5
@@ -253,7 +253,7 @@ Partial Class frmPOS
         Me.Panel6.Controls.Add(Me.TextBox10)
         Me.Panel6.Controls.Add(Me.Label14)
         Me.Panel6.Controls.Add(Me.TextBox6)
-        Me.Panel6.Controls.Add(Me.Button4)
+        Me.Panel6.Controls.Add(Me.btnAddToCart)
         Me.Panel6.Controls.Add(Me.ComboBox3)
         Me.Panel6.Controls.Add(Me.ComboBox2)
         Me.Panel6.Controls.Add(Me.ComboBox1)
@@ -347,18 +347,18 @@ Partial Class frmPOS
         Me.TextBox6.Size = New System.Drawing.Size(207, 25)
         Me.TextBox6.TabIndex = 18
         '
-        'Button4
+        'btnAddToCart
         '
-        Me.Button4.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.ForeColor = System.Drawing.Color.White
-        Me.Button4.Location = New System.Drawing.Point(342, 213)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(289, 44)
-        Me.Button4.TabIndex = 18
-        Me.Button4.Text = "Add to Cart"
-        Me.Button4.UseVisualStyleBackColor = False
+        Me.btnAddToCart.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnAddToCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnAddToCart.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAddToCart.ForeColor = System.Drawing.Color.White
+        Me.btnAddToCart.Location = New System.Drawing.Point(342, 213)
+        Me.btnAddToCart.Name = "btnAddToCart"
+        Me.btnAddToCart.Size = New System.Drawing.Size(289, 44)
+        Me.btnAddToCart.TabIndex = 18
+        Me.btnAddToCart.Text = "Add to Cart"
+        Me.btnAddToCart.UseVisualStyleBackColor = False
         '
         'ComboBox3
         '
@@ -531,29 +531,29 @@ Partial Class frmPOS
         Me.Label15.TabIndex = 9
         Me.Label15.Text = "List of Items"
         '
-        'Button11
+        'btnSettlePayment
         '
-        Me.Button11.BackColor = System.Drawing.Color.Green
-        Me.Button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button11.ForeColor = System.Drawing.Color.White
-        Me.Button11.Location = New System.Drawing.Point(516, 759)
-        Me.Button11.Name = "Button11"
-        Me.Button11.Size = New System.Drawing.Size(200, 40)
-        Me.Button11.TabIndex = 28
-        Me.Button11.Text = "Settle Payment"
-        Me.Button11.UseVisualStyleBackColor = False
+        Me.btnSettlePayment.BackColor = System.Drawing.Color.Green
+        Me.btnSettlePayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSettlePayment.ForeColor = System.Drawing.Color.White
+        Me.btnSettlePayment.Location = New System.Drawing.Point(516, 759)
+        Me.btnSettlePayment.Name = "btnSettlePayment"
+        Me.btnSettlePayment.Size = New System.Drawing.Size(200, 40)
+        Me.btnSettlePayment.TabIndex = 28
+        Me.btnSettlePayment.Text = "Settle Payment"
+        Me.btnSettlePayment.UseVisualStyleBackColor = False
         '
-        'Button12
+        'btnCancelTransaction
         '
-        Me.Button12.BackColor = System.Drawing.Color.Maroon
-        Me.Button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button12.ForeColor = System.Drawing.Color.White
-        Me.Button12.Location = New System.Drawing.Point(988, 759)
-        Me.Button12.Name = "Button12"
-        Me.Button12.Size = New System.Drawing.Size(200, 40)
-        Me.Button12.TabIndex = 29
-        Me.Button12.Text = "Cancel Transaction"
-        Me.Button12.UseVisualStyleBackColor = False
+        Me.btnCancelTransaction.BackColor = System.Drawing.Color.Maroon
+        Me.btnCancelTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCancelTransaction.ForeColor = System.Drawing.Color.White
+        Me.btnCancelTransaction.Location = New System.Drawing.Point(988, 759)
+        Me.btnCancelTransaction.Name = "btnCancelTransaction"
+        Me.btnCancelTransaction.Size = New System.Drawing.Size(200, 40)
+        Me.btnCancelTransaction.TabIndex = 29
+        Me.btnCancelTransaction.Text = "Cancel Transaction"
+        Me.btnCancelTransaction.UseVisualStyleBackColor = False
         '
         'Panel10
         '
@@ -732,29 +732,39 @@ Partial Class frmPOS
         Me.Panel2.Size = New System.Drawing.Size(344, 79)
         Me.Panel2.TabIndex = 96
         '
-        'Button1
+        'Panel3
         '
-        Me.Button1.BackColor = System.Drawing.Color.Gray
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(275, 759)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(200, 40)
-        Me.Button1.TabIndex = 31
-        Me.Button1.Text = "Clear"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel3.Controls.Add(Me.Label5)
+        Me.Panel3.Location = New System.Drawing.Point(-1, -1)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(345, 29)
+        Me.Panel3.TabIndex = 97
         '
-        'Button2
+        'btnClear
         '
-        Me.Button2.BackColor = System.Drawing.Color.Navy
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Location = New System.Drawing.Point(756, 759)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(200, 40)
-        Me.Button2.TabIndex = 30
-        Me.Button2.Text = "Save Transaction"
-        Me.Button2.UseVisualStyleBackColor = False
+        Me.btnClear.BackColor = System.Drawing.Color.Gray
+        Me.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnClear.ForeColor = System.Drawing.Color.White
+        Me.btnClear.Location = New System.Drawing.Point(275, 759)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(200, 40)
+        Me.btnClear.TabIndex = 31
+        Me.btnClear.Text = "Clear"
+        Me.btnClear.UseVisualStyleBackColor = False
+        '
+        'btnSaveTransaction
+        '
+        Me.btnSaveTransaction.BackColor = System.Drawing.Color.Navy
+        Me.btnSaveTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSaveTransaction.ForeColor = System.Drawing.Color.White
+        Me.btnSaveTransaction.Location = New System.Drawing.Point(756, 759)
+        Me.btnSaveTransaction.Name = "btnSaveTransaction"
+        Me.btnSaveTransaction.Size = New System.Drawing.Size(200, 40)
+        Me.btnSaveTransaction.TabIndex = 30
+        Me.btnSaveTransaction.Text = "Save Transaction"
+        Me.btnSaveTransaction.UseVisualStyleBackColor = False
         '
         'TextBox7
         '
@@ -835,6 +845,25 @@ Partial Class frmPOS
         Me.Panel4.Size = New System.Drawing.Size(344, 255)
         Me.Panel4.TabIndex = 103
         '
+        'ComboBox4
+        '
+        Me.ComboBox4.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.ComboBox4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox4.FormattingEnabled = True
+        Me.ComboBox4.Items.AddRange(New Object() {"Cash", "Employee's Salary"})
+        Me.ComboBox4.Location = New System.Drawing.Point(147, 126)
+        Me.ComboBox4.Name = "ComboBox4"
+        Me.ComboBox4.Size = New System.Drawing.Size(178, 25)
+        Me.ComboBox4.TabIndex = 106
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimePicker1.Location = New System.Drawing.Point(147, 85)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(178, 25)
+        Me.DateTimePicker1.TabIndex = 105
+        '
         'Panel9
         '
         Me.Panel9.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
@@ -855,28 +884,6 @@ Partial Class frmPOS
         Me.Label20.TabIndex = 10
         Me.Label20.Text = "Payment Information"
         '
-        'Button3
-        '
-        Me.Button3.BackColor = System.Drawing.Color.IndianRed
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.ForeColor = System.Drawing.Color.White
-        Me.Button3.Location = New System.Drawing.Point(35, 759)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(200, 40)
-        Me.Button3.TabIndex = 104
-        Me.Button3.Text = "Remove Item"
-        Me.Button3.UseVisualStyleBackColor = False
-        '
-        'Panel3
-        '
-        Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel3.Controls.Add(Me.Label5)
-        Me.Panel3.Location = New System.Drawing.Point(-1, -1)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(345, 29)
-        Me.Panel3.TabIndex = 97
-        '
         'Label21
         '
         Me.Label21.AutoSize = True
@@ -887,37 +894,30 @@ Partial Class frmPOS
         Me.Label21.TabIndex = 104
         Me.Label21.Text = "Payment Method"
         '
-        'DateTimePicker1
+        'btnRemoveItem
         '
-        Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker1.Location = New System.Drawing.Point(147, 85)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(178, 25)
-        Me.DateTimePicker1.TabIndex = 105
-        '
-        'ComboBox4
-        '
-        Me.ComboBox4.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox4.FormattingEnabled = True
-        Me.ComboBox4.Items.AddRange(New Object() {"Cash", "Employee's Salary"})
-        Me.ComboBox4.Location = New System.Drawing.Point(147, 126)
-        Me.ComboBox4.Name = "ComboBox4"
-        Me.ComboBox4.Size = New System.Drawing.Size(178, 25)
-        Me.ComboBox4.TabIndex = 106
+        Me.btnRemoveItem.BackColor = System.Drawing.Color.IndianRed
+        Me.btnRemoveItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnRemoveItem.ForeColor = System.Drawing.Color.White
+        Me.btnRemoveItem.Location = New System.Drawing.Point(35, 759)
+        Me.btnRemoveItem.Name = "btnRemoveItem"
+        Me.btnRemoveItem.Size = New System.Drawing.Size(200, 40)
+        Me.btnRemoveItem.TabIndex = 104
+        Me.btnRemoveItem.Text = "Remove Item"
+        Me.btnRemoveItem.UseVisualStyleBackColor = False
         '
         'frmPOS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.btnRemoveItem)
+        Me.Controls.Add(Me.btnClear)
+        Me.Controls.Add(Me.btnSaveTransaction)
         Me.Controls.Add(Me.Panel4)
-        Me.Controls.Add(Me.Button11)
+        Me.Controls.Add(Me.btnSettlePayment)
         Me.Controls.Add(Me.Panel2)
-        Me.Controls.Add(Me.Button12)
+        Me.Controls.Add(Me.btnCancelTransaction)
         Me.Controls.Add(Me.Label26)
         Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.Label4)
@@ -950,12 +950,12 @@ Partial Class frmPOS
         Me.Panel13.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -984,9 +984,9 @@ Partial Class frmPOS
     Friend WithEvents Panel7 As Panel
     Friend WithEvents Panel8 As Panel
     Friend WithEvents Label15 As Label
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button11 As Button
-    Friend WithEvents Button12 As Button
+    Friend WithEvents btnAddToCart As Button
+    Friend WithEvents btnSettlePayment As Button
+    Friend WithEvents btnCancelTransaction As Button
     Friend WithEvents Panel10 As Panel
     Friend WithEvents Panel11 As Panel
     Friend WithEvents DataGridView1 As DataGridView
@@ -1019,8 +1019,8 @@ Partial Class frmPOS
     Friend WithEvents Label5 As Label
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btnClear As Button
+    Friend WithEvents btnSaveTransaction As Button
     Friend WithEvents TextBox7 As TextBox
     Friend WithEvents Label17 As Label
     Friend WithEvents TextBox8 As TextBox
@@ -1030,7 +1030,7 @@ Partial Class frmPOS
     Friend WithEvents Panel4 As Panel
     Friend WithEvents Panel9 As Panel
     Friend WithEvents Label20 As Label
-    Friend WithEvents Button3 As Button
+    Friend WithEvents btnRemoveItem As Button
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Label21 As Label
     Friend WithEvents DateTimePicker1 As DateTimePicker

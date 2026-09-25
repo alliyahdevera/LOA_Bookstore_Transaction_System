@@ -20,7 +20,7 @@ Public Class frmPOS
 
         ComboBox4.Items.Clear()
         ComboBox4.Items.AddRange(New String() {"Cash", "Salary Deduction"})
-        ComboBox4.Enabled = False   ' unlocked only after Settle Payment fills it in
+        ComboBox4.Enabled = False   ' Unlocked when Settle Payment completes
 
         TextBox7.ReadOnly = True    ' Reference / OR No.
         TextBox8.ReadOnly = True    ' Amount Received
@@ -29,7 +29,7 @@ Public Class frmPOS
         DateTimePicker1.Value = Today
 
         LoadCategoryCombo()
-        ResetCart()
+        ResetProductInfo()
     End Sub
 
     ' ---------------- Student lookup ----------------
@@ -111,8 +111,9 @@ Public Class frmPOS
         End If
     End Sub
 
-    ' ---------------- Cart ----------------
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click   ' Add to Cart
+    ' ---------------- 1. btnAddToCart ----------------
+    ' Puts selected product information into DataGridView1 (dgv)
+    Private Sub btnAddToCart_Click(sender As Object, e As EventArgs) Handles btnAddToCart.Click
         If selectedVariantId = 0 Then
             MsgBox("Select a Category, Type, Product, and Size first.", vbExclamation, "Point of Sale")
             Exit Sub
@@ -121,62 +122,56 @@ Public Class frmPOS
             MsgBox("Enter a valid quantity.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
+
         Dim qty As Integer = Convert.ToInt32(TextBox6.Text)
         If qty > availableStock Then
             MsgBox("Only " & availableStock & " left in stock.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
 
+        ' Add to dgv
         Dim idx As Integer = DataGridView1.Rows.Add(
             ComboBox2.Text, ComboBox3.Text, qty, selectedUnitPrice.ToString("N2"), (qty * selectedUnitPrice).ToString("N2"))
         DataGridView1.Rows(idx).Tag = selectedVariantId
 
-        TextBox6.Clear() : TextBox10.Clear() : TextBox11.Clear() : TextBox5.Clear()
-        selectedVariantId = 0
+        ' Clear product fields after adding to cart
+        ResetProductInfo()
         RecalculateTotal()
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click   ' Remove Item
+    ' ---------------- 2. btnRemoveItem ----------------
+    ' Removes only selected item(s) from DataGridView1 (dgv)
+    Private Sub btnRemoveItem_Click(sender As Object, e As EventArgs) Handles btnRemoveItem.Click
         If DataGridView1.SelectedRows.Count > 0 Then
             For Each row As DataGridViewRow In DataGridView1.SelectedRows
-                DataGridView1.Rows.Remove(row)
+                If Not row.IsNewRow Then
+                    DataGridView1.Rows.Remove(row)
+                End If
             Next
             RecalculateTotal()
         Else
-            MsgBox("Select a row to remove.", vbExclamation, "Point of Sale")
+            MsgBox("Select an item row in the list to remove.", vbExclamation, "Point of Sale")
         End If
     End Sub
 
-    Private Sub RecalculateTotal()
-        Dim total As Decimal = 0
-        For Each row As DataGridViewRow In DataGridView1.Rows
-            If Not row.IsNewRow AndAlso row.Cells("SubTotal").Value IsNot Nothing Then
-                total += Convert.ToDecimal(row.Cells("SubTotal").Value)
-            End If
-        Next
-        TextBox1.Text = total.ToString("N2")
+    ' ---------------- 3. btnClear ----------------
+    ' Removes only Customer Information and Product Information
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        ResetCustomerInfo()
+        ResetProductInfo()
     End Sub
 
-    ' ---------------- Payment ----------------
-    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click   ' Settle Payment
-        If DataGridView1.Rows.Count = 0 Then
-            MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
-            Exit Sub
-        End If
-
-        Dim grandTotal As Decimal = If(IsNumeric(TextBox1.Text), Convert.ToDecimal(TextBox1.Text), 0)
-        Dim frm As New frmPayment()
-        frm.GrandTotal = grandTotal
-        If frm.ShowDialog() = DialogResult.OK Then
-            TextBox7.Text = frm.ResultORNo
-            DateTimePicker1.Value = frm.ResultDate
-            ComboBox4.Text = frm.ResultMethod
-            TextBox8.Text = frm.ResultReceived.ToString("N2")
-            TextBox9.Text = frm.ResultChange.ToString("N2")
+    ' ---------------- 4. btnCancelTransaction ----------------
+    ' Removes all (Customer Info, Product Info, DataGridView Cart, and Payment Info)
+    Private Sub btnCancelTransaction_Click(sender As Object, e As EventArgs) Handles btnCancelTransaction.Click
+        If MsgBox("Cancel this transaction? All entered details and cart items will be cleared.", vbYesNo + vbQuestion, "Point of Sale") = MsgBoxResult.Yes Then
+            ResetAll()
         End If
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click   ' Save Transaction
+    ' ---------------- 5. btnSaveTransaction ----------------
+    ' Saves transaction and item details to the database
+    Private Sub btnSaveTransaction_Click(sender As Object, e As EventArgs) Handles btnSaveTransaction.Click
         If DataGridView1.Rows.Count = 0 Then
             MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
             Exit Sub
@@ -228,6 +223,7 @@ Public Class frmPOS
                         c2.Parameters.AddWithValue("@s", subtotal)
                         c2.ExecuteNonQuery()
                     End Using
+
                     Using c3 As New MySqlCommand("UPDATE TBL_PRODUCT_VARIANTS SET quantity_on_hand = quantity_on_hand - @q WHERE variant_id = @v", cn, trans)
                         c3.Parameters.AddWithValue("@q", qty)
                         c3.Parameters.AddWithValue("@v", variantId)
@@ -237,7 +233,7 @@ Public Class frmPOS
 
                 trans.Commit()
                 MsgBox("Transaction saved successfully.", vbInformation, "Point of Sale")
-                ResetForm()
+                ResetAll()
             Catch exInner As Exception
                 trans.Rollback()
                 MsgBox("Transaction failed and was rolled back: " & exInner.Message, vbCritical, "Point of Sale")
@@ -249,31 +245,72 @@ Public Class frmPOS
         End Try
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click   ' Clear
-        If MsgBox("Clear the current cart and form?", vbYesNo + vbQuestion, "Point of Sale") = MsgBoxResult.Yes Then
-            ResetForm()
+    ' ---------------- Settle Payment ----------------
+    Private Sub btnSettlePayment_Click(sender As Object, e As EventArgs) Handles btnSettlePayment.Click
+        If DataGridView1.Rows.Count = 0 Then
+            MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
+            Exit Sub
+        End If
+
+        Dim grandTotal As Decimal = If(IsNumeric(TextBox1.Text), Convert.ToDecimal(TextBox1.Text), 0)
+        Dim frm As New frmPayment()
+        frm.GrandTotal = grandTotal
+        If frm.ShowDialog() = DialogResult.OK Then
+            TextBox7.Text = frm.ResultORNo
+            DateTimePicker1.Value = frm.ResultDate
+            ComboBox4.Text = frm.ResultMethod
+            TextBox8.Text = frm.ResultReceived.ToString("N2")
+            TextBox9.Text = frm.ResultChange.ToString("N2")
         End If
     End Sub
 
-    Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click   ' Cancel Transaction
-        If MsgBox("Cancel this transaction? Nothing will be saved.", vbYesNo + vbQuestion, "Point of Sale") = MsgBoxResult.Yes Then
-            ResetForm()
-        End If
+    ' ---------------- Helper Helper Methods ----------------
+    Private Sub RecalculateTotal()
+        Dim total As Decimal = 0
+        For Each row As DataGridViewRow In DataGridView1.Rows
+            If Not row.IsNewRow AndAlso row.Cells("SubTotal").Value IsNot Nothing Then
+                total += Convert.ToDecimal(row.Cells("SubTotal").Value)
+            End If
+        Next
+        TextBox1.Text = total.ToString("N2")
     End Sub
 
-    Private Sub ResetForm()
-        txtSearch.Clear() : TextBox2.Clear() : ComboBox6.Text = "" : TextBox3.Clear()
+    Private Sub ResetCustomerInfo()
+        txtSearch.Clear()
+        TextBox2.Clear()
+        ComboBox6.Text = ""
+        TextBox3.Clear()
         foundStudentId = 0
-        TextBox7.Clear() : TextBox8.Clear() : TextBox9.Clear() : ComboBox4.Text = ""
-        DateTimePicker1.Value = Today
-        ResetCart()
     End Sub
 
-    Private Sub ResetCart()
+    Private Sub ResetProductInfo()
+        ComboBox1.SelectedIndex = -1
+        ComboBox5.DataSource = Nothing
+        ComboBox2.DataSource = Nothing
+        ComboBox3.DataSource = Nothing
+        TextBox6.Clear()
+        TextBox10.Clear()
+        TextBox11.Clear()
+        TextBox5.Clear()
+        selectedVariantId = 0
+        selectedUnitPrice = 0
+        availableStock = 0
+    End Sub
+
+    Private Sub ResetPaymentInfo()
+        TextBox7.Clear()
+        TextBox8.Clear()
+        TextBox9.Clear()
+        ComboBox4.Text = ""
+        DateTimePicker1.Value = Today
+    End Sub
+
+    Private Sub ResetAll()
+        ResetCustomerInfo()
+        ResetProductInfo()
+        ResetPaymentInfo()
         DataGridView1.Rows.Clear()
         TextBox1.Text = "0.00"
-        TextBox6.Clear() : TextBox10.Clear() : TextBox11.Clear() : TextBox5.Clear()
-        selectedVariantId = 0
     End Sub
 
 End Class
