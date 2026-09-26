@@ -25,6 +25,7 @@ Partial Class frmReports
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.btnProductList = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Panel1
@@ -60,11 +61,25 @@ Partial Class frmReports
         Me.Button1.Text = "Sales by Item"
         Me.Button1.UseVisualStyleBackColor = False
         '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Button2.FlatAppearance.BorderSize = 0
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.ForeColor = System.Drawing.Color.White
+        Me.Button2.Location = New System.Drawing.Point(398, 0)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(198, 33)
+        Me.Button2.TabIndex = 14
+        Me.Button2.Text = "Sales Today"
+        Me.Button2.UseVisualStyleBackColor = False
+        '
         'frmReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
+        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.btnProductList)
@@ -77,4 +92,5 @@ Partial Class frmReports
     Friend WithEvents Panel1 As Panel
     Friend WithEvents btnProductList As Button
     Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
 End Class
