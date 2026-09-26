@@ -5,13 +5,10 @@ Public Class frmLowLevelStocks
 
     Private Sub frmLowLevelStocks_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Low stock isn't date-based; hide the leftover date filter copied from another form
-        DateTimePicker1.Visible = False : DateTimePicker2.Visible = False
-        Label2.Visible = False : Label3.Visible = False
-        Button2.Text = "Refresh"
         LoadGrid("")
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
         LoadGrid(txtSearch.Text.Trim())
     End Sub
 

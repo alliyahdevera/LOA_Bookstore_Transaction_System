@@ -29,10 +29,6 @@ Public Class frmInventory
         OpenTab(Button4, GetType(frmStockInHistory))
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click   ' Low Level Stocks
-        OpenTab(Button1, GetType(frmLowLevelStocks))
-    End Sub
-
     Private Sub OpenTab(activeBtn As Button, formType As Type)
         If _currentForm IsNot Nothing Then
             _currentForm.Close()
@@ -48,7 +44,7 @@ Public Class frmInventory
         _currentForm = frm
         frm.Show()
 
-        For Each btn As Button In New Button() {btnProductList, Button3, Button5, Button4, Button1}
+        For Each btn As Button In New Button() {btnProductList, Button3, Button5, Button4, Button5}
             btn.BackColor = Color.FromArgb(1, 21, 78)
         Next
         activeBtn.BackColor = Color.FromArgb(25, 55, 140)

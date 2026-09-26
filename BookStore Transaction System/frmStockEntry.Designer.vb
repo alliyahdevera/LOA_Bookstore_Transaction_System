@@ -161,9 +161,9 @@ Partial Class frmStockEntry
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeOfProduct, Me.Amount, Me.Quantity, Me.ReorderLevel, Me.Status})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
+        Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1171, 538)
+        Me.DataGridView1.Size = New System.Drawing.Size(1171, 546)
         Me.DataGridView1.TabIndex = 1
         '
         'ProductCode
@@ -221,7 +221,7 @@ Partial Class frmStockEntry
         Me.Panel6.Controls.Add(Me.Label7)
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1170, 45)
+        Me.Panel6.Size = New System.Drawing.Size(1170, 35)
         Me.Panel6.TabIndex = 0
         '
         'Label7
@@ -229,7 +229,7 @@ Partial Class frmStockEntry
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(14, 13)
+        Me.Label7.Location = New System.Drawing.Point(8, 8)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(126, 17)
         Me.Label7.TabIndex = 25
@@ -290,7 +290,7 @@ Partial Class frmStockEntry
         '
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(971, 123)
+        Me.TextBox1.Location = New System.Drawing.Point(966, 123)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(109, 25)
         Me.TextBox1.TabIndex = 103

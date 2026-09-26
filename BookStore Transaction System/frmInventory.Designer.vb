@@ -84,9 +84,9 @@ Partial Class frmInventory
         '
         'Panel1
         '
-        Me.Panel1.Location = New System.Drawing.Point(1, 33)
+        Me.Panel1.Location = New System.Drawing.Point(0, 34)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1219, 818)
+        Me.Panel1.Size = New System.Drawing.Size(1221, 818)
         Me.Panel1.TabIndex = 6
         '
         'Button1
@@ -98,7 +98,7 @@ Partial Class frmInventory
         Me.Button1.Location = New System.Drawing.Point(796, 0)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(198, 33)
-        Me.Button1.TabIndex = 7
+        Me.Button1.TabIndex = 10
         Me.Button1.Text = "Low Level Stocks"
         Me.Button1.UseVisualStyleBackColor = False
         '

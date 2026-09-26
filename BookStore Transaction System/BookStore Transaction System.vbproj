@@ -135,6 +135,12 @@
     <Compile Include="frmDashboard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmSalesDateRange.Designer.vb">
+      <DependentUpon>frmSalesDateRange.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSalesDateRange.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmInventory.Designer.vb">
       <DependentUpon>frmInventory.vb</DependentUpon>
     </Compile>
@@ -177,6 +183,12 @@
     <Compile Include="frmReports.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmSalesByItem.Designer.vb">
+      <DependentUpon>frmSalesByItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSalesByItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmStockEntry.Designer.vb">
       <DependentUpon>frmStockEntry.vb</DependentUpon>
     </Compile>
@@ -187,6 +199,12 @@
       <DependentUpon>frmStockInHistory.vb</DependentUpon>
     </Compile>
     <Compile Include="frmStockInHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStudentManagement.Designer.vb">
+      <DependentUpon>frmStudentManagement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmStudentManagement.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmTransactionHistory.Designer.vb">
@@ -235,6 +253,9 @@
     <EmbeddedResource Include="frmDashboard.resx">
       <DependentUpon>frmDashboard.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSalesDateRange.resx">
+      <DependentUpon>frmSalesDateRange.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInventory.resx">
       <DependentUpon>frmInventory.vb</DependentUpon>
     </EmbeddedResource>
@@ -256,11 +277,17 @@
     <EmbeddedResource Include="frmReports.resx">
       <DependentUpon>frmReports.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSalesByItem.resx">
+      <DependentUpon>frmSalesByItem.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmStockEntry.resx">
       <DependentUpon>frmStockEntry.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStockInHistory.resx">
       <DependentUpon>frmStockInHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStudentManagement.resx">
+      <DependentUpon>frmStudentManagement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTransactionHistory.resx">
       <DependentUpon>frmTransactionHistory.vb</DependentUpon>

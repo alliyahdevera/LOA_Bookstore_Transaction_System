@@ -20,8 +20,7 @@ Public Class frmProductList
         Dim outOfStock As Integer = Convert.ToInt32(If(ExecScalar("SELECT COUNT(*) FROM TBL_PRODUCT_VARIANTS WHERE quantity_on_hand = 0"), 0))
 
         Label11.Text = totalProducts.ToString("N0")   ' Total Products
-        Label5.Text = totalQty.ToString("N0")          ' Total Quantity of Products
-        Label4.Text = totalQty.ToString("N0")          ' (duplicate label sitting on top of Label5 in the designer)
+        Label4.Text = totalQty.ToString("N0")          ' Total Quantity of Products
         Label9.Text = onHand.ToString("N0")            ' On Hand
         Label10.Text = critical.ToString("N0")         ' Critical Level
         Label12.Text = outOfStock.ToString("N0")       ' Out of Stocks

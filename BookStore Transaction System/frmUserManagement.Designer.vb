@@ -33,6 +33,8 @@ Partial Class frmUserManagement
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.TextBox1 = New System.Windows.Forms.ComboBox()
+        Me.TextBox5 = New System.Windows.Forms.ComboBox()
         Me.TextBox7 = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -64,8 +66,6 @@ Partial Class frmUserManagement
         Me.btnclear = New System.Windows.Forms.Button()
         Me.btnremove = New System.Windows.Forms.Button()
         Me.btnupd = New System.Windows.Forms.Button()
-        Me.TextBox5 = New System.Windows.Forms.ComboBox()
-        Me.TextBox1 = New System.Windows.Forms.ComboBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Panel5.SuspendLayout()
         Me.Panel11.SuspendLayout()
@@ -187,6 +187,25 @@ Partial Class frmUserManagement
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(860, 220)
         Me.Panel5.TabIndex = 52
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.FormattingEnabled = True
+        Me.TextBox1.Items.AddRange(New Object() {"Bookstore Supervisor", "Cashie", "Inventory Staff", "Management"})
+        Me.TextBox1.Location = New System.Drawing.Point(556, 95)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(270, 25)
+        Me.TextBox1.TabIndex = 66
+        '
+        'TextBox5
+        '
+        Me.TextBox5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox5.FormattingEnabled = True
+        Me.TextBox5.Location = New System.Drawing.Point(556, 132)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.Size = New System.Drawing.Size(270, 25)
+        Me.TextBox5.TabIndex = 65
         '
         'TextBox7
         '
@@ -493,24 +512,6 @@ Partial Class frmUserManagement
         Me.btnupd.TabIndex = 63
         Me.btnupd.Text = "Update"
         Me.btnupd.UseVisualStyleBackColor = False
-        '
-        'TextBox5
-        '
-        Me.TextBox5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox5.FormattingEnabled = True
-        Me.TextBox5.Location = New System.Drawing.Point(556, 132)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(270, 25)
-        Me.TextBox5.TabIndex = 65
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.FormattingEnabled = True
-        Me.TextBox1.Location = New System.Drawing.Point(556, 95)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(270, 25)
-        Me.TextBox1.TabIndex = 66
         '
         'Label15
         '

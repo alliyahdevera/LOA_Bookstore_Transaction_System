@@ -103,81 +103,95 @@ Partial Class frmTransactionHistory
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.tDate, Me.Time, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.Quantity, Me.SubTotal, Me.TotalAmount, Me.AmountPaid, Me.AmountChange, Me.Status, Me.CreatedBy})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
+        Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1167, 613)
+        Me.DataGridView1.Size = New System.Drawing.Size(1167, 623)
         Me.DataGridView1.TabIndex = 1
         '
         'TransactionNo
         '
         Me.TransactionNo.HeaderText = "Transaction #"
         Me.TransactionNo.Name = "TransactionNo"
+        Me.TransactionNo.ReadOnly = True
         '
         'tDate
         '
         Me.tDate.HeaderText = "Date"
         Me.tDate.Name = "tDate"
+        Me.tDate.ReadOnly = True
         '
         'Time
         '
         Me.Time.HeaderText = "Time"
         Me.Time.Name = "Time"
+        Me.Time.ReadOnly = True
         '
         'ProductCode
         '
         Me.ProductCode.HeaderText = "Product Code"
         Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
         '
         'ProductName
         '
         Me.ProductName.HeaderText = "Product Name"
         Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
         '
         'Size
         '
         Me.Size.HeaderText = "Size"
         Me.Size.Name = "Size"
+        Me.Size.ReadOnly = True
         '
         'UnitPrice
         '
         Me.UnitPrice.HeaderText = "Unit Price"
         Me.UnitPrice.Name = "UnitPrice"
+        Me.UnitPrice.ReadOnly = True
         '
         'Quantity
         '
         Me.Quantity.HeaderText = "Quantity"
         Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
         '
         'SubTotal
         '
         Me.SubTotal.HeaderText = "Sub Total"
         Me.SubTotal.Name = "SubTotal"
+        Me.SubTotal.ReadOnly = True
         '
         'TotalAmount
         '
         Me.TotalAmount.HeaderText = "Total Amount"
         Me.TotalAmount.Name = "TotalAmount"
+        Me.TotalAmount.ReadOnly = True
         '
         'AmountPaid
         '
         Me.AmountPaid.HeaderText = "Amount Paid"
         Me.AmountPaid.Name = "AmountPaid"
+        Me.AmountPaid.ReadOnly = True
         '
         'AmountChange
         '
         Me.AmountChange.HeaderText = "Amount Change"
         Me.AmountChange.Name = "AmountChange"
+        Me.AmountChange.ReadOnly = True
         '
         'Status
         '
         Me.Status.HeaderText = "Status"
         Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
         '
         'CreatedBy
         '
         Me.CreatedBy.HeaderText = "Created By"
         Me.CreatedBy.Name = "CreatedBy"
+        Me.CreatedBy.ReadOnly = True
         '
         'Panel6
         '
@@ -185,7 +199,7 @@ Partial Class frmTransactionHistory
         Me.Panel6.Controls.Add(Me.Label7)
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1166, 45)
+        Me.Panel6.Size = New System.Drawing.Size(1166, 35)
         Me.Panel6.TabIndex = 0
         '
         'Label7
@@ -193,7 +207,7 @@ Partial Class frmTransactionHistory
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(14, 13)
+        Me.Label7.Location = New System.Drawing.Point(6, 6)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(158, 17)
         Me.Label7.TabIndex = 25
