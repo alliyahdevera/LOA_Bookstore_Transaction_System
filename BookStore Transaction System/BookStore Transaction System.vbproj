@@ -123,16 +123,34 @@
     <Compile Include="currentuser.vb" />
     <Compile Include="dbconnect.vb" />
     <Compile Include="ExportHelper.vb" />
+    <Compile Include="frmActivityHistory.Designer.vb">
+      <DependentUpon>frmActivityHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmActivityHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmAdminDashboard.Designer.vb">
       <DependentUpon>frmAdminDashboard.vb</DependentUpon>
     </Compile>
     <Compile Include="frmAdminDashboard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmAuditLogs.Designer.vb">
+      <DependentUpon>frmAuditLogs.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAuditLogs.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmDashboard.Designer.vb">
       <DependentUpon>frmDashboard.vb</DependentUpon>
     </Compile>
     <Compile Include="frmDashboard.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPriceHistory.Designer.vb">
+      <DependentUpon>frmPriceHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPriceHistory.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSalesDateRange.Designer.vb">
@@ -247,11 +265,20 @@
     <Compile Include="UIHelper.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmActivityHistory.resx">
+      <DependentUpon>frmActivityHistory.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAdminDashboard.resx">
       <DependentUpon>frmAdminDashboard.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAuditLogs.resx">
+      <DependentUpon>frmAuditLogs.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDashboard.resx">
       <DependentUpon>frmDashboard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPriceHistory.resx">
+      <DependentUpon>frmPriceHistory.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSalesDateRange.resx">
       <DependentUpon>frmSalesDateRange.vb</DependentUpon>

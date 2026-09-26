@@ -1,3 +1,3 @@
-﻿Public Class frmpricehistory
+﻿Public Class frmPriceHistory
 
 End Class
