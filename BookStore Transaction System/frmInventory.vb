@@ -49,4 +49,8 @@ Public Class frmInventory
         Next
         activeBtn.BackColor = Color.FromArgb(25, 55, 140)
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        OpenTab(Button1, GetType(frmLowLevelStocks))
+    End Sub
 End Class
