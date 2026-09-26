@@ -166,6 +166,7 @@ Partial Class frmStockInHistory
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ReferenceNo, Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Quantity, Me.StockInDate, Me.StockInTime, Me.FullName})
         Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
         Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.Size = New System.Drawing.Size(1171, 546)
         Me.DataGridView1.TabIndex = 1
         '
@@ -173,48 +174,56 @@ Partial Class frmStockInHistory
         '
         Me.ReferenceNo.HeaderText = "Reference Number"
         Me.ReferenceNo.Name = "ReferenceNo"
+        Me.ReferenceNo.ReadOnly = True
         Me.ReferenceNo.Width = 130
         '
         'ProductCode
         '
         Me.ProductCode.HeaderText = "Product Code"
         Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
         Me.ProductCode.Width = 120
         '
         'ProductName
         '
         Me.ProductName.HeaderText = "Product Name"
         Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
         Me.ProductName.Width = 180
         '
         'ProductDescription
         '
         Me.ProductDescription.HeaderText = "Product Description"
         Me.ProductDescription.Name = "ProductDescription"
+        Me.ProductDescription.ReadOnly = True
         Me.ProductDescription.Width = 200
         '
         'Quantity
         '
         Me.Quantity.HeaderText = "Quantity"
         Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
         Me.Quantity.Width = 120
         '
         'StockInDate
         '
         Me.StockInDate.HeaderText = "Stock In Date"
         Me.StockInDate.Name = "StockInDate"
+        Me.StockInDate.ReadOnly = True
         Me.StockInDate.Width = 150
         '
         'StockInTime
         '
         Me.StockInTime.HeaderText = "Stock In Time"
         Me.StockInTime.Name = "StockInTime"
+        Me.StockInTime.ReadOnly = True
         Me.StockInTime.Width = 150
         '
         'FullName
         '
         Me.FullName.HeaderText = "Property Full Name"
         Me.FullName.Name = "FullName"
+        Me.FullName.ReadOnly = True
         Me.FullName.Width = 200
         '
         'Panel6
