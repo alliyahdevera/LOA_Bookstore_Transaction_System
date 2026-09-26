@@ -60,6 +60,10 @@
                 Return New frmReports()
             Case FRM_USERMGMT
                 Return New frmUserManagement()
+            Case FRM_STUDENTMGMT
+                Return New frmStudentManagement()
+            Case FRM_AUDITLOGS
+                Return New frmAuditLogs()
             Case Else
                 Return Nothing
         End Select
@@ -136,4 +140,43 @@
         End If
     End Sub
 
+    Private Sub btnStudentManagement_Click(sender As Object, e As EventArgs) Handles btnStudentManagement.Click
+        OpenModule(FRM_STUDENTMGMT)
+    End Sub
+
+    Private Sub btnAuditLogs_Click(sender As Object, e As EventArgs) Handles btnAuditLogs.Click
+        OpenModule(FRM_AUDITLOGS)
+    End Sub
+
+    Private Sub pnlContent_Paint(sender As Object, e As PaintEventArgs) Handles pnlContent.Paint
+
+    End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
+
+    Private Sub Panel4_Paint(sender As Object, e As PaintEventArgs) Handles Panel4.Paint
+
+    End Sub
+
+    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
+
+    End Sub
+
+    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
+
+    End Sub
+
+    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
+
+    End Sub
+
+    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
+
+    End Sub
+
+    Private Sub Logo_Click(sender As Object, e As EventArgs) Handles Logo.Click
+
+    End Sub
 End Class
