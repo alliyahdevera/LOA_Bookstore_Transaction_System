@@ -264,6 +264,7 @@ Partial Class frmProductList
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeofProduct, Me.Size, Me.UnitPrice, Me.Quantity, Me.ReorderLevel, Me.Status})
         Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
         Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.Size = New System.Drawing.Size(1161, 519)
         Me.DataGridView1.TabIndex = 1
         '
@@ -271,56 +272,66 @@ Partial Class frmProductList
         '
         Me.ProductCode.HeaderText = "Product Code"
         Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
         Me.ProductCode.Width = 120
         '
         'ProductName
         '
         Me.ProductName.HeaderText = "Product Name"
         Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
         Me.ProductName.Width = 180
         '
         'ProductDescription
         '
         Me.ProductDescription.HeaderText = "Product Description"
         Me.ProductDescription.Name = "ProductDescription"
+        Me.ProductDescription.ReadOnly = True
         Me.ProductDescription.Width = 200
         '
         'Category
         '
         Me.Category.HeaderText = "Category"
         Me.Category.Name = "Category"
+        Me.Category.ReadOnly = True
         Me.Category.Width = 130
         '
         'TypeofProduct
         '
         Me.TypeofProduct.HeaderText = "Type of Product"
         Me.TypeofProduct.Name = "TypeofProduct"
+        Me.TypeofProduct.ReadOnly = True
         Me.TypeofProduct.Width = 150
         '
         'Size
         '
         Me.Size.HeaderText = "Size"
         Me.Size.Name = "Size"
+        Me.Size.ReadOnly = True
         '
         'UnitPrice
         '
         Me.UnitPrice.HeaderText = "Unit Price"
         Me.UnitPrice.Name = "UnitPrice"
+        Me.UnitPrice.ReadOnly = True
         '
         'Quantity
         '
         Me.Quantity.HeaderText = "Quantity"
         Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
         '
         'ReorderLevel
         '
         Me.ReorderLevel.HeaderText = "Reorder Level"
         Me.ReorderLevel.Name = "ReorderLevel"
+        Me.ReorderLevel.ReadOnly = True
         '
         'Status
         '
         Me.Status.HeaderText = "Status"
         Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
         '
         'Panel6
         '

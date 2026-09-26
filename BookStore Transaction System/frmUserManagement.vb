@@ -3,15 +3,118 @@
 Public Class frmUserManagement
 
     Private selectedUserId As Integer = 0
-    Private ReadOnly validRoles As String() = {ROLE_SUPERVISOR, ROLE_CASHIER, ROLE_INVENTORY, ROLE_MANAGEMENT}
 
+    ' ------------------------------------------------------------------
+    ' Form Load & Initialization
+    ' ------------------------------------------------------------------
     Private Sub frmUserManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         lblname.Text = currentuser.FullName
         lblposition.Text = currentuser.Role
+
+        ' Restrict ComboBoxes to selection only (no free typing)
+        cboRole.DropDownStyle = ComboBoxStyle.DropDownList
+        cboStatus.DropDownStyle = ComboBoxStyle.DropDownList
+
+        ' Populate Role ComboBox
+        cboRole.Items.Clear()
+        cboRole.Items.AddRange(New Object() {ROLE_SUPERVISOR, ROLE_CASHIER, ROLE_INVENTORY_STAFF, ROLE_MANAGEMENT})
+
+        ' Populate Status ComboBox
+        cboStatus.Items.Clear()
+        cboStatus.Items.AddRange(New Object() {"Active", "Inactive"})
+
         LoadGrid("")
         ClearFields()
     End Sub
 
+    ' ------------------------------------------------------------------
+    ' KeyPress Validation Handlers
+    ' ------------------------------------------------------------------
+
+    ' Username: Letters, digits, and underscores only
+    Private Sub txtusername_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtusername.KeyPress
+        If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso e.KeyChar <> "_"c AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    ' First Name: Letters, spaces, hyphens, and dots only
+    Private Sub txtfirstname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtfirstname.KeyPress
+        If Not Char.IsLetter(e.KeyChar) AndAlso e.KeyChar <> " "c AndAlso e.KeyChar <> "-"c AndAlso e.KeyChar <> "."c AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    ' Last Name: Letters, spaces, hyphens, and dots only
+    Private Sub txtlastname_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtlastname.KeyPress
+        If Not Char.IsLetter(e.KeyChar) AndAlso e.KeyChar <> " "c AndAlso e.KeyChar <> "-"c AndAlso e.KeyChar <> "."c AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    ' ------------------------------------------------------------------
+    ' Form Input Validation Check
+    ' ------------------------------------------------------------------
+    Private Function ValidateUserInputs(isNewUser As Boolean) As Boolean
+        If String.IsNullOrWhiteSpace(txtusername.Text) Then
+            MsgBox("Username is required.", vbExclamation, "Validation Error")
+            txtusername.Focus()
+            Return False
+        End If
+
+        If String.IsNullOrWhiteSpace(txtfirstname.Text) Then
+            MsgBox("First Name is required.", vbExclamation, "Validation Error")
+            txtfirstname.Focus()
+            Return False
+        End If
+
+        If String.IsNullOrWhiteSpace(txtlastname.Text) Then
+            MsgBox("Last Name is required.", vbExclamation, "Validation Error")
+            txtlastname.Focus()
+            Return False
+        End If
+
+        ' Dropdown validations
+        If cboRole.SelectedIndex = -1 OrElse Not cboRole.Items.Contains(cboRole.Text) Then
+            MsgBox("Please select a valid Role from the list.", vbExclamation, "Validation Error")
+            cboRole.Focus()
+            Return False
+        End If
+
+        If cboStatus.SelectedIndex = -1 OrElse Not cboStatus.Items.Contains(cboStatus.Text) Then
+            MsgBox("Please select a valid Status from the list.", vbExclamation, "Validation Error")
+            cboStatus.Focus()
+            Return False
+        End If
+
+        ' Password validation logic
+        If isNewUser Then
+            If String.IsNullOrWhiteSpace(txtpassword.Text) Then
+                MsgBox("Password is required for new users.", vbExclamation, "Validation Error")
+                txtpassword.Focus()
+                Return False
+            End If
+
+            If txtpassword.Text <> txtconfirmpassword.Text Then
+                MsgBox("Password and Confirm Password do not match.", vbExclamation, "Validation Error")
+                txtconfirmpassword.Focus()
+                Return False
+            End If
+        Else
+            ' On update, if user entered a new password, check confirmation match
+            If Not String.IsNullOrWhiteSpace(txtpassword.Text) AndAlso txtpassword.Text <> txtconfirmpassword.Text Then
+                MsgBox("Password and Confirm Password do not match.", vbExclamation, "Validation Error")
+                txtconfirmpassword.Focus()
+                Return False
+            End If
+        End If
+
+        Return True
+    End Function
+
+    ' ------------------------------------------------------------------
+    ' Grid & Data Operations
+    ' ------------------------------------------------------------------
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         LoadGrid(txtSearch.Text.Trim())
     End Sub
@@ -28,8 +131,13 @@ Public Class frmUserManagement
                     DataGridView1.Rows.Clear()
                     While localDr.Read()
                         Dim idx As Integer = DataGridView1.Rows.Add(
-                            localDr("username").ToString(), "********", localDr("role_name").ToString(),
-                            localDr("first_name").ToString(), localDr("last_name").ToString(), localDr("status").ToString())
+                            localDr("username").ToString(),
+                            "********",
+                            localDr("role_name").ToString(),
+                            localDr("first_name").ToString(),
+                            localDr("last_name").ToString(),
+                            localDr("status").ToString()
+                        )
                         DataGridView1.Rows(idx).Tag = Convert.ToInt32(localDr("user_id"))
                     End While
                 End Using
@@ -44,86 +152,92 @@ Public Class frmUserManagement
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
         If e.RowIndex < 0 Then Exit Sub
         Dim row As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
+        If row.Tag Is Nothing Then Exit Sub
+
         selectedUserId = Convert.ToInt32(row.Tag)
-        txtusername.Text = row.Cells("Username").Value.ToString()
-        TextBox4.Clear() : TextBox7.Clear()   ' never show a password back — leave blank = unchanged
-        TextBox3.Text = row.Cells("FirstName").Value.ToString()
-        TextBox6.Text = row.Cells("LastName").Value.ToString()
-        TextBox1.Text = row.Cells("Column5").Value.ToString()   ' Role
-        TextBox5.Text = row.Cells("Column6").Value.ToString()   ' Status
+
+        txtusername.Text = row.Cells(0).Value.ToString()
+        txtpassword.Clear()
+        txtconfirmpassword.Clear()
+        cboRole.Text = row.Cells(2).Value.ToString()
+        txtfirstname.Text = row.Cells(3).Value.ToString()
+        txtlastname.Text = row.Cells(4).Value.ToString()
+        cboStatus.Text = row.Cells(5).Value.ToString()
     End Sub
 
-    Private Function ValidateRole() As Boolean
-        For Each r As String In validRoles
-            If String.Equals(r, TextBox1.Text.Trim(), StringComparison.OrdinalIgnoreCase) Then Return True
-        Next
-        MsgBox("Role must be one of: " & String.Join(", ", validRoles), vbExclamation, "User Management")
-        Return False
-    End Function
+    ' ------------------------------------------------------------------
+    ' Button Actions
+    ' ------------------------------------------------------------------
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click   ' Add
-        If String.IsNullOrWhiteSpace(txtusername.Text) OrElse String.IsNullOrWhiteSpace(TextBox4.Text) OrElse
-           String.IsNullOrWhiteSpace(TextBox3.Text) OrElse String.IsNullOrWhiteSpace(TextBox6.Text) Then
-            MsgBox("Username, Password, First Name, and Last Name are required.", vbExclamation, "User Management") : Exit Sub
-        End If
-        If TextBox4.Text <> TextBox7.Text Then
-            MsgBox("Password and Confirm Password do not match.", vbExclamation, "User Management") : Exit Sub
-        End If
-        If Not ValidateRole() Then Exit Sub
+    ' ADD USER
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If Not ValidateUserInputs(True) Then Exit Sub
 
-        Dim roleId As Integer = Convert.ToInt32(If(ExecScalar("SELECT role_id FROM TBL_ROLES WHERE role_name = @r", New String() {"@r"}, New Object() {TextBox1.Text.Trim()}), 0))
-        Dim status As String = If(String.IsNullOrWhiteSpace(TextBox5.Text), "Active", TextBox5.Text.Trim())
+        Try
+            Dim roleId As Integer = Convert.ToInt32(If(ExecScalar("SELECT role_id FROM TBL_ROLES WHERE role_name = @r", New String() {"@r"}, New Object() {cboRole.Text.Trim()}), 0))
 
-        Dim ok As Boolean = ExecNonQuery(
-            "INSERT INTO TBL_USERS (username, password, first_name, last_name, role_id, status) VALUES (@u, @p, @f, @l, @r, @s)",
-            New String() {"@u", "@p", "@f", "@l", "@r", "@s"},
-            New Object() {txtusername.Text.Trim(), HashPassword(TextBox4.Text), TextBox3.Text.Trim(), TextBox6.Text.Trim(), roleId, status})
+            Dim ok As Boolean = ExecNonQuery(
+                "INSERT INTO TBL_USERS (username, password, first_name, last_name, role_id, status) VALUES (@u, @p, @f, @l, @r, @s)",
+                New String() {"@u", "@p", "@f", "@l", "@r", "@s"},
+                New Object() {txtusername.Text.Trim(), HashPassword(txtpassword.Text), txtfirstname.Text.Trim(), txtlastname.Text.Trim(), roleId, cboStatus.Text.Trim()})
 
-        If ok Then
-            MsgBox("User added.", vbInformation, "User Management")
-            ClearFields()
-            LoadGrid(txtSearch.Text.Trim())
-        Else
-            MsgBox("Could not add user. The Username may already be taken.", vbExclamation, "User Management")
-        End If
+            If ok Then
+                MsgBox("User added successfully.", vbInformation, "User Management")
+                ClearFields()
+                LoadGrid(txtSearch.Text.Trim())
+            Else
+                MsgBox("Could not add user. The Username may already exist.", vbExclamation, "User Management")
+            End If
+        Catch ex As Exception
+            MsgBox("Error adding user: " & ex.Message, vbCritical, "Error")
+        End Try
     End Sub
 
+    ' UPDATE USER
     Private Sub btnupd_Click(sender As Object, e As EventArgs) Handles btnupd.Click
         If selectedUserId = 0 Then
-            MsgBox("Select a user from the list first.", vbExclamation, "User Management") : Exit Sub
-        End If
-        If Not ValidateRole() Then Exit Sub
-        If Not String.IsNullOrWhiteSpace(TextBox4.Text) AndAlso TextBox4.Text <> TextBox7.Text Then
-            MsgBox("Password and Confirm Password do not match.", vbExclamation, "User Management") : Exit Sub
+            MsgBox("Select a user from the list first.", vbExclamation, "User Management")
+            Exit Sub
         End If
 
-        Dim roleId As Integer = Convert.ToInt32(If(ExecScalar("SELECT role_id FROM TBL_ROLES WHERE role_name = @r", New String() {"@r"}, New Object() {TextBox1.Text.Trim()}), 0))
-        Dim status As String = If(String.IsNullOrWhiteSpace(TextBox5.Text), "Active", TextBox5.Text.Trim())
+        If Not ValidateUserInputs(False) Then Exit Sub
 
-        Dim ok As Boolean
-        If String.IsNullOrWhiteSpace(TextBox4.Text) Then
-            ok = ExecNonQuery("UPDATE TBL_USERS SET username=@u, first_name=@f, last_name=@l, role_id=@r, status=@s WHERE user_id=@id",
-                New String() {"@u", "@f", "@l", "@r", "@s", "@id"},
-                New Object() {txtusername.Text.Trim(), TextBox3.Text.Trim(), TextBox6.Text.Trim(), roleId, status, selectedUserId})
-        Else
-            ok = ExecNonQuery("UPDATE TBL_USERS SET username=@u, password=@p, first_name=@f, last_name=@l, role_id=@r, status=@s WHERE user_id=@id",
-                New String() {"@u", "@p", "@f", "@l", "@r", "@s", "@id"},
-                New Object() {txtusername.Text.Trim(), HashPassword(TextBox4.Text), TextBox3.Text.Trim(), TextBox6.Text.Trim(), roleId, status, selectedUserId})
-        End If
+        Try
+            Dim roleId As Integer = Convert.ToInt32(If(ExecScalar("SELECT role_id FROM TBL_ROLES WHERE role_name = @r", New String() {"@r"}, New Object() {cboRole.Text.Trim()}), 0))
 
-        If ok Then
-            MsgBox("User updated.", vbInformation, "User Management")
-            LoadGrid(txtSearch.Text.Trim())
-        End If
+            Dim ok As Boolean
+            If String.IsNullOrWhiteSpace(txtpassword.Text) Then
+                ok = ExecNonQuery("UPDATE TBL_USERS SET username=@u, first_name=@f, last_name=@l, role_id=@r, status=@s WHERE user_id=@id",
+                    New String() {"@u", "@f", "@l", "@r", "@s", "@id"},
+                    New Object() {txtusername.Text.Trim(), txtfirstname.Text.Trim(), txtlastname.Text.Trim(), roleId, cboStatus.Text.Trim(), selectedUserId})
+            Else
+                ok = ExecNonQuery("UPDATE TBL_USERS SET username=@u, password=@p, first_name=@f, last_name=@l, role_id=@r, status=@s WHERE user_id=@id",
+                    New String() {"@u", "@p", "@f", "@l", "@r", "@s", "@id"},
+                    New Object() {txtusername.Text.Trim(), HashPassword(txtpassword.Text), txtfirstname.Text.Trim(), txtlastname.Text.Trim(), roleId, cboStatus.Text.Trim(), selectedUserId})
+            End If
+
+            If ok Then
+                MsgBox("User updated successfully.", vbInformation, "User Management")
+                ClearFields()
+                LoadGrid(txtSearch.Text.Trim())
+            End If
+        Catch ex As Exception
+            MsgBox("Error updating user: " & ex.Message, vbCritical, "Error")
+        End Try
     End Sub
 
-    Private Sub btnremove_Click(sender As Object, e As EventArgs) Handles btnremove.Click   ' Remove (soft delete)
+    ' DEACTIVATE USER
+    Private Sub btnremove_Click(sender As Object, e As EventArgs) Handles btnremove.Click
         If selectedUserId = 0 Then
-            MsgBox("Select a user from the list first.", vbExclamation, "User Management") : Exit Sub
+            MsgBox("Select a user from the list first.", vbExclamation, "User Management")
+            Exit Sub
         End If
+
         If selectedUserId = currentuser.UserID Then
-            MsgBox("You cannot deactivate your own account.", vbExclamation, "User Management") : Exit Sub
+            MsgBox("You cannot deactivate your own account.", vbExclamation, "User Management")
+            Exit Sub
         End If
+
         If MsgBox("Deactivate this user? They will no longer be able to log in.", vbYesNo + vbQuestion, "User Management") <> MsgBoxResult.Yes Then Exit Sub
 
         If ExecNonQuery("UPDATE TBL_USERS SET status = 'Inactive' WHERE user_id = @id", New String() {"@id"}, New Object() {selectedUserId}) Then
@@ -133,14 +247,20 @@ Public Class frmUserManagement
         End If
     End Sub
 
+    ' CLEAR BUTTON
     Private Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
         ClearFields()
     End Sub
 
     Private Sub ClearFields()
         selectedUserId = 0
-        txtusername.Clear() : TextBox4.Clear() : TextBox7.Clear()
-        TextBox3.Clear() : TextBox6.Clear() : TextBox1.SelectedIndex = -1 : TextBox5.SelectedIndex = -1
+        txtusername.Clear()
+        txtpassword.Clear()
+        txtconfirmpassword.Clear()
+        txtfirstname.Clear()
+        txtlastname.Clear()
+        cboRole.SelectedIndex = -1
+        cboStatus.SelectedIndex = -1
         DataGridView1.ClearSelection()
     End Sub
 

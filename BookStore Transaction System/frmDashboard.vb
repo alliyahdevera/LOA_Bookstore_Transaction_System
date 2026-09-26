@@ -4,7 +4,7 @@ Public Class frmDashboard
 
     ' Control map (names from the designer):
     '   Label8  = Total Products               Label9  = Total Quantity of Products
-    '   Label10 = Total Sales                  Label11 = Total Students
+    '   Label10 = Total Sales Today            Label11 = Low Stock Items
     '   chtMostreqdoc     = MOST BOUGHT PRODUCT (bar)
     '   chtdocreqpermonth = PRODUCT SALES (pie)
     '   Chart1            = CRITICAL PRODUCTS (column)
@@ -17,20 +17,25 @@ Public Class frmDashboard
     Private WithEvents tmrClock As System.Windows.Forms.Timer
 
     Private Sub frmDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Legend is only useful on the pie chart
-        Chart1.Legends(0).Enabled = False
-        chtMostreqdoc.Legends(0).Enabled = False
-        Chart2.Legends(0).Enabled = False
+        Try
+            ' Configure Chart Legends
+            If Chart1.Legends.Count > 0 Then Chart1.Legends(0).Enabled = False
+            If chtMostreqdoc.Legends.Count > 0 Then chtMostreqdoc.Legends(0).Enabled = False
+            If Chart2.Legends.Count > 0 Then Chart2.Legends(0).Enabled = False
 
-        ' Footer: name, position, real-time clock
-        lblname.Text = currentuser.FullName
-        lblposition.Text = currentuser.Role
-        tmrClock = New System.Windows.Forms.Timer()
-        tmrClock.Interval = 1000
-        tmrClock.Start()
-        UpdateFooterDateTime()
+            ' Footer profile info & live timer
+            lblname.Text = currentuser.FullName
+            lblposition.Text = currentuser.Role
 
-        RefreshDashboard()
+            tmrClock = New System.Windows.Forms.Timer()
+            tmrClock.Interval = 1000
+            tmrClock.Start()
+            UpdateFooterDateTime()
+
+            RefreshDashboard()
+        Catch ex As Exception
+            MsgBox("Error initializing Dashboard Form: " & ex.Message, vbCritical, "Init Error")
+        End Try
     End Sub
 
     Private Sub frmDashboard_Disposed(sender As Object, e As EventArgs) Handles MyBase.Disposed
@@ -67,10 +72,17 @@ Public Class frmDashboard
     ' The four cards
     ' ------------------------------------------------------------------
     Private Sub LoadTotals()
+        ' Card 1: Total Products
         Label8.Text = GetScalar("SELECT COUNT(*) FROM TBL_PRODUCTS").ToString("N0")
+
+        ' Card 2: Total Quantity of Products
         Label9.Text = GetScalar("SELECT IFNULL(SUM(quantity_on_hand), 0) FROM TBL_PRODUCT_VARIANTS").ToString("N0")
-        Label10.Text = ChrW(8369) & GetScalar("SELECT IFNULL(SUM(total_amount), 0) FROM TBL_TRANSACTIONS").ToString("N2")
-        Label11.Text = GetScalar("SELECT COUNT(*) FROM TBL_STUDENTS").ToString("N0")
+
+        ' Card 3: Total Sales Today
+        Label10.Text = ChrW(8369) & GetScalar("SELECT IFNULL(SUM(total_amount), 0) FROM TBL_TRANSACTIONS WHERE DATE(or_date) = CURDATE()").ToString("N2")
+
+        ' Card 4: Low Stock Items (Variants at or below reorder level)
+        Label11.Text = GetScalar("SELECT COUNT(*) FROM TBL_PRODUCT_VARIANTS WHERE quantity_on_hand <= reorder_level").ToString("N0")
 
         CenterLabel(Label8)
         CenterLabel(Label9)
@@ -209,7 +221,9 @@ Public Class frmDashboard
         End Try
     End Sub
 
-
+    ' ------------------------------------------------------------------
+    ' SALES PER MONTH - monthly sales for current year
+    ' ------------------------------------------------------------------
     Private Sub LoadSalesPerMonth()
         Dim currentYear As Integer = DateTime.Today.Year
 

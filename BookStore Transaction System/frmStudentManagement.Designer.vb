@@ -36,32 +36,32 @@ Partial Class frmStudentManagement
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
         Me.btnremove = New System.Windows.Forms.Button()
-        Me.btnupd = New System.Windows.Forms.Button()
+        Me.btnupdate = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Panel11 = New System.Windows.Forms.Panel()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.TextBox1 = New System.Windows.Forms.ComboBox()
-        Me.TextBox7 = New System.Windows.Forms.TextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.txtusername = New System.Windows.Forms.TextBox()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.StudentNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GradeLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Section = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.cboGradeLevel = New System.Windows.Forms.ComboBox()
+        Me.cboSection = New System.Windows.Forms.ComboBox()
+        Me.txtfirstname = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.btnadd = New System.Windows.Forms.Button()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtstudentno = New System.Windows.Forms.TextBox()
+        Me.txtlastname = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
@@ -223,17 +223,17 @@ Partial Class frmStudentManagement
         Me.btnremove.Text = "Remove"
         Me.btnremove.UseVisualStyleBackColor = False
         '
-        'btnupd
+        'btnupdate
         '
-        Me.btnupd.BackColor = System.Drawing.Color.Navy
-        Me.btnupd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnupd.ForeColor = System.Drawing.Color.White
-        Me.btnupd.Location = New System.Drawing.Point(965, 132)
-        Me.btnupd.Name = "btnupd"
-        Me.btnupd.Size = New System.Drawing.Size(172, 33)
-        Me.btnupd.TabIndex = 104
-        Me.btnupd.Text = "Update"
-        Me.btnupd.UseVisualStyleBackColor = False
+        Me.btnupdate.BackColor = System.Drawing.Color.Navy
+        Me.btnupdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnupdate.ForeColor = System.Drawing.Color.White
+        Me.btnupdate.Location = New System.Drawing.Point(965, 132)
+        Me.btnupdate.Name = "btnupdate"
+        Me.btnupdate.Size = New System.Drawing.Size(172, 33)
+        Me.btnupdate.TabIndex = 104
+        Me.btnupdate.Text = "Update"
+        Me.btnupdate.UseVisualStyleBackColor = False
         '
         'Label14
         '
@@ -280,8 +280,44 @@ Partial Class frmStudentManagement
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.StudentNo, Me.LastName, Me.FirstName, Me.GradeLevel, Me.Section})
         Me.DataGridView1.Location = New System.Drawing.Point(-1, 34)
         Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.Size = New System.Drawing.Size(1157, 433)
         Me.DataGridView1.TabIndex = 2
+        '
+        'StudentNo
+        '
+        Me.StudentNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.StudentNo.HeaderText = "Student Number"
+        Me.StudentNo.Name = "StudentNo"
+        Me.StudentNo.ReadOnly = True
+        '
+        'LastName
+        '
+        Me.LastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.LastName.HeaderText = "Last Name"
+        Me.LastName.Name = "LastName"
+        Me.LastName.ReadOnly = True
+        '
+        'FirstName
+        '
+        Me.FirstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.FirstName.HeaderText = "First Name"
+        Me.FirstName.Name = "FirstName"
+        Me.FirstName.ReadOnly = True
+        '
+        'GradeLevel
+        '
+        Me.GradeLevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.GradeLevel.HeaderText = "Grade Level"
+        Me.GradeLevel.Name = "GradeLevel"
+        Me.GradeLevel.ReadOnly = True
+        '
+        'Section
+        '
+        Me.Section.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Section.HeaderText = "Section"
+        Me.Section.Name = "Section"
+        Me.Section.ReadOnly = True
         '
         'Panel11
         '
@@ -306,14 +342,14 @@ Partial Class frmStudentManagement
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.ComboBox1)
-        Me.Panel5.Controls.Add(Me.TextBox1)
-        Me.Panel5.Controls.Add(Me.TextBox7)
+        Me.Panel5.Controls.Add(Me.cboGradeLevel)
+        Me.Panel5.Controls.Add(Me.cboSection)
+        Me.Panel5.Controls.Add(Me.txtfirstname)
         Me.Panel5.Controls.Add(Me.Label12)
-        Me.Panel5.Controls.Add(Me.Button1)
+        Me.Panel5.Controls.Add(Me.btnadd)
         Me.Panel5.Controls.Add(Me.Label11)
-        Me.Panel5.Controls.Add(Me.txtusername)
-        Me.Panel5.Controls.Add(Me.TextBox4)
+        Me.Panel5.Controls.Add(Me.txtstudentno)
+        Me.Panel5.Controls.Add(Me.txtlastname)
         Me.Panel5.Controls.Add(Me.Label2)
         Me.Panel5.Controls.Add(Me.Label1)
         Me.Panel5.Controls.Add(Me.Label8)
@@ -322,23 +358,33 @@ Partial Class frmStudentManagement
         Me.Panel5.Size = New System.Drawing.Size(860, 182)
         Me.Panel5.TabIndex = 100
         '
-        'TextBox1
+        'cboGradeLevel
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.FormattingEnabled = True
-        Me.TextBox1.Location = New System.Drawing.Point(556, 95)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(270, 25)
-        Me.TextBox1.TabIndex = 66
+        Me.cboGradeLevel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboGradeLevel.FormattingEnabled = True
+        Me.cboGradeLevel.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
+        Me.cboGradeLevel.Location = New System.Drawing.Point(556, 55)
+        Me.cboGradeLevel.Name = "cboGradeLevel"
+        Me.cboGradeLevel.Size = New System.Drawing.Size(270, 25)
+        Me.cboGradeLevel.TabIndex = 67
         '
-        'TextBox7
+        'cboSection
         '
-        Me.TextBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox7.Location = New System.Drawing.Point(160, 131)
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.Size = New System.Drawing.Size(274, 25)
-        Me.TextBox7.TabIndex = 54
+        Me.cboSection.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboSection.FormattingEnabled = True
+        Me.cboSection.Location = New System.Drawing.Point(556, 95)
+        Me.cboSection.Name = "cboSection"
+        Me.cboSection.Size = New System.Drawing.Size(270, 25)
+        Me.cboSection.TabIndex = 66
+        '
+        'txtfirstname
+        '
+        Me.txtfirstname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtfirstname.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtfirstname.Location = New System.Drawing.Point(160, 131)
+        Me.txtfirstname.Name = "txtfirstname"
+        Me.txtfirstname.Size = New System.Drawing.Size(274, 25)
+        Me.txtfirstname.TabIndex = 54
         '
         'Label12
         '
@@ -350,17 +396,17 @@ Partial Class frmStudentManagement
         Me.Label12.TabIndex = 55
         Me.Label12.Text = "First Name"
         '
-        'Button1
+        'btnadd
         '
-        Me.Button1.BackColor = System.Drawing.Color.Green
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(556, 133)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(270, 26)
-        Me.Button1.TabIndex = 64
-        Me.Button1.Text = "Add"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btnadd.BackColor = System.Drawing.Color.Green
+        Me.btnadd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnadd.ForeColor = System.Drawing.Color.White
+        Me.btnadd.Location = New System.Drawing.Point(556, 133)
+        Me.btnadd.Name = "btnadd"
+        Me.btnadd.Size = New System.Drawing.Size(270, 26)
+        Me.btnadd.TabIndex = 64
+        Me.btnadd.Text = "Add"
+        Me.btnadd.UseVisualStyleBackColor = False
         '
         'Label11
         '
@@ -372,23 +418,23 @@ Partial Class frmStudentManagement
         Me.Label11.TabIndex = 53
         Me.Label11.Text = "Grade Level"
         '
-        'txtusername
+        'txtstudentno
         '
-        Me.txtusername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtusername.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtusername.Location = New System.Drawing.Point(160, 55)
-        Me.txtusername.Name = "txtusername"
-        Me.txtusername.Size = New System.Drawing.Size(274, 25)
-        Me.txtusername.TabIndex = 42
+        Me.txtstudentno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtstudentno.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtstudentno.Location = New System.Drawing.Point(160, 55)
+        Me.txtstudentno.Name = "txtstudentno"
+        Me.txtstudentno.Size = New System.Drawing.Size(274, 25)
+        Me.txtstudentno.TabIndex = 42
         '
-        'TextBox4
+        'txtlastname
         '
-        Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox4.Location = New System.Drawing.Point(160, 93)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(274, 25)
-        Me.TextBox4.TabIndex = 43
+        Me.txtlastname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtlastname.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtlastname.Location = New System.Drawing.Point(160, 93)
+        Me.txtlastname.Name = "txtlastname"
+        Me.txtlastname.Size = New System.Drawing.Size(274, 25)
+        Me.txtlastname.TabIndex = 43
         '
         'Label2
         '
@@ -431,46 +477,6 @@ Partial Class frmStudentManagement
         Me.Label6.TabIndex = 98
         Me.Label6.Text = "Student Management"
         '
-        'ComboBox1
-        '
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
-        Me.ComboBox1.Location = New System.Drawing.Point(556, 55)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(270, 25)
-        Me.ComboBox1.TabIndex = 67
-        '
-        'StudentNo
-        '
-        Me.StudentNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.StudentNo.HeaderText = "Student Number"
-        Me.StudentNo.Name = "StudentNo"
-        '
-        'LastName
-        '
-        Me.LastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.LastName.HeaderText = "Last Name"
-        Me.LastName.Name = "LastName"
-        '
-        'FirstName
-        '
-        Me.FirstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.FirstName.HeaderText = "First Name"
-        Me.FirstName.Name = "FirstName"
-        '
-        'GradeLevel
-        '
-        Me.GradeLevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.GradeLevel.HeaderText = "Grade Level"
-        Me.GradeLevel.Name = "GradeLevel"
-        '
-        'Section
-        '
-        Me.Section.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Section.HeaderText = "Section"
-        Me.Section.Name = "Section"
-        '
         'frmStudentManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -481,7 +487,7 @@ Partial Class frmStudentManagement
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.btnremove)
-        Me.Controls.Add(Me.btnupd)
+        Me.Controls.Add(Me.btnupdate)
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Panel6)
         Me.Controls.Add(Me.Panel7)
@@ -522,7 +528,7 @@ Partial Class frmStudentManagement
     Friend WithEvents Label28 As Label
     Friend WithEvents lblposition As Label
     Friend WithEvents btnremove As Button
-    Friend WithEvents btnupd As Button
+    Friend WithEvents btnupdate As Button
     Friend WithEvents Label14 As Label
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label10 As Label
@@ -531,18 +537,18 @@ Partial Class frmStudentManagement
     Friend WithEvents Panel11 As Panel
     Friend WithEvents Label9 As Label
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents TextBox1 As ComboBox
-    Friend WithEvents TextBox7 As TextBox
+    Friend WithEvents cboSection As ComboBox
+    Friend WithEvents txtfirstname As TextBox
     Friend WithEvents Label12 As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnadd As Button
     Friend WithEvents Label11 As Label
-    Friend WithEvents txtusername As TextBox
-    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents txtstudentno As TextBox
+    Friend WithEvents txtlastname As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cboGradeLevel As ComboBox
     Friend WithEvents StudentNo As DataGridViewTextBoxColumn
     Friend WithEvents LastName As DataGridViewTextBoxColumn
     Friend WithEvents FirstName As DataGridViewTextBoxColumn

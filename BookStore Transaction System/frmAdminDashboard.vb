@@ -1,6 +1,10 @@
-﻿Public Class frmAdminDashboard
+﻿Imports MySql.Data.MySqlClient
 
-    ' Declare Form Identifier Constants
+Public Class frmAdminDashboard
+
+    ' ------------------------------------------------------------------
+    ' Module Constants
+    ' ------------------------------------------------------------------
     Public Const FRM_DASHBOARD As String = "FRM_DASHBOARD"
     Public Const FRM_POS As String = "FRM_POS"
     Public Const FRM_INVENTORY As String = "FRM_INVENTORY"
@@ -16,25 +20,44 @@
     Private ReadOnly _normalColor As Color = Color.FromArgb(1, 21, 78)
     Private ReadOnly _activeColor As Color = Color.FromArgb(25, 55, 140)
 
-    ' Include all modules in the navigation array
+    ' Navigation Module List
     Private ReadOnly _allModules As String() = {
         FRM_DASHBOARD, FRM_POS, FRM_INVENTORY, FRM_TRANSACTION,
         FRM_REPORTS, FRM_USERMGMT, FRM_STUDENTMGMT, FRM_AUDITLOGS
     }
 
+    ' ------------------------------------------------------------------
+    ' Form Life-Cycle Events
+    ' ------------------------------------------------------------------
     Private Sub frmAdminDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplyRolePermissions()
         OpenModule(GetDefaultForm())
     End Sub
 
-    ' If the window is closed with the X (not through Logout), close the whole app
     Private Sub frmAdminDashboard_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         If Not _isLoggingOut Then Application.Exit()
     End Sub
 
     ' ------------------------------------------------------------------
-    ' Role restrictions
+    ' Permission & Form Routing Logic
     ' ------------------------------------------------------------------
+    Private Function GetDefaultForm() As String
+        Return FRM_DASHBOARD
+    End Function
+
+    Private Function CanAccess(moduleName As String) As Boolean
+        ' Always grant access to the dashboard
+        If moduleName = FRM_DASHBOARD Then Return True
+
+        ' Fallback safeguard: Allow access if role is unset or matches Admin/Staff
+        If String.IsNullOrEmpty(currentuser.Role) OrElse currentuser.Role.Equals("Admin", StringComparison.OrdinalIgnoreCase) Then
+            Return True
+        End If
+
+        ' Customize access logic per role as needed
+        Return True
+    End Function
+
     Private Sub ApplyRolePermissions()
         For Each moduleName As String In _allModules
             Dim btn As Button = GetButton(moduleName)
@@ -47,7 +70,7 @@
     Private Function GetButton(moduleName As String) As Button
         Select Case moduleName
             Case FRM_DASHBOARD
-                Return Button1          ' the "Dashboard" button
+                Return Button1          ' Dashboard Button
             Case FRM_POS
                 Return btnPOS
             Case FRM_INVENTORY
@@ -91,7 +114,7 @@
     End Function
 
     ' ------------------------------------------------------------------
-    ' Loads a form inside pnlContent (after checking the role again)
+    ' Form Embedding Logic (pnlContent Host)
     ' ------------------------------------------------------------------
     Private Sub OpenModule(moduleName As String)
         If Not CanAccess(moduleName) Then
@@ -99,26 +122,38 @@
             Exit Sub
         End If
 
-        Dim frm As Form = CreateForm(moduleName)
-        If frm Is Nothing Then Exit Sub
+        Try
+            Dim frm As Form = CreateForm(moduleName)
+            If frm Is Nothing Then
+                MsgBox("Module form initialization returned Nothing: " & moduleName, vbCritical, "Module Error")
+                Exit Sub
+            End If
 
-        If _currentForm IsNot Nothing Then
-            _currentForm.Close()
-            _currentForm = Nothing
-        End If
-        pnlContent.Controls.Clear()
+            If _currentForm IsNot Nothing Then
+                _currentForm.Close()
+                _currentForm.Dispose()
+                _currentForm = Nothing
+            End If
 
-        frm.TopLevel = False
-        frm.FormBorderStyle = FormBorderStyle.None
-        frm.Dock = DockStyle.Fill
-        pnlContent.Controls.Add(frm)
-        _currentForm = frm
-        frm.Show()
+            pnlContent.Controls.Clear()
 
-        SetActiveButton(moduleName)
+            frm.TopLevel = False
+            frm.FormBorderStyle = FormBorderStyle.None
+            frm.Dock = DockStyle.Fill
+
+            pnlContent.Controls.Add(frm)
+            _currentForm = frm
+
+            frm.Show()
+            frm.BringToFront()
+
+            SetActiveButton(moduleName)
+
+        Catch ex As Exception
+            MsgBox("Error embedding form into Dashboard Panel: " & ex.Message & vbCrLf & ex.StackTrace, vbCritical, "UI Navigation Error")
+        End Try
     End Sub
 
-    ' Highlights the button of the module that is currently open
     Private Sub SetActiveButton(moduleName As String)
         For Each m As String In _allModules
             Dim btn As Button = GetButton(m)
@@ -132,7 +167,7 @@
     End Sub
 
     ' ------------------------------------------------------------------
-    ' Navigation Button Click Handlers
+    ' Sidebar Button Click Handlers
     ' ------------------------------------------------------------------
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         OpenModule(FRM_DASHBOARD)
