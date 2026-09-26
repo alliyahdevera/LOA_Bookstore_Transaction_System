@@ -1,12 +1,26 @@
 ﻿Public Class frmAdminDashboard
 
+    ' Declare Form Identifier Constants
+    Public Const FRM_DASHBOARD As String = "FRM_DASHBOARD"
+    Public Const FRM_POS As String = "FRM_POS"
+    Public Const FRM_INVENTORY As String = "FRM_INVENTORY"
+    Public Const FRM_TRANSACTION As String = "FRM_TRANSACTION"
+    Public Const FRM_REPORTS As String = "FRM_REPORTS"
+    Public Const FRM_USERMGMT As String = "FRM_USERMGMT"
+    Public Const FRM_STUDENTMGMT As String = "FRM_STUDENTMGMT"
+    Public Const FRM_AUDITLOGS As String = "FRM_AUDITLOGS"
+
     Private _currentForm As Form
     Private _isLoggingOut As Boolean = False
 
     Private ReadOnly _normalColor As Color = Color.FromArgb(1, 21, 78)
     Private ReadOnly _activeColor As Color = Color.FromArgb(25, 55, 140)
 
-    Private ReadOnly _allModules As String() = {FRM_DASHBOARD, FRM_POS, FRM_INVENTORY, FRM_TRANSACTION, FRM_REPORTS, FRM_USERMGMT}
+    ' Include all modules in the navigation array
+    Private ReadOnly _allModules As String() = {
+        FRM_DASHBOARD, FRM_POS, FRM_INVENTORY, FRM_TRANSACTION,
+        FRM_REPORTS, FRM_USERMGMT, FRM_STUDENTMGMT, FRM_AUDITLOGS
+    }
 
     Private Sub frmAdminDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplyRolePermissions()
@@ -23,7 +37,10 @@
     ' ------------------------------------------------------------------
     Private Sub ApplyRolePermissions()
         For Each moduleName As String In _allModules
-            GetButton(moduleName).Visible = CanAccess(moduleName)
+            Dim btn As Button = GetButton(moduleName)
+            If btn IsNot Nothing Then
+                btn.Visible = CanAccess(moduleName)
+            End If
         Next
     End Sub
 
@@ -41,6 +58,10 @@
                 Return btnReports
             Case FRM_USERMGMT
                 Return btnUserManagement
+            Case FRM_STUDENTMGMT
+                Return btnStudentManagement
+            Case FRM_AUDITLOGS
+                Return btnAuditLogs
             Case Else
                 Return Nothing
         End Select
@@ -100,11 +121,19 @@
     ' Highlights the button of the module that is currently open
     Private Sub SetActiveButton(moduleName As String)
         For Each m As String In _allModules
-            GetButton(m).BackColor = _normalColor
+            Dim btn As Button = GetButton(m)
+            If btn IsNot Nothing Then
+                btn.BackColor = _normalColor
+            End If
         Next
+
         Dim active As Button = GetButton(moduleName)
         If active IsNot Nothing Then active.BackColor = _activeColor
     End Sub
+
+    ' ------------------------------------------------------------------
+    ' Navigation Button Click Handlers
+    ' ------------------------------------------------------------------
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         OpenModule(FRM_DASHBOARD)
     End Sub
@@ -129,6 +158,14 @@
         OpenModule(FRM_USERMGMT)
     End Sub
 
+    Private Sub btnStudentManagement_Click(sender As Object, e As EventArgs) Handles btnStudentManagement.Click
+        OpenModule(FRM_STUDENTMGMT)
+    End Sub
+
+    Private Sub btnAuditLogs_Click(sender As Object, e As EventArgs) Handles btnAuditLogs.Click
+        OpenModule(FRM_AUDITLOGS)
+    End Sub
+
     Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
         If MsgBox("Are you sure you want to logout?", vbYesNo + vbQuestion, "Confirm Logout") = MsgBoxResult.Yes Then
             currentuser.UserID = 0
@@ -140,43 +177,4 @@
         End If
     End Sub
 
-    Private Sub btnStudentManagement_Click(sender As Object, e As EventArgs) Handles btnStudentManagement.Click
-        OpenModule(FRM_STUDENTMGMT)
-    End Sub
-
-    Private Sub btnAuditLogs_Click(sender As Object, e As EventArgs) Handles btnAuditLogs.Click
-        OpenModule(FRM_AUDITLOGS)
-    End Sub
-
-    Private Sub pnlContent_Paint(sender As Object, e As PaintEventArgs) Handles pnlContent.Paint
-
-    End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
-    End Sub
-
-    Private Sub Panel4_Paint(sender As Object, e As PaintEventArgs) Handles Panel4.Paint
-
-    End Sub
-
-    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
-
-    End Sub
-
-    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
-
-    End Sub
-
-    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
-
-    End Sub
-
-    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
-
-    End Sub
-
-    Private Sub Logo_Click(sender As Object, e As EventArgs) Handles Logo.Click
-
-    End Sub
 End Class
