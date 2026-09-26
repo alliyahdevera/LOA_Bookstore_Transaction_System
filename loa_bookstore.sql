@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 25, 2026 at 06:35 AM
+-- Host: localhost
+-- Generation Time: Sep 26, 2026 at 04:31 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,7 +70,18 @@ INSERT INTO `tbl_category_types` (`category_type_id`, `category_id`, `type_name`
 (7, 3, 'Learning Modules'),
 (8, 4, 'Writing Materials'),
 (9, 4, 'Notebooks and Paper'),
-(10, 5, 'Filing and Folders');
+(10, 5, 'Filing and Folders'),
+(11, 2, 'Grade School Textbooks'),
+(12, 2, 'Junior High Textbooks'),
+(13, 2, 'Senior High Textbooks'),
+(14, 2, 'College Textbooks'),
+(15, 3, 'Laboratory Manuals'),
+(16, 3, 'Course Packets'),
+(17, 4, 'Art & Measuring Tools'),
+(18, 5, 'Administrative Forms'),
+(19, 5, 'Office Stationery'),
+(20, 6, 'Official LOA Merchandise'),
+(21, 6, 'Campus Apparel & Accessories');
 
 -- --------------------------------------------------------
 
@@ -97,11 +108,18 @@ INSERT INTO `tbl_products` (`product_id`, `product_name`, `product_description`,
 (3, 'Senior High Polo Shirt', 'Official LOA Grade 11-12 polo shirt', 3, 340.00, 'Active'),
 (4, 'College Polo Shirt', 'Official LOA college polo shirt', 4, 380.00, 'Active'),
 (5, 'PE T-Shirt', 'Official LOA physical education shirt', 5, 250.00, 'Active'),
-(6, 'Grade 7 English Textbook', 'English textbook for Grade 7', 6, 450.00, 'Active'),
+(6, 'Grade 7 English Textbook', 'English textbook for Grade 7', 12, 450.00, 'Active'),
 (7, 'Grade 10 Math Learning Module', 'Mathematics learning module for Grade 10', 7, 180.00, 'Active'),
 (8, 'Ballpen (Blue)', 'Blue ink ballpen, 0.7mm', 8, 12.00, 'Active'),
 (9, 'Notebook 80 Leaves', 'Spiral notebook, 80 leaves', 9, 35.00, 'Active'),
-(10, 'Expanding Folder (Long)', 'Long plastic expanding folder', 10, 65.00, 'Active');
+(10, 'Expanding Folder (Long)', 'Long plastic expanding folder', 10, 65.00, 'Active'),
+(11, 'Chemistry Lab Manual', 'Laboratory manual for College Chemistry', 11, 220.00, 'Active'),
+(12, 'IT101 Course Packet', 'Compiled course packet for IT Fundamentals', 12, 150.00, 'Active'),
+(13, '30cm Transparent Ruler', 'Clear plastic measuring ruler 30cm', 13, 25.00, 'Active'),
+(14, 'Student Clearance Form', 'Official LOA clearance sheet (Pad of 50)', 14, 45.00, 'Active'),
+(15, 'A4 Specialty Paper (20s)', '80gsm white specialty paper pack', 15, 85.00, 'Active'),
+(16, 'LOA ID Lanyard', 'Official Lyceum of Alabang woven lanyard', 16, 75.00, 'Active'),
+(17, 'LOA Campus Hoodie (Medium)', 'LOA institutional navy blue hoodie', 17, 650.00, 'Active');
 
 -- --------------------------------------------------------
 
@@ -125,19 +143,26 @@ CREATE TABLE `tbl_product_variants` (
 INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, `size`, `quantity_on_hand`, `reorder_level`) VALUES
 (1, 1, 'UNI-ELB-08', '8', 47, 10),
 (2, 1, 'UNI-ELB-10', '10', 40, 10),
-(3, 2, 'UNI-JHG-S', 'S', 38, 10),
-(4, 2, 'UNI-JHG-M', 'M', 8, 10),
+(3, 2, 'UNI-JHG-S', 'S', 30, 10),
+(4, 2, 'UNI-JHG-M', 'M', 0, 10),
 (5, 3, 'UNI-SHP-M', 'M', 33, 10),
 (6, 3, 'UNI-SHP-L', 'L', 29, 8),
-(7, 4, 'UNI-COL-M', 'M', 30, 8),
+(7, 4, 'UNI-COL-M', 'M', 28, 8),
 (8, 4, 'UNI-COL-L', 'L', 28, 8),
 (9, 5, 'UNI-PE-S', 'S', 57, 15),
-(10, 5, 'UNI-PE-M', 'M', 58, 15),
+(10, 5, 'UNI-PE-M', 'M', 56, 15),
 (11, 6, 'BK-ENG7', 'N/A', 79, 15),
 (12, 7, 'MOD-MATH10', 'N/A', 118, 20),
 (13, 8, 'SUP-BP-BLU', 'N/A', 460, 50),
 (14, 9, 'SUP-NB-80', 'N/A', 241, 40),
-(15, 10, 'OFF-FLD-EXP', 'N/A', 33, 15);
+(15, 10, 'OFF-FLD-EXP', 'N/A', 33, 15),
+(16, 11, 'MOD-CHM-LAB', 'N/A', 85, 15),
+(17, 12, 'MOD-IT101-PK', 'N/A', 120, 20),
+(18, 13, 'SUP-RUL-30', 'N/A', 200, 30),
+(19, 14, 'OFF-CLR-PAD', 'N/A', 150, 25),
+(20, 15, 'OFF-PPR-A4', 'N/A', 90, 15),
+(21, 16, 'OTH-LAN-LOA', 'N/A', 310, 50),
+(22, 17, 'OTH-HOD-M', 'M', 45, 10);
 
 -- --------------------------------------------------------
 
@@ -254,7 +279,22 @@ INSERT INTO `tbl_students` (`student_id`, `student_no`, `last_name`, `first_name
 (7, '2025-00420', 'Navarro', 'Joshua', 'Grade 11', 'STEM-A'),
 (8, '2025-00421', 'Pascual', 'Bianca', 'Grade 12', 'ABM-B'),
 (9, '2026-00530', 'Fernandez', 'Carlo', '1st Year College', 'BSIT-1A'),
-(10, '2026-00531', 'Domingo', 'Patricia', '2nd Year College', 'BSCS-2B');
+(10, '2026-00531', 'Domingo', 'Patricia', '2nd Year College', 'BSCS-2B'),
+(11, '1123-24', 'Fernandez', 'Gio', '3rd Year', '31E1'),
+(12, '1127-24', 'Enclona', 'Paul Benedict', '3rd Year', '31E1'),
+(13, '1208-24', 'Para', 'Andrea', '3rd Year', '31E1'),
+(14, '1314-24', 'Batoy', 'Nicholo John', '3rd Year', '31E1'),
+(15, '1327-24', 'Reales', 'Jonnidel', '3rd Year', '31E1'),
+(16, '1395-24', 'Solis', 'Sophia Cassandra', '3rd Year', '31E3'),
+(17, '1396-24', 'Mendoza', 'Stephanie', '3rd Year', '31E1'),
+(18, '1522-24', 'Barcinas', 'Marc Denize', '3rd Year', '31E1'),
+(19, '1808-23', 'Villacorte', 'Joshua', '3rd Year', '31E1'),
+(20, '2055-24', 'Canua', 'Carl James', '3rd Year', '31E3'),
+(21, '2056-24', 'Ramones', 'Leisbeth', '3rd Year', '31E1'),
+(22, '2154-24', 'Sabasaje', 'Sho Uno', '3rd Year', '31E1'),
+(23, '2208-24', 'Eullo', 'John Raven', '3rd Year', '31E1'),
+(24, '2786-24', 'Roque', 'Kevin Clerck', '3rd Year', '31E1'),
+(25, '2789-24', 'De Vera', 'Alliyah', '3rd Year', '31E1');
 
 -- --------------------------------------------------------
 
@@ -295,7 +335,8 @@ INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`
 (8, 'TXN-20260824-001', 'Student', 9, 'Carlo Fernandez', 'OR-000458', '2026-08-24', '2026-09-25 11:28:43', 'Cash', 890.00, 890.00, 0.00, 3, 'Completed', NULL),
 (9, 'TXN-20260901-001', 'Employee', NULL, 'Teresita Manalo', 'OR-000459', '2026-09-01', '2026-09-25 11:28:43', 'Cash', 455.00, 455.00, 0.00, 2, 'Completed', NULL),
 (10, 'TXN-20260902-001', 'Parent', 6, 'Ligaya Mercado', 'OR-000460', '2026-09-02', '2026-09-25 11:28:43', 'Cash', 800.00, 800.00, 0.00, 2, 'Completed', NULL),
-(11, 'TXN-20260925115708807', 'Student', 1, 'Miguel Dela Cruz', 'OR-20260925115655352', '2026-09-25', '2026-09-25 11:57:08', 'Cash', 24.00, 25.00, 1.00, 1, 'Completed', NULL);
+(11, 'TXN-20260925115708807', 'Student', 1, 'Miguel Dela Cruz', 'OR-20260925115655352', '2026-09-25', '2026-09-25 11:57:08', 'Cash', 24.00, 25.00, 1.00, 1, 'Completed', NULL),
+(12, 'TXN-20260925162826787', 'Student', 4, 'Sofia Aquino', 'OR-20260925162814491', '2026-09-25', '2026-09-25 16:28:26', 'Cash', 760.00, 1000.00, 240.00, 2, 'Completed', NULL);
 
 -- --------------------------------------------------------
 
@@ -336,7 +377,8 @@ INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `v
 (19, 9, 13, 120.00),
 (20, 10, 4, 620.00),
 (21, 10, 12, 180.00),
-(22, 11, 13, 24.00);
+(22, 11, 13, 24.00),
+(23, 12, 7, 760.00);
 
 -- --------------------------------------------------------
 
@@ -473,19 +515,19 @@ ALTER TABLE `tbl_categories`
 -- AUTO_INCREMENT for table `tbl_category_types`
 --
 ALTER TABLE `tbl_category_types`
-  MODIFY `category_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `category_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
 --
 ALTER TABLE `tbl_products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_product_variants`
 --
 ALTER TABLE `tbl_product_variants`
-  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`
@@ -509,19 +551,19 @@ ALTER TABLE `tbl_stock_in_details`
 -- AUTO_INCREMENT for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction_items`
 --
 ALTER TABLE `tbl_transaction_items`
-  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
