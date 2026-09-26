@@ -49,5 +49,4 @@ Public Class frmInventory
         Next
         activeBtn.BackColor = Color.FromArgb(25, 55, 140)
     End Sub
-
 End Class

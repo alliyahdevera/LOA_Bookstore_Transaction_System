@@ -178,9 +178,9 @@ Partial Class frmLowLevelStocks
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
+        Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1155, 578)
+        Me.DataGridView1.Size = New System.Drawing.Size(1155, 588)
         Me.DataGridView1.TabIndex = 1
         '
         'ProductCode
@@ -244,7 +244,7 @@ Partial Class frmLowLevelStocks
         Me.Panel6.Controls.Add(Me.Label7)
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1166, 45)
+        Me.Panel6.Size = New System.Drawing.Size(1166, 35)
         Me.Panel6.TabIndex = 0
         '
         'Label7
@@ -252,7 +252,7 @@ Partial Class frmLowLevelStocks
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(14, 13)
+        Me.Label7.Location = New System.Drawing.Point(9, 8)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(127, 17)
         Me.Label7.TabIndex = 25

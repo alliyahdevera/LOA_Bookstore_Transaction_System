@@ -167,7 +167,7 @@ Partial Class frmProductList
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(68, 24)
+        Me.Label4.Location = New System.Drawing.Point(68, 25)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(56, 45)
         Me.Label4.TabIndex = 87
@@ -262,9 +262,9 @@ Partial Class frmProductList
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeofProduct, Me.Size, Me.UnitPrice, Me.Quantity, Me.ReorderLevel, Me.Status})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
+        Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1161, 509)
+        Me.DataGridView1.Size = New System.Drawing.Size(1161, 519)
         Me.DataGridView1.TabIndex = 1
         '
         'ProductCode
@@ -328,7 +328,7 @@ Partial Class frmProductList
         Me.Panel6.Controls.Add(Me.Label7)
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1166, 45)
+        Me.Panel6.Size = New System.Drawing.Size(1166, 35)
         Me.Panel6.TabIndex = 0
         '
         'Label7
@@ -336,7 +336,7 @@ Partial Class frmProductList
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(14, 13)
+        Me.Label7.Location = New System.Drawing.Point(9, 8)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(127, 17)
         Me.Label7.TabIndex = 25

@@ -237,11 +237,11 @@ Partial Class frmPOS
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(11, 8)
+        Me.Label2.Location = New System.Drawing.Point(8, 7)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(211, 25)
+        Me.Label2.Size = New System.Drawing.Size(172, 21)
         Me.Label2.TabIndex = 10
         Me.Label2.Text = "Customer Information"
         '
@@ -446,11 +446,11 @@ Partial Class frmPOS
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.Color.White
-        Me.Label13.Location = New System.Drawing.Point(9, 8)
+        Me.Label13.Location = New System.Drawing.Point(7, 7)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(197, 25)
+        Me.Label13.Size = New System.Drawing.Size(159, 21)
         Me.Label13.TabIndex = 10
         Me.Label13.Text = "Product Information"
         '
@@ -489,30 +489,35 @@ Partial Class frmPOS
         '
         Me.ProductName.HeaderText = "Product Name"
         Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
         Me.ProductName.Width = 250
         '
         'Size
         '
         Me.Size.HeaderText = "Size"
         Me.Size.Name = "Size"
+        Me.Size.ReadOnly = True
         Me.Size.Width = 125
         '
         'Quantity
         '
         Me.Quantity.HeaderText = "Quantity"
         Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
         Me.Quantity.Width = 120
         '
         'UnitPrice
         '
         Me.UnitPrice.HeaderText = "Unit Price"
         Me.UnitPrice.Name = "UnitPrice"
+        Me.UnitPrice.ReadOnly = True
         Me.UnitPrice.Width = 120
         '
         'SubTotal
         '
         Me.SubTotal.HeaderText = "SubTotal"
         Me.SubTotal.Name = "SubTotal"
+        Me.SubTotal.ReadOnly = True
         Me.SubTotal.Width = 130
         '
         'Panel8
@@ -521,17 +526,17 @@ Partial Class frmPOS
         Me.Panel8.Controls.Add(Me.Label15)
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(785, 41)
+        Me.Panel8.Size = New System.Drawing.Size(785, 35)
         Me.Panel8.TabIndex = 0
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.Color.White
-        Me.Label15.Location = New System.Drawing.Point(8, 7)
+        Me.Label15.Location = New System.Drawing.Point(7, 6)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(119, 25)
+        Me.Label15.Size = New System.Drawing.Size(100, 21)
         Me.Label15.TabIndex = 9
         Me.Label15.Text = "List of Items"
         '
@@ -565,7 +570,7 @@ Partial Class frmPOS
         Me.Panel10.Controls.Add(Me.Label13)
         Me.Panel10.Location = New System.Drawing.Point(527, 77)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(661, 42)
+        Me.Panel10.Size = New System.Drawing.Size(661, 35)
         Me.Panel10.TabIndex = 10
         '
         'Panel11
@@ -574,7 +579,7 @@ Partial Class frmPOS
         Me.Panel11.Controls.Add(Me.Label2)
         Me.Panel11.Location = New System.Drawing.Point(34, 76)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(464, 42)
+        Me.Panel11.Size = New System.Drawing.Size(464, 35)
         Me.Panel11.TabIndex = 11
         '
         'lbldatetime
@@ -708,7 +713,7 @@ Partial Class frmPOS
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(4, 3)
+        Me.Label5.Location = New System.Drawing.Point(6, 6)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(108, 21)
         Me.Label5.TabIndex = 95
@@ -719,7 +724,7 @@ Partial Class frmPOS
         Me.TextBox1.BackColor = System.Drawing.Color.White
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(-1, 28)
+        Me.TextBox1.Location = New System.Drawing.Point(-1, 31)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(345, 50)
         Me.TextBox1.TabIndex = 94
@@ -731,9 +736,9 @@ Partial Class frmPOS
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel2.Controls.Add(Me.Panel3)
         Me.Panel2.Controls.Add(Me.TextBox1)
-        Me.Panel2.Location = New System.Drawing.Point(843, 655)
+        Me.Panel2.Location = New System.Drawing.Point(843, 652)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(344, 79)
+        Me.Panel2.Size = New System.Drawing.Size(344, 82)
         Me.Panel2.TabIndex = 96
         '
         'Panel3
@@ -743,7 +748,7 @@ Partial Class frmPOS
         Me.Panel3.Controls.Add(Me.Label5)
         Me.Panel3.Location = New System.Drawing.Point(-1, -1)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(345, 29)
+        Me.Panel3.Size = New System.Drawing.Size(345, 35)
         Me.Panel3.TabIndex = 97
         '
         'btnClear
@@ -874,7 +879,7 @@ Partial Class frmPOS
         Me.Panel9.Controls.Add(Me.Label20)
         Me.Panel9.Location = New System.Drawing.Point(0, 0)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(343, 29)
+        Me.Panel9.Size = New System.Drawing.Size(343, 35)
         Me.Panel9.TabIndex = 11
         '
         'Label20
@@ -882,7 +887,7 @@ Partial Class frmPOS
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label20.ForeColor = System.Drawing.Color.White
-        Me.Label20.Location = New System.Drawing.Point(4, 3)
+        Me.Label20.Location = New System.Drawing.Point(7, 7)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(164, 21)
         Me.Label20.TabIndex = 10

@@ -38,6 +38,12 @@ Partial Class frmSalesByItem
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TotalSales = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -45,12 +51,6 @@ Partial Class frmSalesByItem
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TotalSales = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -233,11 +233,47 @@ Partial Class frmSalesByItem
         Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.Category, Me.Quantity, Me.TotalSales, Me.AmountPaid})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
+        Me.DataGridView1.Location = New System.Drawing.Point(-1, 34)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1170, 564)
+        Me.DataGridView1.Size = New System.Drawing.Size(1170, 575)
         Me.DataGridView1.TabIndex = 1
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
+        '
+        'Category
+        '
+        Me.Category.HeaderText = "Category"
+        Me.Category.Name = "Category"
+        Me.Category.ReadOnly = True
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
+        '
+        'TotalSales
+        '
+        Me.TotalSales.HeaderText = "Total Sales"
+        Me.TotalSales.Name = "TotalSales"
+        Me.TotalSales.ReadOnly = True
+        '
+        'AmountPaid
+        '
+        Me.AmountPaid.HeaderText = "Date"
+        Me.AmountPaid.Name = "AmountPaid"
+        Me.AmountPaid.ReadOnly = True
         '
         'Panel6
         '
@@ -245,7 +281,7 @@ Partial Class frmSalesByItem
         Me.Panel6.Controls.Add(Me.Label7)
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1169, 45)
+        Me.Panel6.Size = New System.Drawing.Size(1169, 35)
         Me.Panel6.TabIndex = 0
         '
         'Label7
@@ -253,7 +289,7 @@ Partial Class frmSalesByItem
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(12, 11)
+        Me.Label7.Location = New System.Drawing.Point(7, 7)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(129, 21)
         Me.Label7.TabIndex = 25
@@ -305,43 +341,7 @@ Partial Class frmSalesByItem
         Me.DateTimePicker1.Size = New System.Drawing.Size(251, 27)
         Me.DateTimePicker1.TabIndex = 120
         '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        Me.ProductCode.ReadOnly = True
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        Me.ProductName.ReadOnly = True
-        '
-        'Category
-        '
-        Me.Category.HeaderText = "Category"
-        Me.Category.Name = "Category"
-        Me.Category.ReadOnly = True
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        Me.Quantity.ReadOnly = True
-        '
-        'TotalSales
-        '
-        Me.TotalSales.HeaderText = "Total Sales"
-        Me.TotalSales.Name = "TotalSales"
-        Me.TotalSales.ReadOnly = True
-        '
-        'AmountPaid
-        '
-        Me.AmountPaid.HeaderText = "Date"
-        Me.AmountPaid.Name = "AmountPaid"
-        Me.AmountPaid.ReadOnly = True
-        '
-        'frmSalesReport
+        'frmSalesByItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -361,7 +361,7 @@ Partial Class frmSalesByItem
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DateTimePicker1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Name = "frmSalesReport"
+        Me.Name = "frmSalesByItem"
         Me.Text = "frmSalesReport"
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()

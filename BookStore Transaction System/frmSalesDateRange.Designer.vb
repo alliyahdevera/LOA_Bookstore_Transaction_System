@@ -228,10 +228,10 @@ Partial Class frmSalesDateRange
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.Quantity, Me.TotalAmount, Me.AmountPaid, Me.AmountChange, Me.TotalSales, Me.tDate, Me.Time, Me.CreatedBy})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 45)
+        Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1170, 564)
+        Me.DataGridView1.Size = New System.Drawing.Size(1170, 574)
         Me.DataGridView1.TabIndex = 1
         '
         'TransactionNo
@@ -318,7 +318,7 @@ Partial Class frmSalesDateRange
         Me.Panel6.Controls.Add(Me.Label7)
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1169, 45)
+        Me.Panel6.Size = New System.Drawing.Size(1169, 35)
         Me.Panel6.TabIndex = 0
         '
         'Label7
@@ -326,7 +326,7 @@ Partial Class frmSalesDateRange
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(12, 11)
+        Me.Label7.Location = New System.Drawing.Point(7, 6)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(129, 21)
         Me.Label7.TabIndex = 25
@@ -400,7 +400,7 @@ Partial Class frmSalesDateRange
         Me.Label6.TabIndex = 116
         Me.Label6.Text = "Date Filtering Reports"
         '
-        'frmDateReport
+        'frmSalesDateRange
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -421,7 +421,7 @@ Partial Class frmSalesDateRange
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DateTimePicker1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Name = "frmDateReport"
+        Me.Name = "frmSalesDateRange"
         Me.Text = "frmDateReport"
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
