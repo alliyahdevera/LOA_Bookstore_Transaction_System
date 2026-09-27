@@ -13,7 +13,7 @@ Public Class frmInventory
         OpenTab(btnProductList, GetType(frmProductList))
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click   ' Manage Products
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click, btnManageProducts.Click   ' Manage Products
         If currentuser.Role <> ROLE_SUPERVISOR Then
             MsgBox("Only the Bookstore Supervisor can manage product information.", vbExclamation, "Access Denied")
             Exit Sub
@@ -21,11 +21,11 @@ Public Class frmInventory
         OpenTab(Button3, GetType(frmManageProducts))
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click   ' Stock Entry
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click, btnStockEntry.Click   ' Stock Entry
         OpenTab(Button5, GetType(frmStockEntry))
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click   ' Stock In History
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click, btnStockInHistory.Click   ' Stock In History
         OpenTab(Button4, GetType(frmStockInHistory))
     End Sub
 
@@ -50,7 +50,7 @@ Public Class frmInventory
         activeBtn.BackColor = Color.FromArgb(25, 55, 140)
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click, btnLowLevelStocks.Click
         OpenTab(Button1, GetType(frmLowLevelStocks))
     End Sub
 End Class

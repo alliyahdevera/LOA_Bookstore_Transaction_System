@@ -23,11 +23,11 @@ Partial Class frmInventory
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.btnProductList = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.btnManageProducts = New System.Windows.Forms.Button()
+        Me.btnStockInHistory = New System.Windows.Forms.Button()
+        Me.btnStockEntry = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnLowLevelStocks = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnProductList
@@ -43,44 +43,44 @@ Partial Class frmInventory
         Me.btnProductList.Text = "Product List"
         Me.btnProductList.UseVisualStyleBackColor = False
         '
-        'Button3
+        'btnManageProducts
         '
-        Me.Button3.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button3.FlatAppearance.BorderSize = 0
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.ForeColor = System.Drawing.Color.White
-        Me.Button3.Location = New System.Drawing.Point(199, 0)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(198, 33)
-        Me.Button3.TabIndex = 3
-        Me.Button3.Text = "Manage Products"
-        Me.Button3.UseVisualStyleBackColor = False
+        Me.btnManageProducts.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnManageProducts.FlatAppearance.BorderSize = 0
+        Me.btnManageProducts.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnManageProducts.ForeColor = System.Drawing.Color.White
+        Me.btnManageProducts.Location = New System.Drawing.Point(199, 0)
+        Me.btnManageProducts.Name = "btnManageProducts"
+        Me.btnManageProducts.Size = New System.Drawing.Size(198, 33)
+        Me.btnManageProducts.TabIndex = 3
+        Me.btnManageProducts.Text = "Manage Products"
+        Me.btnManageProducts.UseVisualStyleBackColor = False
         '
-        'Button4
+        'btnStockInHistory
         '
-        Me.Button4.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button4.FlatAppearance.BorderSize = 0
-        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button4.ForeColor = System.Drawing.Color.White
-        Me.Button4.Location = New System.Drawing.Point(597, 0)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(198, 33)
-        Me.Button4.TabIndex = 5
-        Me.Button4.Text = "Stock In History"
-        Me.Button4.UseVisualStyleBackColor = False
+        Me.btnStockInHistory.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnStockInHistory.FlatAppearance.BorderSize = 0
+        Me.btnStockInHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnStockInHistory.ForeColor = System.Drawing.Color.White
+        Me.btnStockInHistory.Location = New System.Drawing.Point(597, 0)
+        Me.btnStockInHistory.Name = "btnStockInHistory"
+        Me.btnStockInHistory.Size = New System.Drawing.Size(198, 33)
+        Me.btnStockInHistory.TabIndex = 5
+        Me.btnStockInHistory.Text = "Stock In History"
+        Me.btnStockInHistory.UseVisualStyleBackColor = False
         '
-        'Button5
+        'btnStockEntry
         '
-        Me.Button5.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button5.FlatAppearance.BorderSize = 0
-        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button5.ForeColor = System.Drawing.Color.White
-        Me.Button5.Location = New System.Drawing.Point(398, 0)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(198, 33)
-        Me.Button5.TabIndex = 4
-        Me.Button5.Text = "Stock Entry"
-        Me.Button5.UseVisualStyleBackColor = False
+        Me.btnStockEntry.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnStockEntry.FlatAppearance.BorderSize = 0
+        Me.btnStockEntry.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnStockEntry.ForeColor = System.Drawing.Color.White
+        Me.btnStockEntry.Location = New System.Drawing.Point(398, 0)
+        Me.btnStockEntry.Name = "btnStockEntry"
+        Me.btnStockEntry.Size = New System.Drawing.Size(198, 33)
+        Me.btnStockEntry.TabIndex = 4
+        Me.btnStockEntry.Text = "Stock Entry"
+        Me.btnStockEntry.UseVisualStyleBackColor = False
         '
         'Panel1
         '
@@ -89,29 +89,29 @@ Partial Class frmInventory
         Me.Panel1.Size = New System.Drawing.Size(1221, 818)
         Me.Panel1.TabIndex = 6
         '
-        'Button1
+        'btnLowLevelStocks
         '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(796, 0)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(198, 33)
-        Me.Button1.TabIndex = 10
-        Me.Button1.Text = "Low Level Stocks"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btnLowLevelStocks.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnLowLevelStocks.FlatAppearance.BorderSize = 0
+        Me.btnLowLevelStocks.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnLowLevelStocks.ForeColor = System.Drawing.Color.White
+        Me.btnLowLevelStocks.Location = New System.Drawing.Point(796, 0)
+        Me.btnLowLevelStocks.Name = "btnLowLevelStocks"
+        Me.btnLowLevelStocks.Size = New System.Drawing.Size(198, 33)
+        Me.btnLowLevelStocks.TabIndex = 10
+        Me.btnLowLevelStocks.Text = "Low Level Stocks"
+        Me.btnLowLevelStocks.UseVisualStyleBackColor = False
         '
         'frmInventory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnLowLevelStocks)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Button4)
-        Me.Controls.Add(Me.Button5)
-        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.btnStockInHistory)
+        Me.Controls.Add(Me.btnStockEntry)
+        Me.Controls.Add(Me.btnManageProducts)
         Me.Controls.Add(Me.btnProductList)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmInventory"
@@ -120,9 +120,9 @@ Partial Class frmInventory
 
     End Sub
     Friend WithEvents btnProductList As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button5 As Button
+    Friend WithEvents btnManageProducts As Button
+    Friend WithEvents btnStockInHistory As Button
+    Friend WithEvents btnStockEntry As Button
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnLowLevelStocks As Button
 End Class
