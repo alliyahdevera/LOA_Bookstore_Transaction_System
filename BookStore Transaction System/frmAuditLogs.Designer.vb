@@ -22,37 +22,37 @@ Partial Class frmAuditLogs
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnLoginHistory = New System.Windows.Forms.Button()
+        Me.btnActivityHistory = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.btnProductList = New System.Windows.Forms.Button()
+        Me.btnPriceChangeHistory = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'Button2
+        'btnLoginHistory
         '
-        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button2.FlatAppearance.BorderSize = 0
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Location = New System.Drawing.Point(398, 0)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(198, 33)
-        Me.Button2.TabIndex = 18
-        Me.Button2.Text = "Login History"
-        Me.Button2.UseVisualStyleBackColor = False
+        Me.btnLoginHistory.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnLoginHistory.FlatAppearance.BorderSize = 0
+        Me.btnLoginHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnLoginHistory.ForeColor = System.Drawing.Color.White
+        Me.btnLoginHistory.Location = New System.Drawing.Point(398, 0)
+        Me.btnLoginHistory.Name = "btnLoginHistory"
+        Me.btnLoginHistory.Size = New System.Drawing.Size(198, 33)
+        Me.btnLoginHistory.TabIndex = 18
+        Me.btnLoginHistory.Text = "Login History"
+        Me.btnLoginHistory.UseVisualStyleBackColor = False
         '
-        'Button1
+        'btnActivityHistory
         '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(0, 0)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(198, 33)
-        Me.Button1.TabIndex = 17
-        Me.Button1.Text = "Activity History"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btnActivityHistory.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnActivityHistory.FlatAppearance.BorderSize = 0
+        Me.btnActivityHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnActivityHistory.ForeColor = System.Drawing.Color.White
+        Me.btnActivityHistory.Location = New System.Drawing.Point(0, 0)
+        Me.btnActivityHistory.Name = "btnActivityHistory"
+        Me.btnActivityHistory.Size = New System.Drawing.Size(198, 33)
+        Me.btnActivityHistory.TabIndex = 17
+        Me.btnActivityHistory.Text = "Activity History"
+        Me.btnActivityHistory.UseVisualStyleBackColor = False
         '
         'Panel1
         '
@@ -61,28 +61,28 @@ Partial Class frmAuditLogs
         Me.Panel1.Size = New System.Drawing.Size(1220, 817)
         Me.Panel1.TabIndex = 16
         '
-        'btnProductList
+        'btnPriceChangeHistory
         '
-        Me.btnProductList.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnProductList.FlatAppearance.BorderSize = 0
-        Me.btnProductList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnProductList.ForeColor = System.Drawing.Color.White
-        Me.btnProductList.Location = New System.Drawing.Point(199, 0)
-        Me.btnProductList.Name = "btnProductList"
-        Me.btnProductList.Size = New System.Drawing.Size(198, 33)
-        Me.btnProductList.TabIndex = 15
-        Me.btnProductList.Text = "Price Change History"
-        Me.btnProductList.UseVisualStyleBackColor = False
+        Me.btnPriceChangeHistory.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnPriceChangeHistory.FlatAppearance.BorderSize = 0
+        Me.btnPriceChangeHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnPriceChangeHistory.ForeColor = System.Drawing.Color.White
+        Me.btnPriceChangeHistory.Location = New System.Drawing.Point(199, 0)
+        Me.btnPriceChangeHistory.Name = "btnPriceChangeHistory"
+        Me.btnPriceChangeHistory.Size = New System.Drawing.Size(198, 33)
+        Me.btnPriceChangeHistory.TabIndex = 15
+        Me.btnPriceChangeHistory.Text = "Price Change History"
+        Me.btnPriceChangeHistory.UseVisualStyleBackColor = False
         '
         'frmAuditLogs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnLoginHistory)
+        Me.Controls.Add(Me.btnActivityHistory)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.btnProductList)
+        Me.Controls.Add(Me.btnPriceChangeHistory)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmAuditLogs"
         Me.Text = "frmAuditLogs"
@@ -90,8 +90,8 @@ Partial Class frmAuditLogs
 
     End Sub
 
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnLoginHistory As Button
+    Friend WithEvents btnActivityHistory As Button
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents btnProductList As Button
+    Friend WithEvents btnPriceChangeHistory As Button
 End Class
