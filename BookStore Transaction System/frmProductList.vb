@@ -19,11 +19,11 @@ Public Class frmProductList
         Dim critical As Integer = Convert.ToInt32(If(ExecScalar("SELECT COUNT(*) FROM TBL_PRODUCT_VARIANTS WHERE quantity_on_hand > 0 AND quantity_on_hand <= reorder_level"), 0))
         Dim outOfStock As Integer = Convert.ToInt32(If(ExecScalar("SELECT COUNT(*) FROM TBL_PRODUCT_VARIANTS WHERE quantity_on_hand = 0"), 0))
 
-        Label11.Text = totalProducts.ToString("N0")   ' Total Products
-        Label4.Text = totalQty.ToString("N0")          ' Total Quantity of Products
-        Label9.Text = onHand.ToString("N0")            ' On Hand
-        Label10.Text = critical.ToString("N0")         ' Critical Level
-        Label12.Text = outOfStock.ToString("N0")       ' Out of Stocks
+        lbltotalproducts.Text = totalProducts.ToString("N0")   ' Total Products
+        lbltotalqproducts.Text = totalQty.ToString("N0")          ' Total Quantity of Products
+        lblonhand.Text = onHand.ToString("N0")            ' On Hand
+        lblcriticallvl.Text = critical.ToString("N0")         ' Critical Level
+        lbloutofstocks.Text = outOfStock.ToString("N0")       ' Out of Stocks
     End Sub
 
     Private Sub LoadGrid(searchText As String)
@@ -44,9 +44,9 @@ Public Class frmProductList
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    DataGridView1.Rows.Clear()
+                    dgvlistproducts.Rows.Clear()
                     While localDr.Read()
-                        DataGridView1.Rows.Add(
+                        dgvlistproducts.Rows.Add(
                             localDr("product_code").ToString(), localDr("product_name").ToString(), localDr("product_description").ToString(),
                             localDr("category_name").ToString(), localDr("type_name").ToString(), localDr("size").ToString(),
                             Convert.ToDecimal(localDr("unit_price")).ToString("N2"), localDr("quantity_on_hand").ToString(),

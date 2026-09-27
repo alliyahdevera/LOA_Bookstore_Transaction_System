@@ -128,9 +128,9 @@ Public Class frmUserManagement
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    DataGridView1.Rows.Clear()
+                    dgvlistusers.Rows.Clear()
                     While localDr.Read()
-                        Dim idx As Integer = DataGridView1.Rows.Add(
+                        Dim idx As Integer = dgvlistusers.Rows.Add(
                             localDr("username").ToString(),
                             "********",
                             localDr("role_name").ToString(),
@@ -138,7 +138,7 @@ Public Class frmUserManagement
                             localDr("last_name").ToString(),
                             localDr("status").ToString()
                         )
-                        DataGridView1.Rows(idx).Tag = Convert.ToInt32(localDr("user_id"))
+                        dgvlistusers.Rows(idx).Tag = Convert.ToInt32(localDr("user_id"))
                     End While
                 End Using
             End Using
@@ -149,9 +149,9 @@ Public Class frmUserManagement
         End Try
     End Sub
 
-    Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+    Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvlistusers.CellClick
         If e.RowIndex < 0 Then Exit Sub
-        Dim row As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
+        Dim row As DataGridViewRow = dgvlistusers.Rows(e.RowIndex)
         If row.Tag Is Nothing Then Exit Sub
 
         selectedUserId = Convert.ToInt32(row.Tag)
@@ -261,7 +261,7 @@ Public Class frmUserManagement
         txtlastname.Clear()
         cboRole.SelectedIndex = -1
         cboStatus.SelectedIndex = -1
-        DataGridView1.ClearSelection()
+        dgvlistusers.ClearSelection()
     End Sub
 
 End Class

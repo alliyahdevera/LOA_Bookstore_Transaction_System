@@ -33,9 +33,9 @@ Public Class frmTransactionHistory
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    DataGridView1.Rows.Clear()
+                    dgvtransaction.Rows.Clear()
                     While localDr.Read()
-                        DataGridView1.Rows.Add(
+                        dgvtransaction.Rows.Add(
                             localDr("transaction_no").ToString(),
                             Convert.ToDateTime(localDr("tdate")).ToString("yyyy-MM-dd"),
                             localDr("ttime").ToString(),
@@ -59,7 +59,7 @@ Public Class frmTransactionHistory
                 "SELECT IFNULL(SUM(total_amount),0) FROM TBL_TRANSACTIONS WHERE transaction_no LIKE @s AND status <> 'Cancelled'",
                 New String() {"@s"}, New Object() {"%" & searchText & "%"})
 
-            Label1.Text = ChrW(8369) & Convert.ToDecimal(If(totalSum, 0)).ToString("N2")
+            lbltotalsales.Text = ChrW(8369) & Convert.ToDecimal(If(totalSum, 0)).ToString("N2")
 
         Catch ex As Exception
             If cn.State = ConnectionState.Open Then cn.Close()
@@ -67,13 +67,13 @@ Public Class frmTransactionHistory
         End Try
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click   ' View Details
-        If DataGridView1.SelectedRows.Count = 0 Then
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnviewdetails.Click   ' View Details
+        If dgvtransaction.SelectedRows.Count = 0 Then
             MsgBox("Select a transaction row first.", vbExclamation, "Transaction")
             Exit Sub
         End If
 
-        Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
+        Dim selectedRow As DataGridViewRow = dgvtransaction.SelectedRows(0)
         If selectedRow.Cells("TransactionNo").Value Is Nothing Then Exit Sub
 
         Dim txnNo As String = selectedRow.Cells("TransactionNo").Value.ToString()
@@ -95,12 +95,12 @@ Public Class frmTransactionHistory
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click   ' Cancel Transaction
-        If DataGridView1.SelectedRows.Count = 0 Then
+        If dgvtransaction.SelectedRows.Count = 0 Then
             MsgBox("Select a transaction row first.", vbExclamation, "Transaction")
             Exit Sub
         End If
 
-        Dim selectedRow As DataGridViewRow = DataGridView1.SelectedRows(0)
+        Dim selectedRow As DataGridViewRow = dgvtransaction.SelectedRows(0)
         Dim txnNo As String = selectedRow.Cells("TransactionNo").Value.ToString()
         Dim currentStatus As String = selectedRow.Cells("Status").Value.ToString()
 

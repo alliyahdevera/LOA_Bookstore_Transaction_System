@@ -37,7 +37,7 @@ Partial Class frmSalesByItem
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvsalesreport = New System.Windows.Forms.DataGridView()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -46,14 +46,14 @@ Partial Class frmSalesByItem
         Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btngenerate = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.dtto = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.dtfrom = New System.Windows.Forms.DateTimePicker()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvsalesreport, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -221,23 +221,23 @@ Partial Class frmSalesByItem
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.DataGridView1)
+        Me.Panel5.Controls.Add(Me.dgvsalesreport)
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(22, 128)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1170, 610)
         Me.Panel5.TabIndex = 125
         '
-        'DataGridView1
+        'dgvsalesreport
         '
-        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.Category, Me.Quantity, Me.TotalSales, Me.AmountPaid})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 34)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1170, 575)
-        Me.DataGridView1.TabIndex = 1
+        Me.dgvsalesreport.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvsalesreport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvsalesreport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.Category, Me.Quantity, Me.TotalSales, Me.AmountPaid})
+        Me.dgvsalesreport.Location = New System.Drawing.Point(-1, 34)
+        Me.dgvsalesreport.Name = "dgvsalesreport"
+        Me.dgvsalesreport.ReadOnly = True
+        Me.dgvsalesreport.Size = New System.Drawing.Size(1170, 575)
+        Me.dgvsalesreport.TabIndex = 1
         '
         'ProductCode
         '
@@ -295,57 +295,62 @@ Partial Class frmSalesByItem
         Me.Label7.TabIndex = 25
         Me.Label7.Text = "SALES REPORTS"
         '
-        'Button2
+        'btngenerate
         '
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Location = New System.Drawing.Point(660, 85)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(101, 28)
-        Me.Button2.TabIndex = 124
-        Me.Button2.Text = "Generate"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btngenerate.Location = New System.Drawing.Point(655, 85)
+        Me.btngenerate.Name = "btngenerate"
+        Me.btngenerate.Size = New System.Drawing.Size(101, 28)
+        Me.btngenerate.TabIndex = 138
+        Me.btngenerate.Text = "Generate"
+        Me.btngenerate.UseVisualStyleBackColor = True
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(358, 91)
+        Me.Label2.Location = New System.Drawing.Point(356, 91)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
-        Me.Label2.TabIndex = 123
+        Me.Label2.TabIndex = 137
         Me.Label2.Text = "To"
         '
-        'DateTimePicker2
+        'dtto
         '
-        Me.DateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker2.Location = New System.Drawing.Point(386, 86)
-        Me.DateTimePicker2.Name = "DateTimePicker2"
-        Me.DateTimePicker2.Size = New System.Drawing.Size(251, 27)
-        Me.DateTimePicker2.TabIndex = 122
+        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtto.Location = New System.Drawing.Point(384, 86)
+        Me.dtto.Name = "dtto"
+        Me.dtto.Size = New System.Drawing.Size(251, 27)
+        Me.dtto.TabIndex = 136
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(25, 91)
+        Me.Label1.Location = New System.Drawing.Point(23, 91)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 17)
-        Me.Label1.TabIndex = 121
+        Me.Label1.TabIndex = 135
         Me.Label1.Text = "Date from"
         '
-        'DateTimePicker1
+        'dtfrom
         '
-        Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker1.Location = New System.Drawing.Point(98, 86)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(251, 27)
-        Me.DateTimePicker1.TabIndex = 120
+        Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtfrom.Location = New System.Drawing.Point(96, 86)
+        Me.dtfrom.Name = "dtfrom"
+        Me.dtfrom.Size = New System.Drawing.Size(251, 27)
+        Me.dtfrom.TabIndex = 134
         '
         'frmSalesByItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 817)
+        Me.Controls.Add(Me.btngenerate)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.dtto)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.dtfrom)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label8)
@@ -355,18 +360,13 @@ Partial Class frmSalesByItem
         Me.Controls.Add(Me.btnexportexcel)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.Panel5)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.DateTimePicker2)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.DateTimePicker1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmSalesByItem"
         Me.Text = "frmSalesReport"
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.Panel5.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvsalesreport, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.ResumeLayout(False)
@@ -389,18 +389,18 @@ Partial Class frmSalesByItem
     Friend WithEvents Label28 As Label
     Friend WithEvents lblposition As Label
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvsalesreport As DataGridView
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Label2 As Label
-    Friend WithEvents DateTimePicker2 As DateTimePicker
-    Friend WithEvents Label1 As Label
-    Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
     Friend WithEvents Category As DataGridViewTextBoxColumn
     Friend WithEvents Quantity As DataGridViewTextBoxColumn
     Friend WithEvents TotalSales As DataGridViewTextBoxColumn
     Friend WithEvents AmountPaid As DataGridViewTextBoxColumn
+    Friend WithEvents btngenerate As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents dtto As DateTimePicker
+    Friend WithEvents Label1 As Label
+    Friend WithEvents dtfrom As DateTimePicker
 End Class

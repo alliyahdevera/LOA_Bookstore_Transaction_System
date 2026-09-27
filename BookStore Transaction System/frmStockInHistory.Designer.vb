@@ -31,7 +31,7 @@ Partial Class frmStockInHistory
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvstockinhistory = New System.Windows.Forms.DataGridView()
         Me.ReferenceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -42,7 +42,7 @@ Partial Class frmStockInHistory
         Me.FullName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btngenerate = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
@@ -58,7 +58,7 @@ Partial Class frmStockInHistory
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvstockinhistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -153,22 +153,22 @@ Partial Class frmStockInHistory
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.DataGridView1)
+        Me.Panel5.Controls.Add(Me.dgvstockinhistory)
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(20, 161)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1171, 582)
         Me.Panel5.TabIndex = 83
         '
-        'DataGridView1
+        'dgvstockinhistory
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ReferenceNo, Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Quantity, Me.StockInDate, Me.StockInTime, Me.FullName})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1171, 546)
-        Me.DataGridView1.TabIndex = 1
+        Me.dgvstockinhistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvstockinhistory.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ReferenceNo, Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Quantity, Me.StockInDate, Me.StockInTime, Me.FullName})
+        Me.dgvstockinhistory.Location = New System.Drawing.Point(-1, 35)
+        Me.dgvstockinhistory.Name = "dgvstockinhistory"
+        Me.dgvstockinhistory.ReadOnly = True
+        Me.dgvstockinhistory.Size = New System.Drawing.Size(1171, 546)
+        Me.dgvstockinhistory.TabIndex = 1
         '
         'ReferenceNo
         '
@@ -246,15 +246,15 @@ Partial Class frmStockInHistory
         Me.Label7.TabIndex = 25
         Me.Label7.Text = "STOCK IN HISTORY"
         '
-        'Button2
+        'btngenerate
         '
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Location = New System.Drawing.Point(656, 85)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(96, 28)
-        Me.Button2.TabIndex = 82
-        Me.Button2.Text = "Generate"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btngenerate.Location = New System.Drawing.Point(656, 85)
+        Me.btngenerate.Name = "btngenerate"
+        Me.btngenerate.Size = New System.Drawing.Size(96, 28)
+        Me.btngenerate.TabIndex = 82
+        Me.btngenerate.Text = "Generate"
+        Me.btngenerate.UseVisualStyleBackColor = True
         '
         'Label6
         '
@@ -380,10 +380,10 @@ Partial Class frmStockInHistory
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(16, 753)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(82, 21)
+        Me.Label4.Size = New System.Drawing.Size(86, 21)
         Me.Label4.TabIndex = 99
         Me.Label4.Text = "Total Sales"
         '
@@ -399,7 +399,7 @@ Partial Class frmStockInHistory
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.Panel5)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.DateTimePicker2)
@@ -412,7 +412,7 @@ Partial Class frmStockInHistory
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.Panel5.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvstockinhistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -430,10 +430,10 @@ Partial Class frmStockInHistory
     Friend WithEvents Label28 As Label
     Friend WithEvents lblposition As Label
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvstockinhistory As DataGridView
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btngenerate As Button
     Friend WithEvents Label6 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents DateTimePicker2 As DateTimePicker

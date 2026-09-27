@@ -8,15 +8,15 @@ Public Class frmStockEntry
 
     Private Sub frmStockEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Label7.Text = "PRODUCTS - Click a row to select, then enter the quantity received"   ' fixes a copy-pasted header
-        TextBox2.Text = NewReferenceNo()
-        TextBox2.ReadOnly = True
+        txtreference.Text = NewReferenceNo()
+        txtreference.ReadOnly = True
         DateTimePicker1.Value = Today
-        TextBox4.Text = DateTime.Now.ToString("hh:mm tt")
-        TextBox4.ReadOnly = True
+        txtstockintime.Text = DateTime.Now.ToString("hh:mm tt")
+        txtstockintime.ReadOnly = True
         LoadProducts()
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click   ' Product List (refresh)
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles btnproductlist.Click   ' Product List (refresh)
         LoadProducts()
     End Sub
 
@@ -56,14 +56,14 @@ Public Class frmStockEntry
         selectedVariantId = Convert.ToInt32(DataGridView1.Rows(e.RowIndex).Tag)
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click   ' Add Stock(s)
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnstocks.Click   ' Add Stock(s)
         If selectedVariantId = 0 Then
             MsgBox("Click a product row first to select which item you're stocking in.", vbExclamation, "Stock Entry") : Exit Sub
         End If
-        If Not IsNumeric(TextBox1.Text) OrElse Convert.ToInt32(TextBox1.Text) <= 0 Then
+        If Not IsNumeric(txtstocks.Text) OrElse Convert.ToInt32(txtstocks.Text) <= 0 Then
             MsgBox("Enter a valid quantity.", vbExclamation, "Stock Entry") : Exit Sub
         End If
-        If String.IsNullOrWhiteSpace(TextBox6.Text) Then
+        If String.IsNullOrWhiteSpace(txtstockinby.Text) Then
             MsgBox("Enter who the stock was received from (Stock In By).", vbExclamation, "Stock Entry") : Exit Sub
         End If
 
@@ -72,11 +72,11 @@ Public Class frmStockEntry
             currentStockInId = CInt(ExecInsertGetId(
                 "INSERT INTO TBL_STOCK_INS (reference_no, received_by, stock_in_date, stock_in_time, created_by) VALUES (@r, @rb, @d, @t, @u)",
                 New String() {"@r", "@rb", "@d", "@t", "@u"},
-                New Object() {TextBox2.Text, TextBox6.Text.Trim(), DateTimePicker1.Value.Date, DateTime.Now.TimeOfDay, currentuser.UserID}))
+                New Object() {txtreference.Text, txtstockinby.Text.Trim(), DateTimePicker1.Value.Date, DateTime.Now.TimeOfDay, currentuser.UserID}))
             If currentStockInId = 0 Then Exit Sub
         End If
 
-        Dim qty As Integer = Convert.ToInt32(TextBox1.Text)
+        Dim qty As Integer = Convert.ToInt32(txtstocks.Text)
         Dim ok As Boolean = ExecNonQuery("INSERT INTO TBL_STOCK_IN_DETAILS (stock_in_id, variant_id, quantity) VALUES (@s, @v, @q)",
             New String() {"@s", "@v", "@q"}, New Object() {currentStockInId, selectedVariantId, qty})
 
@@ -84,8 +84,8 @@ Public Class frmStockEntry
             ExecNonQuery("UPDATE TBL_PRODUCT_VARIANTS SET quantity_on_hand = quantity_on_hand + @q WHERE variant_id = @v",
                 New String() {"@q", "@v"}, New Object() {qty, selectedVariantId})
 
-            MsgBox("Stock added. You can add more items under Reference No. " & TextBox2.Text & ", or leave this screen when done.", vbInformation, "Stock Entry")
-            TextBox1.Clear()
+            MsgBox("Stock added. You can add more items under Reference No. " & txtreference.Text & ", or leave this screen when done.", vbInformation, "Stock Entry")
+            txtstocks.Clear()
             selectedVariantId = 0
             LoadProducts()
         End If

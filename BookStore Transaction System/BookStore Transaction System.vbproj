@@ -147,6 +147,12 @@
     <Compile Include="frmDashboard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmLoginHistory.Designer.vb">
+      <DependentUpon>frmLoginHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLoginHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmPriceHistory.Designer.vb">
       <DependentUpon>frmPriceHistory.vb</DependentUpon>
     </Compile>
@@ -276,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDashboard.resx">
       <DependentUpon>frmDashboard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoginHistory.resx">
+      <DependentUpon>frmLoginHistory.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPriceHistory.resx">
       <DependentUpon>frmPriceHistory.vb</DependentUpon>

@@ -121,16 +121,16 @@ Public Class frmStudentManagement
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    DataGridView1.Rows.Clear()
+                    dgvstudents.Rows.Clear()
                     While localDr.Read()
-                        Dim idx As Integer = DataGridView1.Rows.Add(
+                        Dim idx As Integer = dgvstudents.Rows.Add(
                         localDr("student_no").ToString(),
                         localDr("last_name").ToString(),
                         localDr("first_name").ToString(),
                         localDr("grade_level").ToString(),
                         localDr("section").ToString()
                     )
-                        DataGridView1.Rows(idx).Tag = Convert.ToInt32(localDr("student_id"))
+                        dgvstudents.Rows(idx).Tag = Convert.ToInt32(localDr("student_id"))
                     End While
                 End Using
             End Using
@@ -145,9 +145,9 @@ Public Class frmStudentManagement
         LoadGrid(txtSearch.Text.Trim())
     End Sub
 
-    Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+    Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvstudents.CellClick
         If e.RowIndex < 0 Then Exit Sub
-        Dim row As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
+        Dim row As DataGridViewRow = dgvstudents.Rows(e.RowIndex)
         If row.Tag Is Nothing Then Exit Sub
 
         selectedStudentId = Convert.ToInt32(row.Tag)
@@ -288,7 +288,7 @@ Public Class frmStudentManagement
         cboGradeLevel.SelectedIndex = -1
         cboSection.SelectedIndex = -1
         txtSearch.Clear()
-        DataGridView1.ClearSelection()
+        dgvstudents.ClearSelection()
     End Sub
 
 End Class

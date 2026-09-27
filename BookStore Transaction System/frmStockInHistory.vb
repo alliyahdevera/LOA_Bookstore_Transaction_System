@@ -10,7 +10,7 @@ Public Class frmStockInHistory
         LoadGrid()
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click   ' Generate
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btngenerate.Click   ' Generate
         LoadGrid()
     End Sub
 
@@ -35,12 +35,12 @@ Public Class frmStockInHistory
                 localCmd.Parameters.AddWithValue("@d2", DateTimePicker2.Value.Date)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    DataGridView1.Rows.Clear()
+                    dgvstockinhistory.Rows.Clear()
                     Dim totalQty As Integer = 0
                     While localDr.Read()
                         Dim qty As Integer = Convert.ToInt32(localDr("quantity"))
                         totalQty += qty
-                        DataGridView1.Rows.Add(
+                        dgvstockinhistory.Rows.Add(
                             localDr("reference_no").ToString(), localDr("product_code").ToString(), localDr("product_name").ToString(),
                             localDr("product_description").ToString(), qty,
                             Convert.ToDateTime(localDr("stock_in_date")).ToString("yyyy-MM-dd"), localDr("stock_in_time").ToString(),
@@ -57,7 +57,7 @@ Public Class frmStockInHistory
     End Sub
 
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
-        ExportGridToCsv(DataGridView1, "StockInHistory")
+        ExportGridToCsv(dgvstockinhistory, "StockInHistory")
     End Sub
 
 End Class

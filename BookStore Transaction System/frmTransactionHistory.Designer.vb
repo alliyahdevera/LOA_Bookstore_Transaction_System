@@ -27,7 +27,7 @@ Partial Class frmTransactionHistory
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvtransaction = New System.Windows.Forms.DataGridView()
         Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Time = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -53,15 +53,15 @@ Partial Class frmTransactionHistory
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btnviewdetails = New System.Windows.Forms.Button()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lbltotalsales = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel5.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvtransaction, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         Me.Panel13.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -92,22 +92,22 @@ Partial Class frmTransactionHistory
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.DataGridView1)
+        Me.Panel5.Controls.Add(Me.dgvtransaction)
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(27, 112)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1167, 659)
         Me.Panel5.TabIndex = 42
         '
-        'DataGridView1
+        'dgvtransaction
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.tDate, Me.Time, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.Quantity, Me.SubTotal, Me.TotalAmount, Me.AmountPaid, Me.AmountChange, Me.Status, Me.CreatedBy})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1167, 623)
-        Me.DataGridView1.TabIndex = 1
+        Me.dgvtransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvtransaction.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.tDate, Me.Time, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.Quantity, Me.SubTotal, Me.TotalAmount, Me.AmountPaid, Me.AmountChange, Me.Status, Me.CreatedBy})
+        Me.dgvtransaction.Location = New System.Drawing.Point(-1, 35)
+        Me.dgvtransaction.Name = "dgvtransaction"
+        Me.dgvtransaction.ReadOnly = True
+        Me.dgvtransaction.Size = New System.Drawing.Size(1167, 623)
+        Me.dgvtransaction.TabIndex = 1
         '
         'TransactionNo
         '
@@ -318,17 +318,17 @@ Partial Class frmTransactionHistory
         Me.Button3.Text = "Delete Record"
         Me.Button3.UseVisualStyleBackColor = True
         '
-        'Button2
+        'btnviewdetails
         '
-        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Location = New System.Drawing.Point(1064, 73)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(130, 28)
-        Me.Button2.TabIndex = 75
-        Me.Button2.Text = "View Details"
-        Me.Button2.UseVisualStyleBackColor = False
+        Me.btnviewdetails.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnviewdetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnviewdetails.ForeColor = System.Drawing.Color.White
+        Me.btnviewdetails.Location = New System.Drawing.Point(1064, 73)
+        Me.btnviewdetails.Name = "btnviewdetails"
+        Me.btnviewdetails.Size = New System.Drawing.Size(130, 28)
+        Me.btnviewdetails.TabIndex = 75
+        Me.btnviewdetails.Text = "View Details"
+        Me.btnviewdetails.UseVisualStyleBackColor = False
         '
         'Label15
         '
@@ -341,15 +341,15 @@ Partial Class frmTransactionHistory
         Me.Label15.TabIndex = 76
         Me.Label15.Text = "View and Manage All Transaction"
         '
-        'Label1
+        'lbltotalsales
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(115, 782)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(15, 20)
-        Me.Label1.TabIndex = 77
-        Me.Label1.Text = "-"
+        Me.lbltotalsales.AutoSize = True
+        Me.lbltotalsales.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbltotalsales.Location = New System.Drawing.Point(115, 782)
+        Me.lbltotalsales.Name = "lbltotalsales"
+        Me.lbltotalsales.Size = New System.Drawing.Size(15, 20)
+        Me.lbltotalsales.TabIndex = 77
+        Me.lbltotalsales.Text = "-"
         '
         'Panel1
         '
@@ -387,9 +387,9 @@ Partial Class frmTransactionHistory
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lbltotalsales)
         Me.Controls.Add(Me.Label15)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.btnviewdetails)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Panel13)
@@ -400,7 +400,7 @@ Partial Class frmTransactionHistory
         Me.Name = "frmTransactionHistory"
         Me.Text = "frmTransactionHistory"
         Me.Panel5.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvtransaction, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.Panel13.ResumeLayout(False)
@@ -415,7 +415,7 @@ Partial Class frmTransactionHistory
     Friend WithEvents Label14 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvtransaction As DataGridView
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
     Friend WithEvents Panel13 As Panel
@@ -427,7 +427,7 @@ Partial Class frmTransactionHistory
     Friend WithEvents lblposition As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Button3 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btnviewdetails As Button
     Friend WithEvents Label15 As Label
     Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
     Friend WithEvents tDate As DataGridViewTextBoxColumn
@@ -443,7 +443,7 @@ Partial Class frmTransactionHistory
     Friend WithEvents AmountChange As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents CreatedBy As DataGridViewTextBoxColumn
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lbltotalsales As Label
     Friend WithEvents Panel1 As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtSearch As TextBox

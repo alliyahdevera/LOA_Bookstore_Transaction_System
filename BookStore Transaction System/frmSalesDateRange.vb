@@ -10,7 +10,7 @@ Public Class frmSalesDateRange
 
     Private Sub Button3_Click(sender As Object, e As EventArgs)     ' Released Items toggle
         showReleasedOnly = Not showReleasedOnly
-        Button3.Text = If(showReleasedOnly, "Show All Items", "Released Items")
+        btnreleaseditems.Text = If(showReleasedOnly, "Show All Items", "Released Items")
         LoadGrid()
     End Sub
 
@@ -34,8 +34,8 @@ Public Class frmSalesDateRange
             query &= "ORDER BY t.transaction_id DESC"
 
             Using localCmd As New MySqlCommand(query, cn)
-                localCmd.Parameters.AddWithValue("@d1", DateTimePicker1.Value.Date)
-                localCmd.Parameters.AddWithValue("@d2", DateTimePicker2.Value.Date)
+                localCmd.Parameters.AddWithValue("@d1", dtfrom.Value.Date)
+                localCmd.Parameters.AddWithValue("@d2", dtto.Value.Date)
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
                     DataGridView1.Rows.Clear()
                     Dim sumSubtotal As Decimal = 0
@@ -56,7 +56,7 @@ Public Class frmSalesDateRange
             Dim statusFilter As String = If(showReleasedOnly, "AND status = 'Completed'", "")
             Label3.Text = ChrW(8369) & Convert.ToDecimal(If(ExecScalar(
                 "SELECT IFNULL(SUM(total_amount),0) FROM TBL_TRANSACTIONS WHERE DATE(created_at) BETWEEN @d1 AND @d2 AND transaction_no LIKE @s AND status <> 'Cancelled' " & statusFilter,
-                New String() {"@d1", "@d2", "@s"}, New Object() {DateTimePicker1.Value.Date, DateTimePicker2.Value.Date, "%"}), 0)).ToString("N2")
+                New String() {"@d1", "@d2", "@s"}, New Object() {dtfrom.Value.Date, dtto.Value.Date, "%"}), 0)).ToString("N2")
         Catch ex As Exception
             If cn.State = ConnectionState.Open Then cn.Close()
             MsgBox("Error loading reports: " & ex.Message, vbCritical, "Error")
@@ -83,8 +83,8 @@ Public Class frmSalesDateRange
         lblposition.Text = currentuser.Role
         lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy")
 
-        DateTimePicker1.Value = New DateTime(DateTime.Today.Year, DateTime.Today.Month, 1)
-        DateTimePicker2.Value = DateTime.Today
+        dtfrom.Value = New DateTime(DateTime.Today.Year, DateTime.Today.Month, 1)
+        dtto.Value = DateTime.Today
         btnexportexcel.Visible = (currentuser.Role = ROLE_SUPERVISOR OrElse currentuser.Role = ROLE_MANAGEMENT)
         LoadGrid()
     End Sub

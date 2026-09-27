@@ -27,7 +27,7 @@ Partial Class frmSalesDateRange
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.btnexportexcel = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.btnreleaseditems = New System.Windows.Forms.Button()
         Me.Panel13 = New System.Windows.Forms.Panel()
         Me.lblname = New System.Windows.Forms.Label()
         Me.lbldatetime = New System.Windows.Forms.Label()
@@ -52,13 +52,13 @@ Partial Class frmSalesDateRange
         Me.CreatedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.dtto = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.dtfrom = New System.Windows.Forms.DateTimePicker()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.btngenerate = New System.Windows.Forms.Button()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -118,15 +118,15 @@ Partial Class frmSalesDateRange
         Me.btnexportexcel.Text = "Export to Excel"
         Me.btnexportexcel.UseVisualStyleBackColor = False
         '
-        'Button3
+        'btnreleaseditems
         '
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.Location = New System.Drawing.Point(1061, 85)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(130, 28)
-        Me.Button3.TabIndex = 110
-        Me.Button3.Text = "Released Items"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.btnreleaseditems.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnreleaseditems.Location = New System.Drawing.Point(1061, 85)
+        Me.btnreleaseditems.Name = "btnreleaseditems"
+        Me.btnreleaseditems.Size = New System.Drawing.Size(130, 28)
+        Me.btnreleaseditems.TabIndex = 110
+        Me.btnreleaseditems.Text = "Released Items"
+        Me.btnreleaseditems.UseVisualStyleBackColor = True
         '
         'Panel13
         '
@@ -332,16 +332,6 @@ Partial Class frmSalesDateRange
         Me.Label7.TabIndex = 25
         Me.Label7.Text = "SALES REPORTS"
         '
-        'Button2
-        '
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Location = New System.Drawing.Point(659, 85)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(101, 28)
-        Me.Button2.TabIndex = 107
-        Me.Button2.Text = "Generate"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -352,13 +342,13 @@ Partial Class frmSalesDateRange
         Me.Label2.TabIndex = 106
         Me.Label2.Text = "To"
         '
-        'DateTimePicker2
+        'dtto
         '
-        Me.DateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker2.Location = New System.Drawing.Point(385, 86)
-        Me.DateTimePicker2.Name = "DateTimePicker2"
-        Me.DateTimePicker2.Size = New System.Drawing.Size(251, 27)
-        Me.DateTimePicker2.TabIndex = 105
+        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtto.Location = New System.Drawing.Point(385, 86)
+        Me.dtto.Name = "dtto"
+        Me.dtto.Size = New System.Drawing.Size(251, 27)
+        Me.dtto.TabIndex = 105
         '
         'Label1
         '
@@ -370,13 +360,13 @@ Partial Class frmSalesDateRange
         Me.Label1.TabIndex = 104
         Me.Label1.Text = "Date from"
         '
-        'DateTimePicker1
+        'dtfrom
         '
-        Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker1.Location = New System.Drawing.Point(97, 86)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(251, 27)
-        Me.DateTimePicker1.TabIndex = 103
+        Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtfrom.Location = New System.Drawing.Point(97, 86)
+        Me.dtfrom.Name = "dtfrom"
+        Me.dtfrom.Size = New System.Drawing.Size(251, 27)
+        Me.dtfrom.TabIndex = 103
         '
         'Label5
         '
@@ -400,11 +390,22 @@ Partial Class frmSalesDateRange
         Me.Label6.TabIndex = 116
         Me.Label6.Text = "Date Filtering Reports"
         '
+        'btngenerate
+        '
+        Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btngenerate.Location = New System.Drawing.Point(656, 85)
+        Me.btngenerate.Name = "btngenerate"
+        Me.btngenerate.Size = New System.Drawing.Size(101, 28)
+        Me.btngenerate.TabIndex = 125
+        Me.btngenerate.Text = "Generate"
+        Me.btngenerate.UseVisualStyleBackColor = True
+        '
         'frmSalesDateRange
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 817)
+        Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label8)
@@ -412,14 +413,13 @@ Partial Class frmSalesDateRange
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.btnexportexcel)
-        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.btnreleaseditems)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.Panel5)
-        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.DateTimePicker2)
+        Me.Controls.Add(Me.dtto)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.DateTimePicker1)
+        Me.Controls.Add(Me.dtfrom)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmSalesDateRange"
         Me.Text = "frmDateReport"
@@ -439,7 +439,7 @@ Partial Class frmSalesDateRange
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents btnexportexcel As Button
-    Friend WithEvents Button3 As Button
+    Friend WithEvents btnreleaseditems As Button
     Friend WithEvents Panel13 As Panel
     Friend WithEvents lblname As Label
     Friend WithEvents lbldatetime As Label
@@ -464,11 +464,11 @@ Partial Class frmSalesDateRange
     Friend WithEvents CreatedBy As DataGridViewTextBoxColumn
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents Button2 As Button
     Friend WithEvents Label2 As Label
-    Friend WithEvents DateTimePicker2 As DateTimePicker
+    Friend WithEvents dtto As DateTimePicker
     Friend WithEvents Label1 As Label
-    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents dtfrom As DateTimePicker
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
+    Friend WithEvents btngenerate As Button
 End Class

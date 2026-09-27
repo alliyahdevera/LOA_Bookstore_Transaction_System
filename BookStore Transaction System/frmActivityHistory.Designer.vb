@@ -34,19 +34,19 @@ Partial Class frmActivityHistory
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.LogID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Username = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Fullname = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Role = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ActionType = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ReferenceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Details = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DateTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.btngenerate = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.dtto = New System.Windows.Forms.DateTimePicker()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.dtfrom = New System.Windows.Forms.DateTimePicker()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -188,12 +188,48 @@ Partial Class frmActivityHistory
         '
         Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.LogID, Me.Username, Me.Role, Me.ActionType, Me.Details, Me.DateTime})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Username, Me.Fullname, Me.Role, Me.ActionType, Me.ReferenceNo, Me.Details})
         Me.DataGridView1.Location = New System.Drawing.Point(-1, 34)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.Size = New System.Drawing.Size(1170, 575)
-        Me.DataGridView1.TabIndex = 1
+        Me.DataGridView1.TabIndex = 2
+        '
+        'Username
+        '
+        Me.Username.HeaderText = "Username"
+        Me.Username.Name = "Username"
+        Me.Username.ReadOnly = True
+        '
+        'Fullname
+        '
+        Me.Fullname.HeaderText = "Fullname"
+        Me.Fullname.Name = "Fullname"
+        Me.Fullname.ReadOnly = True
+        '
+        'Role
+        '
+        Me.Role.HeaderText = "Role"
+        Me.Role.Name = "Role"
+        Me.Role.ReadOnly = True
+        '
+        'ActionType
+        '
+        Me.ActionType.HeaderText = "Action Type"
+        Me.ActionType.Name = "ActionType"
+        Me.ActionType.ReadOnly = True
+        '
+        'ReferenceNo
+        '
+        Me.ReferenceNo.HeaderText = "Reference No."
+        Me.ReferenceNo.Name = "ReferenceNo"
+        Me.ReferenceNo.ReadOnly = True
+        '
+        'Details
+        '
+        Me.Details.HeaderText = "Details"
+        Me.Details.Name = "Details"
+        Me.Details.ReadOnly = True
         '
         'Panel6
         '
@@ -215,103 +251,70 @@ Partial Class frmActivityHistory
         Me.Label7.TabIndex = 25
         Me.Label7.Text = "Audit Logs"
         '
-        'Button2
+        'btngenerate
         '
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Location = New System.Drawing.Point(660, 85)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(101, 28)
-        Me.Button2.TabIndex = 153
-        Me.Button2.Text = "Generate"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btngenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btngenerate.FlatAppearance.BorderSize = 0
+        Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btngenerate.ForeColor = System.Drawing.Color.White
+        Me.btngenerate.Location = New System.Drawing.Point(653, 85)
+        Me.btngenerate.Name = "btngenerate"
+        Me.btngenerate.Size = New System.Drawing.Size(101, 28)
+        Me.btngenerate.TabIndex = 162
+        Me.btngenerate.Text = "Generate"
+        Me.btngenerate.UseVisualStyleBackColor = False
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(358, 91)
+        Me.Label2.Location = New System.Drawing.Point(354, 91)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
-        Me.Label2.TabIndex = 152
+        Me.Label2.TabIndex = 161
         Me.Label2.Text = "To"
         '
-        'DateTimePicker2
+        'dtto
         '
-        Me.DateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker2.Location = New System.Drawing.Point(386, 86)
-        Me.DateTimePicker2.Name = "DateTimePicker2"
-        Me.DateTimePicker2.Size = New System.Drawing.Size(251, 27)
-        Me.DateTimePicker2.TabIndex = 151
+        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtto.Location = New System.Drawing.Point(382, 86)
+        Me.dtto.Name = "dtto"
+        Me.dtto.Size = New System.Drawing.Size(251, 27)
+        Me.dtto.TabIndex = 160
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(25, 91)
+        Me.Label1.Location = New System.Drawing.Point(21, 91)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 17)
-        Me.Label1.TabIndex = 150
+        Me.Label1.TabIndex = 159
         Me.Label1.Text = "Date from"
         '
-        'DateTimePicker1
+        'dtfrom
         '
-        Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker1.Location = New System.Drawing.Point(98, 86)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(251, 27)
-        Me.DateTimePicker1.TabIndex = 149
-        '
-        'LogID
-        '
-        Me.LogID.HeaderText = "LogID"
-        Me.LogID.Name = "LogID"
-        Me.LogID.ReadOnly = True
-        '
-        'Username
-        '
-        Me.Username.HeaderText = "Username"
-        Me.Username.Name = "Username"
-        Me.Username.ReadOnly = True
-        '
-        'Role
-        '
-        Me.Role.HeaderText = "Role"
-        Me.Role.Name = "Role"
-        Me.Role.ReadOnly = True
-        '
-        'ActionType
-        '
-        Me.ActionType.HeaderText = "Action Type"
-        Me.ActionType.Name = "ActionType"
-        Me.ActionType.ReadOnly = True
-        '
-        'Details
-        '
-        Me.Details.HeaderText = "Details"
-        Me.Details.Name = "Details"
-        Me.Details.ReadOnly = True
-        '
-        'DateTime
-        '
-        Me.DateTime.HeaderText = "Date Time"
-        Me.DateTime.Name = "DateTime"
-        Me.DateTime.ReadOnly = True
+        Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtfrom.Location = New System.Drawing.Point(94, 86)
+        Me.dtfrom.Name = "dtfrom"
+        Me.dtfrom.Size = New System.Drawing.Size(251, 27)
+        Me.dtfrom.TabIndex = 158
         '
         'frmActivityHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 817)
+        Me.Controls.Add(Me.btngenerate)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.dtto)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.dtfrom)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.btnexportexcel)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.Panel5)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.DateTimePicker2)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.DateTimePicker1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmActivityHistory"
         Me.Text = "frmActivityHistory"
@@ -337,18 +340,18 @@ Partial Class frmActivityHistory
     Friend WithEvents Label28 As Label
     Friend WithEvents lblposition As Label
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Label2 As Label
-    Friend WithEvents DateTimePicker2 As DateTimePicker
-    Friend WithEvents Label1 As Label
-    Friend WithEvents DateTimePicker1 As DateTimePicker
-    Friend WithEvents LogID As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Username As DataGridViewTextBoxColumn
+    Friend WithEvents Fullname As DataGridViewTextBoxColumn
     Friend WithEvents Role As DataGridViewTextBoxColumn
     Friend WithEvents ActionType As DataGridViewTextBoxColumn
+    Friend WithEvents ReferenceNo As DataGridViewTextBoxColumn
     Friend WithEvents Details As DataGridViewTextBoxColumn
-    Friend WithEvents DateTime As DataGridViewTextBoxColumn
+    Friend WithEvents btngenerate As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents dtto As DateTimePicker
+    Friend WithEvents Label1 As Label
+    Friend WithEvents dtfrom As DateTimePicker
 End Class

@@ -41,7 +41,7 @@ Partial Class frmStudentManagement
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvstudents = New System.Windows.Forms.DataGridView()
         Me.StudentNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -67,7 +67,7 @@ Partial Class frmStudentManagement
         Me.Panel13.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.Panel7.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvstudents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel11.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.SuspendLayout()
@@ -261,28 +261,28 @@ Partial Class frmStudentManagement
         Me.Label10.ForeColor = System.Drawing.Color.White
         Me.Label10.Location = New System.Drawing.Point(7, 8)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(96, 20)
+        Me.Label10.Size = New System.Drawing.Size(119, 20)
         Me.Label10.TabIndex = 10
-        Me.Label10.Text = "List of Users"
+        Me.Label10.Text = "List of Students"
         '
         'Panel7
         '
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel7.Controls.Add(Me.DataGridView1)
+        Me.Panel7.Controls.Add(Me.dgvstudents)
         Me.Panel7.Location = New System.Drawing.Point(30, 327)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(1157, 468)
         Me.Panel7.TabIndex = 102
         '
-        'DataGridView1
+        'dgvstudents
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.StudentNo, Me.LastName, Me.FirstName, Me.GradeLevel, Me.Section})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 34)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1157, 433)
-        Me.DataGridView1.TabIndex = 2
+        Me.dgvstudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvstudents.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.StudentNo, Me.LastName, Me.FirstName, Me.GradeLevel, Me.Section})
+        Me.dgvstudents.Location = New System.Drawing.Point(-1, 34)
+        Me.dgvstudents.Name = "dgvstudents"
+        Me.dgvstudents.ReadOnly = True
+        Me.dgvstudents.Size = New System.Drawing.Size(1157, 433)
+        Me.dgvstudents.TabIndex = 2
         '
         'StudentNo
         '
@@ -505,7 +505,7 @@ Partial Class frmStudentManagement
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.Panel7.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvstudents, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel11.ResumeLayout(False)
         Me.Panel11.PerformLayout()
         Me.Panel5.ResumeLayout(False)
@@ -533,7 +533,7 @@ Partial Class frmStudentManagement
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label10 As Label
     Friend WithEvents Panel7 As Panel
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvstudents As DataGridView
     Friend WithEvents Panel11 As Panel
     Friend WithEvents Label9 As Label
     Friend WithEvents Panel5 As Panel

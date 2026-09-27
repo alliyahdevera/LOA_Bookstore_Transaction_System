@@ -45,7 +45,7 @@ Partial Class frmUserManagement
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvlistusers = New System.Windows.Forms.DataGridView()
         Me.Username = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -71,7 +71,7 @@ Partial Class frmUserManagement
         Me.Panel11.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.Panel7.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvlistusers, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -300,21 +300,21 @@ Partial Class frmUserManagement
         'Panel7
         '
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel7.Controls.Add(Me.DataGridView1)
+        Me.Panel7.Controls.Add(Me.dgvlistusers)
         Me.Panel7.Location = New System.Drawing.Point(30, 355)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(1157, 435)
         Me.Panel7.TabIndex = 54
         '
-        'DataGridView1
+        'dgvlistusers
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Username, Me.Column2, Me.Column5, Me.FirstName, Me.LastName, Me.Column6})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 34)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1167, 400)
-        Me.DataGridView1.TabIndex = 2
+        Me.dgvlistusers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvlistusers.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Username, Me.Column2, Me.Column5, Me.FirstName, Me.LastName, Me.Column6})
+        Me.dgvlistusers.Location = New System.Drawing.Point(-1, 34)
+        Me.dgvlistusers.Name = "dgvlistusers"
+        Me.dgvlistusers.ReadOnly = True
+        Me.dgvlistusers.Size = New System.Drawing.Size(1167, 400)
+        Me.dgvlistusers.TabIndex = 2
         '
         'Username
         '
@@ -558,7 +558,7 @@ Partial Class frmUserManagement
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.Panel7.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvlistusers, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -585,7 +585,7 @@ Partial Class frmUserManagement
     Friend WithEvents Panel7 As Panel
     Friend WithEvents Label11 As Label
     Friend WithEvents txtlastname As TextBox
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvlistusers As DataGridView
     Friend WithEvents txtconfirmpassword As TextBox
     Friend WithEvents Label12 As Label
     Friend WithEvents Label14 As Label
