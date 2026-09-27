@@ -41,7 +41,7 @@
         ComboBox4.SelectedIndex = 0
     End Sub
 
-    Private Sub ComboBox4_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox4.SelectedIndexChanged
+    Private Sub ComboBox4_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox4.SelectedIndexChanged, cboPaymentMethod.SelectedIndexChanged
         If ComboBox4.Text = "Salary Deduction" Then
             TextBox8.Text = GrandTotal.ToString("N2")   ' no cash handed over
             TextBox8.ReadOnly = True
@@ -51,7 +51,7 @@
         RecalculateChange()
     End Sub
 
-    Private Sub TextBox8_TextChanged(sender As Object, e As EventArgs) Handles TextBox8.TextChanged
+    Private Sub TextBox8_TextChanged(sender As Object, e As EventArgs) Handles TextBox8.TextChanged, txtAmountReceived.TextChanged
         RecalculateChange()
     End Sub
 
@@ -63,7 +63,7 @@
         End If
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click   ' Save
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click, btnSave.Click   ' Save
         If Not IsNumeric(TextBox8.Text) Then
             MsgBox("Enter the amount received.", vbExclamation, "Settle Payment")
             Exit Sub

@@ -28,16 +28,16 @@ Partial Class frmPayment
         Me.Label21 = New System.Windows.Forms.Label()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
-        Me.ComboBox4 = New System.Windows.Forms.ComboBox()
-        Me.TextBox7 = New System.Windows.Forms.TextBox()
-        Me.TextBox8 = New System.Windows.Forms.TextBox()
-        Me.TextBox9 = New System.Windows.Forms.TextBox()
+        Me.cboPaymentMethod = New System.Windows.Forms.ComboBox()
+        Me.txtChange = New System.Windows.Forms.TextBox()
+        Me.txtAmountReceived = New System.Windows.Forms.TextBox()
+        Me.txtGrandTotal = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.TextBox12 = New System.Windows.Forms.TextBox()
+        Me.txtORNo = New System.Windows.Forms.TextBox()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnSave = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.dtpORDate = New System.Windows.Forms.DateTimePicker()
         Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
         Me.Panel12.SuspendLayout()
         Me.SuspendLayout()
@@ -93,45 +93,45 @@ Partial Class frmPayment
         Me.Label20.TabIndex = 22
         Me.Label20.Text = "Payment Method"
         '
-        'ComboBox4
+        'cboPaymentMethod
         '
-        Me.ComboBox4.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox4.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox4.FormattingEnabled = True
-        Me.ComboBox4.Items.AddRange(New Object() {"Cash", "Employee's Salary"})
-        Me.ComboBox4.Location = New System.Drawing.Point(177, 172)
-        Me.ComboBox4.Name = "ComboBox4"
-        Me.ComboBox4.Size = New System.Drawing.Size(241, 28)
-        Me.ComboBox4.TabIndex = 20
+        Me.cboPaymentMethod.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cboPaymentMethod.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboPaymentMethod.FormattingEnabled = True
+        Me.cboPaymentMethod.Items.AddRange(New Object() {"Cash", "Employee's Salary"})
+        Me.cboPaymentMethod.Location = New System.Drawing.Point(177, 172)
+        Me.cboPaymentMethod.Name = "cboPaymentMethod"
+        Me.cboPaymentMethod.Size = New System.Drawing.Size(241, 28)
+        Me.cboPaymentMethod.TabIndex = 20
         '
-        'TextBox7
+        'txtChange
         '
-        Me.TextBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox7.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox7.Location = New System.Drawing.Point(177, 333)
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.ReadOnly = True
-        Me.TextBox7.Size = New System.Drawing.Size(241, 27)
-        Me.TextBox7.TabIndex = 17
+        Me.txtChange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtChange.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtChange.Location = New System.Drawing.Point(177, 333)
+        Me.txtChange.Name = "txtChange"
+        Me.txtChange.ReadOnly = True
+        Me.txtChange.Size = New System.Drawing.Size(241, 27)
+        Me.txtChange.TabIndex = 17
         '
-        'TextBox8
+        'txtAmountReceived
         '
-        Me.TextBox8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox8.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox8.Location = New System.Drawing.Point(177, 278)
-        Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.Size = New System.Drawing.Size(241, 27)
-        Me.TextBox8.TabIndex = 16
+        Me.txtAmountReceived.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtAmountReceived.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtAmountReceived.Location = New System.Drawing.Point(177, 278)
+        Me.txtAmountReceived.Name = "txtAmountReceived"
+        Me.txtAmountReceived.Size = New System.Drawing.Size(241, 27)
+        Me.txtAmountReceived.TabIndex = 16
         '
-        'TextBox9
+        'txtGrandTotal
         '
-        Me.TextBox9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox9.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox9.Location = New System.Drawing.Point(177, 224)
-        Me.TextBox9.Name = "TextBox9"
-        Me.TextBox9.ReadOnly = True
-        Me.TextBox9.Size = New System.Drawing.Size(241, 27)
-        Me.TextBox9.TabIndex = 15
+        Me.txtGrandTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtGrandTotal.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtGrandTotal.Location = New System.Drawing.Point(177, 224)
+        Me.txtGrandTotal.Name = "txtGrandTotal"
+        Me.txtGrandTotal.ReadOnly = True
+        Me.txtGrandTotal.Size = New System.Drawing.Size(241, 27)
+        Me.txtGrandTotal.TabIndex = 15
         '
         'Label19
         '
@@ -143,15 +143,15 @@ Partial Class frmPayment
         Me.Label19.TabIndex = 23
         Me.Label19.Text = "Grand Total"
         '
-        'TextBox12
+        'txtORNo
         '
-        Me.TextBox12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox12.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox12.Location = New System.Drawing.Point(177, 79)
-        Me.TextBox12.Name = "TextBox12"
-        Me.TextBox12.ReadOnly = True
-        Me.TextBox12.Size = New System.Drawing.Size(241, 27)
-        Me.TextBox12.TabIndex = 32
+        Me.txtORNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtORNo.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtORNo.Location = New System.Drawing.Point(177, 79)
+        Me.txtORNo.Name = "txtORNo"
+        Me.txtORNo.ReadOnly = True
+        Me.txtORNo.Size = New System.Drawing.Size(241, 27)
+        Me.txtORNo.TabIndex = 32
         '
         'Label23
         '
@@ -163,17 +163,17 @@ Partial Class frmPayment
         Me.Label23.TabIndex = 33
         Me.Label23.Text = "OR No."
         '
-        'Button1
+        'btnSave
         '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(39, 394)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(379, 37)
-        Me.Button1.TabIndex = 34
-        Me.Button1.Text = "Save"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btnSave.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSave.ForeColor = System.Drawing.Color.White
+        Me.btnSave.Location = New System.Drawing.Point(39, 394)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(379, 37)
+        Me.btnSave.TabIndex = 34
+        Me.btnSave.Text = "Save"
+        Me.btnSave.UseVisualStyleBackColor = False
         '
         'Label1
         '
@@ -185,13 +185,13 @@ Partial Class frmPayment
         Me.Label1.TabIndex = 35
         Me.Label1.Text = "OR Date"
         '
-        'DateTimePicker1
+        'dtpORDate
         '
-        Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker1.Location = New System.Drawing.Point(176, 127)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(242, 27)
-        Me.DateTimePicker1.TabIndex = 36
+        Me.dtpORDate.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpORDate.Location = New System.Drawing.Point(176, 127)
+        Me.dtpORDate.Name = "dtpORDate"
+        Me.dtpORDate.Size = New System.Drawing.Size(242, 27)
+        Me.dtpORDate.TabIndex = 36
         '
         'PrintPreviewDialog1
         '
@@ -208,20 +208,20 @@ Partial Class frmPayment
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(451, 464)
-        Me.Controls.Add(Me.DateTimePicker1)
+        Me.Controls.Add(Me.dtpORDate)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.TextBox12)
+        Me.Controls.Add(Me.btnSave)
+        Me.Controls.Add(Me.txtORNo)
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.Panel12)
-        Me.Controls.Add(Me.TextBox7)
+        Me.Controls.Add(Me.txtChange)
         Me.Controls.Add(Me.Label17)
         Me.Controls.Add(Me.Label19)
-        Me.Controls.Add(Me.TextBox9)
+        Me.Controls.Add(Me.txtGrandTotal)
         Me.Controls.Add(Me.Label18)
-        Me.Controls.Add(Me.TextBox8)
+        Me.Controls.Add(Me.txtAmountReceived)
         Me.Controls.Add(Me.Label20)
-        Me.Controls.Add(Me.ComboBox4)
+        Me.Controls.Add(Me.cboPaymentMethod)
         Me.Name = "frmPayment"
         Me.Text = "frmPayment"
         Me.Panel12.ResumeLayout(False)
@@ -235,15 +235,15 @@ Partial Class frmPayment
     Friend WithEvents Label21 As Label
     Friend WithEvents Label18 As Label
     Friend WithEvents Label20 As Label
-    Friend WithEvents ComboBox4 As ComboBox
-    Friend WithEvents TextBox7 As TextBox
-    Friend WithEvents TextBox8 As TextBox
-    Friend WithEvents TextBox9 As TextBox
+    Friend WithEvents cboPaymentMethod As ComboBox
+    Friend WithEvents txtChange As TextBox
+    Friend WithEvents txtAmountReceived As TextBox
+    Friend WithEvents txtGrandTotal As TextBox
     Friend WithEvents Label19 As Label
-    Friend WithEvents TextBox12 As TextBox
+    Friend WithEvents txtORNo As TextBox
     Friend WithEvents Label23 As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnSave As Button
     Friend WithEvents Label1 As Label
-    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents dtpORDate As DateTimePicker
     Friend WithEvents PrintPreviewDialog1 As PrintPreviewDialog
 End Class
