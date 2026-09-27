@@ -18,15 +18,15 @@ Public Class frmInventory
             MsgBox("Only the Bookstore Supervisor can manage product information.", vbExclamation, "Access Denied")
             Exit Sub
         End If
-        OpenTab(Button3, GetType(frmManageProducts))
+        OpenTab(btnManageProducts, GetType(frmManageProducts))
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click, btnStockEntry.Click   ' Stock Entry
-        OpenTab(Button5, GetType(frmStockEntry))
+    Private Sub btnStockEntry_Click(sender As Object, e As EventArgs) Handles btnStockEntry.Click, btnStockEntry.Click   ' Stock Entry
+        OpenTab(btnStockEntry, GetType(frmStockEntry))
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click, btnStockInHistory.Click   ' Stock In History
-        OpenTab(Button4, GetType(frmStockInHistory))
+    Private Sub btnStockInHistory_Click(sender As Object, e As EventArgs) Handles btnStockInHistory.Click, btnStockInHistory.Click   ' Stock In History
+        OpenTab(btnStockInHistory, GetType(frmStockInHistory))
     End Sub
 
     Private Sub OpenTab(activeBtn As Button, formType As Type)
@@ -44,13 +44,13 @@ Public Class frmInventory
         _currentForm = frm
         frm.Show()
 
-        For Each btn As Button In New Button() {btnProductList, Button3, Button5, Button4, Button5}
+        For Each btn As Button In New Button() {btnProductList, btnManageProducts, btnStockEntry, btnStockInHistory, btnLowLevelStocks}
             btn.BackColor = Color.FromArgb(1, 21, 78)
         Next
         activeBtn.BackColor = Color.FromArgb(25, 55, 140)
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click, btnLowLevelStocks.Click
-        OpenTab(Button1, GetType(frmLowLevelStocks))
+    Private Sub btnLowLevelStocks_Click(sender As Object, e As EventArgs) Handles btnProductList.Click, btnLowLevelStocks.Click
+        OpenTab(btnLowLevelStocks, GetType(frmLowLevelStocks))
     End Sub
 End Class

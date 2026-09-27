@@ -36,25 +36,7 @@ Partial Class frmPOS
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.ComboBox5 = New System.Windows.Forms.ComboBox()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.TextBox11 = New System.Windows.Forms.TextBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.TextBox10 = New System.Windows.Forms.TextBox()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.btnAddToCart = New System.Windows.Forms.Button()
-        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -67,7 +49,6 @@ Partial Class frmPOS
         Me.Label15 = New System.Windows.Forms.Label()
         Me.btnSettlePayment = New System.Windows.Forms.Button()
         Me.btnCancelTransaction = New System.Windows.Forms.Button()
-        Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.lbldatetime = New System.Windows.Forms.Label()
         Me.Label27 = New System.Windows.Forms.Label()
@@ -101,20 +82,50 @@ Partial Class frmPOS
         Me.btnRemoveItem = New System.Windows.Forms.Button()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.dgvlistproducts = New System.Windows.Forms.DataGridView()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductDescription = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TypeofProduct = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ReorderLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel5.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel6.SuspendLayout()
         Me.Panel7.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel8.SuspendLayout()
-        Me.Panel10.SuspendLayout()
         Me.Panel11.SuspendLayout()
         Me.Panel13.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel9.SuspendLayout()
+        Me.Panel6.SuspendLayout()
+        Me.Panel10.SuspendLayout()
+        CType(Me.dgvlistproducts, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel12.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel5
@@ -128,9 +139,10 @@ Partial Class frmPOS
         Me.Panel5.Controls.Add(Me.Label3)
         Me.Panel5.Controls.Add(Me.TextBox3)
         Me.Panel5.Controls.Add(Me.TextBox2)
-        Me.Panel5.Location = New System.Drawing.Point(34, 77)
+        Me.Panel5.Controls.Add(Me.Panel11)
+        Me.Panel5.Location = New System.Drawing.Point(844, 115)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(464, 281)
+        Me.Panel5.Size = New System.Drawing.Size(345, 252)
         Me.Panel5.TabIndex = 9
         '
         'Panel1
@@ -139,16 +151,16 @@ Partial Class frmPOS
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(141, 67)
+        Me.Panel1.Location = New System.Drawing.Point(147, 65)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(292, 26)
+        Me.Panel1.Size = New System.Drawing.Size(178, 26)
         Me.Panel1.TabIndex = 96
         '
         'PictureBox1
         '
         Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox1.Location = New System.Drawing.Point(263, 3)
+        Me.PictureBox1.Location = New System.Drawing.Point(152, 2)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(22, 19)
         Me.PictureBox1.TabIndex = 29
@@ -158,9 +170,9 @@ Partial Class frmPOS
         '
         Me.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSearch.Location = New System.Drawing.Point(2, 2)
+        Me.txtSearch.Location = New System.Drawing.Point(3, 2)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(258, 20)
+        Me.txtSearch.Size = New System.Drawing.Size(145, 20)
         Me.txtSearch.TabIndex = 28
         '
         'ComboBox6
@@ -169,16 +181,16 @@ Partial Class frmPOS
         Me.ComboBox6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox6.FormattingEnabled = True
         Me.ComboBox6.Items.AddRange(New Object() {"Kinder", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year", "2nd Year", "3rd Year", "4th Year"})
-        Me.ComboBox6.Location = New System.Drawing.Point(141, 166)
+        Me.ComboBox6.Location = New System.Drawing.Point(147, 155)
         Me.ComboBox6.Name = "ComboBox6"
-        Me.ComboBox6.Size = New System.Drawing.Size(292, 25)
+        Me.ComboBox6.Size = New System.Drawing.Size(178, 25)
         Me.ComboBox6.TabIndex = 26
         '
         'Label7
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(22, 226)
+        Me.Label7.Location = New System.Drawing.Point(20, 209)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(110, 17)
         Me.Label7.TabIndex = 14
@@ -188,7 +200,7 @@ Partial Class frmPOS
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(22, 169)
+        Me.Label8.Location = New System.Drawing.Point(20, 159)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(77, 17)
         Me.Label8.TabIndex = 13
@@ -198,7 +210,7 @@ Partial Class frmPOS
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(22, 116)
+        Me.Label6.Location = New System.Drawing.Point(20, 112)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(91, 17)
         Me.Label6.TabIndex = 12
@@ -208,7 +220,7 @@ Partial Class frmPOS
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(22, 69)
+        Me.Label3.Location = New System.Drawing.Point(20, 65)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(77, 17)
         Me.Label3.TabIndex = 11
@@ -218,20 +230,20 @@ Partial Class frmPOS
         '
         Me.TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox3.Location = New System.Drawing.Point(141, 223)
+        Me.TextBox3.Location = New System.Drawing.Point(147, 205)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.ReadOnly = True
-        Me.TextBox3.Size = New System.Drawing.Size(292, 25)
+        Me.TextBox3.Size = New System.Drawing.Size(178, 25)
         Me.TextBox3.TabIndex = 3
         '
         'TextBox2
         '
         Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(141, 113)
+        Me.TextBox2.Location = New System.Drawing.Point(147, 108)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.ReadOnly = True
-        Me.TextBox2.Size = New System.Drawing.Size(292, 25)
+        Me.TextBox2.Size = New System.Drawing.Size(178, 25)
         Me.TextBox2.TabIndex = 1
         '
         'Label2
@@ -245,214 +257,18 @@ Partial Class frmPOS
         Me.Label2.TabIndex = 10
         Me.Label2.Text = "Customer Information"
         '
-        'Panel6
-        '
-        Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel6.Controls.Add(Me.ComboBox5)
-        Me.Panel6.Controls.Add(Me.Label25)
-        Me.Panel6.Controls.Add(Me.Label22)
-        Me.Panel6.Controls.Add(Me.TextBox11)
-        Me.Panel6.Controls.Add(Me.Label16)
-        Me.Panel6.Controls.Add(Me.TextBox10)
-        Me.Panel6.Controls.Add(Me.Label14)
-        Me.Panel6.Controls.Add(Me.TextBox6)
-        Me.Panel6.Controls.Add(Me.btnAddToCart)
-        Me.Panel6.Controls.Add(Me.ComboBox3)
-        Me.Panel6.Controls.Add(Me.ComboBox2)
-        Me.Panel6.Controls.Add(Me.ComboBox1)
-        Me.Panel6.Controls.Add(Me.Label9)
-        Me.Panel6.Controls.Add(Me.Label10)
-        Me.Panel6.Controls.Add(Me.Label11)
-        Me.Panel6.Controls.Add(Me.Label12)
-        Me.Panel6.Controls.Add(Me.TextBox5)
-        Me.Panel6.Location = New System.Drawing.Point(527, 77)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(661, 281)
-        Me.Panel6.TabIndex = 15
-        '
-        'ComboBox5
-        '
-        Me.ComboBox5.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox5.FormattingEnabled = True
-        Me.ComboBox5.Items.AddRange(New Object() {"Uniform", "Book", "Module", "School Supply", "Office Supply"})
-        Me.ComboBox5.Location = New System.Drawing.Point(128, 102)
-        Me.ComboBox5.Name = "ComboBox5"
-        Me.ComboBox5.Size = New System.Drawing.Size(186, 25)
-        Me.ComboBox5.TabIndex = 25
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(26, 105)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(35, 17)
-        Me.Label25.TabIndex = 24
-        Me.Label25.Text = "Type"
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label22.Location = New System.Drawing.Point(338, 168)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(56, 17)
-        Me.Label22.TabIndex = 23
-        Me.Label22.Text = "Subtotal"
-        '
-        'TextBox11
-        '
-        Me.TextBox11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox11.Location = New System.Drawing.Point(423, 165)
-        Me.TextBox11.Name = "TextBox11"
-        Me.TextBox11.ReadOnly = True
-        Me.TextBox11.Size = New System.Drawing.Size(207, 25)
-        Me.TextBox11.TabIndex = 22
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(339, 117)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(63, 17)
-        Me.Label16.TabIndex = 21
-        Me.Label16.Text = "Unit Price"
-        '
-        'TextBox10
-        '
-        Me.TextBox10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox10.Location = New System.Drawing.Point(423, 115)
-        Me.TextBox10.Name = "TextBox10"
-        Me.TextBox10.ReadOnly = True
-        Me.TextBox10.Size = New System.Drawing.Size(207, 25)
-        Me.TextBox10.TabIndex = 20
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(338, 66)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(56, 17)
-        Me.Label14.TabIndex = 19
-        Me.Label14.Text = "Quantity"
-        '
-        'TextBox6
-        '
-        Me.TextBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox6.Location = New System.Drawing.Point(423, 63)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(207, 25)
-        Me.TextBox6.TabIndex = 18
-        '
         'btnAddToCart
         '
         Me.btnAddToCart.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btnAddToCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAddToCart.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAddToCart.ForeColor = System.Drawing.Color.White
-        Me.btnAddToCart.Location = New System.Drawing.Point(342, 213)
+        Me.btnAddToCart.Location = New System.Drawing.Point(647, 443)
         Me.btnAddToCart.Name = "btnAddToCart"
-        Me.btnAddToCart.Size = New System.Drawing.Size(289, 44)
+        Me.btnAddToCart.Size = New System.Drawing.Size(172, 28)
         Me.btnAddToCart.TabIndex = 18
         Me.btnAddToCart.Text = "Add to Cart"
         Me.btnAddToCart.UseVisualStyleBackColor = False
-        '
-        'ComboBox3
-        '
-        Me.ComboBox3.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Location = New System.Drawing.Point(128, 185)
-        Me.ComboBox3.Name = "ComboBox3"
-        Me.ComboBox3.Size = New System.Drawing.Size(186, 25)
-        Me.ComboBox3.TabIndex = 17
-        '
-        'ComboBox2
-        '
-        Me.ComboBox2.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(128, 143)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(186, 25)
-        Me.ComboBox2.TabIndex = 16
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Uniform", "Book", "Module", "School Supply", "Office Supply"})
-        Me.ComboBox1.Location = New System.Drawing.Point(128, 63)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(186, 25)
-        Me.ComboBox1.TabIndex = 15
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(26, 232)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(95, 17)
-        Me.Label9.TabIndex = 14
-        Me.Label9.Text = "Available Stock"
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(26, 189)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(31, 17)
-        Me.Label10.TabIndex = 13
-        Me.Label10.Text = "Size"
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(26, 146)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(53, 17)
-        Me.Label11.TabIndex = 12
-        Me.Label11.Text = "Product"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(26, 65)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(61, 17)
-        Me.Label12.TabIndex = 11
-        Me.Label12.Text = "Category"
-        '
-        'TextBox5
-        '
-        Me.TextBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox5.Location = New System.Drawing.Point(128, 230)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(186, 25)
-        Me.TextBox5.TabIndex = 3
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.ForeColor = System.Drawing.Color.White
-        Me.Label13.Location = New System.Drawing.Point(7, 7)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(159, 21)
-        Me.Label13.TabIndex = 10
-        Me.Label13.Text = "Product Information"
         '
         'Label1
         '
@@ -470,19 +286,19 @@ Partial Class frmPOS
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.DataGridView1)
         Me.Panel7.Controls.Add(Me.Panel8)
-        Me.Panel7.Location = New System.Drawing.Point(32, 378)
+        Me.Panel7.Location = New System.Drawing.Point(33, 486)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(786, 356)
+        Me.Panel7.Size = New System.Drawing.Size(786, 248)
         Me.Panel7.TabIndex = 16
         '
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductName, Me.Size, Me.Quantity, Me.UnitPrice, Me.SubTotal})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 39)
+        Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(805, 377)
+        Me.DataGridView1.Size = New System.Drawing.Size(804, 272)
         Me.DataGridView1.TabIndex = 1
         '
         'ProductName
@@ -564,22 +380,13 @@ Partial Class frmPOS
         Me.btnCancelTransaction.Text = "Cancel Transaction"
         Me.btnCancelTransaction.UseVisualStyleBackColor = False
         '
-        'Panel10
-        '
-        Me.Panel10.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Panel10.Controls.Add(Me.Label13)
-        Me.Panel10.Location = New System.Drawing.Point(527, 77)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(661, 35)
-        Me.Panel10.TabIndex = 10
-        '
         'Panel11
         '
         Me.Panel11.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Panel11.Controls.Add(Me.Label2)
-        Me.Panel11.Location = New System.Drawing.Point(34, 76)
+        Me.Panel11.Location = New System.Drawing.Point(0, 0)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(464, 35)
+        Me.Panel11.Size = New System.Drawing.Size(384, 35)
         Me.Panel11.TabIndex = 11
         '
         'lbldatetime
@@ -683,7 +490,7 @@ Partial Class frmPOS
         '
         Me.Label26.AutoSize = True
         Me.Label26.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label26.Location = New System.Drawing.Point(947, 30)
+        Me.Label26.Location = New System.Drawing.Point(949, 76)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(71, 17)
         Me.Label26.TabIndex = 90
@@ -693,8 +500,9 @@ Partial Class frmPOS
         '
         Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox4.Location = New System.Drawing.Point(1024, 28)
+        Me.TextBox4.Location = New System.Drawing.Point(1026, 74)
         Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.ReadOnly = True
         Me.TextBox4.Size = New System.Drawing.Size(163, 25)
         Me.TextBox4.TabIndex = 89
         '
@@ -849,7 +657,7 @@ Partial Class frmPOS
         Me.Panel4.Controls.Add(Me.TextBox7)
         Me.Panel4.Controls.Add(Me.Label17)
         Me.Panel4.Controls.Add(Me.Label24)
-        Me.Panel4.Location = New System.Drawing.Point(843, 378)
+        Me.Panel4.Location = New System.Drawing.Point(843, 383)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(344, 255)
         Me.Panel4.TabIndex = 103
@@ -922,11 +730,263 @@ Partial Class frmPOS
         Me.DateTimePicker2.Size = New System.Drawing.Size(200, 20)
         Me.DateTimePicker2.TabIndex = 105
         '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(473, 447)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(56, 17)
+        Me.Label14.TabIndex = 106
+        Me.Label14.Text = "Quantity"
+        '
+        'Panel6
+        '
+        Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel6.Controls.Add(Me.Panel10)
+        Me.Panel6.Location = New System.Drawing.Point(33, 153)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(786, 275)
+        Me.Panel6.TabIndex = 17
+        '
+        'Panel10
+        '
+        Me.Panel10.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Panel10.Controls.Add(Me.Label9)
+        Me.Panel10.Location = New System.Drawing.Point(0, 0)
+        Me.Panel10.Name = "Panel10"
+        Me.Panel10.Size = New System.Drawing.Size(785, 35)
+        Me.Panel10.TabIndex = 0
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.ForeColor = System.Drawing.Color.White
+        Me.Label9.Location = New System.Drawing.Point(7, 6)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(100, 21)
+        Me.Label9.TabIndex = 9
+        Me.Label9.Text = "List of Items"
+        '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.ForeColor = System.Drawing.Color.White
+        Me.Button1.Location = New System.Drawing.Point(33, 115)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(118, 29)
+        Me.Button1.TabIndex = 107
+        Me.Button1.Text = "Uniforms"
+        Me.Button1.UseVisualStyleBackColor = False
+        '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.ForeColor = System.Drawing.Color.White
+        Me.Button2.Location = New System.Drawing.Point(156, 115)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(109, 29)
+        Me.Button2.TabIndex = 108
+        Me.Button2.Text = "Books"
+        Me.Button2.UseVisualStyleBackColor = False
+        '
+        'Button3
+        '
+        Me.Button3.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button3.ForeColor = System.Drawing.Color.White
+        Me.Button3.Location = New System.Drawing.Point(271, 115)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(125, 29)
+        Me.Button3.TabIndex = 109
+        Me.Button3.Text = "Modules"
+        Me.Button3.UseVisualStyleBackColor = False
+        '
+        'Button4
+        '
+        Me.Button4.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button4.ForeColor = System.Drawing.Color.White
+        Me.Button4.Location = New System.Drawing.Point(683, 115)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(136, 29)
+        Me.Button4.TabIndex = 112
+        Me.Button4.Text = "Other Items"
+        Me.Button4.UseVisualStyleBackColor = False
+        '
+        'Button5
+        '
+        Me.Button5.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button5.ForeColor = System.Drawing.Color.White
+        Me.Button5.Location = New System.Drawing.Point(542, 115)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(136, 29)
+        Me.Button5.TabIndex = 111
+        Me.Button5.Text = "Office Supplies"
+        Me.Button5.UseVisualStyleBackColor = False
+        '
+        'Button6
+        '
+        Me.Button6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button6.ForeColor = System.Drawing.Color.White
+        Me.Button6.Location = New System.Drawing.Point(401, 115)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(136, 29)
+        Me.Button6.TabIndex = 110
+        Me.Button6.Text = "School Supplies"
+        Me.Button6.UseVisualStyleBackColor = False
+        '
+        'dgvlistproducts
+        '
+        Me.dgvlistproducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvlistproducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.DataGridViewTextBoxColumn1, Me.ProductDescription, Me.Category, Me.TypeofProduct, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.ReorderLevel, Me.Status})
+        Me.dgvlistproducts.Location = New System.Drawing.Point(34, 187)
+        Me.dgvlistproducts.Name = "dgvlistproducts"
+        Me.dgvlistproducts.ReadOnly = True
+        Me.dgvlistproducts.Size = New System.Drawing.Size(785, 241)
+        Me.dgvlistproducts.TabIndex = 2
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
+        Me.ProductCode.Width = 120
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Product Name"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 180
+        '
+        'ProductDescription
+        '
+        Me.ProductDescription.HeaderText = "Product Description"
+        Me.ProductDescription.Name = "ProductDescription"
+        Me.ProductDescription.ReadOnly = True
+        Me.ProductDescription.Width = 200
+        '
+        'Category
+        '
+        Me.Category.HeaderText = "Category"
+        Me.Category.Name = "Category"
+        Me.Category.ReadOnly = True
+        Me.Category.Width = 130
+        '
+        'TypeofProduct
+        '
+        Me.TypeofProduct.HeaderText = "Type of Product"
+        Me.TypeofProduct.Name = "TypeofProduct"
+        Me.TypeofProduct.ReadOnly = True
+        Me.TypeofProduct.Width = 150
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Size"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Unit Price"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Quantity"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        '
+        'ReorderLevel
+        '
+        Me.ReorderLevel.HeaderText = "Reorder Level"
+        Me.ReorderLevel.Name = "ReorderLevel"
+        Me.ReorderLevel.ReadOnly = True
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
+        '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumericUpDown1.Location = New System.Drawing.Point(535, 444)
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.Size = New System.Drawing.Size(105, 25)
+        Me.NumericUpDown1.TabIndex = 113
+        '
+        'Panel12
+        '
+        Me.Panel12.BackColor = System.Drawing.Color.White
+        Me.Panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel12.Controls.Add(Me.PictureBox2)
+        Me.Panel12.Controls.Add(Me.TextBox5)
+        Me.Panel12.Location = New System.Drawing.Point(244, 75)
+        Me.Panel12.Name = "Panel12"
+        Me.Panel12.Size = New System.Drawing.Size(263, 26)
+        Me.Panel12.TabIndex = 115
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackgroundImage = CType(resources.GetObject("PictureBox2.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox2.Location = New System.Drawing.Point(239, 3)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(19, 19)
+        Me.PictureBox2.TabIndex = 29
+        Me.PictureBox2.TabStop = False
+        '
+        'TextBox5
+        '
+        Me.TextBox5.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox5.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox5.Location = New System.Drawing.Point(3, 3)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.Size = New System.Drawing.Size(230, 20)
+        Me.TextBox5.TabIndex = 28
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(30, 80)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(205, 17)
+        Me.Label10.TabIndex = 114
+        Me.Label10.Text = "Search by Product Code or Name"
+        '
         'frmPOS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
+        Me.Controls.Add(Me.Panel12)
+        Me.Controls.Add(Me.Label10)
+        Me.Controls.Add(Me.NumericUpDown1)
+        Me.Controls.Add(Me.dgvlistproducts)
+        Me.Controls.Add(Me.Button4)
+        Me.Controls.Add(Me.Button5)
+        Me.Controls.Add(Me.Button6)
+        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.Panel6)
+        Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.btnRemoveItem)
         Me.Controls.Add(Me.btnClear)
         Me.Controls.Add(Me.btnSaveTransaction)
@@ -935,14 +995,12 @@ Partial Class frmPOS
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.btnCancelTransaction)
         Me.Controls.Add(Me.Label26)
+        Me.Controls.Add(Me.btnAddToCart)
         Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Panel13)
-        Me.Controls.Add(Me.Panel11)
-        Me.Controls.Add(Me.Panel10)
         Me.Controls.Add(Me.Panel7)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.Panel6)
         Me.Controls.Add(Me.Panel5)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmPOS"
@@ -952,14 +1010,10 @@ Partial Class frmPOS
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout()
         Me.Panel7.ResumeLayout(False)
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel8.ResumeLayout(False)
         Me.Panel8.PerformLayout()
-        Me.Panel10.ResumeLayout(False)
-        Me.Panel10.PerformLayout()
         Me.Panel11.ResumeLayout(False)
         Me.Panel11.PerformLayout()
         Me.Panel13.ResumeLayout(False)
@@ -972,6 +1026,14 @@ Partial Class frmPOS
         Me.Panel4.PerformLayout()
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
+        Me.Panel6.ResumeLayout(False)
+        Me.Panel10.ResumeLayout(False)
+        Me.Panel10.PerformLayout()
+        CType(Me.dgvlistproducts, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel12.ResumeLayout(False)
+        Me.Panel12.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -984,18 +1046,6 @@ Partial Class frmPOS
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents Panel6 As Panel
-    Friend WithEvents Label14 As Label
-    Friend WithEvents TextBox6 As TextBox
-    Friend WithEvents ComboBox3 As ComboBox
-    Friend WithEvents ComboBox2 As ComboBox
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label11 As Label
-    Friend WithEvents Label12 As Label
-    Friend WithEvents Label13 As Label
-    Friend WithEvents TextBox5 As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel7 As Panel
     Friend WithEvents Panel8 As Panel
@@ -1003,15 +1053,8 @@ Partial Class frmPOS
     Friend WithEvents btnAddToCart As Button
     Friend WithEvents btnSettlePayment As Button
     Friend WithEvents btnCancelTransaction As Button
-    Friend WithEvents Panel10 As Panel
     Friend WithEvents Panel11 As Panel
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents Label22 As Label
-    Friend WithEvents TextBox11 As TextBox
-    Friend WithEvents Label16 As Label
-    Friend WithEvents TextBox10 As TextBox
-    Friend WithEvents ComboBox5 As ComboBox
-    Friend WithEvents Label25 As Label
     Friend WithEvents ComboBox6 As ComboBox
     Friend WithEvents lbldatetime As Label
     Friend WithEvents Label27 As Label
@@ -1053,4 +1096,30 @@ Partial Class frmPOS
     Friend WithEvents ComboBox4 As ComboBox
     Friend WithEvents Timer1 As Timer
     Friend WithEvents DateTimePicker2 As DateTimePicker
+    Friend WithEvents Label14 As Label
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents Panel10 As Panel
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button3 As Button
+    Friend WithEvents Button4 As Button
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Button6 As Button
+    Friend WithEvents dgvlistproducts As DataGridView
+    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
+    Friend WithEvents ProductDescription As DataGridViewTextBoxColumn
+    Friend WithEvents Category As DataGridViewTextBoxColumn
+    Friend WithEvents TypeofProduct As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
+    Friend WithEvents ReorderLevel As DataGridViewTextBoxColumn
+    Friend WithEvents Status As DataGridViewTextBoxColumn
+    Friend WithEvents NumericUpDown1 As NumericUpDown
+    Friend WithEvents Panel12 As Panel
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents Label10 As Label
 End Class

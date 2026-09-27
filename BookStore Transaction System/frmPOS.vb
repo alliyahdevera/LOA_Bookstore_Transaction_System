@@ -106,21 +106,21 @@ Public Class frmPOS
         FillCombo(ComboBox1, dt, "category_name", "category_id")
     End Sub
 
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs)
         If ComboBox1.SelectedValue Is Nothing OrElse Not IsNumeric(ComboBox1.SelectedValue) Then Exit Sub
         Dim dt As DataTable = GetDataTable("SELECT category_type_id, type_name FROM TBL_CATEGORY_TYPES WHERE category_id = @c ORDER BY type_name",
                                             New String() {"@c"}, New Object() {ComboBox1.SelectedValue})
         FillCombo(ComboBox5, dt, "type_name", "category_type_id")
     End Sub
 
-    Private Sub ComboBox5_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox5.SelectedIndexChanged
+    Private Sub ComboBox5_SelectedIndexChanged(sender As Object, e As EventArgs)
         If ComboBox5.SelectedValue Is Nothing OrElse Not IsNumeric(ComboBox5.SelectedValue) Then Exit Sub
         Dim dt As DataTable = GetDataTable("SELECT product_id, product_name FROM TBL_PRODUCTS WHERE category_type_id = @t AND status = 'Active' ORDER BY product_name",
                                             New String() {"@t"}, New Object() {ComboBox5.SelectedValue})
         FillCombo(ComboBox2, dt, "product_name", "product_id")
     End Sub
 
-    Private Sub ComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox2.SelectedIndexChanged
+    Private Sub ComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs)
         If ComboBox2.SelectedValue Is Nothing OrElse Not IsNumeric(ComboBox2.SelectedValue) Then Exit Sub
         selectedUnitPrice = Convert.ToDecimal(If(ExecScalar("SELECT unit_price FROM TBL_PRODUCTS WHERE product_id = @p", New String() {"@p"}, New Object() {ComboBox2.SelectedValue}), 0))
         TextBox10.Text = selectedUnitPrice.ToString("N2")
@@ -130,14 +130,14 @@ Public Class frmPOS
         FillCombo(ComboBox3, dt, "size", "variant_id")
     End Sub
 
-    Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
+    Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs)
         If ComboBox3.SelectedValue Is Nothing OrElse Not IsNumeric(ComboBox3.SelectedValue) Then Exit Sub
         selectedVariantId = Convert.ToInt32(ComboBox3.SelectedValue)
         availableStock = Convert.ToInt32(If(ExecScalar("SELECT quantity_on_hand FROM TBL_PRODUCT_VARIANTS WHERE variant_id = @v", New String() {"@v"}, New Object() {selectedVariantId}), 0))
         TextBox5.Text = availableStock.ToString()
     End Sub
 
-    Private Sub TextBox6_TextChanged(sender As Object, e As EventArgs) Handles TextBox6.TextChanged   ' Quantity
+    Private Sub TextBox6_TextChanged(sender As Object, e As EventArgs)    ' Quantity
         If IsNumeric(TextBox6.Text) AndAlso selectedUnitPrice > 0 Then
             TextBox11.Text = (Convert.ToDecimal(TextBox6.Text) * selectedUnitPrice).ToString("N2")
         Else
@@ -355,5 +355,4 @@ Public Class frmPOS
         DataGridView1.Rows.Clear()
         TextBox1.Text = "0.00"
     End Sub
-
 End Class
