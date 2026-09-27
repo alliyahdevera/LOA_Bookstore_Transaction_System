@@ -33,7 +33,7 @@ Partial Class frmActivityHistory
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvAuditLogs = New System.Windows.Forms.DataGridView()
         Me.Username = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Fullname = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Role = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -49,7 +49,7 @@ Partial Class frmActivityHistory
         Me.dtfrom = New System.Windows.Forms.DateTimePicker()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvAuditLogs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -177,23 +177,23 @@ Partial Class frmActivityHistory
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.DataGridView1)
+        Me.Panel5.Controls.Add(Me.dgvAuditLogs)
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(22, 128)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1170, 610)
         Me.Panel5.TabIndex = 154
         '
-        'DataGridView1
+        'dgvAuditLogs
         '
-        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Username, Me.Fullname, Me.Role, Me.ActionType, Me.ReferenceNo, Me.Details})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 34)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1170, 575)
-        Me.DataGridView1.TabIndex = 2
+        Me.dgvAuditLogs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvAuditLogs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvAuditLogs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Username, Me.Fullname, Me.Role, Me.ActionType, Me.ReferenceNo, Me.Details})
+        Me.dgvAuditLogs.Location = New System.Drawing.Point(-1, 34)
+        Me.dgvAuditLogs.Name = "dgvAuditLogs"
+        Me.dgvAuditLogs.ReadOnly = True
+        Me.dgvAuditLogs.Size = New System.Drawing.Size(1170, 575)
+        Me.dgvAuditLogs.TabIndex = 2
         '
         'Username
         '
@@ -321,7 +321,7 @@ Partial Class frmActivityHistory
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.Panel5.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvAuditLogs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.ResumeLayout(False)
@@ -342,7 +342,7 @@ Partial Class frmActivityHistory
     Friend WithEvents Panel5 As Panel
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvAuditLogs As DataGridView
     Friend WithEvents Username As DataGridViewTextBoxColumn
     Friend WithEvents Fullname As DataGridViewTextBoxColumn
     Friend WithEvents Role As DataGridViewTextBoxColumn
