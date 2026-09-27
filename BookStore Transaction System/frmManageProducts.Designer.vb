@@ -22,6 +22,7 @@ Partial Class frmManageProducts
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmManageProducts))
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel13 = New System.Windows.Forms.Panel()
@@ -32,7 +33,7 @@ Partial Class frmManageProducts
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvListOfProducts = New System.Windows.Forms.DataGridView()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductDescription = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -48,20 +49,20 @@ Partial Class frmManageProducts
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
-        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.txtStatus = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.cboTypeOfProduct = New System.Windows.Forms.ComboBox()
+        Me.txtQuantity = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.txtUnitPrice = New System.Windows.Forms.TextBox()
+        Me.txtSize = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.TextBox7 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.cboCategory = New System.Windows.Forms.ComboBox()
+        Me.txtProductDescription = New System.Windows.Forms.TextBox()
+        Me.txtProductName = New System.Windows.Forms.TextBox()
+        Me.txtProductCode = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -75,9 +76,11 @@ Partial Class frmManageProducts
         Me.btnupd = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvListOfProducts, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.Panel7.SuspendLayout()
@@ -184,21 +187,21 @@ Partial Class frmManageProducts
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.DataGridView1)
+        Me.Panel5.Controls.Add(Me.dgvListOfProducts)
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(25, 295)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1162, 467)
         Me.Panel5.TabIndex = 82
         '
-        'DataGridView1
+        'dgvListOfProducts
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeofProduct, Me.Size, Me.UnitPrice, Me.Quantity, Me.ReorderLevel, Me.Status})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1164, 431)
-        Me.DataGridView1.TabIndex = 2
+        Me.dgvListOfProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvListOfProducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeofProduct, Me.Size, Me.UnitPrice, Me.Quantity, Me.ReorderLevel, Me.Status})
+        Me.dgvListOfProducts.Location = New System.Drawing.Point(-1, 35)
+        Me.dgvListOfProducts.Name = "dgvListOfProducts"
+        Me.dgvListOfProducts.Size = New System.Drawing.Size(1164, 431)
+        Me.dgvListOfProducts.TabIndex = 2
         '
         'ProductCode
         '
@@ -298,21 +301,21 @@ Partial Class frmManageProducts
         'Panel7
         '
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel7.Controls.Add(Me.TextBox8)
+        Me.Panel7.Controls.Add(Me.txtStatus)
         Me.Panel7.Controls.Add(Me.Label8)
-        Me.Panel7.Controls.Add(Me.ComboBox1)
-        Me.Panel7.Controls.Add(Me.TextBox1)
+        Me.Panel7.Controls.Add(Me.cboTypeOfProduct)
+        Me.Panel7.Controls.Add(Me.txtQuantity)
         Me.Panel7.Controls.Add(Me.Panel10)
         Me.Panel7.Controls.Add(Me.Label1)
-        Me.Panel7.Controls.Add(Me.TextBox4)
-        Me.Panel7.Controls.Add(Me.TextBox5)
+        Me.Panel7.Controls.Add(Me.txtUnitPrice)
+        Me.Panel7.Controls.Add(Me.txtSize)
         Me.Panel7.Controls.Add(Me.Label2)
         Me.Panel7.Controls.Add(Me.Label3)
         Me.Panel7.Controls.Add(Me.Label6)
-        Me.Panel7.Controls.Add(Me.ComboBox2)
-        Me.Panel7.Controls.Add(Me.TextBox7)
-        Me.Panel7.Controls.Add(Me.TextBox2)
-        Me.Panel7.Controls.Add(Me.TextBox3)
+        Me.Panel7.Controls.Add(Me.cboCategory)
+        Me.Panel7.Controls.Add(Me.txtProductDescription)
+        Me.Panel7.Controls.Add(Me.txtProductName)
+        Me.Panel7.Controls.Add(Me.txtProductCode)
         Me.Panel7.Controls.Add(Me.Label25)
         Me.Panel7.Controls.Add(Me.Label10)
         Me.Panel7.Controls.Add(Me.Label11)
@@ -322,14 +325,14 @@ Partial Class frmManageProducts
         Me.Panel7.Size = New System.Drawing.Size(958, 174)
         Me.Panel7.TabIndex = 92
         '
-        'TextBox8
+        'txtStatus
         '
-        Me.TextBox8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox8.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox8.Location = New System.Drawing.Point(774, 127)
-        Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.Size = New System.Drawing.Size(158, 25)
-        Me.TextBox8.TabIndex = 38
+        Me.txtStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtStatus.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtStatus.Location = New System.Drawing.Point(774, 127)
+        Me.txtStatus.Name = "txtStatus"
+        Me.txtStatus.Size = New System.Drawing.Size(158, 25)
+        Me.txtStatus.TabIndex = 38
         '
         'Label8
         '
@@ -341,24 +344,24 @@ Partial Class frmManageProducts
         Me.Label8.TabIndex = 37
         Me.Label8.Text = "Status"
         '
-        'ComboBox1
+        'cboTypeOfProduct
         '
-        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(515, 84)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(158, 25)
-        Me.ComboBox1.TabIndex = 36
+        Me.cboTypeOfProduct.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cboTypeOfProduct.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboTypeOfProduct.FormattingEnabled = True
+        Me.cboTypeOfProduct.Location = New System.Drawing.Point(515, 84)
+        Me.cboTypeOfProduct.Name = "cboTypeOfProduct"
+        Me.cboTypeOfProduct.Size = New System.Drawing.Size(158, 25)
+        Me.cboTypeOfProduct.TabIndex = 36
         '
-        'TextBox1
+        'txtQuantity
         '
-        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(774, 86)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(158, 25)
-        Me.TextBox1.TabIndex = 35
+        Me.txtQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtQuantity.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtQuantity.Location = New System.Drawing.Point(774, 86)
+        Me.txtQuantity.Name = "txtQuantity"
+        Me.txtQuantity.Size = New System.Drawing.Size(158, 25)
+        Me.txtQuantity.TabIndex = 35
         '
         'Label1
         '
@@ -370,23 +373,23 @@ Partial Class frmManageProducts
         Me.Label1.TabIndex = 32
         Me.Label1.Text = "Type of Product"
         '
-        'TextBox4
+        'txtUnitPrice
         '
-        Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox4.Location = New System.Drawing.Point(774, 44)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(158, 25)
-        Me.TextBox4.TabIndex = 34
+        Me.txtUnitPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtUnitPrice.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtUnitPrice.Location = New System.Drawing.Point(774, 44)
+        Me.txtUnitPrice.Name = "txtUnitPrice"
+        Me.txtUnitPrice.Size = New System.Drawing.Size(158, 25)
+        Me.txtUnitPrice.TabIndex = 34
         '
-        'TextBox5
+        'txtSize
         '
-        Me.TextBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox5.Location = New System.Drawing.Point(515, 128)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(158, 25)
-        Me.TextBox5.TabIndex = 33
+        Me.txtSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSize.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSize.Location = New System.Drawing.Point(515, 128)
+        Me.txtSize.Name = "txtSize"
+        Me.txtSize.Size = New System.Drawing.Size(158, 25)
+        Me.txtSize.TabIndex = 33
         '
         'Label2
         '
@@ -418,42 +421,42 @@ Partial Class frmManageProducts
         Me.Label6.TabIndex = 29
         Me.Label6.Text = "Unit Price"
         '
-        'ComboBox2
+        'cboCategory
         '
-        Me.ComboBox2.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(515, 42)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(158, 25)
-        Me.ComboBox2.TabIndex = 28
+        Me.cboCategory.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cboCategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboCategory.FormattingEnabled = True
+        Me.cboCategory.Location = New System.Drawing.Point(515, 42)
+        Me.cboCategory.Name = "cboCategory"
+        Me.cboCategory.Size = New System.Drawing.Size(158, 25)
+        Me.cboCategory.TabIndex = 28
         '
-        'TextBox7
+        'txtProductDescription
         '
-        Me.TextBox7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox7.Location = New System.Drawing.Point(152, 128)
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.Size = New System.Drawing.Size(210, 25)
-        Me.TextBox7.TabIndex = 27
+        Me.txtProductDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtProductDescription.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtProductDescription.Location = New System.Drawing.Point(152, 128)
+        Me.txtProductDescription.Name = "txtProductDescription"
+        Me.txtProductDescription.Size = New System.Drawing.Size(210, 25)
+        Me.txtProductDescription.TabIndex = 27
         '
-        'TextBox2
+        'txtProductName
         '
-        Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(152, 84)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(210, 25)
-        Me.TextBox2.TabIndex = 26
+        Me.txtProductName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtProductName.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtProductName.Location = New System.Drawing.Point(152, 84)
+        Me.txtProductName.Name = "txtProductName"
+        Me.txtProductName.Size = New System.Drawing.Size(210, 25)
+        Me.txtProductName.TabIndex = 26
         '
-        'TextBox3
+        'txtProductCode
         '
-        Me.TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox3.Location = New System.Drawing.Point(152, 43)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(210, 25)
-        Me.TextBox3.TabIndex = 25
+        Me.txtProductCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtProductCode.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtProductCode.Location = New System.Drawing.Point(152, 43)
+        Me.txtProductCode.Name = "txtProductCode"
+        Me.txtProductCode.Size = New System.Drawing.Size(210, 25)
+        Me.txtProductCode.TabIndex = 25
         '
         'Label25
         '
@@ -617,7 +620,7 @@ Partial Class frmManageProducts
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.Panel5.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvListOfProducts, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.Panel10.ResumeLayout(False)
@@ -648,21 +651,21 @@ Partial Class frmManageProducts
     Friend WithEvents Label25 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
-    Friend WithEvents TextBox7 As TextBox
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents TextBox8 As TextBox
+    Friend WithEvents txtProductDescription As TextBox
+    Friend WithEvents txtProductName As TextBox
+    Friend WithEvents txtProductCode As TextBox
+    Friend WithEvents txtStatus As TextBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents cboTypeOfProduct As ComboBox
+    Friend WithEvents txtQuantity As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents TextBox4 As TextBox
-    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents txtUnitPrice As TextBox
+    Friend WithEvents txtSize As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents ComboBox2 As ComboBox
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents cboCategory As ComboBox
+    Friend WithEvents dgvListOfProducts As DataGridView
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
     Friend WithEvents ProductDescription As DataGridViewTextBoxColumn
@@ -683,4 +686,6 @@ Partial Class frmManageProducts
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label12 As Label
+    Friend WithEvents Timer1 As Timer
+    Friend WithEvents Timer2 As Timer
 End Class
