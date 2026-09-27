@@ -169,7 +169,7 @@ Public Class frmAdminDashboard
     ' ------------------------------------------------------------------
     ' Sidebar Button Click Handlers
     ' ------------------------------------------------------------------
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
         OpenModule(FRM_DASHBOARD)
     End Sub
 

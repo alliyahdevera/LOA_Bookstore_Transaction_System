@@ -32,7 +32,7 @@ Partial Class frmAdminDashboard
         Me.btnTransaction = New System.Windows.Forms.Button()
         Me.btnInventory = New System.Windows.Forms.Button()
         Me.btnPOS = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnDashboard = New System.Windows.Forms.Button()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -56,7 +56,7 @@ Partial Class frmAdminDashboard
         Me.Panel1.Controls.Add(Me.btnTransaction)
         Me.Panel1.Controls.Add(Me.btnInventory)
         Me.Panel1.Controls.Add(Me.btnPOS)
-        Me.Panel1.Controls.Add(Me.Button1)
+        Me.Panel1.Controls.Add(Me.btnDashboard)
         Me.Panel1.Controls.Add(Me.Panel4)
         Me.Panel1.Controls.Add(Me.Panel3)
         Me.Panel1.Controls.Add(Me.Panel2)
@@ -194,21 +194,21 @@ Partial Class frmAdminDashboard
         Me.btnPOS.Text = "POS"
         Me.btnPOS.UseVisualStyleBackColor = False
         '
-        'Button1
+        'btnDashboard
         '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button1.Location = New System.Drawing.Point(15, 100)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(211, 49)
-        Me.Button1.TabIndex = 3
-        Me.Button1.Text = "Dashboard"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btnDashboard.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnDashboard.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnDashboard.FlatAppearance.BorderSize = 0
+        Me.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDashboard.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnDashboard.ForeColor = System.Drawing.Color.White
+        Me.btnDashboard.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnDashboard.Location = New System.Drawing.Point(15, 100)
+        Me.btnDashboard.Name = "btnDashboard"
+        Me.btnDashboard.Size = New System.Drawing.Size(211, 49)
+        Me.btnDashboard.TabIndex = 3
+        Me.btnDashboard.Text = "Dashboard"
+        Me.btnDashboard.UseVisualStyleBackColor = False
         '
         'Panel4
         '
@@ -300,7 +300,7 @@ Partial Class frmAdminDashboard
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Panel2 As Panel
     Friend WithEvents btnPOS As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnDashboard As Button
     Friend WithEvents Panel4 As Panel
     Friend WithEvents btnLogout As Button
     Friend WithEvents btnTransaction As Button
