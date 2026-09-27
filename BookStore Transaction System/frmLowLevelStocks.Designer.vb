@@ -33,7 +33,7 @@ Partial Class frmLowLevelStocks
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvListOfProducts = New System.Windows.Forms.DataGridView()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductDescription = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -54,7 +54,7 @@ Partial Class frmLowLevelStocks
         Me.btnexportexcel = New System.Windows.Forms.Button()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvListOfProducts, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -159,17 +159,17 @@ Partial Class frmLowLevelStocks
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.DataGridView1)
+        Me.Panel5.Controls.Add(Me.dgvListOfProducts)
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(30, 138)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1155, 624)
         Me.Panel5.TabIndex = 86
         '
-        'DataGridView1
+        'dgvListOfProducts
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeofProduct, Me.Size, Me.UnitPrice, Me.Quantity, Me.ReorderLevel, Me.Status})
+        Me.dgvListOfProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvListOfProducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeofProduct, Me.Size, Me.UnitPrice, Me.Quantity, Me.ReorderLevel, Me.Status})
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkRed
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -177,11 +177,11 @@ Partial Class frmLowLevelStocks
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Red
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1155, 588)
-        Me.DataGridView1.TabIndex = 1
+        Me.dgvListOfProducts.DefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvListOfProducts.Location = New System.Drawing.Point(-1, 35)
+        Me.dgvListOfProducts.Name = "dgvListOfProducts"
+        Me.dgvListOfProducts.Size = New System.Drawing.Size(1155, 588)
+        Me.dgvListOfProducts.TabIndex = 1
         '
         'ProductCode
         '
@@ -341,7 +341,7 @@ Partial Class frmLowLevelStocks
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.Panel5.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvListOfProducts, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -361,7 +361,7 @@ Partial Class frmLowLevelStocks
     Friend WithEvents lblposition As Label
     Friend WithEvents Label14 As Label
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvListOfProducts As DataGridView
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
     Friend WithEvents ProductDescription As DataGridViewTextBoxColumn
