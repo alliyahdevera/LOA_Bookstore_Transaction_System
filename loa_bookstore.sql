@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Sep 26, 2026 at 04:31 PM
+-- Host: 127.0.0.1
+-- Generation Time: Sep 28, 2026 at 01:27 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -147,10 +147,10 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (4, 2, 'UNI-JHG-M', 'M', 0, 10),
 (5, 3, 'UNI-SHP-M', 'M', 33, 10),
 (6, 3, 'UNI-SHP-L', 'L', 29, 8),
-(7, 4, 'UNI-COL-M', 'M', 28, 8),
+(7, 4, 'UNI-COL-M', 'M', 27, 8),
 (8, 4, 'UNI-COL-L', 'L', 28, 8),
 (9, 5, 'UNI-PE-S', 'S', 57, 15),
-(10, 5, 'UNI-PE-M', 'M', 56, 15),
+(10, 5, 'UNI-PE-M', 'M', 55, 15),
 (11, 6, 'BK-ENG7', 'N/A', 79, 15),
 (12, 7, 'MOD-MATH10', 'N/A', 118, 20),
 (13, 8, 'SUP-BP-BLU', 'N/A', 460, 50),
@@ -336,7 +336,8 @@ INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`
 (9, 'TXN-20260901-001', 'Employee', NULL, 'Teresita Manalo', 'OR-000459', '2026-09-01', '2026-09-25 11:28:43', 'Cash', 455.00, 455.00, 0.00, 2, 'Completed', NULL),
 (10, 'TXN-20260902-001', 'Parent', 6, 'Ligaya Mercado', 'OR-000460', '2026-09-02', '2026-09-25 11:28:43', 'Cash', 800.00, 800.00, 0.00, 2, 'Completed', NULL),
 (11, 'TXN-20260925115708807', 'Student', 1, 'Miguel Dela Cruz', 'OR-20260925115655352', '2026-09-25', '2026-09-25 11:57:08', 'Cash', 24.00, 25.00, 1.00, 1, 'Completed', NULL),
-(12, 'TXN-20260925162826787', 'Student', 4, 'Sofia Aquino', 'OR-20260925162814491', '2026-09-25', '2026-09-25 16:28:26', 'Cash', 760.00, 1000.00, 240.00, 2, 'Completed', NULL);
+(12, 'TXN-20260925162826787', 'Student', 4, 'Sofia Aquino', 'OR-20260925162814491', '2026-09-25', '2026-09-25 16:28:26', 'Cash', 760.00, 1000.00, 240.00, 2, 'Completed', NULL),
+(13, 'TXN-20260928190514290', 'Student', 24, 'Kevin Clerck Roque', 'OR-20260928190503125', '2026-09-28', '2026-09-28 19:05:14', 'Cash', 630.00, 631.00, 1.00, 1, 'Completed', NULL);
 
 -- --------------------------------------------------------
 
@@ -348,6 +349,7 @@ CREATE TABLE `tbl_transaction_items` (
   `transaction_item_id` int(11) NOT NULL,
   `transaction_id` int(11) NOT NULL,
   `variant_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1,
   `subtotal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -355,30 +357,32 @@ CREATE TABLE `tbl_transaction_items` (
 -- Dumping data for table `tbl_transaction_items`
 --
 
-INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `variant_id`, `subtotal`) VALUES
-(1, 1, 1, 570.00),
-(2, 1, 9, 250.00),
-(3, 2, 9, 500.00),
-(4, 2, 14, 105.00),
-(5, 3, 11, 450.00),
-(6, 3, 13, 60.00),
-(7, 3, 14, 70.00),
-(8, 4, 3, 620.00),
-(9, 4, 10, 250.00),
-(10, 5, 12, 180.00),
-(11, 5, 13, 36.00),
-(12, 6, 5, 680.00),
-(13, 7, 6, 340.00),
-(14, 7, 10, 250.00),
-(15, 8, 8, 760.00),
-(16, 8, 15, 130.00),
-(17, 9, 14, 140.00),
-(18, 9, 15, 195.00),
-(19, 9, 13, 120.00),
-(20, 10, 4, 620.00),
-(21, 10, 12, 180.00),
-(22, 11, 13, 24.00),
-(23, 12, 7, 760.00);
+INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `variant_id`, `quantity`, `subtotal`) VALUES
+(1, 1, 1, 2, 570.00),
+(2, 1, 9, 1, 250.00),
+(3, 2, 9, 2, 500.00),
+(4, 2, 14, 3, 105.00),
+(5, 3, 11, 1, 450.00),
+(6, 3, 13, 5, 60.00),
+(7, 3, 14, 2, 70.00),
+(8, 4, 3, 2, 620.00),
+(9, 4, 10, 1, 250.00),
+(10, 5, 12, 1, 180.00),
+(11, 5, 13, 3, 36.00),
+(12, 6, 5, 2, 680.00),
+(13, 7, 6, 1, 340.00),
+(14, 7, 10, 1, 250.00),
+(15, 8, 8, 2, 760.00),
+(16, 8, 15, 2, 130.00),
+(17, 9, 14, 4, 140.00),
+(18, 9, 15, 3, 195.00),
+(19, 9, 13, 10, 120.00),
+(20, 10, 4, 2, 620.00),
+(21, 10, 12, 1, 180.00),
+(22, 11, 13, 2, 24.00),
+(23, 12, 7, 2, 760.00),
+(24, 13, 7, 1, 380.00),
+(25, 13, 10, 1, 250.00);
 
 -- --------------------------------------------------------
 
@@ -557,13 +561,13 @@ ALTER TABLE `tbl_students`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction_items`
 --
 ALTER TABLE `tbl_transaction_items`
-  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
