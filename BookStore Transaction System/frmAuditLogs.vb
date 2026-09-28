@@ -21,6 +21,7 @@
     Private Sub OpenTab(activeBtn As Button, formType As Type)
         If _currentForm IsNot Nothing Then
             _currentForm.Close()
+            _currentForm.Dispose()
             _currentForm = Nothing
         End If
         Panel1.Controls.Clear()

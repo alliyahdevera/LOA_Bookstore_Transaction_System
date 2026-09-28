@@ -22,6 +22,7 @@ Partial Class frmLoginHistory
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btnexportexcel = New System.Windows.Forms.Button()
@@ -33,7 +34,7 @@ Partial Class frmLoginHistory
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvLoginHistory = New System.Windows.Forms.DataGridView()
         Me.Username = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Fullname = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Role = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -41,14 +42,17 @@ Partial Class frmLoginHistory
         Me.DateTime = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.dtfrom = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.dtto = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btngenerate = New System.Windows.Forms.Button()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.dtpFrom = New System.Windows.Forms.DateTimePicker()
+        Me.dtpTo = New System.Windows.Forms.DateTimePicker()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvLoginHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -176,23 +180,23 @@ Partial Class frmLoginHistory
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.DataGridView1)
+        Me.Panel5.Controls.Add(Me.dgvLoginHistory)
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(22, 128)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1170, 610)
         Me.Panel5.TabIndex = 164
         '
-        'DataGridView1
+        'dgvLoginHistory
         '
-        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Username, Me.Fullname, Me.Role, Me.Status, Me.DateTime})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 34)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1170, 575)
-        Me.DataGridView1.TabIndex = 1
+        Me.dgvLoginHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvLoginHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvLoginHistory.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Username, Me.Fullname, Me.Role, Me.Status, Me.DateTime})
+        Me.dgvLoginHistory.Location = New System.Drawing.Point(-1, 34)
+        Me.dgvLoginHistory.Name = "dgvLoginHistory"
+        Me.dgvLoginHistory.ReadOnly = True
+        Me.dgvLoginHistory.Size = New System.Drawing.Size(1170, 575)
+        Me.dgvLoginHistory.TabIndex = 1
         '
         'Username
         '
@@ -240,17 +244,9 @@ Partial Class frmLoginHistory
         Me.Label7.ForeColor = System.Drawing.Color.White
         Me.Label7.Location = New System.Drawing.Point(7, 7)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(91, 21)
+        Me.Label7.Size = New System.Drawing.Size(113, 21)
         Me.Label7.TabIndex = 25
-        Me.Label7.Text = "Audit Logs"
-        '
-        'dtfrom
-        '
-        Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtfrom.Location = New System.Drawing.Point(94, 86)
-        Me.dtfrom.Name = "dtfrom"
-        Me.dtfrom.Size = New System.Drawing.Size(251, 27)
-        Me.dtfrom.TabIndex = 168
+        Me.Label7.Text = "Login History"
         '
         'Label1
         '
@@ -261,14 +257,6 @@ Partial Class frmLoginHistory
         Me.Label1.Size = New System.Drawing.Size(67, 17)
         Me.Label1.TabIndex = 169
         Me.Label1.Text = "Date from"
-        '
-        'dtto
-        '
-        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtto.Location = New System.Drawing.Point(382, 86)
-        Me.dtto.Name = "dtto"
-        Me.dtto.Size = New System.Drawing.Size(251, 27)
-        Me.dtto.TabIndex = 170
         '
         'Label2
         '
@@ -293,16 +281,52 @@ Partial Class frmLoginHistory
         Me.btngenerate.Text = "Generate"
         Me.btngenerate.UseVisualStyleBackColor = False
         '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Location = New System.Drawing.Point(116, 113)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(200, 20)
+        Me.DateTimePicker1.TabIndex = 173
+        '
+        'DateTimePicker2
+        '
+        Me.DateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimePicker2.Location = New System.Drawing.Point(485, 395)
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(251, 27)
+        Me.DateTimePicker2.TabIndex = 173
+        '
+        'dtpFrom
+        '
+        Me.dtpFrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpFrom.Location = New System.Drawing.Point(94, 86)
+        Me.dtpFrom.Name = "dtpFrom"
+        Me.dtpFrom.Size = New System.Drawing.Size(251, 27)
+        Me.dtpFrom.TabIndex = 173
+        '
+        'dtpTo
+        '
+        Me.dtpTo.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpTo.Location = New System.Drawing.Point(382, 86)
+        Me.dtpTo.Name = "dtpTo"
+        Me.dtpTo.Size = New System.Drawing.Size(251, 27)
+        Me.dtpTo.TabIndex = 174
+        '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 1000
+        '
         'frmLoginHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 817)
+        Me.Controls.Add(Me.dtpTo)
+        Me.Controls.Add(Me.dtpFrom)
         Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.dtto)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.dtfrom)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.btnexportexcel)
@@ -314,7 +338,7 @@ Partial Class frmLoginHistory
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.Panel5.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvLoginHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.ResumeLayout(False)
@@ -333,7 +357,7 @@ Partial Class frmLoginHistory
     Friend WithEvents Label28 As Label
     Friend WithEvents lblposition As Label
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvLoginHistory As DataGridView
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
     Friend WithEvents Username As DataGridViewTextBoxColumn
@@ -341,9 +365,12 @@ Partial Class frmLoginHistory
     Friend WithEvents Role As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents DateTime As DataGridViewTextBoxColumn
-    Friend WithEvents dtfrom As DateTimePicker
     Friend WithEvents Label1 As Label
-    Friend WithEvents dtto As DateTimePicker
     Friend WithEvents Label2 As Label
     Friend WithEvents btngenerate As Button
+    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents DateTimePicker2 As DateTimePicker
+    Friend WithEvents dtpFrom As DateTimePicker
+    Friend WithEvents dtpTo As DateTimePicker
+    Friend WithEvents Timer1 As Timer
 End Class

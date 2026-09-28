@@ -22,6 +22,7 @@ Partial Class frmPriceHistory
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btnexportexcel = New System.Windows.Forms.Button()
@@ -33,7 +34,7 @@ Partial Class frmPriceHistory
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvPriceHistory = New System.Windows.Forms.DataGridView()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.OldPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -44,13 +45,14 @@ Partial Class frmPriceHistory
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.dtto = New System.Windows.Forms.DateTimePicker()
+        Me.dtpto = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.dtfrom = New System.Windows.Forms.DateTimePicker()
+        Me.dtpfrom = New System.Windows.Forms.DateTimePicker()
         Me.btngenerate = New System.Windows.Forms.Button()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvPriceHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -178,23 +180,23 @@ Partial Class frmPriceHistory
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.DataGridView1)
+        Me.Panel5.Controls.Add(Me.dgvPriceHistory)
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(23, 128)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1170, 610)
         Me.Panel5.TabIndex = 140
         '
-        'DataGridView1
+        'dgvPriceHistory
         '
-        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.OldPrice, Me.NewPrice, Me.ChangedBy, Me.DateChanged, Me.Reason})
-        Me.DataGridView1.Location = New System.Drawing.Point(-1, 34)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(1170, 575)
-        Me.DataGridView1.TabIndex = 1
+        Me.dgvPriceHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvPriceHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvPriceHistory.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.OldPrice, Me.NewPrice, Me.ChangedBy, Me.DateChanged, Me.Reason})
+        Me.dgvPriceHistory.Location = New System.Drawing.Point(-1, 34)
+        Me.dgvPriceHistory.Name = "dgvPriceHistory"
+        Me.dgvPriceHistory.ReadOnly = True
+        Me.dgvPriceHistory.Size = New System.Drawing.Size(1170, 575)
+        Me.dgvPriceHistory.TabIndex = 1
         '
         'ProductCode
         '
@@ -268,13 +270,13 @@ Partial Class frmPriceHistory
         Me.Label2.TabIndex = 151
         Me.Label2.Text = "To"
         '
-        'dtto
+        'dtpto
         '
-        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtto.Location = New System.Drawing.Point(384, 87)
-        Me.dtto.Name = "dtto"
-        Me.dtto.Size = New System.Drawing.Size(251, 27)
-        Me.dtto.TabIndex = 150
+        Me.dtpto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpto.Location = New System.Drawing.Point(384, 87)
+        Me.dtpto.Name = "dtpto"
+        Me.dtpto.Size = New System.Drawing.Size(251, 27)
+        Me.dtpto.TabIndex = 150
         '
         'Label1
         '
@@ -286,13 +288,13 @@ Partial Class frmPriceHistory
         Me.Label1.TabIndex = 149
         Me.Label1.Text = "Date from"
         '
-        'dtfrom
+        'dtpfrom
         '
-        Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtfrom.Location = New System.Drawing.Point(96, 87)
-        Me.dtfrom.Name = "dtfrom"
-        Me.dtfrom.Size = New System.Drawing.Size(251, 27)
-        Me.dtfrom.TabIndex = 148
+        Me.dtpfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpfrom.Location = New System.Drawing.Point(96, 87)
+        Me.dtpfrom.Name = "dtpfrom"
+        Me.dtpfrom.Size = New System.Drawing.Size(251, 27)
+        Me.dtpfrom.TabIndex = 148
         '
         'btngenerate
         '
@@ -307,6 +309,11 @@ Partial Class frmPriceHistory
         Me.btngenerate.Text = "Generate"
         Me.btngenerate.UseVisualStyleBackColor = False
         '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 1000
+        '
         'frmPriceHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -314,9 +321,9 @@ Partial Class frmPriceHistory
         Me.ClientSize = New System.Drawing.Size(1220, 817)
         Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.dtto)
+        Me.Controls.Add(Me.dtpto)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.dtfrom)
+        Me.Controls.Add(Me.dtpfrom)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.btnexportexcel)
@@ -328,7 +335,7 @@ Partial Class frmPriceHistory
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.Panel5.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvPriceHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.ResumeLayout(False)
@@ -347,7 +354,7 @@ Partial Class frmPriceHistory
     Friend WithEvents Label28 As Label
     Friend WithEvents lblposition As Label
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvPriceHistory As DataGridView
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
     Friend WithEvents OldPrice As DataGridViewTextBoxColumn
@@ -358,8 +365,9 @@ Partial Class frmPriceHistory
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents dtto As DateTimePicker
+    Friend WithEvents dtpto As DateTimePicker
     Friend WithEvents Label1 As Label
-    Friend WithEvents dtfrom As DateTimePicker
+    Friend WithEvents dtpfrom As DateTimePicker
     Friend WithEvents btngenerate As Button
+    Friend WithEvents Timer1 As Timer
 End Class

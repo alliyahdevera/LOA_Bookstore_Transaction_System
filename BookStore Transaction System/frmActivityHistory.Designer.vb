@@ -22,6 +22,7 @@ Partial Class frmActivityHistory
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btnexportexcel = New System.Windows.Forms.Button()
@@ -33,7 +34,7 @@ Partial Class frmActivityHistory
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.dgvAuditLogs = New System.Windows.Forms.DataGridView()
+        Me.dgvActivityHistory = New System.Windows.Forms.DataGridView()
         Me.Username = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Fullname = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Role = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -44,12 +45,13 @@ Partial Class frmActivityHistory
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btngenerate = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.dtto = New System.Windows.Forms.DateTimePicker()
+        Me.dtpto = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.dtfrom = New System.Windows.Forms.DateTimePicker()
+        Me.dtpfrom = New System.Windows.Forms.DateTimePicker()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        CType(Me.dgvAuditLogs, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvActivityHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -177,23 +179,23 @@ Partial Class frmActivityHistory
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.dgvAuditLogs)
+        Me.Panel5.Controls.Add(Me.dgvActivityHistory)
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(22, 128)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1170, 610)
         Me.Panel5.TabIndex = 154
         '
-        'dgvAuditLogs
+        'dgvActivityHistory
         '
-        Me.dgvAuditLogs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvAuditLogs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvAuditLogs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Username, Me.Fullname, Me.Role, Me.ActionType, Me.ReferenceNo, Me.Details})
-        Me.dgvAuditLogs.Location = New System.Drawing.Point(-1, 34)
-        Me.dgvAuditLogs.Name = "dgvAuditLogs"
-        Me.dgvAuditLogs.ReadOnly = True
-        Me.dgvAuditLogs.Size = New System.Drawing.Size(1170, 575)
-        Me.dgvAuditLogs.TabIndex = 2
+        Me.dgvActivityHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvActivityHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvActivityHistory.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Username, Me.Fullname, Me.Role, Me.ActionType, Me.ReferenceNo, Me.Details})
+        Me.dgvActivityHistory.Location = New System.Drawing.Point(-1, 34)
+        Me.dgvActivityHistory.Name = "dgvActivityHistory"
+        Me.dgvActivityHistory.ReadOnly = True
+        Me.dgvActivityHistory.Size = New System.Drawing.Size(1170, 575)
+        Me.dgvActivityHistory.TabIndex = 2
         '
         'Username
         '
@@ -247,9 +249,9 @@ Partial Class frmActivityHistory
         Me.Label7.ForeColor = System.Drawing.Color.White
         Me.Label7.Location = New System.Drawing.Point(7, 7)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(91, 21)
+        Me.Label7.Size = New System.Drawing.Size(108, 21)
         Me.Label7.TabIndex = 25
-        Me.Label7.Text = "Audit Logs"
+        Me.Label7.Text = "Activity Logs"
         '
         'btngenerate
         '
@@ -274,13 +276,13 @@ Partial Class frmActivityHistory
         Me.Label2.TabIndex = 161
         Me.Label2.Text = "To"
         '
-        'dtto
+        'dtpto
         '
-        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtto.Location = New System.Drawing.Point(382, 86)
-        Me.dtto.Name = "dtto"
-        Me.dtto.Size = New System.Drawing.Size(251, 27)
-        Me.dtto.TabIndex = 160
+        Me.dtpto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpto.Location = New System.Drawing.Point(382, 86)
+        Me.dtpto.Name = "dtpto"
+        Me.dtpto.Size = New System.Drawing.Size(251, 27)
+        Me.dtpto.TabIndex = 160
         '
         'Label1
         '
@@ -292,13 +294,18 @@ Partial Class frmActivityHistory
         Me.Label1.TabIndex = 159
         Me.Label1.Text = "Date from"
         '
-        'dtfrom
+        'dtpfrom
         '
-        Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtfrom.Location = New System.Drawing.Point(94, 86)
-        Me.dtfrom.Name = "dtfrom"
-        Me.dtfrom.Size = New System.Drawing.Size(251, 27)
-        Me.dtfrom.TabIndex = 158
+        Me.dtpfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpfrom.Location = New System.Drawing.Point(94, 86)
+        Me.dtpfrom.Name = "dtpfrom"
+        Me.dtpfrom.Size = New System.Drawing.Size(251, 27)
+        Me.dtpfrom.TabIndex = 158
+        '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 1000
         '
         'frmActivityHistory
         '
@@ -307,9 +314,9 @@ Partial Class frmActivityHistory
         Me.ClientSize = New System.Drawing.Size(1220, 817)
         Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.dtto)
+        Me.Controls.Add(Me.dtpto)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.dtfrom)
+        Me.Controls.Add(Me.dtpfrom)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.btnexportexcel)
@@ -321,7 +328,7 @@ Partial Class frmActivityHistory
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.Panel5.ResumeLayout(False)
-        CType(Me.dgvAuditLogs, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvActivityHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.ResumeLayout(False)
@@ -342,7 +349,7 @@ Partial Class frmActivityHistory
     Friend WithEvents Panel5 As Panel
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents dgvAuditLogs As DataGridView
+    Friend WithEvents dgvActivityHistory As DataGridView
     Friend WithEvents Username As DataGridViewTextBoxColumn
     Friend WithEvents Fullname As DataGridViewTextBoxColumn
     Friend WithEvents Role As DataGridViewTextBoxColumn
@@ -351,7 +358,8 @@ Partial Class frmActivityHistory
     Friend WithEvents Details As DataGridViewTextBoxColumn
     Friend WithEvents btngenerate As Button
     Friend WithEvents Label2 As Label
-    Friend WithEvents dtto As DateTimePicker
+    Friend WithEvents dtpto As DateTimePicker
     Friend WithEvents Label1 As Label
-    Friend WithEvents dtfrom As DateTimePicker
+    Friend WithEvents dtpfrom As DateTimePicker
+    Friend WithEvents Timer1 As Timer
 End Class
