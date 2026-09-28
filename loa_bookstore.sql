@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 28, 2026 at 01:27 PM
+-- Host: localhost
+-- Generation Time: Sep 28, 2026 at 02:13 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `loa_bookstore`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_audit_logs`
+--
+
+CREATE TABLE `tbl_audit_logs` (
+  `audit_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `log_type` enum('Activity','Price Change','Login') NOT NULL DEFAULT 'Activity',
+  `action_type` varchar(100) NOT NULL,
+  `reference_no` varchar(100) DEFAULT NULL,
+  `product_code` varchar(50) DEFAULT NULL,
+  `product_name` varchar(150) DEFAULT NULL,
+  `old_price` decimal(10,2) DEFAULT NULL,
+  `new_price` decimal(10,2) DEFAULT NULL,
+  `details` text DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `reason` text DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -421,6 +443,13 @@ INSERT INTO `tbl_users` (`user_id`, `username`, `password`, `first_name`, `last_
 --
 
 --
+-- Indexes for table `tbl_audit_logs`
+--
+ALTER TABLE `tbl_audit_logs`
+  ADD PRIMARY KEY (`audit_id`),
+  ADD KEY `fk_audit_user` (`user_id`);
+
+--
 -- Indexes for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
@@ -510,6 +539,12 @@ ALTER TABLE `tbl_users`
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_audit_logs`
+--
+ALTER TABLE `tbl_audit_logs`
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
@@ -578,6 +613,12 @@ ALTER TABLE `tbl_users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `tbl_audit_logs`
+--
+ALTER TABLE `tbl_audit_logs`
+  ADD CONSTRAINT `fk_audit_user` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`user_id`);
 
 --
 -- Constraints for table `tbl_category_types`
