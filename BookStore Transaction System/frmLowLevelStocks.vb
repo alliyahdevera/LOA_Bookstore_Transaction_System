@@ -4,12 +4,13 @@ Imports MySql.Data.MySqlClient
 Public Class frmLowLevelStocks
 
     Private Sub frmLowLevelStocks_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Low stock isn't date-based; hide the leftover date filter copied from another form
-        LoadGrid("")
-    End Sub
+        lblname.Text = currentuser.FullName
+        lblposition.Text = currentuser.Role
+        lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy")
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs)
-        LoadGrid(txtSearch.Text.Trim())
+        dgvListOfProducts.ReadOnly = True
+        dgvListOfProducts.AllowUserToAddRows = False
+        LoadGrid("")
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
@@ -31,10 +32,10 @@ Public Class frmLowLevelStocks
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    DataGridView1.Rows.Clear()
+                    dgvListOfProducts.Rows.Clear()
                     While localDr.Read()
-                        DataGridView1.Rows.Add(
-                            localDr("product_code").ToString(), localDr("product_name").ToString(), localDr("product_description").ToString(),
+                        dgvListOfProducts.Rows.Add(
+                            localDr("product_code").ToString(), localDr("product_name").ToString(), If(IsDBNull(localDr("product_description")), "", localDr("product_description").ToString()),
                             localDr("category_name").ToString(), localDr("type_name").ToString(), localDr("size").ToString(),
                             Convert.ToDecimal(localDr("unit_price")).ToString("N2"), localDr("quantity_on_hand").ToString(),
                             localDr("reorder_level").ToString(), localDr("calc_status").ToString())
@@ -49,7 +50,7 @@ Public Class frmLowLevelStocks
     End Sub
 
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
-        ExportGridToCsv(DataGridView1, "LowLevelStocks")
+        ExportGridToCsv(dgvListOfProducts, "LowLevelStocks")
     End Sub
 
 End Class

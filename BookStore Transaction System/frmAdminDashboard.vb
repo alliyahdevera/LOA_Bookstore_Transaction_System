@@ -70,7 +70,7 @@ Public Class frmAdminDashboard
     Private Function GetButton(moduleName As String) As Button
         Select Case moduleName
             Case FRM_DASHBOARD
-                Return Button1          ' Dashboard Button
+                Return btnDashboard     ' Dashboard Button
             Case FRM_POS
                 Return btnPOS
             Case FRM_INVENTORY

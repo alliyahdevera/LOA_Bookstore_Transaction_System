@@ -5,7 +5,7 @@ Public Class frmInventory
 
     Private Sub frmInventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Q39: only the Bookstore Supervisor can add/edit/remove product master data
-        Button3.Visible = (currentuser.Role = ROLE_SUPERVISOR)
+        btnManageProducts.Visible = (currentuser.Role = ROLE_SUPERVISOR)
         OpenTab(btnProductList, GetType(frmProductList))
     End Sub
 
@@ -13,7 +13,7 @@ Public Class frmInventory
         OpenTab(btnProductList, GetType(frmProductList))
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click, btnManageProducts.Click   ' Manage Products
+    Private Sub btnManageProducts_Click(sender As Object, e As EventArgs) Handles btnManageProducts.Click   ' Manage Products
         If currentuser.Role <> ROLE_SUPERVISOR Then
             MsgBox("Only the Bookstore Supervisor can manage product information.", vbExclamation, "Access Denied")
             Exit Sub
@@ -21,12 +21,16 @@ Public Class frmInventory
         OpenTab(btnManageProducts, GetType(frmManageProducts))
     End Sub
 
-    Private Sub btnStockEntry_Click(sender As Object, e As EventArgs) Handles btnStockEntry.Click, btnStockEntry.Click   ' Stock Entry
+    Private Sub btnStockEntry_Click(sender As Object, e As EventArgs) Handles btnStockEntry.Click   ' Stock Entry
         OpenTab(btnStockEntry, GetType(frmStockEntry))
     End Sub
 
-    Private Sub btnStockInHistory_Click(sender As Object, e As EventArgs) Handles btnStockInHistory.Click, btnStockInHistory.Click   ' Stock In History
+    Private Sub btnStockInHistory_Click(sender As Object, e As EventArgs) Handles btnStockInHistory.Click   ' Stock In History
         OpenTab(btnStockInHistory, GetType(frmStockInHistory))
+    End Sub
+
+    Private Sub btnLowLevelStocks_Click(sender As Object, e As EventArgs) Handles btnLowLevelStocks.Click   ' Low Level Stocks
+        OpenTab(btnLowLevelStocks, GetType(frmLowLevelStocks))
     End Sub
 
     Private Sub OpenTab(activeBtn As Button, formType As Type)
@@ -50,7 +54,4 @@ Public Class frmInventory
         activeBtn.BackColor = Color.FromArgb(25, 55, 140)
     End Sub
 
-    Private Sub btnLowLevelStocks_Click(sender As Object, e As EventArgs) Handles btnProductList.Click, btnLowLevelStocks.Click
-        OpenTab(btnLowLevelStocks, GetType(frmLowLevelStocks))
-    End Sub
 End Class

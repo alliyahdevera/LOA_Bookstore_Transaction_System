@@ -10,9 +10,7 @@ Public Class frmDashboard
     '   Chart1            = CRITICAL PRODUCTS (column)
     '   Chart2            = SALES PER MONTH (line)
 
-    ' TBL_TRANSACTION_ITEMS has no quantity column, so quantity sold is derived (subtotal / unit price).
-    ' If you add a quantity column later, change this to "ti.quantity".
-    Private Const QTY_SOLD As String = "ROUND(ti.subtotal / p.unit_price)"
+    Private Const QTY_SOLD As String = "ti.quantity"
 
     Private WithEvents tmrClock As System.Windows.Forms.Timer
 

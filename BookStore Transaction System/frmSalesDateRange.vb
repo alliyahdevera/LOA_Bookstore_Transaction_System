@@ -4,11 +4,11 @@ Public Class frmSalesDateRange
     Private showReleasedOnly As Boolean = False
 
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs)     ' Search
+    Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click     ' Generate
         LoadGrid()
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs)     ' Released Items toggle
+    Private Sub btnreleaseditems_Click(sender As Object, e As EventArgs) Handles btnreleaseditems.Click     ' Released Items toggle
         showReleasedOnly = Not showReleasedOnly
         btnreleaseditems.Text = If(showReleasedOnly, "Show All Items", "Released Items")
         LoadGrid()
@@ -22,7 +22,7 @@ Public Class frmSalesDateRange
         Try
             If Not connection() Then Exit Sub
             Dim query As String = "SELECT t.transaction_no, v.product_code, p.product_name, v.size, p.unit_price, " &
-                                  "ROUND(ti.subtotal/p.unit_price) AS qty, t.total_amount, t.amount_paid, t.amount_change, ti.subtotal, " &
+                                  "ti.quantity AS qty, t.total_amount, t.amount_paid, t.amount_change, ti.subtotal, " &
                                   "DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, u.username " &
                                   "FROM TBL_TRANSACTION_ITEMS ti " &
                                   "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
@@ -36,6 +36,7 @@ Public Class frmSalesDateRange
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@d1", dtfrom.Value.Date)
                 localCmd.Parameters.AddWithValue("@d2", dtto.Value.Date)
+                localCmd.Parameters.AddWithValue("@s", "%")
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
                     DataGridView1.Rows.Clear()
                     Dim sumSubtotal As Decimal = 0
@@ -63,7 +64,7 @@ Public Class frmSalesDateRange
         End Try
     End Sub
 
-    Private Sub btnexportexcel_Click(sender As Object, e As EventArgs)
+    Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
         ExportGridToCsv(DataGridView1, "SalesReport")
     End Sub
 

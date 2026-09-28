@@ -21,7 +21,7 @@ Public Class frmTransactionHistory
             If Not connection() Then Exit Sub
 
             Dim query As String = "SELECT t.transaction_no, DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, " &
-                                  "v.product_code, p.product_name, v.size, p.unit_price, ROUND(ti.subtotal / p.unit_price) AS qty, " &
+                                 "v.product_code, p.product_name, v.size, p.unit_price, ti.quantity AS qty, " &
                                   "ti.subtotal, t.total_amount, t.amount_paid, t.amount_change, t.status, u.username " &
                                   "FROM TBL_TRANSACTION_ITEMS ti " &
                                   "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
@@ -78,7 +78,7 @@ Public Class frmTransactionHistory
 
         Dim txnNo As String = selectedRow.Cells("TransactionNo").Value.ToString()
         Dim dt As DataTable = GetDataTable(
-            "SELECT p.product_name, v.size, ROUND(ti.subtotal/p.unit_price) AS qty, p.unit_price, ti.subtotal " &
+            "SELECT p.product_name, v.size, ti.quantity AS qty, p.unit_price, ti.subtotal " &
             "FROM TBL_TRANSACTION_ITEMS ti " &
             "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
             "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
@@ -122,7 +122,7 @@ Public Class frmTransactionHistory
                 Dim transactionId As Integer = Convert.ToInt32(If(ExecScalar("SELECT transaction_id FROM TBL_TRANSACTIONS WHERE transaction_no = @t", New String() {"@t"}, New Object() {txnNo}), 0))
 
                 Dim items As DataTable = GetDataTable(
-                    "SELECT ti.variant_id, ROUND(ti.subtotal / p.unit_price) AS qty " &
+                    "SELECT ti.variant_id, ti.quantity AS qty " &
                     "FROM TBL_TRANSACTION_ITEMS ti " &
                     "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
                     "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id WHERE ti.transaction_id = @id",
