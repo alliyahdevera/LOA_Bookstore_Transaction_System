@@ -59,6 +59,9 @@ Public Class Login
                             Exit Sub
                         End If
 
+                        ' *** RECORD LOGIN AUDIT LOG ***
+                        InsertLoginAuditLog(currentuser.UserID)
+
                         MsgBox("Welcome, " & currentuser.FullName & "!", vbInformation, "Bookstore Transaction System")
 
                         frmAdminDashboard.Show()
@@ -66,6 +69,8 @@ Public Class Login
                     Else
                         localDr.Close()
                         cn.Close()
+
+                        ' Optional: Log failed login attempt if user exists
                         MsgBox("Invalid Username or Password", vbExclamation, "Bookstore Transaction System")
                         txtPassword.Clear()
                         txtPassword.Focus()
@@ -91,6 +96,45 @@ Public Class Login
         If MsgBox("Are you sure you want to exit system?", vbQuestion + vbYesNo, "Bookstore Transaction System") = vbYes Then
             Application.Exit()
         End If
+    End Sub
+
+    Public Sub RecordAuditLog(userId As Integer, logType As String, actionType As String, status As String, details As String)
+        Try
+            If Not connection() Then Exit Sub
+
+            Dim sql As String = "INSERT INTO tbl_audit_logs (user_id, log_type, action_type, status, details, created_at) " &
+                                "VALUES (@userId, @logType, @actionType, @status, @details, NOW())"
+
+            Using cmd As New MySqlCommand(sql, cn)
+                cmd.Parameters.AddWithValue("@userId", userId)
+                cmd.Parameters.AddWithValue("@logType", logType)
+                cmd.Parameters.AddWithValue("@actionType", actionType)
+                cmd.Parameters.AddWithValue("@status", status)
+                cmd.Parameters.AddWithValue("@details", details)
+                cmd.ExecuteNonQuery()
+            End Using
+            cn.Close()
+        Catch ex As Exception
+            If cn.State = ConnectionState.Open Then cn.Close()
+        End Try
+    End Sub
+
+    Private Sub InsertLoginAuditLog(userId As Integer)
+        Try
+            If Not connection() Then Exit Sub
+
+            Dim query As String = "INSERT INTO tbl_audit_logs " &
+                                  "(user_id, log_type, action_type, status, details, created_at) " &
+                                  "VALUES (@userId, 'Login', 'User Login', 'Success', 'User logged into system', NOW())"
+
+            Using cmd As New MySqlCommand(query, cn)
+                cmd.Parameters.AddWithValue("@userId", userId)
+                cmd.ExecuteNonQuery()
+            End Using
+            cn.Close()
+        Catch ex As Exception
+            If cn.State = ConnectionState.Open Then cn.Close()
+        End Try
     End Sub
 
 End Class

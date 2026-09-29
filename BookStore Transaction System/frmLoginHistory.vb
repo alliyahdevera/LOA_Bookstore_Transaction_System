@@ -86,4 +86,5 @@ Public Class frmLoginHistory
             MsgBox("Error loading login logs: " & ex.Message, vbCritical, "Audit Logs")
         End Try
     End Sub
+
 End Class

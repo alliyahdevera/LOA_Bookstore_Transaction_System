@@ -54,7 +54,7 @@ Public Class frmActivityHistory
             Dim query As String = "SELECT u.username, " &
                                   "CONCAT(u.first_name, ' ', u.last_name) AS fullname, " &
                                   "r.role_name, " &
-                                  "a.action_type, " &
+                                  "IFNULL(a.action_type, '-') AS action_type, " &
                                   "IFNULL(a.reference_no, '-') AS reference_no, " &
                                   "IFNULL(a.details, '-') AS details, " &
                                   "DATE_FORMAT(a.created_at, '%Y-%m-%d %h:%i:%s %p') AS log_datetime " &
