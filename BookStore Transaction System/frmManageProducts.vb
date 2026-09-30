@@ -9,12 +9,7 @@ Public Class frmManageProducts
     ' Form Load & Initialization
     ' ------------------------------------------------------------------
     Private Sub frmManageProducts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Set User Info
-        lblname.Text = currentuser.FullName
-        lblposition.Text = currentuser.Role
-
-        ' Format and Display Current Date & Time
-        lbldatetime.Text = DateTime.Now.ToString("MMMM dd, yyyy - hh:mm tt")
+        SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         ' Lock ComboBoxes so users can only pick allowed items
         cboCategory.DropDownStyle = ComboBoxStyle.DropDownList
@@ -25,9 +20,9 @@ Public Class frmManageProducts
         ClearFields()
     End Sub
 
-    ' Optional: Keeps the live clock running if you have a Timer control on the form
+    ' Keeps the live clock running if you have a Timer control on the form
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        lbldatetime.Text = DateTime.Now.ToString("MMMM dd, yyyy - hh:mm:ss tt")
+        lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy - hh:mm:ss tt")
     End Sub
 
     ' ------------------------------------------------------------------
@@ -190,6 +185,7 @@ Public Class frmManageProducts
     Private Function GetTypeIdByName(name As String) As Integer
         Return Convert.ToInt32(If(ExecScalar("SELECT category_type_id FROM TBL_CATEGORY_TYPES WHERE type_name = @n", New String() {"@n"}, New Object() {name}), 0))
     End Function
+
     ' ADD BUTTON
     Private Sub btnadd_Click(sender As Object, e As EventArgs) Handles btnadd.Click
         If currentuser.Role <> ROLE_SUPERVISOR Then

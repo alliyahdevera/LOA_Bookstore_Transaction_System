@@ -7,6 +7,7 @@ Public Class frmStockEntry
     Private selectedVariantId As Integer = 0
 
     Private Sub frmStockEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetupFooter(Me, lblname, lblposition, lbldatetime)
         Label7.Text = "PRODUCTS - Click a row to select, then enter the quantity received"   ' fixes a copy-pasted header
         txtreference.Text = NewReferenceNo()
         txtreference.ReadOnly = True

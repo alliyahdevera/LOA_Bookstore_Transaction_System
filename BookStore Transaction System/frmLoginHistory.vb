@@ -70,13 +70,16 @@ Public Class frmLoginHistory
                 Using dr As MySqlDataReader = cmd.ExecuteReader()
                     dgvLoginHistory.Rows.Clear()
                     While dr.Read()
-                        dgvLoginHistory.Rows.Add(
-                            dr("username").ToString(),
-                            dr("fullname").ToString(),
-                            dr("role_name").ToString(),
-                            dr("status").ToString(),
-                            dr("log_datetime").ToString()
-                        )
+                        Dim idx As Integer = dgvLoginHistory.Rows.Add(
+        dr("username").ToString(),
+        dr("fullname").ToString(),
+        dr("role_name").ToString(),
+        dr("status").ToString(),
+        dr("log_datetime").ToString()
+    )
+                        If dr("status").ToString().StartsWith("Failed") Then
+                            dgvLoginHistory.Rows(idx).DefaultCellStyle.ForeColor = Color.Firebrick
+                        End If
                     End While
                 End Using
             End Using

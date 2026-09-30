@@ -8,8 +8,7 @@ Public Class frmUserManagement
     ' Form Load & Initialization
     ' ------------------------------------------------------------------
     Private Sub frmUserManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lblname.Text = currentuser.FullName
-        lblposition.Text = currentuser.Role
+        SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         ' Restrict ComboBoxes to selection only (no free typing)
         cboRole.DropDownStyle = ComboBoxStyle.DropDownList
@@ -182,6 +181,7 @@ Public Class frmUserManagement
                 New Object() {txtusername.Text.Trim(), HashPassword(txtpassword.Text), txtfirstname.Text.Trim(), txtlastname.Text.Trim(), roleId, cboStatus.Text.Trim()})
 
             If ok Then
+                LogActivity("Add User", txtusername.Text.Trim(), "Added user " & txtusername.Text.Trim())
                 MsgBox("User added successfully.", vbInformation, "User Management")
                 ClearFields()
                 LoadGrid(txtSearch.Text.Trim())
@@ -192,6 +192,7 @@ Public Class frmUserManagement
             MsgBox("Error adding user: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub
+
     ' UPDATE USER
     Private Sub btnupd_Click(sender As Object, e As EventArgs) Handles btnupd.Click
         If selectedUserId = 0 Then
@@ -225,6 +226,7 @@ Public Class frmUserManagement
             MsgBox("Error updating user: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub
+
     ' DEACTIVATE USER
     Private Sub btnremove_Click(sender As Object, e As EventArgs) Handles btnremove.Click
         If selectedUserId = 0 Then
@@ -240,6 +242,7 @@ Public Class frmUserManagement
         If MsgBox("Deactivate this user? They will no longer be able to log in.", vbYesNo + vbQuestion, "User Management") <> MsgBoxResult.Yes Then Exit Sub
 
         If ExecNonQuery("UPDATE TBL_USERS SET status = 'Inactive' WHERE user_id = @id", New String() {"@id"}, New Object() {selectedUserId}) Then
+            LogActivity("Deactivate User", txtusername.Text.Trim(), "Deactivated user " & txtusername.Text.Trim())
             MsgBox("User deactivated.", vbInformation, "User Management")
             ClearFields()
             LoadGrid(txtSearch.Text.Trim())

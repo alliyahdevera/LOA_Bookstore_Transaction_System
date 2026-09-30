@@ -8,12 +8,12 @@ Public Class frmStudentManagement
     ' Form Load & Initialization
     ' ------------------------------------------------------------------
     Private Sub frmStudentManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lblname.Text = currentuser.FullName
-        lblposition.Text = currentuser.Role
-        lblDateTime.Text = DateTime.Now.ToString("MMMM dd, yyyy")
+        SetupFooter(Me, lblname, lblposition, lbldatetime)
 
-        ' Lock ComboBoxes so users can only pick allowed items (prevents free typing)
-        cboGradeLevel.DropDownStyle = ComboBoxStyle.DropDownList
+        ' Grade Level: selectable AND typeable (with suggestions). Section stays list-only.
+        cboGradeLevel.DropDownStyle = ComboBoxStyle.DropDown
+        cboGradeLevel.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+        cboGradeLevel.AutoCompleteSource = AutoCompleteSource.ListItems
         cboSection.DropDownStyle = ComboBoxStyle.DropDownList
 
         PopulateDropdowns()
@@ -25,7 +25,7 @@ Public Class frmStudentManagement
         ' Grade Level options
         cboGradeLevel.Items.Clear()
         cboGradeLevel.Items.AddRange(New Object() {
-            "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6",
+            "Kinder", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6",
             "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12",
             "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"
         })
@@ -42,11 +42,6 @@ Public Class frmStudentManagement
         })
     End Sub
 
-    ' ------------------------------------------------------------------
-    ' Field Input Validations (Keypress Restrictions)
-    ' ------------------------------------------------------------------
-
-    ' Student No: Numbers and Hyphens only
     ' ------------------------------------------------------------------
     ' Field Input Validations (Keypress Restrictions)
     ' ------------------------------------------------------------------
@@ -93,9 +88,8 @@ Public Class frmStudentManagement
             Return False
         End If
 
-        ' Dropdown selection checks
-        If cboGradeLevel.SelectedIndex = -1 OrElse Not cboGradeLevel.Items.Contains(cboGradeLevel.Text) Then
-            MsgBox("Please select a valid Grade Level from the list.", vbExclamation, "Validation Error")
+        If String.IsNullOrWhiteSpace(cboGradeLevel.Text) Then
+            MsgBox("Grade Level is required.", vbExclamation, "Validation Error")
             cboGradeLevel.Focus()
             Return False
         End If
@@ -108,15 +102,16 @@ Public Class frmStudentManagement
 
         Return True
     End Function
+
     Public Sub LoadGrid(searchText As String)
         Try
             If Not connection() Then Exit Sub
 
             ' Query restricted strictly to student_no OR last_name
             Dim query As String = "SELECT student_id, student_no, last_name, first_name, grade_level, section " &
-                              "FROM tbl_students " &
-                              "WHERE student_no LIKE @s OR last_name LIKE @s " &
-                              "ORDER BY last_name, first_name"
+                                  "FROM tbl_students " &
+                                  "WHERE student_no LIKE @s OR last_name LIKE @s " &
+                                  "ORDER BY last_name, first_name"
 
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
@@ -124,12 +119,12 @@ Public Class frmStudentManagement
                     dgvstudents.Rows.Clear()
                     While localDr.Read()
                         Dim idx As Integer = dgvstudents.Rows.Add(
-                        localDr("student_no").ToString(),
-                        localDr("last_name").ToString(),
-                        localDr("first_name").ToString(),
-                        localDr("grade_level").ToString(),
-                        localDr("section").ToString()
-                    )
+                            localDr("student_no").ToString(),
+                            localDr("last_name").ToString(),
+                            localDr("first_name").ToString(),
+                            localDr("grade_level").ToString(),
+                            localDr("section").ToString()
+                        )
                         dgvstudents.Rows(idx).Tag = Convert.ToInt32(localDr("student_id"))
                     End While
                 End Using
@@ -165,9 +160,7 @@ Public Class frmStudentManagement
     ' ADD BUTTON
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnadd.Click
         If Not ValidateInputs() Then Exit Sub
-        LogActivity("Add Student", txtstudentno.Text.Trim(), "Added " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
-        LogActivity("Update Student", txtstudentno.Text.Trim(), "Updated " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
-        LogActivity("Delete Student", txtstudentno.Text.Trim(), "Deleted " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+
         Try
             Dim checkSql As String = "SELECT COUNT(*) FROM tbl_students WHERE student_no = @sn"
             Dim count As Integer = Convert.ToInt32(ExecScalar(checkSql, New String() {"@sn"}, New Object() {txtstudentno.Text.Trim()}))
@@ -191,6 +184,7 @@ Public Class frmStudentManagement
                 })
 
             If ok Then
+                LogActivity("Add Student", txtstudentno.Text.Trim(), "Added " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
                 MsgBox("Student added successfully.", vbInformation, "Success")
                 ClearFields()
                 LoadGrid(txtSearch.Text.Trim())
@@ -209,9 +203,7 @@ Public Class frmStudentManagement
             MsgBox("Please select a student from the list to update.", vbExclamation, "No Selection")
             Exit Sub
         End If
-        LogActivity("Add Student", txtstudentno.Text.Trim(), "Added " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
-        LogActivity("Update Student", txtstudentno.Text.Trim(), "Updated " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
-        LogActivity("Delete Student", txtstudentno.Text.Trim(), "Deleted " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+
         If Not ValidateInputs() Then Exit Sub
 
         Try
@@ -239,6 +231,7 @@ Public Class frmStudentManagement
                 })
 
             If ok Then
+                LogActivity("Update Student", txtstudentno.Text.Trim(), "Updated " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
                 MsgBox("Student updated successfully.", vbInformation, "Success")
                 ClearFields()
                 LoadGrid(txtSearch.Text.Trim())
@@ -257,9 +250,7 @@ Public Class frmStudentManagement
             MsgBox("Please select a student from the list to remove.", vbExclamation, "No Selection")
             Exit Sub
         End If
-        LogActivity("Add Student", txtstudentno.Text.Trim(), "Added " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
-        LogActivity("Update Student", txtstudentno.Text.Trim(), "Updated " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
-        LogActivity("Delete Student", txtstudentno.Text.Trim(), "Deleted " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+
         If MsgBox("Are you sure you want to delete this student record?", vbYesNo + vbQuestion, "Confirm Delete") <> MsgBoxResult.Yes Then
             Exit Sub
         End If
@@ -269,6 +260,7 @@ Public Class frmStudentManagement
             Dim ok As Boolean = ExecNonQuery(deleteSql, New String() {"@id"}, New Object() {selectedStudentId})
 
             If ok Then
+                LogActivity("Delete Student", txtstudentno.Text.Trim(), "Deleted " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
                 MsgBox("Student record deleted.", vbInformation, "Success")
                 ClearFields()
                 LoadGrid(txtSearch.Text.Trim())
@@ -295,6 +287,8 @@ Public Class frmStudentManagement
         cboSection.SelectedIndex = -1
         txtSearch.Clear()
         dgvstudents.ClearSelection()
+        cboGradeLevel.Text = ""
+        cboSection.Text = ""
     End Sub
 
 End Class

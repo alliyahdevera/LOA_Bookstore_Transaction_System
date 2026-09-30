@@ -4,6 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class frmProductList
 
     Private Sub frmProductList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetupFooter(Me, lblname, lblposition, lbldatetime)
         LoadCards()
         LoadGrid("")
     End Sub

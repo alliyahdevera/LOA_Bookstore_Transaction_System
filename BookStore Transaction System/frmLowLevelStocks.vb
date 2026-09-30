@@ -1,12 +1,9 @@
-﻿' frmLowLevelStocks.vb
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
 
 Public Class frmLowLevelStocks
 
     Private Sub frmLowLevelStocks_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lblname.Text = currentuser.FullName
-        lblposition.Text = currentuser.Role
-        lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy")
+        SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         dgvListOfProducts.ReadOnly = True
         dgvListOfProducts.AllowUserToAddRows = False
@@ -35,10 +32,16 @@ Public Class frmLowLevelStocks
                     dgvListOfProducts.Rows.Clear()
                     While localDr.Read()
                         dgvListOfProducts.Rows.Add(
-                            localDr("product_code").ToString(), localDr("product_name").ToString(), If(IsDBNull(localDr("product_description")), "", localDr("product_description").ToString()),
-                            localDr("category_name").ToString(), localDr("type_name").ToString(), localDr("size").ToString(),
-                            Convert.ToDecimal(localDr("unit_price")).ToString("N2"), localDr("quantity_on_hand").ToString(),
-                            localDr("reorder_level").ToString(), localDr("calc_status").ToString())
+                            localDr("product_code").ToString(),
+                            localDr("product_name").ToString(),
+                            If(IsDBNull(localDr("product_description")), "", localDr("product_description").ToString()),
+                            localDr("category_name").ToString(),
+                            localDr("type_name").ToString(),
+                            localDr("size").ToString(),
+                            Convert.ToDecimal(localDr("unit_price")).ToString("N2"),
+                            localDr("quantity_on_hand").ToString(),
+                            localDr("reorder_level").ToString(),
+                            localDr("calc_status").ToString())
                     End While
                 End Using
             End Using
@@ -52,5 +55,4 @@ Public Class frmLowLevelStocks
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
         ExportGridToCsv(dgvListOfProducts, "LowLevelStocks")
     End Sub
-
 End Class

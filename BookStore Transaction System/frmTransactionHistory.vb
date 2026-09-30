@@ -3,9 +3,15 @@
 Public Class frmTransactionHistory
 
     Private Sub frmTransactionHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lblname.Text = currentuser.FullName
-        lblposition.Text = currentuser.Role
-        lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy")
+        If Not dgvtransaction.Columns.Contains("StudentName") Then
+            Dim colStudent As New DataGridViewTextBoxColumn()
+            colStudent.Name = "StudentName"
+            colStudent.HeaderText = "Student Name"
+            colStudent.ReadOnly = True
+            dgvtransaction.Columns.Insert(1, colStudent)   ' right after Transaction #
+        End If
+
+        SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         Button3.Text = "Cancel Transaction"
         Button3.Visible = (currentuser.Role = ROLE_SUPERVISOR)
@@ -20,15 +26,15 @@ Public Class frmTransactionHistory
         Try
             If Not connection() Then Exit Sub
 
-            Dim query As String = "SELECT t.transaction_no, DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, " &
-                                 "v.product_code, p.product_name, v.size, p.unit_price, ti.quantity AS qty, " &
-                                  "ti.subtotal, t.total_amount, t.amount_paid, t.amount_change, t.status, u.username " &
-                                  "FROM TBL_TRANSACTION_ITEMS ti " &
-                                  "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
-                                  "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
-                                  "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-                                  "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
-                                  "WHERE t.transaction_no LIKE @s ORDER BY t.transaction_id DESC"
+            Dim query As String = "SELECT t.transaction_no, t.buyer_name, DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, " &
+                             "v.product_code, p.product_name, v.size, p.unit_price, ti.quantity AS qty, " &
+                              "ti.subtotal, t.total_amount, t.amount_paid, t.amount_change, t.status, u.username " &
+                              "FROM TBL_TRANSACTION_ITEMS ti " &
+                              "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
+                              "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
+                              "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+                              "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
+                              "WHERE t.transaction_no LIKE @s OR t.buyer_name LIKE @s ORDER BY t.transaction_id DESC"
 
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
@@ -36,28 +42,29 @@ Public Class frmTransactionHistory
                     dgvtransaction.Rows.Clear()
                     While localDr.Read()
                         dgvtransaction.Rows.Add(
-                            localDr("transaction_no").ToString(),
-                            Convert.ToDateTime(localDr("tdate")).ToString("yyyy-MM-dd"),
-                            localDr("ttime").ToString(),
-                            localDr("product_code").ToString(),
-                            localDr("product_name").ToString(),
-                            localDr("size").ToString(),
-                            Convert.ToDecimal(localDr("unit_price")).ToString("N2"),
-                            localDr("qty").ToString(),
-                            Convert.ToDecimal(localDr("subtotal")).ToString("N2"),
-                            Convert.ToDecimal(localDr("total_amount")).ToString("N2"),
-                            Convert.ToDecimal(localDr("amount_paid")).ToString("N2"),
-                            Convert.ToDecimal(localDr("amount_change")).ToString("N2"),
-                            localDr("status").ToString(),
-                            localDr("username").ToString())
+                        localDr("transaction_no").ToString(),
+                        localDr("buyer_name").ToString(),
+                        Convert.ToDateTime(localDr("tdate")).ToString("yyyy-MM-dd"),
+                        localDr("ttime").ToString(),
+                        localDr("product_code").ToString(),
+                        localDr("product_name").ToString(),
+                        localDr("size").ToString(),
+                        Convert.ToDecimal(localDr("unit_price")).ToString("N2"),
+                        localDr("qty").ToString(),
+                        Convert.ToDecimal(localDr("subtotal")).ToString("N2"),
+                        Convert.ToDecimal(localDr("total_amount")).ToString("N2"),
+                        Convert.ToDecimal(localDr("amount_paid")).ToString("N2"),
+                        Convert.ToDecimal(localDr("amount_change")).ToString("N2"),
+                        localDr("status").ToString(),
+                        localDr("username").ToString())
                     End While
                 End Using
             End Using
             cn.Close()
 
             Dim totalSum As Object = ExecScalar(
-                "SELECT IFNULL(SUM(total_amount),0) FROM TBL_TRANSACTIONS WHERE transaction_no LIKE @s AND status <> 'Cancelled'",
-                New String() {"@s"}, New Object() {"%" & searchText & "%"})
+            "SELECT IFNULL(SUM(total_amount),0) FROM TBL_TRANSACTIONS WHERE (transaction_no LIKE @s OR buyer_name LIKE @s) AND status <> 'Cancelled'",
+            New String() {"@s"}, New Object() {"%" & searchText & "%"})
 
             lbltotalsales.Text = ChrW(8369) & Convert.ToDecimal(If(totalSum, 0)).ToString("N2")
 
@@ -170,5 +177,4 @@ Public Class frmTransactionHistory
             End If
         Next
     End Sub
-
 End Class

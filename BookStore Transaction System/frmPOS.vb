@@ -21,14 +21,12 @@ Public Class frmPOS
         txtCreatedBy.Text = currentuser.FullName
         txtCreatedBy.ReadOnly = True
 
-        lblname.Text = currentuser.FullName
-        lblposition.Text = currentuser.Role
-        lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy")
+        SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         cboGradeLevel.DropDownStyle = ComboBoxStyle.DropDownList
         cboPaymentMethod.DropDownStyle = ComboBoxStyle.DropDownList
 
-        txtTotalAmount.ReadOnly = True
+        txtTotalAMount.ReadOnly = True
         txtProgramStrand.ReadOnly = True
         txtReferenceNo.ReadOnly = True
         txtAmountReceived.ReadOnly = True
@@ -53,7 +51,7 @@ Public Class frmPOS
         cboPaymentMethod.Enabled = False   ' filled in by frmPayment
 
         dtpTransactionDate.Value = DateTime.Today
-        txtTotalAmount.Text = "0.00"
+        txtTotalAMount.Text = "0.00"
         ResetCustomerInfo()
     End Sub
 
@@ -295,7 +293,7 @@ Public Class frmPOS
             Exit Sub
         End If
 
-        Dim grandTotal As Decimal = ToMoney(txtTotalAmount.Text)
+        Dim grandTotal As Decimal = ToMoney(txtTotalAMount.Text)
 
         Using frm As New frmPayment()
             frm.GrandTotal = grandTotal
@@ -326,7 +324,7 @@ Public Class frmPOS
             Exit Sub
         End If
 
-        Dim total As Decimal = ToMoney(txtTotalAmount.Text)
+        Dim total As Decimal = ToMoney(txtTotalAMount.Text)
         Dim received As Decimal = ToMoney(txtAmountReceived.Text)
         Dim change As Decimal = ToMoney(txtAmountChange.Text)
         If total <= 0 OrElse received < total OrElse change < 0 Then
@@ -410,7 +408,7 @@ Public Class frmPOS
         For Each row As DataGridViewRow In dgvCart.Rows
             total += ToMoney(Convert.ToString(row.Cells("SubTotal").Value))
         Next
-        txtTotalAmount.Text = total.ToString("N2")
+        txtTotalAMount.Text = total.ToString("N2")
     End Sub
 
     Private Function ToMoney(s As String) As Decimal
@@ -456,6 +454,6 @@ Public Class frmPOS
         ResetQuantity()
         dgvlistproducts.Rows.Clear()
         dgvCart.Rows.Clear()
-        txtTotalAmount.Text = "0.00"
+        txtTotalAMount.Text = "0.00"
     End Sub
 End Class

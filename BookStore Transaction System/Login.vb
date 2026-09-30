@@ -1,7 +1,37 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class Login
+    ' ---- Disable the Login button while the typed username belongs to an inactive account ----
+    Private Sub txtUsername_TextChanged(sender As Object, e As EventArgs) Handles txtUsername.TextChanged
+        btnLogin.Enabled = Not IsAccountInactive(txtUsername.Text.Trim())
+    End Sub
 
+    Private Sub txtUsername_Leave(sender As Object, e As EventArgs) Handles txtUsername.Leave
+        If Not btnLogin.Enabled Then
+            MsgBox("This account is inactive. Please contact the Bookstore Supervisor.", vbExclamation, "Bookstore Transaction System")
+        End If
+    End Sub
+
+    Private Function IsAccountInactive(username As String) As Boolean
+        If String.IsNullOrWhiteSpace(username) Then Return False
+        Dim st As Object = ExecScalar("SELECT status FROM TBL_USERS WHERE username = @u",
+                                  New String() {"@u"}, New Object() {username})
+        Return st IsNot Nothing AndAlso Not String.Equals(st.ToString(), "Active", StringComparison.OrdinalIgnoreCase)
+    End Function
+
+    ' ---- Records a failed attempt in tbl_audit_logs (shown in frmLoginHistory) ----
+    Private Sub LogFailedLogin(username As String)
+        Dim dt As DataTable = GetDataTable("SELECT user_id, status FROM TBL_USERS WHERE username = @u",
+                                       New String() {"@u"}, New Object() {username})
+        If dt.Rows.Count = 0 Then Exit Sub   ' unknown username: user_id is NOT NULL, so nothing to attach
+
+        Dim uid As Integer = Convert.ToInt32(dt.Rows(0)("user_id"))
+        Dim isActive As Boolean = String.Equals(dt.Rows(0)("status").ToString(), "Active", StringComparison.OrdinalIgnoreCase)
+
+        RecordAuditLog(uid, "Login", "User Login",
+                   If(isActive, "Failed - Incorrect Password", "Failed - Inactive Account"),
+                   If(isActive, "Incorrect password entered", "Login attempt on an inactive account"))
+    End Sub
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtPassword.UseSystemPasswordChar = True
         txtPassword.PasswordChar = ControlChars.NullChar
@@ -28,7 +58,11 @@ Public Class Login
             txtPassword.Focus()
             Exit Sub
         End If
-
+        If IsAccountInactive(txtUsername.Text.Trim()) Then
+            btnLogin.Enabled = False
+            MsgBox("This account is inactive. Please contact the Bookstore Supervisor.", vbExclamation, "Bookstore Transaction System")
+            Exit Sub
+        End If
         Try
             If Not connection() Then Exit Sub
 
@@ -70,7 +104,8 @@ Public Class Login
                         localDr.Close()
                         cn.Close()
 
-                        ' Optional: Log failed login attempt if user exists
+                        LogFailedLogin(txtUsername.Text.Trim())
+
                         MsgBox("Invalid Username or Password", vbExclamation, "Bookstore Transaction System")
                         txtPassword.Clear()
                         txtPassword.Focus()

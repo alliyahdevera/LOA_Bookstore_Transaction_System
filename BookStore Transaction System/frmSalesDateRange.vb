@@ -80,9 +80,7 @@ Public Class frmSalesDateRange
     End Sub
 
     Private Sub frmDateReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lblname.Text = currentuser.FullName
-        lblposition.Text = currentuser.Role
-        lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy")
+        SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         dtfrom.Value = New DateTime(DateTime.Today.Year, DateTime.Today.Month, 1)
         dtto.Value = DateTime.Today

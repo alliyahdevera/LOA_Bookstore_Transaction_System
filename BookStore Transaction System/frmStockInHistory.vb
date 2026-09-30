@@ -4,6 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class frmStockInHistory
 
     Private Sub frmStockInHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetupFooter(Me, lblname, lblposition, lbldatetime)
         Label4.Text = "Total Quantity"   ' fixes a copy-pasted "Total Sales" label
         DateTimePicker1.Value = New DateTime(Today.Year, Today.Month, 1)
         DateTimePicker2.Value = Today

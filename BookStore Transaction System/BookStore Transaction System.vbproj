@@ -124,6 +124,7 @@
     <Compile Include="currentuser.vb" />
     <Compile Include="dbconnect.vb" />
     <Compile Include="ExportHelper.vb" />
+    <Compile Include="FooterHelper.vb" />
     <Compile Include="frmActivityHistory.Designer.vb">
       <DependentUpon>frmActivityHistory.vb</DependentUpon>
     </Compile>
