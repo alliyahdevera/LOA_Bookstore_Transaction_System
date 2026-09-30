@@ -179,6 +179,12 @@
     <Compile Include="frmPriceHistory.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmRemittance.Designer.vb">
+      <DependentUpon>frmRemittance.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmRemittance.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmReturnExchange.Designer.vb">
       <DependentUpon>frmReturnExchange.vb</DependentUpon>
     </Compile>
@@ -329,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPriceHistory.resx">
       <DependentUpon>frmPriceHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRemittance.resx">
+      <DependentUpon>frmRemittance.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmReturnExchange.resx">
       <DependentUpon>frmReturnExchange.vb</DependentUpon>

@@ -2,9 +2,6 @@
 
 Public Class frmAdminDashboard
 
-    ' ------------------------------------------------------------------
-    ' Module Constants
-    ' ------------------------------------------------------------------
     Public Const FRM_DASHBOARD As String = "FRM_DASHBOARD"
     Public Const FRM_POS As String = "FRM_POS"
     Public Const FRM_INVENTORY As String = "FRM_INVENTORY"
@@ -26,21 +23,16 @@ Public Class frmAdminDashboard
         FRM_REPORTS, FRM_USERMGMT, FRM_STUDENTMGMT, FRM_AUDITLOGS
     }
 
-    ' ------------------------------------------------------------------
-    ' Form Life-Cycle Events
-    ' ------------------------------------------------------------------
     Private Sub frmAdminDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplyRolePermissions()
         OpenModule(GetDefaultForm())
+
     End Sub
 
     Private Sub frmAdminDashboard_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         If Not _isLoggingOut Then Application.Exit()
     End Sub
 
-    ' ------------------------------------------------------------------
-    ' Permission & Form Routing Logic
-    ' ------------------------------------------------------------------
     Private Function GetDefaultForm() As String
         Return FRM_DASHBOARD
     End Function
@@ -70,7 +62,7 @@ Public Class frmAdminDashboard
     Private Function GetButton(moduleName As String) As Button
         Select Case moduleName
             Case FRM_DASHBOARD
-                Return btnDashboard     ' Dashboard Button
+                Return btnDashboard
             Case FRM_POS
                 Return btnPOS
             Case FRM_INVENTORY
@@ -113,9 +105,6 @@ Public Class frmAdminDashboard
         End Select
     End Function
 
-    ' ------------------------------------------------------------------
-    ' Form Embedding Logic (pnlContent Host)
-    ' ------------------------------------------------------------------
     Private Sub OpenModule(moduleName As String)
         If Not CanAccess(moduleName) Then
             MsgBox("Access denied. Your role (" & currentuser.Role & ") is not allowed to open this module.", vbExclamation, "Access Denied")
@@ -165,10 +154,6 @@ Public Class frmAdminDashboard
         Dim active As Button = GetButton(moduleName)
         If active IsNot Nothing Then active.BackColor = _activeColor
     End Sub
-
-    ' ------------------------------------------------------------------
-    ' Sidebar Button Click Handlers
-    ' ------------------------------------------------------------------
     Private Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
         OpenModule(FRM_DASHBOARD)
     End Sub
@@ -201,7 +186,7 @@ Public Class frmAdminDashboard
         OpenModule(FRM_AUDITLOGS)
     End Sub
 
-    Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
+    Private Sub btnlogout_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
         If MsgBox("Are you sure you want to logout?", vbYesNo + vbQuestion, "Confirm Logout") = MsgBoxResult.Yes Then
             currentuser.UserID = 0
             currentuser.FullName = ""
@@ -211,5 +196,4 @@ Public Class frmAdminDashboard
             Me.Close()
         End If
     End Sub
-
 End Class
