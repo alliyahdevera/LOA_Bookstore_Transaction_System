@@ -74,7 +74,7 @@ Public Class frmTransactionHistory
         End Try
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnviewdetails.Click   ' View Details
+    Private Sub btnviewdetails_Click(sender As Object, e As EventArgs) Handles btnviewdetails.Click   ' View Details
         If dgvtransaction.SelectedRows.Count = 0 Then
             MsgBox("Select a transaction row first.", vbExclamation, "Transaction")
             Exit Sub
@@ -83,22 +83,13 @@ Public Class frmTransactionHistory
         Dim selectedRow As DataGridViewRow = dgvtransaction.SelectedRows(0)
         If selectedRow.Cells("TransactionNo").Value Is Nothing Then Exit Sub
 
-        Dim txnNo As String = selectedRow.Cells("TransactionNo").Value.ToString()
-        Dim dt As DataTable = GetDataTable(
-            "SELECT p.product_name, v.size, ti.quantity AS qty, p.unit_price, ti.subtotal " &
-            "FROM TBL_TRANSACTION_ITEMS ti " &
-            "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
-            "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
-            "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-            "WHERE t.transaction_no = @t", New String() {"@t"}, New Object() {txnNo})
+        Using frm As New frmTransactionDetails()
+            frm.TransactionNo = selectedRow.Cells("TransactionNo").Value.ToString()
+            frm.StartPosition = FormStartPosition.CenterParent
+            frm.ShowDialog(Me)
+        End Using
 
-        Dim sb As New Text.StringBuilder()
-        sb.AppendLine("Transaction: " & txnNo)
-        sb.AppendLine("---------------------------------")
-        For Each r As DataRow In dt.Rows
-            sb.AppendLine(String.Format("{0} ({1}) x{2} @ {3:N2} = {4:N2}", r("product_name"), r("size"), r("qty"), r("unit_price"), r("subtotal")))
-        Next
-        MsgBox(sb.ToString(), vbInformation, "Transaction Details")
+        LoadGrid(txtSearch.Text.Trim())   ' refresh in case a return/exchange was processed
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click   ' Cancel Transaction

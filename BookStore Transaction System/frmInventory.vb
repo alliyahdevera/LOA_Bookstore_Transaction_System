@@ -48,10 +48,13 @@ Public Class frmInventory
         _currentForm = frm
         frm.Show()
 
-        For Each btn As Button In New Button() {btnProductList, btnManageProducts, btnStockEntry, btnStockInHistory, btnLowLevelStocks}
+        For Each btn As Button In New Button() {btnProductList, btnManageProducts, btnStockEntry, btnStockInHistory, btnLowLevelStocks, Button1}
             btn.BackColor = Color.FromArgb(1, 21, 78)
         Next
         activeBtn.BackColor = Color.FromArgb(25, 55, 140)
+    End Sub
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click   ' Inventory Count && Reconciliation
+        OpenTab(Button1, GetType(frmInventoryCountReconciliation))
     End Sub
 
 End Class

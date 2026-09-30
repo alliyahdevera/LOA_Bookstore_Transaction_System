@@ -8,29 +8,38 @@ Public Class frmReports
         OpenTab(btnsalesitem, GetType(frmSalesByItem))
     End Sub
 
-    ' Sales by Item
     Private Sub btnsalesitem_Click(sender As Object, e As EventArgs) Handles btnsalesitem.Click
         OpenTab(btnsalesitem, GetType(frmSalesByItem))
     End Sub
 
-    ' Sales by Date Range
-    Private Sub btnProductList_Click(sender As Object, e As EventArgs) Handles btnsalesrange.Click
+    Private Sub btnsalesrange_Click(sender As Object, e As EventArgs) Handles btnsalesrange.Click
         OpenTab(btnsalesrange, GetType(frmSalesDateRange))
     End Sub
 
-    ' Sales Today (date range report with both dates set to today)
+    ' "Cash Denomination" button (End-Of-Day Reconciliation)
     Private Sub btnendofday_Click(sender As Object, e As EventArgs) Handles btnendofday.Click
-        Dim rpt As frmSalesDateRange = TryCast(OpenTab(btnendofday, GetType(frmSalesDateRange)), frmSalesDateRange)
-        If rpt IsNot Nothing Then
-            rpt.dtfrom.Value = DateTime.Today
-            rpt.dtto.Value = DateTime.Today
-            rpt.btngenerate.PerformClick()
-        End If
+        OpenTab(btnendofday, GetType(frmCashDenomination))
+    End Sub
+
+    ' "Inventory Discrepancy" button
+    Private Sub btninvdiscrepancy_Click(sender As Object, e As EventArgs) Handles btninvdiscrepancy.Click
+        OpenTab(btninvdiscrepancy, GetType(frmInventoryCountReconciliation))
+    End Sub
+
+    ' "Remittance Report" button
+    Private Sub btnremittance_Click(sender As Object, e As EventArgs) Handles btnremittance.Click
+        OpenRemittance()
+    End Sub
+
+    ' Public so frmCashDenomination can jump here after generating a remittance
+    Public Sub OpenRemittance()
+        OpenTab(btnremittance, GetType(frmRemittance))
     End Sub
 
     Private Function OpenTab(activeBtn As Button, formType As Type) As Form
         If _currentForm IsNot Nothing Then
             _currentForm.Close()
+            _currentForm.Dispose()
             _currentForm = Nothing
         End If
         Panel1.Controls.Clear()
@@ -43,7 +52,7 @@ Public Class frmReports
         _currentForm = frm
         frm.Show()
 
-        For Each btn As Button In New Button() {btnsalesitem, btnsalesrange, btnendofday}
+        For Each btn As Button In New Button() {btnsalesitem, btnsalesrange, btnendofday, btninvdiscrepancy, btnremittance}
             btn.BackColor = Color.FromArgb(1, 21, 78)
         Next
         activeBtn.BackColor = Color.FromArgb(25, 55, 140)
