@@ -190,11 +190,6 @@ Public Class frmManageProducts
     Private Function GetTypeIdByName(name As String) As Integer
         Return Convert.ToInt32(If(ExecScalar("SELECT category_type_id FROM TBL_CATEGORY_TYPES WHERE type_name = @n", New String() {"@n"}, New Object() {name}), 0))
     End Function
-
-    ' ------------------------------------------------------------------
-    ' Button Actions
-    ' ------------------------------------------------------------------
-
     ' ADD BUTTON
     Private Sub btnadd_Click(sender As Object, e As EventArgs) Handles btnadd.Click
         If currentuser.Role <> ROLE_SUPERVISOR Then
@@ -204,30 +199,39 @@ Public Class frmManageProducts
 
         If Not ValidateInputs() Then Exit Sub
 
-        Dim productId As Integer = Convert.ToInt32(If(ExecScalar(
-            "SELECT product_id FROM TBL_PRODUCTS WHERE product_name = @n AND category_type_id = @t",
-            New String() {"@n", "@t"}, New Object() {txtProductName.Text.Trim(), cboTypeOfProduct.SelectedValue}), 0))
+        Dim isNewProduct As Boolean = (selectedProductId = 0)
+        Dim oldPrice As Decimal = 0D
+        If Not isNewProduct Then
+            oldPrice = Convert.ToDecimal(If(ExecScalar("SELECT unit_price FROM TBL_PRODUCTS WHERE product_id = @id", New String() {"@id"}, New Object() {selectedProductId}), 0))
+        End If
 
-        If productId = 0 Then
-            productId = CInt(ExecInsertGetId(
+        If selectedProductId = 0 Then
+            selectedProductId = CInt(ExecInsertGetId(
                 "INSERT INTO TBL_PRODUCTS (product_name, product_description, category_type_id, unit_price, status) VALUES (@n, @d, @t, @p, @st)",
                 New String() {"@n", "@d", "@t", "@p", "@st"},
                 New Object() {txtProductName.Text.Trim(), txtProductDescription.Text.Trim(), cboTypeOfProduct.SelectedValue, Convert.ToDecimal(txtUnitPrice.Text),
                                If(String.IsNullOrWhiteSpace(txtStatus.Text), "Active", txtStatus.Text.Trim())}))
-            If productId = 0 Then Exit Sub
+            If selectedProductId = 0 Then Exit Sub
         Else
             ExecNonQuery("UPDATE TBL_PRODUCTS SET unit_price = @p, product_description = @d, status = @st WHERE product_id = @id",
                 New String() {"@p", "@d", "@st", "@id"},
                 New Object() {Convert.ToDecimal(txtUnitPrice.Text), txtProductDescription.Text.Trim(),
-                               If(String.IsNullOrWhiteSpace(txtStatus.Text), "Active", txtStatus.Text.Trim()), productId})
+                               If(String.IsNullOrWhiteSpace(txtStatus.Text), "Active", txtStatus.Text.Trim()), selectedProductId})
         End If
 
         Dim ok As Boolean = ExecNonQuery(
             "INSERT INTO TBL_PRODUCT_VARIANTS (product_id, product_code, size, quantity_on_hand, reorder_level) VALUES (@pid, @code, @size, 0, @reorder)",
             New String() {"@pid", "@code", "@size", "@reorder"},
-            New Object() {productId, txtProductCode.Text.Trim(), If(String.IsNullOrWhiteSpace(txtSize.Text), "N/A", txtSize.Text.Trim()), Convert.ToInt32(txtQuantity.Text)})
+            New Object() {selectedProductId, txtProductCode.Text.Trim(), If(String.IsNullOrWhiteSpace(txtSize.Text), "N/A", txtSize.Text.Trim()), Convert.ToInt32(txtQuantity.Text)})
 
         If ok Then
+            Dim newPrice As Decimal = Convert.ToDecimal(txtUnitPrice.Text)
+            LogActivity("Add Product", txtProductCode.Text.Trim(), "Added product '" & txtProductName.Text.Trim() & "' (Price: " & newPrice.ToString("N2") & ")")
+            If isNewProduct Then
+                LogPriceChange(txtProductCode.Text.Trim(), txtProductName.Text.Trim(), 0D, newPrice, "Initial price")
+            ElseIf oldPrice <> newPrice Then
+                LogPriceChange(txtProductCode.Text.Trim(), txtProductName.Text.Trim(), oldPrice, newPrice, "Price Update")
+            End If
             MsgBox("Product added. Use Stock Entry to add its initial quantity.", vbInformation, "Manage Products")
             ClearFields()
             LoadGrid(txtSearch.Text.Trim())
@@ -248,6 +252,8 @@ Public Class frmManageProducts
             Exit Sub
         End If
 
+        Dim oldUnitPrice As Decimal = Convert.ToDecimal(If(ExecScalar("SELECT unit_price FROM TBL_PRODUCTS WHERE product_id = @id", New String() {"@id"}, New Object() {selectedProductId}), 0))
+
         If Not ValidateInputs() Then Exit Sub
 
         ExecNonQuery("UPDATE TBL_PRODUCTS SET product_name=@n, product_description=@d, category_type_id=@t, unit_price=@p, status=@st WHERE product_id=@id",
@@ -260,6 +266,11 @@ Public Class frmManageProducts
             New Object() {txtProductCode.Text.Trim(), If(String.IsNullOrWhiteSpace(txtSize.Text), "N/A", txtSize.Text.Trim()), Convert.ToInt32(txtQuantity.Text), selectedVariantId})
 
         If ok Then
+            Dim newUnitPrice As Decimal = Convert.ToDecimal(txtUnitPrice.Text)
+            LogActivity("Update Product", txtProductCode.Text.Trim(), "Updated product '" & txtProductName.Text.Trim() & "'")
+            If oldUnitPrice <> newUnitPrice Then
+                LogPriceChange(txtProductCode.Text.Trim(), txtProductName.Text.Trim(), oldUnitPrice, newUnitPrice, "Price Update")
+            End If
             MsgBox("Product updated.", vbInformation, "Manage Products")
             ClearFields()
             LoadGrid(txtSearch.Text.Trim())
@@ -282,6 +293,7 @@ Public Class frmManageProducts
 
         Dim ok As Boolean = ExecNonQuery("DELETE FROM TBL_PRODUCT_VARIANTS WHERE variant_id = @vid", New String() {"@vid"}, New Object() {selectedVariantId})
         If ok Then
+            LogActivity("Remove Product", txtProductCode.Text.Trim(), "Removed product '" & txtProductName.Text.Trim() & "'")
             MsgBox("Product removed.", vbInformation, "Manage Products")
             ClearFields()
             LoadGrid(txtSearch.Text.Trim())

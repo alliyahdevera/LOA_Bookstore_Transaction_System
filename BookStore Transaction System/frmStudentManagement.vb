@@ -165,7 +165,9 @@ Public Class frmStudentManagement
     ' ADD BUTTON
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnadd.Click
         If Not ValidateInputs() Then Exit Sub
-
+        LogActivity("Add Student", txtstudentno.Text.Trim(), "Added " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+        LogActivity("Update Student", txtstudentno.Text.Trim(), "Updated " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+        LogActivity("Delete Student", txtstudentno.Text.Trim(), "Deleted " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
         Try
             Dim checkSql As String = "SELECT COUNT(*) FROM tbl_students WHERE student_no = @sn"
             Dim count As Integer = Convert.ToInt32(ExecScalar(checkSql, New String() {"@sn"}, New Object() {txtstudentno.Text.Trim()}))
@@ -207,7 +209,9 @@ Public Class frmStudentManagement
             MsgBox("Please select a student from the list to update.", vbExclamation, "No Selection")
             Exit Sub
         End If
-
+        LogActivity("Add Student", txtstudentno.Text.Trim(), "Added " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+        LogActivity("Update Student", txtstudentno.Text.Trim(), "Updated " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+        LogActivity("Delete Student", txtstudentno.Text.Trim(), "Deleted " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
         If Not ValidateInputs() Then Exit Sub
 
         Try
@@ -253,7 +257,9 @@ Public Class frmStudentManagement
             MsgBox("Please select a student from the list to remove.", vbExclamation, "No Selection")
             Exit Sub
         End If
-
+        LogActivity("Add Student", txtstudentno.Text.Trim(), "Added " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+        LogActivity("Update Student", txtstudentno.Text.Trim(), "Updated " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+        LogActivity("Delete Student", txtstudentno.Text.Trim(), "Deleted " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
         If MsgBox("Are you sure you want to delete this student record?", vbYesNo + vbQuestion, "Confirm Delete") <> MsgBoxResult.Yes Then
             Exit Sub
         End If

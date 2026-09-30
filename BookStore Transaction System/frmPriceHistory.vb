@@ -44,7 +44,15 @@ Public Class frmPriceHistory
     End Sub
 
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
+        If dtpfrom.Value.Date > dtpto.Value.Date Then
+            MsgBox("'Date from' cannot be later than 'To'.", vbExclamation, "Price Change History")
+            Exit Sub
+        End If
         LoadPriceHistoryLogs()
+    End Sub
+
+    Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
+        ExportGridToCsv(dgvPriceHistory, "PriceChangeHistory")
     End Sub
 
     Public Sub LoadPriceHistoryLogs()

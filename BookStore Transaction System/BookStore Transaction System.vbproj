@@ -120,6 +120,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditHelper.vb" />
     <Compile Include="currentuser.vb" />
     <Compile Include="dbconnect.vb" />
     <Compile Include="ExportHelper.vb" />

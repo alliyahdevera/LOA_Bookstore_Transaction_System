@@ -192,7 +192,6 @@ Public Class frmUserManagement
             MsgBox("Error adding user: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub
-
     ' UPDATE USER
     Private Sub btnupd_Click(sender As Object, e As EventArgs) Handles btnupd.Click
         If selectedUserId = 0 Then
@@ -217,6 +216,7 @@ Public Class frmUserManagement
             End If
 
             If ok Then
+                LogActivity("Update User", txtusername.Text.Trim(), "Updated user " & txtusername.Text.Trim())
                 MsgBox("User updated successfully.", vbInformation, "User Management")
                 ClearFields()
                 LoadGrid(txtSearch.Text.Trim())
@@ -225,7 +225,6 @@ Public Class frmUserManagement
             MsgBox("Error updating user: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub
-
     ' DEACTIVATE USER
     Private Sub btnremove_Click(sender As Object, e As EventArgs) Handles btnremove.Click
         If selectedUserId = 0 Then

@@ -81,6 +81,7 @@ Public Class frmStockEntry
             New String() {"@s", "@v", "@q"}, New Object() {currentStockInId, selectedVariantId, qty})
 
         If ok Then
+            LogActivity("Stock In", txtreference.Text, "Added " & qty & " pc(s), received from " & txtstockinby.Text.Trim())
             ExecNonQuery("UPDATE TBL_PRODUCT_VARIANTS SET quantity_on_hand = quantity_on_hand + @q WHERE variant_id = @v",
                 New String() {"@q", "@v"}, New Object() {qty, selectedVariantId})
 

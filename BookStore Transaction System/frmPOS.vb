@@ -18,42 +18,42 @@ Public Class frmPOS
 
     ' ================= LOAD =================
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        TextBox4.Text = currentuser.FullName
-        TextBox4.ReadOnly = True
+        txtCreatedBy.Text = currentuser.FullName
+        txtCreatedBy.ReadOnly = True
 
         lblname.Text = currentuser.FullName
         lblposition.Text = currentuser.Role
         lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy")
 
-        ComboBox6.DropDownStyle = ComboBoxStyle.DropDownList   ' Grade Level
-        ComboBox4.DropDownStyle = ComboBoxStyle.DropDownList   ' Payment Method
+        cboGradeLevel.DropDownStyle = ComboBoxStyle.DropDownList
+        cboPaymentMethod.DropDownStyle = ComboBoxStyle.DropDownList
 
-        TextBox1.ReadOnly = True   ' Total Amount
-        TextBox3.ReadOnly = True   ' Program / Strand
-        TextBox7.ReadOnly = True   ' Reference No.
-        TextBox8.ReadOnly = True   ' Amount Received
-        TextBox9.ReadOnly = True   ' Amount Change
+        txtTotalAmount.ReadOnly = True
+        txtProgramStrand.ReadOnly = True
+        txtReferenceNo.ReadOnly = True
+        txtAmountReceived.ReadOnly = True
+        txtAmountChange.ReadOnly = True
 
         SetupGrid(dgvlistproducts)
-        SetupGrid(DataGridView1)
+        SetupGrid(dgvCart)
         dgvlistproducts.Columns(COL_PRICE).DefaultCellStyle.Format = "N2"
-        DataGridView1.Columns("UnitPrice").DefaultCellStyle.Format = "N2"
-        DataGridView1.Columns("SubTotal").DefaultCellStyle.Format = "N2"
+        dgvCart.Columns("UnitPrice").DefaultCellStyle.Format = "N2"
+        dgvCart.Columns("SubTotal").DefaultCellStyle.Format = "N2"
 
         ' Quantity can never go below 0 (no negatives)
-        NumericUpDown1.DecimalPlaces = 0
-        NumericUpDown1.Minimum = 0
+        nudQuantity.DecimalPlaces = 0
+        nudQuantity.Minimum = 0
         ResetQuantity()
 
-        ComboBox6.Items.Clear()
-        ComboBox6.Items.AddRange(gradeLevels)
+        cboGradeLevel.Items.Clear()
+        cboGradeLevel.Items.AddRange(gradeLevels)
 
-        ComboBox4.Items.Clear()
-        ComboBox4.Items.AddRange(New String() {"Cash", "Salary Deduction"})
-        ComboBox4.Enabled = False   ' filled in by frmPayment
+        cboPaymentMethod.Items.Clear()
+        cboPaymentMethod.Items.AddRange(New String() {"Cash", "Salary Deduction"})
+        cboPaymentMethod.Enabled = False   ' filled in by frmPayment
 
-        DateTimePicker1.Value = DateTime.Today
-        TextBox1.Text = "0.00"
+        dtpTransactionDate.Value = DateTime.Today
+        txtTotalAmount.Text = "0.00"
         ResetCustomerInfo()
     End Sub
 
@@ -66,11 +66,11 @@ Public Class frmPOS
     End Sub
 
     ' ================= STUDENT LOOKUP =================
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+    Private Sub picSearchStudent_Click(sender As Object, e As EventArgs) Handles picSearchStudent.Click
         LookupStudent()
     End Sub
 
-    Private Sub txtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown
+    Private Sub txtStudentNo_KeyDown(sender As Object, e As KeyEventArgs) Handles txtStudentNo.KeyDown
         If e.KeyCode = Keys.Enter Then
             LookupStudent()
             e.SuppressKeyPress = True
@@ -78,56 +78,56 @@ Public Class frmPOS
     End Sub
 
     Private Sub LookupStudent()
-        If String.IsNullOrWhiteSpace(txtSearch.Text) Then Exit Sub
+        If String.IsNullOrWhiteSpace(txtStudentNo.Text) Then Exit Sub
 
         Dim dt As DataTable = GetDataTable("SELECT student_id, first_name, last_name, grade_level, section FROM TBL_STUDENTS WHERE student_no = @n",
-                                            New String() {"@n"}, New Object() {txtSearch.Text.Trim()})
+                                            New String() {"@n"}, New Object() {txtStudentNo.Text.Trim()})
 
         If dt.Rows.Count > 0 Then
             Dim r As DataRow = dt.Rows(0)
             foundStudentId = Convert.ToInt32(r("student_id"))
-            TextBox2.Text = r("first_name").ToString() & " " & r("last_name").ToString()
+            txtStudentName.Text = r("first_name").ToString() & " " & r("last_name").ToString()
 
             Dim grade As String = r("grade_level").ToString()
-            If Not ComboBox6.Items.Contains(grade) Then ComboBox6.Items.Add(grade)
-            ComboBox6.Text = grade
-            TextBox3.Text = If(IsDBNull(r("section")), "", r("section").ToString())
+            If Not cboGradeLevel.Items.Contains(grade) Then cboGradeLevel.Items.Add(grade)
+            cboGradeLevel.Text = grade
+            txtProgramStrand.Text = If(IsDBNull(r("section")), "", r("section").ToString())
 
-            TextBox2.ReadOnly = True
+            txtStudentName.ReadOnly = True
         Else
             foundStudentId = 0
-            TextBox2.Clear()
-            ComboBox6.SelectedIndex = -1
-            TextBox3.Clear()
+            txtStudentName.Clear()
+            cboGradeLevel.SelectedIndex = -1
+            txtProgramStrand.Clear()
 
-            TextBox2.ReadOnly = False
+            txtStudentName.ReadOnly = False
             MsgBox("Student number not found. You can type the buyer's name manually for a walk-in / employee sale.", vbInformation, "Point of Sale")
-            TextBox2.Focus()
+            txtStudentName.Focus()
         End If
     End Sub
 
     ' ================= CATEGORY BUTTONS + PRODUCT SEARCH =================
-    Private Sub CategoryButton_Click(sender As Object, e As EventArgs) Handles Button1.Click, Button2.Click, Button3.Click, Button4.Click, Button5.Click, Button6.Click
+    Private Sub CategoryButton_Click(sender As Object, e As EventArgs) Handles btnUniforms.Click, btnBooks.Click, btnModules.Click, btnOtherItems.Click, btnOfficeSupplies.Click, btnSchoolSupplies.Click
         Dim btn As Button = DirectCast(sender, Button)
-        ' Button4 says "Other Items" but the category in the database is "Other Bookstore Items"
-        activeCategory = If(btn Is Button4, "Other Bookstore Items", btn.Text)
+        ' btnOtherItems says "Other Items" but the category in the database is "Other Bookstore Items"
+        activeCategory = If(btn Is btnOtherItems, "Other Bookstore Items", btn.Text)
         ResetQuantity()
         LoadProducts()
     End Sub
 
-    Private Sub TextBox5_TextChanged(sender As Object, e As EventArgs) Handles TextBox5.TextChanged
+    Private Sub txtProductSearch_TextChanged(sender As Object, e As EventArgs) Handles txtProductSearch.TextChanged
         ResetQuantity()
         LoadProducts()
     End Sub
 
-    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+    Private Sub picSearchProduct_Click(sender As Object, e As EventArgs) Handles picSearchProduct.Click
         LoadProducts()
     End Sub
 
     Private Sub LoadProducts()
         dgvlistproducts.Rows.Clear()
 
-        Dim keyword As String = TextBox5.Text.Trim()
+        Dim keyword As String = txtProductSearch.Text.Trim()
         If activeCategory = "" AndAlso keyword = "" Then Exit Sub   ' nothing chosen yet -> blank list
 
         Dim query As String =
@@ -178,19 +178,19 @@ Public Class frmPOS
             Exit Sub
         End If
 
-        NumericUpDown1.Maximum = stock
-        NumericUpDown1.Value = 1
+        nudQuantity.Maximum = stock
+        nudQuantity.Value = 1
     End Sub
 
     ' ================= QUANTITY: NO NEGATIVES =================
-    Private Sub NumericUpDown1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles NumericUpDown1.KeyPress
+    Private Sub nudQuantity_KeyPress(sender As Object, e As KeyPressEventArgs) Handles nudQuantity.KeyPress
         ' digits only: blocks "-", "." and letters
         If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then e.Handled = True
     End Sub
 
     Private Sub ResetQuantity()
-        NumericUpDown1.Value = 0
-        NumericUpDown1.Maximum = 0
+        nudQuantity.Value = 0
+        nudQuantity.Maximum = 0
     End Sub
 
     ' ================= ADD TO CART =================
@@ -200,7 +200,7 @@ Public Class frmPOS
             Exit Sub
         End If
 
-        Dim qty As Integer = Convert.ToInt32(NumericUpDown1.Value)   ' value is validated/clamped (>= 0)
+        Dim qty As Integer = Convert.ToInt32(nudQuantity.Value)
         If qty <= 0 Then
             MsgBox("Quantity must be at least 1.", vbExclamation, "Point of Sale")
             Exit Sub
@@ -213,7 +213,7 @@ Public Class frmPOS
 
         ' Is this item already in the cart? Then add to its quantity
         Dim existing As DataGridViewRow = Nothing
-        For Each crow As DataGridViewRow In DataGridView1.Rows
+        For Each crow As DataGridViewRow In dgvCart.Rows
             If Convert.ToInt32(crow.Tag) = variantId Then
                 existing = crow
                 Exit For
@@ -231,54 +231,54 @@ Public Class frmPOS
             existing.Cells("Quantity").Value = newQty
             existing.Cells("SubTotal").Value = newQty * price
         Else
-            Dim idx As Integer = DataGridView1.Rows.Add(
+            Dim idx As Integer = dgvCart.Rows.Add(
                 prow.Cells(COL_NAME).Value,
                 prow.Cells(COL_SIZE).Value,
                 qty,
                 price,
                 qty * price)
-            DataGridView1.Rows(idx).Tag = variantId
+            dgvCart.Rows(idx).Tag = variantId
         End If
 
         ResetQuantity()
         ClearGridSelection(dgvlistproducts)
-        ClearGridSelection(DataGridView1)
+        ClearGridSelection(dgvCart)
         RecalculateTotal()
         InvalidatePayment()
     End Sub
 
     ' ================= REMOVE ITEM =================
     Private Sub btnRemoveItem_Click(sender As Object, e As EventArgs) Handles btnRemoveItem.Click
-        If DataGridView1.Rows.Count = 0 Then
+        If dgvCart.Rows.Count = 0 Then
             MsgBox("The cart is already empty.", vbInformation, "Point of Sale")
             Exit Sub
         End If
 
-        If DataGridView1.SelectedRows.Count > 0 Then
+        If dgvCart.SelectedRows.Count > 0 Then
             ' an item was clicked -> remove that item only
-            DataGridView1.Rows.RemoveAt(DataGridView1.SelectedRows(0).Index)
+            dgvCart.Rows.RemoveAt(dgvCart.SelectedRows(0).Index)
         Else
             ' nothing clicked -> remove everything
             If MsgBox("No item is selected. Remove ALL items from the cart?", vbYesNo + vbQuestion, "Point of Sale") <> MsgBoxResult.Yes Then Exit Sub
-            DataGridView1.Rows.Clear()
+            dgvCart.Rows.Clear()
         End If
 
-        ClearGridSelection(DataGridView1)
+        ClearGridSelection(dgvCart)
         RecalculateTotal()
         InvalidatePayment()
     End Sub
 
     ' Clicking the empty grey area of the cart un-selects, so "Remove Item" removes all again
-    Private Sub DataGridView1_MouseDown(sender As Object, e As MouseEventArgs) Handles DataGridView1.MouseDown
-        If DataGridView1.HitTest(e.X, e.Y).Type = DataGridViewHitTestType.None Then
-            ClearGridSelection(DataGridView1)
+    Private Sub dgvCart_MouseDown(sender As Object, e As MouseEventArgs) Handles dgvCart.MouseDown
+        If dgvCart.HitTest(e.X, e.Y).Type = DataGridViewHitTestType.None Then
+            ClearGridSelection(dgvCart)
         End If
     End Sub
 
     ' ================= CLEAR (customer + payment method only) =================
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
-        ResetCustomerInfo()          ' Student No., Grade Level (+ Student Name and Program/Strand, since they auto-fill from Student No.)
-        ComboBox4.SelectedIndex = -1 ' Payment Method
+        ResetCustomerInfo()
+        cboPaymentMethod.SelectedIndex = -1
     End Sub
 
     ' ================= CANCEL TRANSACTION =================
@@ -290,45 +290,45 @@ Public Class frmPOS
 
     ' ================= SETTLE PAYMENT (opens frmPayment) =================
     Private Sub btnSettlePayment_Click(sender As Object, e As EventArgs) Handles btnSettlePayment.Click
-        If DataGridView1.Rows.Count = 0 Then
+        If dgvCart.Rows.Count = 0 Then
             MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
 
-        Dim grandTotal As Decimal = ToMoney(TextBox1.Text)
+        Dim grandTotal As Decimal = ToMoney(txtTotalAmount.Text)
 
         Using frm As New frmPayment()
-            frm.GrandTotal = grandTotal                     ' frmPOS -> frmPayment
-            If frm.ShowDialog(Me) = DialogResult.OK Then    ' frmPayment -> frmPOS
-                TextBox7.Text = frm.ResultORNo
-                DateTimePicker1.Value = frm.ResultDate
-                ComboBox4.Text = frm.ResultMethod
-                TextBox8.Text = frm.ResultReceived.ToString("N2")
-                TextBox9.Text = frm.ResultChange.ToString("N2")
+            frm.GrandTotal = grandTotal
+            If frm.ShowDialog(Me) = DialogResult.OK Then
+                txtReferenceNo.Text = frm.ResultORNo
+                dtpTransactionDate.Value = frm.ResultDate
+                cboPaymentMethod.Text = frm.ResultMethod
+                txtAmountReceived.Text = frm.ResultReceived.ToString("N2")
+                txtAmountChange.Text = frm.ResultChange.ToString("N2")
             End If
         End Using
     End Sub
 
     ' ================= SAVE TRANSACTION =================
     Private Sub btnSaveTransaction_Click(sender As Object, e As EventArgs) Handles btnSaveTransaction.Click
-        If DataGridView1.Rows.Count = 0 Then
+        If dgvCart.Rows.Count = 0 Then
             MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
 
-        If String.IsNullOrWhiteSpace(TextBox7.Text) OrElse ComboBox4.SelectedIndex = -1 Then
+        If String.IsNullOrWhiteSpace(txtReferenceNo.Text) OrElse cboPaymentMethod.SelectedIndex = -1 Then
             MsgBox("Payment is not settled (or the payment method was cleared). Click 'Settle Payment' first.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
 
-        If String.IsNullOrWhiteSpace(TextBox2.Text) Then
+        If String.IsNullOrWhiteSpace(txtStudentName.Text) Then
             MsgBox("Enter the buyer's name (or look up a Student No.).", vbExclamation, "Point of Sale")
             Exit Sub
         End If
 
-        Dim total As Decimal = ToMoney(TextBox1.Text)
-        Dim received As Decimal = ToMoney(TextBox8.Text)
-        Dim change As Decimal = ToMoney(TextBox9.Text)
+        Dim total As Decimal = ToMoney(txtTotalAmount.Text)
+        Dim received As Decimal = ToMoney(txtAmountReceived.Text)
+        Dim change As Decimal = ToMoney(txtAmountChange.Text)
         If total <= 0 OrElse received < total OrElse change < 0 Then
             MsgBox("The payment does not cover the total. Click 'Settle Payment' again.", vbExclamation, "Point of Sale")
             Exit Sub
@@ -336,6 +336,7 @@ Public Class frmPOS
 
         Dim buyerType As String = If(foundStudentId > 0, "Student", "Walk-in")
         Dim saved As Boolean = False
+        Dim txnNo As String = NewTransactionNo()
 
         Try
             If Not connection() Then Exit Sub
@@ -347,13 +348,13 @@ Public Class frmPOS
                     "VALUES (@tno, @bt, @sid, @bn, @orno, @ord, @pm, @tot, @paid, @chg, @by, 'Completed')"
 
                 Using c1 As New MySqlCommand(insTxn, cn, trans)
-                    c1.Parameters.AddWithValue("@tno", NewTransactionNo())
+                    c1.Parameters.AddWithValue("@tno", txnNo)
                     c1.Parameters.AddWithValue("@bt", buyerType)
                     c1.Parameters.AddWithValue("@sid", If(foundStudentId > 0, CType(foundStudentId, Object), DBNull.Value))
-                    c1.Parameters.AddWithValue("@bn", TextBox2.Text.Trim())
-                    c1.Parameters.AddWithValue("@orno", TextBox7.Text.Trim())
-                    c1.Parameters.AddWithValue("@ord", DateTimePicker1.Value.Date)
-                    c1.Parameters.AddWithValue("@pm", ComboBox4.Text)
+                    c1.Parameters.AddWithValue("@bn", txtStudentName.Text.Trim())
+                    c1.Parameters.AddWithValue("@orno", txtReferenceNo.Text.Trim())
+                    c1.Parameters.AddWithValue("@ord", dtpTransactionDate.Value.Date)
+                    c1.Parameters.AddWithValue("@pm", cboPaymentMethod.Text)
                     c1.Parameters.AddWithValue("@tot", total)
                     c1.Parameters.AddWithValue("@paid", received)
                     c1.Parameters.AddWithValue("@chg", change)
@@ -362,7 +363,7 @@ Public Class frmPOS
                     transactionId = c1.LastInsertedId
                 End Using
 
-                For Each row As DataGridViewRow In DataGridView1.Rows
+                For Each row As DataGridViewRow In dgvCart.Rows
                     Dim variantId As Integer = Convert.ToInt32(row.Tag)
                     Dim subtotal As Decimal = Convert.ToDecimal(row.Cells("SubTotal").Value)
                     Dim qty As Integer = Convert.ToInt32(row.Cells("Quantity").Value)
@@ -397,6 +398,7 @@ Public Class frmPOS
         End Try
 
         If saved Then
+            LogActivity("Sale", txnNo, "Sale to " & txtStudentName.Text.Trim() & " - Total: " & total.ToString("N2") & " (" & cboPaymentMethod.Text & ", OR " & txtReferenceNo.Text.Trim() & ")")
             MsgBox("Transaction saved successfully. You can view it in Transaction History.", vbInformation, "Point of Sale")
             ResetAll()
         End If
@@ -405,10 +407,10 @@ Public Class frmPOS
     ' ================= HELPERS =================
     Private Sub RecalculateTotal()
         Dim total As Decimal = 0
-        For Each row As DataGridViewRow In DataGridView1.Rows
+        For Each row As DataGridViewRow In dgvCart.Rows
             total += ToMoney(Convert.ToString(row.Cells("SubTotal").Value))
         Next
-        TextBox1.Text = total.ToString("N2")
+        txtTotalAmount.Text = total.ToString("N2")
     End Sub
 
     Private Function ToMoney(s As String) As Decimal
@@ -424,37 +426,36 @@ Public Class frmPOS
 
     ' If the cart changes after payment was settled, the old payment no longer matches the total
     Private Sub InvalidatePayment()
-        If String.IsNullOrWhiteSpace(TextBox7.Text) Then Exit Sub
+        If String.IsNullOrWhiteSpace(txtReferenceNo.Text) Then Exit Sub
         ResetPaymentInfo()
         MsgBox("The cart was changed, so the payment was cleared. Click 'Settle Payment' again.", vbInformation, "Point of Sale")
     End Sub
 
     Private Sub ResetCustomerInfo()
-        txtSearch.Clear()
-        TextBox2.Clear()
-        TextBox2.ReadOnly = False
-        ComboBox6.SelectedIndex = -1
-        TextBox3.Clear()
+        txtStudentNo.Clear()
+        txtStudentName.Clear()
+        txtStudentName.ReadOnly = False
+        cboGradeLevel.SelectedIndex = -1
+        txtProgramStrand.Clear()
         foundStudentId = 0
     End Sub
 
     Private Sub ResetPaymentInfo()
-        TextBox7.Clear()
-        TextBox8.Clear()
-        TextBox9.Clear()
-        ComboBox4.SelectedIndex = -1
-        DateTimePicker1.Value = DateTime.Today
+        txtReferenceNo.Clear()
+        txtAmountReceived.Clear()
+        txtAmountChange.Clear()
+        cboPaymentMethod.SelectedIndex = -1
+        dtpTransactionDate.Value = DateTime.Today
     End Sub
 
     Private Sub ResetAll()
         ResetCustomerInfo()
         ResetPaymentInfo()
         activeCategory = ""
-        TextBox5.Clear()
+        txtProductSearch.Clear()
         ResetQuantity()
-        dgvlistproducts.Rows.Clear()   ' top grid blank
-        DataGridView1.Rows.Clear()     ' cart blank
-        TextBox1.Text = "0.00"
+        dgvlistproducts.Rows.Clear()
+        dgvCart.Rows.Clear()
+        txtTotalAmount.Text = "0.00"
     End Sub
-
 End Class

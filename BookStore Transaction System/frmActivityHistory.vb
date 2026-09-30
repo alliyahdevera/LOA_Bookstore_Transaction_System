@@ -6,6 +6,12 @@ Public Class frmActivityHistory
 
     Private Sub frmActivityHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            ' Add the missing Date & Time column in code
+            If Not dgvActivityHistory.Columns.Contains("LogDateTime") Then
+                dgvActivityHistory.Columns.Add("LogDateTime", "Date & Time")
+                dgvActivityHistory.Columns("LogDateTime").ReadOnly = True
+            End If
+
             ' User Profile Info
             lblname.Text = If(Not String.IsNullOrEmpty(currentuser.FullName), currentuser.FullName, "N/A")
             lblposition.Text = If(Not String.IsNullOrEmpty(currentuser.Role), currentuser.Role, "N/A")
@@ -44,7 +50,15 @@ Public Class frmActivityHistory
     End Sub
 
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
+        If dtpfrom.Value.Date > dtpto.Value.Date Then
+            MsgBox("'Date from' cannot be later than 'To'.", vbExclamation, "Activity Logs")
+            Exit Sub
+        End If
         LoadActivityLogs()
+    End Sub
+
+    Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
+        ExportGridToCsv(dgvActivityHistory, "ActivityLogs")
     End Sub
 
     Public Sub LoadActivityLogs()
