@@ -23,9 +23,11 @@ Partial Class frmReports
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.btnProductList = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btnsalesrange = New System.Windows.Forms.Button()
+        Me.btnsalesitem = New System.Windows.Forms.Button()
+        Me.btnendofday = New System.Windows.Forms.Button()
+        Me.btninvdiscrepancy = New System.Windows.Forms.Button()
+        Me.btnremittance = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Panel1
@@ -35,54 +37,82 @@ Partial Class frmReports
         Me.Panel1.Size = New System.Drawing.Size(1220, 817)
         Me.Panel1.TabIndex = 12
         '
-        'btnProductList
+        'btnsalesrange
         '
-        Me.btnProductList.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnProductList.FlatAppearance.BorderSize = 0
-        Me.btnProductList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnProductList.ForeColor = System.Drawing.Color.White
-        Me.btnProductList.Location = New System.Drawing.Point(199, 0)
-        Me.btnProductList.Name = "btnProductList"
-        Me.btnProductList.Size = New System.Drawing.Size(198, 33)
-        Me.btnProductList.TabIndex = 8
-        Me.btnProductList.Text = "Sales by Date Range"
-        Me.btnProductList.UseVisualStyleBackColor = False
+        Me.btnsalesrange.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnsalesrange.FlatAppearance.BorderSize = 0
+        Me.btnsalesrange.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnsalesrange.ForeColor = System.Drawing.Color.White
+        Me.btnsalesrange.Location = New System.Drawing.Point(199, 0)
+        Me.btnsalesrange.Name = "btnsalesrange"
+        Me.btnsalesrange.Size = New System.Drawing.Size(198, 33)
+        Me.btnsalesrange.TabIndex = 8
+        Me.btnsalesrange.Text = "Sales by Date Range"
+        Me.btnsalesrange.UseVisualStyleBackColor = False
         '
-        'Button1
+        'btnsalesitem
         '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(0, 0)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(198, 33)
-        Me.Button1.TabIndex = 13
-        Me.Button1.Text = "Sales by Item"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btnsalesitem.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnsalesitem.FlatAppearance.BorderSize = 0
+        Me.btnsalesitem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnsalesitem.ForeColor = System.Drawing.Color.White
+        Me.btnsalesitem.Location = New System.Drawing.Point(0, 0)
+        Me.btnsalesitem.Name = "btnsalesitem"
+        Me.btnsalesitem.Size = New System.Drawing.Size(198, 33)
+        Me.btnsalesitem.TabIndex = 13
+        Me.btnsalesitem.Text = "Sales by Item"
+        Me.btnsalesitem.UseVisualStyleBackColor = False
         '
-        'Button2
+        'btnendofday
         '
-        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button2.FlatAppearance.BorderSize = 0
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.ForeColor = System.Drawing.Color.White
-        Me.Button2.Location = New System.Drawing.Point(398, 0)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(198, 33)
-        Me.Button2.TabIndex = 14
-        Me.Button2.Text = "Sales Today"
-        Me.Button2.UseVisualStyleBackColor = False
+        Me.btnendofday.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnendofday.FlatAppearance.BorderSize = 0
+        Me.btnendofday.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnendofday.ForeColor = System.Drawing.Color.White
+        Me.btnendofday.Location = New System.Drawing.Point(398, 0)
+        Me.btnendofday.Name = "btnendofday"
+        Me.btnendofday.Size = New System.Drawing.Size(198, 33)
+        Me.btnendofday.TabIndex = 14
+        Me.btnendofday.Text = "Cash Denomination"
+        Me.btnendofday.UseVisualStyleBackColor = False
+        '
+        'btninvdiscrepancy
+        '
+        Me.btninvdiscrepancy.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btninvdiscrepancy.FlatAppearance.BorderSize = 0
+        Me.btninvdiscrepancy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btninvdiscrepancy.ForeColor = System.Drawing.Color.White
+        Me.btninvdiscrepancy.Location = New System.Drawing.Point(796, 0)
+        Me.btninvdiscrepancy.Name = "btninvdiscrepancy"
+        Me.btninvdiscrepancy.Size = New System.Drawing.Size(198, 33)
+        Me.btninvdiscrepancy.TabIndex = 16
+        Me.btninvdiscrepancy.Text = "Inventory Discrepancy"
+        Me.btninvdiscrepancy.UseVisualStyleBackColor = False
+        '
+        'btnremittance
+        '
+        Me.btnremittance.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnremittance.FlatAppearance.BorderSize = 0
+        Me.btnremittance.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnremittance.ForeColor = System.Drawing.Color.White
+        Me.btnremittance.Location = New System.Drawing.Point(597, 0)
+        Me.btnremittance.Name = "btnremittance"
+        Me.btnremittance.Size = New System.Drawing.Size(198, 33)
+        Me.btnremittance.TabIndex = 15
+        Me.btnremittance.Text = "Remittance Report"
+        Me.btnremittance.UseVisualStyleBackColor = False
         '
         'frmReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btninvdiscrepancy)
+        Me.Controls.Add(Me.btnremittance)
+        Me.Controls.Add(Me.btnendofday)
+        Me.Controls.Add(Me.btnsalesitem)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.btnProductList)
+        Me.Controls.Add(Me.btnsalesrange)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmReports"
         Me.Text = "frmReports"
@@ -90,7 +120,9 @@ Partial Class frmReports
 
     End Sub
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents btnProductList As Button
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btnsalesrange As Button
+    Friend WithEvents btnsalesitem As Button
+    Friend WithEvents btnendofday As Button
+    Friend WithEvents btninvdiscrepancy As Button
+    Friend WithEvents btnremittance As Button
 End Class

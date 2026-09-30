@@ -143,10 +143,28 @@
     <Compile Include="frmAuditLogs.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmCashDenomination.Designer.vb">
+      <DependentUpon>frmCashDenomination.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCashDenomination.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmDashboard.Designer.vb">
       <DependentUpon>frmDashboard.vb</DependentUpon>
     </Compile>
     <Compile Include="frmDashboard.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInventoryAdjustment.Designer.vb">
+      <DependentUpon>frmInventoryAdjustment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmInventoryAdjustment.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInventoryCountReconciliation.Designer.vb">
+      <DependentUpon>frmInventoryCountReconciliation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmInventoryCountReconciliation.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmLoginHistory.Designer.vb">
@@ -159,6 +177,12 @@
       <DependentUpon>frmPriceHistory.vb</DependentUpon>
     </Compile>
     <Compile Include="frmPriceHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReturnExchange.Designer.vb">
+      <DependentUpon>frmReturnExchange.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmReturnExchange.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSalesDateRange.Designer.vb">
@@ -233,6 +257,12 @@
     <Compile Include="frmStudentManagement.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmTransactionDetails.Designer.vb">
+      <DependentUpon>frmTransactionDetails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmTransactionDetails.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmTransactionHistory.Designer.vb">
       <DependentUpon>frmTransactionHistory.vb</DependentUpon>
     </Compile>
@@ -282,14 +312,26 @@
     <EmbeddedResource Include="frmAuditLogs.resx">
       <DependentUpon>frmAuditLogs.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCashDenomination.resx">
+      <DependentUpon>frmCashDenomination.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDashboard.resx">
       <DependentUpon>frmDashboard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInventoryAdjustment.resx">
+      <DependentUpon>frmInventoryAdjustment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInventoryCountReconciliation.resx">
+      <DependentUpon>frmInventoryCountReconciliation.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLoginHistory.resx">
       <DependentUpon>frmLoginHistory.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPriceHistory.resx">
       <DependentUpon>frmPriceHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReturnExchange.resx">
+      <DependentUpon>frmReturnExchange.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSalesDateRange.resx">
       <DependentUpon>frmSalesDateRange.vb</DependentUpon>
@@ -326,6 +368,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmStudentManagement.resx">
       <DependentUpon>frmStudentManagement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTransactionDetails.resx">
+      <DependentUpon>frmTransactionDetails.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTransactionHistory.resx">
       <DependentUpon>frmTransactionHistory.vb</DependentUpon>
