@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 01, 2026 at 03:59 PM
+-- Host: localhost
+-- Generation Time: Oct 01, 2026 at 07:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -75,7 +75,16 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 (25, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'Incorrect password entered', 'Failed - Incorrect Password', NULL, '2026-10-01 21:12:29'),
 (26, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 21:12:32'),
 (27, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'Incorrect password entered', 'Failed - Incorrect Password', NULL, '2026-10-01 21:14:14'),
-(28, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 21:14:17');
+(28, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 21:14:17'),
+(29, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:13:56'),
+(30, 1, 'Activity', 'Sale', 'TXN-20261002001500841', NULL, NULL, NULL, NULL, 'Sale to Sophia Cassandra Solis - Total: 850.00 (Employee\'s Salary, OR OR-20261002001736929)', 'Success', NULL, '2026-10-02 00:18:25'),
+(31, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:27:23'),
+(32, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:39:41'),
+(33, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:42:17'),
+(34, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:45:52'),
+(35, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:49:40'),
+(36, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:59:29'),
+(37, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 01:02:08');
 
 -- --------------------------------------------------------
 
@@ -1026,7 +1035,7 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (523, 185, 'UNI-CP-037-4XL', '4XL', 20, 5),
 (524, 185, 'UNI-CP-037-5XL', '5XL', 20, 5),
 (525, 185, 'UNI-CP-037-6XL', '6XL', 20, 5),
-(526, 186, 'UNI-CP-038-XS', 'XS', 20, 5),
+(526, 186, 'UNI-CP-038-XS', 'XS', 19, 5),
 (527, 186, 'UNI-CP-038-S', 'S', 20, 5),
 (528, 186, 'UNI-CP-038-M', 'M', 20, 5),
 (529, 186, 'UNI-CP-038-L', 'L', 20, 5),
@@ -1456,6 +1465,7 @@ CREATE TABLE `tbl_transactions` (
   `or_date` date NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `payment_method` varchar(30) NOT NULL DEFAULT 'Cash',
+  `employee_name` varchar(150) DEFAULT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `amount_paid` decimal(10,2) NOT NULL DEFAULT 0.00,
   `amount_change` decimal(10,2) NOT NULL DEFAULT 0.00,
@@ -1463,6 +1473,13 @@ CREATE TABLE `tbl_transactions` (
   `status` varchar(20) NOT NULL DEFAULT 'Completed',
   `cancel_reason` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_transactions`
+--
+
+INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`, `student_id`, `buyer_name`, `or_no`, `or_date`, `created_at`, `payment_method`, `employee_name`, `total_amount`, `amount_paid`, `amount_change`, `created_by`, `status`, `cancel_reason`) VALUES
+(1, 'TXN-20261002001500841', 'Student', 16, 'Sophia Cassandra Solis', 'OR-20261002001736929', '2026-10-02', '2026-10-02 00:18:25', 'Employee\'s Salary', 'Maria Santos', 850.00, 850.00, 0.00, 1, 'Completed', NULL);
 
 -- --------------------------------------------------------
 
@@ -1477,6 +1494,13 @@ CREATE TABLE `tbl_transaction_items` (
   `quantity` int(11) NOT NULL DEFAULT 1,
   `subtotal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_transaction_items`
+--
+
+INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `variant_id`, `quantity`, `subtotal`) VALUES
+(1, 1, 526, 1, 850.00);
 
 -- --------------------------------------------------------
 
@@ -1681,7 +1705,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_audit_logs`
 --
 ALTER TABLE `tbl_audit_logs`
-  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `tbl_cash_denominations`
@@ -1783,13 +1807,13 @@ ALTER TABLE `tbl_students`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction_items`
 --
 ALTER TABLE `tbl_transaction_items`
-  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
