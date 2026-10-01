@@ -107,9 +107,10 @@ Partial Class frmManageProducts
         Me.Panel13.Controls.Add(Me.Label27)
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
-        Me.Panel13.Location = New System.Drawing.Point(-3, 790)
+        Me.Panel13.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel13.Location = New System.Drawing.Point(0, 790)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1228, 27)
+        Me.Panel13.Size = New System.Drawing.Size(1219, 27)
         Me.Panel13.TabIndex = 83
         '
         'lblname
@@ -597,6 +598,9 @@ Partial Class frmManageProducts
         Me.Label5.Size = New System.Drawing.Size(215, 32)
         Me.Label5.TabIndex = 89
         Me.Label5.Text = "Manage Products"
+        '
+        'Timer1
+        '
         '
         'frmManageProducts
         '

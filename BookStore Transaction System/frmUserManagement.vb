@@ -3,10 +3,6 @@
 Public Class frmUserManagement
 
     Private selectedUserId As Integer = 0
-
-    ' ------------------------------------------------------------------
-    ' Form Load & Initialization
-    ' ------------------------------------------------------------------
     Private Sub frmUserManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
@@ -25,10 +21,6 @@ Public Class frmUserManagement
         LoadGrid("")
         ClearFields()
     End Sub
-
-    ' ------------------------------------------------------------------
-    ' KeyPress Validation Handlers
-    ' ------------------------------------------------------------------
 
     ' Username: Letters, digits, and underscores only
     Private Sub txtusername_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtusername.KeyPress
@@ -51,9 +43,6 @@ Public Class frmUserManagement
         End If
     End Sub
 
-    ' ------------------------------------------------------------------
-    ' Form Input Validation Check
-    ' ------------------------------------------------------------------
     Private Function ValidateUserInputs(isNewUser As Boolean) As Boolean
         If String.IsNullOrWhiteSpace(txtusername.Text) Then
             MsgBox("Username is required.", vbExclamation, "Validation Error")
@@ -111,9 +100,6 @@ Public Class frmUserManagement
         Return True
     End Function
 
-    ' ------------------------------------------------------------------
-    ' Grid & Data Operations
-    ' ------------------------------------------------------------------
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         LoadGrid(txtSearch.Text.Trim())
     End Sub
@@ -164,11 +150,6 @@ Public Class frmUserManagement
         cboStatus.Text = row.Cells(5).Value.ToString()
     End Sub
 
-    ' ------------------------------------------------------------------
-    ' Button Actions
-    ' ------------------------------------------------------------------
-
-    ' ADD USER
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If Not ValidateUserInputs(True) Then Exit Sub
 

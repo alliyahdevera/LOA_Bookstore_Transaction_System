@@ -16,21 +16,9 @@ Public Class frmPOS
         "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12",
         "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"}
 
-    ' ================= LOAD =================
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        txtCreatedBy.Text = currentuser.FullName
-        txtCreatedBy.ReadOnly = True
-
-        SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         cboGradeLevel.DropDownStyle = ComboBoxStyle.DropDownList
-        cboPaymentMethod.DropDownStyle = ComboBoxStyle.DropDownList
-
-        txtTotalAMount.ReadOnly = True
-        txtProgramStrand.ReadOnly = True
-        txtReferenceNo.ReadOnly = True
-        txtAmountReceived.ReadOnly = True
-        txtAmountChange.ReadOnly = True
 
         SetupGrid(dgvlistproducts)
         SetupGrid(dgvCart)
@@ -38,19 +26,12 @@ Public Class frmPOS
         dgvCart.Columns("UnitPrice").DefaultCellStyle.Format = "N2"
         dgvCart.Columns("SubTotal").DefaultCellStyle.Format = "N2"
 
-        ' Quantity can never go below 0 (no negatives)
         nudQuantity.DecimalPlaces = 0
         nudQuantity.Minimum = 0
         ResetQuantity()
 
         cboGradeLevel.Items.Clear()
         cboGradeLevel.Items.AddRange(gradeLevels)
-
-        cboPaymentMethod.Items.Clear()
-        cboPaymentMethod.Items.AddRange(New String() {"Cash", "Salary Deduction"})
-        cboPaymentMethod.Enabled = False   ' filled in by frmPayment
-
-        dtpTransactionDate.Value = DateTime.Today
         txtTotalAMount.Text = "0.00"
         ResetCustomerInfo()
     End Sub
@@ -63,7 +44,6 @@ Public Class frmPOS
         dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect
     End Sub
 
-    ' ================= STUDENT LOOKUP =================
     Private Sub picSearchStudent_Click(sender As Object, e As EventArgs) Handles picSearchStudent.Click
         LookupStudent()
     End Sub
@@ -104,11 +84,9 @@ Public Class frmPOS
         End If
     End Sub
 
-    ' ================= CATEGORY BUTTONS + PRODUCT SEARCH =================
-    Private Sub CategoryButton_Click(sender As Object, e As EventArgs) Handles btnUniforms.Click, btnBooks.Click, btnModules.Click, btnOtherItems.Click, btnOfficeSupplies.Click, btnSchoolSupplies.Click
+    Private Sub CategoryButton_Click(sender As Object, e As EventArgs)
         Dim btn As Button = DirectCast(sender, Button)
-        ' btnOtherItems says "Other Items" but the category in the database is "Other Bookstore Items"
-        activeCategory = If(btn Is btnOtherItems, "Other Bookstore Items", btn.Text)
+
         ResetQuantity()
         LoadProducts()
     End Sub
@@ -276,7 +254,6 @@ Public Class frmPOS
     ' ================= CLEAR (customer + payment method only) =================
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         ResetCustomerInfo()
-        cboPaymentMethod.SelectedIndex = -1
     End Sub
 
     ' ================= CANCEL TRANSACTION =================
@@ -299,8 +276,6 @@ Public Class frmPOS
             frm.GrandTotal = grandTotal
             If frm.ShowDialog(Me) = DialogResult.OK Then
                 txtReferenceNo.Text = frm.ResultORNo
-                dtpTransactionDate.Value = frm.ResultDate
-                cboPaymentMethod.Text = frm.ResultMethod
                 txtAmountReceived.Text = frm.ResultReceived.ToString("N2")
                 txtAmountChange.Text = frm.ResultChange.ToString("N2")
             End If
@@ -314,7 +289,7 @@ Public Class frmPOS
             Exit Sub
         End If
 
-        If String.IsNullOrWhiteSpace(txtReferenceNo.Text) OrElse cboPaymentMethod.SelectedIndex = -1 Then
+        If String.IsNullOrWhiteSpace(txtReferenceNo.Text) Then
             MsgBox("Payment is not settled (or the payment method was cleared). Click 'Settle Payment' first.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
@@ -351,8 +326,6 @@ Public Class frmPOS
                     c1.Parameters.AddWithValue("@sid", If(foundStudentId > 0, CType(foundStudentId, Object), DBNull.Value))
                     c1.Parameters.AddWithValue("@bn", txtStudentName.Text.Trim())
                     c1.Parameters.AddWithValue("@orno", txtReferenceNo.Text.Trim())
-                    c1.Parameters.AddWithValue("@ord", dtpTransactionDate.Value.Date)
-                    c1.Parameters.AddWithValue("@pm", cboPaymentMethod.Text)
                     c1.Parameters.AddWithValue("@tot", total)
                     c1.Parameters.AddWithValue("@paid", received)
                     c1.Parameters.AddWithValue("@chg", change)
@@ -396,7 +369,7 @@ Public Class frmPOS
         End Try
 
         If saved Then
-            LogActivity("Sale", txnNo, "Sale to " & txtStudentName.Text.Trim() & " - Total: " & total.ToString("N2") & " (" & cboPaymentMethod.Text & ", OR " & txtReferenceNo.Text.Trim() & ")")
+            LogActivity("Sale", txnNo, "Sale to " & txtStudentName.Text.Trim() & " - Total: " & total.ToString("N2") & " (" & ", OR " & txtReferenceNo.Text.Trim() & ")")
             MsgBox("Transaction saved successfully. You can view it in Transaction History.", vbInformation, "Point of Sale")
             ResetAll()
         End If
@@ -442,8 +415,7 @@ Public Class frmPOS
         txtReferenceNo.Clear()
         txtAmountReceived.Clear()
         txtAmountChange.Clear()
-        cboPaymentMethod.SelectedIndex = -1
-        dtpTransactionDate.Value = DateTime.Today
+
     End Sub
 
     Private Sub ResetAll()
@@ -456,4 +428,5 @@ Public Class frmPOS
         dgvCart.Rows.Clear()
         txtTotalAMount.Text = "0.00"
     End Sub
+
 End Class

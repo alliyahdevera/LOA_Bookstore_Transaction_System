@@ -7,7 +7,6 @@ Public Class frmStockEntry
     Private selectedVariantId As Integer = 0
 
     Private Sub frmStockEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        SetupFooter(Me, lblname, lblposition, lbldatetime)
         Label7.Text = "PRODUCTS - Click a row to select, then enter the quantity received"   ' fixes a copy-pasted header
         txtreference.Text = NewReferenceNo()
         txtreference.ReadOnly = True
@@ -64,25 +63,13 @@ Public Class frmStockEntry
         If Not IsNumeric(txtstocks.Text) OrElse Convert.ToInt32(txtstocks.Text) <= 0 Then
             MsgBox("Enter a valid quantity.", vbExclamation, "Stock Entry") : Exit Sub
         End If
-        If String.IsNullOrWhiteSpace(txtstockinby.Text) Then
-            MsgBox("Enter who the stock was received from (Stock In By).", vbExclamation, "Stock Entry") : Exit Sub
-        End If
-
-        ' Create the delivery header the first time an item is added under this Reference No.
-        If currentStockInId = 0 Then
-            currentStockInId = CInt(ExecInsertGetId(
-                "INSERT INTO TBL_STOCK_INS (reference_no, received_by, stock_in_date, stock_in_time, created_by) VALUES (@r, @rb, @d, @t, @u)",
-                New String() {"@r", "@rb", "@d", "@t", "@u"},
-                New Object() {txtreference.Text, txtstockinby.Text.Trim(), DateTimePicker1.Value.Date, DateTime.Now.TimeOfDay, currentuser.UserID}))
-            If currentStockInId = 0 Then Exit Sub
-        End If
 
         Dim qty As Integer = Convert.ToInt32(txtstocks.Text)
         Dim ok As Boolean = ExecNonQuery("INSERT INTO TBL_STOCK_IN_DETAILS (stock_in_id, variant_id, quantity) VALUES (@s, @v, @q)",
             New String() {"@s", "@v", "@q"}, New Object() {currentStockInId, selectedVariantId, qty})
 
         If ok Then
-            LogActivity("Stock In", txtreference.Text, "Added " & qty & " pc(s), received from " & txtstockinby.Text.Trim())
+            LogActivity("Stock In", txtreference.Text, "Added " & qty & " pc(s), received from ")
             ExecNonQuery("UPDATE TBL_PRODUCT_VARIANTS SET quantity_on_hand = quantity_on_hand + @q WHERE variant_id = @v",
                 New String() {"@q", "@v"}, New Object() {qty, selectedVariantId})
 

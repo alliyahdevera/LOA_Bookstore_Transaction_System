@@ -53,14 +53,6 @@ Partial Class frmInventoryCountReconciliation
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvlistproducts = New System.Windows.Forms.DataGridView()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.dtpDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtcreatedby = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.cbocategory = New System.Windows.Forms.ComboBox()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -71,6 +63,12 @@ Partial Class frmInventoryCountReconciliation
         Me.Difference = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Remarks = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.dtpDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.cbocategory = New System.Windows.Forms.ComboBox()
         Me.btngenerate = New System.Windows.Forms.Button()
         Me.btnreconcile = New System.Windows.Forms.Button()
         Me.btnclear = New System.Windows.Forms.Button()
@@ -150,6 +148,7 @@ Partial Class frmInventoryCountReconciliation
         Me.Panel13.Controls.Add(Me.Label27)
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
+        Me.Panel13.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel13.Location = New System.Drawing.Point(0, 791)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(1221, 27)
@@ -417,84 +416,6 @@ Partial Class frmInventoryCountReconciliation
         Me.dgvlistproducts.Size = New System.Drawing.Size(1167, 451)
         Me.dgvlistproducts.TabIndex = 1
         '
-        'Panel6
-        '
-        Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Panel6.Controls.Add(Me.Label7)
-        Me.Panel6.Location = New System.Drawing.Point(0, 0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1166, 35)
-        Me.Panel6.TabIndex = 0
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(7, 7)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(165, 21)
-        Me.Label7.TabIndex = 25
-        Me.Label7.Text = "Inventory Count List"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(25, 195)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(77, 17)
-        Me.Label4.TabIndex = 111
-        Me.Label4.Text = "Count Date"
-        '
-        'dtpDate
-        '
-        Me.dtpDate.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpDate.Location = New System.Drawing.Point(108, 192)
-        Me.dtpDate.Name = "dtpDate"
-        Me.dtpDate.Size = New System.Drawing.Size(178, 25)
-        Me.dtpDate.TabIndex = 112
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(956, 35)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(82, 17)
-        Me.Label5.TabIndex = 113
-        Me.Label5.Text = "Prepared By"
-        '
-        'txtcreatedby
-        '
-        Me.txtcreatedby.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtcreatedby.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtcreatedby.Location = New System.Drawing.Point(1044, 31)
-        Me.txtcreatedby.Name = "txtcreatedby"
-        Me.txtcreatedby.ReadOnly = True
-        Me.txtcreatedby.Size = New System.Drawing.Size(145, 25)
-        Me.txtcreatedby.TabIndex = 121
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(747, 195)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(64, 17)
-        Me.Label9.TabIndex = 123
-        Me.Label9.Text = "Category"
-        '
-        'cbocategory
-        '
-        Me.cbocategory.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.cbocategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbocategory.FormattingEnabled = True
-        Me.cbocategory.Location = New System.Drawing.Point(817, 192)
-        Me.cbocategory.Name = "cbocategory"
-        Me.cbocategory.Size = New System.Drawing.Size(158, 25)
-        Me.cbocategory.TabIndex = 124
-        '
         'ProductCode
         '
         Me.ProductCode.HeaderText = "Product Code"
@@ -561,6 +482,64 @@ Partial Class frmInventoryCountReconciliation
         Me.Remarks.Name = "Remarks"
         Me.Remarks.ReadOnly = True
         Me.Remarks.Width = 110
+        '
+        'Panel6
+        '
+        Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Panel6.Controls.Add(Me.Label7)
+        Me.Panel6.Location = New System.Drawing.Point(0, 0)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(1166, 35)
+        Me.Panel6.TabIndex = 0
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.ForeColor = System.Drawing.Color.White
+        Me.Label7.Location = New System.Drawing.Point(7, 7)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(165, 21)
+        Me.Label7.TabIndex = 25
+        Me.Label7.Text = "Inventory Count List"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(25, 195)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(77, 17)
+        Me.Label4.TabIndex = 111
+        Me.Label4.Text = "Count Date"
+        '
+        'dtpDate
+        '
+        Me.dtpDate.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpDate.Location = New System.Drawing.Point(108, 192)
+        Me.dtpDate.Name = "dtpDate"
+        Me.dtpDate.Size = New System.Drawing.Size(178, 25)
+        Me.dtpDate.TabIndex = 112
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(747, 195)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(64, 17)
+        Me.Label9.TabIndex = 123
+        Me.Label9.Text = "Category"
+        '
+        'cbocategory
+        '
+        Me.cbocategory.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cbocategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbocategory.FormattingEnabled = True
+        Me.cbocategory.Location = New System.Drawing.Point(817, 192)
+        Me.cbocategory.Name = "cbocategory"
+        Me.cbocategory.Size = New System.Drawing.Size(158, 25)
+        Me.cbocategory.TabIndex = 124
         '
         'btngenerate
         '
@@ -635,8 +614,6 @@ Partial Class frmInventoryCountReconciliation
         Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.cbocategory)
         Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.txtcreatedby)
-        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.dtpDate)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label13)
@@ -711,8 +688,6 @@ Partial Class frmInventoryCountReconciliation
     Friend WithEvents Label7 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents dtpDate As DateTimePicker
-    Friend WithEvents Label5 As Label
-    Friend WithEvents txtcreatedby As TextBox
     Friend WithEvents Label9 As Label
     Friend WithEvents cbocategory As ComboBox
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn

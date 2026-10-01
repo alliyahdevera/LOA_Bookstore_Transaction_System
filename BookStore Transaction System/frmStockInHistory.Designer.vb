@@ -73,9 +73,10 @@ Partial Class frmStockInHistory
         Me.Panel13.Controls.Add(Me.Label27)
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
+        Me.Panel13.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel13.Location = New System.Drawing.Point(0, 790)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1228, 27)
+        Me.Panel13.Size = New System.Drawing.Size(1219, 27)
         Me.Panel13.TabIndex = 84
         '
         'lblname
