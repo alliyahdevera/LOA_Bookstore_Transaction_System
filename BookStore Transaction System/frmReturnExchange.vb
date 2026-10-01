@@ -2,14 +2,14 @@
 
     Public Property TransactionNo As String
 
-    Private Sub btnreturnexc_Click(sender As Object, e As EventArgs) Handles btnreturnexc.Click
+    Private Sub btnreturnexc_Click(sender As Object, e As EventArgs) 
         ' TODO: validate and save the return/exchange here
 
         Me.DialogResult = DialogResult.OK
         Me.Close()
     End Sub
 
-    Private Sub btncancel_Click(sender As Object, e As EventArgs) Handles btncancel.Click
+    Private Sub btncancel_Click(sender As Object, e As EventArgs) 
         Me.DialogResult = DialogResult.Cancel
         Me.Close()
     End Sub

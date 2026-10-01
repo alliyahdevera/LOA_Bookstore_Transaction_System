@@ -24,6 +24,7 @@ Partial Class frmAdminDashboard
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAdminDashboard))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnlogout = New System.Windows.Forms.Button()
         Me.btnAuditLogs = New System.Windows.Forms.Button()
         Me.btnStudentManagement = New System.Windows.Forms.Button()
         Me.btnUserManagement = New System.Windows.Forms.Button()
@@ -32,15 +33,14 @@ Partial Class frmAdminDashboard
         Me.btnInventory = New System.Windows.Forms.Button()
         Me.btnPOS = New System.Windows.Forms.Button()
         Me.btnDashboard = New System.Windows.Forms.Button()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Logo = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.pnlContent = New System.Windows.Forms.Panel()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.btnlogout = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.Logo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -68,6 +68,22 @@ Partial Class frmAdminDashboard
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(241, 851)
         Me.Panel1.TabIndex = 0
+        '
+        'btnlogout
+        '
+        Me.btnlogout.BackColor = System.Drawing.Color.Transparent
+        Me.btnlogout.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.btnlogout.FlatAppearance.BorderSize = 0
+        Me.btnlogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnlogout.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnlogout.ForeColor = System.Drawing.Color.White
+        Me.btnlogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnlogout.Location = New System.Drawing.Point(10, 802)
+        Me.btnlogout.Name = "btnlogout"
+        Me.btnlogout.Size = New System.Drawing.Size(221, 49)
+        Me.btnlogout.TabIndex = 16
+        Me.btnlogout.Text = "Logout"
+        Me.btnlogout.UseVisualStyleBackColor = False
         '
         'btnAuditLogs
         '
@@ -197,6 +213,24 @@ Partial Class frmAdminDashboard
         Me.btnDashboard.Text = "Dashboard"
         Me.btnDashboard.UseVisualStyleBackColor = False
         '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.Transparent
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel4.Location = New System.Drawing.Point(231, 100)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(10, 751)
+        Me.Panel4.TabIndex = 2
+        '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.Transparent
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel3.Location = New System.Drawing.Point(0, 100)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(10, 751)
+        Me.Panel3.TabIndex = 1
+        '
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
@@ -253,44 +287,11 @@ Partial Class frmAdminDashboard
         '
         'pnlContent
         '
-        Me.pnlContent.Location = New System.Drawing.Point(242, 0)
+        Me.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlContent.Location = New System.Drawing.Point(241, 0)
         Me.pnlContent.Name = "pnlContent"
-        Me.pnlContent.Size = New System.Drawing.Size(1220, 850)
+        Me.pnlContent.Size = New System.Drawing.Size(1223, 851)
         Me.pnlContent.TabIndex = 72
-        '
-        'Panel3
-        '
-        Me.Panel3.BackColor = System.Drawing.Color.Transparent
-        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel3.Location = New System.Drawing.Point(0, 100)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(10, 751)
-        Me.Panel3.TabIndex = 1
-        '
-        'Panel4
-        '
-        Me.Panel4.BackColor = System.Drawing.Color.Transparent
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel4.Location = New System.Drawing.Point(231, 100)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(10, 751)
-        Me.Panel4.TabIndex = 2
-        '
-        'btnlogout
-        '
-        Me.btnlogout.BackColor = System.Drawing.Color.Transparent
-        Me.btnlogout.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.btnlogout.FlatAppearance.BorderSize = 0
-        Me.btnlogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnlogout.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnlogout.ForeColor = System.Drawing.Color.White
-        Me.btnlogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnlogout.Location = New System.Drawing.Point(10, 802)
-        Me.btnlogout.Name = "btnlogout"
-        Me.btnlogout.Size = New System.Drawing.Size(221, 49)
-        Me.btnlogout.TabIndex = 16
-        Me.btnlogout.Text = "Logout"
-        Me.btnlogout.UseVisualStyleBackColor = False
         '
         'frmAdminDashboard
         '
@@ -299,6 +300,7 @@ Partial Class frmAdminDashboard
         Me.ClientSize = New System.Drawing.Size(1464, 851)
         Me.Controls.Add(Me.pnlContent)
         Me.Controls.Add(Me.Panel1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Name = "frmAdminDashboard"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Panel1.ResumeLayout(False)

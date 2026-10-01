@@ -23,6 +23,7 @@ Partial Class frmInventoryCountReconciliation
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInventoryCountReconciliation))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -149,9 +150,9 @@ Partial Class frmInventoryCountReconciliation
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel13.Location = New System.Drawing.Point(0, 791)
+        Me.Panel13.Location = New System.Drawing.Point(0, 781)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1221, 27)
+        Me.Panel13.Size = New System.Drawing.Size(1220, 27)
         Me.Panel13.TabIndex = 107
         '
         'lblname
@@ -408,12 +409,22 @@ Partial Class frmInventoryCountReconciliation
         '
         'dgvlistproducts
         '
+        Me.dgvlistproducts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvlistproducts.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvlistproducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvlistproducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.Category, Me.TypeofProduct, Me.Size, Me.SystemQuantity, Me.PhysicalQuantity, Me.Difference, Me.Status, Me.Remarks})
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvlistproducts.Location = New System.Drawing.Point(-1, 35)
         Me.dgvlistproducts.Name = "dgvlistproducts"
         Me.dgvlistproducts.ReadOnly = True
-        Me.dgvlistproducts.Size = New System.Drawing.Size(1167, 451)
+        Me.dgvlistproducts.Size = New System.Drawing.Size(1161, 451)
         Me.dgvlistproducts.TabIndex = 1
         '
         'ProductCode
@@ -421,35 +432,30 @@ Partial Class frmInventoryCountReconciliation
         Me.ProductCode.HeaderText = "Product Code"
         Me.ProductCode.Name = "ProductCode"
         Me.ProductCode.ReadOnly = True
-        Me.ProductCode.Width = 120
         '
         'ProductName
         '
         Me.ProductName.HeaderText = "Product Name"
         Me.ProductName.Name = "ProductName"
         Me.ProductName.ReadOnly = True
-        Me.ProductName.Width = 150
         '
         'Category
         '
         Me.Category.HeaderText = "Category"
         Me.Category.Name = "Category"
         Me.Category.ReadOnly = True
-        Me.Category.Width = 130
         '
         'TypeofProduct
         '
         Me.TypeofProduct.HeaderText = "Type of Product"
         Me.TypeofProduct.Name = "TypeofProduct"
         Me.TypeofProduct.ReadOnly = True
-        Me.TypeofProduct.Width = 150
         '
         'Size
         '
         Me.Size.HeaderText = "Size"
         Me.Size.Name = "Size"
         Me.Size.ReadOnly = True
-        Me.Size.Width = 80
         '
         'SystemQuantity
         '
@@ -468,7 +474,6 @@ Partial Class frmInventoryCountReconciliation
         Me.Difference.HeaderText = "Difference"
         Me.Difference.Name = "Difference"
         Me.Difference.ReadOnly = True
-        Me.Difference.Width = 80
         '
         'Status
         '
@@ -481,7 +486,6 @@ Partial Class frmInventoryCountReconciliation
         Me.Remarks.HeaderText = "Remarks"
         Me.Remarks.Name = "Remarks"
         Me.Remarks.ReadOnly = True
-        Me.Remarks.Width = 110
         '
         'Panel6
         '
@@ -559,7 +563,7 @@ Partial Class frmInventoryCountReconciliation
         Me.btnreconcile.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btnreconcile.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnreconcile.ForeColor = System.Drawing.Color.White
-        Me.btnreconcile.Location = New System.Drawing.Point(662, 734)
+        Me.btnreconcile.Location = New System.Drawing.Point(662, 728)
         Me.btnreconcile.Name = "btnreconcile"
         Me.btnreconcile.Size = New System.Drawing.Size(170, 40)
         Me.btnreconcile.TabIndex = 166
@@ -571,7 +575,7 @@ Partial Class frmInventoryCountReconciliation
         Me.btnclear.BackColor = System.Drawing.Color.LightSlateGray
         Me.btnclear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnclear.ForeColor = System.Drawing.Color.White
-        Me.btnclear.Location = New System.Drawing.Point(840, 734)
+        Me.btnclear.Location = New System.Drawing.Point(840, 728)
         Me.btnclear.Name = "btnclear"
         Me.btnclear.Size = New System.Drawing.Size(170, 40)
         Me.btnclear.TabIndex = 167
@@ -583,7 +587,7 @@ Partial Class frmInventoryCountReconciliation
         Me.btnsave.BackColor = System.Drawing.Color.Green
         Me.btnsave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnsave.ForeColor = System.Drawing.Color.White
-        Me.btnsave.Location = New System.Drawing.Point(483, 734)
+        Me.btnsave.Location = New System.Drawing.Point(483, 728)
         Me.btnsave.Name = "btnsave"
         Me.btnsave.Size = New System.Drawing.Size(170, 40)
         Me.btnsave.TabIndex = 168
@@ -595,7 +599,7 @@ Partial Class frmInventoryCountReconciliation
         Me.btncancel.BackColor = System.Drawing.Color.IndianRed
         Me.btncancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btncancel.ForeColor = System.Drawing.Color.White
-        Me.btncancel.Location = New System.Drawing.Point(1019, 734)
+        Me.btncancel.Location = New System.Drawing.Point(1019, 728)
         Me.btncancel.Name = "btncancel"
         Me.btncancel.Size = New System.Drawing.Size(170, 40)
         Me.btncancel.TabIndex = 169
@@ -606,7 +610,7 @@ Partial Class frmInventoryCountReconciliation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1221, 818)
+        Me.ClientSize = New System.Drawing.Size(1220, 808)
         Me.Controls.Add(Me.btncancel)
         Me.Controls.Add(Me.btnsave)
         Me.Controls.Add(Me.btnclear)

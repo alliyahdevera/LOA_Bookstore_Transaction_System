@@ -261,4 +261,5 @@ Public Class frmDashboard
             MsgBox("Error loading sales per month chart: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub
+
 End Class

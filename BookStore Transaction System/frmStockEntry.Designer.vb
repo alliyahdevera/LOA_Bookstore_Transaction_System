@@ -131,6 +131,8 @@ Partial Class frmStockEntry
         '
         'DataGridView1
         '
+        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.DataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeOfProduct, Me.Amount, Me.Quantity, Me.ReorderLevel, Me.Status})
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -158,14 +160,12 @@ Partial Class frmStockEntry
         Me.ProductName.HeaderText = "Product Name"
         Me.ProductName.Name = "ProductName"
         Me.ProductName.ReadOnly = True
-        Me.ProductName.Width = 150
         '
         'ProductDescription
         '
         Me.ProductDescription.HeaderText = "Product Description"
         Me.ProductDescription.Name = "ProductDescription"
         Me.ProductDescription.ReadOnly = True
-        Me.ProductDescription.Width = 200
         '
         'Category
         '
@@ -196,14 +196,12 @@ Partial Class frmStockEntry
         Me.ReorderLevel.HeaderText = "Reorder Level"
         Me.ReorderLevel.Name = "ReorderLevel"
         Me.ReorderLevel.ReadOnly = True
-        Me.ReorderLevel.Width = 130
         '
         'Status
         '
         Me.Status.HeaderText = "Status"
         Me.Status.Name = "Status"
         Me.Status.ReadOnly = True
-        Me.Status.Width = 130
         '
         'Panel6
         '

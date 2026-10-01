@@ -245,6 +245,12 @@
     <Compile Include="frmSalesByItem.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmStudentList.Designer.vb">
+      <DependentUpon>frmStudentList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmStudentList.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmStockEntry.Designer.vb">
       <DependentUpon>frmStockEntry.vb</DependentUpon>
     </Compile>
@@ -374,6 +380,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmStockInHistory.resx">
       <DependentUpon>frmStockInHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStudentList.resx">
+      <DependentUpon>frmStudentList.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStudentManagement.resx">
       <DependentUpon>frmStudentManagement.vb</DependentUpon>

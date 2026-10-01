@@ -22,6 +22,7 @@ Partial Class frmCashDenomination
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.cbocashier = New System.Windows.Forms.ComboBox()
         Me.dtpDate = New System.Windows.Forms.DateTimePicker()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -151,7 +152,7 @@ Partial Class frmCashDenomination
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel13.Location = New System.Drawing.Point(0, 790)
+        Me.Panel13.Location = New System.Drawing.Point(0, 781)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(1220, 27)
         Me.Panel13.TabIndex = 131
@@ -485,10 +486,18 @@ Partial Class frmCashDenomination
         Me.dgvcashbreakdown.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvcashbreakdown.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvcashbreakdown.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Denomination, Me.Quantity, Me.Amount})
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvcashbreakdown.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvcashbreakdown.Location = New System.Drawing.Point(-1, 34)
         Me.dgvcashbreakdown.Name = "dgvcashbreakdown"
         Me.dgvcashbreakdown.ReadOnly = True
-        Me.dgvcashbreakdown.Size = New System.Drawing.Size(777, 288)
+        Me.dgvcashbreakdown.Size = New System.Drawing.Size(770, 288)
         Me.dgvcashbreakdown.TabIndex = 1
         '
         'Denomination
@@ -790,7 +799,7 @@ Partial Class frmCashDenomination
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1220, 817)
+        Me.ClientSize = New System.Drawing.Size(1220, 808)
         Me.Controls.Add(Me.Panel10)
         Me.Controls.Add(Me.btncancel)
         Me.Controls.Add(Me.Panel7)

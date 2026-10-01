@@ -18,7 +18,6 @@ Public Class frmPOS
 
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        cboGradeLevel.DropDownStyle = ComboBoxStyle.DropDownList
 
         SetupGrid(dgvlistproducts)
         SetupGrid(dgvCart)
@@ -30,8 +29,6 @@ Public Class frmPOS
         nudQuantity.Minimum = 0
         ResetQuantity()
 
-        cboGradeLevel.Items.Clear()
-        cboGradeLevel.Items.AddRange(gradeLevels)
         txtTotalAMount.Text = "0.00"
         ResetCustomerInfo()
     End Sub
@@ -42,46 +39,6 @@ Public Class frmPOS
         dgv.AllowUserToDeleteRows = False
         dgv.MultiSelect = False
         dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-    End Sub
-
-    Private Sub picSearchStudent_Click(sender As Object, e As EventArgs) Handles picSearchStudent.Click
-        LookupStudent()
-    End Sub
-
-    Private Sub txtStudentNo_KeyDown(sender As Object, e As KeyEventArgs) Handles txtStudentNo.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            LookupStudent()
-            e.SuppressKeyPress = True
-        End If
-    End Sub
-
-    Private Sub LookupStudent()
-        If String.IsNullOrWhiteSpace(txtStudentNo.Text) Then Exit Sub
-
-        Dim dt As DataTable = GetDataTable("SELECT student_id, first_name, last_name, grade_level, section FROM TBL_STUDENTS WHERE student_no = @n",
-                                            New String() {"@n"}, New Object() {txtStudentNo.Text.Trim()})
-
-        If dt.Rows.Count > 0 Then
-            Dim r As DataRow = dt.Rows(0)
-            foundStudentId = Convert.ToInt32(r("student_id"))
-            txtStudentName.Text = r("first_name").ToString() & " " & r("last_name").ToString()
-
-            Dim grade As String = r("grade_level").ToString()
-            If Not cboGradeLevel.Items.Contains(grade) Then cboGradeLevel.Items.Add(grade)
-            cboGradeLevel.Text = grade
-            txtProgramStrand.Text = If(IsDBNull(r("section")), "", r("section").ToString())
-
-            txtStudentName.ReadOnly = True
-        Else
-            foundStudentId = 0
-            txtStudentName.Clear()
-            cboGradeLevel.SelectedIndex = -1
-            txtProgramStrand.Clear()
-
-            txtStudentName.ReadOnly = False
-            MsgBox("Student number not found. You can type the buyer's name manually for a walk-in / employee sale.", vbInformation, "Point of Sale")
-            txtStudentName.Focus()
-        End If
     End Sub
 
     Private Sub CategoryButton_Click(sender As Object, e As EventArgs)
@@ -403,10 +360,9 @@ Public Class frmPOS
     End Sub
 
     Private Sub ResetCustomerInfo()
-        txtStudentNo.Clear()
+
         txtStudentName.Clear()
         txtStudentName.ReadOnly = False
-        cboGradeLevel.SelectedIndex = -1
         txtProgramStrand.Clear()
         foundStudentId = 0
     End Sub

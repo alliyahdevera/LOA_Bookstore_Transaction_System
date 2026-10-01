@@ -22,8 +22,6 @@ Partial Class frmReturnExchange
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btncancel = New System.Windows.Forms.Button()
-        Me.btnreturnexc = New System.Windows.Forms.Button()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
@@ -36,34 +34,6 @@ Partial Class frmReturnExchange
         Me.SubTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.dtpORDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.txtsize = New System.Windows.Forms.ComboBox()
-        Me.txtProduct = New System.Windows.Forms.ComboBox()
-        Me.txtAvailstock = New System.Windows.Forms.ComboBox()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.numupqty = New System.Windows.Forms.NumericUpDown()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.txtReason = New System.Windows.Forms.TextBox()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.reason = New System.Windows.Forms.Label()
-        Me.lblcondition = New System.Windows.Forms.Label()
-        Me.txtcreatedby = New System.Windows.Forms.TextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.txtcondition = New System.Windows.Forms.TextBox()
-        Me.lblquantity = New System.Windows.Forms.Label()
-        Me.nudQuantity = New System.Windows.Forms.NumericUpDown()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.rbtnexchange = New System.Windows.Forms.RadioButton()
-        Me.rbtnReturn = New System.Windows.Forms.RadioButton()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.txtpaymentmethod = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -86,39 +56,9 @@ Partial Class frmReturnExchange
         Me.Panel7.SuspendLayout()
         CType(Me.dgvCart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel8.SuspendLayout()
-        Me.Panel3.SuspendLayout()
-        CType(Me.numupqty, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel5.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        CType(Me.nudQuantity, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel2.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'btncancel
-        '
-        Me.btncancel.BackColor = System.Drawing.Color.SlateGray
-        Me.btncancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btncancel.ForeColor = System.Drawing.Color.White
-        Me.btncancel.Location = New System.Drawing.Point(552, 765)
-        Me.btncancel.Name = "btncancel"
-        Me.btncancel.Size = New System.Drawing.Size(170, 40)
-        Me.btncancel.TabIndex = 129
-        Me.btncancel.Text = "Cancel"
-        Me.btncancel.UseVisualStyleBackColor = False
-        '
-        'btnreturnexc
-        '
-        Me.btnreturnexc.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnreturnexc.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnreturnexc.ForeColor = System.Drawing.Color.White
-        Me.btnreturnexc.Location = New System.Drawing.Point(378, 765)
-        Me.btnreturnexc.Name = "btnreturnexc"
-        Me.btnreturnexc.Size = New System.Drawing.Size(160, 40)
-        Me.btnreturnexc.TabIndex = 128
-        Me.btnreturnexc.Text = "Return / Exchange"
-        Me.btnreturnexc.UseVisualStyleBackColor = False
         '
         'Label10
         '
@@ -223,300 +163,6 @@ Partial Class frmReturnExchange
         Me.Label15.Size = New System.Drawing.Size(239, 21)
         Me.Label15.TabIndex = 9
         Me.Label15.Text = "Items from Original Transaction"
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel3.Controls.Add(Me.dtpORDate)
-        Me.Panel3.Controls.Add(Me.Label19)
-        Me.Panel3.Controls.Add(Me.txtsize)
-        Me.Panel3.Controls.Add(Me.txtProduct)
-        Me.Panel3.Controls.Add(Me.txtAvailstock)
-        Me.Panel3.Controls.Add(Me.Label18)
-        Me.Panel3.Controls.Add(Me.numupqty)
-        Me.Panel3.Controls.Add(Me.Label9)
-        Me.Panel3.Controls.Add(Me.Panel5)
-        Me.Panel3.Controls.Add(Me.Label13)
-        Me.Panel3.Controls.Add(Me.Label16)
-        Me.Panel3.Location = New System.Drawing.Point(378, 486)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(345, 260)
-        Me.Panel3.TabIndex = 121
-        '
-        'dtpORDate
-        '
-        Me.dtpORDate.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpORDate.Location = New System.Drawing.Point(135, 215)
-        Me.dtpORDate.Name = "dtpORDate"
-        Me.dtpORDate.Size = New System.Drawing.Size(193, 27)
-        Me.dtpORDate.TabIndex = 133
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(15, 222)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(35, 17)
-        Me.Label19.TabIndex = 132
-        Me.Label19.Text = "Date"
-        '
-        'txtsize
-        '
-        Me.txtsize.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtsize.FormattingEnabled = True
-        Me.txtsize.Location = New System.Drawing.Point(135, 88)
-        Me.txtsize.Name = "txtsize"
-        Me.txtsize.Size = New System.Drawing.Size(193, 25)
-        Me.txtsize.TabIndex = 131
-        '
-        'txtProduct
-        '
-        Me.txtProduct.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtProduct.FormattingEnabled = True
-        Me.txtProduct.Location = New System.Drawing.Point(135, 50)
-        Me.txtProduct.Name = "txtProduct"
-        Me.txtProduct.Size = New System.Drawing.Size(193, 25)
-        Me.txtProduct.TabIndex = 130
-        '
-        'txtAvailstock
-        '
-        Me.txtAvailstock.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtAvailstock.FormattingEnabled = True
-        Me.txtAvailstock.Location = New System.Drawing.Point(135, 129)
-        Me.txtAvailstock.Name = "txtAvailstock"
-        Me.txtAvailstock.Size = New System.Drawing.Size(193, 25)
-        Me.txtAvailstock.TabIndex = 129
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(15, 173)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(107, 17)
-        Me.Label18.TabIndex = 128
-        Me.Label18.Text = "Replacement Qty"
-        '
-        'numupqty
-        '
-        Me.numupqty.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.numupqty.Location = New System.Drawing.Point(135, 169)
-        Me.numupqty.Name = "numupqty"
-        Me.numupqty.Size = New System.Drawing.Size(193, 25)
-        Me.numupqty.TabIndex = 125
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(15, 132)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(95, 17)
-        Me.Label9.TabIndex = 127
-        Me.Label9.Text = "Available Stock"
-        '
-        'Panel5
-        '
-        Me.Panel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Panel5.Controls.Add(Me.Label4)
-        Me.Panel5.Location = New System.Drawing.Point(0, 0)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(355, 35)
-        Me.Panel5.TabIndex = 11
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(7, 7)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(312, 21)
-        Me.Label4.TabIndex = 10
-        Me.Label4.Text = "Replacement Item (Required if Exchange)"
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(15, 91)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(31, 17)
-        Me.Label13.TabIndex = 126
-        Me.Label13.Text = "Size"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(15, 53)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(53, 17)
-        Me.Label16.TabIndex = 125
-        Me.Label16.Text = "Product"
-        '
-        'txtReason
-        '
-        Me.txtReason.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtReason.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtReason.Location = New System.Drawing.Point(116, 108)
-        Me.txtReason.Multiline = True
-        Me.txtReason.Name = "txtReason"
-        Me.txtReason.ReadOnly = True
-        Me.txtReason.Size = New System.Drawing.Size(196, 63)
-        Me.txtReason.TabIndex = 107
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel1.Controls.Add(Me.reason)
-        Me.Panel1.Controls.Add(Me.lblcondition)
-        Me.Panel1.Controls.Add(Me.txtcreatedby)
-        Me.Panel1.Controls.Add(Me.txtReason)
-        Me.Panel1.Controls.Add(Me.Label12)
-        Me.Panel1.Controls.Add(Me.txtcondition)
-        Me.Panel1.Controls.Add(Me.lblquantity)
-        Me.Panel1.Controls.Add(Me.nudQuantity)
-        Me.Panel1.Controls.Add(Me.Label14)
-        Me.Panel1.Controls.Add(Me.Label5)
-        Me.Panel1.Controls.Add(Me.rbtnexchange)
-        Me.Panel1.Controls.Add(Me.rbtnReturn)
-        Me.Panel1.Controls.Add(Me.Panel2)
-        Me.Panel1.Location = New System.Drawing.Point(22, 486)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(326, 260)
-        Me.Panel1.TabIndex = 120
-        '
-        'reason
-        '
-        Me.reason.AutoSize = True
-        Me.reason.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.reason.Location = New System.Drawing.Point(16, 108)
-        Me.reason.Name = "reason"
-        Me.reason.Size = New System.Drawing.Size(51, 17)
-        Me.reason.TabIndex = 124
-        Me.reason.Text = "Reason"
-        '
-        'lblcondition
-        '
-        Me.lblcondition.AutoSize = True
-        Me.lblcondition.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblcondition.Location = New System.Drawing.Point(15, 189)
-        Me.lblcondition.Name = "lblcondition"
-        Me.lblcondition.Size = New System.Drawing.Size(64, 17)
-        Me.lblcondition.TabIndex = 121
-        Me.lblcondition.Text = "Condition"
-        '
-        'txtcreatedby
-        '
-        Me.txtcreatedby.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtcreatedby.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtcreatedby.Location = New System.Drawing.Point(116, 221)
-        Me.txtcreatedby.Name = "txtcreatedby"
-        Me.txtcreatedby.ReadOnly = True
-        Me.txtcreatedby.Size = New System.Drawing.Size(196, 25)
-        Me.txtcreatedby.TabIndex = 120
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(15, 223)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(85, 17)
-        Me.Label12.TabIndex = 121
-        Me.Label12.Text = "Processed By"
-        '
-        'txtcondition
-        '
-        Me.txtcondition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtcondition.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtcondition.Location = New System.Drawing.Point(116, 184)
-        Me.txtcondition.Name = "txtcondition"
-        Me.txtcondition.ReadOnly = True
-        Me.txtcondition.Size = New System.Drawing.Size(197, 25)
-        Me.txtcondition.TabIndex = 120
-        '
-        'lblquantity
-        '
-        Me.lblquantity.AutoSize = True
-        Me.lblquantity.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblquantity.Location = New System.Drawing.Point(186, 76)
-        Me.lblquantity.Name = "lblquantity"
-        Me.lblquantity.Size = New System.Drawing.Size(94, 17)
-        Me.lblquantity.TabIndex = 123
-        Me.lblquantity.Text = "of - purchased"
-        '
-        'nudQuantity
-        '
-        Me.nudQuantity.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.nudQuantity.Location = New System.Drawing.Point(116, 73)
-        Me.nudQuantity.Name = "nudQuantity"
-        Me.nudQuantity.Size = New System.Drawing.Size(64, 25)
-        Me.nudQuantity.TabIndex = 122
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(16, 76)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(56, 17)
-        Me.Label14.TabIndex = 121
-        Me.Label14.Text = "Quantity"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(16, 47)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(75, 17)
-        Me.Label5.TabIndex = 120
-        Me.Label5.Text = "Action Type"
-        '
-        'rbtnexchange
-        '
-        Me.rbtnexchange.AutoSize = True
-        Me.rbtnexchange.Location = New System.Drawing.Point(229, 47)
-        Me.rbtnexchange.Name = "rbtnexchange"
-        Me.rbtnexchange.Size = New System.Drawing.Size(73, 17)
-        Me.rbtnexchange.TabIndex = 104
-        Me.rbtnexchange.TabStop = True
-        Me.rbtnexchange.Text = "Exchange"
-        Me.rbtnexchange.UseVisualStyleBackColor = True
-        '
-        'rbtnReturn
-        '
-        Me.rbtnReturn.AutoSize = True
-        Me.rbtnReturn.Location = New System.Drawing.Point(116, 47)
-        Me.rbtnReturn.Name = "rbtnReturn"
-        Me.rbtnReturn.Size = New System.Drawing.Size(57, 17)
-        Me.rbtnReturn.TabIndex = 103
-        Me.rbtnReturn.TabStop = True
-        Me.rbtnReturn.Text = "Return"
-        Me.rbtnReturn.UseVisualStyleBackColor = True
-        '
-        'Panel2
-        '
-        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Panel2.Controls.Add(Me.Label2)
-        Me.Panel2.Location = New System.Drawing.Point(0, 0)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(355, 35)
-        Me.Panel2.TabIndex = 11
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(7, 7)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(196, 21)
-        Me.Label2.TabIndex = 10
-        Me.Label2.Text = "Return / Exchange Details"
         '
         'Panel4
         '
@@ -726,13 +372,9 @@ Partial Class frmReturnExchange
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(747, 818)
-        Me.Controls.Add(Me.btncancel)
-        Me.Controls.Add(Me.btnreturnexc)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Panel7)
-        Me.Controls.Add(Me.Panel3)
-        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel4)
         Me.Name = "frmReturnExchange"
         Me.Text = "frmReturnExchange"
@@ -740,16 +382,6 @@ Partial Class frmReturnExchange
         CType(Me.dgvCart, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel8.ResumeLayout(False)
         Me.Panel8.PerformLayout()
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout()
-        CType(Me.numupqty, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel5.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        CType(Me.nudQuantity, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         Me.Panel9.ResumeLayout(False)
@@ -758,21 +390,11 @@ Partial Class frmReturnExchange
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents btncancel As Button
-    Friend WithEvents btnreturnexc As Button
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents Panel7 As Panel
     Friend WithEvents Panel8 As Panel
     Friend WithEvents Label15 As Label
-    Friend WithEvents Panel3 As Panel
-    Friend WithEvents txtReason As TextBox
-    Friend WithEvents Panel5 As Panel
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Panel1 As Panel
-    Friend WithEvents Panel2 As Panel
-    Friend WithEvents Label2 As Label
     Friend WithEvents Panel4 As Panel
     Friend WithEvents txtpaymentmethod As TextBox
     Friend WithEvents Label1 As Label
@@ -792,8 +414,6 @@ Partial Class frmReturnExchange
     Friend WithEvents Label3 As Label
     Friend WithEvents txtProgramStrand As TextBox
     Friend WithEvents txtStudentName As TextBox
-    Friend WithEvents txtcreatedby As TextBox
-    Friend WithEvents Label12 As Label
     Friend WithEvents dgvCart As DataGridView
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
     Friend WithEvents Category As DataGridViewTextBoxColumn
@@ -801,23 +421,4 @@ Partial Class frmReturnExchange
     Friend WithEvents Quantity As DataGridViewTextBoxColumn
     Friend WithEvents UnitPrice As DataGridViewTextBoxColumn
     Friend WithEvents SubTotal As DataGridViewTextBoxColumn
-    Friend WithEvents rbtnexchange As RadioButton
-    Friend WithEvents rbtnReturn As RadioButton
-    Friend WithEvents Label5 As Label
-    Friend WithEvents reason As Label
-    Friend WithEvents lblcondition As Label
-    Friend WithEvents txtcondition As TextBox
-    Friend WithEvents lblquantity As Label
-    Friend WithEvents nudQuantity As NumericUpDown
-    Friend WithEvents Label14 As Label
-    Friend WithEvents txtAvailstock As ComboBox
-    Friend WithEvents Label18 As Label
-    Friend WithEvents numupqty As NumericUpDown
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Label13 As Label
-    Friend WithEvents Label16 As Label
-    Friend WithEvents txtsize As ComboBox
-    Friend WithEvents txtProduct As ComboBox
-    Friend WithEvents Label19 As Label
-    Friend WithEvents dtpORDate As DateTimePicker
 End Class

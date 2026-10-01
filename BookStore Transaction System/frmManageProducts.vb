@@ -5,9 +5,6 @@ Public Class frmManageProducts
     Private selectedProductId As Integer = 0
     Private selectedVariantId As Integer = 0
 
-    ' ------------------------------------------------------------------
-    ' Form Load & Initialization
-    ' ------------------------------------------------------------------
     Private Sub frmManageProducts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
@@ -25,9 +22,6 @@ Public Class frmManageProducts
         lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy - hh:mm:ss tt")
     End Sub
 
-    ' ------------------------------------------------------------------
-    ' Category & Type Dropdown Loading
-    ' ------------------------------------------------------------------
     Private Sub LoadCategoryCombo()
         Dim dt As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
         FillCombo(cboCategory, dt, "category_name", "category_id")
@@ -41,10 +35,6 @@ Public Class frmManageProducts
 
         FillCombo(cboTypeOfProduct, dt, "type_name", "category_type_id")
     End Sub
-
-    ' ------------------------------------------------------------------
-    ' Field Input Validations (KeyPress Restrictions)
-    ' ------------------------------------------------------------------
 
     ' Product Code: Alphanumeric and hyphens only
     Private Sub txtProductCode_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtProductCode.KeyPress

@@ -83,7 +83,7 @@ Partial Class frmSalesByItem
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(355, 752)
+        Me.Label8.Location = New System.Drawing.Point(355, 735)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(15, 20)
         Me.Label8.TabIndex = 131
@@ -93,7 +93,7 @@ Partial Class frmSalesByItem
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(236, 752)
+        Me.Label9.Location = New System.Drawing.Point(236, 735)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(113, 20)
         Me.Label9.TabIndex = 130
@@ -103,7 +103,7 @@ Partial Class frmSalesByItem
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(110, 752)
+        Me.Label3.Location = New System.Drawing.Point(110, 735)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(15, 20)
         Me.Label3.TabIndex = 129
@@ -113,7 +113,7 @@ Partial Class frmSalesByItem
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(19, 752)
+        Me.Label4.Location = New System.Drawing.Point(19, 735)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(80, 20)
         Me.Label4.TabIndex = 128
@@ -125,7 +125,7 @@ Partial Class frmSalesByItem
         Me.btnexportexcel.FlatAppearance.BorderSize = 0
         Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnexportexcel.ForeColor = System.Drawing.Color.White
-        Me.btnexportexcel.Location = New System.Drawing.Point(1062, 749)
+        Me.btnexportexcel.Location = New System.Drawing.Point(1062, 732)
         Me.btnexportexcel.Name = "btnexportexcel"
         Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
         Me.btnexportexcel.TabIndex = 119
@@ -142,7 +142,7 @@ Partial Class frmSalesByItem
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel13.Location = New System.Drawing.Point(0, 790)
+        Me.Panel13.Location = New System.Drawing.Point(0, 781)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(1220, 27)
         Me.Panel13.TabIndex = 126
@@ -226,7 +226,7 @@ Partial Class frmSalesByItem
         Me.Panel5.Controls.Add(Me.Panel6)
         Me.Panel5.Location = New System.Drawing.Point(22, 128)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1170, 610)
+        Me.Panel5.Size = New System.Drawing.Size(1170, 590)
         Me.Panel5.TabIndex = 125
         '
         'dgvsalesreport
@@ -237,7 +237,7 @@ Partial Class frmSalesByItem
         Me.dgvsalesreport.Location = New System.Drawing.Point(-1, 34)
         Me.dgvsalesreport.Name = "dgvsalesreport"
         Me.dgvsalesreport.ReadOnly = True
-        Me.dgvsalesreport.Size = New System.Drawing.Size(1170, 575)
+        Me.dgvsalesreport.Size = New System.Drawing.Size(1170, 555)
         Me.dgvsalesreport.TabIndex = 1
         '
         'ProductCode
@@ -346,7 +346,7 @@ Partial Class frmSalesByItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1220, 817)
+        Me.ClientSize = New System.Drawing.Size(1220, 808)
         Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.dtto)

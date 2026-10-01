@@ -85,9 +85,10 @@ Partial Class frmInventory
         '
         'Panel1
         '
-        Me.Panel1.Location = New System.Drawing.Point(0, 34)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel1.Location = New System.Drawing.Point(0, 32)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1221, 818)
+        Me.Panel1.Size = New System.Drawing.Size(1220, 818)
         Me.Panel1.TabIndex = 6
         '
         'btnLowLevelStocks

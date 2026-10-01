@@ -23,106 +23,55 @@ Partial Class frmReports
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.btnsalesrange = New System.Windows.Forms.Button()
-        Me.btnsalesitem = New System.Windows.Forms.Button()
-        Me.btnendofday = New System.Windows.Forms.Button()
-        Me.btninvdiscrepancy = New System.Windows.Forms.Button()
-        Me.btnremittance = New System.Windows.Forms.Button()
+        Me.cboReportType = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Panel1
         '
-        Me.Panel1.Location = New System.Drawing.Point(0, 33)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel1.Location = New System.Drawing.Point(0, 42)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1220, 817)
+        Me.Panel1.Size = New System.Drawing.Size(1220, 808)
         Me.Panel1.TabIndex = 12
         '
-        'btnsalesrange
+        'cboReportType
         '
-        Me.btnsalesrange.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnsalesrange.FlatAppearance.BorderSize = 0
-        Me.btnsalesrange.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnsalesrange.ForeColor = System.Drawing.Color.White
-        Me.btnsalesrange.Location = New System.Drawing.Point(199, 0)
-        Me.btnsalesrange.Name = "btnsalesrange"
-        Me.btnsalesrange.Size = New System.Drawing.Size(198, 33)
-        Me.btnsalesrange.TabIndex = 8
-        Me.btnsalesrange.Text = "Sales by Date Range"
-        Me.btnsalesrange.UseVisualStyleBackColor = False
+        Me.cboReportType.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboReportType.FormattingEnabled = True
+        Me.cboReportType.Items.AddRange(New Object() {"Sales By Item", "Sales by Date Range", "Cash Denomination", "Remittance Report", "Inventory Discrepancy"})
+        Me.cboReportType.Location = New System.Drawing.Point(117, 7)
+        Me.cboReportType.Name = "cboReportType"
+        Me.cboReportType.Size = New System.Drawing.Size(197, 29)
+        Me.cboReportType.TabIndex = 17
         '
-        'btnsalesitem
+        'Label6
         '
-        Me.btnsalesitem.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnsalesitem.FlatAppearance.BorderSize = 0
-        Me.btnsalesitem.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnsalesitem.ForeColor = System.Drawing.Color.White
-        Me.btnsalesitem.Location = New System.Drawing.Point(0, 0)
-        Me.btnsalesitem.Name = "btnsalesitem"
-        Me.btnsalesitem.Size = New System.Drawing.Size(198, 33)
-        Me.btnsalesitem.TabIndex = 13
-        Me.btnsalesitem.Text = "Sales by Item"
-        Me.btnsalesitem.UseVisualStyleBackColor = False
-        '
-        'btnendofday
-        '
-        Me.btnendofday.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnendofday.FlatAppearance.BorderSize = 0
-        Me.btnendofday.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnendofday.ForeColor = System.Drawing.Color.White
-        Me.btnendofday.Location = New System.Drawing.Point(398, 0)
-        Me.btnendofday.Name = "btnendofday"
-        Me.btnendofday.Size = New System.Drawing.Size(198, 33)
-        Me.btnendofday.TabIndex = 14
-        Me.btnendofday.Text = "Cash Denomination"
-        Me.btnendofday.UseVisualStyleBackColor = False
-        '
-        'btninvdiscrepancy
-        '
-        Me.btninvdiscrepancy.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btninvdiscrepancy.FlatAppearance.BorderSize = 0
-        Me.btninvdiscrepancy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btninvdiscrepancy.ForeColor = System.Drawing.Color.White
-        Me.btninvdiscrepancy.Location = New System.Drawing.Point(796, 0)
-        Me.btninvdiscrepancy.Name = "btninvdiscrepancy"
-        Me.btninvdiscrepancy.Size = New System.Drawing.Size(198, 33)
-        Me.btninvdiscrepancy.TabIndex = 16
-        Me.btninvdiscrepancy.Text = "Inventory Discrepancy"
-        Me.btninvdiscrepancy.UseVisualStyleBackColor = False
-        '
-        'btnremittance
-        '
-        Me.btnremittance.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnremittance.FlatAppearance.BorderSize = 0
-        Me.btnremittance.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnremittance.ForeColor = System.Drawing.Color.White
-        Me.btnremittance.Location = New System.Drawing.Point(597, 0)
-        Me.btnremittance.Name = "btnremittance"
-        Me.btnremittance.Size = New System.Drawing.Size(198, 33)
-        Me.btnremittance.TabIndex = 15
-        Me.btnremittance.Text = "Remittance Report"
-        Me.btnremittance.UseVisualStyleBackColor = False
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label6.Location = New System.Drawing.Point(8, 5)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(103, 32)
+        Me.Label6.TabIndex = 147
+        Me.Label6.Text = "Reports"
         '
         'frmReports
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.btninvdiscrepancy)
-        Me.Controls.Add(Me.btnremittance)
-        Me.Controls.Add(Me.btnendofday)
-        Me.Controls.Add(Me.btnsalesitem)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.cboReportType)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.btnsalesrange)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmReports"
         Me.Text = "frmReports"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents btnsalesrange As Button
-    Friend WithEvents btnsalesitem As Button
-    Friend WithEvents btnendofday As Button
-    Friend WithEvents btninvdiscrepancy As Button
-    Friend WithEvents btnremittance As Button
+    Friend WithEvents cboReportType As ComboBox
+    Friend WithEvents Label6 As Label
 End Class
