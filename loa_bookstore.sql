@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2026 at 12:33 PM
+-- Generation Time: Oct 01, 2026 at 03:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,7 +65,17 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 (15, 1, 'Activity', 'Update Student', '1785-23', NULL, NULL, NULL, NULL, 'Updated Patricia Domingo', 'Success', NULL, '2026-10-01 16:52:38'),
 (16, 1, 'Activity', 'Update Student', '2343-22', NULL, NULL, NULL, NULL, 'Updated Carlo Fernandez', 'Success', NULL, '2026-10-01 16:53:11'),
 (17, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 18:10:14'),
-(18, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 18:14:40');
+(18, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 18:14:40'),
+(19, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 20:19:56'),
+(20, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 20:20:20'),
+(21, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 20:22:31'),
+(22, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 20:23:56'),
+(23, 8, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 20:25:23'),
+(24, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 21:06:06'),
+(25, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'Incorrect password entered', 'Failed - Incorrect Password', NULL, '2026-10-01 21:12:29'),
+(26, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 21:12:32'),
+(27, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'Incorrect password entered', 'Failed - Incorrect Password', NULL, '2026-10-01 21:14:14'),
+(28, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 21:14:17');
 
 -- --------------------------------------------------------
 
@@ -1671,7 +1681,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_audit_logs`
 --
 ALTER TABLE `tbl_audit_logs`
-  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tbl_cash_denominations`
