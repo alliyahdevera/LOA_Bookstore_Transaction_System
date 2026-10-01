@@ -20,4 +20,7 @@ Module DBConnect
             Return False
         End Try
     End Function
+    Public Function NewConnection() As MySqlConnection
+        Return New MySqlConnection("server=localhost;userid=root;password=;database=loa_bookstore;")
+    End Function
 End Module

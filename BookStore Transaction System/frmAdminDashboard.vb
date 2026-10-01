@@ -2,14 +2,8 @@
 
 Public Class frmAdminDashboard
 
-    Public Const FRM_DASHBOARD As String = "FRM_DASHBOARD"
-    Public Const FRM_POS As String = "FRM_POS"
-    Public Const FRM_INVENTORY As String = "FRM_INVENTORY"
-    Public Const FRM_TRANSACTION As String = "FRM_TRANSACTION"
-    Public Const FRM_REPORTS As String = "FRM_REPORTS"
-    Public Const FRM_USERMGMT As String = "FRM_USERMGMT"
-    Public Const FRM_STUDENTMGMT As String = "FRM_STUDENTMGMT"
-    Public Const FRM_AUDITLOGS As String = "FRM_AUDITLOGS"
+    ' NOTE: the FRM_* constants live in RolePermissions.vb, so they are not
+    ' redeclared here (duplicates would hide the shared ones).
 
     Private _currentForm As Form
     Private _isLoggingOut As Boolean = False
@@ -17,48 +11,39 @@ Public Class frmAdminDashboard
     Private ReadOnly _normalColor As Color = Color.FromArgb(1, 21, 78)
     Private ReadOnly _activeColor As Color = Color.FromArgb(25, 55, 140)
 
-    ' Navigation Module List
+    ' Navigation module list
     Private ReadOnly _allModules As String() = {
         FRM_DASHBOARD, FRM_POS, FRM_INVENTORY, FRM_TRANSACTION,
         FRM_REPORTS, FRM_USERMGMT, FRM_STUDENTMGMT, FRM_AUDITLOGS
     }
 
+    ' ==================================================================
+    ' Form events
+    ' ==================================================================
     Private Sub frmAdminDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplyRolePermissions()
-        OpenModule(GetDefaultForm())
-
+        OpenModule(RolePermissions.GetDefaultForm())
     End Sub
 
     Private Sub frmAdminDashboard_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         If Not _isLoggingOut Then Application.Exit()
     End Sub
 
-    Private Function GetDefaultForm() As String
-        Return FRM_DASHBOARD
-    End Function
-
-    Private Function CanAccess(moduleName As String) As Boolean
-        ' Always grant access to the dashboard
-        If moduleName = FRM_DASHBOARD Then Return True
-
-        ' Fallback safeguard: Allow access if role is unset or matches Admin/Staff
-        If String.IsNullOrEmpty(currentuser.Role) OrElse currentuser.Role.Equals("Admin", StringComparison.OrdinalIgnoreCase) Then
-            Return True
-        End If
-
-        ' Customize access logic per role as needed
-        Return True
-    End Function
-
+    ' ==================================================================
+    ' Role permissions (uses RolePermissions.vb)
+    ' ==================================================================
     Private Sub ApplyRolePermissions()
         For Each moduleName As String In _allModules
             Dim btn As Button = GetButton(moduleName)
             If btn IsNot Nothing Then
-                btn.Visible = CanAccess(moduleName)
+                btn.Visible = RolePermissions.CanAccess(moduleName)
             End If
         Next
     End Sub
 
+    ' ==================================================================
+    ' Module -> Button / Form mapping
+    ' ==================================================================
     Private Function GetButton(moduleName As String) As Button
         Select Case moduleName
             Case FRM_DASHBOARD
@@ -105,16 +90,23 @@ Public Class frmAdminDashboard
         End Select
     End Function
 
+    ' ==================================================================
+    ' Open a module inside pnlContent
+    ' ==================================================================
     Private Sub OpenModule(moduleName As String)
-        If Not CanAccess(moduleName) Then
-            MsgBox("Access denied. Your role (" & currentuser.Role & ") is not allowed to open this module.", vbExclamation, "Access Denied")
+
+        If Not RolePermissions.CanAccess(moduleName) Then
+            MsgBox("Access denied. Your role (" & currentuser.Role & ") is not allowed to open this module.",
+                   vbExclamation, "Access Denied")
             Exit Sub
         End If
 
         Try
             Dim frm As Form = CreateForm(moduleName)
+
             If frm Is Nothing Then
-                MsgBox("Module form initialization returned Nothing: " & moduleName, vbCritical, "Module Error")
+                MsgBox("Module form initialization returned Nothing: " & moduleName,
+                       vbCritical, "Module Error")
                 Exit Sub
             End If
 
@@ -139,11 +131,14 @@ Public Class frmAdminDashboard
             SetActiveButton(moduleName)
 
         Catch ex As Exception
-            MsgBox("Error embedding form into Dashboard Panel: " & ex.Message & vbCrLf & ex.StackTrace, vbCritical, "UI Navigation Error")
+            MsgBox("Error embedding form into Dashboard Panel: " & ex.Message & vbCrLf & ex.StackTrace,
+                   vbCritical, "UI Navigation Error")
         End Try
+
     End Sub
 
     Private Sub SetActiveButton(moduleName As String)
+
         For Each m As String In _allModules
             Dim btn As Button = GetButton(m)
             If btn IsNot Nothing Then
@@ -153,7 +148,12 @@ Public Class frmAdminDashboard
 
         Dim active As Button = GetButton(moduleName)
         If active IsNot Nothing Then active.BackColor = _activeColor
+
     End Sub
+
+    ' ==================================================================
+    ' Navigation buttons
+    ' ==================================================================
     Private Sub btnDashboard_Click(sender As Object, e As EventArgs) Handles btnDashboard.Click
         OpenModule(FRM_DASHBOARD)
     End Sub
@@ -186,7 +186,11 @@ Public Class frmAdminDashboard
         OpenModule(FRM_AUDITLOGS)
     End Sub
 
+    ' ==================================================================
+    ' Logout
+    ' ==================================================================
     Private Sub btnlogout_Click(sender As Object, e As EventArgs) Handles btnlogout.Click
+
         If MsgBox("Are you sure you want to logout?", vbYesNo + vbQuestion, "Confirm Logout") = MsgBoxResult.Yes Then
             currentuser.UserID = 0
             currentuser.FullName = ""
@@ -195,5 +199,7 @@ Public Class frmAdminDashboard
             Login.Show()
             Me.Close()
         End If
+
     End Sub
+
 End Class
