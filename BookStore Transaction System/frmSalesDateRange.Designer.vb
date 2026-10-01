@@ -38,6 +38,15 @@ Partial Class frmSalesDateRange
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.dtto = New System.Windows.Forms.DateTimePicker()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.dtfrom = New System.Windows.Forms.DateTimePicker()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.btngenerate = New System.Windows.Forms.Button()
         Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -51,15 +60,6 @@ Partial Class frmSalesDateRange
         Me.tDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Time = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CreatedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.dtto = New System.Windows.Forms.DateTimePicker()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.dtfrom = New System.Windows.Forms.DateTimePicker()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.btngenerate = New System.Windows.Forms.Button()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -70,7 +70,7 @@ Partial Class frmSalesDateRange
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(354, 751)
+        Me.Label8.Location = New System.Drawing.Point(354, 740)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(15, 20)
         Me.Label8.TabIndex = 114
@@ -80,7 +80,7 @@ Partial Class frmSalesDateRange
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(235, 751)
+        Me.Label9.Location = New System.Drawing.Point(235, 740)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(113, 20)
         Me.Label9.TabIndex = 113
@@ -90,7 +90,7 @@ Partial Class frmSalesDateRange
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(109, 751)
+        Me.Label3.Location = New System.Drawing.Point(109, 740)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(15, 20)
         Me.Label3.TabIndex = 112
@@ -100,7 +100,7 @@ Partial Class frmSalesDateRange
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(18, 751)
+        Me.Label4.Location = New System.Drawing.Point(18, 740)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(80, 20)
         Me.Label4.TabIndex = 111
@@ -112,7 +112,7 @@ Partial Class frmSalesDateRange
         Me.btnexportexcel.FlatAppearance.BorderSize = 0
         Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnexportexcel.ForeColor = System.Drawing.Color.White
-        Me.btnexportexcel.Location = New System.Drawing.Point(1061, 748)
+        Me.btnexportexcel.Location = New System.Drawing.Point(1061, 740)
         Me.btnexportexcel.Name = "btnexportexcel"
         Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
         Me.btnexportexcel.TabIndex = 102
@@ -246,84 +246,6 @@ Partial Class frmSalesDateRange
         Me.DataGridView1.Size = New System.Drawing.Size(1170, 562)
         Me.DataGridView1.TabIndex = 1
         '
-        'TransactionNo
-        '
-        Me.TransactionNo.HeaderText = "Transaction #"
-        Me.TransactionNo.Name = "TransactionNo"
-        Me.TransactionNo.ReadOnly = True
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        Me.ProductCode.ReadOnly = True
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        Me.ProductName.ReadOnly = True
-        '
-        'Size
-        '
-        Me.Size.HeaderText = "Size"
-        Me.Size.Name = "Size"
-        Me.Size.ReadOnly = True
-        '
-        'UnitPrice
-        '
-        Me.UnitPrice.HeaderText = "Unit Price"
-        Me.UnitPrice.Name = "UnitPrice"
-        Me.UnitPrice.ReadOnly = True
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        Me.Quantity.ReadOnly = True
-        '
-        'TotalAmount
-        '
-        Me.TotalAmount.HeaderText = "Total Amount"
-        Me.TotalAmount.Name = "TotalAmount"
-        Me.TotalAmount.ReadOnly = True
-        '
-        'AmountPaid
-        '
-        Me.AmountPaid.HeaderText = "Amount Paid"
-        Me.AmountPaid.Name = "AmountPaid"
-        Me.AmountPaid.ReadOnly = True
-        '
-        'AmountChange
-        '
-        Me.AmountChange.HeaderText = "Amount Change"
-        Me.AmountChange.Name = "AmountChange"
-        Me.AmountChange.ReadOnly = True
-        '
-        'TotalSales
-        '
-        Me.TotalSales.HeaderText = "Total Sales"
-        Me.TotalSales.Name = "TotalSales"
-        Me.TotalSales.ReadOnly = True
-        '
-        'tDate
-        '
-        Me.tDate.HeaderText = "Date"
-        Me.tDate.Name = "tDate"
-        Me.tDate.ReadOnly = True
-        '
-        'Time
-        '
-        Me.Time.HeaderText = "Time"
-        Me.Time.Name = "Time"
-        Me.Time.ReadOnly = True
-        '
-        'CreatedBy
-        '
-        Me.CreatedBy.HeaderText = "Created By"
-        Me.CreatedBy.Name = "CreatedBy"
-        Me.CreatedBy.ReadOnly = True
-        '
         'Panel6
         '
         Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
@@ -412,6 +334,84 @@ Partial Class frmSalesDateRange
         Me.btngenerate.Text = "Generate"
         Me.btngenerate.UseVisualStyleBackColor = True
         '
+        'TransactionNo
+        '
+        Me.TransactionNo.HeaderText = "Transaction No."
+        Me.TransactionNo.Name = "TransactionNo"
+        Me.TransactionNo.ReadOnly = True
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
+        '
+        'Size
+        '
+        Me.Size.HeaderText = "Size"
+        Me.Size.Name = "Size"
+        Me.Size.ReadOnly = True
+        '
+        'UnitPrice
+        '
+        Me.UnitPrice.HeaderText = "Unit Price"
+        Me.UnitPrice.Name = "UnitPrice"
+        Me.UnitPrice.ReadOnly = True
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
+        '
+        'TotalAmount
+        '
+        Me.TotalAmount.HeaderText = "Total Amount"
+        Me.TotalAmount.Name = "TotalAmount"
+        Me.TotalAmount.ReadOnly = True
+        '
+        'AmountPaid
+        '
+        Me.AmountPaid.HeaderText = "Amount Paid"
+        Me.AmountPaid.Name = "AmountPaid"
+        Me.AmountPaid.ReadOnly = True
+        '
+        'AmountChange
+        '
+        Me.AmountChange.HeaderText = "Amount Change"
+        Me.AmountChange.Name = "AmountChange"
+        Me.AmountChange.ReadOnly = True
+        '
+        'TotalSales
+        '
+        Me.TotalSales.HeaderText = "Total Sales"
+        Me.TotalSales.Name = "TotalSales"
+        Me.TotalSales.ReadOnly = True
+        '
+        'tDate
+        '
+        Me.tDate.HeaderText = "Date"
+        Me.tDate.Name = "tDate"
+        Me.tDate.ReadOnly = True
+        '
+        'Time
+        '
+        Me.Time.HeaderText = "Time"
+        Me.Time.Name = "Time"
+        Me.Time.ReadOnly = True
+        '
+        'CreatedBy
+        '
+        Me.CreatedBy.HeaderText = "Created By"
+        Me.CreatedBy.Name = "CreatedBy"
+        Me.CreatedBy.ReadOnly = True
+        '
         'frmSalesDateRange
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -461,6 +461,15 @@ Partial Class frmSalesDateRange
     Friend WithEvents lblposition As Label
     Friend WithEvents Panel5 As Panel
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents dtto As DateTimePicker
+    Friend WithEvents Label1 As Label
+    Friend WithEvents dtfrom As DateTimePicker
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents btngenerate As Button
     Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
@@ -474,13 +483,4 @@ Partial Class frmSalesDateRange
     Friend WithEvents tDate As DataGridViewTextBoxColumn
     Friend WithEvents Time As DataGridViewTextBoxColumn
     Friend WithEvents CreatedBy As DataGridViewTextBoxColumn
-    Friend WithEvents Panel6 As Panel
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents dtto As DateTimePicker
-    Friend WithEvents Label1 As Label
-    Friend WithEvents dtfrom As DateTimePicker
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents btngenerate As Button
 End Class

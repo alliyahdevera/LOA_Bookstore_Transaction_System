@@ -22,10 +22,8 @@ Partial Class frmRemittance
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btngenerate = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.dtto = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtfrom = New System.Windows.Forms.DateTimePicker()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -40,22 +38,28 @@ Partial Class frmRemittance
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvsalesreport = New System.Windows.Forms.DataGridView()
-        Me.RemittanceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.nDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Cashier = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Shift = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CashSales = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SalaryDeduction = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TotalSales = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ActualCash = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Difference = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.cbocashier = New System.Windows.Forms.ComboBox()
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.RemittanceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.nDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CashierStaff = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SalesPeriod = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TotalSales = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CashCollected = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Difference = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TotalRemittance = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ORARRange = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AmtAccounting = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DateTimeRemitted = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ReceivedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Remarks = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Signature = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dtto = New System.Windows.Forms.DateTimePicker()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvsalesreport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -74,24 +78,6 @@ Partial Class frmRemittance
         Me.btngenerate.TabIndex = 152
         Me.btngenerate.Text = "Generate"
         Me.btngenerate.UseVisualStyleBackColor = False
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(352, 101)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(22, 17)
-        Me.Label2.TabIndex = 151
-        Me.Label2.Text = "To"
-        '
-        'dtto
-        '
-        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtto.Location = New System.Drawing.Point(377, 96)
-        Me.dtto.Name = "dtto"
-        Me.dtto.Size = New System.Drawing.Size(251, 27)
-        Me.dtto.TabIndex = 150
         '
         'Label1
         '
@@ -248,80 +234,20 @@ Partial Class frmRemittance
         Me.dgvsalesreport.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvsalesreport.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvsalesreport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvsalesreport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.RemittanceNo, Me.nDate, Me.Cashier, Me.Shift, Me.CashSales, Me.SalaryDeduction, Me.TotalSales, Me.ActualCash, Me.Difference, Me.Status})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvsalesreport.DefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvsalesreport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.RemittanceNo, Me.nDate, Me.CashierStaff, Me.SalesPeriod, Me.TotalSales, Me.CashCollected, Me.Difference, Me.TotalRemittance, Me.ORARRange, Me.AmtAccounting, Me.DateTimeRemitted, Me.ReceivedBy, Me.Remarks, Me.Signature})
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvsalesreport.DefaultCellStyle = DataGridViewCellStyle3
         Me.dgvsalesreport.Location = New System.Drawing.Point(-1, 34)
         Me.dgvsalesreport.Name = "dgvsalesreport"
         Me.dgvsalesreport.ReadOnly = True
         Me.dgvsalesreport.Size = New System.Drawing.Size(1170, 539)
         Me.dgvsalesreport.TabIndex = 1
-        '
-        'RemittanceNo
-        '
-        Me.RemittanceNo.HeaderText = "Remittance No."
-        Me.RemittanceNo.Name = "RemittanceNo"
-        Me.RemittanceNo.ReadOnly = True
-        '
-        'nDate
-        '
-        Me.nDate.HeaderText = "nDate"
-        Me.nDate.Name = "nDate"
-        Me.nDate.ReadOnly = True
-        '
-        'Cashier
-        '
-        Me.Cashier.HeaderText = "Cashier"
-        Me.Cashier.Name = "Cashier"
-        Me.Cashier.ReadOnly = True
-        '
-        'Shift
-        '
-        Me.Shift.HeaderText = "Shift"
-        Me.Shift.Name = "Shift"
-        Me.Shift.ReadOnly = True
-        '
-        'CashSales
-        '
-        Me.CashSales.HeaderText = "Cash Sales"
-        Me.CashSales.Name = "CashSales"
-        Me.CashSales.ReadOnly = True
-        '
-        'SalaryDeduction
-        '
-        Me.SalaryDeduction.HeaderText = "Salary Deduction"
-        Me.SalaryDeduction.Name = "SalaryDeduction"
-        Me.SalaryDeduction.ReadOnly = True
-        '
-        'TotalSales
-        '
-        Me.TotalSales.HeaderText = "Total Sales"
-        Me.TotalSales.Name = "TotalSales"
-        Me.TotalSales.ReadOnly = True
-        '
-        'ActualCash
-        '
-        Me.ActualCash.HeaderText = "Actual Cash"
-        Me.ActualCash.Name = "ActualCash"
-        Me.ActualCash.ReadOnly = True
-        '
-        'Difference
-        '
-        Me.Difference.HeaderText = "Difference"
-        Me.Difference.Name = "Difference"
-        Me.Difference.ReadOnly = True
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
         '
         'Panel6
         '
@@ -384,6 +310,108 @@ Partial Class frmRemittance
         Me.Label14.TabIndex = 144
         Me.Label14.Text = "Cashier"
         '
+        'RemittanceNo
+        '
+        Me.RemittanceNo.HeaderText = "Remittance No."
+        Me.RemittanceNo.Name = "RemittanceNo"
+        Me.RemittanceNo.ReadOnly = True
+        '
+        'nDate
+        '
+        Me.nDate.HeaderText = "Date"
+        Me.nDate.Name = "nDate"
+        Me.nDate.ReadOnly = True
+        '
+        'CashierStaff
+        '
+        Me.CashierStaff.HeaderText = "Cashier/Staff"
+        Me.CashierStaff.Name = "CashierStaff"
+        Me.CashierStaff.ReadOnly = True
+        '
+        'SalesPeriod
+        '
+        Me.SalesPeriod.HeaderText = "Sales Period"
+        Me.SalesPeriod.Name = "SalesPeriod"
+        Me.SalesPeriod.ReadOnly = True
+        '
+        'TotalSales
+        '
+        Me.TotalSales.HeaderText = "Total Sales"
+        Me.TotalSales.Name = "TotalSales"
+        Me.TotalSales.ReadOnly = True
+        '
+        'CashCollected
+        '
+        Me.CashCollected.HeaderText = "Cash Collected"
+        Me.CashCollected.Name = "CashCollected"
+        Me.CashCollected.ReadOnly = True
+        '
+        'Difference
+        '
+        Me.Difference.HeaderText = "GcashPayment"
+        Me.Difference.Name = "Difference"
+        Me.Difference.ReadOnly = True
+        '
+        'TotalRemittance
+        '
+        Me.TotalRemittance.HeaderText = "Total Remittance"
+        Me.TotalRemittance.Name = "TotalRemittance"
+        Me.TotalRemittance.ReadOnly = True
+        '
+        'ORARRange
+        '
+        Me.ORARRange.HeaderText = "OR/AR Range"
+        Me.ORARRange.Name = "ORARRange"
+        Me.ORARRange.ReadOnly = True
+        '
+        'AmtAccounting
+        '
+        Me.AmtAccounting.HeaderText = "Amount Remitted to Accounting"
+        Me.AmtAccounting.Name = "AmtAccounting"
+        Me.AmtAccounting.ReadOnly = True
+        '
+        'DateTimeRemitted
+        '
+        Me.DateTimeRemitted.HeaderText = "Date/Time Remitted"
+        Me.DateTimeRemitted.Name = "DateTimeRemitted"
+        Me.DateTimeRemitted.ReadOnly = True
+        '
+        'ReceivedBy
+        '
+        Me.ReceivedBy.HeaderText = "Received By"
+        Me.ReceivedBy.Name = "ReceivedBy"
+        Me.ReceivedBy.ReadOnly = True
+        '
+        'Remarks
+        '
+        Me.Remarks.HeaderText = "Remarks"
+        Me.Remarks.Name = "Remarks"
+        Me.Remarks.ReadOnly = True
+        '
+        'Signature
+        '
+        Me.Signature.HeaderText = "Signature"
+        Me.Signature.Name = "Signature"
+        Me.Signature.ReadOnly = True
+        '
+        'dtto
+        '
+        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtto.Location = New System.Drawing.Point(377, 96)
+        Me.dtto.Name = "dtto"
+        Me.dtto.Size = New System.Drawing.Size(251, 27)
+        Me.dtto.TabIndex = 150
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(348, 101)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(22, 17)
+        Me.Label2.TabIndex = 151
+        Me.Label2.Text = "To"
+        '
         'frmRemittance
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -418,8 +446,6 @@ Partial Class frmRemittance
     End Sub
 
     Friend WithEvents btngenerate As Button
-    Friend WithEvents Label2 As Label
-    Friend WithEvents dtto As DateTimePicker
     Friend WithEvents Label1 As Label
     Friend WithEvents dtfrom As DateTimePicker
     Friend WithEvents Label5 As Label
@@ -436,18 +462,24 @@ Partial Class frmRemittance
     Friend WithEvents dgvsalesreport As DataGridView
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents RemittanceNo As DataGridViewTextBoxColumn
-    Friend WithEvents nDate As DataGridViewTextBoxColumn
-    Friend WithEvents Cashier As DataGridViewTextBoxColumn
-    Friend WithEvents Shift As DataGridViewTextBoxColumn
-    Friend WithEvents CashSales As DataGridViewTextBoxColumn
-    Friend WithEvents SalaryDeduction As DataGridViewTextBoxColumn
-    Friend WithEvents TotalSales As DataGridViewTextBoxColumn
-    Friend WithEvents ActualCash As DataGridViewTextBoxColumn
-    Friend WithEvents Difference As DataGridViewTextBoxColumn
-    Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents Label11 As Label
     Friend WithEvents cbocashier As ComboBox
     Friend WithEvents Label14 As Label
+    Friend WithEvents RemittanceNo As DataGridViewTextBoxColumn
+    Friend WithEvents nDate As DataGridViewTextBoxColumn
+    Friend WithEvents CashierStaff As DataGridViewTextBoxColumn
+    Friend WithEvents SalesPeriod As DataGridViewTextBoxColumn
+    Friend WithEvents TotalSales As DataGridViewTextBoxColumn
+    Friend WithEvents CashCollected As DataGridViewTextBoxColumn
+    Friend WithEvents Difference As DataGridViewTextBoxColumn
+    Friend WithEvents TotalRemittance As DataGridViewTextBoxColumn
+    Friend WithEvents ORARRange As DataGridViewTextBoxColumn
+    Friend WithEvents AmtAccounting As DataGridViewTextBoxColumn
+    Friend WithEvents DateTimeRemitted As DataGridViewTextBoxColumn
+    Friend WithEvents ReceivedBy As DataGridViewTextBoxColumn
+    Friend WithEvents Remarks As DataGridViewTextBoxColumn
+    Friend WithEvents Signature As DataGridViewTextBoxColumn
+    Friend WithEvents dtto As DateTimePicker
+    Friend WithEvents Label2 As Label
 End Class

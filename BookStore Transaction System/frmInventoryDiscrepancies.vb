@@ -1,0 +1,3 @@
+﻿Public Class frmInventoryDiscrepancies
+
+End Class

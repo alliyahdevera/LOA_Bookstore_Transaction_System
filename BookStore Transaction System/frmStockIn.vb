@@ -1,7 +1,7 @@
 ﻿' frmStockEntry.vb
 Imports MySql.Data.MySqlClient
 
-Public Class frmStockEntry
+Public Class frmStockIn
 
     Private currentStockInId As Integer = 0
     Private selectedVariantId As Integer = 0
@@ -10,7 +10,6 @@ Public Class frmStockEntry
         Label7.Text = "PRODUCTS - Click a row to select, then enter the quantity received"   ' fixes a copy-pasted header
         txtreference.Text = NewReferenceNo()
         txtreference.ReadOnly = True
-        DateTimePicker1.Value = Today
         txtstockintime.Text = DateTime.Now.ToString("hh:mm tt")
         txtstockintime.ReadOnly = True
         LoadProducts()

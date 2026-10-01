@@ -37,16 +37,14 @@ Public Class frmReports
 
         End If
 
-        Panel1.Controls.Clear()
+        pnlreports.Controls.Clear()
 
         Dim frm As Form =
             CType(Activator.CreateInstance(formType), Form)
 
         frm.TopLevel = False
-        frm.FormBorderStyle = FormBorderStyle.None
-        frm.Dock = DockStyle.Fill
 
-        Panel1.Controls.Add(frm)
+        pnlreports.Controls.Add(frm)
 
         _currentForm = frm
 
@@ -57,9 +55,10 @@ Public Class frmReports
     End Function
 
     Public Sub OpenRemittance()
-
         cboReportType.SelectedItem = "Remittance Report"
-
     End Sub
 
+    Private Sub frmReports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cboReportType.SelectedIndex = 0
+    End Sub
 End Class

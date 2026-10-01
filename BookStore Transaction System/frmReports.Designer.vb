@@ -22,21 +22,22 @@ Partial Class frmReports
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.pnlreports = New System.Windows.Forms.Panel()
         Me.cboReportType = New System.Windows.Forms.ComboBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
-        'Panel1
+        'pnlreports
         '
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(0, 42)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1220, 808)
-        Me.Panel1.TabIndex = 12
+        Me.pnlreports.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pnlreports.Location = New System.Drawing.Point(0, 42)
+        Me.pnlreports.Name = "pnlreports"
+        Me.pnlreports.Size = New System.Drawing.Size(1220, 808)
+        Me.pnlreports.TabIndex = 12
         '
         'cboReportType
         '
+        Me.cboReportType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboReportType.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboReportType.FormattingEnabled = True
         Me.cboReportType.Items.AddRange(New Object() {"Sales By Item", "Sales by Date Range", "Cash Denomination", "Remittance Report", "Inventory Discrepancy"})
@@ -63,7 +64,7 @@ Partial Class frmReports
         Me.ClientSize = New System.Drawing.Size(1220, 850)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.cboReportType)
-        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.pnlreports)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmReports"
         Me.Text = "frmReports"
@@ -71,7 +72,7 @@ Partial Class frmReports
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents pnlreports As Panel
     Friend WithEvents cboReportType As ComboBox
     Friend WithEvents Label6 As Label
 End Class

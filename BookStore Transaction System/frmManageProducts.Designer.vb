@@ -23,7 +23,7 @@ Partial Class frmManageProducts
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmManageProducts))
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel13 = New System.Windows.Forms.Panel()
@@ -93,7 +93,7 @@ Partial Class frmManageProducts
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(23, 262)
+        Me.Label14.Location = New System.Drawing.Point(23, 252)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(205, 17)
         Me.Label14.TabIndex = 90
@@ -109,9 +109,9 @@ Partial Class frmManageProducts
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel13.Location = New System.Drawing.Point(0, 790)
+        Me.Panel13.Location = New System.Drawing.Point(0, 777)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1219, 27)
+        Me.Panel13.Size = New System.Drawing.Size(1220, 27)
         Me.Panel13.TabIndex = 83
         '
         'lblname
@@ -191,7 +191,7 @@ Partial Class frmManageProducts
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.dgvListOfProducts)
         Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Location = New System.Drawing.Point(25, 295)
+        Me.Panel5.Location = New System.Drawing.Point(25, 285)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1162, 467)
         Me.Panel5.TabIndex = 82
@@ -202,14 +202,14 @@ Partial Class frmManageProducts
         Me.dgvListOfProducts.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvListOfProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvListOfProducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeofProduct, Me.Size, Me.UnitPrice, Me.Quantity, Me.ReorderLevel, Me.Status})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvListOfProducts.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvListOfProducts.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvListOfProducts.Location = New System.Drawing.Point(-1, 35)
         Me.dgvListOfProducts.Name = "dgvListOfProducts"
         Me.dgvListOfProducts.Size = New System.Drawing.Size(1164, 431)
@@ -277,13 +277,13 @@ Partial Class frmManageProducts
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(10, 9)
+        Me.Label7.Location = New System.Drawing.Point(7, 7)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(127, 17)
+        Me.Label7.Size = New System.Drawing.Size(127, 21)
         Me.Label7.TabIndex = 25
-        Me.Label7.Text = "LIST OF PRODUCTS"
+        Me.Label7.Text = "List of Products"
         '
         'Panel10
         '
@@ -297,11 +297,11 @@ Partial Class frmManageProducts
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.Color.White
         Me.Label13.Location = New System.Drawing.Point(9, 7)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(153, 20)
+        Me.Label13.Size = New System.Drawing.Size(166, 21)
         Me.Label13.TabIndex = 10
         Me.Label13.Text = "Product Information"
         '
@@ -327,7 +327,7 @@ Partial Class frmManageProducts
         Me.Panel7.Controls.Add(Me.Label10)
         Me.Panel7.Controls.Add(Me.Label11)
         Me.Panel7.Controls.Add(Me.Label12)
-        Me.Panel7.Location = New System.Drawing.Point(25, 72)
+        Me.Panel7.Location = New System.Drawing.Point(25, 62)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(958, 174)
         Me.Panel7.TabIndex = 92
@@ -336,7 +336,7 @@ Partial Class frmManageProducts
         '
         Me.txtStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtStatus.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStatus.Location = New System.Drawing.Point(774, 127)
+        Me.txtStatus.Location = New System.Drawing.Point(775, 133)
         Me.txtStatus.Name = "txtStatus"
         Me.txtStatus.Size = New System.Drawing.Size(158, 25)
         Me.txtStatus.TabIndex = 38
@@ -345,7 +345,7 @@ Partial Class frmManageProducts
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(704, 129)
+        Me.Label8.Location = New System.Drawing.Point(705, 135)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(43, 17)
         Me.Label8.TabIndex = 37
@@ -356,7 +356,7 @@ Partial Class frmManageProducts
         Me.cboTypeOfProduct.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cboTypeOfProduct.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboTypeOfProduct.FormattingEnabled = True
-        Me.cboTypeOfProduct.Location = New System.Drawing.Point(515, 84)
+        Me.cboTypeOfProduct.Location = New System.Drawing.Point(509, 90)
         Me.cboTypeOfProduct.Name = "cboTypeOfProduct"
         Me.cboTypeOfProduct.Size = New System.Drawing.Size(158, 25)
         Me.cboTypeOfProduct.TabIndex = 36
@@ -365,7 +365,7 @@ Partial Class frmManageProducts
         '
         Me.txtQuantity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtQuantity.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtQuantity.Location = New System.Drawing.Point(774, 86)
+        Me.txtQuantity.Location = New System.Drawing.Point(775, 92)
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(158, 25)
         Me.txtQuantity.TabIndex = 35
@@ -374,7 +374,7 @@ Partial Class frmManageProducts
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(400, 88)
+        Me.Label1.Location = New System.Drawing.Point(394, 94)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(100, 17)
         Me.Label1.TabIndex = 32
@@ -384,7 +384,7 @@ Partial Class frmManageProducts
         '
         Me.txtUnitPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtUnitPrice.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUnitPrice.Location = New System.Drawing.Point(774, 44)
+        Me.txtUnitPrice.Location = New System.Drawing.Point(775, 50)
         Me.txtUnitPrice.Name = "txtUnitPrice"
         Me.txtUnitPrice.Size = New System.Drawing.Size(158, 25)
         Me.txtUnitPrice.TabIndex = 34
@@ -393,7 +393,7 @@ Partial Class frmManageProducts
         '
         Me.txtSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSize.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSize.Location = New System.Drawing.Point(515, 128)
+        Me.txtSize.Location = New System.Drawing.Point(509, 134)
         Me.txtSize.Name = "txtSize"
         Me.txtSize.Size = New System.Drawing.Size(158, 25)
         Me.txtSize.TabIndex = 33
@@ -402,7 +402,7 @@ Partial Class frmManageProducts
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(704, 88)
+        Me.Label2.Location = New System.Drawing.Point(705, 94)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(56, 17)
         Me.Label2.TabIndex = 31
@@ -412,7 +412,7 @@ Partial Class frmManageProducts
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(400, 129)
+        Me.Label3.Location = New System.Drawing.Point(394, 135)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(31, 17)
         Me.Label3.TabIndex = 30
@@ -422,7 +422,7 @@ Partial Class frmManageProducts
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(704, 46)
+        Me.Label6.Location = New System.Drawing.Point(705, 52)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(63, 17)
         Me.Label6.TabIndex = 29
@@ -433,7 +433,7 @@ Partial Class frmManageProducts
         Me.cboCategory.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cboCategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboCategory.FormattingEnabled = True
-        Me.cboCategory.Location = New System.Drawing.Point(515, 42)
+        Me.cboCategory.Location = New System.Drawing.Point(509, 48)
         Me.cboCategory.Name = "cboCategory"
         Me.cboCategory.Size = New System.Drawing.Size(158, 25)
         Me.cboCategory.TabIndex = 28
@@ -442,7 +442,7 @@ Partial Class frmManageProducts
         '
         Me.txtProductDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtProductDescription.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtProductDescription.Location = New System.Drawing.Point(152, 128)
+        Me.txtProductDescription.Location = New System.Drawing.Point(153, 134)
         Me.txtProductDescription.Name = "txtProductDescription"
         Me.txtProductDescription.Size = New System.Drawing.Size(210, 25)
         Me.txtProductDescription.TabIndex = 27
@@ -451,7 +451,7 @@ Partial Class frmManageProducts
         '
         Me.txtProductName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtProductName.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtProductName.Location = New System.Drawing.Point(152, 84)
+        Me.txtProductName.Location = New System.Drawing.Point(153, 90)
         Me.txtProductName.Name = "txtProductName"
         Me.txtProductName.Size = New System.Drawing.Size(210, 25)
         Me.txtProductName.TabIndex = 26
@@ -460,7 +460,7 @@ Partial Class frmManageProducts
         '
         Me.txtProductCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtProductCode.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtProductCode.Location = New System.Drawing.Point(152, 43)
+        Me.txtProductCode.Location = New System.Drawing.Point(153, 49)
         Me.txtProductCode.Name = "txtProductCode"
         Me.txtProductCode.Size = New System.Drawing.Size(210, 25)
         Me.txtProductCode.TabIndex = 25
@@ -469,7 +469,7 @@ Partial Class frmManageProducts
         '
         Me.Label25.AutoSize = True
         Me.Label25.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(400, 45)
+        Me.Label25.Location = New System.Drawing.Point(394, 51)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(61, 17)
         Me.Label25.TabIndex = 24
@@ -479,7 +479,7 @@ Partial Class frmManageProducts
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(19, 130)
+        Me.Label10.Location = New System.Drawing.Point(20, 136)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(123, 17)
         Me.Label10.TabIndex = 13
@@ -489,7 +489,7 @@ Partial Class frmManageProducts
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(19, 88)
+        Me.Label11.Location = New System.Drawing.Point(20, 94)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(92, 17)
         Me.Label11.TabIndex = 12
@@ -499,7 +499,7 @@ Partial Class frmManageProducts
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(19, 45)
+        Me.Label12.Location = New System.Drawing.Point(20, 51)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(88, 17)
         Me.Label12.TabIndex = 11
@@ -511,7 +511,7 @@ Partial Class frmManageProducts
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(237, 258)
+        Me.Panel1.Location = New System.Drawing.Point(237, 248)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 99
@@ -540,7 +540,7 @@ Partial Class frmManageProducts
         Me.btnclear.BackColor = System.Drawing.Color.Gray
         Me.btnclear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnclear.ForeColor = System.Drawing.Color.White
-        Me.btnclear.Location = New System.Drawing.Point(1015, 213)
+        Me.btnclear.Location = New System.Drawing.Point(1015, 203)
         Me.btnclear.Name = "btnclear"
         Me.btnclear.Size = New System.Drawing.Size(172, 33)
         Me.btnclear.TabIndex = 62
@@ -552,7 +552,7 @@ Partial Class frmManageProducts
         Me.btnadd.BackColor = System.Drawing.Color.Green
         Me.btnadd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnadd.ForeColor = System.Drawing.Color.White
-        Me.btnadd.Location = New System.Drawing.Point(1015, 72)
+        Me.btnadd.Location = New System.Drawing.Point(1015, 62)
         Me.btnadd.Name = "btnadd"
         Me.btnadd.Size = New System.Drawing.Size(172, 33)
         Me.btnadd.TabIndex = 60
@@ -564,7 +564,7 @@ Partial Class frmManageProducts
         Me.btnremove.BackColor = System.Drawing.Color.Maroon
         Me.btnremove.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnremove.ForeColor = System.Drawing.Color.White
-        Me.btnremove.Location = New System.Drawing.Point(1015, 166)
+        Me.btnremove.Location = New System.Drawing.Point(1015, 156)
         Me.btnremove.Name = "btnremove"
         Me.btnremove.Size = New System.Drawing.Size(172, 33)
         Me.btnremove.TabIndex = 61
@@ -576,7 +576,7 @@ Partial Class frmManageProducts
         Me.btnupd.BackColor = System.Drawing.Color.Navy
         Me.btnupd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnupd.ForeColor = System.Drawing.Color.White
-        Me.btnupd.Location = New System.Drawing.Point(1015, 119)
+        Me.btnupd.Location = New System.Drawing.Point(1015, 109)
         Me.btnupd.Name = "btnupd"
         Me.btnupd.Size = New System.Drawing.Size(172, 33)
         Me.btnupd.TabIndex = 59
@@ -588,7 +588,7 @@ Partial Class frmManageProducts
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label4.Location = New System.Drawing.Point(23, 47)
+        Me.Label4.Location = New System.Drawing.Point(23, 37)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(161, 15)
         Me.Label4.TabIndex = 90
@@ -599,7 +599,7 @@ Partial Class frmManageProducts
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label5.Location = New System.Drawing.Point(18, 13)
+        Me.Label5.Location = New System.Drawing.Point(18, 3)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(215, 32)
         Me.Label5.TabIndex = 89
@@ -612,7 +612,7 @@ Partial Class frmManageProducts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1219, 817)
+        Me.ClientSize = New System.Drawing.Size(1220, 804)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.btnclear)
         Me.Controls.Add(Me.Label5)

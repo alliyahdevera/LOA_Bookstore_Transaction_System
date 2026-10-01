@@ -23,8 +23,8 @@ Partial Class frmTransactionHistory
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTransactionHistory))
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -48,6 +48,11 @@ Partial Class frmTransactionHistory
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.btngenerate = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.dtto = New System.Windows.Forms.DateTimePicker()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.dtfrom = New System.Windows.Forms.DateTimePicker()
         Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -62,12 +67,7 @@ Partial Class frmTransactionHistory
         Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AmountChange = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CreatedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.btngenerate = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.dtto = New System.Windows.Forms.DateTimePicker()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.dtfrom = New System.Windows.Forms.DateTimePicker()
+        Me.ProcessedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvtransaction, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
@@ -112,27 +112,27 @@ Partial Class frmTransactionHistory
         Me.dgvtransaction.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvtransaction.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvtransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvtransaction.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.Column1, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.SubTotal, Me.Quantity, Me.TotalAmount, Me.tDate, Me.Time, Me.AmountPaid, Me.AmountChange, Me.Status, Me.CreatedBy})
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvtransaction.DefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvtransaction.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.Column1, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.SubTotal, Me.Quantity, Me.TotalAmount, Me.tDate, Me.Time, Me.AmountPaid, Me.AmountChange, Me.Status, Me.ProcessedBy})
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvtransaction.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvtransaction.Location = New System.Drawing.Point(-1, 35)
         Me.dgvtransaction.Name = "dgvtransaction"
         Me.dgvtransaction.ReadOnly = True
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvtransaction.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
-        Me.dgvtransaction.Size = New System.Drawing.Size(1167, 623)
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvtransaction.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvtransaction.Size = New System.Drawing.Size(1167, 575)
         Me.dgvtransaction.TabIndex = 1
         '
         'Panel6
@@ -324,6 +324,54 @@ Partial Class frmTransactionHistory
         Me.txtSearch.Size = New System.Drawing.Size(230, 20)
         Me.txtSearch.TabIndex = 28
         '
+        'btngenerate
+        '
+        Me.btngenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btngenerate.ForeColor = System.Drawing.Color.White
+        Me.btngenerate.Location = New System.Drawing.Point(659, 116)
+        Me.btngenerate.Name = "btngenerate"
+        Me.btngenerate.Size = New System.Drawing.Size(101, 28)
+        Me.btngenerate.TabIndex = 143
+        Me.btngenerate.Text = "Generate"
+        Me.btngenerate.UseVisualStyleBackColor = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(359, 122)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(22, 17)
+        Me.Label2.TabIndex = 142
+        Me.Label2.Text = "To"
+        '
+        'dtto
+        '
+        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtto.Location = New System.Drawing.Point(387, 117)
+        Me.dtto.Name = "dtto"
+        Me.dtto.Size = New System.Drawing.Size(251, 27)
+        Me.dtto.TabIndex = 141
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(26, 122)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(67, 17)
+        Me.Label1.TabIndex = 140
+        Me.Label1.Text = "Date from"
+        '
+        'dtfrom
+        '
+        Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtfrom.Location = New System.Drawing.Point(99, 117)
+        Me.dtfrom.Name = "dtfrom"
+        Me.dtfrom.Size = New System.Drawing.Size(251, 27)
+        Me.dtfrom.TabIndex = 139
+        '
         'TransactionNo
         '
         Me.TransactionNo.HeaderText = "Transaction No."
@@ -422,60 +470,12 @@ Partial Class frmTransactionHistory
         Me.Status.ReadOnly = True
         Me.Status.Width = 62
         '
-        'CreatedBy
+        'ProcessedBy
         '
-        Me.CreatedBy.HeaderText = "Created By"
-        Me.CreatedBy.Name = "CreatedBy"
-        Me.CreatedBy.ReadOnly = True
-        Me.CreatedBy.Width = 78
-        '
-        'btngenerate
-        '
-        Me.btngenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btngenerate.ForeColor = System.Drawing.Color.White
-        Me.btngenerate.Location = New System.Drawing.Point(659, 116)
-        Me.btngenerate.Name = "btngenerate"
-        Me.btngenerate.Size = New System.Drawing.Size(101, 28)
-        Me.btngenerate.TabIndex = 143
-        Me.btngenerate.Text = "Generate"
-        Me.btngenerate.UseVisualStyleBackColor = False
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(359, 122)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(22, 17)
-        Me.Label2.TabIndex = 142
-        Me.Label2.Text = "To"
-        '
-        'dtto
-        '
-        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtto.Location = New System.Drawing.Point(387, 117)
-        Me.dtto.Name = "dtto"
-        Me.dtto.Size = New System.Drawing.Size(251, 27)
-        Me.dtto.TabIndex = 141
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(26, 122)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(67, 17)
-        Me.Label1.TabIndex = 140
-        Me.Label1.Text = "Date from"
-        '
-        'dtfrom
-        '
-        Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtfrom.Location = New System.Drawing.Point(99, 117)
-        Me.dtfrom.Name = "dtfrom"
-        Me.dtfrom.Size = New System.Drawing.Size(251, 27)
-        Me.dtfrom.TabIndex = 139
+        Me.ProcessedBy.HeaderText = "Processed By"
+        Me.ProcessedBy.Name = "ProcessedBy"
+        Me.ProcessedBy.ReadOnly = True
+        Me.ProcessedBy.Width = 89
         '
         'frmTransactionHistory
         '
@@ -535,6 +535,11 @@ Partial Class frmTransactionHistory
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtSearch As TextBox
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents btngenerate As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents dtto As DateTimePicker
+    Friend WithEvents Label1 As Label
+    Friend WithEvents dtfrom As DateTimePicker
     Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
     Friend WithEvents Column1 As DataGridViewTextBoxColumn
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
@@ -549,10 +554,5 @@ Partial Class frmTransactionHistory
     Friend WithEvents AmountPaid As DataGridViewTextBoxColumn
     Friend WithEvents AmountChange As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
-    Friend WithEvents CreatedBy As DataGridViewTextBoxColumn
-    Friend WithEvents btngenerate As Button
-    Friend WithEvents Label2 As Label
-    Friend WithEvents dtto As DateTimePicker
-    Friend WithEvents Label1 As Label
-    Friend WithEvents dtfrom As DateTimePicker
+    Friend WithEvents ProcessedBy As DataGridViewTextBoxColumn
 End Class

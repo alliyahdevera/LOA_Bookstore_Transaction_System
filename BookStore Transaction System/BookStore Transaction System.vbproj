@@ -167,6 +167,12 @@
     <Compile Include="frmInventoryCountReconciliation.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmInventoryDiscrepancies.Designer.vb">
+      <DependentUpon>frmInventoryDiscrepancies.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmInventoryDiscrepancies.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmLoginHistory.Designer.vb">
       <DependentUpon>frmLoginHistory.vb</DependentUpon>
     </Compile>
@@ -183,12 +189,6 @@
       <DependentUpon>frmRemittance.vb</DependentUpon>
     </Compile>
     <Compile Include="frmRemittance.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmReturnExchange.Designer.vb">
-      <DependentUpon>frmReturnExchange.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmReturnExchange.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmSalesDateRange.Designer.vb">
@@ -251,10 +251,10 @@
     <Compile Include="frmStudentList.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmStockEntry.Designer.vb">
-      <DependentUpon>frmStockEntry.vb</DependentUpon>
+    <Compile Include="frmStockIn.Designer.vb">
+      <DependentUpon>frmStockIn.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmStockEntry.vb">
+    <Compile Include="frmStockIn.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmStockInHistory.Designer.vb">
@@ -336,6 +336,9 @@
     <EmbeddedResource Include="frmInventoryCountReconciliation.resx">
       <DependentUpon>frmInventoryCountReconciliation.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmInventoryDiscrepancies.resx">
+      <DependentUpon>frmInventoryDiscrepancies.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLoginHistory.resx">
       <DependentUpon>frmLoginHistory.vb</DependentUpon>
     </EmbeddedResource>
@@ -344,9 +347,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRemittance.resx">
       <DependentUpon>frmRemittance.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmReturnExchange.resx">
-      <DependentUpon>frmReturnExchange.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSalesDateRange.resx">
       <DependentUpon>frmSalesDateRange.vb</DependentUpon>
@@ -375,8 +375,8 @@
     <EmbeddedResource Include="frmSalesByItem.resx">
       <DependentUpon>frmSalesByItem.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmStockEntry.resx">
-      <DependentUpon>frmStockEntry.vb</DependentUpon>
+    <EmbeddedResource Include="frmStockIn.resx">
+      <DependentUpon>frmStockIn.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStockInHistory.resx">
       <DependentUpon>frmStockInHistory.vb</DependentUpon>

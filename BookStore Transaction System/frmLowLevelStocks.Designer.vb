@@ -70,7 +70,7 @@ Partial Class frmLowLevelStocks
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel13.Location = New System.Drawing.Point(0, 790)
+        Me.Panel13.Location = New System.Drawing.Point(0, 777)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(1220, 27)
         Me.Panel13.TabIndex = 89
@@ -151,7 +151,7 @@ Partial Class frmLowLevelStocks
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(28, 94)
+        Me.Label14.Location = New System.Drawing.Point(28, 82)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(205, 17)
         Me.Label14.TabIndex = 88
@@ -162,9 +162,9 @@ Partial Class frmLowLevelStocks
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.dgvListOfProducts)
         Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Location = New System.Drawing.Point(30, 138)
+        Me.Panel5.Location = New System.Drawing.Point(30, 126)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1155, 624)
+        Me.Panel5.Size = New System.Drawing.Size(1155, 619)
         Me.Panel5.TabIndex = 86
         '
         'dgvListOfProducts
@@ -261,7 +261,7 @@ Partial Class frmLowLevelStocks
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label4.Location = New System.Drawing.Point(28, 56)
+        Me.Label4.Location = New System.Drawing.Point(28, 44)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(225, 15)
         Me.Label4.TabIndex = 91
@@ -272,7 +272,7 @@ Partial Class frmLowLevelStocks
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(24, 18)
+        Me.Label1.Location = New System.Drawing.Point(24, 6)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(204, 32)
         Me.Label1.TabIndex = 90
@@ -284,7 +284,7 @@ Partial Class frmLowLevelStocks
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(242, 89)
+        Me.Panel1.Location = New System.Drawing.Point(242, 77)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 95
@@ -314,7 +314,7 @@ Partial Class frmLowLevelStocks
         Me.btnexportexcel.FlatAppearance.BorderSize = 0
         Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnexportexcel.ForeColor = System.Drawing.Color.White
-        Me.btnexportexcel.Location = New System.Drawing.Point(1055, 88)
+        Me.btnexportexcel.Location = New System.Drawing.Point(1055, 76)
         Me.btnexportexcel.Name = "btnexportexcel"
         Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
         Me.btnexportexcel.TabIndex = 76
@@ -325,7 +325,7 @@ Partial Class frmLowLevelStocks
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1220, 817)
+        Me.ClientSize = New System.Drawing.Size(1220, 804)
         Me.Controls.Add(Me.btnexportexcel)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label4)

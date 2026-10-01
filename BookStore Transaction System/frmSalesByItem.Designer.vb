@@ -298,13 +298,15 @@ Partial Class frmSalesByItem
         '
         'btngenerate
         '
+        Me.btngenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btngenerate.ForeColor = System.Drawing.Color.White
         Me.btngenerate.Location = New System.Drawing.Point(655, 85)
         Me.btngenerate.Name = "btngenerate"
-        Me.btngenerate.Size = New System.Drawing.Size(101, 28)
+        Me.btngenerate.Size = New System.Drawing.Size(122, 28)
         Me.btngenerate.TabIndex = 138
         Me.btngenerate.Text = "Generate"
-        Me.btngenerate.UseVisualStyleBackColor = True
+        Me.btngenerate.UseVisualStyleBackColor = False
         '
         'Label2
         '

@@ -22,7 +22,7 @@ Partial Class frmProductList
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmProductList))
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.lbloutofstocks = New System.Windows.Forms.Label()
@@ -85,7 +85,7 @@ Partial Class frmProductList
         Me.Panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel11.Controls.Add(Me.lbloutofstocks)
         Me.Panel11.Controls.Add(Me.Label8)
-        Me.Panel11.Location = New System.Drawing.Point(989, 78)
+        Me.Panel11.Location = New System.Drawing.Point(989, 66)
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(197, 87)
         Me.Panel11.TabIndex = 82
@@ -115,7 +115,7 @@ Partial Class frmProductList
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(26, 184)
+        Me.Label14.Location = New System.Drawing.Point(26, 172)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(211, 17)
         Me.Label14.TabIndex = 84
@@ -127,7 +127,7 @@ Partial Class frmProductList
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.lblonhand)
         Me.Panel7.Controls.Add(Me.Label6)
-        Me.Panel7.Location = New System.Drawing.Point(507, 78)
+        Me.Panel7.Location = New System.Drawing.Point(507, 66)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(197, 87)
         Me.Panel7.TabIndex = 81
@@ -159,7 +159,7 @@ Partial Class frmProductList
         Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel8.Controls.Add(Me.lbltotalqproducts)
         Me.Panel8.Controls.Add(Me.Label2)
-        Me.Panel8.Location = New System.Drawing.Point(267, 78)
+        Me.Panel8.Location = New System.Drawing.Point(267, 66)
         Me.Panel8.Name = "Panel8"
         Me.Panel8.Size = New System.Drawing.Size(197, 87)
         Me.Panel8.TabIndex = 79
@@ -191,7 +191,7 @@ Partial Class frmProductList
         Me.Panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel9.Controls.Add(Me.lblcriticallvl)
         Me.Panel9.Controls.Add(Me.Label3)
-        Me.Panel9.Location = New System.Drawing.Point(748, 78)
+        Me.Panel9.Location = New System.Drawing.Point(748, 66)
         Me.Panel9.Name = "Panel9"
         Me.Panel9.Size = New System.Drawing.Size(197, 87)
         Me.Panel9.TabIndex = 80
@@ -223,7 +223,7 @@ Partial Class frmProductList
         Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel10.Controls.Add(Me.lbltotalproducts)
         Me.Panel10.Controls.Add(Me.Label1)
-        Me.Panel10.Location = New System.Drawing.Point(26, 78)
+        Me.Panel10.Location = New System.Drawing.Point(26, 66)
         Me.Panel10.Name = "Panel10"
         Me.Panel10.Size = New System.Drawing.Size(197, 87)
         Me.Panel10.TabIndex = 78
@@ -254,9 +254,9 @@ Partial Class frmProductList
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.dgvlistproducts)
         Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Location = New System.Drawing.Point(25, 215)
+        Me.Panel5.Location = New System.Drawing.Point(25, 203)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1161, 555)
+        Me.Panel5.Size = New System.Drawing.Size(1161, 551)
         Me.Panel5.TabIndex = 77
         '
         'dgvlistproducts
@@ -265,14 +265,14 @@ Partial Class frmProductList
         Me.dgvlistproducts.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvlistproducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvlistproducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeofProduct, Me.Size, Me.UnitPrice, Me.Quantity, Me.ReorderLevel, Me.Status})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvlistproducts.Location = New System.Drawing.Point(-1, 35)
         Me.dgvlistproducts.Name = "dgvlistproducts"
         Me.dgvlistproducts.ReadOnly = True
@@ -369,9 +369,9 @@ Partial Class frmProductList
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel13.Location = New System.Drawing.Point(0, 790)
+        Me.Panel13.Location = New System.Drawing.Point(0, 777)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1219, 27)
+        Me.Panel13.Size = New System.Drawing.Size(1220, 27)
         Me.Panel13.TabIndex = 85
         '
         'lblname
@@ -452,7 +452,7 @@ Partial Class frmProductList
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(242, 180)
+        Me.Panel1.Location = New System.Drawing.Point(242, 168)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 96
@@ -481,7 +481,7 @@ Partial Class frmProductList
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label13.Location = New System.Drawing.Point(24, 50)
+        Me.Label13.Location = New System.Drawing.Point(24, 38)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(133, 15)
         Me.Label13.TabIndex = 99
@@ -492,7 +492,7 @@ Partial Class frmProductList
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label15.Location = New System.Drawing.Point(20, 18)
+        Me.Label15.Location = New System.Drawing.Point(20, 6)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(151, 32)
         Me.Label15.TabIndex = 98
@@ -502,7 +502,7 @@ Partial Class frmProductList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1219, 817)
+        Me.ClientSize = New System.Drawing.Size(1220, 804)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.Panel1)
