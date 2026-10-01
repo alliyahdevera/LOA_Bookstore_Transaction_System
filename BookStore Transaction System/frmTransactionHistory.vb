@@ -1,21 +1,33 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Data.SqlClient
+Imports MySql.Data.MySqlClient
 
 Public Class frmTransactionHistory
 
     Private Sub frmTransactionHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If Not dgvtransaction.Columns.Contains("StudentName") Then
-            Dim colStudent As New DataGridViewTextBoxColumn()
-            colStudent.Name = "StudentName"
-            colStudent.HeaderText = "Student Name"
-            colStudent.ReadOnly = True
-            dgvtransaction.Columns.Insert(1, colStudent)   ' right after Transaction #
-        End If
-
         SetupFooter(Me, lblname, lblposition, lbldatetime)
+
+        dtfrom.Value = New Date(Date.Today.Year, Date.Today.Month, 1)   ' 1st of this month
+        dtto.Value = Date.Today
 
         Button3.Text = "Cancel Transaction"
         Button3.Visible = (currentuser.Role = ROLE_SUPERVISOR)
         LoadGrid("")
+    End Sub
+    Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
+        If dtfrom.Value.Date > dtto.Value.Date Then
+            MsgBox("'From' date cannot be later than 'To' date.", vbExclamation, "Transaction History")
+            Exit Sub
+        End If
+
+        LoadGrid(txtSearch.Text.Trim())
+
+        If dgvtransaction.Rows.Count = 0 Then
+            MsgBox("No transactions found for the selected dates.", vbInformation, "Transaction History")
+        End If
+    End Sub
+
+    Private Sub dgvtransaction_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvtransaction.CellDoubleClick
+        If e.RowIndex >= 0 Then OpenDetails()
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
@@ -27,32 +39,38 @@ Public Class frmTransactionHistory
             If Not connection() Then Exit Sub
 
             Dim query As String = "SELECT t.transaction_no, t.buyer_name, DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, " &
-                             "v.product_code, p.product_name, v.size, p.unit_price, ti.quantity AS qty, " &
+                              "v.product_code, p.product_name, v.size, p.unit_price, ti.quantity AS qty, " &
                               "ti.subtotal, t.total_amount, t.amount_paid, t.amount_change, t.status, u.username " &
                               "FROM TBL_TRANSACTION_ITEMS ti " &
                               "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
                               "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
                               "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
                               "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
-                              "WHERE t.transaction_no LIKE @s OR t.buyer_name LIKE @s ORDER BY t.transaction_id DESC"
+                              "WHERE (t.transaction_no LIKE @s OR t.buyer_name LIKE @s) " &
+                              "AND DATE(t.created_at) BETWEEN @f AND @t " &
+                              "ORDER BY t.transaction_id DESC"
 
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
+                localCmd.Parameters.AddWithValue("@f", dtfrom.Value.Date)
+                localCmd.Parameters.AddWithValue("@t", dtto.Value.Date)
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
                     dgvtransaction.Rows.Clear()
                     While localDr.Read()
+                        ' order = TransactionNo, StudentName, ProductCode, ProductName, Size, UnitPrice, SubTotal,
+                        '         Quantity, TotalAmount, Date, Time, AmountPaid, AmountChange, Status, ProcessedBy
                         dgvtransaction.Rows.Add(
                         localDr("transaction_no").ToString(),
                         localDr("buyer_name").ToString(),
-                        Convert.ToDateTime(localDr("tdate")).ToString("yyyy-MM-dd"),
-                        localDr("ttime").ToString(),
                         localDr("product_code").ToString(),
                         localDr("product_name").ToString(),
                         localDr("size").ToString(),
                         Convert.ToDecimal(localDr("unit_price")).ToString("N2"),
-                        localDr("qty").ToString(),
                         Convert.ToDecimal(localDr("subtotal")).ToString("N2"),
+                        localDr("qty").ToString(),
                         Convert.ToDecimal(localDr("total_amount")).ToString("N2"),
+                        Convert.ToDateTime(localDr("tdate")).ToString("yyyy-MM-dd"),
+                        localDr("ttime").ToString(),
                         Convert.ToDecimal(localDr("amount_paid")).ToString("N2"),
                         Convert.ToDecimal(localDr("amount_change")).ToString("N2"),
                         localDr("status").ToString(),
@@ -63,8 +81,10 @@ Public Class frmTransactionHistory
             cn.Close()
 
             Dim totalSum As Object = ExecScalar(
-            "SELECT IFNULL(SUM(total_amount),0) FROM TBL_TRANSACTIONS WHERE (transaction_no LIKE @s OR buyer_name LIKE @s) AND status <> 'Cancelled'",
-            New String() {"@s"}, New Object() {"%" & searchText & "%"})
+            "SELECT IFNULL(SUM(total_amount),0) FROM TBL_TRANSACTIONS " &
+            "WHERE (transaction_no LIKE @s OR buyer_name LIKE @s) AND DATE(created_at) BETWEEN @f AND @t AND status <> 'Cancelled'",
+            New String() {"@s", "@f", "@t"},
+            New Object() {"%" & searchText & "%", dtfrom.Value.Date, dtto.Value.Date})
 
             lbltotalsales.Text = ChrW(8369) & Convert.ToDecimal(If(totalSum, 0)).ToString("N2")
 
@@ -74,7 +94,11 @@ Public Class frmTransactionHistory
         End Try
     End Sub
 
-    Private Sub btnviewdetails_Click(sender As Object, e As EventArgs) Handles btnviewdetails.Click   ' View Details
+    Private Sub btnviewdetails_Click(sender As Object, e As EventArgs) Handles btnviewdetails.Click
+        OpenDetails()
+    End Sub
+
+    Private Sub OpenDetails()
         If dgvtransaction.SelectedRows.Count = 0 Then
             MsgBox("Select a transaction row first.", vbExclamation, "Transaction")
             Exit Sub
@@ -84,12 +108,12 @@ Public Class frmTransactionHistory
         If selectedRow.Cells("TransactionNo").Value Is Nothing Then Exit Sub
 
         Using frm As New frmTransactionDetails()
-            frm.TransactionNo = selectedRow.Cells("TransactionNo").Value.ToString()
+            frm.TransactionNo = selectedRow.Cells("TransactionNo").Value.ToString()   ' history -> details
             frm.StartPosition = FormStartPosition.CenterParent
             frm.ShowDialog(Me)
         End Using
 
-        LoadGrid(txtSearch.Text.Trim())   ' refresh in case a return/exchange was processed
+        LoadGrid(txtSearch.Text.Trim())   ' refresh: a return/exchange may have changed the status
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click   ' Cancel Transaction
@@ -106,7 +130,10 @@ Public Class frmTransactionHistory
             MsgBox("This transaction is already cancelled.", vbInformation, "Transaction")
             Exit Sub
         End If
-
+        If currentStatus <> "Completed" Then
+            MsgBox("Only 'Completed' transactions can be cancelled. This one is '" & currentStatus & "'.", vbInformation, "Transaction")
+            Exit Sub
+        End If
         Dim reason As String = InputBox("Reason for cancelling transaction " & txnNo & ":", "Cancel Transaction")
         If String.IsNullOrWhiteSpace(reason) Then Exit Sub
 

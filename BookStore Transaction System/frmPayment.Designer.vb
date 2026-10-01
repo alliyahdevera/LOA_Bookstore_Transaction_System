@@ -40,8 +40,8 @@ Partial Class frmPayment
         Me.dtpORDate = New System.Windows.Forms.DateTimePicker()
         Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.txtEmployeeName = New System.Windows.Forms.TextBox()
+        Me.btnSearchEmployee = New System.Windows.Forms.Button()
         Me.Panel12.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -216,37 +216,37 @@ Partial Class frmPayment
         Me.Label2.TabIndex = 38
         Me.Label2.Text = "Employee Name"
         '
-        'TextBox1
+        'txtEmployeeName
         '
-        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(177, 225)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(155, 27)
-        Me.TextBox1.TabIndex = 37
+        Me.txtEmployeeName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtEmployeeName.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtEmployeeName.Location = New System.Drawing.Point(177, 225)
+        Me.txtEmployeeName.Name = "txtEmployeeName"
+        Me.txtEmployeeName.ReadOnly = True
+        Me.txtEmployeeName.Size = New System.Drawing.Size(155, 27)
+        Me.txtEmployeeName.TabIndex = 37
         '
-        'Button1
+        'btnSearchEmployee
         '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(338, 223)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(80, 29)
-        Me.Button1.TabIndex = 120
-        Me.Button1.Text = "Search"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btnSearchEmployee.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnSearchEmployee.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSearchEmployee.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSearchEmployee.ForeColor = System.Drawing.Color.White
+        Me.btnSearchEmployee.Location = New System.Drawing.Point(338, 223)
+        Me.btnSearchEmployee.Name = "btnSearchEmployee"
+        Me.btnSearchEmployee.Size = New System.Drawing.Size(80, 29)
+        Me.btnSearchEmployee.TabIndex = 120
+        Me.btnSearchEmployee.Text = "Search"
+        Me.btnSearchEmployee.UseVisualStyleBackColor = False
         '
         'frmPayment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(451, 511)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnSearchEmployee)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.txtEmployeeName)
         Me.Controls.Add(Me.dtpORDate)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.btnSave)
@@ -286,6 +286,6 @@ Partial Class frmPayment
     Friend WithEvents dtpORDate As DateTimePicker
     Friend WithEvents PrintPreviewDialog1 As PrintPreviewDialog
     Friend WithEvents Label2 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents txtEmployeeName As TextBox
+    Friend WithEvents btnSearchEmployee As Button
 End Class

@@ -31,10 +31,6 @@ Partial Class frmStudentList
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.cboGradeLevel = New System.Windows.Forms.ComboBox()
         Me.dgvstudents = New System.Windows.Forms.DataGridView()
         Me.StudentNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.StudentName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -42,6 +38,10 @@ Partial Class frmStudentList
         Me.GradeLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProgramStrand = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Section = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cboGradeLevel = New System.Windows.Forms.ComboBox()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
@@ -118,48 +118,6 @@ Partial Class frmStudentList
         Me.Panel7.Size = New System.Drawing.Size(1050, 571)
         Me.Panel7.TabIndex = 110
         '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(806, 90)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(78, 17)
-        Me.Label5.TabIndex = 118
-        Me.Label5.Text = "Grade Level"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label1.Location = New System.Drawing.Point(23, 53)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(257, 15)
-        Me.Label1.TabIndex = 120
-        Me.Label1.Text = "View list of all students and filter by Grade Level"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(20, 18)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(148, 32)
-        Me.Label6.TabIndex = 119
-        Me.Label6.Text = "Student List"
-        '
-        'cboGradeLevel
-        '
-        Me.cboGradeLevel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cboGradeLevel.FormattingEnabled = True
-        Me.cboGradeLevel.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
-        Me.cboGradeLevel.Location = New System.Drawing.Point(901, 86)
-        Me.cboGradeLevel.Name = "cboGradeLevel"
-        Me.cboGradeLevel.Size = New System.Drawing.Size(174, 25)
-        Me.cboGradeLevel.TabIndex = 121
-        '
         'dgvstudents
         '
         Me.dgvstudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
@@ -220,6 +178,48 @@ Partial Class frmStudentList
         Me.Section.HeaderText = "Section"
         Me.Section.Name = "Section"
         Me.Section.ReadOnly = True
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(806, 90)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(78, 17)
+        Me.Label5.TabIndex = 118
+        Me.Label5.Text = "Grade Level"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label1.Location = New System.Drawing.Point(23, 53)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(257, 15)
+        Me.Label1.TabIndex = 120
+        Me.Label1.Text = "View list of all students and filter by Grade Level"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label6.Location = New System.Drawing.Point(20, 18)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(148, 32)
+        Me.Label6.TabIndex = 119
+        Me.Label6.Text = "Student List"
+        '
+        'cboGradeLevel
+        '
+        Me.cboGradeLevel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboGradeLevel.FormattingEnabled = True
+        Me.cboGradeLevel.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
+        Me.cboGradeLevel.Location = New System.Drawing.Point(901, 86)
+        Me.cboGradeLevel.Name = "cboGradeLevel"
+        Me.cboGradeLevel.Size = New System.Drawing.Size(174, 25)
+        Me.cboGradeLevel.TabIndex = 121
         '
         'frmStudentList
         '

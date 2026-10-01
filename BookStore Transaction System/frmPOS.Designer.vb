@@ -27,12 +27,12 @@ Partial Class frmPOS
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOS))
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.txtStudentNo = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.txtGuestName = New System.Windows.Forms.TextBox()
         Me.txtgrade = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnSearchStudent = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -74,7 +74,7 @@ Partial Class frmPOS
         Me.txtAmountChange = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtPaymentMethod = New System.Windows.Forms.TextBox()
         Me.txttransactdate = New System.Windows.Forms.TextBox()
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.Label20 = New System.Windows.Forms.Label()
@@ -87,15 +87,6 @@ Partial Class frmPOS
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.dgvlistproducts = New System.Windows.Forms.DataGridView()
-        Me.nudQuantity = New System.Windows.Forms.NumericUpDown()
-        Me.Panel12 = New System.Windows.Forms.Panel()
-        Me.picSearchProduct = New System.Windows.Forms.PictureBox()
-        Me.txtProductSearch = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.cbocategory = New System.Windows.Forms.ComboBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -104,6 +95,15 @@ Partial Class frmPOS
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.nudQuantity = New System.Windows.Forms.NumericUpDown()
+        Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.picSearchProduct = New System.Windows.Forms.PictureBox()
+        Me.txtProductSearch = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.cbocategory = New System.Windows.Forms.ComboBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtTransactionNo = New System.Windows.Forms.TextBox()
         Me.Panel5.SuspendLayout()
         Me.Panel11.SuspendLayout()
         Me.Panel7.SuspendLayout()
@@ -125,12 +125,12 @@ Partial Class frmPOS
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.TextBox4)
+        Me.Panel5.Controls.Add(Me.txtStudentNo)
         Me.Panel5.Controls.Add(Me.Label16)
         Me.Panel5.Controls.Add(Me.Label13)
-        Me.Panel5.Controls.Add(Me.TextBox3)
+        Me.Panel5.Controls.Add(Me.txtGuestName)
         Me.Panel5.Controls.Add(Me.txtgrade)
-        Me.Panel5.Controls.Add(Me.Button1)
+        Me.Panel5.Controls.Add(Me.btnSearchStudent)
         Me.Panel5.Controls.Add(Me.Label7)
         Me.Panel5.Controls.Add(Me.Label8)
         Me.Panel5.Controls.Add(Me.Label6)
@@ -143,14 +143,14 @@ Partial Class frmPOS
         Me.Panel5.Size = New System.Drawing.Size(345, 252)
         Me.Panel5.TabIndex = 9
         '
-        'TextBox4
+        'txtStudentNo
         '
-        Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox4.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox4.Location = New System.Drawing.Point(134, 52)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(104, 25)
-        Me.TextBox4.TabIndex = 124
+        Me.txtStudentNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtStudentNo.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtStudentNo.Location = New System.Drawing.Point(134, 52)
+        Me.txtStudentNo.Name = "txtStudentNo"
+        Me.txtStudentNo.Size = New System.Drawing.Size(104, 25)
+        Me.txtStudentNo.TabIndex = 124
         '
         'Label16
         '
@@ -173,14 +173,14 @@ Partial Class frmPOS
         Me.Label13.TabIndex = 122
         Me.Label13.Text = "Guest Name"
         '
-        'TextBox3
+        'txtGuestName
         '
-        Me.TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox3.Location = New System.Drawing.Point(134, 213)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(190, 25)
-        Me.TextBox3.TabIndex = 121
+        Me.txtGuestName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtGuestName.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtGuestName.Location = New System.Drawing.Point(134, 213)
+        Me.txtGuestName.Name = "txtGuestName"
+        Me.txtGuestName.Size = New System.Drawing.Size(190, 25)
+        Me.txtGuestName.TabIndex = 121
         '
         'txtgrade
         '
@@ -192,18 +192,18 @@ Partial Class frmPOS
         Me.txtgrade.Size = New System.Drawing.Size(190, 25)
         Me.txtgrade.TabIndex = 120
         '
-        'Button1
+        'btnSearchStudent
         '
-        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(244, 52)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(80, 25)
-        Me.Button1.TabIndex = 119
-        Me.Button1.Text = "Search"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.btnSearchStudent.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnSearchStudent.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSearchStudent.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSearchStudent.ForeColor = System.Drawing.Color.White
+        Me.btnSearchStudent.Location = New System.Drawing.Point(244, 52)
+        Me.btnSearchStudent.Name = "btnSearchStudent"
+        Me.btnSearchStudent.Size = New System.Drawing.Size(80, 25)
+        Me.btnSearchStudent.TabIndex = 119
+        Me.btnSearchStudent.Text = "Search"
+        Me.btnSearchStudent.UseVisualStyleBackColor = False
         '
         'Label7
         '
@@ -630,7 +630,7 @@ Partial Class frmPOS
         'Panel4
         '
         Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel4.Controls.Add(Me.TextBox1)
+        Me.Panel4.Controls.Add(Me.txtPaymentMethod)
         Me.Panel4.Controls.Add(Me.txttransactdate)
         Me.Panel4.Controls.Add(Me.Panel9)
         Me.Panel4.Controls.Add(Me.Label21)
@@ -646,15 +646,15 @@ Partial Class frmPOS
         Me.Panel4.Size = New System.Drawing.Size(344, 255)
         Me.Panel4.TabIndex = 103
         '
-        'TextBox1
+        'txtPaymentMethod
         '
-        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(135, 132)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(190, 25)
-        Me.TextBox1.TabIndex = 106
+        Me.txtPaymentMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtPaymentMethod.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPaymentMethod.Location = New System.Drawing.Point(135, 132)
+        Me.txtPaymentMethod.Name = "txtPaymentMethod"
+        Me.txtPaymentMethod.ReadOnly = True
+        Me.txtPaymentMethod.Size = New System.Drawing.Size(190, 25)
+        Me.txtPaymentMethod.TabIndex = 106
         '
         'txttransactdate
         '
@@ -774,6 +774,54 @@ Partial Class frmPOS
         Me.dgvlistproducts.Size = New System.Drawing.Size(785, 282)
         Me.dgvlistproducts.TabIndex = 2
         '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Product Name"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        '
+        'Category
+        '
+        Me.Category.HeaderText = "Category"
+        Me.Category.Name = "Category"
+        Me.Category.ReadOnly = True
+        '
+        'TypeofProduct
+        '
+        Me.TypeofProduct.HeaderText = "Type of Product"
+        Me.TypeofProduct.Name = "TypeofProduct"
+        Me.TypeofProduct.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Size"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Unit Price"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Quantity"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
+        '
         'nudQuantity
         '
         Me.nudQuantity.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -853,63 +901,15 @@ Partial Class frmPOS
         Me.Label12.TabIndex = 98
         Me.Label12.Text = "Transaction No."
         '
-        'TextBox2
+        'txtTransactionNo
         '
-        Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(979, 76)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.ReadOnly = True
-        Me.TextBox2.Size = New System.Drawing.Size(190, 25)
-        Me.TextBox2.TabIndex = 97
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        Me.ProductCode.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.HeaderText = "Product Name"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        '
-        'Category
-        '
-        Me.Category.HeaderText = "Category"
-        Me.Category.Name = "Category"
-        Me.Category.ReadOnly = True
-        '
-        'TypeofProduct
-        '
-        Me.TypeofProduct.HeaderText = "Type of Product"
-        Me.TypeofProduct.Name = "TypeofProduct"
-        Me.TypeofProduct.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Size"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.HeaderText = "Unit Price"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.HeaderText = "Quantity"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
+        Me.txtTransactionNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtTransactionNo.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTransactionNo.Location = New System.Drawing.Point(979, 76)
+        Me.txtTransactionNo.Name = "txtTransactionNo"
+        Me.txtTransactionNo.ReadOnly = True
+        Me.txtTransactionNo.Size = New System.Drawing.Size(190, 25)
+        Me.txtTransactionNo.TabIndex = 97
         '
         'frmPOS
         '
@@ -917,7 +917,7 @@ Partial Class frmPOS
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
         Me.Controls.Add(Me.Label12)
-        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.txtTransactionNo)
         Me.Controls.Add(Me.cbocategory)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Panel12)
@@ -1027,21 +1027,21 @@ Partial Class frmPOS
     Friend WithEvents Label10 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents cbocategory As ComboBox
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txtPaymentMethod As TextBox
     Friend WithEvents txttransactdate As TextBox
     Friend WithEvents Label12 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtTransactionNo As TextBox
     Friend WithEvents txtgrade As TextBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnSearchStudent As Button
     Friend WithEvents Label13 As Label
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents txtGuestName As TextBox
     Friend WithEvents Label16 As Label
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
     Friend WithEvents Size As DataGridViewTextBoxColumn
     Friend WithEvents Quantity As DataGridViewTextBoxColumn
     Friend WithEvents UnitPrice As DataGridViewTextBoxColumn
     Friend WithEvents SubTotal As DataGridViewTextBoxColumn
-    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents txtStudentNo As TextBox
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents Category As DataGridViewTextBoxColumn
