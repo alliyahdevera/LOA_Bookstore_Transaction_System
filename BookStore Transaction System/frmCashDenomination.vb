@@ -23,7 +23,7 @@ Imports MySql.Data.MySqlClient
 
 Public Class frmCashDenomination
 
-    Private Const METHOD_SALARY As String = "Employee's Salary"
+    Private Const METHOD_SALARY As String = "Salary Deduction"
 
     Private ReadOnly Peso As String = ChrW(8369)
     Private ReadOnly Denominations As Decimal() = New Decimal() {1000D, 500D, 200D, 100D, 50D, 20D, 10D, 5D, 1D, 0.25D}
@@ -36,22 +36,23 @@ Public Class frmCashDenomination
 
     ' ==================== LOAD ====================
     Private Sub frmCashDenomination_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        lblname.Text = If(Not String.IsNullOrEmpty(currentuser.FullName), currentuser.FullName, "N/A")
-        lblposition.Text = If(Not String.IsNullOrEmpty(currentuser.Role), currentuser.Role, "N/A")
-
-        cbocashier.DropDownStyle = ComboBoxStyle.DropDownList
         cboFrom.DropDownStyle = ComboBoxStyle.DropDownList
         cboTo.DropDownStyle = ComboBoxStyle.DropDownList
 
-        ' read-only (computed) boxes
-        txtexpected.ReadOnly = True
-        txtactualc.ReadOnly = True
-        txtdiff.ReadOnly = True
-        txtstatus.ReadOnly = True
-        txtrefno.ReadOnly = True
-        TextBox4.ReadOnly = True     ' Amt Remitted = actual cash counted
-        TextBox5.ReadOnly = True     ' Time remitted
-        TextBox7.ReadOnly = True     ' Date remitted
+        txtcashier.ReadOnly = True
+
+        Dim cashierDt As DataTable = GetDataTable(
+        "SELECT CONCAT(first_name, ' ', last_name) AS full_name " &
+        "FROM tbl_users " &
+        "WHERE user_id = @u",
+        New String() {"@u"},
+        New Object() {currentuser.UserID})
+
+        If cashierDt.Rows.Count > 0 Then
+            txtcashier.Text = cashierDt.Rows(0)("full_name").ToString()
+        Else
+            txtcashier.Text = currentuser.UserID.ToString()
+        End If
 
         ' typed boxes
         txtRemarksr.ReadOnly = False : txtRemarksr.MaxLength = 255
@@ -63,24 +64,9 @@ Public Class frmCashDenomination
             "FROM tbl_users u INNER JOIN tbl_roles r ON u.role_id = r.role_id " &
             "WHERE u.status = 'Active' AND r.role_name IN ('Cashier', 'Bookstore Supervisor') " &
             "ORDER BY u.last_name, u.first_name")
-        FillCombo(cbocashier, dt, "full_name", "user_id")
-
-        If currentuser.Role = ROLE_CASHIER Then
-            cbocashier.SelectedValue = currentuser.UserID
-            cbocashier.Enabled = False
-        Else
-            cbocashier.SelectedIndex = -1
-        End If
-
-        Dim h As Integer = DateTime.Now.Hour
 
         isLoading = False
         ResetEntryFields()
-        LoadSummary()
-    End Sub
-
-    Private Sub cbocashier_SelectedIndexChanged(sender As Object, e As EventArgs)
-        If isLoading Then Exit Sub
         LoadSummary()
     End Sub
 
@@ -132,17 +118,16 @@ Public Class frmCashDenomination
         cboFrom.Items.Clear()
         cboTo.Items.Clear()
 
-        If cbocashier.SelectedIndex >= 0 Then
-            Dim uid As Integer = Convert.ToInt32(cbocashier.SelectedValue)
+        Dim uid As Integer = currentuser.UserID
 
-            Dim dt As DataTable = GetDataTable(
-                "SELECT payment_method, COUNT(*) AS cnt, IFNULL(SUM(total_amount), 0) AS amt " &
-                "FROM tbl_transactions " &
-                "WHERE created_by = @u AND or_date = CURDATE() AND status <> 'Cancelled' " &
-                "GROUP BY payment_method",
-                New String() {"@u"}, New Object() {uid})
+        Dim dt As DataTable = GetDataTable(
+                        "SELECT payment_method, COUNT(*) AS cnt, IFNULL(SUM(total_amount), 0) AS amt " &
+                        "FROM tbl_transactions " &
+                        "WHERE created_by = @u AND or_date = CURDATE() AND status <> 'Cancelled' " &
+                        "GROUP BY payment_method",
+                        New String() {"@u"}, New Object() {uid})
 
-            For Each r As DataRow In dt.Rows
+        For Each r As DataRow In dt.Rows
                 Dim cnt As Integer = Convert.ToInt32(r("cnt"))
                 Dim amt As Decimal = Convert.ToDecimal(r("amt"))
                 If r("payment_method").ToString() = METHOD_SALARY Then
@@ -165,7 +150,6 @@ Public Class frmCashDenomination
                 cboFrom.SelectedIndex = 0
                 cboTo.SelectedIndex = cboTo.Items.Count - 1
             End If
-        End If
 
         lblcashsales.Text = Peso & cashSales.ToString("N2")
         lblsaldec.Text = Peso & salaryDeduction.ToString("N2")
@@ -229,10 +213,6 @@ Public Class frmCashDenomination
             MsgBox("Your role has view-only access.", vbExclamation, "End-Of-Day Reconciliation")
             Exit Sub
         End If
-        If cbocashier.SelectedIndex < 0 Then
-            MsgBox("Select the cashier first.", vbExclamation, "End-Of-Day Reconciliation")
-            Exit Sub
-        End If
         If cashCount + salaryCount = 0 Then
             MsgBox("This cashier has no transactions today. Nothing to reconcile.", vbInformation, "End-Of-Day Reconciliation")
             Exit Sub
@@ -261,11 +241,9 @@ Public Class frmCashDenomination
             Exit Sub
         End If
 
-        Dim cashierId As Integer = Convert.ToInt32(cbocashier.SelectedValue)
-
         Dim already As Integer = Convert.ToInt32(If(ExecScalar(
             "SELECT COUNT(*) FROM tbl_end_of_day WHERE cashier_id = @c AND reconciliation_date = CURDATE()",
-            New String() {"@c"}, New Object() {cashierId}), 0))
+            New String() {"@c"}, New Object() {currentuser.UserID}), 0))
         If already > 0 Then
             MsgBox("This cashier already has an end-of-day record for today. See Remittance Report.", vbExclamation, "End-Of-Day Reconciliation")
             Exit Sub
@@ -294,7 +272,7 @@ Public Class frmCashDenomination
                             "total_sales, cash_transaction_count, salary_deduction_count, expected_cash, actual_cash, difference, status, remarks) " &
                             "VALUES (@no, CURDATE(), @cid, @cs, @sd, @ts, @cc, @sc, @exp, @act, @diff, @st, @rm)", c, tx)
                             q.Parameters.AddWithValue("@no", reconNo)
-                            q.Parameters.AddWithValue("@cid", cashierId)
+                            q.Parameters.AddWithValue("@cid", currentuser.UserID)
                             q.Parameters.AddWithValue("@cs", cashSales)
                             q.Parameters.AddWithValue("@sd", salaryDeduction)
                             q.Parameters.AddWithValue("@ts", cashSales + salaryDeduction)

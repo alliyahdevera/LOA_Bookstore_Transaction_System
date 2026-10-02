@@ -10,7 +10,6 @@ Public Class frmSalesDateRange
 
     Private Sub btnreleaseditems_Click(sender As Object, e As EventArgs)      ' Released Items toggle
         showReleasedOnly = Not showReleasedOnly
-        btnreleaseditems.Text = If(showReleasedOnly, "Show All Items", "Released Items")
         LoadGrid()
     End Sub
 
