@@ -22,7 +22,7 @@ Partial Class frmRemittance
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btngenerate = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtfrom = New System.Windows.Forms.DateTimePicker()
@@ -38,12 +38,6 @@ Partial Class frmRemittance
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvsalesreport = New System.Windows.Forms.DataGridView()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.cbocashier = New System.Windows.Forms.ComboBox()
-        Me.Label14 = New System.Windows.Forms.Label()
         Me.RemittanceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.nDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CashierStaff = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -58,6 +52,10 @@ Partial Class frmRemittance
         Me.ReceivedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Remarks = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Signature = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.cbocashier = New System.Windows.Forms.ComboBox()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.dtto = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
@@ -235,80 +233,19 @@ Partial Class frmRemittance
         Me.dgvsalesreport.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvsalesreport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvsalesreport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.RemittanceNo, Me.nDate, Me.CashierStaff, Me.SalesPeriod, Me.TotalSales, Me.CashCollected, Me.Difference, Me.TotalRemittance, Me.ORARRange, Me.AmtAccounting, Me.DateTimeRemitted, Me.ReceivedBy, Me.Remarks, Me.Signature})
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvsalesreport.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvsalesreport.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvsalesreport.Location = New System.Drawing.Point(-1, 34)
         Me.dgvsalesreport.Name = "dgvsalesreport"
         Me.dgvsalesreport.ReadOnly = True
         Me.dgvsalesreport.Size = New System.Drawing.Size(1170, 539)
         Me.dgvsalesreport.TabIndex = 1
-        '
-        'Panel6
-        '
-        Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Panel6.Controls.Add(Me.Label7)
-        Me.Panel6.Location = New System.Drawing.Point(0, 0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1169, 35)
-        Me.Panel6.TabIndex = 0
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(7, 7)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(161, 21)
-        Me.Label7.TabIndex = 25
-        Me.Label7.Text = "Remittance Records"
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Morning", "Afternoon", "Night"})
-        Me.ComboBox1.Location = New System.Drawing.Point(909, 99)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(120, 25)
-        Me.ComboBox1.TabIndex = 148
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(858, 102)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(46, 17)
-        Me.Label11.TabIndex = 147
-        Me.Label11.Text = "Status"
-        '
-        'cbocashier
-        '
-        Me.cbocashier.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.cbocashier.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbocashier.FormattingEnabled = True
-        Me.cbocashier.Location = New System.Drawing.Point(702, 98)
-        Me.cbocashier.Name = "cbocashier"
-        Me.cbocashier.Size = New System.Drawing.Size(142, 25)
-        Me.cbocashier.TabIndex = 146
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(644, 102)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(52, 17)
-        Me.Label14.TabIndex = 144
-        Me.Label14.Text = "Cashier"
         '
         'RemittanceNo
         '
@@ -394,6 +331,47 @@ Partial Class frmRemittance
         Me.Signature.Name = "Signature"
         Me.Signature.ReadOnly = True
         '
+        'Panel6
+        '
+        Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Panel6.Controls.Add(Me.Label7)
+        Me.Panel6.Location = New System.Drawing.Point(0, 0)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(1169, 35)
+        Me.Panel6.TabIndex = 0
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.ForeColor = System.Drawing.Color.White
+        Me.Label7.Location = New System.Drawing.Point(7, 7)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(161, 21)
+        Me.Label7.TabIndex = 25
+        Me.Label7.Text = "Remittance Records"
+        '
+        'cbocashier
+        '
+        Me.cbocashier.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cbocashier.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbocashier.FormattingEnabled = True
+        Me.cbocashier.Items.AddRange(New Object() {"Morning", "Afternoon", "Night"})
+        Me.cbocashier.Location = New System.Drawing.Point(909, 99)
+        Me.cbocashier.Name = "cbocashier"
+        Me.cbocashier.Size = New System.Drawing.Size(120, 25)
+        Me.cbocashier.TabIndex = 148
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(858, 102)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(52, 17)
+        Me.Label11.TabIndex = 147
+        Me.Label11.Text = "Cashier"
+        '
         'dtto
         '
         Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -417,13 +395,11 @@ Partial Class frmRemittance
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 808)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.cbocashier)
         Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.cbocashier)
         Me.Controls.Add(Me.dtto)
-        Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.dtfrom)
         Me.Controls.Add(Me.Label5)
@@ -462,10 +438,8 @@ Partial Class frmRemittance
     Friend WithEvents dgvsalesreport As DataGridView
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents Label11 As Label
     Friend WithEvents cbocashier As ComboBox
-    Friend WithEvents Label14 As Label
+    Friend WithEvents Label11 As Label
     Friend WithEvents RemittanceNo As DataGridViewTextBoxColumn
     Friend WithEvents nDate As DataGridViewTextBoxColumn
     Friend WithEvents CashierStaff As DataGridViewTextBoxColumn

@@ -71,7 +71,7 @@ Partial Class frmAdminDashboard
         '
         'btnlogout
         '
-        Me.btnlogout.BackColor = System.Drawing.Color.Transparent
+        Me.btnlogout.BackColor = System.Drawing.Color.Brown
         Me.btnlogout.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.btnlogout.FlatAppearance.BorderSize = 0
         Me.btnlogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat

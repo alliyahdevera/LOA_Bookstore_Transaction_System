@@ -23,7 +23,7 @@ Partial Class frmInventoryAdjustment
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.txtsize = New System.Windows.Forms.ComboBox()
-        Me.txtProduct = New System.Windows.Forms.ComboBox()
+        Me.txtProductname = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -38,11 +38,11 @@ Partial Class frmInventoryAdjustment
         Me.reason = New System.Windows.Forms.Label()
         Me.txtReason = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.btncancel = New System.Windows.Forms.Button()
         Me.btnconfirm = New System.Windows.Forms.Button()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtStatus = New System.Windows.Forms.TextBox()
         Me.Panel5.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -58,14 +58,14 @@ Partial Class frmInventoryAdjustment
         Me.txtsize.Size = New System.Drawing.Size(193, 25)
         Me.txtsize.TabIndex = 131
         '
-        'txtProduct
+        'txtProductname
         '
-        Me.txtProduct.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtProduct.FormattingEnabled = True
-        Me.txtProduct.Location = New System.Drawing.Point(145, 157)
-        Me.txtProduct.Name = "txtProduct"
-        Me.txtProduct.Size = New System.Drawing.Size(193, 25)
-        Me.txtProduct.TabIndex = 130
+        Me.txtProductname.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtProductname.FormattingEnabled = True
+        Me.txtProductname.Location = New System.Drawing.Point(145, 157)
+        Me.txtProductname.Name = "txtProductname"
+        Me.txtProductname.Size = New System.Drawing.Size(193, 25)
+        Me.txtProductname.TabIndex = 130
         '
         'Label9
         '
@@ -209,6 +209,36 @@ Partial Class frmInventoryAdjustment
         Me.Panel1.Size = New System.Drawing.Size(606, 81)
         Me.Panel1.TabIndex = 140
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Location = New System.Drawing.Point(15, 15)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(50, 50)
+        Me.PictureBox1.TabIndex = 145
+        Me.PictureBox1.TabStop = False
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label6.Location = New System.Drawing.Point(72, 42)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(360, 17)
+        Me.Label6.TabIndex = 144
+        Me.Label6.Text = "This action will be recorded in the stock entry and audit logs" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label5.Location = New System.Drawing.Point(71, 21)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(518, 20)
+        Me.Label5.TabIndex = 143
+        Me.Label5.Text = "You are about to adjust the system quantity based on the physical count." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
         'btncancel
         '
         Me.btncancel.BackColor = System.Drawing.Color.Gray
@@ -232,36 +262,6 @@ Partial Class frmInventoryAdjustment
         Me.btnconfirm.TabIndex = 141
         Me.btnconfirm.Text = "Confirm Adjustment"
         Me.btnconfirm.UseVisualStyleBackColor = False
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label5.Location = New System.Drawing.Point(71, 21)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(518, 20)
-        Me.Label5.TabIndex = 143
-        Me.Label5.Text = "You are about to adjust the system quantity based on the physical count." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(72, 42)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(360, 17)
-        Me.Label6.TabIndex = 144
-        Me.Label6.Text = "This action will be recorded in the stock entry and audit logs" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Location = New System.Drawing.Point(15, 15)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(50, 50)
-        Me.PictureBox1.TabIndex = 145
-        Me.PictureBox1.TabStop = False
         '
         'txtStatus
         '
@@ -291,7 +291,7 @@ Partial Class frmInventoryAdjustment
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtsize)
         Me.Controls.Add(Me.Panel5)
-        Me.Controls.Add(Me.txtProduct)
+        Me.Controls.Add(Me.txtProductname)
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.Label9)
@@ -307,7 +307,7 @@ Partial Class frmInventoryAdjustment
 
     End Sub
     Friend WithEvents txtsize As ComboBox
-    Friend WithEvents txtProduct As ComboBox
+    Friend WithEvents txtProductname As ComboBox
     Friend WithEvents Label9 As Label
     Friend WithEvents Panel5 As Panel
     Friend WithEvents Label4 As Label

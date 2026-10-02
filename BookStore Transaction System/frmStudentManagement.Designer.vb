@@ -43,6 +43,13 @@ Partial Class frmStudentManagement
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.dgvstudents = New System.Windows.Forms.DataGridView()
+        Me.StudentNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EducationalLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GradeLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProgramStrand = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Section = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
@@ -58,15 +65,10 @@ Partial Class frmStudentManagement
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.StudentNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.EducationalLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GradeLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProgramStrand = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Section = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
@@ -300,164 +302,6 @@ Partial Class frmStudentManagement
         Me.dgvstudents.Size = New System.Drawing.Size(1157, 433)
         Me.dgvstudents.TabIndex = 2
         '
-        'Panel11
-        '
-        Me.Panel11.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Panel11.Controls.Add(Me.Label9)
-        Me.Panel11.Location = New System.Drawing.Point(30, 91)
-        Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(860, 35)
-        Me.Panel11.TabIndex = 99
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.ForeColor = System.Drawing.Color.White
-        Me.Label9.Location = New System.Drawing.Point(8, 8)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(153, 20)
-        Me.Label9.TabIndex = 10
-        Me.Label9.Text = "Student Information"
-        '
-        'Panel5
-        '
-        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.cboGradeLevel)
-        Me.Panel5.Controls.Add(Me.cboSection)
-        Me.Panel5.Controls.Add(Me.txtfirstname)
-        Me.Panel5.Controls.Add(Me.Label12)
-        Me.Panel5.Controls.Add(Me.btnadd)
-        Me.Panel5.Controls.Add(Me.Label11)
-        Me.Panel5.Controls.Add(Me.txtstudentno)
-        Me.Panel5.Controls.Add(Me.txtlastname)
-        Me.Panel5.Controls.Add(Me.Label2)
-        Me.Panel5.Controls.Add(Me.Label1)
-        Me.Panel5.Controls.Add(Me.Label8)
-        Me.Panel5.Location = New System.Drawing.Point(30, 91)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(860, 182)
-        Me.Panel5.TabIndex = 100
-        '
-        'cboGradeLevel
-        '
-        Me.cboGradeLevel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cboGradeLevel.FormattingEnabled = True
-        Me.cboGradeLevel.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
-        Me.cboGradeLevel.Location = New System.Drawing.Point(556, 55)
-        Me.cboGradeLevel.Name = "cboGradeLevel"
-        Me.cboGradeLevel.Size = New System.Drawing.Size(270, 25)
-        Me.cboGradeLevel.TabIndex = 67
-        '
-        'cboSection
-        '
-        Me.cboSection.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cboSection.FormattingEnabled = True
-        Me.cboSection.Location = New System.Drawing.Point(556, 95)
-        Me.cboSection.Name = "cboSection"
-        Me.cboSection.Size = New System.Drawing.Size(270, 25)
-        Me.cboSection.TabIndex = 66
-        '
-        'txtfirstname
-        '
-        Me.txtfirstname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtfirstname.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtfirstname.Location = New System.Drawing.Point(160, 131)
-        Me.txtfirstname.Name = "txtfirstname"
-        Me.txtfirstname.Size = New System.Drawing.Size(274, 25)
-        Me.txtfirstname.TabIndex = 54
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(29, 133)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(74, 17)
-        Me.Label12.TabIndex = 55
-        Me.Label12.Text = "First Name"
-        '
-        'btnadd
-        '
-        Me.btnadd.BackColor = System.Drawing.Color.Green
-        Me.btnadd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnadd.ForeColor = System.Drawing.Color.White
-        Me.btnadd.Location = New System.Drawing.Point(556, 133)
-        Me.btnadd.Name = "btnadd"
-        Me.btnadd.Size = New System.Drawing.Size(270, 26)
-        Me.btnadd.TabIndex = 64
-        Me.btnadd.Text = "Add"
-        Me.btnadd.UseVisualStyleBackColor = False
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(465, 57)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(78, 17)
-        Me.Label11.TabIndex = 53
-        Me.Label11.Text = "Grade Level"
-        '
-        'txtstudentno
-        '
-        Me.txtstudentno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtstudentno.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtstudentno.Location = New System.Drawing.Point(160, 55)
-        Me.txtstudentno.Name = "txtstudentno"
-        Me.txtstudentno.Size = New System.Drawing.Size(274, 25)
-        Me.txtstudentno.TabIndex = 42
-        '
-        'txtlastname
-        '
-        Me.txtlastname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtlastname.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtlastname.Location = New System.Drawing.Point(160, 93)
-        Me.txtlastname.Name = "txtlastname"
-        Me.txtlastname.Size = New System.Drawing.Size(274, 25)
-        Me.txtlastname.TabIndex = 43
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(465, 95)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(52, 17)
-        Me.Label2.TabIndex = 49
-        Me.Label2.Text = "Section"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(29, 57)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(81, 17)
-        Me.Label1.TabIndex = 45
-        Me.Label1.Text = "Student No."
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(29, 95)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(72, 17)
-        Me.Label8.TabIndex = 46
-        Me.Label8.Text = "Last Name"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(24, 20)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(260, 32)
-        Me.Label6.TabIndex = 98
-        Me.Label6.Text = "Student Management"
-        '
         'StudentNo
         '
         Me.StudentNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
@@ -505,6 +349,165 @@ Partial Class frmStudentManagement
         Me.Section.Name = "Section"
         Me.Section.ReadOnly = True
         '
+        'Panel11
+        '
+        Me.Panel11.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Panel11.Controls.Add(Me.Label9)
+        Me.Panel11.Location = New System.Drawing.Point(30, 91)
+        Me.Panel11.Name = "Panel11"
+        Me.Panel11.Size = New System.Drawing.Size(860, 35)
+        Me.Panel11.TabIndex = 99
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.ForeColor = System.Drawing.Color.White
+        Me.Label9.Location = New System.Drawing.Point(8, 8)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(153, 20)
+        Me.Label9.TabIndex = 10
+        Me.Label9.Text = "Student Information"
+        '
+        'Panel5
+        '
+        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel5.Controls.Add(Me.ComboBox2)
+        Me.Panel5.Controls.Add(Me.cboGradeLevel)
+        Me.Panel5.Controls.Add(Me.Label11)
+        Me.Panel5.Controls.Add(Me.Label3)
+        Me.Panel5.Controls.Add(Me.cboSection)
+        Me.Panel5.Controls.Add(Me.txtfirstname)
+        Me.Panel5.Controls.Add(Me.Label12)
+        Me.Panel5.Controls.Add(Me.txtstudentno)
+        Me.Panel5.Controls.Add(Me.txtlastname)
+        Me.Panel5.Controls.Add(Me.Label2)
+        Me.Panel5.Controls.Add(Me.Label1)
+        Me.Panel5.Controls.Add(Me.Label8)
+        Me.Panel5.Location = New System.Drawing.Point(30, 91)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(860, 182)
+        Me.Panel5.TabIndex = 100
+        '
+        'cboGradeLevel
+        '
+        Me.cboGradeLevel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboGradeLevel.FormattingEnabled = True
+        Me.cboGradeLevel.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
+        Me.cboGradeLevel.Location = New System.Drawing.Point(577, 55)
+        Me.cboGradeLevel.Name = "cboGradeLevel"
+        Me.cboGradeLevel.Size = New System.Drawing.Size(249, 25)
+        Me.cboGradeLevel.TabIndex = 67
+        '
+        'cboSection
+        '
+        Me.cboSection.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboSection.FormattingEnabled = True
+        Me.cboSection.Location = New System.Drawing.Point(577, 131)
+        Me.cboSection.Name = "cboSection"
+        Me.cboSection.Size = New System.Drawing.Size(249, 25)
+        Me.cboSection.TabIndex = 66
+        '
+        'txtfirstname
+        '
+        Me.txtfirstname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtfirstname.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtfirstname.Location = New System.Drawing.Point(160, 131)
+        Me.txtfirstname.Name = "txtfirstname"
+        Me.txtfirstname.Size = New System.Drawing.Size(274, 25)
+        Me.txtfirstname.TabIndex = 54
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(29, 133)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(74, 17)
+        Me.Label12.TabIndex = 55
+        Me.Label12.Text = "First Name"
+        '
+        'btnadd
+        '
+        Me.btnadd.BackColor = System.Drawing.Color.Green
+        Me.btnadd.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnadd.ForeColor = System.Drawing.Color.White
+        Me.btnadd.Location = New System.Drawing.Point(965, 91)
+        Me.btnadd.Name = "btnadd"
+        Me.btnadd.Size = New System.Drawing.Size(172, 26)
+        Me.btnadd.TabIndex = 64
+        Me.btnadd.Text = "Add"
+        Me.btnadd.UseVisualStyleBackColor = False
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(465, 57)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(78, 17)
+        Me.Label11.TabIndex = 53
+        Me.Label11.Text = "Grade Level"
+        '
+        'txtstudentno
+        '
+        Me.txtstudentno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtstudentno.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtstudentno.Location = New System.Drawing.Point(160, 55)
+        Me.txtstudentno.Name = "txtstudentno"
+        Me.txtstudentno.Size = New System.Drawing.Size(274, 25)
+        Me.txtstudentno.TabIndex = 42
+        '
+        'txtlastname
+        '
+        Me.txtlastname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtlastname.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtlastname.Location = New System.Drawing.Point(160, 93)
+        Me.txtlastname.Name = "txtlastname"
+        Me.txtlastname.Size = New System.Drawing.Size(274, 25)
+        Me.txtlastname.TabIndex = 43
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(465, 133)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(52, 17)
+        Me.Label2.TabIndex = 49
+        Me.Label2.Text = "Section"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(29, 57)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(81, 17)
+        Me.Label1.TabIndex = 45
+        Me.Label1.Text = "Student No."
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(29, 95)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(72, 17)
+        Me.Label8.TabIndex = 46
+        Me.Label8.Text = "Last Name"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label6.Location = New System.Drawing.Point(24, 20)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(260, 32)
+        Me.Label6.TabIndex = 98
+        Me.Label6.Text = "Student Management"
+        '
         'ComboBox1
         '
         Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -525,6 +528,26 @@ Partial Class frmStudentManagement
         Me.Label5.TabIndex = 122
         Me.Label5.Text = "Grade Level"
         '
+        'ComboBox2
+        '
+        Me.ComboBox2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
+        Me.ComboBox2.Location = New System.Drawing.Point(577, 91)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(249, 25)
+        Me.ComboBox2.TabIndex = 69
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(465, 93)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(106, 17)
+        Me.Label3.TabIndex = 68
+        Me.Label3.Text = "Program/Strand"
+        '
         'frmStudentManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -534,6 +557,7 @@ Partial Class frmStudentManagement
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.btnclear)
+        Me.Controls.Add(Me.btnadd)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.btnremove)
@@ -608,4 +632,6 @@ Partial Class frmStudentManagement
     Friend WithEvents Section As DataGridViewTextBoxColumn
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents Label5 As Label
+    Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents Label3 As Label
 End Class

@@ -1,7 +1,36 @@
 ﻿Public Class frmInventory
 
     Private _currentForm As Form
-    Private _isReverting As Boolean = False
+    Private _isReverting As Boolean = True
+
+    Private Function AllowedItems() As String()
+        Select Case If(currentuser.Role, "").Trim()
+            Case ROLE_SUPERVISOR
+                Return New String() {"Product List", "Manage Products", "Stock In", "Stock In History",
+                                     "Low Level Stocks", "Inventory Count & Reconciliation"}
+            Case ROLE_INVENTORY_STAFF
+                Return New String() {"Product List", "Stock In", "Stock In History",
+                                     "Low Level Stocks", "Inventory Count & Reconciliation"}
+            Case ROLE_MANAGEMENT
+                Return New String() {"Product List", "Stock In History", "Low Level Stocks"}
+            Case Else
+                Return New String() {}
+        End Select
+    End Function
+
+    Private Sub frmInventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        _isReverting = True
+        Dim allowed As String() = AllowedItems()
+
+        For i As Integer = cboInventory.Items.Count - 1 To 0 Step -1
+            If Array.IndexOf(allowed, cboInventory.Items(i).ToString()) < 0 Then
+                cboInventory.Items.RemoveAt(i)
+            End If
+        Next
+
+        _isReverting = False
+        If cboInventory.Items.Count > 0 Then cboInventory.SelectedIndex = 0
+    End Sub
 
     Private Sub cboInventory_SelectedIndexChanged(sender As Object, e As EventArgs) _
         Handles cboInventory.SelectedIndexChanged
@@ -16,13 +45,7 @@
             Case "Manage Products"
                 If currentuser.Role <> ROLE_SUPERVISOR Then
                     MsgBox("Only the Bookstore Supervisor can manage product information.",
-                       vbExclamation, "Access Denied")
-
-                    _isReverting = True
-                    cboInventory.SelectedItem = "Product List"
-                    _isReverting = False
-
-                    OpenInventoryForm(GetType(frmProductList))
+                           vbExclamation, "Access Denied")
                     Exit Sub
                 End If
                 OpenInventoryForm(GetType(frmManageProducts))
@@ -57,8 +80,6 @@
 
         Dim frm As Form = CType(Activator.CreateInstance(formType), Form)
         frm.TopLevel = False
-        frm.FormBorderStyle = FormBorderStyle.None
-        frm.Dock = DockStyle.Fill
 
         pnlinventory.Controls.Add(frm)
         _currentForm = frm
@@ -66,7 +87,4 @@
 
     End Sub
 
-    Private Sub frmInventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        cboInventory.SelectedIndex = 0
-    End Sub
 End Class

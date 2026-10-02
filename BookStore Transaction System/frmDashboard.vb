@@ -77,7 +77,7 @@ Public Class frmDashboard
         Label9.Text = GetScalar("SELECT IFNULL(SUM(quantity_on_hand), 0) FROM TBL_PRODUCT_VARIANTS").ToString("N0")
 
         ' Card 3: Total Sales Today
-        Label10.Text = ChrW(8369) & GetScalar("SELECT IFNULL(SUM(total_amount), 0) FROM TBL_TRANSACTIONS WHERE DATE(or_date) = CURDATE()").ToString("N2")
+        Label10.Text = ChrW(8369) & GetScalar("SELECT IFNULL(SUM(total_amount), 0) FROM TBL_TRANSACTIONS WHERE DATE(or_date) = CURDATE() AND status <> 'Cancelled'").ToString("N2")
 
         ' Card 4: Low Stock Items (Variants at or below reorder level)
         Label11.Text = GetScalar("SELECT COUNT(*) FROM TBL_PRODUCT_VARIANTS WHERE quantity_on_hand <= reorder_level").ToString("N0")
@@ -121,12 +121,14 @@ Public Class frmDashboard
             If Not connection() Then Exit Sub
 
             Dim query As String = "SELECT p.product_name, SUM(" & QTY_SOLD & ") AS qty_sold " &
-                                  "FROM TBL_TRANSACTION_ITEMS ti " &
-                                  "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
-                                  "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-                                  "GROUP BY p.product_id, p.product_name " &
-                                  "ORDER BY qty_sold DESC " &
-                                  "LIMIT 5"
+                      "FROM TBL_TRANSACTION_ITEMS ti " &
+                      "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
+                      "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
+                      "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+                      "WHERE t.status <> 'Cancelled' " &
+                      "GROUP BY p.product_id, p.product_name " &
+                      "ORDER BY qty_sold DESC " &
+                      "LIMIT 5"
 
             Using localCmd As New MySqlCommand(query, cn)
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
@@ -156,10 +158,12 @@ Public Class frmDashboard
 
             Dim query As String = "SELECT c.category_name, SUM(ti.subtotal) AS total_sales " &
                                   "FROM TBL_TRANSACTION_ITEMS ti " &
+                                  "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
                                   "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
                                   "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
                                   "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
                                   "INNER JOIN TBL_CATEGORIES c ON ct.category_id = c.category_id " &
+                                  "WHERE t.status <> 'Cancelled' " &
                                   "GROUP BY c.category_id, c.category_name " &
                                   "ORDER BY total_sales DESC"
 
@@ -231,7 +235,7 @@ Public Class frmDashboard
             Dim totals(12) As Decimal
 
             Dim monthSql As String = "SELECT MONTH(or_date) AS m, SUM(total_amount) AS total " &
-                                     "FROM TBL_TRANSACTIONS WHERE YEAR(or_date) = @year " &
+                                     "FROM TBL_TRANSACTIONS WHERE YEAR(or_date) = @year AND status <> 'Cancelled' " &
                                      "GROUP BY MONTH(or_date)"
 
             Using localCmd As New MySqlCommand(monthSql, cn)

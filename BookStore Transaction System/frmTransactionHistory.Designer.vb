@@ -53,8 +53,10 @@ Partial Class frmTransactionHistory
         Me.dtto = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtfrom = New System.Windows.Forms.DateTimePicker()
+        Me.cboGradeLevel = New System.Windows.Forms.ComboBox()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -112,7 +114,7 @@ Partial Class frmTransactionHistory
         Me.dgvtransaction.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvtransaction.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvtransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvtransaction.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.Column1, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.SubTotal, Me.Quantity, Me.TotalAmount, Me.tDate, Me.Time, Me.AmountPaid, Me.AmountChange, Me.Status, Me.ProcessedBy})
+        Me.dgvtransaction.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.BuyerName, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.SubTotal, Me.Quantity, Me.TotalAmount, Me.tDate, Me.Time, Me.AmountPaid, Me.AmountChange, Me.Status, Me.ProcessedBy})
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -372,6 +374,26 @@ Partial Class frmTransactionHistory
         Me.dtfrom.Size = New System.Drawing.Size(251, 27)
         Me.dtfrom.TabIndex = 139
         '
+        'cboGradeLevel
+        '
+        Me.cboGradeLevel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboGradeLevel.FormattingEnabled = True
+        Me.cboGradeLevel.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
+        Me.cboGradeLevel.Location = New System.Drawing.Point(913, 118)
+        Me.cboGradeLevel.Name = "cboGradeLevel"
+        Me.cboGradeLevel.Size = New System.Drawing.Size(147, 25)
+        Me.cboGradeLevel.TabIndex = 145
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(843, 120)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(64, 17)
+        Me.Label11.TabIndex = 144
+        Me.Label11.Text = "Category"
+        '
         'TransactionNo
         '
         Me.TransactionNo.HeaderText = "Transaction No."
@@ -379,12 +401,12 @@ Partial Class frmTransactionHistory
         Me.TransactionNo.ReadOnly = True
         Me.TransactionNo.Width = 99
         '
-        'Column1
+        'BuyerName
         '
-        Me.Column1.HeaderText = "Student Name"
-        Me.Column1.Name = "Column1"
-        Me.Column1.ReadOnly = True
-        Me.Column1.Width = 92
+        Me.BuyerName.HeaderText = "Buyer Name"
+        Me.BuyerName.Name = "BuyerName"
+        Me.BuyerName.ReadOnly = True
+        Me.BuyerName.Width = 83
         '
         'ProductCode
         '
@@ -482,6 +504,8 @@ Partial Class frmTransactionHistory
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
+        Me.Controls.Add(Me.cboGradeLevel)
+        Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.dtto)
@@ -541,7 +565,7 @@ Partial Class frmTransactionHistory
     Friend WithEvents Label1 As Label
     Friend WithEvents dtfrom As DateTimePicker
     Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents BuyerName As DataGridViewTextBoxColumn
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
     Friend WithEvents Size As DataGridViewTextBoxColumn
@@ -555,4 +579,6 @@ Partial Class frmTransactionHistory
     Friend WithEvents AmountChange As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents ProcessedBy As DataGridViewTextBoxColumn
+    Friend WithEvents cboGradeLevel As ComboBox
+    Friend WithEvents Label11 As Label
 End Class

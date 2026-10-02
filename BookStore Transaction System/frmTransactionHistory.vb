@@ -161,8 +161,9 @@ Public Class frmTransactionHistory
                     End Using
                 Next
 
-                Using cmdCancel As New MySqlCommand("UPDATE TBL_TRANSACTIONS SET status = 'Cancelled', cancel_reason = @r WHERE transaction_id = @id", cn, trans)
+                Using cmdCancel As New MySqlCommand("UPDATE TBL_TRANSACTIONS SET status = 'Cancelled', cancel_reason = @r, cancelled_by = @by, cancelled_at = NOW() WHERE transaction_id = @id", cn, trans)
                     cmdCancel.Parameters.AddWithValue("@r", reason.Trim())
+                    cmdCancel.Parameters.AddWithValue("@by", currentuser.UserID)
                     cmdCancel.Parameters.AddWithValue("@id", transactionId)
                     cmdCancel.ExecuteNonQuery()
                 End Using
@@ -170,6 +171,7 @@ Public Class frmTransactionHistory
                 trans.Commit()
                 MsgBox("Transaction cancelled successfully and inventory stock restored.", vbInformation, "Transaction")
                 cn.Close()
+                LogActivity("Cancel Transaction", txnNo, "Cancelled " & txnNo & ". Reason: " & reason.Trim())
 
                 LoadGrid(txtSearch.Text.Trim())
 

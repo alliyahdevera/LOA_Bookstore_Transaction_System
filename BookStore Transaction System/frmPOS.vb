@@ -45,18 +45,6 @@ Public Class frmPOS
         nudQuantity.DecimalPlaces = 0
         nudQuantity.Minimum = 0
 
-        ' Set text fields to read-only
-        txtStudentName.ReadOnly = True
-        txtgrade.ReadOnly = True
-        txtProgramStrand.ReadOnly = True
-        txtTransactionNo.ReadOnly = True
-        txttransactdate.ReadOnly = True
-        txtPaymentMethod.ReadOnly = True
-        txtReferenceNo.ReadOnly = True
-        txtAmountReceived.ReadOnly = True
-        txtAmountChange.ReadOnly = True
-        txtTotalAMount.ReadOnly = True
-
         ' Load category list dynamically from database
         LoadCategoryComboBox()
 
@@ -387,15 +375,25 @@ Public Class frmPOS
 
     ' ================= REMOVE ITEM =================
     Private Sub btnRemoveItem_Click(sender As Object, e As EventArgs) Handles btnRemoveItem.Click
+
         If dgvCart.Rows.Count = 0 Then
-            MsgBox("The cart is already empty.", vbInformation, "Point of Sale")
+            MsgBox("The cart is already empty.", vbInformation, "Remove Item")
+
             Exit Sub
         End If
 
+        ' ================= SELECTED ITEM =================
         If dgvCart.SelectedRows.Count > 0 Then
-            dgvCart.Rows.RemoveAt(dgvCart.SelectedRows(0).Index)
+            If MsgBox("Are you sure you want to remove the selected item?", vbYesNo + vbQuestion, "Remove Item") <> MsgBoxResult.Yes Then
+                Exit Sub
+            End If
+            dgvCart.Rows.RemoveAt(
+            dgvCart.SelectedRows(0).Index)
         Else
-            If MsgBox("No item is selected. Remove ALL items from the cart?", vbYesNo + vbQuestion, "Point of Sale") <> MsgBoxResult.Yes Then Exit Sub
+            ' ================= NO ITEM SELECTED =================
+            If MsgBox("No item is selected. Remove ALL items from the cart?", vbYesNo + vbQuestion, "Remove Item") <> MsgBoxResult.Yes Then
+                Exit Sub
+            End If
             dgvCart.Rows.Clear()
         End If
 
@@ -412,6 +410,9 @@ Public Class frmPOS
 
     ' ================= CLEAR (customer info only) =================
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        If MsgBox("Are you sure you want to clear the customer fields?", vbYesNo + vbQuestion, "Clear Fields") <> MsgBoxResult.Yes Then
+            Exit Sub
+        End If
         ResetCustomerInfo()
     End Sub
 
@@ -430,17 +431,38 @@ Public Class frmPOS
         End If
 
         Using frm As New frmPayment()
+
             frm.GrandTotal = ToMoney(txtTotalAMount.Text)
+
+            ' Pass previous payment details back to frmPayment
+            frm.PrefillORNo = txtReferenceNo.Text.Trim()
+            frm.PrefillDate = paymentDate
+            frm.PrefillMethod = txtPaymentMethod.Text.Trim()
+            frm.PrefillEmployee = paymentEmployee
+            frm.PrefillReceived = ToMoney(txtAmountReceived.Text)
+
             frm.StartPosition = FormStartPosition.CenterParent
+
             If frm.ShowDialog(Me) = DialogResult.OK Then
+
                 txtReferenceNo.Text = frm.ResultORNo
+
                 paymentDate = frm.ResultDate
-                txttransactdate.Text = paymentDate.ToString("MMMM d, yyyy")
+                txttransactdate.Text =
+            paymentDate.ToString("MMMM d, yyyy")
+
                 txtPaymentMethod.Text = frm.ResultMethod
+
                 paymentEmployee = frm.ResultEmployee
-                txtAmountReceived.Text = frm.ResultReceived.ToString("N2")
-                txtAmountChange.Text = frm.ResultChange.ToString("N2")
+
+                txtAmountReceived.Text =
+            frm.ResultReceived.ToString("N2")
+
+                txtAmountChange.Text =
+            frm.ResultChange.ToString("N2")
+
             End If
+
         End Using
     End Sub
 
@@ -459,6 +481,27 @@ Public Class frmPOS
         Dim buyerName As String = If(foundStudentId > 0, txtStudentName.Text.Trim(), txtGuestName.Text.Trim())
         If buyerName = "" Then
             MsgBox("Search and select a student, or type a guest name.", vbExclamation, "Point of Sale")
+            Exit Sub
+        End If
+
+        If foundStudentId = 0 Then
+            Dim ids As New List(Of String)
+            For Each crow As DataGridViewRow In dgvCart.Rows
+                ids.Add(Convert.ToInt32(crow.Tag).ToString())
+            Next
+            Dim uniformCount As Integer = Convert.ToInt32(If(ExecScalar(
+                "SELECT COUNT(*) FROM tbl_product_variants v " &
+                "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
+                "INNER JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
+                "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
+                "WHERE c.category_name = 'Uniforms' AND v.variant_id IN (" & String.Join(",", ids) & ")"), 0))
+            If uniformCount > 0 Then
+                MsgBox("Guests may only buy supplies. Uniforms are for students only (a relative may buy only when with the student).", vbExclamation, "Point of Sale")
+                Exit Sub
+            End If
+        End If
+
+        If MsgBox("Are you sure you want to save this transaction?", vbYesNo + vbQuestion, "Save Transaction") <> MsgBoxResult.Yes Then
             Exit Sub
         End If
 
@@ -481,11 +524,12 @@ Public Class frmPOS
             Try
                 Dim transactionId As Long = 0
                 Dim insTxn As String = "INSERT INTO TBL_TRANSACTIONS " &
-                    "(transaction_no, buyer_type, student_id, buyer_name, or_no, or_date, payment_method, employee_name, " &
-                    "total_amount, amount_paid, amount_change, created_by, status) " &
-                    "VALUES (@tno, @bt, @sid, @bn, @orno, @ord, @pm, @emp, @tot, @paid, @chg, @by, 'Completed')"
+                                        "(transaction_no, buyer_type, student_id, buyer_name, or_no, or_date, payment_method, employee_name, " &
+                                        "total_amount, amount_paid, amount_change, created_by, status) " &
+                                        "VALUES (@tno, @bt, @sid, @bn, @orno, @ord, @pm, @emp, @tot, @paid, @chg, @by, 'Completed')"
 
                 Using c1 As New MySqlCommand(insTxn, cn, trans)
+
                     c1.Parameters.AddWithValue("@tno", txnNo)
                     c1.Parameters.AddWithValue("@bt", buyerType)
                     c1.Parameters.AddWithValue("@sid", If(foundStudentId > 0, CType(foundStudentId, Object), DBNull.Value))
@@ -498,8 +542,10 @@ Public Class frmPOS
                     c1.Parameters.AddWithValue("@paid", received)
                     c1.Parameters.AddWithValue("@chg", change)
                     c1.Parameters.AddWithValue("@by", currentuser.UserID)
+
                     c1.ExecuteNonQuery()
                     transactionId = c1.LastInsertedId
+
                 End Using
 
                 For Each row As DataGridViewRow In dgvCart.Rows
@@ -549,13 +595,23 @@ Public Class frmPOS
         For Each row As DataGridViewRow In dgvCart.Rows
             total += ToMoney(Convert.ToString(row.Cells("SubTotal").Value))
         Next
-        txtTotalAMount.Text = total.ToString("N2")
+        txtTotalAMount.Text = "₱" & total.ToString("N2")
     End Sub
 
     Private Function ToMoney(s As String) As Decimal
+
+        If String.IsNullOrWhiteSpace(s) Then Return 0D
+
+        s = s.Replace("₱", "").Trim()
+
         Dim v As Decimal
-        If Decimal.TryParse(s, NumberStyles.Number, CultureInfo.CurrentCulture, v) Then Return v
-        Return 0
+
+        If Decimal.TryParse(s, NumberStyles.Number, CultureInfo.CurrentCulture, v) Then
+            Return v
+        End If
+
+        Return 0D
+
     End Function
 
     Private Sub ClearGridSelection(dgv As DataGridView)
@@ -590,7 +646,7 @@ Public Class frmPOS
         txtProductSearch.Clear()
         ResetQuantity()
         dgvCart.Rows.Clear()
-        txtTotalAMount.Text = "0.00"
+        txtTotalAMount.Text = "₱0.00"
         txtTransactionNo.Text = NewTransactionNo()
         cbocategory.SelectedIndex = cbocategory.Items.Count - 1
         LoadProducts()

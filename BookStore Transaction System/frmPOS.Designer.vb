@@ -552,7 +552,7 @@ Partial Class frmPOS
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(200, 40)
         Me.btnClear.TabIndex = 31
-        Me.btnClear.Text = "Clear"
+        Me.btnClear.Text = "Clear Fields"
         Me.btnClear.UseVisualStyleBackColor = False
         '
         'btnSaveTransaction
@@ -705,7 +705,7 @@ Partial Class frmPOS
         Me.btnRemoveItem.Name = "btnRemoveItem"
         Me.btnRemoveItem.Size = New System.Drawing.Size(200, 40)
         Me.btnRemoveItem.TabIndex = 104
-        Me.btnRemoveItem.Text = "Remove Item"
+        Me.btnRemoveItem.Text = "Remove Item from Cart"
         Me.btnRemoveItem.UseVisualStyleBackColor = False
         '
         'DateTimePicker2

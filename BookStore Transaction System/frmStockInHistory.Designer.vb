@@ -56,6 +56,8 @@ Partial Class frmStockInHistory
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.cbocategory = New System.Windows.Forms.ComboBox()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvstockinhistory, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -350,7 +352,7 @@ Partial Class frmStockInHistory
         Me.btnexportexcel.FlatAppearance.BorderSize = 0
         Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnexportexcel.ForeColor = System.Drawing.Color.White
-        Me.btnexportexcel.Location = New System.Drawing.Point(1061, 122)
+        Me.btnexportexcel.Location = New System.Drawing.Point(1061, 753)
         Me.btnexportexcel.Name = "btnexportexcel"
         Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
         Me.btnexportexcel.TabIndex = 75
@@ -388,11 +390,33 @@ Partial Class frmStockInHistory
         Me.Label4.TabIndex = 99
         Me.Label4.Text = "Total Sales"
         '
+        'cbocategory
+        '
+        Me.cbocategory.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cbocategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbocategory.FormattingEnabled = True
+        Me.cbocategory.Location = New System.Drawing.Point(1033, 125)
+        Me.cbocategory.Name = "cbocategory"
+        Me.cbocategory.Size = New System.Drawing.Size(158, 25)
+        Me.cbocategory.TabIndex = 126
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(963, 128)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(64, 17)
+        Me.Label9.TabIndex = 125
+        Me.Label9.Text = "Category"
+        '
         'frmStockInHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1219, 817)
+        Me.Controls.Add(Me.cbocategory)
+        Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label5)
@@ -456,4 +480,6 @@ Partial Class frmStockInHistory
     Friend WithEvents Label5 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
+    Friend WithEvents cbocategory As ComboBox
+    Friend WithEvents Label9 As Label
 End Class

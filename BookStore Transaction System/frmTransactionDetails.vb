@@ -508,6 +508,8 @@ Public Class frmTransactionDetails
             RcLR(g, "Date:", rcDate, fReg, w)
             RcLR(g, "Student No:", rcStudentNo, fReg, w)
             RcLR(g, "Name:", rcBuyer, fReg, w)
+            RcLR(g, "Grade:", txtgrade.Text, fReg, w)
+            RcLR(g, "Program:", txtProgramStrand.Text, fReg, w)
             RcLR(g, "Payment:", rcPayment, fReg, w)
             RcLine(g, w)
 

@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 01, 2026 at 07:09 PM
+-- Host: 127.0.0.1
+-- Generation Time: Oct 02, 2026 at 03:48 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -76,15 +76,36 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 (26, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 21:12:32'),
 (27, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'Incorrect password entered', 'Failed - Incorrect Password', NULL, '2026-10-01 21:14:14'),
 (28, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-01 21:14:17'),
-(29, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:13:56'),
-(30, 1, 'Activity', 'Sale', 'TXN-20261002001500841', NULL, NULL, NULL, NULL, 'Sale to Sophia Cassandra Solis - Total: 850.00 (Employee\'s Salary, OR OR-20261002001736929)', 'Success', NULL, '2026-10-02 00:18:25'),
-(31, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:27:23'),
-(32, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:39:41'),
-(33, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:42:17'),
-(34, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:45:52'),
-(35, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:49:40'),
-(36, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 00:59:29'),
-(37, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 01:02:08');
+(29, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 11:31:43'),
+(30, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'Incorrect password entered', 'Failed - Incorrect Password', NULL, '2026-10-02 18:22:41'),
+(31, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 18:22:44'),
+(32, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 18:25:31'),
+(33, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 18:27:20'),
+(34, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 18:43:22'),
+(35, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 20:33:20'),
+(36, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 20:51:35'),
+(37, 1, 'Activity', 'Sale', 'TXN-20261002205141910', NULL, NULL, NULL, NULL, 'Sale to Alliyah De Vera - Total: 25.00 (Cash, OR OR-20261002205150475)', 'Success', NULL, '2026-10-02 20:54:02'),
+(38, 1, 'Activity', 'Sale', 'TXN-20261002205439014', NULL, NULL, NULL, NULL, 'Sale to 123 - Total: 1,225.00 (Cash, OR OR-20261002205507126)', 'Success', NULL, '2026-10-02 20:55:14'),
+(39, 1, 'Activity', 'Stock In', 'DR-20261002210016648', NULL, NULL, NULL, NULL, 'Received 1 pc(s) of SUP-ART - Art Paper', 'Success', NULL, '2026-10-02 21:00:20'),
+(40, 1, 'Activity', 'Inventory Count', 'CNT-20261002210232', NULL, NULL, NULL, NULL, 'Saved 1 counted item(s), 1 discrepancy(ies)', 'Success', NULL, '2026-10-02 21:02:32'),
+(41, 1, 'Activity', 'Inventory Adjustment', 'CNT-20261002210232', NULL, NULL, NULL, NULL, 'SUP-ART (N/A): 101 -> 10. Reason: e', 'Success', NULL, '2026-10-02 21:02:59'),
+(42, 1, 'Activity', 'Item Return', 'RET-20261002210533009', NULL, NULL, NULL, NULL, 'Return of 4 item(s) from TXN-20261002205439014. Reason: dsa', 'Success', NULL, '2026-10-02 21:05:33'),
+(43, 6, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 21:09:20'),
+(44, 6, 'Activity', 'Sale', 'TXN-20261002210939244', NULL, NULL, NULL, NULL, 'Sale to Miguel Dela Cruz - Total: 25.00 (Salary Deduction, OR OR-20261002211016756)', 'Success', NULL, '2026-10-02 21:10:27'),
+(45, 6, 'Activity', 'End of Day', 'EOD-20261002211039', NULL, NULL, NULL, NULL, 'Remittance REM-20261002211107095 - Expected 25.00, Actual 25.00 (Balanced)', 'Success', NULL, '2026-10-02 21:11:07'),
+(46, 5, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 21:14:00'),
+(47, 7, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 21:14:54'),
+(48, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 21:16:33'),
+(49, 1, 'Activity', 'Update Product', 'SUP-ART', NULL, NULL, NULL, NULL, 'Updated product \'Art Paper\'', 'Success', NULL, '2026-10-02 21:18:19'),
+(50, 1, 'Price Change', 'Price Change', NULL, 'SUP-ART', 'Art Paper', 10.00, 12.00, NULL, 'Success', 'Price Update', '2026-10-02 21:18:19'),
+(51, 2, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 21:19:31'),
+(52, 2, 'Activity', 'Sale', 'TXN-20261002211935813', NULL, NULL, NULL, NULL, 'Sale to Alliyah De Vera - Total: 850.00 (Cash, OR OR-20261002212507211)', 'Success', NULL, '2026-10-02 21:25:25'),
+(53, 2, 'Activity', 'Item Exchange', 'EXC-20261002212805372', NULL, NULL, NULL, NULL, 'Exchange of 1 item(s) from TXN-20261002211935813. Reason: wala lng', 'Success', NULL, '2026-10-02 21:28:05'),
+(54, 2, 'Activity', 'End of Day', 'EOD-20261002212821', NULL, NULL, NULL, NULL, 'Remittance REM-20261002212859570 - Expected 850.00, Actual 1,100.00 (Over)', 'Success', NULL, '2026-10-02 21:28:59'),
+(55, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'Incorrect password entered', 'Failed - Incorrect Password', NULL, '2026-10-02 21:29:26'),
+(56, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 21:29:29'),
+(57, 1, 'Activity', 'Inventory Count', 'CNT-20261002213112', NULL, NULL, NULL, NULL, 'Saved 2 counted item(s), 2 discrepancy(ies)', 'Success', NULL, '2026-10-02 21:31:13'),
+(58, 1, 'Activity', 'Inventory Adjustment', 'CNT-20261002213112', NULL, NULL, NULL, NULL, 'SUP-ART (N/A): 10 -> 5. Reason: 231231', 'Success', NULL, '2026-10-02 21:31:54');
 
 -- --------------------------------------------------------
 
@@ -99,6 +120,16 @@ CREATE TABLE `tbl_cash_denominations` (
   `quantity` int(11) NOT NULL DEFAULT 0,
   `amount` decimal(10,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_cash_denominations`
+--
+
+INSERT INTO `tbl_cash_denominations` (`denomination_id`, `end_of_day_id`, `denomination`, `quantity`, `amount`) VALUES
+(1, 1, 20.00, 1, 20.00),
+(2, 1, 5.00, 1, 5.00),
+(3, 2, 500.00, 1, 500.00),
+(4, 2, 200.00, 3, 600.00);
 
 -- --------------------------------------------------------
 
@@ -192,6 +223,7 @@ CREATE TABLE `tbl_end_of_day` (
   `reconciliation_no` varchar(30) NOT NULL,
   `reconciliation_date` date NOT NULL,
   `cashier_id` int(11) NOT NULL,
+  `shift` varchar(20) DEFAULT NULL,
   `cash_sales` decimal(10,2) NOT NULL DEFAULT 0.00,
   `salary_deduction` decimal(10,2) NOT NULL DEFAULT 0.00,
   `total_sales` decimal(10,2) NOT NULL DEFAULT 0.00,
@@ -204,6 +236,14 @@ CREATE TABLE `tbl_end_of_day` (
   `remarks` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_end_of_day`
+--
+
+INSERT INTO `tbl_end_of_day` (`end_of_day_id`, `reconciliation_no`, `reconciliation_date`, `cashier_id`, `shift`, `cash_sales`, `salary_deduction`, `total_sales`, `cash_transaction_count`, `salary_deduction_count`, `expected_cash`, `actual_cash`, `difference`, `status`, `remarks`, `created_at`) VALUES
+(1, 'EOD-20261002211039', '2026-10-02', 6, 'Night', 25.00, 0.00, 25.00, 1, 0, 25.00, 25.00, 0.00, 'Balanced', 'yes', '2026-10-02 21:11:07'),
+(2, 'EOD-20261002212821', '2026-10-02', 2, 'Night', 850.00, 0.00, 850.00, 1, 0, 850.00, 1100.00, 250.00, 'Over', '321', '2026-10-02 21:28:59');
 
 -- --------------------------------------------------------
 
@@ -220,6 +260,14 @@ CREATE TABLE `tbl_inventory_counts` (
   `remarks` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_inventory_counts`
+--
+
+INSERT INTO `tbl_inventory_counts` (`inventory_count_id`, `count_no`, `count_date`, `prepared_by`, `status`, `remarks`, `created_at`) VALUES
+(1, 'CNT-20261002210232', '2026-10-02', 1, 'Reconciled', NULL, '2026-10-02 21:02:32'),
+(2, 'CNT-20261002213112', '2026-10-02', 1, 'Pending', NULL, '2026-10-02 21:31:12');
 
 -- --------------------------------------------------------
 
@@ -238,6 +286,15 @@ CREATE TABLE `tbl_inventory_count_details` (
   `remarks` varchar(255) DEFAULT NULL,
   `adjusted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_inventory_count_details`
+--
+
+INSERT INTO `tbl_inventory_count_details` (`inventory_count_detail_id`, `inventory_count_id`, `variant_id`, `system_quantity`, `physical_quantity`, `difference`, `status`, `remarks`, `adjusted`) VALUES
+(1, 1, 1, 101, 10, -91, 'Short', 'e', 1),
+(2, 2, 1, 10, 5, -5, 'Short', '231231', 1),
+(3, 2, 746, 30, 35, 5, 'Excess', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -262,7 +319,7 @@ CREATE TABLE `tbl_products` (
 --
 
 INSERT INTO `tbl_products` (`product_id`, `product_name`, `product_description`, `source_code`, `category_type_id`, `supplier`, `unit_cost`, `unit_price`, `status`) VALUES
-(1, 'Art Paper', NULL, 'ART', 22, NULL, 0.00, 10.00, 'Active'),
+(1, 'Art Paper', '', 'ART', 22, NULL, 0.00, 12.00, 'Active'),
 (2, 'Intermediate Pad 1/2 CW', NULL, 'IPC 1/2', 22, NULL, 0.00, 45.00, 'Active'),
 (3, 'Binder Clip 1 1/4', NULL, 'BC 1/4', 23, NULL, 0.00, 25.00, 'Active'),
 (4, 'Intermediate Pad 1/2 LW', NULL, 'IPL 1/2', 22, NULL, 0.00, 45.00, 'Active'),
@@ -510,13 +567,13 @@ CREATE TABLE `tbl_product_variants` (
 --
 
 INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, `size`, `quantity_on_hand`, `reorder_level`) VALUES
-(1, 1, 'SUP-ART', 'N/A', 100, 20),
+(1, 1, 'SUP-ART', 'N/A', 5, 20),
 (2, 2, 'SUP-IPC-1-2', 'N/A', 100, 20),
 (3, 3, 'SUP-BC-1-4', 'N/A', 50, 10),
 (4, 4, 'SUP-IPL-1-2', 'N/A', 100, 20),
-(5, 5, 'SUP-BC-5-8', 'N/A', 50, 10),
+(5, 5, 'SUP-BC-5-8', 'N/A', 49, 10),
 (6, 6, 'SUP-JP-01', 'N/A', 50, 10),
-(7, 7, 'SUP-BC-1', 'N/A', 50, 10),
+(7, 7, 'SUP-BC-1', 'N/A', 4, 10),
 (8, 8, 'SUP-JP-02', 'N/A', 100, 20),
 (9, 9, 'SUP-BC-2', 'N/A', 50, 10),
 (10, 10, 'SUP-LAM', 'N/A', 50, 10),
@@ -1035,7 +1092,7 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (523, 185, 'UNI-CP-037-4XL', '4XL', 20, 5),
 (524, 185, 'UNI-CP-037-5XL', '5XL', 20, 5),
 (525, 185, 'UNI-CP-037-6XL', '6XL', 20, 5),
-(526, 186, 'UNI-CP-038-XS', 'XS', 19, 5),
+(526, 186, 'UNI-CP-038-XS', 'XS', 20, 5),
 (527, 186, 'UNI-CP-038-S', 'S', 20, 5),
 (528, 186, 'UNI-CP-038-M', 'M', 20, 5),
 (529, 186, 'UNI-CP-038-L', 'L', 20, 5),
@@ -1265,7 +1322,7 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (753, 216, 'UNI-ACC-009-NA', 'N/A', 30, 8),
 (754, 217, 'UNI-ACC-010-NA', 'N/A', 30, 8),
 (755, 218, 'UNI-ACC-011-NA', 'N/A', 30, 8),
-(756, 219, 'UNI-ACC-012-NA', 'N/A', 30, 8),
+(756, 219, 'UNI-ACC-012-NA', 'N/A', 29, 8),
 (757, 220, 'UNI-ACC-013-1STYR', '1ST YR', 30, 8),
 (758, 220, 'UNI-ACC-013-2NDYR', '2ND YR', 30, 8),
 (759, 220, 'UNI-ACC-013-3RDYR', '3RD YR', 30, 8),
@@ -1297,8 +1354,20 @@ CREATE TABLE `tbl_remittances` (
   `status` enum('Pending','Verified') NOT NULL DEFAULT 'Pending',
   `prepared_at` datetime NOT NULL DEFAULT current_timestamp(),
   `verified_at` datetime DEFAULT NULL,
-  `remarks` varchar(255) DEFAULT NULL
+  `remarks` varchar(255) DEFAULT NULL,
+  `or_from` varchar(30) DEFAULT NULL,
+  `or_to` varchar(30) DEFAULT NULL,
+  `received_by` varchar(150) DEFAULT NULL,
+  `remitted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_remittances`
+--
+
+INSERT INTO `tbl_remittances` (`remittance_id`, `remittance_no`, `end_of_day_id`, `prepared_by`, `verified_by`, `remittance_amount`, `status`, `prepared_at`, `verified_at`, `remarks`, `or_from`, `or_to`, `received_by`, `remitted_at`) VALUES
+(1, 'REM-20261002211107095', 1, 6, NULL, 25.00, 'Pending', '2026-10-02 21:11:07', NULL, 'hghehe', 'OR-20261002211016756', 'OR-20261002211016756', 'Me', '2026-10-02 21:11:07'),
+(2, 'REM-20261002212859570', 2, 2, NULL, 1100.00, 'Pending', '2026-10-02 21:28:59', NULL, '123', 'OR-20261002212507211', 'OR-20261002212507211', 'accounting', '2026-10-02 21:28:59');
 
 -- --------------------------------------------------------
 
@@ -1317,6 +1386,14 @@ CREATE TABLE `tbl_returns_exchanges` (
   `status` enum('Completed','Cancelled') NOT NULL DEFAULT 'Completed'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_returns_exchanges`
+--
+
+INSERT INTO `tbl_returns_exchanges` (`return_exchange_id`, `reference_no`, `transaction_id`, `action_type`, `reason`, `processed_by`, `processed_at`, `status`) VALUES
+(1, 'RET-20261002210533009', 2, 'Return', 'dsa', 1, '2026-10-02 21:05:33', 'Completed'),
+(2, 'EXC-20261002212805372', 4, 'Exchange', 'wala lng', 2, '2026-10-02 21:28:05', 'Completed');
+
 -- --------------------------------------------------------
 
 --
@@ -1332,6 +1409,14 @@ CREATE TABLE `tbl_return_exchange_items` (
   `replacement_variant_id` int(11) DEFAULT NULL,
   `replacement_quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_return_exchange_items`
+--
+
+INSERT INTO `tbl_return_exchange_items` (`return_exchange_item_id`, `return_exchange_id`, `transaction_item_id`, `quantity`, `item_condition`, `replacement_variant_id`, `replacement_quantity`) VALUES
+(1, 1, 2, 4, 'das', NULL, NULL),
+(2, 2, 4, 1, '3123', 756, 1);
 
 -- --------------------------------------------------------
 
@@ -1369,6 +1454,13 @@ CREATE TABLE `tbl_stock_ins` (
   `created_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_stock_ins`
+--
+
+INSERT INTO `tbl_stock_ins` (`stock_in_id`, `reference_no`, `received_by`, `stock_in_date`, `stock_in_time`, `created_by`) VALUES
+(1, 'DR-20261002210016648', 'Maria Santos', '2026-10-02', '21:00:20', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -1381,6 +1473,13 @@ CREATE TABLE `tbl_stock_in_details` (
   `variant_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_stock_in_details`
+--
+
+INSERT INTO `tbl_stock_in_details` (`stock_in_detail_id`, `stock_in_id`, `variant_id`, `quantity`) VALUES
+(1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1400,6 +1499,18 @@ CREATE TABLE `tbl_stock_movements` (
   `created_by` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_stock_movements`
+--
+
+INSERT INTO `tbl_stock_movements` (`movement_id`, `variant_id`, `movement_type`, `quantity`, `previous_quantity`, `new_quantity`, `reference_no`, `remarks`, `created_by`, `created_at`) VALUES
+(1, 1, 'Stock In', 1, 100, 101, 'DR-20261002210016648', 'Stock received', 1, '2026-10-02 21:00:20'),
+(2, 1, 'Adjustment', 91, 101, 10, 'CNT-20261002210232', 'e', 1, '2026-10-02 21:02:59'),
+(3, 7, 'Returned', 4, 0, 4, 'RET-20261002210533009', 'Return of TXN-20261002205439014', 1, '2026-10-02 21:05:33'),
+(4, 665, 'Returned', 1, 19, 20, 'EXC-20261002212805372', 'Exchange of TXN-20261002211935813', 2, '2026-10-02 21:28:05'),
+(5, 756, 'Stock Out', 1, 30, 29, 'EXC-20261002212805372', 'Exchange replacement for TXN-20261002211935813', 2, '2026-10-02 21:28:05'),
+(6, 1, 'Adjustment', 5, 10, 5, 'CNT-20261002213112', '231231', 1, '2026-10-02 21:31:54');
 
 -- --------------------------------------------------------
 
@@ -1447,7 +1558,7 @@ INSERT INTO `tbl_students` (`student_id`, `student_no`, `last_name`, `first_name
 (22, '2154-24', 'Sabasaje', 'Sho Uno', 'College', '3rd Year', NULL, '31E1'),
 (23, '2208-24', 'Eullo', 'John Raven', 'College', '3rd Year', NULL, '31E1'),
 (24, '2786-24', 'Roque', 'Kevin Clerck', 'College', '3rd Year', NULL, '31E1'),
-(25, '2789-24', 'De Vera', 'Alliyah', 'College', '3rd Year', NULL, '31E1');
+(25, '2789-24', 'De Vera', 'Alliyah', 'College', '3rd Year', 'BSIT', '31E1');
 
 -- --------------------------------------------------------
 
@@ -1465,21 +1576,26 @@ CREATE TABLE `tbl_transactions` (
   `or_date` date NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `payment_method` varchar(30) NOT NULL DEFAULT 'Cash',
-  `employee_name` varchar(150) DEFAULT NULL,
+  `employee_name` varchar(100) DEFAULT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `amount_paid` decimal(10,2) NOT NULL DEFAULT 0.00,
   `amount_change` decimal(10,2) NOT NULL DEFAULT 0.00,
   `created_by` int(11) NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'Completed',
-  `cancel_reason` varchar(255) DEFAULT NULL
+  `cancel_reason` varchar(255) DEFAULT NULL,
+  `cancelled_by` int(11) DEFAULT NULL,
+  `cancelled_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_transactions`
 --
 
-INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`, `student_id`, `buyer_name`, `or_no`, `or_date`, `created_at`, `payment_method`, `employee_name`, `total_amount`, `amount_paid`, `amount_change`, `created_by`, `status`, `cancel_reason`) VALUES
-(1, 'TXN-20261002001500841', 'Student', 16, 'Sophia Cassandra Solis', 'OR-20261002001736929', '2026-10-02', '2026-10-02 00:18:25', 'Employee\'s Salary', 'Maria Santos', 850.00, 850.00, 0.00, 1, 'Completed', NULL);
+INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`, `student_id`, `buyer_name`, `or_no`, `or_date`, `created_at`, `payment_method`, `employee_name`, `total_amount`, `amount_paid`, `amount_change`, `created_by`, `status`, `cancel_reason`, `cancelled_by`, `cancelled_at`) VALUES
+(1, 'TXN-20261002205141910', 'Student', 25, 'Alliyah De Vera', 'OR-20261002205150475', '2026-10-02', '2026-10-02 20:54:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL),
+(2, 'TXN-20261002205439014', 'Walk-in', NULL, '123', 'OR-20261002205507126', '2026-10-02', '2026-10-02 20:55:14', 'Cash', NULL, 1225.00, 3000.00, 1775.00, 1, 'Partially Returned', NULL, NULL, NULL),
+(3, 'TXN-20261002210939244', 'Student', 1, 'Miguel Dela Cruz', 'OR-20261002211016756', '2026-10-02', '2026-10-02 21:10:27', 'Salary Deduction', 'Daniel Lopez', 25.00, 25.00, 0.00, 6, 'Completed', NULL, NULL, NULL),
+(4, 'TXN-20261002211935813', 'Student', 25, 'Alliyah De Vera', 'OR-20261002212507211', '2026-10-02', '2026-10-02 21:25:25', 'Cash', NULL, 850.00, 900.00, 50.00, 2, 'Exchanged', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1500,7 +1616,10 @@ CREATE TABLE `tbl_transaction_items` (
 --
 
 INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `variant_id`, `quantity`, `subtotal`) VALUES
-(1, 1, 526, 1, 850.00);
+(1, 1, 7, 1, 25.00),
+(2, 2, 7, 49, 1225.00),
+(3, 3, 5, 1, 25.00),
+(4, 4, 665, 1, 850.00);
 
 -- --------------------------------------------------------
 
@@ -1705,13 +1824,13 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_audit_logs`
 --
 ALTER TABLE `tbl_audit_logs`
-  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `tbl_cash_denominations`
 --
 ALTER TABLE `tbl_cash_denominations`
-  MODIFY `denomination_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `denomination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_categories`
@@ -1729,19 +1848,19 @@ ALTER TABLE `tbl_category_types`
 -- AUTO_INCREMENT for table `tbl_end_of_day`
 --
 ALTER TABLE `tbl_end_of_day`
-  MODIFY `end_of_day_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `end_of_day_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_inventory_counts`
 --
 ALTER TABLE `tbl_inventory_counts`
-  MODIFY `inventory_count_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `inventory_count_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_inventory_count_details`
 --
 ALTER TABLE `tbl_inventory_count_details`
-  MODIFY `inventory_count_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `inventory_count_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
@@ -1759,19 +1878,19 @@ ALTER TABLE `tbl_product_variants`
 -- AUTO_INCREMENT for table `tbl_remittances`
 --
 ALTER TABLE `tbl_remittances`
-  MODIFY `remittance_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `remittance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_returns_exchanges`
 --
 ALTER TABLE `tbl_returns_exchanges`
-  MODIFY `return_exchange_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `return_exchange_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_return_exchange_items`
 --
 ALTER TABLE `tbl_return_exchange_items`
-  MODIFY `return_exchange_item_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `return_exchange_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`
@@ -1783,19 +1902,19 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT for table `tbl_stock_ins`
 --
 ALTER TABLE `tbl_stock_ins`
-  MODIFY `stock_in_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `stock_in_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_stock_in_details`
 --
 ALTER TABLE `tbl_stock_in_details`
-  MODIFY `stock_in_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `stock_in_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_stock_movements`
 --
 ALTER TABLE `tbl_stock_movements`
-  MODIFY `movement_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `movement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_students`
@@ -1807,13 +1926,13 @@ ALTER TABLE `tbl_students`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction_items`
 --
 ALTER TABLE `tbl_transaction_items`
-  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`

@@ -8,7 +8,7 @@ Public Class frmSalesDateRange
         LoadGrid()
     End Sub
 
-    Private Sub btnreleaseditems_Click(sender As Object, e As EventArgs) Handles btnreleaseditems.Click     ' Released Items toggle
+    Private Sub btnreleaseditems_Click(sender As Object, e As EventArgs)      ' Released Items toggle
         showReleasedOnly = Not showReleasedOnly
         btnreleaseditems.Text = If(showReleasedOnly, "Show All Items", "Released Items")
         LoadGrid()
@@ -29,7 +29,7 @@ Public Class frmSalesDateRange
                                   "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
                                   "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
                                   "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
-                                  "WHERE DATE(t.created_at) BETWEEN @d1 AND @d2 AND t.transaction_no LIKE @s "
+                                  "WHERE DATE(t.created_at) BETWEEN @d1 AND @d2 AND t.transaction_no LIKE @s AND t.status <> 'Cancelled' "
             If showReleasedOnly Then query &= "AND t.status = 'Completed' "
             query &= "ORDER BY t.transaction_id DESC"
 

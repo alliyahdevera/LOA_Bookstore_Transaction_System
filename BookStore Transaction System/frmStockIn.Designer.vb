@@ -45,11 +45,12 @@ Partial Class frmStockIn
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnstocks = New System.Windows.Forms.Button()
         Me.txtstocks = New System.Windows.Forms.TextBox()
-        Me.btnproductlist = New System.Windows.Forms.Button()
         Me.txtreference = New System.Windows.Forms.TextBox()
         Me.txtstockintime = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.cbocategory = New System.Windows.Forms.ComboBox()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -261,16 +262,6 @@ Partial Class frmStockIn
         Me.txtstocks.Size = New System.Drawing.Size(72, 25)
         Me.txtstocks.TabIndex = 103
         '
-        'btnproductlist
-        '
-        Me.btnproductlist.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnproductlist.Location = New System.Drawing.Point(737, 72)
-        Me.btnproductlist.Name = "btnproductlist"
-        Me.btnproductlist.Size = New System.Drawing.Size(129, 25)
-        Me.btnproductlist.TabIndex = 104
-        Me.btnproductlist.Text = "Product List"
-        Me.btnproductlist.UseVisualStyleBackColor = True
-        '
         'txtreference
         '
         Me.txtreference.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -312,16 +303,37 @@ Partial Class frmStockIn
         Me.Label5.TabIndex = 111
         Me.Label5.Text = "Add New Product Stocks"
         '
+        'cbocategory
+        '
+        Me.cbocategory.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cbocategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbocategory.FormattingEnabled = True
+        Me.cbocategory.Location = New System.Drawing.Point(819, 72)
+        Me.cbocategory.Name = "cbocategory"
+        Me.cbocategory.Size = New System.Drawing.Size(158, 25)
+        Me.cbocategory.TabIndex = 126
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(749, 75)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(64, 17)
+        Me.Label9.TabIndex = 125
+        Me.Label9.Text = "Category"
+        '
         'frmStockIn
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 804)
+        Me.Controls.Add(Me.cbocategory)
+        Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtstockintime)
         Me.Controls.Add(Me.txtreference)
-        Me.Controls.Add(Me.btnproductlist)
         Me.Controls.Add(Me.txtstocks)
         Me.Controls.Add(Me.btnstocks)
         Me.Controls.Add(Me.Panel13)
@@ -354,7 +366,6 @@ Partial Class frmStockIn
     Friend WithEvents Label1 As Label
     Friend WithEvents btnstocks As Button
     Friend WithEvents txtstocks As TextBox
-    Friend WithEvents btnproductlist As Button
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
     Friend WithEvents ProductDescription As DataGridViewTextBoxColumn
@@ -368,4 +379,6 @@ Partial Class frmStockIn
     Friend WithEvents txtstockintime As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label5 As Label
+    Friend WithEvents cbocategory As ComboBox
+    Friend WithEvents Label9 As Label
 End Class
