@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2026 at 03:48 PM
+-- Generation Time: Oct 02, 2026 at 04:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -105,7 +105,9 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 (55, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'Incorrect password entered', 'Failed - Incorrect Password', NULL, '2026-10-02 21:29:26'),
 (56, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 21:29:29'),
 (57, 1, 'Activity', 'Inventory Count', 'CNT-20261002213112', NULL, NULL, NULL, NULL, 'Saved 2 counted item(s), 2 discrepancy(ies)', 'Success', NULL, '2026-10-02 21:31:13'),
-(58, 1, 'Activity', 'Inventory Adjustment', 'CNT-20261002213112', NULL, NULL, NULL, NULL, 'SUP-ART (N/A): 10 -> 5. Reason: 231231', 'Success', NULL, '2026-10-02 21:31:54');
+(58, 1, 'Activity', 'Inventory Adjustment', 'CNT-20261002213112', NULL, NULL, NULL, NULL, 'SUP-ART (N/A): 10 -> 5. Reason: 231231', 'Success', NULL, '2026-10-02 21:31:54'),
+(59, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 22:03:31'),
+(60, 1, 'Activity', 'End of Day', 'EOD-20261002220354', NULL, NULL, NULL, NULL, 'Remittance REM-20261002220442506 - Expected 1,250.00, Actual 1,250.00 (Balanced)', 'Success', NULL, '2026-10-02 22:04:42');
 
 -- --------------------------------------------------------
 
@@ -129,7 +131,10 @@ INSERT INTO `tbl_cash_denominations` (`denomination_id`, `end_of_day_id`, `denom
 (1, 1, 20.00, 1, 20.00),
 (2, 1, 5.00, 1, 5.00),
 (3, 2, 500.00, 1, 500.00),
-(4, 2, 200.00, 3, 600.00);
+(4, 2, 200.00, 3, 600.00),
+(5, 3, 1000.00, 1, 1000.00),
+(6, 3, 100.00, 2, 200.00),
+(7, 3, 50.00, 1, 50.00);
 
 -- --------------------------------------------------------
 
@@ -243,7 +248,8 @@ CREATE TABLE `tbl_end_of_day` (
 
 INSERT INTO `tbl_end_of_day` (`end_of_day_id`, `reconciliation_no`, `reconciliation_date`, `cashier_id`, `shift`, `cash_sales`, `salary_deduction`, `total_sales`, `cash_transaction_count`, `salary_deduction_count`, `expected_cash`, `actual_cash`, `difference`, `status`, `remarks`, `created_at`) VALUES
 (1, 'EOD-20261002211039', '2026-10-02', 6, 'Night', 25.00, 0.00, 25.00, 1, 0, 25.00, 25.00, 0.00, 'Balanced', 'yes', '2026-10-02 21:11:07'),
-(2, 'EOD-20261002212821', '2026-10-02', 2, 'Night', 850.00, 0.00, 850.00, 1, 0, 850.00, 1100.00, 250.00, 'Over', '321', '2026-10-02 21:28:59');
+(2, 'EOD-20261002212821', '2026-10-02', 2, 'Night', 850.00, 0.00, 850.00, 1, 0, 850.00, 1100.00, 250.00, 'Over', '321', '2026-10-02 21:28:59'),
+(3, 'EOD-20261002220354', '2026-10-02', 1, NULL, 1250.00, 0.00, 1250.00, 2, 0, 1250.00, 1250.00, 0.00, 'Balanced', '1231', '2026-10-02 22:04:42');
 
 -- --------------------------------------------------------
 
@@ -1367,7 +1373,8 @@ CREATE TABLE `tbl_remittances` (
 
 INSERT INTO `tbl_remittances` (`remittance_id`, `remittance_no`, `end_of_day_id`, `prepared_by`, `verified_by`, `remittance_amount`, `status`, `prepared_at`, `verified_at`, `remarks`, `or_from`, `or_to`, `received_by`, `remitted_at`) VALUES
 (1, 'REM-20261002211107095', 1, 6, NULL, 25.00, 'Pending', '2026-10-02 21:11:07', NULL, 'hghehe', 'OR-20261002211016756', 'OR-20261002211016756', 'Me', '2026-10-02 21:11:07'),
-(2, 'REM-20261002212859570', 2, 2, NULL, 1100.00, 'Pending', '2026-10-02 21:28:59', NULL, '123', 'OR-20261002212507211', 'OR-20261002212507211', 'accounting', '2026-10-02 21:28:59');
+(2, 'REM-20261002212859570', 2, 2, NULL, 1100.00, 'Pending', '2026-10-02 21:28:59', NULL, '123', 'OR-20261002212507211', 'OR-20261002212507211', 'accounting', '2026-10-02 21:28:59'),
+(3, 'REM-20261002220442506', 3, 1, NULL, 1250.00, 'Pending', '2026-10-02 22:04:42', NULL, '123', 'OR-20261002205150475', 'OR-20261002205507126', '123', '2026-10-02 22:04:42');
 
 -- --------------------------------------------------------
 
@@ -1824,13 +1831,13 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_audit_logs`
 --
 ALTER TABLE `tbl_audit_logs`
-  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `tbl_cash_denominations`
 --
 ALTER TABLE `tbl_cash_denominations`
-  MODIFY `denomination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `denomination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_categories`
@@ -1848,7 +1855,7 @@ ALTER TABLE `tbl_category_types`
 -- AUTO_INCREMENT for table `tbl_end_of_day`
 --
 ALTER TABLE `tbl_end_of_day`
-  MODIFY `end_of_day_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `end_of_day_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_inventory_counts`
@@ -1878,7 +1885,7 @@ ALTER TABLE `tbl_product_variants`
 -- AUTO_INCREMENT for table `tbl_remittances`
 --
 ALTER TABLE `tbl_remittances`
-  MODIFY `remittance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `remittance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_returns_exchanges`
