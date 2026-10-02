@@ -78,7 +78,8 @@ Partial Class frmManageProducts
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvListOfProducts, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -608,11 +609,34 @@ Partial Class frmManageProducts
         'Timer1
         '
         '
+        'ComboBox1
+        '
+        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"Uniforms", "Books", "Modules", "School Supplies", "Office Supplies", "All Items"})
+        Me.ComboBox1.Location = New System.Drawing.Point(1015, 249)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(172, 25)
+        Me.ComboBox1.TabIndex = 117
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(922, 252)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(61, 17)
+        Me.Label9.TabIndex = 118
+        Me.Label9.Text = "Category"
+        '
         'frmManageProducts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 804)
+        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.btnclear)
         Me.Controls.Add(Me.Label5)
@@ -697,5 +721,6 @@ Partial Class frmManageProducts
     Friend WithEvents Label5 As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents Timer1 As Timer
-    Friend WithEvents Timer2 As Timer
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents Label9 As Label
 End Class
