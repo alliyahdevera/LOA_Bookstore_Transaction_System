@@ -22,7 +22,7 @@ Partial Class frmCashDenomination
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -88,7 +88,8 @@ Partial Class frmCashDenomination
         Me.btncancel = New System.Windows.Forms.Button()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.txtrefno = New System.Windows.Forms.TextBox()
-        Me.txtcashier = New System.Windows.Forms.TextBox()
+        Me.cboshift = New System.Windows.Forms.ComboBox()
+        Me.txtCashier = New System.Windows.Forms.TextBox()
         Me.Panel4.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -380,14 +381,14 @@ Partial Class frmCashDenomination
         Me.dgvcashbreakdown.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvcashbreakdown.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvcashbreakdown.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Denomination, Me.Quantity, Me.Amount})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvcashbreakdown.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvcashbreakdown.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvcashbreakdown.Location = New System.Drawing.Point(-1, 34)
         Me.dgvcashbreakdown.Name = "dgvcashbreakdown"
         Me.dgvcashbreakdown.ReadOnly = True
@@ -820,22 +821,31 @@ Partial Class frmCashDenomination
         Me.txtrefno.Size = New System.Drawing.Size(227, 25)
         Me.txtrefno.TabIndex = 150
         '
-        'txtcashier
+        'cboshift
         '
-        Me.txtcashier.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtcashier.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtcashier.Location = New System.Drawing.Point(464, 79)
-        Me.txtcashier.Name = "txtcashier"
-        Me.txtcashier.ReadOnly = True
-        Me.txtcashier.Size = New System.Drawing.Size(178, 25)
-        Me.txtcashier.TabIndex = 131
+        Me.cboshift.FormattingEnabled = True
+        Me.cboshift.Location = New System.Drawing.Point(688, 81)
+        Me.cboshift.Name = "cboshift"
+        Me.cboshift.Size = New System.Drawing.Size(143, 21)
+        Me.cboshift.TabIndex = 152
+        '
+        'txtCashier
+        '
+        Me.txtCashier.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtCashier.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCashier.Location = New System.Drawing.Point(455, 79)
+        Me.txtCashier.Name = "txtCashier"
+        Me.txtCashier.ReadOnly = True
+        Me.txtCashier.Size = New System.Drawing.Size(227, 25)
+        Me.txtCashier.TabIndex = 153
         '
         'frmCashDenomination
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 808)
-        Me.Controls.Add(Me.txtcashier)
+        Me.Controls.Add(Me.txtCashier)
+        Me.Controls.Add(Me.cboshift)
         Me.Controls.Add(Me.Label31)
         Me.Controls.Add(Me.txtrefno)
         Me.Controls.Add(Me.btncancel)
@@ -941,5 +951,6 @@ Partial Class frmCashDenomination
     Friend WithEvents cboFrom As ComboBox
     Friend WithEvents Label31 As Label
     Friend WithEvents txtrefno As TextBox
-    Friend WithEvents txtcashier As TextBox
+    Friend WithEvents cboshift As ComboBox
+    Friend WithEvents txtCashier As TextBox
 End Class

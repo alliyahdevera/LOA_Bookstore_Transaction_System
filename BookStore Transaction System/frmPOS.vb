@@ -8,6 +8,7 @@ Public Class frmPOS
     Private selectedStudentNo As String = ""
     Private paymentDate As Date = Date.Today
     Private paymentEmployee As String = ""
+    Private isUpdatingNud As Boolean = False
 
     ' Column names/indices matching SetupDataGridView & LoadProducts
     Private Const COL_CODE As String = "colCode"
@@ -66,7 +67,11 @@ Public Class frmPOS
 
             ' Add "All Items" option at the end
             cbocategory.Items.Add("All Items")
-            cbocategory.SelectedItem = "All Items"
+
+            ' Set default category selection
+            If cbocategory.Items.Count > 0 Then
+                cbocategory.SelectedIndex = 0
+            End If
         Catch ex As Exception
             ' Fallback if database query fails during load
             cbocategory.Items.AddRange(New Object() {
@@ -117,7 +122,7 @@ Public Class frmPOS
         Next
     End Sub
 
-    ' ================= STUDENT SEARCH (opens frmStudentList) =================
+    ' ================= STUDENT SEARCH =================
     Private Sub btnSearchStudent_Click(sender As Object, e As EventArgs) Handles btnSearchStudent.Click
         Using frm As New frmStudentList()
             frm.InitialSearch = txtStudentNo.Text.Trim()
@@ -129,7 +134,7 @@ Public Class frmPOS
                 txtStudentName.Text = frm.SelectedStudentName
                 txtgrade.Text = frm.SelectedGradeLevel
                 txtProgramStrand.Text = frm.SelectedProgramStrand
-                txtGuestName.Clear()      ' a student was chosen -> not a guest
+                txtGuestName.Clear()
             End If
         End Using
     End Sub
@@ -141,14 +146,12 @@ Public Class frmPOS
         End If
     End Sub
 
-    ' typing a different student no. after choosing one cancels the chosen student
     Private Sub txtStudentNo_TextChanged(sender As Object, e As EventArgs) Handles txtStudentNo.TextChanged
         If foundStudentId > 0 AndAlso txtStudentNo.Text <> selectedStudentNo Then
             ClearStudentFields(True)
         End If
     End Sub
 
-    ' typing a guest name cancels the chosen student
     Private Sub txtGuestName_TextChanged(sender As Object, e As EventArgs) Handles txtGuestName.TextChanged
         If txtGuestName.Text <> "" AndAlso foundStudentId > 0 Then
             ClearStudentFields(False)
@@ -179,13 +182,14 @@ Public Class frmPOS
         LoadProducts()
     End Sub
 
+    ' OPTIMIZED PRODUCT LOADING FOR LARGE DATABASES
     Private Sub LoadProducts()
         dgvlistproducts.Rows.Clear()
 
         Dim keyword As String = txtProductSearch.Text.Trim()
         Dim category As String = If(cbocategory.SelectedIndex = -1 OrElse cbocategory.Text = "All Items", "", cbocategory.Text)
 
-        ' Base SQL Query using LEFT JOINs so items aren't filtered out by missing categories
+        ' Optimized SQL query fetching required fields with LEFT JOINs
         Dim query As String =
             "SELECT v.variant_id, v.product_code, p.product_name, " &
             "COALESCE(c.category_name, 'Uncategorized') AS category_name, " &
@@ -200,32 +204,34 @@ Public Class frmPOS
         Dim paramNames As New List(Of String)()
         Dim paramValues As New List(Of Object)()
 
-        ' Add Category Filter if a specific category is chosen
         If category <> "" Then
             query &= "AND c.category_name = @cat "
             paramNames.Add("@cat")
             paramValues.Add(category)
         End If
 
-        ' Add Search Keyword Filter if typed in text box
         If keyword <> "" Then
             query &= "AND (v.product_code LIKE @like OR p.product_name LIKE @like) "
             paramNames.Add("@like")
             paramValues.Add("%" & keyword & "%")
         End If
 
-        query &= "ORDER BY p.product_name, v.size"
+        query &= "ORDER BY p.product_name, v.size "
 
-        ' Execute Query
+        ' Cap fetch limit if viewing 'All Items' without a search term to optimize large database loads
+        If category = "" AndAlso keyword = "" Then
+            query &= "LIMIT 100"
+        End If
+
         Dim dt As DataTable = GetDataTable(query, paramNames.ToArray(), paramValues.ToArray())
 
-        ' Populate Grid
+        ' Batch UI Redraw for faster rendering performance
+        dgvlistproducts.SuspendLayout()
         For Each r As DataRow In dt.Rows
             Dim stock As Integer = Convert.ToInt32(r("quantity_on_hand"))
             Dim reorder As Integer = Convert.ToInt32(r("reorder_level"))
             Dim status As String = If(stock <= 0, "Out of Stock", If(stock <= reorder, "Low Stock", "In Stock"))
 
-            ' Map to dgvlistproducts columns
             Dim idx As Integer = dgvlistproducts.Rows.Add(
                 r("product_code").ToString(),
                 r("product_name").ToString(),
@@ -237,11 +243,12 @@ Public Class frmPOS
                 status)
             dgvlistproducts.Rows(idx).Tag = Convert.ToInt32(r("variant_id"))
         Next
+        dgvlistproducts.ResumeLayout()
 
         ClearGridSelection(dgvlistproducts)
     End Sub
 
-    ' Clicking an item sets the quantity to 1 (user can raise it, never above stock)
+    ' Item Selection & Quantity Limits
     Private Sub dgvlistproducts_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvlistproducts.CellClick
         If e.RowIndex < 0 Then Exit Sub
 
@@ -252,18 +259,39 @@ Public Class frmPOS
             Exit Sub
         End If
 
+        isUpdatingNud = True
         nudQuantity.Maximum = stock
         nudQuantity.Value = 1
+        isUpdatingNud = False
     End Sub
-
-    ' ================= QUANTITY: NO NEGATIVES =================
+    ' ================= QUANTITY VALIDATION & PROMPTS =================
     Private Sub nudQuantity_KeyPress(sender As Object, e As KeyPressEventArgs) Handles nudQuantity.KeyPress
+        ' Restrict input to digits and control keys (e.g. backspace) only
         If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then e.Handled = True
     End Sub
 
+    ' Immediate prompt on ValueChanged when typed or spun higher than available stock
+    Private Sub nudQuantity_ValueChanged(sender As Object, e As EventArgs) Handles nudQuantity.ValueChanged
+        If isUpdatingNud Then Exit Sub
+
+        If dgvlistproducts.SelectedRows.Count > 0 Then
+            Dim prow As DataGridViewRow = dgvlistproducts.SelectedRows(0)
+            Dim stock As Integer = Convert.ToInt32(prow.Cells(COL_STOCK).Value)
+
+            If nudQuantity.Value > stock Then
+                MsgBox("Entered quantity (" & nudQuantity.Value & ") exceeds available stock (" & stock & ").", vbExclamation, "Quantity Exceeded")
+                isUpdatingNud = True
+                nudQuantity.Value = stock
+                isUpdatingNud = False
+            End If
+        End If
+    End Sub
+
     Private Sub ResetQuantity()
+        isUpdatingNud = True
         nudQuantity.Value = 0
         nudQuantity.Maximum = 0
+        isUpdatingNud = False
     End Sub
 
     ' ================= ADD TO CART =================
@@ -319,34 +347,35 @@ Public Class frmPOS
         InvalidatePayment()
     End Sub
 
-    ' ================= CART EDIT QUANTITY & VALIDATION =================
+    ' ================= CART GRID VALIDATION & PROMPTS =================
+    Private Sub dgvCart_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles dgvCart.CellValidating
+        If e.RowIndex < 0 OrElse dgvCart.Columns(e.ColumnIndex).Name <> "Quantity" Then Exit Sub
+
+        Dim newValue As Integer = 0
+        If Not Integer.TryParse(e.FormattedValue.ToString(), newValue) OrElse newValue <= 0 Then
+            MsgBox("Please enter a valid quantity of at least 1.", vbExclamation, "Invalid Input")
+            e.Cancel = True
+            Exit Sub
+        End If
+
+        Dim editedRow As DataGridViewRow = dgvCart.Rows(e.RowIndex)
+        Dim variantId As Integer = Convert.ToInt32(editedRow.Tag)
+        Dim availableStock As Integer = GetStockForVariant(variantId)
+
+        If newValue > availableStock Then
+            MsgBox("Quantity (" & newValue & ") cannot exceed available stock (" & availableStock & ").", vbExclamation, "Quantity Exceeded")
+            e.Cancel = True
+        End If
+    End Sub
+
     Private Sub dgvCart_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCart.CellEndEdit
         If e.RowIndex < 0 OrElse dgvCart.Columns(e.ColumnIndex).Name <> "Quantity" Then Exit Sub
 
         Dim editedRow As DataGridViewRow = dgvCart.Rows(e.RowIndex)
-        Dim variantId As Integer = Convert.ToInt32(editedRow.Tag)
         Dim price As Decimal = Convert.ToDecimal(editedRow.Cells("UnitPrice").Value)
-        Dim newQty As Integer = 0
+        Dim qty As Integer = Convert.ToInt32(editedRow.Cells("Quantity").Value)
 
-        ' Validate integer input
-        If Not Integer.TryParse(Convert.ToString(editedRow.Cells("Quantity").Value), newQty) OrElse newQty <= 0 Then
-            MsgBox("Please enter a valid quantity of at least 1.", vbExclamation, "Point of Sale")
-            editedRow.Cells("Quantity").Value = 1
-            newQty = 1
-        End If
-
-        ' Get available stock from dgvlistproducts or DB
-        Dim availableStock As Integer = GetStockForVariant(variantId)
-
-        If newQty > availableStock Then
-            MsgBox("Quantity cannot exceed available stock of " & availableStock & ".", vbExclamation, "Point of Sale")
-            editedRow.Cells("Quantity").Value = availableStock
-            newQty = availableStock
-        End If
-
-        ' Update SubTotal automatically
-        editedRow.Cells("SubTotal").Value = newQty * price
-
+        editedRow.Cells("SubTotal").Value = qty * price
         RecalculateTotal()
         InvalidatePayment()
     End Sub
@@ -358,7 +387,6 @@ Public Class frmPOS
             End If
         Next
 
-        ' Fallback to DB fetch if item is not on the currently displayed page/category of dgvlistproducts
         Try
             If connection() Then
                 Dim q As String = "SELECT quantity_on_hand FROM tbl_product_variants WHERE variant_id = @vid"
@@ -375,22 +403,17 @@ Public Class frmPOS
 
     ' ================= REMOVE ITEM =================
     Private Sub btnRemoveItem_Click(sender As Object, e As EventArgs) Handles btnRemoveItem.Click
-
         If dgvCart.Rows.Count = 0 Then
             MsgBox("The cart is already empty.", vbInformation, "Remove Item")
-
             Exit Sub
         End If
 
-        ' ================= SELECTED ITEM =================
         If dgvCart.SelectedRows.Count > 0 Then
             If MsgBox("Are you sure you want to remove the selected item?", vbYesNo + vbQuestion, "Remove Item") <> MsgBoxResult.Yes Then
                 Exit Sub
             End If
-            dgvCart.Rows.RemoveAt(
-            dgvCart.SelectedRows(0).Index)
+            dgvCart.Rows.RemoveAt(dgvCart.SelectedRows(0).Index)
         Else
-            ' ================= NO ITEM SELECTED =================
             If MsgBox("No item is selected. Remove ALL items from the cart?", vbYesNo + vbQuestion, "Remove Item") <> MsgBoxResult.Yes Then
                 Exit Sub
             End If
@@ -408,7 +431,7 @@ Public Class frmPOS
         End If
     End Sub
 
-    ' ================= CLEAR (customer info only) =================
+    ' ================= CLEAR / CANCEL / SETTLE =================
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         If MsgBox("Are you sure you want to clear the customer fields?", vbYesNo + vbQuestion, "Clear Fields") <> MsgBoxResult.Yes Then
             Exit Sub
@@ -416,14 +439,12 @@ Public Class frmPOS
         ResetCustomerInfo()
     End Sub
 
-    ' ================= CANCEL TRANSACTION =================
     Private Sub btnCancelTransaction_Click(sender As Object, e As EventArgs) Handles btnCancelTransaction.Click
         If MsgBox("Cancel this transaction? All entered details and both item lists will be cleared.", vbYesNo + vbQuestion, "Point of Sale") = MsgBoxResult.Yes Then
             ResetAll()
         End If
     End Sub
 
-    ' ================= SETTLE PAYMENT (opens frmPayment) =================
     Private Sub btnSettlePayment_Click(sender As Object, e As EventArgs) Handles btnSettlePayment.Click
         If dgvCart.Rows.Count = 0 Then
             MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
@@ -431,38 +452,23 @@ Public Class frmPOS
         End If
 
         Using frm As New frmPayment()
-
             frm.GrandTotal = ToMoney(txtTotalAMount.Text)
-
-            ' Pass previous payment details back to frmPayment
             frm.PrefillORNo = txtReferenceNo.Text.Trim()
             frm.PrefillDate = paymentDate
             frm.PrefillMethod = txtPaymentMethod.Text.Trim()
             frm.PrefillEmployee = paymentEmployee
             frm.PrefillReceived = ToMoney(txtAmountReceived.Text)
-
             frm.StartPosition = FormStartPosition.CenterParent
 
             If frm.ShowDialog(Me) = DialogResult.OK Then
-
                 txtReferenceNo.Text = frm.ResultORNo
-
                 paymentDate = frm.ResultDate
-                txttransactdate.Text =
-            paymentDate.ToString("MMMM d, yyyy")
-
+                txttransactdate.Text = paymentDate.ToString("MMMM d, yyyy")
                 txtPaymentMethod.Text = frm.ResultMethod
-
                 paymentEmployee = frm.ResultEmployee
-
-                txtAmountReceived.Text =
-            frm.ResultReceived.ToString("N2")
-
-                txtAmountChange.Text =
-            frm.ResultChange.ToString("N2")
-
+                txtAmountReceived.Text = frm.ResultReceived.ToString("N2")
+                txtAmountChange.Text = frm.ResultChange.ToString("N2")
             End If
-
         End Using
     End Sub
 
@@ -529,7 +535,6 @@ Public Class frmPOS
                                         "VALUES (@tno, @bt, @sid, @bn, @orno, @ord, @pm, @emp, @tot, @paid, @chg, @by, 'Completed')"
 
                 Using c1 As New MySqlCommand(insTxn, cn, trans)
-
                     c1.Parameters.AddWithValue("@tno", txnNo)
                     c1.Parameters.AddWithValue("@bt", buyerType)
                     c1.Parameters.AddWithValue("@sid", If(foundStudentId > 0, CType(foundStudentId, Object), DBNull.Value))
@@ -542,10 +547,8 @@ Public Class frmPOS
                     c1.Parameters.AddWithValue("@paid", received)
                     c1.Parameters.AddWithValue("@chg", change)
                     c1.Parameters.AddWithValue("@by", currentuser.UserID)
-
                     c1.ExecuteNonQuery()
                     transactionId = c1.LastInsertedId
-
                 End Using
 
                 For Each row As DataGridViewRow In dgvCart.Rows
@@ -599,19 +602,11 @@ Public Class frmPOS
     End Sub
 
     Private Function ToMoney(s As String) As Decimal
-
         If String.IsNullOrWhiteSpace(s) Then Return 0D
-
         s = s.Replace("₱", "").Trim()
-
         Dim v As Decimal
-
-        If Decimal.TryParse(s, NumberStyles.Number, CultureInfo.CurrentCulture, v) Then
-            Return v
-        End If
-
+        If Decimal.TryParse(s, NumberStyles.Number, CultureInfo.CurrentCulture, v) Then Return v
         Return 0D
-
     End Function
 
     Private Sub ClearGridSelection(dgv As DataGridView)
@@ -648,7 +643,7 @@ Public Class frmPOS
         dgvCart.Rows.Clear()
         txtTotalAMount.Text = "₱0.00"
         txtTransactionNo.Text = NewTransactionNo()
-        cbocategory.SelectedIndex = cbocategory.Items.Count - 1
+        If cbocategory.Items.Count > 0 Then cbocategory.SelectedIndex = 0
         LoadProducts()
     End Sub
 

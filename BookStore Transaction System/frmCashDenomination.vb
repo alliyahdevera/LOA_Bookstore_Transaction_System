@@ -1,24 +1,4 @@
-﻿' ======================================================================
-' REPLACE THE WHOLE FILE: frmCashDenomination.vb   (End-Of-Day Reconciliation)
-' Needs 01_database_updates.sql to be run first.
-'
-' Flow (matches the supervisor's Q7 + Follow-up Q6):
-'   1) Pick the cashier (a Cashier is locked to himself/herself) and shift.
-'      Today's system sales for that cashier fill in automatically.
-'   2) Type the quantity of each bill/coin. Actual cash, difference and
-'      status (Balanced / Short / Over) compute by themselves.
-'   3) Fill in OR/AR range, Received By, and remarks (remarks required when
-'      Short/Over), then click "Generate Remittance".
-'   4) Saves tbl_end_of_day + tbl_cash_denominations + tbl_remittances in one
-'      transaction, then opens the Remittance Report.
-'
-' CONTROL MAPPING I ASSUMED (from the designer positions) - please confirm:
-'   txtRemarksr = reconciliation remarks      txtremarkrs = remittance remarks
-'   TextBox4    = Amt Remitted to Accounting  TextBox1    = Received By
-'   TextBox7    = Date Remitted               TextBox5    = Time Remitted
-'   cboFrom / cboTo = OR/AR From / To         txtrefno    = Reference No.
-' ======================================================================
-Imports System.Globalization
+﻿Imports System.Globalization
 Imports MySql.Data.MySqlClient
 
 Public Class frmCashDenomination
@@ -34,19 +14,33 @@ Public Class frmCashDenomination
     Private salaryCount As Integer = 0
     Private isLoading As Boolean = True
 
+    ' Class to manage Shift items in ComboBox
+    Private Class ShiftItem
+        Public Property ShiftId As Integer
+        Public Property ShiftName As String
+        Public Property StartTime As TimeSpan
+        Public Property EndTime As TimeSpan
+
+        Public Overrides Function ToString() As String
+            Return ShiftName
+        End Function
+    End Class
+
     ' ==================== LOAD ====================
     Private Sub frmCashDenomination_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        isLoading = True
+
         cboFrom.DropDownStyle = ComboBoxStyle.DropDownList
         cboTo.DropDownStyle = ComboBoxStyle.DropDownList
+        cboshift.DropDownStyle = ComboBoxStyle.DropDownList
 
         txtcashier.ReadOnly = True
 
+        ' Load Cashier Name
         Dim cashierDt As DataTable = GetDataTable(
-        "SELECT CONCAT(first_name, ' ', last_name) AS full_name " &
-        "FROM tbl_users " &
-        "WHERE user_id = @u",
-        New String() {"@u"},
-        New Object() {currentuser.UserID})
+            "SELECT CONCAT(first_name, ' ', last_name) AS full_name " &
+            "FROM tbl_users WHERE user_id = @u",
+            New String() {"@u"}, New Object() {currentuser.UserID})
 
         If cashierDt.Rows.Count > 0 Then
             txtcashier.Text = cashierDt.Rows(0)("full_name").ToString()
@@ -54,19 +48,53 @@ Public Class frmCashDenomination
             txtcashier.Text = currentuser.UserID.ToString()
         End If
 
-        ' typed boxes
+        ' Read-only settings
         txtRemarksr.ReadOnly = False : txtRemarksr.MaxLength = 255
         txtremarkrs.ReadOnly = False : txtremarkrs.MaxLength = 255
         TextBox1.ReadOnly = False : TextBox1.MaxLength = 150
 
-        Dim dt As DataTable = GetDataTable(
-            "SELECT u.user_id, CONCAT(u.first_name, ' ', u.last_name) AS full_name " &
-            "FROM tbl_users u INNER JOIN tbl_roles r ON u.role_id = r.role_id " &
-            "WHERE u.status = 'Active' AND r.role_name IN ('Cashier', 'Bookstore Supervisor') " &
-            "ORDER BY u.last_name, u.first_name")
+        ' Populate Shifts & Auto-Select Active Shift
+        PopulateShiftsAndAutoSelect()
 
         isLoading = False
         ResetEntryFields()
+        LoadSummary()
+    End Sub
+
+    ' ==================== SHIFT AUTOMATION ====================
+    Private Sub PopulateShiftsAndAutoSelect()
+        cboshift.Items.Clear()
+
+        ' Item for All Shifts
+        cboshift.Items.Add(New ShiftItem With {.ShiftId = 0, .ShiftName = "All Shifts"})
+
+        Dim dt As DataTable = GetDataTable("SELECT shift_id, shift_name, start_time, end_time FROM tbl_shifts WHERE status = 'Active'")
+        Dim activeShiftIndex As Integer = 0
+        Dim nowTime As TimeSpan = DateTime.Now.TimeOfDay
+
+        If dt IsNot Nothing Then
+            For Each r As DataRow In dt.Rows
+                Dim sItem As New ShiftItem With {
+                    .ShiftId = Convert.ToInt32(r("shift_id")),
+                    .ShiftName = r("shift_name").ToString(),
+                    .StartTime = TimeSpan.Parse(r("start_time").ToString()),
+                    .EndTime = TimeSpan.Parse(r("end_time").ToString())
+                }
+                Dim idx As Integer = cboshift.Items.Add(sItem)
+
+                ' Automated check if current time falls within this shift schedule
+                If nowTime >= sItem.StartTime AndAlso nowTime <= sItem.EndTime Then
+                    activeShiftIndex = idx
+                End If
+            Next
+        End If
+
+        ' Set selection to active shift, or default to 0 (All Shifts)
+        cboshift.SelectedIndex = activeShiftIndex
+    End Sub
+
+    Private Sub cboshift_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboshift.SelectedIndexChanged
+        If isLoading Then Exit Sub
         LoadSummary()
     End Sub
 
@@ -82,7 +110,7 @@ Public Class frmCashDenomination
                 .Rows(idx).Cells("Denomination").Value = d.ToString("N2")
                 .Rows(idx).Cells("Quantity").Value = 0
                 .Rows(idx).Cells("Amount").Value = "0.00"
-                .Rows(idx).Tag = d                       ' keep the real number
+                .Rows(idx).Tag = d
             Next
             .Columns("Denomination").ReadOnly = True
             .Columns("Quantity").ReadOnly = False
@@ -119,15 +147,21 @@ Public Class frmCashDenomination
         cboTo.Items.Clear()
 
         Dim uid As Integer = currentuser.UserID
+        Dim selectedShift As ShiftItem = TryCast(cboshift.SelectedItem, ShiftItem)
+        Dim shiftId As Integer = If(selectedShift IsNot Nothing, selectedShift.ShiftId, 0)
 
-        Dim dt As DataTable = GetDataTable(
-                        "SELECT payment_method, COUNT(*) AS cnt, IFNULL(SUM(total_amount), 0) AS amt " &
-                        "FROM tbl_transactions " &
-                        "WHERE created_by = @u AND or_date = CURDATE() AND status <> 'Cancelled' " &
-                        "GROUP BY payment_method",
-                        New String() {"@u"}, New Object() {uid})
+        ' Query summary filtered by Cashier and Shift ID
+        Dim querySummary As String =
+            "SELECT payment_method, COUNT(*) AS cnt, IFNULL(SUM(total_amount), 0) AS amt " &
+            "FROM tbl_transactions " &
+            "WHERE created_by = @u AND or_date = CURDATE() AND status <> 'Cancelled' " &
+            "AND (@s = 0 OR shift_id = @s) " &
+            "GROUP BY payment_method"
 
-        For Each r As DataRow In dt.Rows
+        Dim dt As DataTable = GetDataTable(querySummary, New String() {"@u", "@s"}, New Object() {uid, shiftId})
+
+        If dt IsNot Nothing Then
+            For Each r As DataRow In dt.Rows
                 Dim cnt As Integer = Convert.ToInt32(r("cnt"))
                 Dim amt As Decimal = Convert.ToDecimal(r("amt"))
                 If r("payment_method").ToString() = METHOD_SALARY Then
@@ -136,20 +170,27 @@ Public Class frmCashDenomination
                     cashCount += cnt : cashSales += amt
                 End If
             Next
+        End If
 
-            Dim ors As DataTable = GetDataTable(
-                "SELECT or_no FROM tbl_transactions " &
-                "WHERE created_by = @u AND or_date = CURDATE() AND status <> 'Cancelled' ORDER BY transaction_id",
-                New String() {"@u"}, New Object() {uid})
+        ' Query OR Numbers filtered by Cashier and Shift ID
+        Dim queryORs As String =
+            "SELECT or_no FROM tbl_transactions " &
+            "WHERE created_by = @u AND or_date = CURDATE() AND status <> 'Cancelled' " &
+            "AND (@s = 0 OR shift_id = @s) ORDER BY transaction_id"
 
+        Dim ors As DataTable = GetDataTable(queryORs, New String() {"@u", "@s"}, New Object() {uid, shiftId})
+
+        If ors IsNot Nothing Then
             For Each r As DataRow In ors.Rows
                 cboFrom.Items.Add(r("or_no").ToString())
                 cboTo.Items.Add(r("or_no").ToString())
             Next
-            If cboFrom.Items.Count > 0 Then
-                cboFrom.SelectedIndex = 0
-                cboTo.SelectedIndex = cboTo.Items.Count - 1
-            End If
+        End If
+
+        If cboFrom.Items.Count > 0 Then
+            cboFrom.SelectedIndex = 0
+            cboTo.SelectedIndex = cboTo.Items.Count - 1
+        End If
 
         lblcashsales.Text = Peso & cashSales.ToString("N2")
         lblsaldec.Text = Peso & salaryDeduction.ToString("N2")
@@ -208,13 +249,13 @@ Public Class frmCashDenomination
     End Sub
 
     ' ==================== GENERATE REMITTANCE ====================
-    Private Sub btnSaveTransaction_Click(sender As Object, e As EventArgs) Handles btnSaveTransaction.Click   ' Generate Remittance
+    Private Sub btnSaveTransaction_Click(sender As Object, e As EventArgs) Handles btnSaveTransaction.Click
         If RolePermissions.IsViewOnly() Then
             MsgBox("Your role has view-only access.", vbExclamation, "End-Of-Day Reconciliation")
             Exit Sub
         End If
         If cashCount + salaryCount = 0 Then
-            MsgBox("This cashier has no transactions today. Nothing to reconcile.", vbInformation, "End-Of-Day Reconciliation")
+            MsgBox("This cashier has no transactions for the selected shift today. Nothing to reconcile.", vbInformation, "End-Of-Day Reconciliation")
             Exit Sub
         End If
 

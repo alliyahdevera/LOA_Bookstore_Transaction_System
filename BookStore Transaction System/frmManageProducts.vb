@@ -13,7 +13,7 @@ Public Class frmManageProducts
         cboTypeOfProduct.DropDownStyle = ComboBoxStyle.DropDownList
 
         LoadCategoryCombo()
-        LoadGrid("")
+        LoadGrid("", GetSelectedCategoryId())
         ClearFields()
     End Sub
 
@@ -22,16 +22,43 @@ Public Class frmManageProducts
         lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy - hh:mm:ss tt")
     End Sub
 
+    ' Populate Category Dropdown with "All Categories" option
     Private Sub LoadCategoryCombo()
         Dim dt As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
+
+        ' Add default "All Categories" option
+        Dim row As DataRow = dt.NewRow()
+        row("category_id") = 0
+        row("category_name") = "-- All Categories --"
+        dt.Rows.InsertAt(row, 0)
+
         FillCombo(cboCategory, dt, "category_name", "category_id")
+        cboCategory.SelectedIndex = 0
     End Sub
 
-    Private Sub cboCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCategory.SelectedIndexChanged
+    Private Function GetSelectedCategoryId() As Integer
+        If cboCategory.SelectedValue IsNot Nothing AndAlso IsNumeric(cboCategory.SelectedValue) Then
+            Return Convert.ToInt32(cboCategory.SelectedValue)
+        End If
+        Return 0
+    End Function
+
+    Private Sub cboCategory_SelectedIndexChanged(sender As Object, e As EventArgs)
+        ' Re-filter grid based on current search term and selected category
+        LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
+
         If cboCategory.SelectedValue Is Nothing OrElse Not IsNumeric(cboCategory.SelectedValue) Then Exit Sub
 
+        Dim catId As Integer = Convert.ToInt32(cboCategory.SelectedValue)
+
+        ' If "All Categories" (0) is selected, clear product types dropdown
+        If catId = 0 Then
+            cboTypeOfProduct.DataSource = Nothing
+            Exit Sub
+        End If
+
         Dim dt As DataTable = GetDataTable("SELECT category_type_id, type_name FROM TBL_CATEGORY_TYPES WHERE category_id = @c ORDER BY type_name",
-                                           New String() {"@c"}, New Object() {cboCategory.SelectedValue})
+                                           New String() {"@c"}, New Object() {catId})
 
         FillCombo(cboTypeOfProduct, dt, "type_name", "category_type_id")
     End Sub
@@ -74,7 +101,7 @@ Public Class frmManageProducts
             Return False
         End If
 
-        If cboCategory.SelectedValue Is Nothing OrElse cboCategory.SelectedIndex = -1 Then
+        If cboCategory.SelectedValue Is Nothing OrElse GetSelectedCategoryId() = 0 Then
             MsgBox("Select a valid Category.", vbExclamation, "Manage Products")
             cboCategory.Focus()
             Return False
@@ -105,10 +132,10 @@ Public Class frmManageProducts
     ' Data Grid Operations
     ' ------------------------------------------------------------------
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        LoadGrid(txtSearch.Text.Trim())
+        LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
     End Sub
 
-    Private Sub LoadGrid(searchText As String)
+    Private Sub LoadGrid(searchText As String, categoryId As Integer)
         Try
             If Not connection() Then Exit Sub
             Dim query As String = "SELECT v.variant_id, p.product_id, v.product_code, p.product_name, p.product_description, " &
@@ -117,10 +144,12 @@ Public Class frmManageProducts
                                   "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
                                   "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
                                   "INNER JOIN TBL_CATEGORIES c ON ct.category_id = c.category_id " &
-                                  "WHERE v.product_code LIKE @s OR p.product_name LIKE @s " &
+                                  "WHERE (@cat = 0 OR c.category_id = @cat) " &
+                                  "AND (v.product_code LIKE @s OR p.product_name LIKE @s) " &
                                   "ORDER BY p.product_name, v.size"
 
             Using localCmd As New MySqlCommand(query, cn)
+                localCmd.Parameters.AddWithValue("@cat", categoryId)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
                     dgvListOfProducts.Rows.Clear()
@@ -220,7 +249,7 @@ Public Class frmManageProducts
             End If
             MsgBox("Product added. Use Stock Entry to add its initial quantity.", vbInformation, "Manage Products")
             ClearFields()
-            LoadGrid(txtSearch.Text.Trim())
+            LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
         Else
             MsgBox("Could not add product. The Product Code may already be in use.", vbExclamation, "Manage Products")
         End If
@@ -259,7 +288,7 @@ Public Class frmManageProducts
             End If
             MsgBox("Product updated.", vbInformation, "Manage Products")
             ClearFields()
-            LoadGrid(txtSearch.Text.Trim())
+            LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
         End If
     End Sub
 
@@ -282,7 +311,7 @@ Public Class frmManageProducts
             LogActivity("Remove Product", txtProductCode.Text.Trim(), "Removed product '" & txtProductName.Text.Trim() & "'")
             MsgBox("Product removed.", vbInformation, "Manage Products")
             ClearFields()
-            LoadGrid(txtSearch.Text.Trim())
+            LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
         Else
             MsgBox("Cannot remove: this product already has transaction or stock-in history. Set its Status to Inactive instead.", vbExclamation, "Manage Products")
         End If
@@ -304,8 +333,8 @@ Public Class frmManageProducts
         txtSize.Clear()
         txtStatus.Clear()
         txtSearch.Clear()
-        cboCategory.SelectedIndex = -1
-        cboTypeOfProduct.SelectedIndex = -1
+        cboCategory.SelectedIndex = 0
+        cboTypeOfProduct.DataSource = Nothing
         dgvListOfProducts.ClearSelection()
     End Sub
 

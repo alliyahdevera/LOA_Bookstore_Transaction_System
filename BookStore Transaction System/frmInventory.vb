@@ -87,4 +87,7 @@
 
     End Sub
 
+    Private Sub pnlinventory_Paint(sender As Object, e As PaintEventArgs) Handles pnlinventory.Paint
+
+    End Sub
 End Class

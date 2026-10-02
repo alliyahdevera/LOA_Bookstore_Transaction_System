@@ -190,13 +190,6 @@ Public Class frmTransactionDetails
         nud.Value = nud.Minimum
     End Sub
 
-    Private Sub nudQuantity_ValueChanged(sender As Object, e As EventArgs) Handles nudQuantity.ValueChanged
-        ' default replacement qty follows the returned qty
-        If rbtnexchange.Checked AndAlso numupqty.Maximum > 0 Then
-            numupqty.Value = Math.Max(numupqty.Minimum, Math.Min(nudQuantity.Value, numupqty.Maximum))
-        End If
-    End Sub
-
     ' ===================== ACTION TYPE =====================
     Private Sub rbtnAction_CheckedChanged(sender As Object, e As EventArgs) Handles rbtnReturn.CheckedChanged, rbtnexchange.CheckedChanged
         UpdateActionState()
@@ -438,6 +431,7 @@ Public Class frmTransactionDetails
         End Try
     End Sub
 
+
     ' ---- transaction helpers (use the SAME connection + transaction) ----
     Private Function ScalarInt(c As MySqlConnection, tx As MySqlTransaction, sql As String, id As Integer) As Integer
         Using q As New MySqlCommand(sql, c, tx)
@@ -446,6 +440,7 @@ Public Class frmTransactionDetails
             Return If(o Is Nothing OrElse IsDBNull(o), 0, Convert.ToInt32(o))
         End Using
     End Function
+
 
     Private Sub MoveStock(c As MySqlConnection, tx As MySqlTransaction, variantId As Integer, delta As Integer,
                           movementType As String, refNo As String, remarks As String)
@@ -563,5 +558,23 @@ Public Class frmTransactionDetails
     Private Sub btnclose_Click(sender As Object, e As EventArgs) Handles btnclose.Click
         Me.Close()
     End Sub
+    Private isUpdatingQty As Boolean = False
 
+    Private Sub nudQuantity_ValueChanged(sender As Object, e As EventArgs) Handles nudQuantity.ValueChanged
+        If isUpdatingQty Then Exit Sub
+
+        ' Fetch available quantity from selected DataGridView row or database
+        If dgvCart.SelectedRows.Count > 0 Then
+            Dim maxAllowedQty As Integer = Convert.ToInt32(dgvCart.SelectedRows(0).Cells("COL_PURCHASED_QTY").Value)
+
+            If nudQuantity.Value > maxAllowedQty Then
+                MsgBox("The entered quantity (" & nudQuantity.Value & ") exceeds the maximum allowed quantity (" & maxAllowedQty & ").",
+                       vbExclamation, "Quantity Exceeded")
+
+                isUpdatingQty = True
+                nudQuantity.Value = maxAllowedQty
+                isUpdatingQty = False
+            End If
+        End If
+    End Sub
 End Class

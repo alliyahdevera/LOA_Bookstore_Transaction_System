@@ -14,16 +14,19 @@ Public Class frmInventoryCountReconciliation
 
     ' ==================== LOAD ====================
     Private Sub frmInventoryCountReconciliation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        txtGrandTotal.ReadOnly = True                         ' this box is the Count Date
+        txtGrandTotal.ReadOnly = True          ' Displays the Count Date
         txtGrandTotal.Text = Date.Today.ToString("MMMM d, yyyy")
 
         cbocategory.DropDownStyle = ComboBoxStyle.DropDownList
         cbocategory.Items.Clear()
         cbocategory.Items.Add("All Categories")
+
         Dim cats As DataTable = GetDataTable("SELECT category_name FROM tbl_categories ORDER BY category_name")
-        For Each r As DataRow In cats.Rows
-            cbocategory.Items.Add(r("category_name").ToString())
-        Next
+        If cats IsNot Nothing Then
+            For Each r As DataRow In cats.Rows
+                cbocategory.Items.Add(r("category_name").ToString())
+            Next
+        End If
         cbocategory.SelectedIndex = 0
 
         With dgvlistproducts
@@ -33,7 +36,6 @@ Public Class frmInventoryCountReconciliation
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
             .ReadOnly = False
             For Each col As DataGridViewColumn In .Columns
-                ' only Physical Quantity and Remarks are typed by the user
                 col.ReadOnly = Not (col.Name = "PhysicalQuantity" OrElse col.Name = "Remarks")
             Next
         End With
@@ -64,7 +66,6 @@ Public Class frmInventoryCountReconciliation
         Dim keyword As String = txtSearch.Text.Trim()
         Dim category As String = If(cbocategory.SelectedIndex <= 0, "", cbocategory.Text)
 
-        ' LEFT JOIN: items already saved in the current count come back pre-filled
         Dim query As String =
             "SELECT v.variant_id, v.product_code, p.product_name, c.category_name, ct.type_name, v.size, " &
             "v.quantity_on_hand, d.inventory_count_detail_id, d.system_quantity, d.physical_quantity, " &
@@ -88,33 +89,34 @@ Public Class frmInventoryCountReconciliation
 
         Dim dt As DataTable = GetDataTable(query, names.ToArray(), values.ToArray())
 
-        For Each r As DataRow In dt.Rows
-            Dim idx As Integer = dgvlistproducts.Rows.Add()
-            Dim row As DataGridViewRow = dgvlistproducts.Rows(idx)
-            Dim info As New CountRow With {.VariantId = Convert.ToInt32(r("variant_id"))}
+        If dt IsNot Nothing Then
+            For Each r As DataRow In dt.Rows
+                Dim idx As Integer = dgvlistproducts.Rows.Add()
+                Dim row As DataGridViewRow = dgvlistproducts.Rows(idx)
+                Dim info As New CountRow With {.VariantId = Convert.ToInt32(r("variant_id"))}
 
-            row.Cells("ProductCode").Value = r("product_code").ToString()
-            row.Cells("ProductName").Value = r("product_name").ToString()
-            row.Cells("Category").Value = r("category_name").ToString()
-            row.Cells("TypeofProduct").Value = r("type_name").ToString()
-            row.Cells("Size").Value = r("size").ToString()
+                row.Cells("ProductCode").Value = r("product_code").ToString()
+                row.Cells("ProductName").Value = r("product_name").ToString()
+                row.Cells("Category").Value = r("category_name").ToString()
+                row.Cells("TypeofProduct").Value = r("type_name").ToString()
+                row.Cells("Size").Value = r("size").ToString()
 
-            If Not IsDBNull(r("inventory_count_detail_id")) Then
-                ' already saved in this count
-                info.DetailId = Convert.ToInt32(r("inventory_count_detail_id"))
-                info.Adjusted = Convert.ToInt32(r("adjusted")) = 1
-                row.Cells("SystemQuantity").Value = Convert.ToInt32(r("system_quantity"))
-                row.Cells("PhysicalQuantity").Value = Convert.ToInt32(r("physical_quantity"))
-                row.Cells("Remarks").Value = If(IsDBNull(r("remarks")), "", r("remarks").ToString())
-            Else
-                row.Cells("SystemQuantity").Value = Convert.ToInt32(r("quantity_on_hand"))
-                row.Cells("PhysicalQuantity").Value = ""
-                row.Cells("Remarks").Value = ""
-            End If
+                If Not IsDBNull(r("inventory_count_detail_id")) AndAlso Convert.ToInt32(r("inventory_count_detail_id")) > 0 Then
+                    info.DetailId = Convert.ToInt32(r("inventory_count_detail_id"))
+                    info.Adjusted = Convert.ToInt32(r("adjusted")) = 1
+                    row.Cells("SystemQuantity").Value = Convert.ToInt32(r("system_quantity"))
+                    row.Cells("PhysicalQuantity").Value = Convert.ToInt32(r("physical_quantity"))
+                    row.Cells("Remarks").Value = If(IsDBNull(r("remarks")), "", r("remarks").ToString())
+                Else
+                    row.Cells("SystemQuantity").Value = If(IsDBNull(r("quantity_on_hand")), 0, Convert.ToInt32(r("quantity_on_hand")))
+                    row.Cells("PhysicalQuantity").Value = ""
+                    row.Cells("Remarks").Value = ""
+                End If
 
-            row.Tag = info
-            RefreshRow(row)
-        Next
+                row.Tag = info
+                RefreshRow(row)
+            Next
+        End If
 
         dgvlistproducts.ClearSelection()
         UpdateCards()
@@ -124,7 +126,7 @@ Public Class frmInventoryCountReconciliation
     Private Sub dgvlistproducts_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles dgvlistproducts.CellBeginEdit
         If e.RowIndex < 0 Then Exit Sub
         Dim info As CountRow = TryCast(dgvlistproducts.Rows(e.RowIndex).Tag, CountRow)
-        ' a saved line is locked (adjust it instead of re-typing it)
+        ' Lock line if already saved
         If info IsNot Nothing AndAlso info.DetailId > 0 Then e.Cancel = True
     End Sub
 
@@ -154,7 +156,6 @@ Public Class frmInventoryCountReconciliation
         Return "Excess"
     End Function
 
-    ' recomputes Difference / Status / colour of one row
     Private Sub RefreshRow(row As DataGridViewRow)
         Dim info As CountRow = TryCast(row.Tag, CountRow)
         Dim txt As String = Convert.ToString(row.Cells("PhysicalQuantity").Value).Trim()
@@ -169,7 +170,9 @@ Public Class frmInventoryCountReconciliation
             Exit Sub
         End If
 
-        Dim sys As Integer = Convert.ToInt32(row.Cells("SystemQuantity").Value)
+        Dim sys As Integer = 0
+        Integer.TryParse(Convert.ToString(row.Cells("SystemQuantity").Value), sys)
+
         Dim diff As Integer = phys - sys
         Dim adjusted As Boolean = (info IsNot Nothing AndAlso info.Adjusted)
 
@@ -193,22 +196,25 @@ Public Class frmInventoryCountReconciliation
         For Each row As DataGridViewRow In dgvlistproducts.Rows
             Dim d As Object = row.Cells("Difference").Value
             If d Is Nothing OrElse Convert.ToString(d) = "" Then Continue For
-            counted += 1
-            Dim diff As Integer = Convert.ToInt32(d)
-            If diff = 0 Then
-                matched += 1
-            ElseIf diff < 0 Then
-                shortCount += 1
-            Else
-                excess += 1
+
+            Dim diff As Integer = 0
+            If Integer.TryParse(Convert.ToString(d), diff) Then
+                counted += 1
+                If diff = 0 Then
+                    matched += 1
+                ElseIf diff < 0 Then
+                    shortCount += 1
+                Else
+                    excess += 1
+                End If
             End If
         Next
 
-        lbltotalproducts.Text = counted.ToString("N0")                 ' Total Items Counted
-        lbltotalqproducts.Text = matched.ToString("N0")                ' Matched Items
-        lblonhand.Text = (shortCount + excess).ToString("N0")          ' With Discrepancies
-        lblcriticallvl.Text = shortCount.ToString("N0")                ' Short / Missing
-        lbloutofstocks.Text = excess.ToString("N0")                    ' Excess
+        lbltotalproducts.Text = counted.ToString("N0")
+        lbltotalqproducts.Text = matched.ToString("N0")
+        lblonhand.Text = (shortCount + excess).ToString("N0")
+        lblcriticallvl.Text = shortCount.ToString("N0")
+        lbloutofstocks.Text = excess.ToString("N0")
     End Sub
 
     Private Function HasUnsavedEntries() As Boolean
@@ -241,7 +247,9 @@ Public Class frmInventoryCountReconciliation
 
         Dim discrepancies As Integer = 0
         For Each row As DataGridViewRow In pending
-            If Convert.ToInt32(row.Cells("Difference").Value) <> 0 Then discrepancies += 1
+            Dim diff As Integer = 0
+            Integer.TryParse(Convert.ToString(row.Cells("Difference").Value), diff)
+            If diff <> 0 Then discrepancies += 1
         Next
 
         If MsgBox("Save " & pending.Count & " counted item(s) (" & discrepancies & " with discrepancy)?",
@@ -250,7 +258,6 @@ Public Class frmInventoryCountReconciliation
         Try
             Dim countId As Long = currentCountId
             Dim countNo As String = currentCountNo
-            Dim newIds As New List(Of Long)
 
             Using c As MySqlConnection = NewConnection()
                 c.Open()
@@ -287,11 +294,13 @@ Public Class frmInventoryCountReconciliation
                                 q.Parameters.AddWithValue("@st", StatusOf(diff))
                                 q.Parameters.AddWithValue("@r", If(remarks = "", CType(DBNull.Value, Object), remarks))
                                 q.ExecuteNonQuery()
-                                newIds.Add(q.LastInsertedId)
+
+                                ' Assign detail ID directly to avoid mapping errors
+                                info.DetailId = CInt(q.LastInsertedId)
                             End Using
                         Next
 
-                        ' header status: Reconciled when nothing is waiting for an adjustment
+                        ' Update header status
                         Using q As New MySqlCommand(
                             "UPDATE tbl_inventory_counts SET status = IF((SELECT COUNT(*) FROM tbl_inventory_count_details " &
                             "WHERE inventory_count_id = @c AND status <> 'Matched' AND adjusted = 0) = 0, 'Reconciled', 'Pending') " &
@@ -310,9 +319,6 @@ Public Class frmInventoryCountReconciliation
 
             currentCountId = countId
             currentCountNo = countNo
-            For i As Integer = 0 To pending.Count - 1
-                CType(pending(i).Tag, CountRow).DetailId = CInt(newIds(i))
-            Next
 
             LogActivity("Inventory Count", countNo, "Saved " & pending.Count & " counted item(s), " & discrepancies & " discrepancy(ies)")
 
@@ -375,13 +381,27 @@ Public Class frmInventoryCountReconciliation
         End Using
     End Sub
 
+    ' Populate Category Dropdown with "All Categories" option
+    Private Sub LoadCategoryCombo()
+        Dim dt As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
+
+        ' Add default "All Categories" option
+        Dim row As DataRow = dt.NewRow()
+        row("category_id") = 0
+        row("category_name") = "-- All Categories --"
+        dt.Rows.InsertAt(row, 0)
+
+        FillCombo(cbocategory, dt, "category_name", "category_id")
+        cbocategory.SelectedIndex = 0
+    End Sub
+
     ' ==================== CLEAR / CANCEL ====================
     Private Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
         If HasUnsavedEntries() Then
             If MsgBox("Discard the counts that are not saved yet and start a new count sheet?",
                       vbYesNo + vbQuestion, "Inventory Count") <> MsgBoxResult.Yes Then Exit Sub
         End If
-        currentCountId = 0           ' next Save Count starts a NEW count sheet
+        currentCountId = 0
         currentCountNo = ""
         txtSearch.Clear()
         cbocategory.SelectedIndex = 0

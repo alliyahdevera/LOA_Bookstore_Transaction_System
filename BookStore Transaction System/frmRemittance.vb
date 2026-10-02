@@ -9,14 +9,14 @@ Public Class frmRemittance
 
     ' ==================== LOAD ====================
     Private Sub frmRemittance_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        isLoading = True
+
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         dtfrom.Value = New Date(Date.Today.Year, Date.Today.Month, 1)
         dtto.Value = Date.Today
 
         cbocashier.DropDownStyle = ComboBoxStyle.DropDownList
-
-        cbocashier.SelectedIndex = 0
 
         dgvsalesreport.Columns("Difference").HeaderText = "Salary Deduction"
         dgvsalesreport.AllowUserToAddRows = False
@@ -25,16 +25,28 @@ Public Class frmRemittance
         dgvsalesreport.MultiSelect = False
         dgvsalesreport.SelectionMode = DataGridViewSelectionMode.FullRowSelect
 
+        ' Populate Cashiers ComboBox
         Dim dt As DataTable = GetDataTable(
             "SELECT u.user_id, CONCAT(u.first_name, ' ', u.last_name) AS full_name " &
             "FROM tbl_users u INNER JOIN tbl_roles r ON u.role_id = r.role_id " &
             "WHERE r.role_name IN ('Cashier', 'Bookstore Supervisor') ORDER BY u.last_name, u.first_name")
+
         Dim allRow As DataRow = dt.NewRow()
         allRow("user_id") = 0
         allRow("full_name") = "All Cashiers"
         dt.Rows.InsertAt(allRow, 0)
 
+        cbocashier.DataSource = dt
+        cbocashier.DisplayMember = "full_name"
+        cbocashier.ValueMember = "user_id"
+        cbocashier.SelectedIndex = 0
+
         isLoading = False
+        LoadGrid()
+    End Sub
+
+    Private Sub cbocashier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocashier.SelectedIndexChanged
+        If isLoading Then Exit Sub
         LoadGrid()
     End Sub
 
@@ -56,7 +68,9 @@ Public Class frmRemittance
 
     Private Sub LoadGrid()
         Dim cashierId As Integer = 0
-
+        If cbocashier.SelectedValue IsNot Nothing Then
+            Integer.TryParse(cbocashier.SelectedValue.ToString(), cashierId)
+        End If
 
         Dim dt As DataTable = GetDataTable(
             "SELECT r.remittance_no, e.reconciliation_date, CONCAT(u.first_name, ' ', u.last_name) AS cashier, " &
@@ -68,51 +82,53 @@ Public Class frmRemittance
             "WHERE e.reconciliation_date BETWEEN @d1 AND @d2 " &
             "AND (@c = 0 OR e.cashier_id = @c) " &
             "ORDER BY r.remitted_at DESC, r.remittance_id DESC",
-            New String() {"@d1", "@d2", "@c", "@s"},
+            New String() {"@d1", "@d2", "@c"},
             New Object() {dtfrom.Value.Date, dtto.Value.Date, cashierId})
 
         dgvsalesreport.Rows.Clear()
 
-        For Each r As DataRow In dt.Rows
-            Dim idx As Integer = dgvsalesreport.Rows.Add()
-            Dim row As DataGridViewRow = dgvsalesreport.Rows(idx)
+        If dt IsNot Nothing Then
+            For Each r As DataRow In dt.Rows
+                Dim idx As Integer = dgvsalesreport.Rows.Add()
+                Dim row As DataGridViewRow = dgvsalesreport.Rows(idx)
 
-            Dim recDate As Date = Convert.ToDateTime(r("reconciliation_date"))
-            Dim diff As Decimal = Convert.ToDecimal(r("difference"))
+                Dim recDate As Date = Convert.ToDateTime(r("reconciliation_date"))
+                Dim diff As Decimal = Convert.ToDecimal(r("difference"))
 
-            ' remarks column: "No variance" / "Short ₱x" / "Over ₱x" + any typed remarks
-            Dim remarks As String
-            If diff = 0D Then
-                remarks = "No variance"
-            ElseIf diff < 0D Then
-                remarks = "Short " & Peso & Math.Abs(diff).ToString("N2")
-            Else
-                remarks = "Over " & Peso & diff.ToString("N2")
-            End If
-            Dim typed As String = (Txt(r, "eod_remarks") & " " & Txt(r, "rem_remarks")).Trim()
-            If typed <> "" Then remarks &= " - " & typed
+                ' Remarks column formatting
+                Dim remarks As String
+                If diff = 0D Then
+                    remarks = "No variance"
+                ElseIf diff < 0D Then
+                    remarks = "Short " & Peso & Math.Abs(diff).ToString("N2")
+                Else
+                    remarks = "Over " & Peso & diff.ToString("N2")
+                End If
+                Dim typed As String = (Txt(r, "eod_remarks") & " " & Txt(r, "rem_remarks")).Trim()
+                If typed <> "" Then remarks &= " - " & typed
 
-            row.Cells("RemittanceNo").Value = r("remittance_no").ToString()
-            row.Cells("nDate").Value = recDate.ToString("MMMM d, yyyy")
-            row.Cells("CashierStaff").Value = r("cashier").ToString()
-            row.Cells("TotalSales").Value = Peso & Convert.ToDecimal(r("total_sales")).ToString("N2")
-            row.Cells("CashCollected").Value = Peso & Convert.ToDecimal(r("actual_cash")).ToString("N2")
-            row.Cells("Difference").Value = Peso & Convert.ToDecimal(r("salary_deduction")).ToString("N2")
-            row.Cells("TotalRemittance").Value = Peso & Convert.ToDecimal(r("cash_sales")).ToString("N2")
-            row.Cells("ORARRange").Value = Txt(r, "or_from") & " - " & Txt(r, "or_to")
-            row.Cells("AmtAccounting").Value = Peso & Convert.ToDecimal(r("remittance_amount")).ToString("N2")
-            row.Cells("DateTimeRemitted").Value = If(IsDBNull(r("remitted_at")), "", Convert.ToDateTime(r("remitted_at")).ToString("MMMM d, yyyy - h:mm tt"))
-            row.Cells("ReceivedBy").Value = Txt(r, "received_by")
-            row.Cells("Remarks").Value = remarks
-            row.Cells("Signature").Value = ""
+                row.Cells("RemittanceNo").Value = r("remittance_no").ToString()
+                row.Cells("nDate").Value = recDate.ToString("MMMM d, yyyy")
+                row.Cells("CashierStaff").Value = r("cashier").ToString()
+                row.Cells("TotalSales").Value = Peso & Convert.ToDecimal(r("total_sales")).ToString("N2")
+                row.Cells("CashCollected").Value = Peso & Convert.ToDecimal(r("actual_cash")).ToString("N2")
+                row.Cells("Difference").Value = Peso & Convert.ToDecimal(r("salary_deduction")).ToString("N2")
+                row.Cells("TotalRemittance").Value = Peso & Convert.ToDecimal(r("cash_sales")).ToString("N2")
+                row.Cells("ORARRange").Value = Txt(r, "or_from") & " - " & Txt(r, "or_to")
+                row.Cells("AmtAccounting").Value = Peso & Convert.ToDecimal(r("remittance_amount")).ToString("N2")
+                row.Cells("DateTimeRemitted").Value = If(IsDBNull(r("remitted_at")), "", Convert.ToDateTime(r("remitted_at")).ToString("MMMM d, yyyy - h:mm tt"))
+                row.Cells("ReceivedBy").Value = Txt(r, "received_by")
+                row.Cells("Remarks").Value = remarks
+                row.Cells("Signature").Value = ""
 
-            If diff <> 0D Then row.DefaultCellStyle.ForeColor = Color.Firebrick
-        Next
+                If diff <> 0D Then row.DefaultCellStyle.ForeColor = Color.Firebrick
+            Next
+        End If
 
         dgvsalesreport.ClearSelection()
     End Sub
 
-    ' ==================== PRINT (button text is "Print") ====================
+    ' ==================== PRINT ====================
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
         If dgvsalesreport.SelectedRows.Count = 0 Then
             MsgBox("Select a remittance record to print.", vbExclamation, "Remittance Report")
@@ -151,7 +167,6 @@ Public Class frmRemittance
                 New KeyValuePair(Of String, String)("Remittance No.", "RemittanceNo"),
                 New KeyValuePair(Of String, String)("Date", "nDate"),
                 New KeyValuePair(Of String, String)("Cashier / Staff", "CashierStaff"),
-                New KeyValuePair(Of String, String)("Sales Period", "SalesPeriod"),
                 New KeyValuePair(Of String, String)("Total Sales", "TotalSales"),
                 New KeyValuePair(Of String, String)("Cash Collected", "CashCollected"),
                 New KeyValuePair(Of String, String)("Salary Deduction", "Difference"),

@@ -11,6 +11,19 @@ Public Class frmStockInHistory
         LoadGrid()
     End Sub
 
+    ' Populate Category Dropdown with "All Categories" option
+    Private Sub LoadCategoryCombo()
+        Dim dt As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
+
+        ' Add default "All Categories" option
+        Dim row As DataRow = dt.NewRow()
+        row("category_id") = 0
+        row("category_name") = "-- All Categories --"
+        dt.Rows.InsertAt(row, 0)
+
+        FillCombo(cbocategory, dt, "category_name", "category_id")
+        cbocategory.SelectedIndex = 0
+    End Sub
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btngenerate.Click   ' Generate
         LoadGrid()
     End Sub
