@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 02, 2026 at 04:05 PM
+-- Host: localhost
+-- Generation Time: Oct 02, 2026 at 05:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -107,7 +107,17 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 (57, 1, 'Activity', 'Inventory Count', 'CNT-20261002213112', NULL, NULL, NULL, NULL, 'Saved 2 counted item(s), 2 discrepancy(ies)', 'Success', NULL, '2026-10-02 21:31:13'),
 (58, 1, 'Activity', 'Inventory Adjustment', 'CNT-20261002213112', NULL, NULL, NULL, NULL, 'SUP-ART (N/A): 10 -> 5. Reason: 231231', 'Success', NULL, '2026-10-02 21:31:54'),
 (59, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 22:03:31'),
-(60, 1, 'Activity', 'End of Day', 'EOD-20261002220354', NULL, NULL, NULL, NULL, 'Remittance REM-20261002220442506 - Expected 1,250.00, Actual 1,250.00 (Balanced)', 'Success', NULL, '2026-10-02 22:04:42');
+(60, 1, 'Activity', 'End of Day', 'EOD-20261002220354', NULL, NULL, NULL, NULL, 'Remittance REM-20261002220442506 - Expected 1,250.00, Actual 1,250.00 (Balanced)', 'Success', NULL, '2026-10-02 22:04:42'),
+(61, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 22:33:03'),
+(62, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 22:35:35'),
+(63, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 22:35:48'),
+(64, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 22:57:47'),
+(65, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 23:10:29'),
+(66, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 23:12:13'),
+(67, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 23:12:27'),
+(68, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 23:14:42'),
+(69, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 23:16:15'),
+(70, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 23:16:32');
 
 -- --------------------------------------------------------
 
@@ -1541,31 +1551,31 @@ CREATE TABLE `tbl_students` (
 --
 
 INSERT INTO `tbl_students` (`student_id`, `student_no`, `last_name`, `first_name`, `education_level`, `grade_level`, `program_strand`, `section`) VALUES
-(1, '2235-20', 'Dela Cruz', 'Miguel', NULL, 'Grade 3', NULL, 'Sampaguita'),
-(2, '2026-00102', 'Villanueva', 'Isabella', NULL, 'Grade 5', NULL, 'Rosal'),
-(3, '2025-00215', 'Ramirez', 'Gabriel', NULL, 'Grade 7', NULL, 'Narra'),
-(4, '1235-23', 'Aquino', 'Sofia', NULL, 'Grade 8', NULL, 'Molave'),
-(5, '2435-23', 'Castillo', 'Lucas', NULL, 'Grade 10', NULL, 'Newton'),
-(6, '2024-00318', 'Mercado', 'Angela', NULL, 'Grade 10', NULL, 'Einstein'),
-(7, '2025-00420', 'Navarro', 'Joshua', NULL, 'Grade 11', NULL, 'STEM-A'),
-(8, '2025-00421', 'Pascual', 'Bianca', NULL, 'Grade 12', NULL, 'ABM-B'),
-(9, '2343-22', 'Fernandez', 'Carlo', 'College', '1st Year College', NULL, 'BSIT 1A'),
-(10, '1785-23', 'Domingo', 'Patricia', 'College', '2nd Year College', NULL, 'BSCS-2B'),
-(11, '1123-24', 'Fernandez', 'Gio', 'College', '3rd Year', NULL, '31E1'),
-(12, '1127-24', 'Enclona', 'Paul Benedict', 'College', '3rd Year', NULL, '31E1'),
-(13, '1208-24', 'Para', 'Andrea', 'College', '3rd Year', NULL, '31E1'),
-(14, '1314-24', 'Batoy', 'Nicholo John', 'College', '3rd Year', NULL, '31E1'),
-(15, '1327-24', 'Reales', 'Jonnidel', 'College', '3rd Year', NULL, '31E1'),
-(16, '1395-24', 'Solis', 'Sophia Cassandra', 'College', '3rd Year', NULL, '31E3'),
-(17, '1396-24', 'Mendoza', 'Stephanie', 'College', '3rd Year', NULL, '31E1'),
-(18, '1522-24', 'Barcinas', 'Marc Denize', 'College', '3rd Year', NULL, '31E1'),
-(19, '1808-23', 'Villacorte', 'Joshua', 'College', '3rd Year', NULL, '31E1'),
-(20, '2055-24', 'Canua', 'Carl James', 'College', '3rd Year', NULL, '31E3'),
-(21, '2056-24', 'Ramones', 'Leisbeth', 'College', '3rd Year', NULL, '31E1'),
-(22, '2154-24', 'Sabasaje', 'Sho Uno', 'College', '3rd Year', NULL, '31E1'),
-(23, '2208-24', 'Eullo', 'John Raven', 'College', '3rd Year', NULL, '31E1'),
-(24, '2786-24', 'Roque', 'Kevin Clerck', 'College', '3rd Year', NULL, '31E1'),
-(25, '2789-24', 'De Vera', 'Alliyah', 'College', '3rd Year', 'BSIT', '31E1');
+(1, '2235-20', 'Dela Cruz', 'Miguel', 'Grade School', 'Grade 3', NULL, 'Sampaguita'),
+(2, '2026-00102', 'Villanueva', 'Isabella', 'Grade School', 'Grade 5', NULL, 'Rosal'),
+(3, '2025-00215', 'Ramirez', 'Gabriel', 'Grade School', 'Grade 7', NULL, 'Narra'),
+(4, '1235-23', 'Aquino', 'Sofia', 'Grade School', 'Grade 8', NULL, 'Molave'),
+(5, '2435-23', 'Castillo', 'Lucas', 'Grade School', 'Grade 10', NULL, 'Newton'),
+(6, '2024-00318', 'Mercado', 'Angela', 'Grade School', 'Grade 10', NULL, 'Einstein'),
+(7, '2025-00420', 'Navarro', 'Joshua', 'Senior High School', 'Grade 11', 'ABM', 'STEM-A'),
+(8, '2025-00421', 'Pascual', 'Bianca', 'Senior High School', 'Grade 12', 'HUMSS', 'ABM-B'),
+(9, '2343-22', 'Fernandez', 'Carlo', 'College', '1st Year College', 'BSCS', 'BSIT 1A'),
+(10, '1785-23', 'Domingo', 'Patricia', 'College', '2nd Year College', 'BSCpE', 'BSCS-2B'),
+(11, '1123-24', 'Fernandez', 'Gio', 'College', '3rd Year', 'BSPsych', '31E1'),
+(12, '1127-24', 'Enclona', 'Paul Benedict', 'College', '3rd Year', 'BSBA', '31E1'),
+(13, '1208-24', 'Para', 'Andrea', 'College', '3rd Year', 'BSBA', '31E1'),
+(14, '1314-24', 'Batoy', 'Nicholo John', 'College', '3rd Year', 'BSCS', '31E1'),
+(15, '1327-24', 'Reales', 'Jonnidel', 'College', '3rd Year', 'JD', '31E1'),
+(16, '1395-24', 'Solis', 'Sophia Cassandra', 'College', '3rd Year', 'BSREM', '31E3'),
+(17, '1396-24', 'Mendoza', 'Stephanie', 'College', '3rd Year', 'BSPsych', '31E1'),
+(18, '1522-24', 'Barcinas', 'Marc Denize', 'College', '3rd Year', 'BSHM', '31E1'),
+(19, '1808-23', 'Villacorte', 'Joshua', 'College', '3rd Year', 'BSCA', '31E1'),
+(20, '2055-24', 'Canua', 'Carl James', 'College', '3rd Year', 'BSIT', '31E3'),
+(21, '2056-24', 'Ramones', 'Leisbeth', 'College', '3rd Year', 'BSIT', '31E1'),
+(22, '2154-24', 'Sabasaje', 'Sho Uno', 'College', '3rd Year', 'BSHM', '31E1'),
+(23, '2208-24', 'Eullo', 'John Raven', 'College', '3rd Year', 'BSCS', '31E1'),
+(24, '2786-24', 'Roque', 'Kevin Clerck', 'College', '3rd Year', 'BSIE', '31E1'),
+(25, '2789-24', 'De Vera', 'Alliyah', 'College', '3rd Year', 'BSCpE', '31E1');
 
 -- --------------------------------------------------------
 
@@ -1831,7 +1841,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_audit_logs`
 --
 ALTER TABLE `tbl_audit_logs`
-  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `tbl_cash_denominations`
