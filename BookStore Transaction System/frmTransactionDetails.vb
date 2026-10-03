@@ -11,7 +11,8 @@ Public Class frmTransactionDetails
         Public VariantId As Integer
         Public UnitPrice As Decimal
         Public Purchased As Integer
-        Public Processed As Integer   ' already returned/exchanged
+        Public Processed As Integer
+        Public PickupDate As Date?
         Public ReadOnly Property Available As Integer
             Get
                 Return Purchased - Processed
@@ -110,7 +111,7 @@ Public Class frmTransactionDetails
         ' items + how many of each were already returned/exchanged
         Dim items As DataTable = GetDataTable(
             "SELECT ti.transaction_item_id, ti.variant_id, p.product_name, c.category_name, v.size, " &
-            "ti.quantity, ti.subtotal, " &
+            "ti.quantity, ti.subtotal, ti.pickup_date, " &
             "IFNULL((SELECT SUM(rei.quantity) FROM tbl_return_exchange_items rei " &
             "        INNER JOIN tbl_returns_exchanges re ON rei.return_exchange_id = re.return_exchange_id " &
             "        WHERE rei.transaction_item_id = ti.transaction_item_id AND re.status = 'Completed'), 0) AS processed_qty " &
@@ -134,7 +135,8 @@ Public Class frmTransactionDetails
                 .VariantId = Convert.ToInt32(it("variant_id")),
                 .UnitPrice = If(qty > 0, lineTotal / qty, 0D),
                 .Purchased = qty,
-                .Processed = Convert.ToInt32(it("processed_qty"))
+                .Processed = Convert.ToInt32(it("processed_qty")),
+                .PickupDate = If(IsDBNull(it("pickup_date")), Nothing, CType(Convert.ToDateTime(it("pickup_date")), Date?))
             }
             Dim idx As Integer = dgvCart.Rows.Add(
                 Convert.ToString(it("product_name")), Convert.ToString(it("category_name")),
@@ -514,6 +516,10 @@ Public Class frmTransactionDetails
                 If sz <> "" AndAlso sz <> "N/A" Then nm &= " (" & sz & ")"
                 RcText(g, nm, fReg, w)
                 RcLR(g, "  " & row.Cells(3).Value & " x " & row.Cells(4).Value, Convert.ToString(row.Cells(5).Value), fReg, w)
+                Dim inf As ItemInfo = TryCast(row.Tag, ItemInfo)
+                If inf IsNot Nothing AndAlso inf.PickupDate.HasValue Then
+                    RcText(g, "  * NO STOCK - CLAIM ON " & inf.PickupDate.Value.ToString("MMM d, yyyy"), fReg, w)
+                End If
             Next
 
             RcLine(g, w)
@@ -524,6 +530,15 @@ Public Class frmTransactionDetails
             RcLR(g, "Cashier:", rcCashier, fReg, w)
             RcLR(g, "Status:", rcStatus, fReg, w)
             rY += 8
+            For Each r As DataGridViewRow In dgvCart.Rows
+                Dim inf2 As ItemInfo = TryCast(r.Tag, ItemInfo)
+                If inf2 IsNot Nothing AndAlso inf2.PickupDate.HasValue Then
+                    RcLine(g, w)
+                    RcCenter(g, "Please present this receipt", fReg, w)
+                    RcCenter(g, "when claiming your pick-up item(s).", fReg, w)
+                    Exit For
+                End If
+            Next
             RcCenter(g, "Thank you!", fReg, w)
         End Using
         e.HasMorePages = False
@@ -565,7 +580,7 @@ Public Class frmTransactionDetails
 
         ' Fetch available quantity from selected DataGridView row or database
         If dgvCart.SelectedRows.Count > 0 Then
-            Dim maxAllowedQty As Integer = Convert.ToInt32(dgvCart.SelectedRows(0).Cells("COL_PURCHASED_QTY").Value)
+            Dim maxAllowedQty As Integer = Convert.ToInt32(dgvCart.SelectedRows(0).Cells("Quantity").Value)
 
             If nudQuantity.Value > maxAllowedQty Then
                 MsgBox("The entered quantity (" & nudQuantity.Value & ") exceeds the maximum allowed quantity (" & maxAllowedQty & ").",
