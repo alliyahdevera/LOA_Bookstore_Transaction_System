@@ -4,8 +4,6 @@ Imports MySql.Data.MySqlClient
 Public Class frmTransactionDetails
 
     Public Property TransactionNo As String
-
-    ' Info kept on each row of dgvCart (row.Tag)
     Private Class ItemInfo
         Public TransactionItemId As Integer
         Public VariantId As Integer
@@ -13,16 +11,18 @@ Public Class frmTransactionDetails
         Public Purchased As Integer
         Public Processed As Integer
         Public PickupDate As Date?
+        Private ReadOnly ConditionList As String() = New String() {"Good (Resellable)", "Slightly Used", "Damaged", "Defective"}
+        Public IsBackorder As Boolean
         Public ReadOnly Property Available As Integer
             Get
                 Return Purchased - Processed
             End Get
         End Property
     End Class
-
     Private txnId As Integer = 0
     Private txnStatus As String = ""
     Private isBinding As Boolean = False
+    Private isClamping As Boolean = False  ' <-- ADD THIS LINE HERE
     Private sizeTable As DataTable
     Private ReadOnly Peso As String = ChrW(8369)
 
@@ -46,8 +46,22 @@ Public Class frmTransactionDetails
         dtpORDate.Enabled = False
 
         txtReason.MaxLength = 255
-        txtcondition.MaxLength = 50
+        txtCondition.Visible = False
 
+        ' 2. Programmatically create and position the ComboBox over the TextBox
+        cboCondition = New ComboBox With {
+        .Name = "cboCondition",
+        .DropDownStyle = ComboBoxStyle.DropDownList,
+        .Font = txtCondition.Font,
+        .Location = txtCondition.Location,
+        .Size = txtCondition.Size,
+        .TabIndex = txtCondition.TabIndex
+    }
+
+        ' 3. Add items and insert control into the parent form/panel
+        cboCondition.Items.AddRange(New Object() {"Good", "Fair", "Damaged"})
+        txtCondition.Parent.Controls.Add(cboCondition)
+        cboCondition.BringToFront()
         txtProduct.DropDownStyle = ComboBoxStyle.DropDown          ' typeable (autocomplete)
         txtProduct.AutoCompleteMode = AutoCompleteMode.SuggestAppend
         txtProduct.AutoCompleteSource = AutoCompleteSource.ListItems
@@ -62,6 +76,7 @@ Public Class frmTransactionDetails
         LoadReplacementProducts()
         ResetActionPanel()
     End Sub
+    Private cboCondition As ComboBox
 
     ' ===================== LOAD TRANSACTION =====================
     Private Sub LoadTransaction()
@@ -111,7 +126,7 @@ Public Class frmTransactionDetails
         ' items + how many of each were already returned/exchanged
         Dim items As DataTable = GetDataTable(
             "SELECT ti.transaction_item_id, ti.variant_id, p.product_name, c.category_name, v.size, " &
-            "ti.quantity, ti.subtotal, ti.pickup_date, " &
+            "ti.quantity, ti.subtotal, ti.pickup_date, ti.is_backorder, " &
             "IFNULL((SELECT SUM(rei.quantity) FROM tbl_return_exchange_items rei " &
             "        INNER JOIN tbl_returns_exchanges re ON rei.return_exchange_id = re.return_exchange_id " &
             "        WHERE rei.transaction_item_id = ti.transaction_item_id AND re.status = 'Completed'), 0) AS processed_qty " &
@@ -136,7 +151,8 @@ Public Class frmTransactionDetails
                 .UnitPrice = If(qty > 0, lineTotal / qty, 0D),
                 .Purchased = qty,
                 .Processed = Convert.ToInt32(it("processed_qty")),
-                .PickupDate = If(IsDBNull(it("pickup_date")), Nothing, CType(Convert.ToDateTime(it("pickup_date")), Date?))
+                .PickupDate = If(IsDBNull(it("pickup_date")), Nothing, CType(Convert.ToDateTime(it("pickup_date")), Date?)),
+                .IsBackorder = (Convert.ToInt32(it("is_backorder")) = 1)
             }
             Dim idx As Integer = dgvCart.Rows.Add(
                 Convert.ToString(it("product_name")), Convert.ToString(it("category_name")),
@@ -200,7 +216,8 @@ Public Class frmTransactionDetails
     Private Sub UpdateActionState()
         Dim hasAction As Boolean = rbtnReturn.Checked OrElse rbtnexchange.Checked
         txtReason.ReadOnly = Not hasAction
-        txtcondition.ReadOnly = Not hasAction
+        cboCondition.Enabled = hasAction
+        If Not hasAction Then cboCondition.SelectedIndex = -1
 
         Dim isExchange As Boolean = rbtnexchange.Checked
         txtProduct.Enabled = isExchange
@@ -213,7 +230,7 @@ Public Class frmTransactionDetails
         rbtnReturn.Checked = False
         rbtnexchange.Checked = False
         txtReason.Clear()
-        txtcondition.Clear()
+        cboCondition.SelectedIndex = -1
         UpdateActionState()
     End Sub
 
@@ -314,8 +331,8 @@ Public Class frmTransactionDetails
         If String.IsNullOrWhiteSpace(txtReason.Text) Then
             MsgBox("Please enter the reason.", vbExclamation, "Return / Exchange") : txtReason.Focus() : Exit Sub
         End If
-        If String.IsNullOrWhiteSpace(txtcondition.Text) Then
-            MsgBox("Please enter the item condition.", vbExclamation, "Return / Exchange") : txtcondition.Focus() : Exit Sub
+        If cboCondition.SelectedIndex < 0 Then
+            MsgBox("Please select the item condition.", vbExclamation, "Return / Exchange") : cboCondition.Focus() : Exit Sub
         End If
 
         Dim repVariantId As Integer = 0, repQty As Integer = 0
@@ -381,14 +398,31 @@ Public Class frmTransactionDetails
                             q.Parameters.AddWithValue("@rid", reId)
                             q.Parameters.AddWithValue("@tii", it.TransactionItemId)
                             q.Parameters.AddWithValue("@q", qty)
-                            q.Parameters.AddWithValue("@cond", txtcondition.Text.Trim())
+                            q.Parameters.AddWithValue("@cond", cboCondition.Text.Trim())
                             q.Parameters.AddWithValue("@rv", If(isExchange, CType(repVariantId, Object), DBNull.Value))
                             q.Parameters.AddWithValue("@rq", If(isExchange, CType(repQty, Object), DBNull.Value))
                             q.ExecuteNonQuery()
                         End Using
 
                         ' 3) returned item goes back to inventory
-                        MoveStock(c, tx, it.VariantId, qty, "Returned", refNo, actionName & " of " & TransactionNo)
+                        ' pick-up items never left the shelf, so there is nothing to put back
+                        If Not it.IsBackorder Then
+                            If cboCondition.SelectedIndex <= 1 Then      ' Good / Slightly Used -> resellable
+                                MoveStock(c, tx, it.VariantId, qty, "Returned", refNo, actionName & " of " & TransactionNo)
+                            Else                                          ' Damaged / Defective -> logged, not restocked
+                                Using q As New MySqlCommand(
+            "INSERT INTO tbl_stock_movements (variant_id, movement_type, quantity, previous_quantity, new_quantity, reference_no, remarks, created_by, created_at) " &
+            "SELECT @v, 'Damaged', @q, quantity_on_hand, quantity_on_hand, @ref, @rm, @uid, NOW() " &
+            "FROM tbl_product_variants WHERE variant_id = @v", c, tx)
+                                    q.Parameters.AddWithValue("@v", it.VariantId)
+                                    q.Parameters.AddWithValue("@q", qty)
+                                    q.Parameters.AddWithValue("@ref", refNo)
+                                    q.Parameters.AddWithValue("@rm", actionName & " of " & TransactionNo & " (" & txtCondition.Text & ")")
+                                    q.Parameters.AddWithValue("@uid", currentuser.UserID)
+                                    q.ExecuteNonQuery()
+                                End Using
+                            End If
+                        End If
 
                         ' 4) replacement leaves inventory
                         If isExchange Then
@@ -432,7 +466,42 @@ Public Class frmTransactionDetails
             MsgBox("Return/Exchange failed and was rolled back: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub
+    Private Sub txtProduct_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtProduct.Validating
+        If isBinding OrElse Not txtProduct.Enabled Then Exit Sub
+        Dim typed As String = txtProduct.Text.Trim()
+        If typed = "" Then Exit Sub
 
+        If txtProduct.SelectedIndex >= 0 AndAlso String.Equals(typed,
+        CType(txtProduct.SelectedItem, DataRowView)("product_name").ToString(), StringComparison.OrdinalIgnoreCase) Then Exit Sub
+
+        Dim exact As Integer = txtProduct.FindStringExact(typed)
+        If exact >= 0 Then
+            txtProduct.SelectedIndex = exact
+            Exit Sub
+        End If
+
+        Dim hit As Integer = -1, matches As Integer = 0
+        For i As Integer = 0 To txtProduct.Items.Count - 1
+            Dim nm As String = CType(txtProduct.Items(i), DataRowView)("product_name").ToString()
+            If nm.IndexOf(typed, StringComparison.OrdinalIgnoreCase) >= 0 Then
+                matches += 1
+                hit = i
+            End If
+        Next
+
+        If matches = 1 Then
+            txtProduct.SelectedIndex = hit
+        ElseIf matches = 0 Then
+            MsgBox("No product with available stock matches '" & typed & "'.", vbExclamation, "Replacement Product")
+            isBinding = True
+            txtProduct.SelectedIndex = -1
+            txtProduct.Text = ""
+            isBinding = False
+        Else
+            MsgBox(matches & " products match '" & typed & "'. Please pick one from the list.", vbInformation, "Replacement Product")
+            txtProduct.DroppedDown = True
+        End If
+    End Sub
 
     ' ---- transaction helpers (use the SAME connection + transaction) ----
     Private Function ScalarInt(c As MySqlConnection, tx As MySqlTransaction, sql As String, id As Integer) As Integer
@@ -574,22 +643,46 @@ Public Class frmTransactionDetails
         Me.Close()
     End Sub
     Private isUpdatingQty As Boolean = False
+    Private Sub Qty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles nudQuantity.KeyPress, numupqty.KeyPress
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then e.Handled = True
+    End Sub
 
-    Private Sub nudQuantity_ValueChanged(sender As Object, e As EventArgs) Handles nudQuantity.ValueChanged
-        If isUpdatingQty Then Exit Sub
+    Private Sub nudQuantity_TextChanged(sender As Object, e As EventArgs) Handles nudQuantity.TextChanged
+        Dim it As ItemInfo = SelectedItem()
+        Dim msg As String
+        If it Is Nothing Then
+            msg = "Select the purchased item first."
+        ElseIf it.Processed = 0 Then
+            msg = "Quantity cannot exceed the purchased count (" & it.Purchased & ")."
+        Else
+            msg = "Only " & it.Available & " left to process (purchased " & it.Purchased & ", already returned/exchanged " & it.Processed & ")."
+        End If
+        ClampQty(nudQuantity, msg)
+    End Sub
 
-        ' Fetch available quantity from selected DataGridView row or database
-        If dgvCart.SelectedRows.Count > 0 Then
-            Dim maxAllowedQty As Integer = Convert.ToInt32(dgvCart.SelectedRows(0).Cells("Quantity").Value)
+    Private Sub numupqty_TextChanged(sender As Object, e As EventArgs) Handles numupqty.TextChanged
+        ClampQty(numupqty, "Replacement quantity cannot exceed the available stock (" & numupqty.Maximum & ").")
+    End Sub
 
-            If nudQuantity.Value > maxAllowedQty Then
-                MsgBox("The entered quantity (" & nudQuantity.Value & ") exceeds the maximum allowed quantity (" & maxAllowedQty & ").",
-                       vbExclamation, "Quantity Exceeded")
+    Private Sub ClampQty(nud As NumericUpDown, message As String)
+        If isClamping OrElse String.IsNullOrWhiteSpace(nud.Text) Then Exit Sub
 
-                isUpdatingQty = True
-                nudQuantity.Value = maxAllowedQty
-                isUpdatingQty = False
-            End If
+        Dim typed As Decimal
+        ' Check if the typed text exceeds the allowed maximum
+        If Decimal.TryParse(nud.Text, typed) AndAlso typed > nud.Maximum Then
+            isClamping = True
+
+            ' 1. Clamp the value to Maximum
+            nud.Value = nud.Maximum
+
+            ' 2. Highlight text and set cursor position safely
+            nud.Select(0, nud.Text.Length)
+
+            ' 3. Reset flag BEFORE showing the message box so events resume normally
+            isClamping = False
+
+            ' 4. Prompt user
+            MessageBox.Show(message, "Quantity Exceeded", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
     End Sub
 End Class

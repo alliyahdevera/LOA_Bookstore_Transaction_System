@@ -2,7 +2,13 @@
 Imports MySql.Data.MySqlClient
 
 Public Class frmTransactionHistory
-
+    Private Const SEARCH_FILTER As String =
+    "(t.transaction_no LIKE @s OR t.buyer_name LIKE @s OR t.or_no LIKE @s OR t.status LIKE @s " &
+    "OR t.student_id IN (SELECT student_id FROM tbl_students WHERE student_no LIKE @s) " &
+    "OR t.transaction_id IN (SELECT ti2.transaction_id FROM tbl_transaction_items ti2 " &
+    "INNER JOIN tbl_product_variants v2 ON ti2.variant_id = v2.variant_id " &
+    "INNER JOIN tbl_products p2 ON v2.product_id = p2.product_id " &
+    "WHERE v2.product_code LIKE @s OR p2.product_name LIKE @s)) "
     Private Sub frmTransactionHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
@@ -46,8 +52,8 @@ Public Class frmTransactionHistory
                               "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
                               "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
                               "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
-                              "WHERE (t.transaction_no LIKE @s OR t.buyer_name LIKE @s) " &
-                              "AND DATE(t.created_at) BETWEEN @f AND @t " &
+                              "WHERE " & SEARCH_FILTER &
+"AND DATE(t.created_at) BETWEEN @f AND @t " &
                               "ORDER BY t.transaction_id DESC"
 
             Using localCmd As New MySqlCommand(query, cn)
@@ -81,8 +87,8 @@ Public Class frmTransactionHistory
             cn.Close()
 
             Dim totalSum As Object = ExecScalar(
-            "SELECT IFNULL(SUM(total_amount),0) FROM TBL_TRANSACTIONS " &
-            "WHERE (transaction_no LIKE @s OR buyer_name LIKE @s) AND DATE(created_at) BETWEEN @f AND @t AND status <> 'Cancelled'",
+            "SELECT IFNULL(SUM(t.total_amount),0) FROM TBL_TRANSACTIONS t WHERE " & SEARCH_FILTER &
+"AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled'",
             New String() {"@s", "@f", "@t"},
             New Object() {"%" & searchText & "%", dtfrom.Value.Date, dtto.Value.Date})
 

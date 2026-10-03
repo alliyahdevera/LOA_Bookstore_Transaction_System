@@ -84,7 +84,6 @@ Partial Class frmTransactionDetails
         Me.txtcreatedby = New System.Windows.Forms.TextBox()
         Me.txtReason = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
-        Me.txtcondition = New System.Windows.Forms.TextBox()
         Me.lblquantity = New System.Windows.Forms.Label()
         Me.nudQuantity = New System.Windows.Forms.NumericUpDown()
         Me.Label26 = New System.Windows.Forms.Label()
@@ -94,6 +93,7 @@ Partial Class frmTransactionDetails
         Me.Panel12 = New System.Windows.Forms.Panel()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtCondition = New System.Windows.Forms.TextBox()
         Me.Panel4.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.Panel7.SuspendLayout()
@@ -681,12 +681,12 @@ Partial Class frmTransactionDetails
         'Panel11
         '
         Me.Panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel11.Controls.Add(Me.txtCondition)
         Me.Panel11.Controls.Add(Me.reason)
         Me.Panel11.Controls.Add(Me.lblcondition)
         Me.Panel11.Controls.Add(Me.txtcreatedby)
         Me.Panel11.Controls.Add(Me.txtReason)
         Me.Panel11.Controls.Add(Me.Label25)
-        Me.Panel11.Controls.Add(Me.txtcondition)
         Me.Panel11.Controls.Add(Me.lblquantity)
         Me.Panel11.Controls.Add(Me.nudQuantity)
         Me.Panel11.Controls.Add(Me.Label26)
@@ -749,16 +749,6 @@ Partial Class frmTransactionDetails
         Me.Label25.Size = New System.Drawing.Size(85, 17)
         Me.Label25.TabIndex = 121
         Me.Label25.Text = "Processed By"
-        '
-        'txtcondition
-        '
-        Me.txtcondition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtcondition.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtcondition.Location = New System.Drawing.Point(126, 175)
-        Me.txtcondition.Name = "txtcondition"
-        Me.txtcondition.ReadOnly = True
-        Me.txtcondition.Size = New System.Drawing.Size(264, 25)
-        Me.txtcondition.TabIndex = 120
         '
         'lblquantity
         '
@@ -852,6 +842,16 @@ Partial Class frmTransactionDetails
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(250, 84)
         Me.Panel1.TabIndex = 132
+        '
+        'txtCondition
+        '
+        Me.txtCondition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtCondition.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCondition.Location = New System.Drawing.Point(126, 175)
+        Me.txtCondition.Name = "txtCondition"
+        Me.txtCondition.ReadOnly = True
+        Me.txtCondition.Size = New System.Drawing.Size(264, 25)
+        Me.txtCondition.TabIndex = 121
         '
         'frmTransactionDetails
         '
@@ -956,7 +956,6 @@ Partial Class frmTransactionDetails
     Friend WithEvents txtcreatedby As TextBox
     Friend WithEvents txtReason As TextBox
     Friend WithEvents Label25 As Label
-    Friend WithEvents txtcondition As TextBox
     Friend WithEvents lblquantity As Label
     Friend WithEvents nudQuantity As NumericUpDown
     Friend WithEvents Label26 As Label
@@ -967,4 +966,5 @@ Partial Class frmTransactionDetails
     Friend WithEvents Label28 As Label
     Friend WithEvents txttdate As TextBox
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents txtCondition As TextBox
 End Class
