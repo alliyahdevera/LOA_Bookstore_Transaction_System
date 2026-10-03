@@ -2,7 +2,7 @@
 Imports MySql.Data.MySqlClient
 
 Public Class frmStockInHistory
-
+    Private isFilling As Boolean = False
     Private Sub frmStockInHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
         Label4.Text = "Total Quantity"   ' fixes a copy-pasted "Total Sales" label
@@ -10,19 +10,21 @@ Public Class frmStockInHistory
         DateTimePicker2.Value = Today
         LoadGrid()
     End Sub
-
-    ' Populate Category Dropdown with "All Categories" option
     Private Sub LoadCategoryCombo()
+        isFilling = True
         Dim dt As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
-
-        ' Add default "All Categories" option
         Dim row As DataRow = dt.NewRow()
         row("category_id") = 0
         row("category_name") = "-- All Categories --"
         dt.Rows.InsertAt(row, 0)
-
         FillCombo(cbocategory, dt, "category_name", "category_id")
         cbocategory.SelectedIndex = 0
+        isFilling = False
+    End Sub
+
+    Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
+        If isFilling Then Exit Sub
+        LoadGrid()
     End Sub
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btngenerate.Click   ' Generate
         LoadGrid()
@@ -37,14 +39,19 @@ Public Class frmStockInHistory
             If Not connection() Then Exit Sub
             Dim searchText As String = txtSearch.Text.Trim()
             Dim query As String = "SELECT si.reference_no, v.product_code, p.product_name, p.product_description, " &
-                                  "sid.quantity, si.stock_in_date, si.stock_in_time, si.received_by " &
-                                  "FROM TBL_STOCK_IN_DETAILS sid " &
-                                  "INNER JOIN TBL_STOCK_INS si ON sid.stock_in_id = si.stock_in_id " &
-                                  "INNER JOIN TBL_PRODUCT_VARIANTS v ON sid.variant_id = v.variant_id " &
-                                  "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-                                  "WHERE si.stock_in_date BETWEEN @d1 AND @d2 AND (si.reference_no LIKE @s OR p.product_name LIKE @s) " &
-                                  "ORDER BY si.stock_in_date DESC, si.stock_in_time DESC"
+                      "sid.quantity, si.stock_in_date, si.stock_in_time, si.received_by " &
+                      "FROM TBL_STOCK_IN_DETAILS sid " &
+                      "INNER JOIN TBL_STOCK_INS si ON sid.stock_in_id = si.stock_in_id " &
+                      "INNER JOIN TBL_PRODUCT_VARIANTS v ON sid.variant_id = v.variant_id " &
+                      "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+                      "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
+                      "WHERE si.stock_in_date BETWEEN @d1 AND @d2 " &
+                      "AND (@cat = 0 OR ct.category_id = @cat) " &
+                      "AND (si.reference_no LIKE @s OR p.product_name LIKE @s) " &
+                      "ORDER BY si.stock_in_date DESC, si.stock_in_time DESC"
             Using localCmd As New MySqlCommand(query, cn)
+                Dim catId As Integer = If(cbocategory.SelectedValue IsNot Nothing AndAlso IsNumeric(cbocategory.SelectedValue), Convert.ToInt32(cbocategory.SelectedValue), 0)
+                localCmd.Parameters.AddWithValue("@cat", catId)
                 localCmd.Parameters.AddWithValue("@d1", DateTimePicker1.Value.Date)
                 localCmd.Parameters.AddWithValue("@d2", DateTimePicker2.Value.Date)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")

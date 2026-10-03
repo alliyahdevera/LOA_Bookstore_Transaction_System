@@ -8,6 +8,11 @@ Public Class frmInventoryCountReconciliation
         Public Adjusted As Boolean = False
     End Class
 
+    ' Moved NewCountNo out of CountRow to form level
+    Private Function NewCountNo() As String
+        Return "CNT-" & DateTime.Now.ToString("yyyyMMddHHmmss")
+    End Function
+
     Private currentCountId As Long = 0
     Private currentCountNo As String = ""
     Private isLoading As Boolean = True
@@ -28,7 +33,9 @@ Public Class frmInventoryCountReconciliation
             Next
         End If
         cbocategory.SelectedIndex = 0
-
+        dgvlistproducts.Columns.Insert(0, New DataGridViewTextBoxColumn With {.Name = "CountNo", .HeaderText = "Count No.", .Width = 150})
+        currentCountNo = NewCountNo()
+        txtCountNo.Text = currentCountNo
         With dgvlistproducts
             .AllowUserToAddRows = False
             .AllowUserToDeleteRows = False
@@ -96,6 +103,7 @@ Public Class frmInventoryCountReconciliation
                 Dim info As New CountRow With {.VariantId = Convert.ToInt32(r("variant_id"))}
 
                 row.Cells("ProductCode").Value = r("product_code").ToString()
+                row.Cells("CountNo").Value = currentCountNo
                 row.Cells("ProductName").Value = r("product_name").ToString()
                 row.Cells("Category").Value = r("category_name").ToString()
                 row.Cells("TypeofProduct").Value = r("type_name").ToString()
@@ -225,19 +233,22 @@ Public Class frmInventoryCountReconciliation
         Next
         Return False
     End Function
-
-    ' ==================== SAVE COUNT ====================
     Private Sub btnsave_Click(sender As Object, e As EventArgs) Handles btnsave.Click
         If RolePermissions.IsViewOnly() Then
             MsgBox("Your role has view-only access.", vbExclamation, "Inventory Count")
             Exit Sub
         End If
 
+        ' Filter pending rows safely
         Dim pending As New List(Of DataGridViewRow)
         For Each row As DataGridViewRow In dgvlistproducts.Rows
+            If row.IsNewRow Then Continue For
             Dim info As CountRow = TryCast(row.Tag, CountRow)
-            If info IsNot Nothing AndAlso info.DetailId = 0 AndAlso
-               Convert.ToString(row.Cells("PhysicalQuantity").Value).Trim() <> "" Then pending.Add(row)
+            Dim physVal As String = Convert.ToString(row.Cells("PhysicalQuantity").Value).Trim()
+
+            If info IsNot Nothing AndAlso info.DetailId = 0 AndAlso physVal <> "" Then
+                pending.Add(row)
+            End If
         Next
 
         If pending.Count = 0 Then
@@ -253,7 +264,7 @@ Public Class frmInventoryCountReconciliation
         Next
 
         If MsgBox("Save " & pending.Count & " counted item(s) (" & discrepancies & " with discrepancy)?",
-                  vbYesNo + vbQuestion, "Save Count") <> MsgBoxResult.Yes Then Exit Sub
+              vbYesNo + vbQuestion, "Save Count") <> MsgBoxResult.Yes Then Exit Sub
 
         Try
             Dim countId As Long = currentCountId
@@ -263,11 +274,12 @@ Public Class frmInventoryCountReconciliation
                 c.Open()
                 Using tx As MySqlTransaction = c.BeginTransaction()
                     Try
+                        ' Create header record if not created yet
                         If countId = 0 Then
-                            countNo = "CNT-" & DateTime.Now.ToString("yyyyMMddHHmmss")
+                            If String.IsNullOrEmpty(countNo) Then countNo = NewCountNo()
                             Using q As New MySqlCommand(
-                                "INSERT INTO tbl_inventory_counts (count_no, count_date, prepared_by, status, remarks) " &
-                                "VALUES (@no, CURDATE(), @uid, 'Pending', NULL)", c, tx)
+                            "INSERT INTO tbl_inventory_counts (count_no, count_date, prepared_by, status, remarks) " &
+                            "VALUES (@no, CURDATE(), @uid, 'Pending', NULL)", c, tx)
                                 q.Parameters.AddWithValue("@no", countNo)
                                 q.Parameters.AddWithValue("@uid", currentuser.UserID)
                                 q.ExecuteNonQuery()
@@ -275,17 +287,22 @@ Public Class frmInventoryCountReconciliation
                             End Using
                         End If
 
+                        ' Insert details
                         For Each row As DataGridViewRow In pending
                             Dim info As CountRow = CType(row.Tag, CountRow)
-                            Dim sys As Integer = Convert.ToInt32(row.Cells("SystemQuantity").Value)
-                            Dim phys As Integer = Convert.ToInt32(row.Cells("PhysicalQuantity").Value)
+
+                            Dim sys As Integer = 0
+                            Dim phys As Integer = 0
+                            Integer.TryParse(Convert.ToString(row.Cells("SystemQuantity").Value), sys)
+                            Integer.TryParse(Convert.ToString(row.Cells("PhysicalQuantity").Value), phys)
+
                             Dim diff As Integer = phys - sys
                             Dim remarks As String = Convert.ToString(row.Cells("Remarks").Value).Trim()
 
                             Using q As New MySqlCommand(
-                                "INSERT INTO tbl_inventory_count_details " &
-                                "(inventory_count_id, variant_id, system_quantity, physical_quantity, difference, status, remarks, adjusted) " &
-                                "VALUES (@c, @v, @s, @p, @d, @st, @r, 0)", c, tx)
+                            "INSERT INTO tbl_inventory_count_details " &
+                            "(inventory_count_id, variant_id, system_quantity, physical_quantity, difference, status, remarks, adjusted) " &
+                            "VALUES (@c, @v, @s, @p, @d, @st, @r, 0)", c, tx)
                                 q.Parameters.AddWithValue("@c", countId)
                                 q.Parameters.AddWithValue("@v", info.VariantId)
                                 q.Parameters.AddWithValue("@s", sys)
@@ -295,22 +312,22 @@ Public Class frmInventoryCountReconciliation
                                 q.Parameters.AddWithValue("@r", If(remarks = "", CType(DBNull.Value, Object), remarks))
                                 q.ExecuteNonQuery()
 
-                                ' Assign detail ID directly to avoid mapping errors
                                 info.DetailId = CInt(q.LastInsertedId)
                             End Using
                         Next
 
                         ' Update header status
                         Using q As New MySqlCommand(
-                            "UPDATE tbl_inventory_counts SET status = IF((SELECT COUNT(*) FROM tbl_inventory_count_details " &
-                            "WHERE inventory_count_id = @c AND status <> 'Matched' AND adjusted = 0) = 0, 'Reconciled', 'Pending') " &
-                            "WHERE inventory_count_id = @c", c, tx)
+                        "UPDATE tbl_inventory_counts SET status = IF((SELECT COUNT(*) FROM tbl_inventory_count_details " &
+                        "WHERE inventory_count_id = @c AND status <> 'Matched' AND adjusted = 0) = 0, 'Reconciled', 'Pending') " &
+                        "WHERE inventory_count_id = @c", c, tx)
+                            q.Parameters.AddWithValue("@c", countId)
                             q.Parameters.AddWithValue("@c", countId)
                             q.ExecuteNonQuery()
                         End Using
 
                         tx.Commit()
-                    Catch
+                    Catch ex As Exception
                         tx.Rollback()
                         Throw
                     End Try
@@ -323,8 +340,8 @@ Public Class frmInventoryCountReconciliation
             LogActivity("Inventory Count", countNo, "Saved " & pending.Count & " counted item(s), " & discrepancies & " discrepancy(ies)")
 
             MsgBox("Count " & countNo & " saved." & vbCrLf &
-                   If(discrepancies > 0, "To correct a Short/Excess item, select its row and click 'Adjust Inventory'.", "No discrepancies found."),
-                   vbInformation, "Inventory Count")
+               If(discrepancies > 0, "To correct a Short/Excess item, select its row and click 'Adjust Inventory'.", "No discrepancies found."),
+               vbInformation, "Inventory Count")
 
         Catch ex As Exception
             MsgBox("Saving the count failed and was rolled back: " & ex.Message, vbCritical, "Inventory Count")
@@ -402,7 +419,8 @@ Public Class frmInventoryCountReconciliation
                       vbYesNo + vbQuestion, "Inventory Count") <> MsgBoxResult.Yes Then Exit Sub
         End If
         currentCountId = 0
-        currentCountNo = ""
+        currentCountNo = NewCountNo()
+        txtCountNo.Text = currentCountNo
         txtSearch.Clear()
         cbocategory.SelectedIndex = 0
         LoadProducts()

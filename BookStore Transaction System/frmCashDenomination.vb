@@ -34,7 +34,7 @@ Public Class frmCashDenomination
         cboTo.DropDownStyle = ComboBoxStyle.DropDownList
         cboshift.DropDownStyle = ComboBoxStyle.DropDownList
 
-        txtcashier.ReadOnly = True
+        txtCashier.ReadOnly = True
 
         ' Load Cashier Name
         Dim cashierDt As DataTable = GetDataTable(
@@ -43,9 +43,9 @@ Public Class frmCashDenomination
             New String() {"@u"}, New Object() {currentuser.UserID})
 
         If cashierDt.Rows.Count > 0 Then
-            txtcashier.Text = cashierDt.Rows(0)("full_name").ToString()
+            txtCashier.Text = cashierDt.Rows(0)("full_name").ToString()
         Else
-            txtcashier.Text = currentuser.UserID.ToString()
+            txtCashier.Text = currentuser.UserID.ToString()
         End If
 
         ' Read-only settings
@@ -238,7 +238,7 @@ Public Class frmCashDenomination
     End Function
 
     Private Sub ResetEntryFields()
-        txtrefno.Text = "EOD-" & DateTime.Now.ToString("yyyyMMddHHmmss")
+        txtrefno.Text = "REM-" & DateTime.Now.ToString("yyyyMMddHHmmss")
         TextBox1.Clear()
         txtRemarksr.Clear()
         txtremarkrs.Clear()
@@ -251,54 +251,53 @@ Public Class frmCashDenomination
     ' ==================== GENERATE REMITTANCE ====================
     Private Sub btnSaveTransaction_Click(sender As Object, e As EventArgs) Handles btnSaveTransaction.Click
         If RolePermissions.IsViewOnly() Then
-            MsgBox("Your role has view-only access.", vbExclamation, "End-Of-Day Reconciliation")
+            MsgBox("Your role has view-only access.", vbExclamation, "Remittance")
             Exit Sub
         End If
         If cashCount + salaryCount = 0 Then
-            MsgBox("This cashier has no transactions for the selected shift today. Nothing to reconcile.", vbInformation, "End-Of-Day Reconciliation")
+            MsgBox("This cashier has no transactions for the selected shift today. Nothing to process.", vbInformation, "Remittance")
             Exit Sub
         End If
 
         Dim actual As Decimal = ParseMoney(txtactualc.Text)
         If actual <= 0D AndAlso cashSales > 0D Then
-            MsgBox("Enter the cash denomination count first.", vbExclamation, "End-Of-Day Reconciliation")
+            MsgBox("Enter the cash denomination count first.", vbExclamation, "Remittance")
             Exit Sub
         End If
 
         Dim diff As Decimal = actual - cashSales
         If diff <> 0D AndAlso String.IsNullOrWhiteSpace(txtRemarksr.Text) Then
             MsgBox("The cash is " & txtstatus.Text & " by " & Peso & Math.Abs(diff).ToString("N2") &
-                   ". Enter the reason in Remarks (Reconciliation).", vbExclamation, "End-Of-Day Reconciliation")
+                   ". Enter the reason in Remarks.", vbExclamation, "Remittance")
             txtRemarksr.Focus()
             Exit Sub
         End If
         If cboFrom.SelectedIndex < 0 OrElse cboTo.SelectedIndex < 0 Then
-            MsgBox("Select the OR/AR range.", vbExclamation, "End-Of-Day Reconciliation")
+            MsgBox("Select the OR/AR range.", vbExclamation, "Remittance")
             Exit Sub
         End If
         If String.IsNullOrWhiteSpace(TextBox1.Text) Then
-            MsgBox("Enter who received the remittance (Received By).", vbExclamation, "End-Of-Day Reconciliation")
+            MsgBox("Enter who received the remittance (Received By).", vbExclamation, "Remittance")
             TextBox1.Focus()
             Exit Sub
         End If
 
+        ' Check if user already processed a remittance for today
         Dim already As Integer = Convert.ToInt32(If(ExecScalar(
-            "SELECT COUNT(*) FROM tbl_end_of_day WHERE cashier_id = @c AND reconciliation_date = CURDATE()",
+            "SELECT COUNT(*) FROM tbl_remittances WHERE prepared_by = @c AND DATE(remitted_at) = CURDATE()",
             New String() {"@c"}, New Object() {currentuser.UserID}), 0))
         If already > 0 Then
-            MsgBox("This cashier already has an end-of-day record for today. See Remittance Report.", vbExclamation, "End-Of-Day Reconciliation")
+            MsgBox("This cashier already has a remittance record for today. See Remittance Report.", vbExclamation, "Remittance")
             Exit Sub
         End If
 
-        If MsgBox("Save the end-of-day record and generate the remittance?" & vbCrLf & vbCrLf &
+        If MsgBox("Save the remittance record?" & vbCrLf & vbCrLf &
                   "Expected cash: " & Peso & cashSales.ToString("N2") & vbCrLf &
                   "Actual cash: " & Peso & actual.ToString("N2") & vbCrLf &
                   "Status: " & txtstatus.Text, vbYesNo + vbQuestion, "Generate Remittance") <> MsgBoxResult.Yes Then Exit Sub
 
-        Dim reconNo As String = txtrefno.Text.Trim()
-        Dim remittanceNo As String = "REM-" & DateTime.Now.ToString("yyyyMMddHHmmssfff")
+        Dim remittanceNo As String = txtrefno.Text.Trim()
         Dim statusText As String = txtstatus.Text
-        Dim reconRemarks As String = txtRemarksr.Text.Trim()
         Dim remitRemarks As String = txtremarkrs.Text.Trim()
 
         Try
@@ -306,28 +305,26 @@ Public Class frmCashDenomination
                 c.Open()
                 Using tx As MySqlTransaction = c.BeginTransaction()
                     Try
-                        Dim eodId As Long
+                        Dim remittanceId As Long
 
+                        ' Clean INSERT query into tbl_remittances (end_of_day_id removed)
                         Using q As New MySqlCommand(
-                            "INSERT INTO tbl_end_of_day (reconciliation_no, reconciliation_date, cashier_id, cash_sales, salary_deduction, " &
-                            "total_sales, cash_transaction_count, salary_deduction_count, expected_cash, actual_cash, difference, status, remarks) " &
-                            "VALUES (@no, CURDATE(), @cid, @cs, @sd, @ts, @cc, @sc, @exp, @act, @diff, @st, @rm)", c, tx)
-                            q.Parameters.AddWithValue("@no", reconNo)
-                            q.Parameters.AddWithValue("@cid", currentuser.UserID)
-                            q.Parameters.AddWithValue("@cs", cashSales)
-                            q.Parameters.AddWithValue("@sd", salaryDeduction)
-                            q.Parameters.AddWithValue("@ts", cashSales + salaryDeduction)
-                            q.Parameters.AddWithValue("@cc", cashCount)
-                            q.Parameters.AddWithValue("@sc", salaryCount)
-                            q.Parameters.AddWithValue("@exp", cashSales)
-                            q.Parameters.AddWithValue("@act", actual)
-                            q.Parameters.AddWithValue("@diff", diff)
+                            "INSERT INTO tbl_remittances (remittance_no, prepared_by, verified_by, remittance_amount, status, " &
+                            "prepared_at, remarks, or_from, or_to, received_by, remitted_at) " &
+                            "VALUES (@no, @by, NULL, @amt, @st, NOW(), @rm, @f, @t, @rb, NOW())", c, tx)
+                            q.Parameters.AddWithValue("@no", remittanceNo)
+                            q.Parameters.AddWithValue("@by", currentuser.UserID)
+                            q.Parameters.AddWithValue("@amt", actual)
                             q.Parameters.AddWithValue("@st", statusText)
-                            q.Parameters.AddWithValue("@rm", If(reconRemarks = "", CType(DBNull.Value, Object), reconRemarks))
+                            q.Parameters.AddWithValue("@rm", If(remitRemarks = "", CType(DBNull.Value, Object), remitRemarks))
+                            q.Parameters.AddWithValue("@f", cboFrom.Text)
+                            q.Parameters.AddWithValue("@t", cboTo.Text)
+                            q.Parameters.AddWithValue("@rb", TextBox1.Text.Trim())
                             q.ExecuteNonQuery()
-                            eodId = q.LastInsertedId
+                            remittanceId = q.LastInsertedId
                         End Using
 
+                        ' Insert cash breakdown into tbl_cash_denominations using remittanceId
                         For Each row As DataGridViewRow In dgvcashbreakdown.Rows
                             Dim qty As Integer = 0
                             Integer.TryParse(Convert.ToString(row.Cells("Quantity").Value), qty)
@@ -336,28 +333,13 @@ Public Class frmCashDenomination
 
                             Using q As New MySqlCommand(
                                 "INSERT INTO tbl_cash_denominations (end_of_day_id, denomination, quantity, amount) VALUES (@e, @d, @q, @a)", c, tx)
-                                q.Parameters.AddWithValue("@e", eodId)
+                                q.Parameters.AddWithValue("@e", remittanceId)
                                 q.Parameters.AddWithValue("@d", denom)
                                 q.Parameters.AddWithValue("@q", qty)
                                 q.Parameters.AddWithValue("@a", denom * qty)
                                 q.ExecuteNonQuery()
                             End Using
                         Next
-
-                        Using q As New MySqlCommand(
-                            "INSERT INTO tbl_remittances (remittance_no, end_of_day_id, prepared_by, verified_by, remittance_amount, status, " &
-                            "prepared_at, remarks, or_from, or_to, received_by, remitted_at) " &
-                            "VALUES (@no, @e, @by, NULL, @amt, 'Pending', NOW(), @rm, @f, @t, @rb, NOW())", c, tx)
-                            q.Parameters.AddWithValue("@no", remittanceNo)
-                            q.Parameters.AddWithValue("@e", eodId)
-                            q.Parameters.AddWithValue("@by", currentuser.UserID)
-                            q.Parameters.AddWithValue("@amt", actual)
-                            q.Parameters.AddWithValue("@rm", If(remitRemarks = "", CType(DBNull.Value, Object), remitRemarks))
-                            q.Parameters.AddWithValue("@f", cboFrom.Text)
-                            q.Parameters.AddWithValue("@t", cboTo.Text)
-                            q.Parameters.AddWithValue("@rb", TextBox1.Text.Trim())
-                            q.ExecuteNonQuery()
-                        End Using
 
                         tx.Commit()
                     Catch
@@ -367,16 +349,16 @@ Public Class frmCashDenomination
                 End Using
             End Using
 
-            LogActivity("End of Day", reconNo,
+            LogActivity("Remittance", remittanceNo,
                         "Remittance " & remittanceNo & " - Expected " & cashSales.ToString("N2") & ", Actual " & actual.ToString("N2") & " (" & statusText & ")")
 
-            MsgBox("Remittance " & remittanceNo & " generated.", vbInformation, "End-Of-Day Reconciliation")
+            MsgBox("Remittance " & remittanceNo & " generated successfully.", vbInformation, "Remittance")
 
             Dim reports As frmReports = TryCast(Me.Parent?.FindForm(), frmReports)
             If reports IsNot Nothing Then reports.OpenRemittance()
 
         Catch ex As Exception
-            MsgBox("Saving failed and was rolled back: " & ex.Message, vbCritical, "End-Of-Day Reconciliation")
+            MsgBox("Saving failed and was rolled back: " & ex.Message, vbCritical, "Remittance")
         End Try
     End Sub
 

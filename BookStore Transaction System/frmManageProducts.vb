@@ -4,6 +4,7 @@ Public Class frmManageProducts
 
     Private selectedProductId As Integer = 0
     Private selectedVariantId As Integer = 0
+    Private isFilling As Boolean = False
 
     Private Sub frmManageProducts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
@@ -21,19 +22,16 @@ Public Class frmManageProducts
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy - hh:mm:ss tt")
     End Sub
-
-    ' Populate Category Dropdown with "All Categories" option
     Private Sub LoadCategoryCombo()
+        isFilling = True
         Dim dt As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
-
-        ' Add default "All Categories" option
         Dim row As DataRow = dt.NewRow()
         row("category_id") = 0
         row("category_name") = "-- All Categories --"
         dt.Rows.InsertAt(row, 0)
-
         FillCombo(cboCategory, dt, "category_name", "category_id")
         cboCategory.SelectedIndex = 0
+        isFilling = False
     End Sub
 
     Private Function GetSelectedCategoryId() As Integer
@@ -42,26 +40,22 @@ Public Class frmManageProducts
         End If
         Return 0
     End Function
-
-    Private Sub cboCategory_SelectedIndexChanged(sender As Object, e As EventArgs)
-        ' Re-filter grid based on current search term and selected category
-        LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
-
-        If cboCategory.SelectedValue Is Nothing OrElse Not IsNumeric(cboCategory.SelectedValue) Then Exit Sub
-
-        Dim catId As Integer = Convert.ToInt32(cboCategory.SelectedValue)
-
-        ' If "All Categories" (0) is selected, clear product types dropdown
+    Private Sub cboCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCategory.SelectedIndexChanged
+        If isFilling Then Exit Sub
+        Dim catId As Integer = GetSelectedCategoryId()
+        LoadGrid(txtSearch.Text.Trim(), catId)
+        LoadTypes(catId)
+    End Sub
+    Private Sub LoadTypes(catId As Integer)
         If catId = 0 Then
             cboTypeOfProduct.DataSource = Nothing
             Exit Sub
         End If
-
         Dim dt As DataTable = GetDataTable("SELECT category_type_id, type_name FROM TBL_CATEGORY_TYPES WHERE category_id = @c ORDER BY type_name",
-                                           New String() {"@c"}, New Object() {catId})
-
+                                       New String() {"@c"}, New Object() {catId})
         FillCombo(cboTypeOfProduct, dt, "type_name", "category_type_id")
     End Sub
+
 
     ' Product Code: Alphanumeric and hyphens only
     Private Sub txtProductCode_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtProductCode.KeyPress
@@ -146,7 +140,7 @@ Public Class frmManageProducts
                                   "INNER JOIN TBL_CATEGORIES c ON ct.category_id = c.category_id " &
                                   "WHERE (@cat = 0 OR c.category_id = @cat) " &
                                   "AND (v.product_code LIKE @s OR p.product_name LIKE @s) " &
-                                  "ORDER BY p.product_name, v.size"
+                                  "ORDER BY p.product_name, v.size" & If(categoryId = 0 AndAlso searchText = "", " LIMIT 200", "")
 
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@cat", categoryId)
@@ -189,8 +183,12 @@ Public Class frmManageProducts
         txtProductCode.Text = row.Cells(0).Value.ToString()
         txtProductName.Text = row.Cells(1).Value.ToString()
         txtProductDescription.Text = row.Cells(2).Value.ToString()
-        cboCategory.SelectedValue = GetCategoryIdByName(row.Cells(3).Value.ToString())
+        Dim catId As Integer = GetCategoryIdByName(row.Cells(3).Value.ToString())
+        isFilling = True
+        cboCategory.SelectedValue = catId
+        LoadTypes(catId)
         cboTypeOfProduct.SelectedValue = GetTypeIdByName(row.Cells(4).Value.ToString())
+        isFilling = False
         txtSize.Text = row.Cells(5).Value.ToString()
         txtUnitPrice.Text = row.Cells(6).Value.ToString()
         txtQuantity.Text = row.Cells(8).Value.ToString() ' Displays Reorder Level
@@ -316,10 +314,9 @@ Public Class frmManageProducts
             MsgBox("Cannot remove: this product already has transaction or stock-in history. Set its Status to Inactive instead.", vbExclamation, "Manage Products")
         End If
     End Sub
-
-    ' CLEAR BUTTON
     Private Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
         ClearFields()
+        LoadGrid("", 0)
     End Sub
 
     Private Sub ClearFields()
@@ -333,7 +330,9 @@ Public Class frmManageProducts
         txtSize.Clear()
         txtStatus.Clear()
         txtSearch.Clear()
+        isFilling = True
         cboCategory.SelectedIndex = 0
+        isFilling = False
         cboTypeOfProduct.DataSource = Nothing
         dgvListOfProducts.ClearSelection()
     End Sub
