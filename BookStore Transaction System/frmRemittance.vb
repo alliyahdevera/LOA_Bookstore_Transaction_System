@@ -6,7 +6,14 @@ Public Class frmRemittance
     Private ReadOnly Peso As String = ChrW(8369)
     Private isLoading As Boolean = True
     Private printRow As DataGridViewRow
+    Private Function IsAdminUser() As Boolean
+        Dim r As String = If(currentuser.Role, "").Trim()
+        Return r.Equals(ROLE_SUPERVISOR, StringComparison.OrdinalIgnoreCase) OrElse r.Equals("Admin", StringComparison.OrdinalIgnoreCase)
+    End Function
 
+    Private Function IsCashierUser() As Boolean
+        Return If(currentuser.Role, "").Trim().Equals(ROLE_CASHIER, StringComparison.OrdinalIgnoreCase)
+    End Function
     ' ==================== LOAD ====================
     Private Sub frmRemittance_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         isLoading = True
@@ -21,26 +28,35 @@ Public Class frmRemittance
         dgvsalesreport.Columns("Difference").HeaderText = "Salary Deduction"
         dgvsalesreport.AllowUserToAddRows = False
         dgvsalesreport.AllowUserToDeleteRows = False
-        dgvsalesreport.ReadOnly = True
         dgvsalesreport.MultiSelect = False
         dgvsalesreport.SelectionMode = DataGridViewSelectionMode.FullRowSelect
 
-        ' Populate Cashiers ComboBox
         Dim dt As DataTable = GetDataTable(
-            "SELECT u.user_id, CONCAT(u.first_name, ' ', u.last_name) AS full_name " &
-            "FROM tbl_users u INNER JOIN tbl_roles r ON u.role_id = r.role_id " &
-            "WHERE r.role_name IN ('Cashier', 'Bookstore Supervisor') ORDER BY u.last_name, u.first_name")
+    "SELECT u.user_id, CONCAT(u.first_name, ' ', u.last_name) AS full_name " &
+    "FROM tbl_users u INNER JOIN tbl_roles r ON u.role_id = r.role_id " &
+    "WHERE r.role_name IN ('Cashier', 'Bookstore Supervisor') ORDER BY u.last_name, u.first_name")
 
         Dim allRow As DataRow = dt.NewRow()
         allRow("user_id") = 0
         allRow("full_name") = "All Cashiers"
         dt.Rows.InsertAt(allRow, 0)
 
-        cbocashier.DataSource = dt
+        cbocashier.DataSource = Nothing
+        cbocashier.Items.Clear()
         cbocashier.DisplayMember = "full_name"
         cbocashier.ValueMember = "user_id"
+        cbocashier.DataSource = dt
         cbocashier.SelectedIndex = 0
 
+        If IsAdminUser() Then
+            cbocashier.Enabled = True
+        ElseIf IsCashierUser() Then
+            cbocashier.SelectedValue = currentuser.UserID
+            cbocashier.Enabled = False
+        Else
+            cbocashier.SelectedIndex = 0
+            cbocashier.Enabled = False
+        End If
         isLoading = False
         LoadGrid()
     End Sub
@@ -68,7 +84,9 @@ Public Class frmRemittance
 
     Private Sub LoadGrid()
         Dim cashierId As Integer = 0
-        If cbocashier.SelectedValue IsNot Nothing Then
+        If IsCashierUser() Then
+            cashierId = currentuser.UserID
+        ElseIf cbocashier.SelectedValue IsNot Nothing Then
             Integer.TryParse(cbocashier.SelectedValue.ToString(), cashierId)
         End If
 

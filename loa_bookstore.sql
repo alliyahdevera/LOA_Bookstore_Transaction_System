@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 02, 2026 at 05:28 PM
+-- Generation Time: Oct 03, 2026 at 07:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -117,7 +117,12 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 (67, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 23:12:27'),
 (68, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 23:14:42'),
 (69, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 23:16:15'),
-(70, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 23:16:32');
+(70, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-02 23:16:32'),
+(71, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-03 12:33:00'),
+(72, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-03 12:38:29'),
+(73, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-03 12:41:21'),
+(74, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-03 12:58:50'),
+(75, 2, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-03 13:00:35');
 
 -- --------------------------------------------------------
 
@@ -127,24 +132,10 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 
 CREATE TABLE `tbl_cash_denominations` (
   `denomination_id` int(11) NOT NULL,
-  `end_of_day_id` int(11) NOT NULL,
   `denomination` decimal(10,2) NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT 0,
   `amount` decimal(10,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_cash_denominations`
---
-
-INSERT INTO `tbl_cash_denominations` (`denomination_id`, `end_of_day_id`, `denomination`, `quantity`, `amount`) VALUES
-(1, 1, 20.00, 1, 20.00),
-(2, 1, 5.00, 1, 5.00),
-(3, 2, 500.00, 1, 500.00),
-(4, 2, 200.00, 3, 600.00),
-(5, 3, 1000.00, 1, 1000.00),
-(6, 3, 100.00, 2, 200.00),
-(7, 3, 50.00, 1, 50.00);
 
 -- --------------------------------------------------------
 
@@ -561,7 +552,9 @@ INSERT INTO `tbl_products` (`product_id`, `product_name`, `product_description`,
 (224, 'LOA KATAPATAN PATCH', NULL, NULL, 40, NULL, 0.00, 80.00, 'Active'),
 (225, 'CTHM NECKTIE', NULL, NULL, 40, NULL, 0.00, 120.00, 'Active'),
 (226, 'LOA RESERVE PATCH', NULL, NULL, 40, NULL, 0.00, 80.00, 'Active'),
-(227, 'HUKBONG KATIHAN PATCH', NULL, NULL, 40, NULL, 0.00, 80.00, 'Active');
+(227, 'HUKBONG KATIHAN PATCH', NULL, NULL, 40, NULL, 0.00, 80.00, 'Active'),
+(228, 'Sample Grade 7 English Textbook', NULL, NULL, 12, NULL, 0.00, 350.00, 'Active'),
+(229, 'Sample General Math Module', NULL, NULL, 7, NULL, 0.00, 120.00, 'Active');
 
 -- --------------------------------------------------------
 
@@ -1352,7 +1345,9 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (767, 224, 'UNI-ACC-017-NA', 'N/A', 30, 8),
 (768, 225, 'UNI-ACC-018-NA', 'N/A', 30, 8),
 (769, 226, 'UNI-ACC-019-NA', 'N/A', 30, 8),
-(770, 227, 'UNI-ACC-020-NA', 'N/A', 30, 8);
+(770, 227, 'UNI-ACC-020-NA', 'N/A', 30, 8),
+(771, 228, 'BK-SAMPLE-228', 'N/A', 20, 5),
+(772, 229, 'BK-SAMPLE-229', 'N/A', 20, 5);
 
 -- --------------------------------------------------------
 
@@ -1363,7 +1358,6 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 CREATE TABLE `tbl_remittances` (
   `remittance_id` int(11) NOT NULL,
   `remittance_no` varchar(30) NOT NULL,
-  `end_of_day_id` int(11) NOT NULL,
   `prepared_by` int(11) NOT NULL,
   `verified_by` int(11) DEFAULT NULL,
   `remittance_amount` decimal(10,2) NOT NULL,
@@ -1381,10 +1375,10 @@ CREATE TABLE `tbl_remittances` (
 -- Dumping data for table `tbl_remittances`
 --
 
-INSERT INTO `tbl_remittances` (`remittance_id`, `remittance_no`, `end_of_day_id`, `prepared_by`, `verified_by`, `remittance_amount`, `status`, `prepared_at`, `verified_at`, `remarks`, `or_from`, `or_to`, `received_by`, `remitted_at`) VALUES
-(1, 'REM-20261002211107095', 1, 6, NULL, 25.00, 'Pending', '2026-10-02 21:11:07', NULL, 'hghehe', 'OR-20261002211016756', 'OR-20261002211016756', 'Me', '2026-10-02 21:11:07'),
-(2, 'REM-20261002212859570', 2, 2, NULL, 1100.00, 'Pending', '2026-10-02 21:28:59', NULL, '123', 'OR-20261002212507211', 'OR-20261002212507211', 'accounting', '2026-10-02 21:28:59'),
-(3, 'REM-20261002220442506', 3, 1, NULL, 1250.00, 'Pending', '2026-10-02 22:04:42', NULL, '123', 'OR-20261002205150475', 'OR-20261002205507126', '123', '2026-10-02 22:04:42');
+INSERT INTO `tbl_remittances` (`remittance_id`, `remittance_no`, `prepared_by`, `verified_by`, `remittance_amount`, `status`, `prepared_at`, `verified_at`, `remarks`, `or_from`, `or_to`, `received_by`, `remitted_at`) VALUES
+(1, 'REM-20261002211107095', 6, NULL, 25.00, 'Pending', '2026-10-02 21:11:07', NULL, 'hghehe', 'OR-20261002211016756', 'OR-20261002211016756', 'Me', '2026-10-02 21:11:07'),
+(2, 'REM-20261002212859570', 2, NULL, 1100.00, 'Pending', '2026-10-02 21:28:59', NULL, '123', 'OR-20261002212507211', 'OR-20261002212507211', 'accounting', '2026-10-02 21:28:59'),
+(3, 'REM-20261002220442506', 1, NULL, 1250.00, 'Pending', '2026-10-02 22:04:42', NULL, '123', 'OR-20261002205150475', 'OR-20261002205507126', '123', '2026-10-02 22:04:42');
 
 -- --------------------------------------------------------
 
@@ -1625,18 +1619,20 @@ CREATE TABLE `tbl_transaction_items` (
   `transaction_id` int(11) NOT NULL,
   `variant_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT 1,
-  `subtotal` decimal(10,2) NOT NULL
+  `subtotal` decimal(10,2) NOT NULL,
+  `is_backorder` tinyint(1) NOT NULL DEFAULT 0,
+  `pickup_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_transaction_items`
 --
 
-INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `variant_id`, `quantity`, `subtotal`) VALUES
-(1, 1, 7, 1, 25.00),
-(2, 2, 7, 49, 1225.00),
-(3, 3, 5, 1, 25.00),
-(4, 4, 665, 1, 850.00);
+INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `variant_id`, `quantity`, `subtotal`, `is_backorder`, `pickup_date`) VALUES
+(1, 1, 7, 1, 25.00, 0, NULL),
+(2, 2, 7, 49, 1225.00, 0, NULL),
+(3, 3, 5, 1, 25.00, 0, NULL),
+(4, 4, 665, 1, 850.00, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1685,8 +1681,7 @@ ALTER TABLE `tbl_audit_logs`
 -- Indexes for table `tbl_cash_denominations`
 --
 ALTER TABLE `tbl_cash_denominations`
-  ADD PRIMARY KEY (`denomination_id`),
-  ADD KEY `fk_denomination_eod` (`end_of_day_id`);
+  ADD PRIMARY KEY (`denomination_id`);
 
 --
 -- Indexes for table `tbl_categories`
@@ -1747,7 +1742,6 @@ ALTER TABLE `tbl_product_variants`
 ALTER TABLE `tbl_remittances`
   ADD PRIMARY KEY (`remittance_id`),
   ADD UNIQUE KEY `remittance_no` (`remittance_no`),
-  ADD KEY `fk_remittance_eod` (`end_of_day_id`),
   ADD KEY `fk_remittance_prepared` (`prepared_by`),
   ADD KEY `fk_remittance_verified` (`verified_by`);
 
@@ -1841,13 +1835,13 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_audit_logs`
 --
 ALTER TABLE `tbl_audit_logs`
-  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `tbl_cash_denominations`
 --
 ALTER TABLE `tbl_cash_denominations`
-  MODIFY `denomination_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `denomination_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_categories`
@@ -1883,13 +1877,13 @@ ALTER TABLE `tbl_inventory_count_details`
 -- AUTO_INCREMENT for table `tbl_products`
 --
 ALTER TABLE `tbl_products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230;
 
 --
 -- AUTO_INCREMENT for table `tbl_product_variants`
 --
 ALTER TABLE `tbl_product_variants`
-  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=771;
+  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=774;
 
 --
 -- AUTO_INCREMENT for table `tbl_remittances`
@@ -1968,12 +1962,6 @@ ALTER TABLE `tbl_audit_logs`
   ADD CONSTRAINT `fk_audit_user` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`user_id`);
 
 --
--- Constraints for table `tbl_cash_denominations`
---
-ALTER TABLE `tbl_cash_denominations`
-  ADD CONSTRAINT `fk_denomination_eod` FOREIGN KEY (`end_of_day_id`) REFERENCES `tbl_end_of_day` (`end_of_day_id`);
-
---
 -- Constraints for table `tbl_category_types`
 --
 ALTER TABLE `tbl_category_types`
@@ -2014,7 +2002,6 @@ ALTER TABLE `tbl_product_variants`
 -- Constraints for table `tbl_remittances`
 --
 ALTER TABLE `tbl_remittances`
-  ADD CONSTRAINT `fk_remittance_eod` FOREIGN KEY (`end_of_day_id`) REFERENCES `tbl_end_of_day` (`end_of_day_id`),
   ADD CONSTRAINT `fk_remittance_prepared` FOREIGN KEY (`prepared_by`) REFERENCES `tbl_users` (`user_id`),
   ADD CONSTRAINT `fk_remittance_verified` FOREIGN KEY (`verified_by`) REFERENCES `tbl_users` (`user_id`);
 
