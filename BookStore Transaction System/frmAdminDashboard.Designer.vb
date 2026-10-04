@@ -33,23 +33,22 @@ Partial Class frmAdminDashboard
         Me.btnInventory = New System.Windows.Forms.Button()
         Me.btnPOS = New System.Windows.Forms.Button()
         Me.btnDashboard = New System.Windows.Forms.Button()
+        Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Logo = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.pnlContent = New System.Windows.Forms.Panel()
-        Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.Logo, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Panel1.BackgroundImage = CType(resources.GetObject("Panel1.BackgroundImage"), System.Drawing.Image)
         Me.Panel1.Controls.Add(Me.btnlogout)
         Me.Panel1.Controls.Add(Me.btnAuditLogs)
         Me.Panel1.Controls.Add(Me.btnStudentManagement)
@@ -62,7 +61,6 @@ Partial Class frmAdminDashboard
         Me.Panel1.Controls.Add(Me.Panel4)
         Me.Panel1.Controls.Add(Me.Panel3)
         Me.Panel1.Controls.Add(Me.Panel2)
-        Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
@@ -237,6 +235,15 @@ Partial Class frmAdminDashboard
         Me.btnDashboard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnDashboard.UseVisualStyleBackColor = False
         '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.Transparent
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel4.Location = New System.Drawing.Point(233, 100)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(8, 751)
+        Me.Panel4.TabIndex = 2
+        '
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.Transparent
@@ -290,16 +297,6 @@ Partial Class frmAdminDashboard
         Me.Logo.TabIndex = 22
         Me.Logo.TabStop = False
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox1.Location = New System.Drawing.Point(0, 498)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(241, 353)
-        Me.PictureBox1.TabIndex = 0
-        Me.PictureBox1.TabStop = False
-        '
         'pnlContent
         '
         Me.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill
@@ -307,15 +304,6 @@ Partial Class frmAdminDashboard
         Me.pnlContent.Name = "pnlContent"
         Me.pnlContent.Size = New System.Drawing.Size(1223, 851)
         Me.pnlContent.TabIndex = 72
-        '
-        'Panel4
-        '
-        Me.Panel4.BackColor = System.Drawing.Color.Transparent
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel4.Location = New System.Drawing.Point(233, 100)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(8, 751)
-        Me.Panel4.TabIndex = 2
         '
         'frmAdminDashboard
         '
@@ -331,7 +319,6 @@ Partial Class frmAdminDashboard
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.Logo, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -350,7 +337,6 @@ Partial Class frmAdminDashboard
     Friend WithEvents pnlContent As Panel
     Friend WithEvents btnStudentManagement As Button
     Friend WithEvents btnAuditLogs As Button
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents btnlogout As Button
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Panel4 As Panel

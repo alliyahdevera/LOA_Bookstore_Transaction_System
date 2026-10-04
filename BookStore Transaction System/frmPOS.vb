@@ -133,7 +133,6 @@ Public Class frmPOS
         dgv.MultiSelect = False
         dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect
 
-        ' Set all columns to ReadOnly except Quantity
         For Each col As DataGridViewColumn In dgv.Columns
             If col.Name = "Quantity" Then
                 col.ReadOnly = False
@@ -440,7 +439,6 @@ Public Class frmPOS
         Return Nothing
     End Function
 
-    ' ================= CART GRID VALIDATION =================
     Private Sub dgvCart_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles dgvCart.CellValidating
         If e.RowIndex < 0 OrElse dgvCart.Columns(e.ColumnIndex).Name <> "Quantity" Then Exit Sub
 
@@ -499,7 +497,6 @@ Public Class frmPOS
         Return 0
     End Function
 
-    ' ================= REMOVE ITEM =================
     Private Sub btnRemoveItem_Click(sender As Object, e As EventArgs) Handles btnRemoveItem.Click
         If dgvCart.Rows.Count = 0 Then
             MsgBox("The cart is already empty.", vbInformation, "Remove Item")
@@ -574,7 +571,6 @@ Public Class frmPOS
     End Sub
     Private Function ToMoney(input As String) As Decimal
         If String.IsNullOrWhiteSpace(input) Then Return 0
-        ' Strip currency symbols, commas, and whitespace
         Dim cleaned As String = input.Replace("₱", "").Replace("$", "").Replace(",", "").Trim()
         Dim result As Decimal
         If Decimal.TryParse(cleaned, NumberStyles.Number, CultureInfo.InvariantCulture, result) Then

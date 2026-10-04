@@ -22,6 +22,7 @@ Partial Class frmDashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmDashboard))
         Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
@@ -35,29 +36,41 @@ Partial Class frmDashboard
         Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.pnllowprod = New System.Windows.Forms.Panel()
+        Me.PictureBox8 = New System.Windows.Forms.PictureBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.chrtlowlevlprod = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.pnlmostpurchasedprod = New System.Windows.Forms.Panel()
+        Me.PictureBox5 = New System.Windows.Forms.PictureBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.chtmostpurchased = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.pnlsalespmonth = New System.Windows.Forms.Panel()
+        Me.PictureBox7 = New System.Windows.Forms.PictureBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.chrtsalespermonth = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.pnldistrsale = New System.Windows.Forms.Panel()
+        Me.PictureBox6 = New System.Windows.Forms.PictureBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.chtdistsales = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.pnllowstock = New System.Windows.Forms.Panel()
-        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.lbllowstock = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.pnltotqprod = New System.Windows.Forms.Panel()
-        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.lbltotqprod = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pnlsalestoday = New System.Windows.Forms.Panel()
-        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.lblsalest = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.pnltotprod = New System.Windows.Forms.Panel()
-        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.lbltotp = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel13 = New System.Windows.Forms.Panel()
         Me.lblname = New System.Windows.Forms.Label()
@@ -68,23 +81,32 @@ Partial Class frmDashboard
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.pnllowprod.SuspendLayout()
+        CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chrtlowlevlprod, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlmostpurchasedprod.SuspendLayout()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtmostpurchased, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlsalespmonth.SuspendLayout()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chrtsalespermonth, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnldistrsale.SuspendLayout()
+        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtdistsales, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnllowstock.SuspendLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnltotqprod.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlsalestoday.SuspendLayout()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnltotprod.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnllowprod
         '
         Me.pnllowprod.BackColor = System.Drawing.Color.White
+        Me.pnllowprod.Controls.Add(Me.PictureBox8)
         Me.pnllowprod.Controls.Add(Me.Label14)
         Me.pnllowprod.Controls.Add(Me.chrtlowlevlprod)
         Me.pnllowprod.Location = New System.Drawing.Point(29, 522)
@@ -92,11 +114,21 @@ Partial Class frmDashboard
         Me.pnllowprod.Size = New System.Drawing.Size(570, 275)
         Me.pnllowprod.TabIndex = 85
         '
+        'PictureBox8
+        '
+        Me.PictureBox8.Image = CType(resources.GetObject("PictureBox8.Image"), System.Drawing.Image)
+        Me.PictureBox8.Location = New System.Drawing.Point(17, 14)
+        Me.PictureBox8.Name = "PictureBox8"
+        Me.PictureBox8.Size = New System.Drawing.Size(35, 35)
+        Me.PictureBox8.TabIndex = 38
+        Me.PictureBox8.TabStop = False
+        '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(13, 14)
+        Me.Label14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label14.Location = New System.Drawing.Point(61, 21)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(176, 21)
         Me.Label14.TabIndex = 36
@@ -108,10 +140,9 @@ Partial Class frmDashboard
         Me.chrtlowlevlprod.ChartAreas.Add(ChartArea1)
         Legend1.Name = "Legend1"
         Me.chrtlowlevlprod.Legends.Add(Legend1)
-        Me.chrtlowlevlprod.Location = New System.Drawing.Point(23, 49)
+        Me.chrtlowlevlprod.Location = New System.Drawing.Point(22, 64)
         Me.chrtlowlevlprod.Name = "chrtlowlevlprod"
         Series1.ChartArea = "ChartArea1"
-        Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie
         Series1.Legend = "Legend1"
         Series1.Name = "Series1"
         Me.chrtlowlevlprod.Series.Add(Series1)
@@ -122,6 +153,7 @@ Partial Class frmDashboard
         'pnlmostpurchasedprod
         '
         Me.pnlmostpurchasedprod.BackColor = System.Drawing.Color.White
+        Me.pnlmostpurchasedprod.Controls.Add(Me.PictureBox5)
         Me.pnlmostpurchasedprod.Controls.Add(Me.Label12)
         Me.pnlmostpurchasedprod.Controls.Add(Me.chtmostpurchased)
         Me.pnlmostpurchasedprod.Location = New System.Drawing.Point(29, 224)
@@ -129,15 +161,28 @@ Partial Class frmDashboard
         Me.pnlmostpurchasedprod.Size = New System.Drawing.Size(570, 275)
         Me.pnlmostpurchasedprod.TabIndex = 83
         '
+        'PictureBox5
+        '
+        Me.PictureBox5.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox5.Image = CType(resources.GetObject("PictureBox5.Image"), System.Drawing.Image)
+        Me.PictureBox5.Location = New System.Drawing.Point(17, 13)
+        Me.PictureBox5.Name = "PictureBox5"
+        Me.PictureBox5.Size = New System.Drawing.Size(35, 35)
+        Me.PictureBox5.TabIndex = 37
+        Me.PictureBox5.TabStop = False
+        '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(13, 13)
+        Me.Label12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label12.Location = New System.Drawing.Point(61, 20)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(226, 21)
+        Me.Label12.Size = New System.Drawing.Size(272, 21)
         Me.Label12.TabIndex = 36
-        Me.Label12.Text = "MOST PURCHASED PRODUCT"
+        Me.Label12.Text = "TOP 5 MOST PURCHASED PRODUCT"
         '
         'chtmostpurchased
         '
@@ -145,20 +190,21 @@ Partial Class frmDashboard
         Me.chtmostpurchased.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
         Me.chtmostpurchased.Legends.Add(Legend2)
-        Me.chtmostpurchased.Location = New System.Drawing.Point(17, 46)
+        Me.chtmostpurchased.Location = New System.Drawing.Point(17, 54)
         Me.chtmostpurchased.Name = "chtmostpurchased"
         Series2.ChartArea = "ChartArea1"
         Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar
         Series2.Legend = "Legend1"
         Series2.Name = "Series1"
         Me.chtmostpurchased.Series.Add(Series2)
-        Me.chtmostpurchased.Size = New System.Drawing.Size(520, 200)
+        Me.chtmostpurchased.Size = New System.Drawing.Size(525, 207)
         Me.chtmostpurchased.TabIndex = 35
         Me.chtmostpurchased.Text = "Chart3"
         '
         'pnlsalespmonth
         '
         Me.pnlsalespmonth.BackColor = System.Drawing.Color.White
+        Me.pnlsalespmonth.Controls.Add(Me.PictureBox7)
         Me.pnlsalespmonth.Controls.Add(Me.Label15)
         Me.pnlsalespmonth.Controls.Add(Me.chrtsalespermonth)
         Me.pnlsalespmonth.Location = New System.Drawing.Point(625, 522)
@@ -166,11 +212,21 @@ Partial Class frmDashboard
         Me.pnlsalespmonth.Size = New System.Drawing.Size(570, 275)
         Me.pnlsalespmonth.TabIndex = 84
         '
+        'PictureBox7
+        '
+        Me.PictureBox7.Image = CType(resources.GetObject("PictureBox7.Image"), System.Drawing.Image)
+        Me.PictureBox7.Location = New System.Drawing.Point(16, 14)
+        Me.PictureBox7.Name = "PictureBox7"
+        Me.PictureBox7.Size = New System.Drawing.Size(35, 35)
+        Me.PictureBox7.TabIndex = 39
+        Me.PictureBox7.TabStop = False
+        '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(14, 14)
+        Me.Label15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label15.Location = New System.Drawing.Point(56, 21)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(150, 21)
         Me.Label15.TabIndex = 38
@@ -182,20 +238,21 @@ Partial Class frmDashboard
         Me.chrtsalespermonth.ChartAreas.Add(ChartArea3)
         Legend3.Name = "Legend1"
         Me.chrtsalespermonth.Legends.Add(Legend3)
-        Me.chrtsalespermonth.Location = New System.Drawing.Point(27, 49)
+        Me.chrtsalespermonth.Location = New System.Drawing.Point(16, 54)
         Me.chrtsalespermonth.Name = "chrtsalespermonth"
         Series3.ChartArea = "ChartArea1"
         Series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
         Series3.Legend = "Legend1"
         Series3.Name = "Series1"
         Me.chrtsalespermonth.Series.Add(Series3)
-        Me.chrtsalespermonth.Size = New System.Drawing.Size(520, 200)
+        Me.chrtsalespermonth.Size = New System.Drawing.Size(541, 210)
         Me.chrtsalespermonth.TabIndex = 37
         Me.chrtsalespermonth.Text = "Chart3"
         '
         'pnldistrsale
         '
         Me.pnldistrsale.BackColor = System.Drawing.Color.White
+        Me.pnldistrsale.Controls.Add(Me.PictureBox6)
         Me.pnldistrsale.Controls.Add(Me.Label13)
         Me.pnldistrsale.Controls.Add(Me.chtdistsales)
         Me.pnldistrsale.Location = New System.Drawing.Point(625, 224)
@@ -203,11 +260,21 @@ Partial Class frmDashboard
         Me.pnldistrsale.Size = New System.Drawing.Size(570, 275)
         Me.pnldistrsale.TabIndex = 82
         '
+        'PictureBox6
+        '
+        Me.PictureBox6.Image = CType(resources.GetObject("PictureBox6.Image"), System.Drawing.Image)
+        Me.PictureBox6.Location = New System.Drawing.Point(16, 13)
+        Me.PictureBox6.Name = "PictureBox6"
+        Me.PictureBox6.Size = New System.Drawing.Size(35, 35)
+        Me.PictureBox6.TabIndex = 38
+        Me.PictureBox6.TabStop = False
+        '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(14, 13)
+        Me.Label13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label13.Location = New System.Drawing.Point(56, 20)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(167, 21)
         Me.Label13.TabIndex = 36
@@ -219,14 +286,14 @@ Partial Class frmDashboard
         Me.chtdistsales.ChartAreas.Add(ChartArea4)
         Legend4.Name = "Legend1"
         Me.chtdistsales.Legends.Add(Legend4)
-        Me.chtdistsales.Location = New System.Drawing.Point(27, 46)
+        Me.chtdistsales.Location = New System.Drawing.Point(16, 59)
         Me.chtdistsales.Name = "chtdistsales"
         Series4.ChartArea = "ChartArea1"
         Series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie
         Series4.Legend = "Legend1"
         Series4.Name = "Series1"
         Me.chtdistsales.Series.Add(Series4)
-        Me.chtdistsales.Size = New System.Drawing.Size(520, 200)
+        Me.chtdistsales.Size = New System.Drawing.Size(541, 200)
         Me.chtdistsales.TabIndex = 35
         Me.chtdistsales.Text = "Chart1"
         '
@@ -244,124 +311,228 @@ Partial Class frmDashboard
         'pnllowstock
         '
         Me.pnllowstock.BackColor = System.Drawing.Color.White
-        Me.pnllowstock.Controls.Add(Me.Label11)
+        Me.pnllowstock.Controls.Add(Me.Label10)
+        Me.pnllowstock.Controls.Add(Me.PictureBox4)
+        Me.pnllowstock.Controls.Add(Me.lbllowstock)
         Me.pnllowstock.Controls.Add(Me.Label6)
         Me.pnllowstock.Location = New System.Drawing.Point(925, 77)
         Me.pnllowstock.Name = "pnllowstock"
         Me.pnllowstock.Size = New System.Drawing.Size(270, 125)
         Me.pnllowstock.TabIndex = 80
         '
-        'Label11
+        'Label10
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(108, 52)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(56, 45)
-        Me.Label11.TabIndex = 4
-        Me.Label11.Text = "00"
-        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.Color.Silver
+        Me.Label10.Location = New System.Drawing.Point(29, 80)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(216, 17)
+        Me.Label10.TabIndex = 110
+        Me.Label10.Text = "————————————————" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.Image = CType(resources.GetObject("PictureBox4.Image"), System.Drawing.Image)
+        Me.PictureBox4.Location = New System.Drawing.Point(32, 18)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(60, 60)
+        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox4.TabIndex = 5
+        Me.PictureBox4.TabStop = False
+        '
+        'lbllowstock
+        '
+        Me.lbllowstock.AutoSize = True
+        Me.lbllowstock.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbllowstock.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.lbllowstock.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbllowstock.Location = New System.Drawing.Point(98, 25)
+        Me.lbllowstock.Name = "lbllowstock"
+        Me.lbllowstock.Size = New System.Drawing.Size(56, 45)
+        Me.lbllowstock.TabIndex = 4
+        Me.lbllowstock.Text = "00"
+        Me.lbllowstock.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(56, 8)
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label6.Location = New System.Drawing.Point(76, 93)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(157, 25)
+        Me.Label6.Size = New System.Drawing.Size(130, 21)
         Me.Label6.TabIndex = 3
         Me.Label6.Text = "Low Stock Items"
         '
         'pnltotqprod
         '
         Me.pnltotqprod.BackColor = System.Drawing.Color.White
-        Me.pnltotqprod.Controls.Add(Me.Label9)
+        Me.pnltotqprod.Controls.Add(Me.Label8)
+        Me.pnltotqprod.Controls.Add(Me.PictureBox2)
+        Me.pnltotqprod.Controls.Add(Me.lbltotqprod)
         Me.pnltotqprod.Controls.Add(Me.Label2)
         Me.pnltotqprod.Location = New System.Drawing.Point(329, 77)
         Me.pnltotqprod.Name = "pnltotqprod"
         Me.pnltotqprod.Size = New System.Drawing.Size(270, 125)
         Me.pnltotqprod.TabIndex = 78
         '
-        'Label9
+        'Label8
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(101, 52)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(56, 45)
-        Me.Label9.TabIndex = 2
-        Me.Label9.Text = "00"
-        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.ForeColor = System.Drawing.Color.Silver
+        Me.Label8.Location = New System.Drawing.Point(26, 80)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(216, 17)
+        Me.Label8.TabIndex = 108
+        Me.Label8.Text = "————————————————" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
+        Me.PictureBox2.Location = New System.Drawing.Point(29, 18)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(60, 60)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.TabIndex = 3
+        Me.PictureBox2.TabStop = False
+        '
+        'lbltotqprod
+        '
+        Me.lbltotqprod.AutoSize = True
+        Me.lbltotqprod.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbltotqprod.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.lbltotqprod.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltotqprod.Location = New System.Drawing.Point(95, 25)
+        Me.lbltotqprod.Name = "lbltotqprod"
+        Me.lbltotqprod.Size = New System.Drawing.Size(56, 45)
+        Me.lbltotqprod.TabIndex = 2
+        Me.lbltotqprod.Text = "00"
+        Me.lbltotqprod.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(11, 8)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label2.Location = New System.Drawing.Point(35, 93)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(246, 25)
+        Me.Label2.Size = New System.Drawing.Size(200, 21)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Total Quantity of Products"
         '
         'pnlsalestoday
         '
         Me.pnlsalestoday.BackColor = System.Drawing.Color.White
-        Me.pnlsalestoday.Controls.Add(Me.Label10)
+        Me.pnlsalestoday.Controls.Add(Me.Label9)
+        Me.pnlsalestoday.Controls.Add(Me.PictureBox3)
+        Me.pnlsalestoday.Controls.Add(Me.lblsalest)
         Me.pnlsalestoday.Controls.Add(Me.Label3)
         Me.pnlsalestoday.Location = New System.Drawing.Point(625, 77)
         Me.pnlsalestoday.Name = "pnlsalestoday"
         Me.pnlsalestoday.Size = New System.Drawing.Size(270, 125)
         Me.pnlsalestoday.TabIndex = 79
         '
-        'Label10
+        'Label9
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(108, 52)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(56, 45)
-        Me.Label10.TabIndex = 3
-        Me.Label10.Text = "00"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.ForeColor = System.Drawing.Color.Silver
+        Me.Label9.Location = New System.Drawing.Point(28, 80)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(216, 17)
+        Me.Label9.TabIndex = 109
+        Me.Label9.Text = "————————————————" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
+        Me.PictureBox3.Location = New System.Drawing.Point(31, 18)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(60, 60)
+        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox3.TabIndex = 4
+        Me.PictureBox3.TabStop = False
+        '
+        'lblsalest
+        '
+        Me.lblsalest.AutoSize = True
+        Me.lblsalest.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblsalest.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.lblsalest.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblsalest.Location = New System.Drawing.Point(97, 25)
+        Me.lblsalest.Name = "lblsalest"
+        Me.lblsalest.Size = New System.Drawing.Size(56, 45)
+        Me.lblsalest.TabIndex = 3
+        Me.lblsalest.Text = "00"
+        Me.lblsalest.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(53, 8)
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label3.Location = New System.Drawing.Point(73, 93)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(162, 25)
+        Me.Label3.Size = New System.Drawing.Size(133, 21)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Total Sales Today"
         '
         'pnltotprod
         '
         Me.pnltotprod.BackColor = System.Drawing.Color.White
-        Me.pnltotprod.Controls.Add(Me.Label8)
+        Me.pnltotprod.Controls.Add(Me.Label5)
+        Me.pnltotprod.Controls.Add(Me.PictureBox1)
+        Me.pnltotprod.Controls.Add(Me.lbltotp)
         Me.pnltotprod.Controls.Add(Me.Label1)
         Me.pnltotprod.Location = New System.Drawing.Point(29, 77)
         Me.pnltotprod.Name = "pnltotprod"
         Me.pnltotprod.Size = New System.Drawing.Size(270, 125)
         Me.pnltotprod.TabIndex = 77
         '
-        'Label8
+        'Label5
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(97, 52)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(56, 45)
-        Me.Label8.TabIndex = 1
-        Me.Label8.Text = "00"
-        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.Silver
+        Me.Label5.Location = New System.Drawing.Point(26, 80)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(216, 17)
+        Me.Label5.TabIndex = 107
+        Me.Label5.Text = "————————————————"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(29, 17)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(60, 60)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
+        '
+        'lbltotp
+        '
+        Me.lbltotp.AutoSize = True
+        Me.lbltotp.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbltotp.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.lbltotp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbltotp.Location = New System.Drawing.Point(95, 25)
+        Me.lbltotp.Name = "lbltotp"
+        Me.lbltotp.Size = New System.Drawing.Size(56, 45)
+        Me.lbltotp.TabIndex = 1
+        Me.lbltotp.Text = "00"
+        Me.lbltotp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(60, 8)
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(75, 93)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(140, 25)
+        Me.Label1.Size = New System.Drawing.Size(114, 21)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Total Products"
         '
@@ -484,24 +655,32 @@ Partial Class frmDashboard
         Me.Text = "frmDashboard"
         Me.pnllowprod.ResumeLayout(False)
         Me.pnllowprod.PerformLayout()
+        CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chrtlowlevlprod, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlmostpurchasedprod.ResumeLayout(False)
         Me.pnlmostpurchasedprod.PerformLayout()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chtmostpurchased, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlsalespmonth.ResumeLayout(False)
         Me.pnlsalespmonth.PerformLayout()
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chrtsalespermonth, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnldistrsale.ResumeLayout(False)
         Me.pnldistrsale.PerformLayout()
+        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chtdistsales, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnllowstock.ResumeLayout(False)
         Me.pnllowstock.PerformLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnltotqprod.ResumeLayout(False)
         Me.pnltotqprod.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlsalestoday.ResumeLayout(False)
         Me.pnlsalestoday.PerformLayout()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnltotprod.ResumeLayout(False)
         Me.pnltotprod.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.ResumeLayout(False)
@@ -523,16 +702,16 @@ Partial Class frmDashboard
     Friend WithEvents chtdistsales As DataVisualization.Charting.Chart
     Friend WithEvents Label7 As Label
     Friend WithEvents pnllowstock As Panel
-    Friend WithEvents Label11 As Label
+    Friend WithEvents lbllowstock As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents pnltotqprod As Panel
-    Friend WithEvents Label9 As Label
+    Friend WithEvents lbltotqprod As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents pnlsalestoday As Panel
-    Friend WithEvents Label10 As Label
+    Friend WithEvents lblsalest As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents pnltotprod As Panel
-    Friend WithEvents Label8 As Label
+    Friend WithEvents lbltotp As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel13 As Panel
     Friend WithEvents lblname As Label
@@ -542,4 +721,16 @@ Partial Class frmDashboard
     Friend WithEvents Label28 As Label
     Friend WithEvents lblposition As Label
     Friend WithEvents Label4 As Label
+    Friend WithEvents PictureBox4 As PictureBox
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents PictureBox8 As PictureBox
+    Friend WithEvents PictureBox5 As PictureBox
+    Friend WithEvents PictureBox7 As PictureBox
+    Friend WithEvents PictureBox6 As PictureBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label5 As Label
 End Class

@@ -23,8 +23,8 @@ Partial Class frmPOS
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOS))
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.pnlbuyertype = New System.Windows.Forms.Panel()
@@ -128,9 +128,9 @@ Partial Class frmPOS
         'pnlbuyertype
         '
         Me.pnlbuyertype.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlbuyertype.Location = New System.Drawing.Point(0, 117)
+        Me.pnlbuyertype.Location = New System.Drawing.Point(0, 107)
         Me.pnlbuyertype.Name = "pnlbuyertype"
-        Me.pnlbuyertype.Size = New System.Drawing.Size(343, 179)
+        Me.pnlbuyertype.Size = New System.Drawing.Size(343, 189)
         Me.pnlbuyertype.TabIndex = 126
         '
         'Label16
@@ -225,14 +225,14 @@ Partial Class frmPOS
         Me.dgvCart.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvCart.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductName, Me.Size, Me.Quantity, Me.UnitPrice, Me.SubTotal})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvCart.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvCart.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvCart.Location = New System.Drawing.Point(-1, 35)
         Me.dgvCart.Name = "dgvCart"
         Me.dgvCart.ReadOnly = True
@@ -290,9 +290,9 @@ Partial Class frmPOS
         Me.Label15.ForeColor = System.Drawing.Color.White
         Me.Label15.Location = New System.Drawing.Point(7, 6)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(100, 21)
+        Me.Label15.Size = New System.Drawing.Size(151, 21)
         Me.Label15.TabIndex = 9
-        Me.Label15.Text = "List of Items"
+        Me.Label15.Text = "List of Items in Cart"
         '
         'btnSettlePayment
         '
@@ -407,6 +407,7 @@ Partial Class frmPOS
         Me.txtTotalAMount.Font = New System.Drawing.Font("Segoe UI", 15.0!)
         Me.txtTotalAMount.Location = New System.Drawing.Point(135, 254)
         Me.txtTotalAMount.Name = "txtTotalAMount"
+        Me.txtTotalAMount.ReadOnly = True
         Me.txtTotalAMount.Size = New System.Drawing.Size(190, 34)
         Me.txtTotalAMount.TabIndex = 94
         Me.txtTotalAMount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -630,9 +631,9 @@ Partial Class frmPOS
         Me.Label9.ForeColor = System.Drawing.Color.White
         Me.Label9.Location = New System.Drawing.Point(7, 6)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(100, 21)
+        Me.Label9.Size = New System.Drawing.Size(75, 21)
         Me.Label9.TabIndex = 9
-        Me.Label9.Text = "List of Items"
+        Me.Label9.Text = "Products"
         '
         'dgvlistproducts
         '
@@ -640,14 +641,14 @@ Partial Class frmPOS
         Me.dgvlistproducts.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvlistproducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvlistproducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.DataGridViewTextBoxColumn1, Me.Category, Me.TypeofProduct, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.Status})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle6
         Me.dgvlistproducts.Location = New System.Drawing.Point(34, 149)
         Me.dgvlistproducts.Name = "dgvlistproducts"
         Me.dgvlistproducts.ReadOnly = True

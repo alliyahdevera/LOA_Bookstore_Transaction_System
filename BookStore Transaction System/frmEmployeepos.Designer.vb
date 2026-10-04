@@ -37,7 +37,7 @@ Partial Class frmEmployeepos
         '
         Me.txtStudentNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtStudentNo.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStudentNo.Location = New System.Drawing.Point(135, 24)
+        Me.txtStudentNo.Location = New System.Drawing.Point(135, 15)
         Me.txtStudentNo.Name = "txtStudentNo"
         Me.txtStudentNo.Size = New System.Drawing.Size(104, 25)
         Me.txtStudentNo.TabIndex = 142
@@ -46,7 +46,7 @@ Partial Class frmEmployeepos
         '
         Me.txtgrade.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtgrade.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtgrade.Location = New System.Drawing.Point(135, 97)
+        Me.txtgrade.Location = New System.Drawing.Point(135, 88)
         Me.txtgrade.Name = "txtgrade"
         Me.txtgrade.ReadOnly = True
         Me.txtgrade.Size = New System.Drawing.Size(190, 25)
@@ -58,7 +58,7 @@ Partial Class frmEmployeepos
         Me.btnSearchStudent.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSearchStudent.Font = New System.Drawing.Font("Segoe UI Semibold", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnSearchStudent.ForeColor = System.Drawing.Color.White
-        Me.btnSearchStudent.Location = New System.Drawing.Point(245, 24)
+        Me.btnSearchStudent.Location = New System.Drawing.Point(245, 15)
         Me.btnSearchStudent.Name = "btnSearchStudent"
         Me.btnSearchStudent.Size = New System.Drawing.Size(80, 25)
         Me.btnSearchStudent.TabIndex = 140
@@ -69,7 +69,7 @@ Partial Class frmEmployeepos
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(18, 133)
+        Me.Label7.Location = New System.Drawing.Point(18, 124)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(54, 17)
         Me.Label7.TabIndex = 139
@@ -79,7 +79,7 @@ Partial Class frmEmployeepos
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(18, 99)
+        Me.Label8.Location = New System.Drawing.Point(18, 90)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(77, 17)
         Me.Label8.TabIndex = 138
@@ -89,7 +89,7 @@ Partial Class frmEmployeepos
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(18, 64)
+        Me.Label6.Location = New System.Drawing.Point(18, 55)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(104, 17)
         Me.Label6.TabIndex = 137
@@ -99,7 +99,7 @@ Partial Class frmEmployeepos
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(18, 28)
+        Me.Label3.Location = New System.Drawing.Point(18, 19)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(90, 17)
         Me.Label3.TabIndex = 136
@@ -109,7 +109,7 @@ Partial Class frmEmployeepos
         '
         Me.txtProgramStrand.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtProgramStrand.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtProgramStrand.Location = New System.Drawing.Point(135, 131)
+        Me.txtProgramStrand.Location = New System.Drawing.Point(135, 122)
         Me.txtProgramStrand.Name = "txtProgramStrand"
         Me.txtProgramStrand.ReadOnly = True
         Me.txtProgramStrand.Size = New System.Drawing.Size(190, 25)
@@ -119,7 +119,7 @@ Partial Class frmEmployeepos
         '
         Me.txtStudentName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtStudentName.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStudentName.Location = New System.Drawing.Point(135, 62)
+        Me.txtStudentName.Location = New System.Drawing.Point(135, 53)
         Me.txtStudentName.Name = "txtStudentName"
         Me.txtStudentName.ReadOnly = True
         Me.txtStudentName.Size = New System.Drawing.Size(190, 25)

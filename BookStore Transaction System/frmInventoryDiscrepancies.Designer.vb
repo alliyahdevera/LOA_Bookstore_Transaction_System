@@ -121,9 +121,9 @@ Partial Class frmInventoryDiscrepancies
         Me.Label13.ForeColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Label13.Location = New System.Drawing.Point(28, 50)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(249, 15)
+        Me.Label13.Size = New System.Drawing.Size(259, 15)
         Me.Label13.TabIndex = 170
-        Me.Label13.Text = "History of the Inventory Count & Reconciliation" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label13.Text = "History of the Inventory Count && Reconciliation" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'Label15
         '

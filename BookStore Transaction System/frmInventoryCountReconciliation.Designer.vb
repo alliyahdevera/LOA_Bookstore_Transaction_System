@@ -75,6 +75,8 @@ Partial Class frmInventoryCountReconciliation
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtCountNo = New System.Windows.Forms.TextBox()
         Me.Label23 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
@@ -116,7 +118,7 @@ Partial Class frmInventoryCountReconciliation
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(517, 182)
+        Me.Panel1.Location = New System.Drawing.Point(355, 181)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(216, 26)
         Me.Panel1.TabIndex = 108
@@ -205,11 +207,11 @@ Partial Class frmInventoryCountReconciliation
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(301, 186)
+        Me.Label14.Location = New System.Drawing.Point(301, 185)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(211, 17)
+        Me.Label14.Size = New System.Drawing.Size(48, 17)
         Me.Label14.TabIndex = 106
-        Me.Label14.Text = "Search by Product Code or Name"
+        Me.Label14.Text = "Search"
         '
         'Panel5
         '
@@ -335,7 +337,7 @@ Partial Class frmInventoryCountReconciliation
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(747, 185)
+        Me.Label9.Location = New System.Drawing.Point(583, 185)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(64, 17)
         Me.Label9.TabIndex = 123
@@ -346,7 +348,7 @@ Partial Class frmInventoryCountReconciliation
         Me.cbocategory.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cbocategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbocategory.FormattingEnabled = True
-        Me.cbocategory.Location = New System.Drawing.Point(817, 182)
+        Me.cbocategory.Location = New System.Drawing.Point(653, 182)
         Me.cbocategory.Name = "cbocategory"
         Me.cbocategory.Size = New System.Drawing.Size(158, 25)
         Me.cbocategory.TabIndex = 124
@@ -357,9 +359,9 @@ Partial Class frmInventoryCountReconciliation
         Me.btngenerate.FlatAppearance.BorderSize = 0
         Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btngenerate.ForeColor = System.Drawing.Color.White
-        Me.btngenerate.Location = New System.Drawing.Point(992, 180)
+        Me.btngenerate.Location = New System.Drawing.Point(1072, 182)
         Me.btngenerate.Name = "btngenerate"
-        Me.btngenerate.Size = New System.Drawing.Size(197, 28)
+        Me.btngenerate.Size = New System.Drawing.Size(117, 28)
         Me.btngenerate.TabIndex = 164
         Me.btngenerate.Text = "Load Products"
         Me.btngenerate.UseVisualStyleBackColor = False
@@ -602,11 +604,33 @@ Partial Class frmInventoryCountReconciliation
         Me.Label23.TabIndex = 176
         Me.Label23.Text = "Count No."
         '
+        'ComboBox1
+        '
+        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(879, 183)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(178, 25)
+        Me.ComboBox1.TabIndex = 178
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(837, 187)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(36, 17)
+        Me.Label5.TabIndex = 177
+        Me.Label5.Text = "Type"
+        '
         'frmInventoryCountReconciliation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 804)
+        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.txtCountNo)
         Me.Controls.Add(Me.Label23)
         Me.Controls.Add(Me.Panel11)
@@ -707,4 +731,6 @@ Partial Class frmInventoryCountReconciliation
     Friend WithEvents Label1 As Label
     Friend WithEvents txtCountNo As TextBox
     Friend WithEvents Label23 As Label
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents Label5 As Label
 End Class

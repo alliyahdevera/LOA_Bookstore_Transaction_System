@@ -65,22 +65,13 @@ Public Class frmDashboard
     ' The four cards
     ' ------------------------------------------------------------------
     Private Sub LoadTotals()
-        ' Card 1: Total Products
-        Label8.Text = GetScalar("SELECT COUNT(*) FROM TBL_PRODUCTS").ToString("N0")
+        lbltotp.Text = GetScalar("SELECT COUNT(*) FROM TBL_PRODUCTS").ToString("N0")
 
-        ' Card 2: Total Quantity of Products
-        Label9.Text = GetScalar("SELECT IFNULL(SUM(quantity_on_hand), 0) FROM TBL_PRODUCT_VARIANTS").ToString("N0")
+        lbltotqprod.Text = GetScalar("SELECT IFNULL(SUM(quantity_on_hand), 0) FROM TBL_PRODUCT_VARIANTS").ToString("N0")
 
-        ' Card 3: Total Sales Today
-        Label10.Text = ChrW(8369) & GetScalar("SELECT IFNULL(SUM(total_amount), 0) FROM TBL_TRANSACTIONS WHERE DATE(or_date) = CURDATE() AND status <> 'Cancelled'").ToString("N2")
+        lblsalest.Text = ChrW(8369) & GetScalar("SELECT IFNULL(SUM(total_amount), 0) FROM TBL_TRANSACTIONS WHERE DATE(or_date) = CURDATE() AND status <> 'Cancelled'").ToString("N2")
 
-        ' Card 4: Low Stock Items (Variants at or below reorder level)
-        Label11.Text = GetScalar("SELECT COUNT(*) FROM TBL_PRODUCT_VARIANTS WHERE quantity_on_hand <= reorder_level").ToString("N0")
-
-        CenterLabel(Label8)
-        CenterLabel(Label9)
-        CenterLabel(Label10)
-        CenterLabel(Label11)
+        lbllowstock.Text = GetScalar("SELECT COUNT(*) FROM TBL_PRODUCT_VARIANTS WHERE quantity_on_hand <= reorder_level").ToString("N0")
     End Sub
 
     ' Keeps the big number centered in its card no matter how many digits it has
@@ -108,9 +99,6 @@ Public Class frmDashboard
         Return result
     End Function
 
-    ' ------------------------------------------------------------------
-    ' MOST BOUGHT PRODUCT - top 5 products by quantity sold
-    ' ------------------------------------------------------------------
     Private Sub LoadMostBoughtProducts()
         Try
             If Not connection() Then Exit Sub
@@ -144,9 +132,6 @@ Public Class frmDashboard
         End Try
     End Sub
 
-    ' ------------------------------------------------------------------
-    ' PRODUCT SALES - share of sales amount per category (pie)
-    ' ------------------------------------------------------------------
     Private Sub LoadProductSales()
         Try
             If Not connection() Then Exit Sub
@@ -183,9 +168,6 @@ Public Class frmDashboard
         End Try
     End Sub
 
-    ' ------------------------------------------------------------------
-    ' CRITICAL PRODUCTS - variants at or below their reorder level
-    ' ------------------------------------------------------------------
     Private Sub LoadCriticalProducts()
         Try
             If Not connection() Then Exit Sub
@@ -218,9 +200,6 @@ Public Class frmDashboard
         End Try
     End Sub
 
-    ' ------------------------------------------------------------------
-    ' SALES PER MONTH - monthly sales for current year
-    ' ------------------------------------------------------------------
     Private Sub LoadSalesPerMonth()
         Dim currentYear As Integer = DateTime.Today.Year
 

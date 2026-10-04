@@ -31,7 +31,7 @@ Partial Class frmGuestPos
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(20, 23)
+        Me.Label13.Location = New System.Drawing.Point(20, 13)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(80, 17)
         Me.Label13.TabIndex = 126
@@ -41,7 +41,7 @@ Partial Class frmGuestPos
         '
         Me.txtGuestName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGuestName.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtGuestName.Location = New System.Drawing.Point(132, 21)
+        Me.txtGuestName.Location = New System.Drawing.Point(132, 11)
         Me.txtGuestName.Name = "txtGuestName"
         Me.txtGuestName.Size = New System.Drawing.Size(190, 25)
         Me.txtGuestName.TabIndex = 125
@@ -49,7 +49,7 @@ Partial Class frmGuestPos
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LemonChiffon
-        Me.Panel1.Location = New System.Drawing.Point(21, 66)
+        Me.Panel1.Location = New System.Drawing.Point(21, 56)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(300, 88)
         Me.Panel1.TabIndex = 127

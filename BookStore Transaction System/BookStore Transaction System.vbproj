@@ -314,9 +314,7 @@
     <Compile Include="Login.Designer.vb">
       <DependentUpon>Login.vb</DependentUpon>
     </Compile>
-    <Compile Include="Login.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Login.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
