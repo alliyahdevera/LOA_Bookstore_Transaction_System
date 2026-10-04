@@ -1,12 +1,15 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Globalization
+Imports System.Management
 Imports System.Transactions
 Imports MySql.Data.MySqlClient
 
 Public Class frmPOS
 
-    Private foundStudentId As Integer = 0
-    Private selectedStudentNo As String = ""
+    Private Const PRODUCT_SEARCH_HINT As String = "Product code or name"
+    Private pgProducts As GridPager
+    Private currentBuyerForm As Form
+    Private isLoadingFilters As Boolean = False
     Private paymentDate As Date = Date.Today
     Private paymentEmployee As String = ""
     Private isUpdatingNud As Boolean = False
@@ -25,9 +28,8 @@ Public Class frmPOS
 
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        txtProductSearch.Text = "Product code or name"
+        txtProductSearch.Text = PRODUCT_SEARCH_HINT
         txtProductSearch.ForeColor = Color.Gray
-        ' Prevent auto-generating extra columns at runtime
         dgvlistproducts.AutoGenerateColumns = False
         dgvCart.AutoGenerateColumns = False
 
@@ -35,7 +37,8 @@ Public Class frmPOS
         SetupDataGridView()
         SetupGrid(dgvlistproducts)
         SetupCartGrid(dgvCart)
-
+        pgProducts = New GridPager(dgvlistproducts, 15)
+        AddHandler pgProducts.PageChanged, AddressOf LoadProducts
         ' Format numeric grid columns
         If dgvlistproducts.Columns.Contains(COL_PRICE) Then
             dgvlistproducts.Columns(COL_PRICE).DefaultCellStyle.Format = "N2"
@@ -51,9 +54,8 @@ Public Class frmPOS
         nudQuantity.DecimalPlaces = 0
         nudQuantity.Minimum = 0
 
-        ' Load category list dynamically from database
         LoadCategoryComboBox()
-
+        LoadBuyerTypeCombo()
         ' Reset all form fields and fetch initial product list
         ResetAll()
     End Sub
@@ -63,16 +65,44 @@ Public Class frmPOS
     End Function
 
     Private Sub LoadCategoryComboBox()
+        isLoadingFilters = True
         cbocategory.DropDownStyle = ComboBoxStyle.DropDownList
         cbocategory.Items.Clear()
         cbocategory.Items.Add("All Items")
-
         Dim dt As DataTable = GetDataTable("SELECT category_name FROM tbl_categories ORDER BY category_name")
         For Each row As DataRow In dt.Rows
             cbocategory.Items.Add(row("category_name").ToString())
         Next
-
         cbocategory.SelectedIndex = 0
+        LoadTypeCombo()
+        isLoadingFilters = False
+    End Sub
+
+    Private Sub LoadTypeCombo()
+        cbotype.DropDownStyle = ComboBoxStyle.DropDownList
+        cbotype.Items.Clear()
+        cbotype.Items.Add("All Types")
+
+        Dim dt As DataTable
+        If cbocategory.SelectedIndex <= 0 Then
+            dt = GetDataTable("SELECT DISTINCT type_name FROM tbl_category_types ORDER BY type_name")
+        Else
+            dt = GetDataTable("SELECT ct.type_name FROM tbl_category_types ct " &
+                          "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
+                          "WHERE c.category_name = @c ORDER BY ct.type_name",
+                          New String() {"@c"}, New Object() {cbocategory.Text})
+        End If
+        For Each r As DataRow In dt.Rows
+            cbotype.Items.Add(r("type_name").ToString())
+        Next
+        cbotype.SelectedIndex = 0
+    End Sub
+
+    Private Sub LoadBuyerTypeCombo()
+        cbobuyertype.DropDownStyle = ComboBoxStyle.DropDownList
+        cbobuyertype.Items.Clear()
+        cbobuyertype.Items.AddRange(New Object() {"Student", "Employee", "Guest"})
+        cbobuyertype.SelectedIndex = -1
     End Sub
     Private Sub SetupDataGridView()
         dgvlistproducts.Columns.Clear()
@@ -134,35 +164,56 @@ Public Class frmPOS
     End Sub
 
     Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
+        If isLoadingFilters Then Exit Sub
+        isLoadingFilters = True
+        LoadTypeCombo()
+        isLoadingFilters = False
         ResetQuantity()
+        pgProducts.Reset()
+        LoadProducts()
+    End Sub
+    Private Sub cbotype_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboType.SelectedIndexChanged
+        If isLoadingFilters Then Exit Sub
+        ResetQuantity()
+        pgProducts.Reset()
         LoadProducts()
     End Sub
 
     Private Sub txtProductSearch_TextChanged(sender As Object, e As EventArgs) Handles txtProductSearch.TextChanged
+        If pgProducts Is Nothing Then Exit Sub
         ResetQuantity()
+        pgProducts.Reset()
         LoadProducts()
     End Sub
 
     Private Sub picSearchProduct_Click(sender As Object, e As EventArgs) Handles picSearchProduct.Click
+        pgProducts.Reset()
         LoadProducts()
     End Sub
 
+    Private Function GetKeyword() As String
+        Dim t As String = txtProductSearch.Text.Trim()
+        Return If(t = PRODUCT_SEARCH_HINT, "", t)
+    End Function
+
     Private Sub LoadProducts()
+        If pgProducts Is Nothing Then Exit Sub
         dgvlistproducts.Rows.Clear()
 
-        Dim keyword As String = txtProductSearch.Text.Trim()
-        Dim category As String = If(cbocategory.SelectedIndex = -1 OrElse cbocategory.Text = "All Items", "", cbocategory.Text)
+        Dim keyword As String = GetKeyword()
+        Dim category As String = If(cbocategory.SelectedIndex <= 0, "", cbocategory.Text)
+        Dim typeName As String = If(cboType.SelectedIndex <= 0, "", cboType.Text)
 
         Dim query As String =
-            "SELECT v.variant_id, v.product_code, p.product_name, " &
-            "COALESCE(c.category_name, 'Uncategorized') AS category_name, " &
-            "COALESCE(ct.type_name, 'N/A') AS type_name, " &
-            "v.size, p.unit_price, v.quantity_on_hand, v.reorder_level " &
-            "FROM tbl_product_variants v " &
-            "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
-            "LEFT JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
-            "LEFT JOIN tbl_categories c ON ct.category_id = c.category_id " &
-            "WHERE p.status = 'Active' "
+        "SELECT v.variant_id, v.product_code, p.product_name, " &
+        "COALESCE(c.category_name, 'Uncategorized') AS category_name, " &
+        "COALESCE(ct.type_name, 'N/A') AS type_name, " &
+        "v.size, p.unit_price, v.quantity_on_hand, v.reorder_level " &
+        "FROM tbl_product_variants v " &
+        "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
+        "LEFT JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
+        "LEFT JOIN tbl_categories c ON ct.category_id = c.category_id " &
+        "WHERE p.status = 'Active' "
 
         Dim paramNames As New List(Of String)()
         Dim paramValues As New List(Of Object)()
@@ -172,20 +223,19 @@ Public Class frmPOS
             paramNames.Add("@cat")
             paramValues.Add(category)
         End If
-
+        If typeName <> "" Then
+            query &= "AND ct.type_name = @type "
+            paramNames.Add("@type")
+            paramValues.Add(typeName)
+        End If
         If keyword <> "" Then
             query &= "AND (v.product_code LIKE @like OR p.product_name LIKE @like) "
             paramNames.Add("@like")
             paramValues.Add("%" & keyword & "%")
         End If
+        query &= "ORDER BY p.product_name, v.size"
 
-        query &= "ORDER BY p.product_name, v.size "
-
-        If category = "" AndAlso keyword = "" Then
-            query &= "LIMIT 100"
-        End If
-
-        Dim dt As DataTable = GetDataTable(query, paramNames.ToArray(), paramValues.ToArray())
+        Dim dt As DataTable = pgProducts.LoadPage(query, paramNames.ToArray(), paramValues.ToArray())
 
         dgvlistproducts.SuspendLayout()
         For Each r As DataRow In dt.Rows
@@ -194,20 +244,51 @@ Public Class frmPOS
             Dim status As String = If(stock <= 0, "Out of Stock", If(stock <= reorder, "Low Stock", "In Stock"))
 
             Dim idx As Integer = dgvlistproducts.Rows.Add(
-                r("product_code").ToString(),
-                r("product_name").ToString(),
-                r("category_name").ToString(),
-                r("type_name").ToString(),
-                r("size").ToString(),
-                Convert.ToDecimal(r("unit_price")),
-                stock,
-                status)
+            r("product_code").ToString(), r("product_name").ToString(),
+            r("category_name").ToString(), r("type_name").ToString(),
+            r("size").ToString(), Convert.ToDecimal(r("unit_price")), stock, status)
             dgvlistproducts.Rows(idx).Tag = Convert.ToInt32(r("variant_id"))
         Next
         dgvlistproducts.ResumeLayout()
 
         ClearGridSelection(dgvlistproducts)
     End Sub
+    Private Sub cbobuyertype_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbobuyertype.SelectedIndexChanged
+        If currentBuyerForm IsNot Nothing Then
+            pnlbuyertype.Controls.Remove(currentBuyerForm)
+            currentBuyerForm.Dispose()
+            currentBuyerForm = Nothing
+        End If
+
+        Select Case cbobuyertype.Text
+            Case "Student" : currentBuyerForm = New frmStudentpos()
+            Case "Employee" : currentBuyerForm = New frmEmployeepos()
+            Case "Guest" : currentBuyerForm = New frmGuestPos()
+            Case Else : Exit Sub
+        End Select
+
+        currentBuyerForm.TopLevel = False
+        currentBuyerForm.FormBorderStyle = FormBorderStyle.None
+        currentBuyerForm.Dock = DockStyle.Fill
+        pnlbuyertype.Controls.Add(currentBuyerForm)
+        currentBuyerForm.Show()
+    End Sub
+
+    Private Function ValidateBuyer() As Boolean
+        Dim info As IBuyerInfo = TryCast(currentBuyerForm, IBuyerInfo)
+        If info Is Nothing Then
+            MsgBox("Select the buyer type and enter the customer information first.", vbExclamation, "Customer Information")
+            cbobuyertype.Focus()
+            Return False
+        End If
+
+        Dim msg As String = ""
+        If Not info.ValidateBuyer(msg) Then
+            MsgBox(msg, vbExclamation, "Customer Information")
+            Return False
+        End If
+        Return True
+    End Function
 
     Private Sub dgvlistproducts_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvlistproducts.CellClick
         If e.RowIndex < 0 Then Exit Sub
@@ -305,7 +386,6 @@ Public Class frmPOS
                 MsgBox("Cannot enter quantity higher than stock (" & stock & "). You already have " & alreadyInCart & " in the cart.", vbExclamation, "Point of Sale")
                 Exit Sub
             End If
-            If Not Ask("Add " & qty & " x " & itemName & " to the cart?", "Add to Cart") Then Exit Sub
             backorders.Remove(variantId)
         End If
 
@@ -328,51 +408,6 @@ Public Class frmPOS
         InvalidatePayment()
     End Sub
 
-    ' ================= VERIFY PASSWORD & PROMPTS =================
-    Private Function VerifyCashierPassword() As Boolean
-        For attempt As Integer = 1 To 3
-            Dim pw As String = PromptPassword()
-            If pw Is Nothing Then Return False
-
-            Dim n As Integer = Convert.ToInt32(If(ExecScalar(
-            "SELECT COUNT(*) FROM tbl_users WHERE user_id = @u AND password = @p AND status = 'Active'",
-            New String() {"@u", "@p"}, New Object() {currentuser.UserID, HashPassword(pw)}), 0))
-            If n > 0 Then Return True
-
-            MsgBox("Incorrect password. Attempt " & attempt & " of 3.", vbExclamation, "Save Transaction")
-        Next
-        LogActivity("Sale - Password Failed", txtTransactionNo.Text, "3 incorrect password attempts while saving a transaction")
-        Return False
-    End Function
-
-    Private Function PromptPassword() As String
-        Using dlg As New Form(), lbl As New Label(), txt As New TextBox(), ok As New Button(), cancel As New Button()
-            dlg.Text = "Confirm Password"
-            dlg.FormBorderStyle = FormBorderStyle.FixedDialog
-            dlg.StartPosition = FormStartPosition.CenterParent
-            dlg.MinimizeBox = False
-            dlg.MaximizeBox = False
-            dlg.ClientSize = New Size(320, 120)
-
-            lbl.Text = "Enter your password to save this transaction:"
-            lbl.SetBounds(12, 12, 296, 20)
-            txt.UseSystemPasswordChar = True
-            txt.SetBounds(12, 38, 296, 23)
-            ok.Text = "Confirm"
-            ok.DialogResult = DialogResult.OK
-            ok.SetBounds(142, 80, 80, 28)
-            cancel.Text = "Cancel"
-            cancel.DialogResult = DialogResult.Cancel
-            cancel.SetBounds(228, 80, 80, 28)
-
-            dlg.AcceptButton = ok
-            dlg.CancelButton = cancel
-            dlg.Controls.AddRange(New Control() {lbl, txt, ok, cancel})
-
-            If dlg.ShowDialog(Me) = DialogResult.OK Then Return txt.Text
-        End Using
-        Return Nothing
-    End Function
 
     Private Function PromptPickupDate(itemName As String) As Date?
         Using dlg As New Form(), lbl As New Label(), dtp As New DateTimePicker(), ok As New Button(), cancel As New Button()
@@ -496,11 +531,10 @@ Public Class frmPOS
         End If
     End Sub
 
-    ' ================= CLEAR / CANCEL / SETTLE =================
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
-        If MsgBox("Are you sure you want to clear the customer fields?", vbYesNo + vbQuestion, "Clear Fields") <> MsgBoxResult.Yes Then
-            Exit Sub
-        End If
+        If Not Ask("Are you sure you want to clear the customer fields?", "Clear Fields") Then Exit Sub
+        Dim info As IBuyerInfo = TryCast(currentBuyerForm, IBuyerInfo)
+        If info IsNot Nothing Then info.ClearBuyer()
     End Sub
 
     Private Sub btnCancelTransaction_Click(sender As Object, e As EventArgs) Handles btnCancelTransaction.Click
@@ -515,7 +549,7 @@ Public Class frmPOS
             MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
-
+        If Not ValidateBuyer() Then Exit Sub
         If Not Ask("Proceed to payment for " & txtTotalAMount.Text & "?", "Settle Payment") Then Exit Sub
 
         Using frm As New frmPayment()
@@ -548,8 +582,6 @@ Public Class frmPOS
         End If
         Return 0
     End Function
-
-    ' ================= SAVE TRANSACTION =================
     Private Sub btnSaveTransaction_Click(sender As Object, e As EventArgs) Handles btnSaveTransaction.Click
         If dgvCart.Rows.Count = 0 Then
             MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
@@ -561,28 +593,27 @@ Public Class frmPOS
             Exit Sub
         End If
 
-        If foundStudentId = 0 Then
+        If Not ValidateBuyer() Then Exit Sub
+        Dim info As IBuyerInfo = TryCast(currentBuyerForm, IBuyerInfo)
+
+        If info.BuyerType = "Guest" Then
             Dim ids As New List(Of String)
             For Each crow As DataGridViewRow In dgvCart.Rows
                 ids.Add(Convert.ToInt32(crow.Tag).ToString())
             Next
             Dim uniformCount As Integer = Convert.ToInt32(If(ExecScalar(
-                "SELECT COUNT(*) FROM tbl_product_variants v " &
-                "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
-                "INNER JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
-                "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
-                "WHERE c.category_name = 'Uniforms' AND v.variant_id IN (" & String.Join(",", ids) & ")"), 0))
+            "SELECT COUNT(*) FROM tbl_product_variants v " &
+            "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
+            "INNER JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
+            "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
+            "WHERE c.category_name = 'Uniforms' AND v.variant_id IN (" & String.Join(",", ids) & ")"), 0))
             If uniformCount > 0 Then
-                MsgBox("Guests may only buy supplies. Uniforms are for students only (a relative may buy only when with the student).", vbExclamation, "Point of Sale")
+                MsgBox("Guests may only buy supplies. Uniforms are for students only.", vbExclamation, "Point of Sale")
                 Exit Sub
             End If
         End If
 
-        If MsgBox("Are you sure you want to save this transaction?", vbYesNo + vbQuestion, "Save Transaction") <> MsgBoxResult.Yes Then
-            Exit Sub
-        End If
-
-        If Not VerifyCashierPassword() Then Exit Sub
+        If Not Ask("Are you sure you want to save this transaction?", "Save Transaction") Then Exit Sub
 
         Dim total As Decimal = ToMoney(txtTotalAMount.Text)
         Dim received As Decimal = ToMoney(txtAmountReceived.Text)
@@ -592,7 +623,15 @@ Public Class frmPOS
             Exit Sub
         End If
 
-        Dim buyerType As String = If(foundStudentId > 0, "Student", "Walk-in")
+        Dim buyerType As String = info.BuyerType
+        Dim buyerName As String = info.BuyerName
+        Dim studentId As Object = If(info.StudentId > 0, CType(info.StudentId, Object), DBNull.Value)
+        Dim empName As Object = DBNull.Value
+        If buyerType = "Employee" Then
+            empName = buyerName
+        ElseIf paymentEmployee <> "" Then
+            empName = paymentEmployee
+        End If
         Dim txnNo As String = If(String.IsNullOrWhiteSpace(txtTransactionNo.Text), NewTransactionNo(), txtTransactionNo.Text.Trim())
         Dim method As String = txtPaymentMethod.Text.Trim()
 
@@ -602,18 +641,19 @@ Public Class frmPOS
             Try
                 Dim transactionId As Long = 0
                 Dim insTxn As String = "INSERT INTO TBL_TRANSACTIONS " &
-                                        "(transaction_no, buyer_type, student_id,or_no, or_date, payment_method, employee_name, " &
-                                        "total_amount, amount_paid, amount_change, created_by, status) " &
-                                        "VALUES (@tno, @bt, @sid, @bn, @orno, @ord, @pm, @emp, @tot, @paid, @chg, @by, 'Completed')"
+                                   "(transaction_no, buyer_type, student_id, buyer_name, or_no, or_date, payment_method, employee_name, " &
+                                   "total_amount, amount_paid, amount_change, created_by, status) " &
+                                   "VALUES (@tno, @bt, @sid, @bn, @orno, @ord, @pm, @emp, @tot, @paid, @chg, @by, 'Completed')"
 
                 Using c1 As New MySqlCommand(insTxn, cn, trans)
                     c1.Parameters.AddWithValue("@tno", txnNo)
                     c1.Parameters.AddWithValue("@bt", buyerType)
-                    c1.Parameters.AddWithValue("@sid", If(foundStudentId > 0, CType(foundStudentId, Object), DBNull.Value))
+                    c1.Parameters.AddWithValue("@sid", studentId)
+                    c1.Parameters.AddWithValue("@bn", buyerName)
                     c1.Parameters.AddWithValue("@orno", txtReferenceNo.Text.Trim())
                     c1.Parameters.AddWithValue("@ord", paymentDate.Date)
                     c1.Parameters.AddWithValue("@pm", method)
-                    c1.Parameters.AddWithValue("@emp", If(paymentEmployee = "", CType(DBNull.Value, Object), paymentEmployee))
+                    c1.Parameters.AddWithValue("@emp", empName)
                     c1.Parameters.AddWithValue("@tot", total)
                     c1.Parameters.AddWithValue("@paid", received)
                     c1.Parameters.AddWithValue("@chg", change)
@@ -672,15 +712,22 @@ Public Class frmPOS
         paymentEmployee = ""
         paymentDate = Date.Today
     End Sub
-
     Private Sub ResetAll()
         ResetPaymentInfo()
-        txtProductSearch.Clear()
+        txtProductSearch.Text = PRODUCT_SEARCH_HINT
+        txtProductSearch.ForeColor = Color.Gray
         ResetQuantity()
         dgvCart.Rows.Clear()
         txtTotalAMount.Text = "₱0.00"
         txtTransactionNo.Text = NewTransactionNo()
+        cbobuyertype.SelectedIndex = -1
+
+        isLoadingFilters = True
         If cbocategory.Items.Count > 0 Then cbocategory.SelectedIndex = 0
+        LoadTypeCombo()
+        isLoadingFilters = False
+
+        pgProducts.Reset()
         LoadProducts()
     End Sub
 

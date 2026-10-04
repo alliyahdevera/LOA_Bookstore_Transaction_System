@@ -23,10 +23,14 @@ Partial Class frmPOS
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPOS))
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.pnlbuyertype = New System.Windows.Forms.Panel()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.cbobuyertype = New System.Windows.Forms.ComboBox()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnAddToCart = New System.Windows.Forms.Button()
@@ -59,6 +63,7 @@ Partial Class frmPOS
         Me.txtAmountChange = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.txtPaymentMethod = New System.Windows.Forms.TextBox()
         Me.txttransactdate = New System.Windows.Forms.TextBox()
         Me.Panel9 = New System.Windows.Forms.Panel()
@@ -89,13 +94,8 @@ Partial Class frmPOS
         Me.cbocategory = New System.Windows.Forms.ComboBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtTransactionNo = New System.Windows.Forms.TextBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cboType = New System.Windows.Forms.ComboBox()
         Me.Type = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.pnlbuyertype = New System.Windows.Forms.Panel()
         Me.Panel5.SuspendLayout()
         Me.Panel11.SuspendLayout()
         Me.Panel7.SuspendLayout()
@@ -117,13 +117,53 @@ Partial Class frmPOS
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.pnlbuyertype)
         Me.Panel5.Controls.Add(Me.Label16)
-        Me.Panel5.Controls.Add(Me.ComboBox2)
+        Me.Panel5.Controls.Add(Me.cbobuyertype)
         Me.Panel5.Controls.Add(Me.Label13)
         Me.Panel5.Controls.Add(Me.Panel11)
         Me.Panel5.Location = New System.Drawing.Point(844, 115)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(345, 298)
         Me.Panel5.TabIndex = 9
+        '
+        'pnlbuyertype
+        '
+        Me.pnlbuyertype.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pnlbuyertype.Location = New System.Drawing.Point(0, 117)
+        Me.pnlbuyertype.Name = "pnlbuyertype"
+        Me.pnlbuyertype.Size = New System.Drawing.Size(343, 179)
+        Me.pnlbuyertype.TabIndex = 126
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.ForeColor = System.Drawing.Color.Silver
+        Me.Label16.Location = New System.Drawing.Point(16, 87)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(307, 17)
+        Me.Label16.TabIndex = 125
+        Me.Label16.Text = "———————————————————————" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'cbobuyertype
+        '
+        Me.cbobuyertype.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cbobuyertype.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbobuyertype.FormattingEnabled = True
+        Me.cbobuyertype.Items.AddRange(New Object() {"Student", "Employee", "Guest"})
+        Me.cbobuyertype.Location = New System.Drawing.Point(134, 51)
+        Me.cbobuyertype.Name = "cbobuyertype"
+        Me.cbobuyertype.Size = New System.Drawing.Size(189, 25)
+        Me.cbobuyertype.TabIndex = 119
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(17, 54)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(71, 17)
+        Me.Label13.TabIndex = 120
+        Me.Label13.Text = "Buyer Type"
         '
         'Panel11
         '
@@ -185,14 +225,14 @@ Partial Class frmPOS
         Me.dgvCart.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvCart.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductName, Me.Size, Me.Quantity, Me.UnitPrice, Me.SubTotal})
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvCart.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvCart.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvCart.Location = New System.Drawing.Point(-1, 35)
         Me.dgvCart.Name = "dgvCart"
         Me.dgvCart.ReadOnly = True
@@ -476,6 +516,16 @@ Partial Class frmPOS
         Me.Panel4.Size = New System.Drawing.Size(344, 304)
         Me.Panel4.TabIndex = 103
         '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(18, 265)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(85, 17)
+        Me.Label11.TabIndex = 107
+        Me.Label11.Text = "Total Amount"
+        '
         'txtPaymentMethod
         '
         Me.txtPaymentMethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -590,14 +640,14 @@ Partial Class frmPOS
         Me.dgvlistproducts.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvlistproducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvlistproducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.DataGridViewTextBoxColumn1, Me.Category, Me.TypeofProduct, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.Status})
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvlistproducts.Location = New System.Drawing.Point(34, 149)
         Me.dgvlistproducts.Name = "dgvlistproducts"
         Me.dgvlistproducts.ReadOnly = True
@@ -741,16 +791,16 @@ Partial Class frmPOS
         Me.txtTransactionNo.Size = New System.Drawing.Size(190, 25)
         Me.txtTransactionNo.TabIndex = 97
         '
-        'ComboBox1
+        'cboType
         '
-        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Uniforms", "Books", "Modules", "School Supplies", "Office Supplies", "All Items"})
-        Me.ComboBox1.Location = New System.Drawing.Point(326, 78)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(166, 25)
-        Me.ComboBox1.TabIndex = 117
+        Me.cboType.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cboType.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboType.FormattingEnabled = True
+        Me.cboType.Items.AddRange(New Object() {"Uniforms", "Books", "Modules", "School Supplies", "Office Supplies", "All Items"})
+        Me.cboType.Location = New System.Drawing.Point(326, 78)
+        Me.cboType.Name = "cboType"
+        Me.cboType.Size = New System.Drawing.Size(166, 25)
+        Me.cboType.TabIndex = 117
         '
         'Type
         '
@@ -762,62 +812,12 @@ Partial Class frmPOS
         Me.Type.TabIndex = 118
         Me.Type.Text = "Type"
         '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(18, 265)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(85, 17)
-        Me.Label11.TabIndex = 107
-        Me.Label11.Text = "Total Amount"
-        '
-        'ComboBox2
-        '
-        Me.ComboBox2.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {"Student", "Employee", "Guest"})
-        Me.ComboBox2.Location = New System.Drawing.Point(134, 51)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(189, 25)
-        Me.ComboBox2.TabIndex = 119
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(17, 54)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(71, 17)
-        Me.Label13.TabIndex = 120
-        Me.Label13.Text = "Buyer Type"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.ForeColor = System.Drawing.Color.Silver
-        Me.Label16.Location = New System.Drawing.Point(16, 87)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(307, 17)
-        Me.Label16.TabIndex = 125
-        Me.Label16.Text = "———————————————————————" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'pnlbuyertype
-        '
-        Me.pnlbuyertype.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlbuyertype.Location = New System.Drawing.Point(0, 117)
-        Me.pnlbuyertype.Name = "pnlbuyertype"
-        Me.pnlbuyertype.Size = New System.Drawing.Size(343, 179)
-        Me.pnlbuyertype.TabIndex = 126
-        '
         'frmPOS
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.cboType)
         Me.Controls.Add(Me.Type)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.txtTransactionNo)
@@ -933,10 +933,10 @@ Partial Class frmPOS
     Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cboType As ComboBox
     Friend WithEvents Type As Label
     Friend WithEvents Label11 As Label
-    Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents cbobuyertype As ComboBox
     Friend WithEvents Label13 As Label
     Friend WithEvents Label16 As Label
     Friend WithEvents pnlbuyertype As Panel

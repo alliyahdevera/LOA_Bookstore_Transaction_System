@@ -335,6 +335,7 @@
     </Compile>
     <Compile Include="NumberGenerator.vb" />
     <Compile Include="PasswordHelper.vb" />
+    <Compile Include="PosHelpers.vb" />
     <Compile Include="RolePermissions.vb" />
     <Compile Include="UIHelper.vb" />
   </ItemGroup>
