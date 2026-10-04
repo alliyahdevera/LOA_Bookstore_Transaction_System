@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 04, 2026 at 12:51 PM
+-- Generation Time: Oct 04, 2026 at 07:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -143,7 +143,12 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 (93, 1, 'Activity', 'Update Student', '2346-24', NULL, NULL, NULL, NULL, 'Updated Isabella Villanueva', 'Success', NULL, '2026-10-04 15:45:58'),
 (94, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 16:30:52'),
 (95, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 16:33:34'),
-(96, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 16:52:19');
+(96, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 16:52:19'),
+(97, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-05 00:09:17'),
+(98, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-05 00:11:18'),
+(99, 1, 'Activity', 'Sale', 'TXN-20261005001120942', NULL, NULL, NULL, NULL, 'Sale to sdwdwqdsads (Guest) - Total: 12.00 (Cash, OR OR-20261005001217239). Items: Art Paper x1', 'Success', NULL, '2026-10-05 00:12:28'),
+(100, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-05 00:44:28'),
+(101, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-05 01:07:36');
 
 -- --------------------------------------------------------
 
@@ -153,6 +158,7 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 
 CREATE TABLE `tbl_cash_denominations` (
   `denomination_id` int(11) NOT NULL,
+  `remittance_id` int(11) DEFAULT NULL,
   `denomination` decimal(10,2) NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT 0,
   `amount` decimal(10,2) NOT NULL DEFAULT 0.00
@@ -642,7 +648,7 @@ CREATE TABLE `tbl_product_variants` (
 --
 
 INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, `size`, `quantity_on_hand`, `reorder_level`) VALUES
-(1, 1, 'SUP-ART', 'N/A', 5, 20),
+(1, 1, 'SUP-ART', 'N/A', 4, 20),
 (2, 2, 'SUP-IPC-1-2', 'N/A', 100, 20),
 (3, 3, 'SUP-BC-1-4', 'N/A', 49, 10),
 (4, 4, 'SUP-IPL-1-2', 'N/A', 100, 20),
@@ -1456,17 +1462,27 @@ CREATE TABLE `tbl_remittances` (
   `or_from` varchar(30) DEFAULT NULL,
   `or_to` varchar(30) DEFAULT NULL,
   `received_by` varchar(150) DEFAULT NULL,
-  `remitted_at` datetime DEFAULT NULL
+  `remitted_at` datetime DEFAULT NULL,
+  `reconciliation_date` date DEFAULT NULL,
+  `total_sales` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `cash_sales` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `salary_deduction` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `cash_transaction_count` int(11) NOT NULL DEFAULT 0,
+  `salary_deduction_count` int(11) NOT NULL DEFAULT 0,
+  `actual_cash` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `difference` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `cash_status` enum('Balanced','Short','Over') NOT NULL DEFAULT 'Balanced',
+  `variance_remarks` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_remittances`
 --
 
-INSERT INTO `tbl_remittances` (`remittance_id`, `remittance_no`, `prepared_by`, `verified_by`, `remittance_amount`, `status`, `prepared_at`, `verified_at`, `remarks`, `or_from`, `or_to`, `received_by`, `remitted_at`) VALUES
-(1, 'REM-20261002211107095', 6, NULL, 25.00, 'Pending', '2026-10-02 21:11:07', NULL, 'hghehe', 'OR-20261002211016756', 'OR-20261002211016756', 'Me', '2026-10-02 21:11:07'),
-(2, 'REM-20261002212859570', 2, NULL, 1100.00, 'Pending', '2026-10-02 21:28:59', NULL, '123', 'OR-20261002212507211', 'OR-20261002212507211', 'accounting', '2026-10-02 21:28:59'),
-(3, 'REM-20261002220442506', 1, NULL, 1250.00, 'Pending', '2026-10-02 22:04:42', NULL, '123', 'OR-20261002205150475', 'OR-20261002205507126', '123', '2026-10-02 22:04:42');
+INSERT INTO `tbl_remittances` (`remittance_id`, `remittance_no`, `prepared_by`, `verified_by`, `remittance_amount`, `status`, `prepared_at`, `verified_at`, `remarks`, `or_from`, `or_to`, `received_by`, `remitted_at`, `reconciliation_date`, `total_sales`, `cash_sales`, `salary_deduction`, `cash_transaction_count`, `salary_deduction_count`, `actual_cash`, `difference`, `cash_status`, `variance_remarks`) VALUES
+(1, 'REM-20261002211107095', 6, NULL, 25.00, 'Pending', '2026-10-02 21:11:07', NULL, 'hghehe', 'OR-20261002211016756', 'OR-20261002211016756', 'Me', '2026-10-02 21:11:07', '2026-10-02', 25.00, 25.00, 0.00, 1, 0, 25.00, 0.00, 'Balanced', 'yes'),
+(2, 'REM-20261002212859570', 2, NULL, 1100.00, 'Pending', '2026-10-02 21:28:59', NULL, '123', 'OR-20261002212507211', 'OR-20261002212507211', 'accounting', '2026-10-02 21:28:59', '2026-10-02', 850.00, 850.00, 0.00, 1, 0, 1100.00, 250.00, 'Over', '321'),
+(3, 'REM-20261002220442506', 1, NULL, 1250.00, 'Pending', '2026-10-02 22:04:42', NULL, '123', 'OR-20261002205150475', 'OR-20261002205507126', '123', '2026-10-02 22:04:42', '2026-10-02', 1250.00, 1250.00, 0.00, 2, 0, 1250.00, 0.00, 'Balanced', '1231');
 
 -- --------------------------------------------------------
 
@@ -1638,31 +1654,31 @@ CREATE TABLE `tbl_students` (
 
 INSERT INTO `tbl_students` (`student_id`, `student_no`, `last_name`, `first_name`, `education_level`, `grade_level`, `program_strand`, `section`) VALUES
 (1, '2235-20', 'Dela Cruz', 'Miguel', 'Grade School', 'Grade 3', NULL, 'Sampaguita'),
-(2, '2346-24', 'Villanueva', 'Isabella', 'Grade School', 'Grade 5', '', 'Rosal'),
-(3, '1543-23', 'Ramirez', 'Gabriel', 'Grade School', 'Grade 7', '', 'Narra'),
-(4, '1235-23', 'Aquino', 'Sofia', 'Grade School', 'Grade 8', '', 'Molave'),
-(5, '2435-23', 'Castillo', 'Lucas', 'Grade School', 'Grade 10', NULL, 'Newton'),
-(6, '2324-24', 'Mercado', 'Angela', 'Grade School', 'Grade 10', '', 'Einstein'),
+(2, '2346-24', 'Villanueva', 'Isabella', 'Grade School', 'Grade 5', NULL, 'Rosal'),
+(3, '1543-23', 'Ramirez', 'Gabriel', 'Junior High School', 'Grade 7', NULL, 'Narra'),
+(4, '1235-23', 'Aquino', 'Sofia', 'Junior High School', 'Grade 8', NULL, 'Molave'),
+(5, '2435-23', 'Castillo', 'Lucas', 'Junior High School', 'Grade 10', NULL, 'Newton'),
+(6, '2324-24', 'Mercado', 'Angela', 'Junior High School', 'Grade 10', NULL, 'Einstein'),
 (7, '2864-23', 'Navarro', 'Joshua', 'Senior High School', 'Grade 11', 'ABM', 'STEM-A'),
 (8, '1234-22', 'Pascual', 'Bianca', 'Senior High School', 'Grade 12', 'HUMSS', 'ABM-B'),
 (9, '2343-22', 'Fernandez', 'Carlo', 'College', '1st Year College', 'BSCS', 'BSIT 1A'),
 (10, '1785-23', 'Domingo', 'Patricia', 'College', '2nd Year College', 'BSCpE', 'BSCS-2B'),
-(11, '1123-24', 'Fernandez', 'Gio', 'College', '3rd Year', 'BSPsych', '31E1'),
-(12, '1127-24', 'Enclona', 'Paul Benedict', 'College', '3rd Year', 'BSBA', '31E1'),
-(13, '1208-24', 'Para', 'Andrea', 'College', '3rd Year', 'BSBA', '31E1'),
-(14, '1314-24', 'Batoy', 'Nicholo John', 'College', '3rd Year', 'BSCS', '31E1'),
-(15, '1327-24', 'Reales', 'Jonnidel', 'College', '3rd Year', 'JD', '31E1'),
-(16, '1395-24', 'Solis', 'Sophia Cassandra', 'College', '3rd Year', 'BSREM', '31E3'),
-(17, '1396-24', 'Mendoza', 'Stephanie', 'College', '3rd Year', 'BSPsych', '31E1'),
-(18, '1522-24', 'Barcinas', 'Marc Denize', 'College', '3rd Year', 'BSHM', '31E1'),
-(19, '1808-23', 'Villacorte', 'Joshua', 'College', '3rd Year', 'BSCA', '31E1'),
-(20, '2055-24', 'Canua', 'Carl James', 'College', '3rd Year', 'BSIT', '31E3'),
-(21, '2056-24', 'Ramones', 'Leisbeth', 'College', '3rd Year', 'BSIT', '31E1'),
-(22, '2154-24', 'Sabasaje', 'Sho Uno', 'College', '3rd Year', 'BSHM', '31E1'),
-(23, '2208-24', 'Eullo', 'John Raven', 'College', '3rd Year', 'BSCS', '31E1'),
-(24, '2786-24', 'Roque', 'Kevin Clerck', 'College', '3rd Year', 'BSIE', '31E1'),
-(25, '2789-24', 'De Vera', 'Alliyah', 'College', '3rd Year', 'BSCpE', '31E1'),
-(26, '2657-24', 'Mikhailovna', 'Alyah', NULL, '3rd Year College', 'BSIT', '31E1');
+(11, '1123-24', 'Fernandez', 'Gio', 'College', '3rd Year College', 'BSPsych', '31E1'),
+(12, '1127-24', 'Enclona', 'Paul Benedict', 'College', '3rd Year College', 'BSBA', '31E1'),
+(13, '1208-24', 'Para', 'Andrea', 'College', '3rd Year College', 'BSBA', '31E1'),
+(14, '1314-24', 'Batoy', 'Nicholo John', 'College', '3rd Year College', 'BSCS', '31E1'),
+(15, '1327-24', 'Reales', 'Jonnidel', 'College', '3rd Year College', 'JD', '31E1'),
+(16, '1395-24', 'Solis', 'Sophia Cassandra', 'College', '3rd Year College', 'BSREM', '31E3'),
+(17, '1396-24', 'Mendoza', 'Stephanie', 'College', '3rd Year College', 'BSPsych', '31E1'),
+(18, '1522-24', 'Barcinas', 'Marc Denize', 'College', '3rd Year College', 'BSHM', '31E1'),
+(19, '1808-23', 'Villacorte', 'Joshua', 'College', '3rd Year College', 'BSCA', '31E1'),
+(20, '2055-24', 'Canua', 'Carl James', 'College', '3rd Year College', 'BSIT', '31E3'),
+(21, '2056-24', 'Ramones', 'Leisbeth', 'College', '3rd Year College', 'BSIT', '31E1'),
+(22, '2154-24', 'Sabasaje', 'Sho Uno', 'College', '3rd Year College', 'BSHM', '31E1'),
+(23, '2208-24', 'Eullo', 'John Raven', 'College', '3rd Year College', 'BSCS', '31E1'),
+(24, '2786-24', 'Roque', 'Kevin Clerck', 'College', '3rd Year College', 'BSIE', '31E1'),
+(25, '2789-24', 'De Vera', 'Alliyah', 'College', '3rd Year College', 'BSCpE', '31E1'),
+(26, '2657-24', 'Mikhailovna', 'Alyah', 'College', '3rd Year College', 'BSIT', '31E1');
 
 -- --------------------------------------------------------
 
@@ -1701,7 +1717,8 @@ INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`
 (3, 'TXN-20261002210939244', 'Student', 1, 'Miguel Dela Cruz', 'OR-20261002211016756', '2026-10-02', '2026-10-02 21:10:27', 'Salary Deduction', 'Daniel Lopez', 25.00, 25.00, 0.00, 6, 'Completed', NULL, NULL, NULL),
 (4, 'TXN-20261002211935813', 'Student', 25, 'Alliyah De Vera', 'OR-20261002212507211', '2026-10-02', '2026-10-02 21:25:25', 'Cash', NULL, 850.00, 900.00, 50.00, 2, 'Exchanged', NULL, NULL, NULL),
 (5, 'TXN-20261004150727709', 'Student', 18, 'Marc Denize Barcinas', 'OR-20261004150738291', '2026-10-04', '2026-10-04 15:08:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL),
-(6, 'TXN-20261004152552471', 'Student', 17, 'Stephanie Mendoza', 'OR-20261004152656588', '2026-10-04', '2026-10-04 15:27:33', 'Cash', NULL, 275.00, 300.00, 25.00, 1, 'Partially Exchanged', NULL, NULL, NULL);
+(6, 'TXN-20261004152552471', 'Student', 17, 'Stephanie Mendoza', 'OR-20261004152656588', '2026-10-04', '2026-10-04 15:27:33', 'Cash', NULL, 275.00, 300.00, 25.00, 1, 'Partially Exchanged', NULL, NULL, NULL),
+(7, 'TXN-20261005001120942', 'Guest', NULL, 'sdwdwqdsads', 'OR-20261005001217239', '2026-10-05', '2026-10-05 00:12:28', 'Cash', NULL, 12.00, 14.00, 2.00, 1, 'Completed', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1731,7 +1748,8 @@ INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `v
 (5, 5, 7, 1, 25.00, 0, NULL),
 (6, 6, 3, 1, 25.00, 0, NULL),
 (7, 6, 11, 1, 30.00, 0, NULL),
-(8, 6, 17, 1, 220.00, 0, NULL);
+(8, 6, 17, 1, 220.00, 0, NULL),
+(9, 7, 1, 1, 12.00, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1780,7 +1798,8 @@ ALTER TABLE `tbl_audit_logs`
 -- Indexes for table `tbl_cash_denominations`
 --
 ALTER TABLE `tbl_cash_denominations`
-  ADD PRIMARY KEY (`denomination_id`);
+  ADD PRIMARY KEY (`denomination_id`),
+  ADD KEY `fk_denom_remittance` (`remittance_id`);
 
 --
 -- Indexes for table `tbl_categories`
@@ -1941,7 +1960,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_audit_logs`
 --
 ALTER TABLE `tbl_audit_logs`
-  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `tbl_cash_denominations`
@@ -2049,13 +2068,13 @@ ALTER TABLE `tbl_students`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction_items`
 --
 ALTER TABLE `tbl_transaction_items`
-  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
@@ -2072,6 +2091,12 @@ ALTER TABLE `tbl_users`
 --
 ALTER TABLE `tbl_audit_logs`
   ADD CONSTRAINT `fk_audit_user` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`user_id`);
+
+--
+-- Constraints for table `tbl_cash_denominations`
+--
+ALTER TABLE `tbl_cash_denominations`
+  ADD CONSTRAINT `fk_denom_remittance` FOREIGN KEY (`remittance_id`) REFERENCES `tbl_remittances` (`remittance_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbl_category_types`

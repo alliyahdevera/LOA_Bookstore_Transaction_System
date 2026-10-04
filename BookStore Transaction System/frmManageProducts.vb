@@ -9,12 +9,15 @@ Public Class frmManageProducts
     Private Sub frmManageProducts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
-        cboCategory.DropDownStyle = ComboBoxStyle.DropDownList
-        cboTypeOfProduct.DropDownStyle = ComboBoxStyle.DropDownList
+        cboCategory.DropDownStyle = ComboBoxStyle.DropDownList          ' Product Information (add / update)
+        cboTypeOfProduct.DropDownStyle = ComboBoxStyle.DropDownList     ' Product Information (add / update)
+        cboFilterCategory.DropDownStyle = ComboBoxStyle.DropDownList    ' above the list (sorting only)
+
         pg = New GridPager(dgvListOfProducts, 20)
-        AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
+        AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim(), GetFilterCategoryId())
         LoadCategoryCombo()
-        LoadGrid("", GetSelectedCategoryId())
+        LoadFilterCombo()
+        LoadGrid("", 0)
         ClearFields()
     End Sub
 
@@ -22,15 +25,14 @@ Public Class frmManageProducts
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         lbldatetime.Text = "Today is " & DateTime.Now.ToString("dddd, MMMM d, yyyy - hh:mm:ss tt")
     End Sub
+
+    ' ---------- Product Information: category + type (used when adding / updating) ----------
     Private Sub LoadCategoryCombo()
         isFilling = True
         Dim dt As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
-        Dim row As DataRow = dt.NewRow()
-        row("category_id") = 0
-        row("category_name") = "-- All Categories --"
-        dt.Rows.InsertAt(row, 0)
         FillCombo(cboCategory, dt, "category_name", "category_id")
-        cboCategory.SelectedIndex = 0
+        cboCategory.SelectedIndex = -1
+        cboTypeOfProduct.DataSource = Nothing
         isFilling = False
     End Sub
 
@@ -40,24 +42,20 @@ Public Class frmManageProducts
         End If
         Return 0
     End Function
-    Private Sub cboCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCategory.SelectedIndexChanged
-        If isFilling Then Exit Sub
-        Dim catId As Integer = GetSelectedCategoryId()
-        LoadTypes(catId)
-        pg.Reset()
-        LoadGrid(txtSearch.Text.Trim(), catId)
-    End Sub
-    Private Sub cboTypeOfProduct_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboTypeOfProduct.SelectedIndexChanged
-        If isFilling OrElse pg Is Nothing Then Exit Sub
-        pg.Reset()
-        LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
-    End Sub
+
     Private Function GetSelectedTypeId() As Integer
         If cboTypeOfProduct.SelectedValue IsNot Nothing AndAlso IsNumeric(cboTypeOfProduct.SelectedValue) Then
             Return Convert.ToInt32(cboTypeOfProduct.SelectedValue)
         End If
         Return 0
     End Function
+
+    ' Picking a category here only fills the Type list. It does NOT change the product list.
+    Private Sub cboCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCategory.SelectedIndexChanged
+        If isFilling Then Exit Sub
+        LoadTypes(GetSelectedCategoryId())
+    End Sub
+
     Private Sub LoadTypes(catId As Integer)
         Dim wasFilling As Boolean = isFilling
         isFilling = True
@@ -70,6 +68,32 @@ Public Class frmManageProducts
             cboTypeOfProduct.SelectedIndex = -1
         End If
         isFilling = wasFilling
+    End Sub
+
+    ' ---------- Above the list: category used only to sort / filter the list ----------
+    Private Sub LoadFilterCombo()
+        isFilling = True
+        Dim dt As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
+        Dim row As DataRow = dt.NewRow()
+        row("category_id") = 0
+        row("category_name") = "All Categories"
+        dt.Rows.InsertAt(row, 0)
+        FillCombo(cboFilterCategory, dt, "category_name", "category_id")
+        cboFilterCategory.SelectedIndex = 0
+        isFilling = False
+    End Sub
+
+    Private Function GetFilterCategoryId() As Integer
+        If cboFilterCategory.SelectedValue IsNot Nothing AndAlso IsNumeric(cboFilterCategory.SelectedValue) Then
+            Return Convert.ToInt32(cboFilterCategory.SelectedValue)
+        End If
+        Return 0
+    End Function
+
+    Private Sub cboFilterCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFilterCategory.SelectedIndexChanged
+        If isFilling OrElse pg Is Nothing Then Exit Sub
+        pg.Reset()
+        LoadGrid(txtSearch.Text.Trim(), GetFilterCategoryId())
     End Sub
 
 
@@ -140,7 +164,7 @@ Public Class frmManageProducts
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         If pg Is Nothing Then Exit Sub
         pg.Reset()
-        LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
+        LoadGrid(txtSearch.Text.Trim(), GetFilterCategoryId())
     End Sub
 
     Private Sub LoadGrid(searchText As String, categoryId As Integer)
@@ -151,12 +175,12 @@ Public Class frmManageProducts
         "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
         "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
         "INNER JOIN TBL_CATEGORIES c ON ct.category_id = c.category_id " &
-        "WHERE (@cat = 0 OR c.category_id = @cat) AND (@type = 0 OR ct.category_type_id = @type) " &
+        "WHERE (@cat = 0 OR c.category_id = @cat) " &
         "AND (v.product_code LIKE @s OR p.product_name LIKE @s) " &
         "ORDER BY p.product_name, v.size"
 
-        Dim dt As DataTable = pg.LoadPage(query, New String() {"@cat", "@type", "@s"},
-                                      New Object() {categoryId, GetSelectedTypeId(), "%" & searchText & "%"})
+        Dim dt As DataTable = pg.LoadPage(query, New String() {"@cat", "@s"},
+                                      New Object() {categoryId, "%" & searchText & "%"})
 
         dgvListOfProducts.SuspendLayout()
         dgvListOfProducts.Rows.Clear()
@@ -185,10 +209,10 @@ Public Class frmManageProducts
         txtProductName.Text = row.Cells(1).Value.ToString()
         txtProductDescription.Text = row.Cells(2).Value.ToString()
         Dim catId As Integer = GetCategoryIdByName(row.Cells(3).Value.ToString())
-        isFilling = True
+        isFilling = True                       ' list filter above the grid stays as it is
         cboCategory.SelectedValue = catId
         LoadTypes(catId)
-        cboTypeOfProduct.SelectedValue = GetTypeIdByName(row.Cells(4).Value.ToString())
+        cboTypeOfProduct.SelectedValue = GetTypeIdByName(row.Cells(4).Value.ToString(), catId)
         isFilling = False
         txtSize.Text = row.Cells(5).Value.ToString()
         txtUnitPrice.Text = row.Cells(6).Value.ToString()
@@ -200,8 +224,8 @@ Public Class frmManageProducts
         Return Convert.ToInt32(If(ExecScalar("SELECT category_id FROM TBL_CATEGORIES WHERE category_name = @n", New String() {"@n"}, New Object() {name}), 0))
     End Function
 
-    Private Function GetTypeIdByName(name As String) As Integer
-        Return Convert.ToInt32(If(ExecScalar("SELECT category_type_id FROM TBL_CATEGORY_TYPES WHERE type_name = @n", New String() {"@n"}, New Object() {name}), 0))
+    Private Function GetTypeIdByName(name As String, catId As Integer) As Integer
+        Return Convert.ToInt32(If(ExecScalar("SELECT category_type_id FROM TBL_CATEGORY_TYPES WHERE type_name = @n AND category_id = @c", New String() {"@n", "@c"}, New Object() {name, catId}), 0))
     End Function
 
     ' ADD BUTTON
@@ -248,7 +272,7 @@ Public Class frmManageProducts
             End If
             MsgBox("Product added. Use Stock Entry to add its initial quantity.", vbInformation, "Manage Products")
             ClearFields()
-            LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
+            LoadGrid(txtSearch.Text.Trim(), GetFilterCategoryId())
         Else
             MsgBox("Could not add product. The Product Code may already be in use.", vbExclamation, "Manage Products")
         End If
@@ -287,7 +311,7 @@ Public Class frmManageProducts
             End If
             MsgBox("Product updated.", vbInformation, "Manage Products")
             ClearFields()
-            LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
+            LoadGrid(txtSearch.Text.Trim(), GetFilterCategoryId())
         End If
     End Sub
 
@@ -310,13 +334,16 @@ Public Class frmManageProducts
             LogActivity("Remove Product", txtProductCode.Text.Trim(), "Removed product '" & txtProductName.Text.Trim() & "'")
             MsgBox("Product removed.", vbInformation, "Manage Products")
             ClearFields()
-            LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
+            LoadGrid(txtSearch.Text.Trim(), GetFilterCategoryId())
         Else
             MsgBox("Cannot remove: this product already has transaction or stock-in history. Set its Status to Inactive instead.", vbExclamation, "Manage Products")
         End If
     End Sub
     Private Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
         ClearFields()
+        isFilling = True
+        cboFilterCategory.SelectedIndex = 0
+        isFilling = False
         pg.Reset()
         LoadGrid("", 0)
     End Sub
@@ -333,9 +360,9 @@ Public Class frmManageProducts
         txtStatus.Clear()
         txtSearch.Clear()
         isFilling = True
-        cboCategory.SelectedIndex = 0
-        isFilling = False
+        cboCategory.SelectedIndex = -1      ' Product Information combos start empty
         cboTypeOfProduct.DataSource = Nothing
+        isFilling = False
         dgvListOfProducts.ClearSelection()
     End Sub
 

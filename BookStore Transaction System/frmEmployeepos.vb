@@ -80,8 +80,23 @@ Public Class frmEmployeepos
         End If
     End Sub
 
+    ' Search button opens the employee list; whatever is typed in the box pre-filters it
     Private Sub btnSearchStudent_Click(sender As Object, e As EventArgs) Handles btnSearchStudent.Click
-        SearchEmployee()
+        Using frm As New frmEmployeeList()
+            frm.InitialSearch = txtStudentNo.Text.Trim()
+            frm.StartPosition = FormStartPosition.CenterParent
+
+            If frm.ShowDialog(Me) = DialogResult.OK AndAlso frm.SelectedEmployeeId > 0 Then
+                ' set these first so txtStudentNo_TextChanged doesn't wipe the fields
+                foundId = frm.SelectedEmployeeId
+                foundNo = frm.SelectedEmployeeNo
+                txtStudentNo.Text = foundNo
+                txtStudentName.ForeColor = Color.Black
+                txtStudentName.Text = frm.SelectedEmployeeName
+                txtgrade.Text = frm.SelectedDepartment
+                txtProgramStrand.Text = frm.SelectedPosition
+            End If
+        End Using
     End Sub
 
     Private Sub SearchEmployee()

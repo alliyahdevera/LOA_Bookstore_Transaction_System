@@ -16,6 +16,9 @@ Public Class frmInventoryCountReconciliation
     Private currentCountId As Long = 0
     Private currentCountNo As String = ""
     Private isLoading As Boolean = True
+    Private activeCard As String = ""          ' "", counted, matched, discrepancy, short, excess
+    Private lastCategoryIndex As Integer = 0
+    Private lastTypeIndex As Integer = 0
 
     ' ==================== LOAD ====================
     Private Sub frmInventoryCountReconciliation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -33,6 +36,11 @@ Public Class frmInventoryCountReconciliation
             Next
         End If
         cbocategory.SelectedIndex = 0
+        lblname.Text = If(Not String.IsNullOrEmpty(currentuser.FullName), currentuser.FullName, "N/A")
+        lblposition.Text = If(Not String.IsNullOrEmpty(currentuser.Role), currentuser.Role, "N/A")
+        cboType.DropDownStyle = ComboBoxStyle.DropDownList
+        LoadTypeCombo()
+        SetupCards()
         dgvlistproducts.Columns.Insert(0, New DataGridViewTextBoxColumn With {.Name = "CountNo", .HeaderText = "Count No.", .Width = 150})
         currentCountNo = NewCountNo()
         txtCountNo.Text = currentCountNo
@@ -49,6 +57,113 @@ Public Class frmInventoryCountReconciliation
 
         isLoading = False
         LoadProducts()
+    End Sub
+
+    ' ==================== CATEGORY / TYPE FILTERS ====================
+    Private Sub LoadTypeCombo()
+        cboType.Items.Clear()
+        cboType.Items.Add("All Types")
+
+        Dim dt As DataTable
+        If cbocategory.SelectedIndex <= 0 Then
+            dt = GetDataTable("SELECT DISTINCT type_name FROM tbl_category_types ORDER BY type_name")
+        Else
+            dt = GetDataTable("SELECT ct.type_name FROM tbl_category_types ct " &
+                              "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
+                              "WHERE c.category_name = @c ORDER BY ct.type_name",
+                              New String() {"@c"}, New Object() {Convert.ToString(cbocategory.SelectedItem)})
+        End If
+        For Each r As DataRow In dt.Rows
+            cboType.Items.Add(r("type_name").ToString())
+        Next
+        cboType.SelectedIndex = 0
+        lastTypeIndex = 0
+    End Sub
+
+    ' Changing a filter reloads the sheet - ask first if there are unsaved counts.
+    Private Function ConfirmReload() As Boolean
+        If Not HasUnsavedEntries() Then Return True
+        Return MsgBox("You have counts that are not saved yet. Discard them and reload the list?",
+                      vbYesNo + vbQuestion, "Inventory Count") = MsgBoxResult.Yes
+    End Function
+
+    Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
+        If isLoading Then Exit Sub
+        If Not ConfirmReload() Then
+            isLoading = True : cbocategory.SelectedIndex = lastCategoryIndex : isLoading = False
+            Exit Sub
+        End If
+        lastCategoryIndex = cbocategory.SelectedIndex
+        isLoading = True
+        LoadTypeCombo()
+        isLoading = False
+        LoadProducts()
+    End Sub
+
+    Private Sub cboType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboType.SelectedIndexChanged
+        If isLoading Then Exit Sub
+        If Not ConfirmReload() Then
+            isLoading = True : cboType.SelectedIndex = lastTypeIndex : isLoading = False
+            Exit Sub
+        End If
+        lastTypeIndex = cboType.SelectedIndex
+        LoadProducts()
+    End Sub
+
+    ' ==================== SUMMARY CARDS (click to filter the list) ====================
+    Private Sub SetupCards()
+        WireCard(Panel10, "counted")        ' Total Items Counted
+        WireCard(Panel8, "matched")         ' Matched Items
+        WireCard(Panel7, "discrepancy")     ' With Discrepancies
+        WireCard(Panel9, "short")           ' Short / Missing
+        WireCard(Panel11, "excess")         ' Excess
+    End Sub
+
+    Private Sub WireCard(card As Panel, key As String)
+        card.Tag = key
+        card.Cursor = Cursors.Hand
+        AddHandler card.Click, AddressOf Card_Click
+        For Each c As Control In card.Controls
+            c.Cursor = Cursors.Hand
+            c.Tag = key
+            AddHandler c.Click, AddressOf Card_Click
+        Next
+    End Sub
+
+    Private Sub Card_Click(sender As Object, e As EventArgs)
+        Dim key As String = Convert.ToString(DirectCast(sender, Control).Tag)
+        activeCard = If(activeCard = key, "", key)      ' click the same card again to show everything
+        ApplyCardFilter()
+    End Sub
+
+    Private Function RowMatchesCard(row As DataGridViewRow) As Boolean
+        If activeCard = "" Then Return True
+        Dim d As String = Convert.ToString(row.Cells("Difference").Value)
+        Dim diff As Integer
+        If d = "" OrElse Not Integer.TryParse(d, diff) Then Return False     ' not counted yet
+        Select Case activeCard
+            Case "counted" : Return True
+            Case "matched" : Return diff = 0
+            Case "discrepancy" : Return diff <> 0
+            Case "short" : Return diff < 0
+            Case "excess" : Return diff > 0
+        End Select
+        Return True
+    End Function
+
+    Private Sub ApplyCardFilter()
+        dgvlistproducts.EndEdit()
+        dgvlistproducts.CurrentCell = Nothing       ' a visible row must not be hidden while it is current
+        For Each row As DataGridViewRow In dgvlistproducts.Rows
+            If row.IsNewRow Then Continue For
+            row.Visible = RowMatchesCard(row)
+        Next
+        dgvlistproducts.ClearSelection()
+
+        ' highlight the active card
+        For Each p As Panel In New Panel() {Panel10, Panel8, Panel7, Panel9, Panel11}
+            p.BorderStyle = If(Convert.ToString(p.Tag) = activeCard, BorderStyle.FixedSingle, BorderStyle.None)
+        Next
     End Sub
 
     ' ==================== LOAD PRODUCTS ====================
@@ -72,6 +187,7 @@ Public Class frmInventoryCountReconciliation
 
         Dim keyword As String = txtSearch.Text.Trim()
         Dim category As String = If(cbocategory.SelectedIndex <= 0, "", cbocategory.Text)
+        Dim typeName As String = If(cboType.SelectedIndex <= 0, "", Convert.ToString(cboType.SelectedItem))
 
         Dim query As String =
             "SELECT v.variant_id, v.product_code, p.product_name, c.category_name, ct.type_name, v.size, " &
@@ -91,6 +207,11 @@ Public Class frmInventoryCountReconciliation
             query &= "AND c.category_name = @cat "
             names.Add("@cat")
             values.Add(category)
+        End If
+        If typeName <> "" Then
+            query &= "AND ct.type_name = @type "
+            names.Add("@type")
+            values.Add(typeName)
         End If
         query &= "ORDER BY p.product_name, v.size"
 
@@ -128,6 +249,7 @@ Public Class frmInventoryCountReconciliation
 
         dgvlistproducts.ClearSelection()
         UpdateCards()
+        ApplyCardFilter()
     End Sub
 
     ' ==================== TYPING THE PHYSICAL COUNT ====================
@@ -322,7 +444,6 @@ Public Class frmInventoryCountReconciliation
                         "WHERE inventory_count_id = @c AND status <> 'Matched' AND adjusted = 0) = 0, 'Reconciled', 'Pending') " &
                         "WHERE inventory_count_id = @c", c, tx)
                             q.Parameters.AddWithValue("@c", countId)
-                            q.Parameters.AddWithValue("@c", countId)
                             q.ExecuteNonQuery()
                         End Using
 
@@ -422,7 +543,12 @@ Public Class frmInventoryCountReconciliation
         currentCountNo = NewCountNo()
         txtCountNo.Text = currentCountNo
         txtSearch.Clear()
+        isLoading = True
         cbocategory.SelectedIndex = 0
+        lastCategoryIndex = 0
+        LoadTypeCombo()
+        isLoading = False
+        activeCard = ""
         LoadProducts()
     End Sub
 

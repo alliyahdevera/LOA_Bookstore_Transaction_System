@@ -75,7 +75,7 @@ Partial Class frmInventoryCountReconciliation
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtCountNo = New System.Windows.Forms.TextBox()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cboType = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -604,15 +604,15 @@ Partial Class frmInventoryCountReconciliation
         Me.Label23.TabIndex = 176
         Me.Label23.Text = "Count No."
         '
-        'ComboBox1
+        'cboType
         '
-        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(879, 183)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(178, 25)
-        Me.ComboBox1.TabIndex = 178
+        Me.cboType.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cboType.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboType.FormattingEnabled = True
+        Me.cboType.Location = New System.Drawing.Point(879, 183)
+        Me.cboType.Name = "cboType"
+        Me.cboType.Size = New System.Drawing.Size(178, 25)
+        Me.cboType.TabIndex = 178
         '
         'Label5
         '
@@ -629,7 +629,7 @@ Partial Class frmInventoryCountReconciliation
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 804)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.cboType)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.txtCountNo)
         Me.Controls.Add(Me.Label23)
@@ -731,6 +731,6 @@ Partial Class frmInventoryCountReconciliation
     Friend WithEvents Label1 As Label
     Friend WithEvents txtCountNo As TextBox
     Friend WithEvents Label23 As Label
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cboType As ComboBox
     Friend WithEvents Label5 As Label
 End Class

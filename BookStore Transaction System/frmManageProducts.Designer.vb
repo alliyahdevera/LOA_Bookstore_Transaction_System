@@ -78,7 +78,7 @@ Partial Class frmManageProducts
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.cbocategor = New System.Windows.Forms.ComboBox()
+        Me.cboFilterCategory = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -609,16 +609,15 @@ Partial Class frmManageProducts
         'Timer1
         '
         '
-        'cbocategor
+        'cboFilterCategory
         '
-        Me.cbocategor.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.cbocategor.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbocategor.FormattingEnabled = True
-        Me.cbocategor.Items.AddRange(New Object() {"Uniforms", "Books", "Modules", "School Supplies", "Office Supplies", "All Items"})
-        Me.cbocategor.Location = New System.Drawing.Point(1015, 249)
-        Me.cbocategor.Name = "cbocategor"
-        Me.cbocategor.Size = New System.Drawing.Size(172, 25)
-        Me.cbocategor.TabIndex = 117
+        Me.cboFilterCategory.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cboFilterCategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboFilterCategory.FormattingEnabled = True
+        Me.cboFilterCategory.Location = New System.Drawing.Point(1015, 249)
+        Me.cboFilterCategory.Name = "cboFilterCategory"
+        Me.cboFilterCategory.Size = New System.Drawing.Size(172, 25)
+        Me.cboFilterCategory.TabIndex = 117
         '
         'Label9
         '
@@ -635,7 +634,7 @@ Partial Class frmManageProducts
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 804)
-        Me.Controls.Add(Me.cbocategor)
+        Me.Controls.Add(Me.cboFilterCategory)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.btnclear)
@@ -721,6 +720,6 @@ Partial Class frmManageProducts
     Friend WithEvents Label5 As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents Timer1 As Timer
-    Friend WithEvents cbocategor As ComboBox
+    Friend WithEvents cboFilterCategory As ComboBox
     Friend WithEvents Label9 As Label
 End Class
