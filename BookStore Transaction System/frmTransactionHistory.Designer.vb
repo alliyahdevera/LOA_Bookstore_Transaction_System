@@ -55,6 +55,8 @@ Partial Class frmTransactionHistory
         Me.dtfrom = New System.Windows.Forms.DateTimePicker()
         Me.cboGradeLevel = New System.Windows.Forms.ComboBox()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -71,8 +73,6 @@ Partial Class frmTransactionHistory
         Me.PaymentMethod = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProcessedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvtransaction, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
@@ -397,6 +397,26 @@ Partial Class frmTransactionHistory
         Me.Label11.TabIndex = 144
         Me.Label11.Text = "Category"
         '
+        'ComboBox1
+        '
+        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
+        Me.ComboBox1.Location = New System.Drawing.Point(704, 121)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(188, 25)
+        Me.ComboBox1.TabIndex = 147
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(656, 124)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(36, 17)
+        Me.Label4.TabIndex = 146
+        Me.Label4.Text = "Type"
+        '
         'TransactionNo
         '
         Me.TransactionNo.HeaderText = "Transaction No."
@@ -490,10 +510,10 @@ Partial Class frmTransactionHistory
         '
         'PaymentMethod
         '
-        Me.PaymentMethod.HeaderText = "PaymentMethod"
+        Me.PaymentMethod.HeaderText = "Payment Method"
         Me.PaymentMethod.Name = "PaymentMethod"
         Me.PaymentMethod.ReadOnly = True
-        Me.PaymentMethod.Width = 109
+        Me.PaymentMethod.Width = 103
         '
         'Status
         '
@@ -508,26 +528,6 @@ Partial Class frmTransactionHistory
         Me.ProcessedBy.Name = "ProcessedBy"
         Me.ProcessedBy.ReadOnly = True
         Me.ProcessedBy.Width = 89
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
-        Me.ComboBox1.Location = New System.Drawing.Point(704, 121)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(188, 25)
-        Me.ComboBox1.TabIndex = 147
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(656, 124)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(36, 17)
-        Me.Label4.TabIndex = 146
-        Me.Label4.Text = "Type"
         '
         'frmTransactionHistory
         '
@@ -598,6 +598,8 @@ Partial Class frmTransactionHistory
     Friend WithEvents dtfrom As DateTimePicker
     Friend WithEvents cboGradeLevel As ComboBox
     Friend WithEvents Label11 As Label
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents Label4 As Label
     Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
     Friend WithEvents BuyerName As DataGridViewTextBoxColumn
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
@@ -614,6 +616,4 @@ Partial Class frmTransactionHistory
     Friend WithEvents PaymentMethod As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents ProcessedBy As DataGridViewTextBoxColumn
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents Label4 As Label
 End Class

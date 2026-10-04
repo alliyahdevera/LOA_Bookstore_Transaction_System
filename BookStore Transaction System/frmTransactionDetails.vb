@@ -2,7 +2,6 @@
 Imports MySql.Data.MySqlClient
 
 Public Class frmTransactionDetails
-
     Public Property TransactionNo As String
     Private Class ItemInfo
         Public TransactionItemId As Integer
@@ -11,7 +10,7 @@ Public Class frmTransactionDetails
         Public Purchased As Integer
         Public Processed As Integer
         Public PickupDate As Date?
-        Private ReadOnly ConditionList As String() = New String() {"Good (Resellable)", "Slightly Used", "Damaged", "Defective"}
+        Public IsUniform As Boolean
         Public IsBackorder As Boolean
         Public ReadOnly Property Available As Integer
             Get
@@ -25,18 +24,32 @@ Public Class frmTransactionDetails
     Private isClamping As Boolean = False  ' <-- ADD THIS LINE HERE
     Private sizeTable As DataTable
     Private ReadOnly Peso As String = ChrW(8369)
-
-    ' receipt data
+    Private isLoadingGrid As Boolean = False
     Private rcOR, rcDate, rcBuyer, rcStudentNo, rcPayment, rcCashier, rcStatus As String
     Private rcTotal, rcPaid, rcChange As Decimal
     Private rY As Single
-
-    ' ===================== LOAD =====================
-    Private Sub frmTransactionDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub SetupCartGrid()
+        dgvCart.ReadOnly = False
         dgvCart.AllowUserToAddRows = False
         dgvCart.AllowUserToDeleteRows = False
         dgvCart.MultiSelect = False
         dgvCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+
+        For Each col As DataGridViewColumn In dgvCart.Columns
+            col.ReadOnly = True
+        Next
+
+        If Not dgvCart.Columns.Contains("colSelect") Then
+            dgvCart.Columns.Insert(0, New DataGridViewCheckBoxColumn With {.Name = "colSelect", .HeaderText = "Select", .Width = 55})
+            dgvCart.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "colProcessQty", .HeaderText = "Qty to Process", .Width = 100})
+            dgvCart.Columns("colProcessQty").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+        End If
+    End Sub
+
+    ' ===================== LOAD =====================
+    Private Sub frmTransactionDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetupCartGrid()
+        nudQuantity.Visible = False
 
         ' locked fields
         txtcreatedby.Text = currentuser.FullName
@@ -138,67 +151,136 @@ Public Class frmTransactionDetails
             "WHERE ti.transaction_id = @id",
             New String() {"@id"}, New Object() {txnId})
 
+        isLoadingGrid = True
         dgvCart.Rows.Clear()
         Dim totalQty As Integer = 0
-        Dim anyAvailable As Boolean = False
+        Dim anyEligible As Boolean = False
 
         For Each it As DataRow In items.Rows
             Dim qty As Integer = Convert.ToInt32(it("quantity"))
             Dim lineTotal As Decimal = Convert.ToDecimal(it("subtotal"))
             Dim info As New ItemInfo With {
-                .TransactionItemId = Convert.ToInt32(it("transaction_item_id")),
-                .VariantId = Convert.ToInt32(it("variant_id")),
-                .UnitPrice = If(qty > 0, lineTotal / qty, 0D),
-                .Purchased = qty,
-                .Processed = Convert.ToInt32(it("processed_qty")),
-                .PickupDate = If(IsDBNull(it("pickup_date")), Nothing, CType(Convert.ToDateTime(it("pickup_date")), Date?)),
-                .IsBackorder = (Convert.ToInt32(it("is_backorder")) = 1)
-            }
-            Dim idx As Integer = dgvCart.Rows.Add(
-                Convert.ToString(it("product_name")), Convert.ToString(it("category_name")),
-                Convert.ToString(it("size")), qty,
-                info.UnitPrice.ToString("N2"), lineTotal.ToString("N2"))
-            dgvCart.Rows(idx).Tag = info
-            If info.Available <= 0 Then dgvCart.Rows(idx).DefaultCellStyle.ForeColor = Color.Gray Else anyAvailable = True
+            .TransactionItemId = Convert.ToInt32(it("transaction_item_id")),
+            .VariantId = Convert.ToInt32(it("variant_id")),
+            .UnitPrice = If(qty > 0, lineTotal / qty, 0D),
+            .Purchased = qty,
+            .Processed = Convert.ToInt32(it("processed_qty")),
+            .PickupDate = If(IsDBNull(it("pickup_date")), Nothing, CType(Convert.ToDateTime(it("pickup_date")), Date?)),
+            .IsBackorder = (Convert.ToInt32(it("is_backorder")) = 1),
+            .IsUniform = String.Equals(Convert.ToString(it("category_name")), "Uniforms", StringComparison.OrdinalIgnoreCase)
+        }
+
+            Dim idx As Integer = dgvCart.Rows.Add(False,
+            Convert.ToString(it("product_name")), Convert.ToString(it("category_name")),
+            Convert.ToString(it("size")), qty,
+            info.UnitPrice.ToString("N2"), lineTotal.ToString("N2"), "")
+            Dim row As DataGridViewRow = dgvCart.Rows(idx)
+            row.Tag = info
+            row.Cells("colProcessQty").ReadOnly = True
+
+            If info.IsUniform AndAlso info.Available > 0 Then
+                anyEligible = True
+            Else
+                row.Cells("colSelect").ReadOnly = True
+                row.DefaultCellStyle.ForeColor = Color.Gray
+                row.Cells("colSelect").ToolTipText = If(info.IsUniform, "Already fully returned/exchanged.", "Only uniforms can be returned or exchanged.")
+            End If
             totalQty += qty
         Next
+        isLoadingGrid = False
 
         lbltotitem.Text = items.Rows.Count.ToString()
         lbltotquantity.Text = totalQty.ToString()
 
-        ' block processing for cancelled / fully processed transactions
-        Dim canProcess As Boolean = (txnStatus <> "Cancelled") AndAlso anyAvailable
+        Dim canProcess As Boolean = (txnStatus <> "Cancelled") AndAlso anyEligible
         btnreturnexc.Enabled = canProcess
         rbtnReturn.Enabled = canProcess
         rbtnexchange.Enabled = canProcess
 
-        If dgvCart.Rows.Count > 0 Then
-            dgvCart.ClearSelection()
-            dgvCart.Rows(0).Selected = True
-        End If
+        dgvCart.ClearSelection()
         UpdateSelectedItem()
     End Sub
 
-    ' ===================== ITEM SELECTION =====================
-    Private Function SelectedItem() As ItemInfo
-        If dgvCart.SelectedRows.Count = 0 Then Return Nothing
-        Return TryCast(dgvCart.SelectedRows(0).Tag, ItemInfo)
-    End Function
 
     Private Sub dgvCart_SelectionChanged(sender As Object, e As EventArgs) Handles dgvCart.SelectionChanged
         UpdateSelectedItem()
     End Sub
-
     Private Sub UpdateSelectedItem()
-        Dim it As ItemInfo = SelectedItem()
-        If it Is Nothing Then
-            SetRange(nudQuantity, 0)
-            lblquantity.Text = "of - purchased"
+        If Not btnreturnexc.Enabled Then
+            lblquantity.Text = "Only uniforms with items left can be returned/exchanged"
             Exit Sub
         End If
-        SetRange(nudQuantity, it.Available)
-        lblquantity.Text = If(it.Processed = 0, "of " & it.Purchased & " purchased", "of " & it.Available & " left to process")
+        Dim n As Integer = CheckedRows().Count
+        lblquantity.Text = If(n = 0, "Tick the uniform item(s) to process", n & " item(s) ticked - set quantities in the grid")
     End Sub
+    Private Sub dgvCart_CurrentCellDirtyStateChanged(sender As Object, e As EventArgs) Handles dgvCart.CurrentCellDirtyStateChanged
+        If dgvCart.IsCurrentCellDirty AndAlso TypeOf dgvCart.CurrentCell Is DataGridViewCheckBoxCell Then
+            dgvCart.CommitEdit(DataGridViewDataErrorContexts.Commit)
+        End If
+    End Sub
+
+    Private Sub dgvCart_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCart.CellValueChanged
+        If isLoadingGrid OrElse e.RowIndex < 0 Then Exit Sub
+        If dgvCart.Columns(e.ColumnIndex).Name <> "colSelect" Then Exit Sub
+
+        Dim row As DataGridViewRow = dgvCart.Rows(e.RowIndex)
+        Dim it As ItemInfo = TryCast(row.Tag, ItemInfo)
+        If it Is Nothing Then Exit Sub
+
+        Dim ticked As Boolean = Convert.ToBoolean(If(row.Cells("colSelect").Value, False))
+        If ticked AndAlso (Not it.IsUniform OrElse it.Available <= 0) Then
+            row.Cells("colSelect").Value = False
+            Exit Sub
+        End If
+
+        row.Cells("colProcessQty").ReadOnly = Not ticked
+        row.Cells("colProcessQty").Value = If(ticked, it.Available.ToString(), "")
+        UpdateSelectedItem()
+
+        If ticked AndAlso rbtnexchange.Checked AndAlso CheckedRows().Count > 1 Then
+            MsgBox("An exchange can only be done for one item at a time. Untick the other items, or choose Return.", vbInformation, "Return / Exchange")
+        End If
+    End Sub
+
+    Private Sub dgvCart_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles dgvCart.EditingControlShowing
+        Dim tb As TextBox = TryCast(e.Control, TextBox)
+        If tb Is Nothing Then Exit Sub
+        RemoveHandler tb.KeyPress, AddressOf QtyCell_KeyPress
+        If dgvCart.CurrentCell IsNot Nothing AndAlso dgvCart.Columns(dgvCart.CurrentCell.ColumnIndex).Name = "colProcessQty" Then
+            AddHandler tb.KeyPress, AddressOf QtyCell_KeyPress
+        End If
+    End Sub
+
+    Private Sub QtyCell_KeyPress(sender As Object, e As KeyPressEventArgs)
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then e.Handled = True
+    End Sub
+
+    Private Sub dgvCart_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCart.CellEndEdit
+        If e.RowIndex < 0 OrElse dgvCart.Columns(e.ColumnIndex).Name <> "colProcessQty" Then Exit Sub
+        Dim row As DataGridViewRow = dgvCart.Rows(e.RowIndex)
+        Dim it As ItemInfo = TryCast(row.Tag, ItemInfo)
+        If it Is Nothing Then Exit Sub
+
+        Dim q As Integer
+        If Not Integer.TryParse(Convert.ToString(row.Cells("colProcessQty").Value), q) OrElse q < 1 Then
+            row.Cells("colProcessQty").Value = "1"
+            MsgBox("Quantity must be at least 1.", vbExclamation, "Quantity")
+        ElseIf q > it.Available Then
+            row.Cells("colProcessQty").Value = it.Available.ToString()
+            If it.Processed = 0 Then
+                MsgBox("Quantity cannot exceed the purchased count (" & it.Purchased & ").", vbExclamation, "Quantity Exceeded")
+            Else
+                MsgBox("Only " & it.Available & " left to process (purchased " & it.Purchased & ", already returned/exchanged " & it.Processed & ").", vbExclamation, "Quantity Exceeded")
+            End If
+        End If
+    End Sub
+    Private Function CheckedRows() As List(Of DataGridViewRow)
+        Dim list As New List(Of DataGridViewRow)
+        For Each r As DataGridViewRow In dgvCart.Rows
+            If Convert.ToBoolean(If(r.Cells("colSelect").Value, False)) Then list.Add(r)
+        Next
+        Return list
+    End Function
 
     ' sets Min=1 / Max=maxValue (or 0/0 if none) and resets value to Min
     Private Sub SetRange(nud As NumericUpDown, maxValue As Integer)
@@ -237,9 +319,12 @@ Public Class frmTransactionDetails
     ' ===================== REPLACEMENT ITEM =====================
     Private Sub LoadReplacementProducts()
         Dim dt As DataTable = GetDataTable(
-            "SELECT p.product_id, p.product_name FROM tbl_products p " &
-            "WHERE p.status = 'Active' AND EXISTS (SELECT 1 FROM tbl_product_variants v " &
-            "WHERE v.product_id = p.product_id AND v.quantity_on_hand > 0) ORDER BY p.product_name")
+    "SELECT p.product_id, p.product_name FROM tbl_products p " &
+    "INNER JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
+    "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
+    "WHERE p.status = 'Active' AND c.category_name = 'Uniforms' " &
+    "AND EXISTS (SELECT 1 FROM tbl_product_variants v WHERE v.product_id = p.product_id AND v.quantity_on_hand > 0) " &
+    "ORDER BY p.product_name")
         isBinding = True
         FillCombo(txtProduct, dt, "product_name", "product_id")
         txtProduct.SelectedIndex = -1
@@ -309,24 +394,18 @@ Public Class frmTransactionDetails
         SetRange(numupqty, stock)
         numupqty.Value = Math.Max(numupqty.Minimum, Math.Min(nudQuantity.Value, CDec(stock)))
     End Sub
-
-    ' ===================== RETURN / EXCHANGE =====================
     Private Sub btnreturnexc_Click(sender As Object, e As EventArgs) Handles btnreturnexc.Click
-        Dim it As ItemInfo = SelectedItem()
-        If it Is Nothing Then
-            MsgBox("Select the purchased item first.", vbExclamation, "Return / Exchange") : Exit Sub
-        End If
-        If it.Available <= 0 Then
-            MsgBox("This item was already fully returned/exchanged.", vbExclamation, "Return / Exchange") : Exit Sub
+        Dim ticked As List(Of DataGridViewRow) = CheckedRows()
+        If ticked.Count = 0 Then
+            MsgBox("Tick at least one uniform item to process.", vbExclamation, "Return / Exchange") : Exit Sub
         End If
         If Not rbtnReturn.Checked AndAlso Not rbtnexchange.Checked Then
             MsgBox("Choose Return or Exchange.", vbExclamation, "Return / Exchange") : Exit Sub
         End If
 
         Dim isExchange As Boolean = rbtnexchange.Checked
-        Dim qty As Integer = CInt(nudQuantity.Value)
-        If qty < 1 OrElse qty > it.Available Then
-            MsgBox("Invalid quantity. Maximum is " & it.Available & ".", vbExclamation, "Return / Exchange") : Exit Sub
+        If isExchange AndAlso ticked.Count > 1 Then
+            MsgBox("An exchange can only be done for one item at a time. Untick the other items, or choose Return.", vbExclamation, "Return / Exchange") : Exit Sub
         End If
         If String.IsNullOrWhiteSpace(txtReason.Text) Then
             MsgBox("Please enter the reason.", vbExclamation, "Return / Exchange") : txtReason.Focus() : Exit Sub
@@ -334,6 +413,30 @@ Public Class frmTransactionDetails
         If cboCondition.SelectedIndex < 0 Then
             MsgBox("Please select the item condition.", vbExclamation, "Return / Exchange") : cboCondition.Focus() : Exit Sub
         End If
+
+        Dim lines As New List(Of KeyValuePair(Of ItemInfo, Integer))
+        Dim itemTexts As New List(Of String)
+        Dim returnValue As Decimal = 0D
+        Dim totalReturnQty As Integer = 0
+
+        For Each r As DataGridViewRow In ticked
+            Dim it As ItemInfo = DirectCast(r.Tag, ItemInfo)
+            Dim nm As String = Convert.ToString(r.Cells("ProductName").Value)
+            Dim sz As String = Convert.ToString(r.Cells("Size").Value)
+            Dim q As Integer
+
+            If Not it.IsUniform Then
+                MsgBox("Only uniforms can be returned or exchanged (" & nm & ").", vbExclamation, "Return / Exchange") : Exit Sub
+            End If
+            If Not Integer.TryParse(Convert.ToString(r.Cells("colProcessQty").Value), q) OrElse q < 1 OrElse q > it.Available Then
+                MsgBox("Check the quantity for " & nm & " (maximum " & it.Available & ").", vbExclamation, "Return / Exchange") : Exit Sub
+            End If
+
+            lines.Add(New KeyValuePair(Of ItemInfo, Integer)(it, q))
+            itemTexts.Add(nm & If(sz <> "" AndAlso sz <> "N/A", " (" & sz & ")", "") & " x" & q)
+            returnValue += it.UnitPrice * q
+            totalReturnQty += q
+        Next
 
         Dim repVariantId As Integer = 0, repQty As Integer = 0
         Dim repPrice As Decimal = 0D, repName As String = ""
@@ -351,37 +454,39 @@ Public Class frmTransactionDetails
                 MsgBox("Enter the replacement quantity.", vbExclamation, "Return / Exchange") : Exit Sub
             End If
             repPrice = Convert.ToDecimal(ExecScalar(
-                "SELECT p.unit_price FROM tbl_product_variants v INNER JOIN tbl_products p ON v.product_id = p.product_id WHERE v.variant_id = @v",
-                New String() {"@v"}, New Object() {repVariantId}))
+            "SELECT p.unit_price FROM tbl_product_variants v INNER JOIN tbl_products p ON v.product_id = p.product_id WHERE v.variant_id = @v",
+            New String() {"@v"}, New Object() {repVariantId}))
             repName = txtProduct.Text & If(txtsize.Text <> "N/A", " (" & txtsize.Text & ")", "")
         End If
 
-        ' money summary
-        Dim returnValue As Decimal = it.UnitPrice * qty
+        Dim actionName As String = If(isExchange, "Exchange", "Return")
+
         Dim summary As String
         If isExchange Then
             Dim diff As Decimal = (repPrice * repQty) - returnValue
-            summary = "Exchange " & qty & " item(s) for " & repQty & " x " & repName & "." & vbCrLf &
-                      If(diff > 0, "Student pays the difference: " & Peso & diff.ToString("N2"),
-                      If(diff < 0, "Refund the difference: " & Peso & Math.Abs(diff).ToString("N2"), "No price difference."))
+            summary = "Exchange " & String.Join(", ", itemTexts) & " for " & repQty & " x " & repName & "." & vbCrLf &
+                  If(diff > 0, "Customer pays the difference: " & Peso & diff.ToString("N2"),
+                  If(diff < 0, "Refund the difference: " & Peso & Math.Abs(diff).ToString("N2"), "No price difference."))
         Else
-            summary = "Return " & qty & " item(s)." & vbCrLf & "Refund to student: " & Peso & returnValue.ToString("N2")
+            summary = "Return " & String.Join(", ", itemTexts) & "." & vbCrLf & "Refund to customer: " & Peso & returnValue.ToString("N2")
         End If
         If MsgBox(summary & vbCrLf & vbCrLf & "Proceed?", vbYesNo + vbQuestion, "Confirm") <> MsgBoxResult.Yes Then Exit Sub
 
+        Dim approver As String = RequireSupervisorApproval(Me, actionName & " of " & TransactionNo & ": " & String.Join(", ", itemTexts))
+        If approver Is Nothing Then Exit Sub
+
         Dim refNo As String = If(isExchange, "EXC-", "RET-") & DateTime.Now.ToString("yyyyMMddHHmmssfff")
-        Dim actionName As String = If(isExchange, "Exchange", "Return")
+        Dim resellable As Boolean = (cboCondition.SelectedIndex <= 1)   ' Good / Fair go back to stock
 
         Try
             Using c As MySqlConnection = NewConnection()
                 c.Open()
                 Using tx As MySqlTransaction = c.BeginTransaction()
                     Try
-                        ' 1) header
                         Dim reId As Long
                         Using q As New MySqlCommand(
-                            "INSERT INTO tbl_returns_exchanges (reference_no, transaction_id, action_type, reason, processed_by, processed_at, status) " &
-                            "VALUES (@ref, @tid, @act, @rs, @uid, NOW(), 'Completed')", c, tx)
+                        "INSERT INTO tbl_returns_exchanges (reference_no, transaction_id, action_type, reason, processed_by, processed_at, status) " &
+                        "VALUES (@ref, @tid, @act, @rs, @uid, NOW(), 'Completed')", c, tx)
                             q.Parameters.AddWithValue("@ref", refNo)
                             q.Parameters.AddWithValue("@tid", txnId)
                             q.Parameters.AddWithValue("@act", actionName)
@@ -391,54 +496,55 @@ Public Class frmTransactionDetails
                             reId = q.LastInsertedId
                         End Using
 
-                        ' 2) detail
-                        Using q As New MySqlCommand(
+                        For Each ln As KeyValuePair(Of ItemInfo, Integer) In lines
+                            Dim it As ItemInfo = ln.Key
+                            Dim qty As Integer = ln.Value
+
+                            Using q As New MySqlCommand(
                             "INSERT INTO tbl_return_exchange_items (return_exchange_id, transaction_item_id, quantity, item_condition, replacement_variant_id, replacement_quantity) " &
                             "VALUES (@rid, @tii, @q, @cond, @rv, @rq)", c, tx)
-                            q.Parameters.AddWithValue("@rid", reId)
-                            q.Parameters.AddWithValue("@tii", it.TransactionItemId)
-                            q.Parameters.AddWithValue("@q", qty)
-                            q.Parameters.AddWithValue("@cond", cboCondition.Text.Trim())
-                            q.Parameters.AddWithValue("@rv", If(isExchange, CType(repVariantId, Object), DBNull.Value))
-                            q.Parameters.AddWithValue("@rq", If(isExchange, CType(repQty, Object), DBNull.Value))
-                            q.ExecuteNonQuery()
-                        End Using
+                                q.Parameters.AddWithValue("@rid", reId)
+                                q.Parameters.AddWithValue("@tii", it.TransactionItemId)
+                                q.Parameters.AddWithValue("@q", qty)
+                                q.Parameters.AddWithValue("@cond", cboCondition.Text.Trim())
+                                q.Parameters.AddWithValue("@rv", If(isExchange, CType(repVariantId, Object), DBNull.Value))
+                                q.Parameters.AddWithValue("@rq", If(isExchange, CType(repQty, Object), DBNull.Value))
+                                q.ExecuteNonQuery()
+                            End Using
 
-                        ' 3) returned item goes back to inventory
-                        ' pick-up items never left the shelf, so there is nothing to put back
-                        If Not it.IsBackorder Then
-                            If cboCondition.SelectedIndex <= 1 Then      ' Good / Slightly Used -> resellable
-                                MoveStock(c, tx, it.VariantId, qty, "Returned", refNo, actionName & " of " & TransactionNo)
-                            Else                                          ' Damaged / Defective -> logged, not restocked
-                                Using q As New MySqlCommand(
-            "INSERT INTO tbl_stock_movements (variant_id, movement_type, quantity, previous_quantity, new_quantity, reference_no, remarks, created_by, created_at) " &
-            "SELECT @v, 'Damaged', @q, quantity_on_hand, quantity_on_hand, @ref, @rm, @uid, NOW() " &
-            "FROM tbl_product_variants WHERE variant_id = @v", c, tx)
-                                    q.Parameters.AddWithValue("@v", it.VariantId)
-                                    q.Parameters.AddWithValue("@q", qty)
-                                    q.Parameters.AddWithValue("@ref", refNo)
-                                    q.Parameters.AddWithValue("@rm", actionName & " of " & TransactionNo & " (" & txtCondition.Text & ")")
-                                    q.Parameters.AddWithValue("@uid", currentuser.UserID)
-                                    q.ExecuteNonQuery()
-                                End Using
+                            ' pick-up items never left the shelf, so there is nothing to put back
+                            If Not it.IsBackorder Then
+                                If resellable Then
+                                    MoveStock(c, tx, it.VariantId, qty, "Returned", refNo, actionName & " of " & TransactionNo)
+                                Else
+                                    Using q As New MySqlCommand(
+                                    "INSERT INTO tbl_stock_movements (variant_id, movement_type, quantity, previous_quantity, new_quantity, reference_no, remarks, created_by, created_at) " &
+                                    "SELECT @v, 'Damaged', @q, quantity_on_hand, quantity_on_hand, @ref, @rm, @uid, NOW() " &
+                                    "FROM tbl_product_variants WHERE variant_id = @v", c, tx)
+                                        q.Parameters.AddWithValue("@v", it.VariantId)
+                                        q.Parameters.AddWithValue("@q", qty)
+                                        q.Parameters.AddWithValue("@ref", refNo)
+                                        q.Parameters.AddWithValue("@rm", actionName & " of " & TransactionNo & " (" & cboCondition.Text & ")")
+                                        q.Parameters.AddWithValue("@uid", currentuser.UserID)
+                                        q.ExecuteNonQuery()
+                                    End Using
+                                End If
                             End If
-                        End If
+                        Next
 
-                        ' 4) replacement leaves inventory
                         If isExchange Then
                             MoveStock(c, tx, repVariantId, -repQty, "Stock Out", refNo, "Exchange replacement for " & TransactionNo)
                         End If
 
-                        ' 5) update the original transaction status
                         Dim totalQty As Integer = ScalarInt(c, tx, "SELECT IFNULL(SUM(quantity),0) FROM tbl_transaction_items WHERE transaction_id = @t", txnId)
                         Dim doneQty As Integer = ScalarInt(c, tx,
-                            "SELECT IFNULL(SUM(rei.quantity),0) FROM tbl_return_exchange_items rei " &
-                            "INNER JOIN tbl_returns_exchanges re ON rei.return_exchange_id = re.return_exchange_id " &
-                            "WHERE re.transaction_id = @t AND re.status = 'Completed'", txnId)
+                        "SELECT IFNULL(SUM(rei.quantity),0) FROM tbl_return_exchange_items rei " &
+                        "INNER JOIN tbl_returns_exchanges re ON rei.return_exchange_id = re.return_exchange_id " &
+                        "WHERE re.transaction_id = @t AND re.status = 'Completed'", txnId)
                         Dim fully As Boolean = doneQty >= totalQty
                         Dim newStatus As String = If(isExchange,
-                            If(fully, "Exchanged", "Partially Exchanged"),
-                            If(fully, "Returned", "Partially Returned"))
+                        If(fully, "Exchanged", "Partially Exchanged"),
+                        If(fully, "Returned", "Partially Returned"))
 
                         Using q As New MySqlCommand("UPDATE tbl_transactions SET status = @s WHERE transaction_id = @t", c, tx)
                             q.Parameters.AddWithValue("@s", newStatus)
@@ -447,7 +553,7 @@ Public Class frmTransactionDetails
                         End Using
 
                         tx.Commit()
-                    Catch ex As Exception
+                    Catch
                         tx.Rollback()
                         Throw
                     End Try
@@ -455,7 +561,8 @@ Public Class frmTransactionDetails
             End Using
 
             LogActivity("Item " & actionName, refNo,
-                        actionName & " of " & qty & " item(s) from " & TransactionNo & ". Reason: " & txtReason.Text.Trim())
+                    actionName & " of " & String.Join(", ", itemTexts) & " from " & TransactionNo &
+                    ". Reason: " & txtReason.Text.Trim() & ". Approved by " & approver)
 
             MsgBox(actionName & " processed successfully." & vbCrLf & "Reference No: " & refNo, vbInformation, "Return / Exchange")
 
@@ -580,14 +687,14 @@ Public Class frmTransactionDetails
             RcLine(g, w)
 
             For Each row As DataGridViewRow In dgvCart.Rows
-                Dim nm As String = Convert.ToString(row.Cells(0).Value)
-                Dim sz As String = Convert.ToString(row.Cells(2).Value)
+                Dim nm As String = Convert.ToString(row.Cells("ProductName").Value)
+                Dim sz As String = Convert.ToString(row.Cells("Size").Value)
                 If sz <> "" AndAlso sz <> "N/A" Then nm &= " (" & sz & ")"
                 RcText(g, nm, fReg, w)
-                RcLR(g, "  " & row.Cells(3).Value & " x " & row.Cells(4).Value, Convert.ToString(row.Cells(5).Value), fReg, w)
+                RcLR(g, "  " & row.Cells("Quantity").Value & " x " & row.Cells("UnitPrice").Value, Convert.ToString(row.Cells("Subtotal").Value), fReg, w)
                 Dim inf As ItemInfo = TryCast(row.Tag, ItemInfo)
                 If inf IsNot Nothing AndAlso inf.PickupDate.HasValue Then
-                    RcText(g, "  * NO STOCK - CLAIM ON " & inf.PickupDate.Value.ToString("MMM d, yyyy"), fReg, w)
+                    RcText(g, "   NO STOCK - CLAIM ON " & inf.PickupDate.Value.ToString("MMM d, yyyy"), fReg, w)
                 End If
             Next
 
@@ -646,20 +753,6 @@ Public Class frmTransactionDetails
     Private Sub Qty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles nudQuantity.KeyPress, numupqty.KeyPress
         If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then e.Handled = True
     End Sub
-
-    Private Sub nudQuantity_TextChanged(sender As Object, e As EventArgs) Handles nudQuantity.TextChanged
-        Dim it As ItemInfo = SelectedItem()
-        Dim msg As String
-        If it Is Nothing Then
-            msg = "Select the purchased item first."
-        ElseIf it.Processed = 0 Then
-            msg = "Quantity cannot exceed the purchased count (" & it.Purchased & ")."
-        Else
-            msg = "Only " & it.Available & " left to process (purchased " & it.Purchased & ", already returned/exchanged " & it.Processed & ")."
-        End If
-        ClampQty(nudQuantity, msg)
-    End Sub
-
     Private Sub numupqty_TextChanged(sender As Object, e As EventArgs) Handles numupqty.TextChanged
         ClampQty(numupqty, "Replacement quantity cannot exceed the available stock (" & numupqty.Maximum & ").")
     End Sub

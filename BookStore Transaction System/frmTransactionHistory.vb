@@ -46,15 +46,15 @@ Public Class frmTransactionHistory
 
             Dim query As String = "SELECT t.transaction_no, t.buyer_name, DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, " &
                               "v.product_code, p.product_name, v.size, p.unit_price, ti.quantity AS qty, " &
-                              "ti.subtotal, t.total_amount, t.amount_paid, t.amount_change, t.status, u.username " &
+                              "ti.subtotal, t.total_amount, t.amount_paid, t.amount_change, t.payment_method, t.status, u.username " &
                               "FROM TBL_TRANSACTION_ITEMS ti " &
                               "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
                               "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
                               "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
                               "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
                               "WHERE " & SEARCH_FILTER &
-"AND DATE(t.created_at) BETWEEN @f AND @t " &
-                              "ORDER BY t.transaction_id DESC"
+      "AND DATE(t.created_at) BETWEEN @f AND @t " &
+      "ORDER BY t.transaction_id DESC"
 
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
@@ -64,7 +64,7 @@ Public Class frmTransactionHistory
                     dgvtransaction.Rows.Clear()
                     While localDr.Read()
                         ' order = TransactionNo, StudentName, ProductCode, ProductName, Size, UnitPrice, SubTotal,
-                        '         Quantity, TotalAmount, Date, Time, AmountPaid, AmountChange, Status, ProcessedBy
+                        '         Quantity, TotalAmount, Date, Time, Am untPaid, AmountChange, Status, ProcessedBy
                         dgvtransaction.Rows.Add(
                         localDr("transaction_no").ToString(),
                         localDr("buyer_name").ToString(),
@@ -79,6 +79,7 @@ Public Class frmTransactionHistory
                         localDr("ttime").ToString(),
                         Convert.ToDecimal(localDr("amount_paid")).ToString("N2"),
                         Convert.ToDecimal(localDr("amount_change")).ToString("N2"),
+                        localDr("payment_method").ToString(),
                         localDr("status").ToString(),
                         localDr("username").ToString())
                     End While

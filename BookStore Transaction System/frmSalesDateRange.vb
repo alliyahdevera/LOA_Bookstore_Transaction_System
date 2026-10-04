@@ -1,89 +1,98 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Public Class frmSalesDateRange
 
-Public Class frmSalesDateRange
-    Private showReleasedOnly As Boolean = False
+    Private isFilling As Boolean = False
 
+    Private Sub frmDateReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        SetupFooter(Me, lblname, lblposition, lbldatetime)
 
-    Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click     ' Generate
+        dtfrom.Value = New DateTime(Date.Today.Year, Date.Today.Month, 1)
+        dtto.Value = Date.Today
+        btnexportexcel.Visible = (currentuser.Role = ROLE_SUPERVISOR OrElse currentuser.Role = ROLE_MANAGEMENT)
+
+        isFilling = True
+        Dim dt As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
+        Dim row As DataRow = dt.NewRow()
+        row("category_id") = 0
+        row("category_name") = "-- All Categories --"
+        dt.Rows.InsertAt(row, 0)
+        FillCombo(cbocategory, dt, "category_name", "category_id")
+        cbocategory.SelectedIndex = 0
+        FillTypeCombo(cbotype, 0)
+        isFilling = False
+
         LoadGrid()
     End Sub
 
-    Private Sub btnreleaseditems_Click(sender As Object, e As EventArgs)      ' Released Items toggle
-        showReleasedOnly = Not showReleasedOnly
+    Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
+        If isFilling Then Exit Sub
+        isFilling = True
+        FillTypeCombo(cbotype, SelectedId(cbocategory))
+        isFilling = False
         LoadGrid()
     End Sub
 
-    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs)
+    Private Sub cbotype_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbotype.SelectedIndexChanged
+        If isFilling Then Exit Sub
+        LoadGrid()
+    End Sub
+
+    Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
+        If dtfrom.Value.Date > dtto.Value.Date Then
+            MsgBox("'From' date cannot be later than 'To' date.", vbExclamation, "Sales Report")
+            Exit Sub
+        End If
         LoadGrid()
     End Sub
 
     Private Sub LoadGrid()
-        Try
-            If Not connection() Then Exit Sub
-            Dim query As String = "SELECT t.transaction_no, v.product_code, p.product_name, v.size, p.unit_price, " &
-                                  "ti.quantity AS qty, t.total_amount, t.amount_paid, t.amount_change, ti.subtotal, " &
-                                  "DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, u.username " &
-                                  "FROM TBL_TRANSACTION_ITEMS ti " &
-                                  "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
-                                  "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
-                                  "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-                                  "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
-                                  "WHERE DATE(t.created_at) BETWEEN @d1 AND @d2 AND t.transaction_no LIKE @s AND t.status <> 'Cancelled' "
-            If showReleasedOnly Then query &= "AND t.status = 'Completed' "
-            query &= "ORDER BY t.transaction_id DESC"
+        Dim catId As Integer = SelectedId(cbocategory)
+        Dim typeId As Integer = SelectedId(cbotype)
+        Dim names As String() = {"@d1", "@d2", "@cat", "@type"}
+        Dim values As Object() = {dtfrom.Value.Date, dtto.Value.Date, catId, typeId}
 
-            Using localCmd As New MySqlCommand(query, cn)
-                localCmd.Parameters.AddWithValue("@d1", dtfrom.Value.Date)
-                localCmd.Parameters.AddWithValue("@d2", dtto.Value.Date)
-                localCmd.Parameters.AddWithValue("@s", "%")
-                Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    DataGridView1.Rows.Clear()
-                    Dim sumSubtotal As Decimal = 0
-                    While localDr.Read()
-                        sumSubtotal += Convert.ToDecimal(localDr("subtotal"))
-                        DataGridView1.Rows.Add(
-                            localDr("transaction_no").ToString(), localDr("product_code").ToString(), localDr("product_name").ToString(),
-                            localDr("size").ToString(), Convert.ToDecimal(localDr("unit_price")).ToString("N2"), localDr("qty").ToString(),
-                            Convert.ToDecimal(localDr("total_amount")).ToString("N2"), Convert.ToDecimal(localDr("amount_paid")).ToString("N2"),
-                            Convert.ToDecimal(localDr("amount_change")).ToString("N2"), Convert.ToDecimal(localDr("subtotal")).ToString("N2"),
-                            Convert.ToDateTime(localDr("tdate")).ToString("yyyy-MM-dd"), localDr("ttime").ToString(), localDr("username").ToString())
-                    End While
-                    Label8.Text = sumSubtotal.ToString("N2")
-                End Using
-            End Using
-            cn.Close()
+        Dim dt As DataTable = GetDataTable(
+            "SELECT t.transaction_no, t.buyer_name, v.product_code, p.product_name, v.size, p.unit_price, " &
+            "ti.quantity AS qty, t.total_amount, t.amount_paid, t.amount_change, t.payment_method, ti.subtotal, " &
+            "DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, u.username " &
+            "FROM TBL_TRANSACTION_ITEMS ti " &
+            "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
+            "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
+            "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+            "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
+            "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
+            "WHERE DATE(t.created_at) BETWEEN @d1 AND @d2 AND t.status <> 'Cancelled' " &
+            "AND (@cat = 0 OR ct.category_id = @cat) AND (@type = 0 OR ct.category_type_id = @type) " &
+            "ORDER BY t.transaction_id DESC", names, values)
 
-            Dim statusFilter As String = If(showReleasedOnly, "AND status = 'Completed'", "")
+        Dim sumSubtotal As Decimal = 0D
+        DataGridView1.SuspendLayout()
+        DataGridView1.Rows.Clear()
+        For Each r As DataRow In dt.Rows
+            sumSubtotal += Convert.ToDecimal(r("subtotal"))
+            DataGridView1.Rows.Add(
+                r("transaction_no").ToString(), r("buyer_name").ToString(),
+                r("product_code").ToString(), r("product_name").ToString(), r("size").ToString(),
+                Convert.ToDecimal(r("unit_price")).ToString("N2"), r("qty").ToString(),
+                Convert.ToDecimal(r("total_amount")).ToString("N2"), Convert.ToDecimal(r("amount_paid")).ToString("N2"),
+                Convert.ToDecimal(r("amount_change")).ToString("N2"), r("payment_method").ToString(),
+                Convert.ToDateTime(r("tdate")).ToString("yyyy-MM-dd"), r("ttime").ToString(), r("username").ToString())
+        Next
+        DataGridView1.ClearSelection()
+        DataGridView1.ResumeLayout()
+
+        Label8.Text = sumSubtotal.ToString("N2")
+
+        If catId = 0 AndAlso typeId = 0 Then
             Label3.Text = ChrW(8369) & Convert.ToDecimal(If(ExecScalar(
-                "SELECT IFNULL(SUM(total_amount),0) FROM TBL_TRANSACTIONS WHERE DATE(created_at) BETWEEN @d1 AND @d2 AND transaction_no LIKE @s AND status <> 'Cancelled' " & statusFilter,
-                New String() {"@d1", "@d2", "@s"}, New Object() {dtfrom.Value.Date, dtto.Value.Date, "%"}), 0)).ToString("N2")
-        Catch ex As Exception
-            If cn.State = ConnectionState.Open Then cn.Close()
-            MsgBox("Error loading reports: " & ex.Message, vbCritical, "Error")
-        End Try
+                "SELECT IFNULL(SUM(total_amount),0) FROM TBL_TRANSACTIONS WHERE DATE(created_at) BETWEEN @d1 AND @d2 AND status <> 'Cancelled'",
+                New String() {"@d1", "@d2"}, New Object() {dtfrom.Value.Date, dtto.Value.Date}), 0)).ToString("N2")
+        Else
+            Label3.Text = ChrW(8369) & sumSubtotal.ToString("N2")
+        End If
     End Sub
 
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
         ExportGridToCsv(DataGridView1, "SalesReport")
     End Sub
 
-    Private Sub SetControlText(parent As Control, controlName As String, textValue As String)
-        For Each ctrl As Control In parent.Controls
-            If String.Equals(ctrl.Name, controlName, StringComparison.OrdinalIgnoreCase) Then
-                ctrl.Text = textValue
-            End If
-            If ctrl.HasChildren Then
-                SetControlText(ctrl, controlName, textValue)
-            End If
-        Next
-    End Sub
-
-    Private Sub frmDateReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        SetupFooter(Me, lblname, lblposition, lbldatetime)
-
-        dtfrom.Value = New DateTime(DateTime.Today.Year, DateTime.Today.Month, 1)
-        dtto.Value = DateTime.Today
-        btnexportexcel.Visible = (currentuser.Role = ROLE_SUPERVISOR OrElse currentuser.Role = ROLE_MANAGEMENT)
-        LoadGrid()
-    End Sub
 End Class
