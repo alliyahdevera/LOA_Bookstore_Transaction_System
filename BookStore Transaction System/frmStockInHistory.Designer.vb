@@ -58,7 +58,7 @@ Partial Class frmStockInHistory
         Me.Label4 = New System.Windows.Forms.Label()
         Me.cbocategory = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cbotype = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -412,15 +412,15 @@ Partial Class frmStockInHistory
         Me.Label9.TabIndex = 125
         Me.Label9.Text = "Category"
         '
-        'ComboBox1
+        'cbotype
         '
-        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(1024, 125)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(167, 25)
-        Me.ComboBox1.TabIndex = 130
+        Me.cbotype.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cbotype.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbotype.FormattingEnabled = True
+        Me.cbotype.Location = New System.Drawing.Point(1024, 125)
+        Me.cbotype.Name = "cbotype"
+        Me.cbotype.Size = New System.Drawing.Size(167, 25)
+        Me.cbotype.TabIndex = 130
         '
         'Label8
         '
@@ -437,7 +437,7 @@ Partial Class frmStockInHistory
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1219, 817)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.cbotype)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.cbocategory)
         Me.Controls.Add(Me.Label9)
@@ -506,6 +506,6 @@ Partial Class frmStockInHistory
     Friend WithEvents Label4 As Label
     Friend WithEvents cbocategory As ComboBox
     Friend WithEvents Label9 As Label
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cbotype As ComboBox
     Friend WithEvents Label8 As Label
 End Class

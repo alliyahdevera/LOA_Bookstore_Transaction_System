@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class frmStockIn
-
+    Private pg As GridPager
     Private currentStockInId As Long = 0
     Private selectedVariantId As Integer = 0
     Private isFilling As Boolean = False
@@ -10,7 +10,12 @@ Public Class frmStockIn
         SetupFooter(Me, lblname, lblposition, lbldatetime)
         txtreference.Text = NewReferenceNo()
         txtstockintime.Text = DateTime.Now.ToString("MMMM d, yyyy  hh:mm tt")
+        pg = New GridPager(DataGridView1, 20)
+        AddHandler pg.PageChanged, Sub() LoadProducts()
         LoadCategoryCombo()
+        isFilling = True
+        FillTypeCombo(cboType, 0)
+        isFilling = False
         LoadProducts()
     End Sub
 
@@ -32,36 +37,46 @@ Public Class frmStockIn
         End If
         Return 0
     End Function
-
     Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
         If isFilling Then Exit Sub
         selectedVariantId = 0
+        isFilling = True
+        FillTypeCombo(cboType, GetSelectedCategoryId())
+        isFilling = False
+        pg.Reset()
+        LoadProducts()
+    End Sub
+
+    Private Sub cbotype_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboType.SelectedIndexChanged
+        If isFilling OrElse pg Is Nothing Then Exit Sub
+        selectedVariantId = 0
+        pg.Reset()
         LoadProducts()
     End Sub
 
     Private Sub LoadProducts()
-        Dim catId As Integer = GetSelectedCategoryId()
         Dim query As String =
-            "SELECT v.variant_id, v.product_code, p.product_name, p.product_description, " &
-            "c.category_name, ct.type_name, p.unit_price, v.quantity_on_hand, v.reorder_level, " &
-            "CASE WHEN v.quantity_on_hand = 0 THEN 'Out of Stock' WHEN v.quantity_on_hand <= v.reorder_level THEN 'Low Stock' ELSE 'In Stock' END AS calc_status " &
-            "FROM TBL_PRODUCT_VARIANTS v " &
-            "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-            "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
-            "INNER JOIN TBL_CATEGORIES c ON ct.category_id = c.category_id " &
-            "WHERE (@cat = 0 OR c.category_id = @cat) " &
-            "ORDER BY p.product_name, v.size" & If(catId = 0, " LIMIT 200", "")
+        "SELECT v.variant_id, v.product_code, p.product_name, p.product_description, " &
+        "c.category_name, ct.type_name, p.unit_price, v.quantity_on_hand, v.reorder_level, " &
+        "CASE WHEN v.quantity_on_hand = 0 THEN 'Out of Stock' WHEN v.quantity_on_hand <= v.reorder_level THEN 'Low Stock' ELSE 'In Stock' END AS calc_status " &
+        "FROM TBL_PRODUCT_VARIANTS v " &
+        "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+        "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
+        "INNER JOIN TBL_CATEGORIES c ON ct.category_id = c.category_id " &
+        "WHERE (@cat = 0 OR c.category_id = @cat) AND (@type = 0 OR ct.category_type_id = @type) " &
+        "ORDER BY p.product_name, v.size"
 
-        Dim dt As DataTable = GetDataTable(query, New String() {"@cat"}, New Object() {catId})
+        Dim dt As DataTable = pg.LoadPage(query, New String() {"@cat", "@type"},
+                                      New Object() {GetSelectedCategoryId(), SelectedId(cboType)})
 
         DataGridView1.SuspendLayout()
         DataGridView1.Rows.Clear()
         For Each r As DataRow In dt.Rows
             Dim idx As Integer = DataGridView1.Rows.Add(
-                r("product_code").ToString(), r("product_name").ToString(), r("product_description").ToString(),
-                r("category_name").ToString(), r("type_name").ToString(),
-                Convert.ToDecimal(r("unit_price")).ToString("N2"), r("quantity_on_hand").ToString(),
-                r("reorder_level").ToString(), r("calc_status").ToString())
+            r("product_code").ToString(), r("product_name").ToString(), r("product_description").ToString(),
+            r("category_name").ToString(), r("type_name").ToString(),
+            Convert.ToDecimal(r("unit_price")).ToString("N2"), r("quantity_on_hand").ToString(),
+            r("reorder_level").ToString(), r("calc_status").ToString())
             DataGridView1.Rows(idx).Tag = Convert.ToInt32(r("variant_id"))
         Next
         DataGridView1.ClearSelection()

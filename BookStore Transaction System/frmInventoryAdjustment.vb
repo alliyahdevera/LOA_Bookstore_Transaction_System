@@ -66,7 +66,11 @@ Public Class frmInventoryAdjustment
             msg &= vbCrLf & vbCrLf & "Note: stock changed since the count (was " & systemAtCount & ", now " & currentQty & ")."
         End If
         If MsgBox(msg, vbYesNo + vbQuestion, "Confirm Adjustment") <> MsgBoxResult.Yes Then Exit Sub
+        Dim approver As String = RequireSupervisorApproval(Me, "Inventory adjustment of " & ProductCode & " (" & ItemSize & "): " & SystemQty & " to " & physical)
+        If approver Is Nothing Then Exit Sub
 
+        Dim moveRemark As String = reason & " [Approved: " & approver & "]"
+        If moveRemark.Length > 255 Then moveRemark = moveRemark.Substring(0, 255)
         Dim refNo As String = CountNo
         Dim moveType As String = "Adjustment"
         Dim lowerReason As String = reason.ToLower()
@@ -107,7 +111,7 @@ Public Class frmInventoryAdjustment
                                 q.Parameters.AddWithValue("@p", prev)
                                 q.Parameters.AddWithValue("@n", physical)
                                 q.Parameters.AddWithValue("@ref", If(String.IsNullOrEmpty(refNo), CType(DBNull.Value, Object), refNo))
-                                q.Parameters.AddWithValue("@rm", reason)
+                                q.Parameters.AddWithValue("@rm", moveRemark)
                                 q.Parameters.AddWithValue("@uid", currentuser.UserID)
                                 q.ExecuteNonQuery()
                             End Using
@@ -143,7 +147,7 @@ Public Class frmInventoryAdjustment
             End Using
 
             LogActivity("Inventory Adjustment", refNo,
-                        ProductCode & " (" & ItemSize & "): " & SystemQty & " -> " & physical & ". Reason: " & reason)
+                        ProductCode & " (" & ItemSize & "): " & SystemQty & " -> " & physical & ". Reason: " & reason & " Approved by " & approver)
 
             MsgBox("Inventory adjusted successfully.", vbInformation, "Inventory Adjustment")
             Me.DialogResult = DialogResult.OK

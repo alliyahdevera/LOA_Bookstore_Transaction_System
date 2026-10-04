@@ -2,12 +2,21 @@
 Imports MySql.Data.MySqlClient
 
 Public Class frmStockInHistory
+    Private pg As GridPager
     Private isFilling As Boolean = False
     Private Sub frmStockInHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
-        Label4.Text = "Total Quantity"   ' fixes a copy-pasted "Total Sales" label
+        Label4.Text = "Total Quantity"
         DateTimePicker1.Value = New DateTime(Today.Year, Today.Month, 1)
         DateTimePicker2.Value = Today
+
+        pg = New GridPager(dgvstockinhistory, 20)
+        AddHandler pg.PageChanged, Sub() LoadGrid()
+
+        LoadCategoryCombo()
+        isFilling = True
+        FillTypeCombo(cbotype, 0)
+        isFilling = False
         LoadGrid()
     End Sub
     Private Sub LoadCategoryCombo()
@@ -24,57 +33,62 @@ Public Class frmStockInHistory
 
     Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
         If isFilling Then Exit Sub
+        isFilling = True
+        FillTypeCombo(cbotype, SelectedId(cbocategory))
+        isFilling = False
+        pg.Reset()
         LoadGrid()
     End Sub
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btngenerate.Click   ' Generate
+
+    Private Sub cbotype_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbotype.SelectedIndexChanged
+        If isFilling OrElse pg Is Nothing Then Exit Sub
+        pg.Reset()
+        LoadGrid()
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
+        pg.Reset()
         LoadGrid()
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        If pg Is Nothing Then Exit Sub
+        pg.Reset()
         LoadGrid()
     End Sub
 
     Private Sub LoadGrid()
-        Try
-            If Not connection() Then Exit Sub
-            Dim searchText As String = txtSearch.Text.Trim()
-            Dim query As String = "SELECT si.reference_no, v.product_code, p.product_name, p.product_description, " &
-                      "sid.quantity, si.stock_in_date, si.stock_in_time, si.received_by " &
-                      "FROM TBL_STOCK_IN_DETAILS sid " &
-                      "INNER JOIN TBL_STOCK_INS si ON sid.stock_in_id = si.stock_in_id " &
-                      "INNER JOIN TBL_PRODUCT_VARIANTS v ON sid.variant_id = v.variant_id " &
-                      "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-                      "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
-                      "WHERE si.stock_in_date BETWEEN @d1 AND @d2 " &
-                      "AND (@cat = 0 OR ct.category_id = @cat) " &
-                      "AND (si.reference_no LIKE @s OR p.product_name LIKE @s) " &
-                      "ORDER BY si.stock_in_date DESC, si.stock_in_time DESC"
-            Using localCmd As New MySqlCommand(query, cn)
-                Dim catId As Integer = If(cbocategory.SelectedValue IsNot Nothing AndAlso IsNumeric(cbocategory.SelectedValue), Convert.ToInt32(cbocategory.SelectedValue), 0)
-                localCmd.Parameters.AddWithValue("@cat", catId)
-                localCmd.Parameters.AddWithValue("@d1", DateTimePicker1.Value.Date)
-                localCmd.Parameters.AddWithValue("@d2", DateTimePicker2.Value.Date)
-                localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
-                Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    dgvstockinhistory.Rows.Clear()
-                    Dim totalQty As Integer = 0
-                    While localDr.Read()
-                        Dim qty As Integer = Convert.ToInt32(localDr("quantity"))
-                        totalQty += qty
-                        dgvstockinhistory.Rows.Add(
-                            localDr("reference_no").ToString(), localDr("product_code").ToString(), localDr("product_name").ToString(),
-                            localDr("product_description").ToString(), qty,
-                            Convert.ToDateTime(localDr("stock_in_date")).ToString("yyyy-MM-dd"), localDr("stock_in_time").ToString(),
-                            If(IsDBNull(localDr("received_by")), "-", localDr("received_by").ToString()))
-                    End While
-                    Label3.Text = totalQty.ToString("N0")
-                End Using
-            End Using
-            cn.Close()
-        Catch ex As Exception
-            If cn.State = ConnectionState.Open Then cn.Close()
-            MsgBox("Error loading stock-in history: " & ex.Message, vbCritical, "Error")
-        End Try
+        Dim query As String =
+        "SELECT si.reference_no, v.product_code, p.product_name, p.product_description, " &
+        "sid.quantity, si.stock_in_date, si.stock_in_time, si.received_by " &
+        "FROM TBL_STOCK_IN_DETAILS sid " &
+        "INNER JOIN TBL_STOCK_INS si ON sid.stock_in_id = si.stock_in_id " &
+        "INNER JOIN TBL_PRODUCT_VARIANTS v ON sid.variant_id = v.variant_id " &
+        "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+        "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
+        "WHERE si.stock_in_date BETWEEN @d1 AND @d2 " &
+        "AND (@cat = 0 OR ct.category_id = @cat) AND (@type = 0 OR ct.category_type_id = @type) " &
+        "AND (si.reference_no LIKE @s OR p.product_name LIKE @s) " &
+        "ORDER BY si.stock_in_date DESC, si.stock_in_time DESC"
+
+        Dim names As String() = {"@d1", "@d2", "@cat", "@type", "@s"}
+        Dim values As Object() = {DateTimePicker1.Value.Date, DateTimePicker2.Value.Date,
+                              SelectedId(cbocategory), SelectedId(cbotype), "%" & txtSearch.Text.Trim() & "%"}
+
+        Dim dt As DataTable = pg.LoadPage(query, names, values)
+        Label3.Text = Convert.ToInt32(If(ExecScalar("SELECT IFNULL(SUM(quantity),0) FROM (" & query & ") AS t", names, values), 0)).ToString("N0")
+
+        dgvstockinhistory.SuspendLayout()
+        dgvstockinhistory.Rows.Clear()
+        For Each r As DataRow In dt.Rows
+            dgvstockinhistory.Rows.Add(
+            r("reference_no").ToString(), r("product_code").ToString(), r("product_name").ToString(),
+            r("product_description").ToString(), Convert.ToInt32(r("quantity")),
+            Convert.ToDateTime(r("stock_in_date")).ToString("yyyy-MM-dd"), r("stock_in_time").ToString(),
+            If(IsDBNull(r("received_by")), "-", r("received_by").ToString()))
+        Next
+        dgvstockinhistory.ClearSelection()
+        dgvstockinhistory.ResumeLayout()
     End Sub
 
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click

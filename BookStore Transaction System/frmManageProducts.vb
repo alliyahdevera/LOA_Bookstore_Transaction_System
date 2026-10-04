@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class frmManageProducts
-
+    Private pg As GridPager
     Private selectedProductId As Integer = 0
     Private selectedVariantId As Integer = 0
     Private isFilling As Boolean = False
@@ -9,10 +9,10 @@ Public Class frmManageProducts
     Private Sub frmManageProducts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
-        ' Lock ComboBoxes so users can only pick allowed items
         cboCategory.DropDownStyle = ComboBoxStyle.DropDownList
         cboTypeOfProduct.DropDownStyle = ComboBoxStyle.DropDownList
-
+        pg = New GridPager(dgvListOfProducts, 20)
+        AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
         LoadCategoryCombo()
         LoadGrid("", GetSelectedCategoryId())
         ClearFields()
@@ -43,17 +43,33 @@ Public Class frmManageProducts
     Private Sub cboCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCategory.SelectedIndexChanged
         If isFilling Then Exit Sub
         Dim catId As Integer = GetSelectedCategoryId()
-        LoadGrid(txtSearch.Text.Trim(), catId)
         LoadTypes(catId)
+        pg.Reset()
+        LoadGrid(txtSearch.Text.Trim(), catId)
     End Sub
+    Private Sub cboTypeOfProduct_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboTypeOfProduct.SelectedIndexChanged
+        If isFilling OrElse pg Is Nothing Then Exit Sub
+        pg.Reset()
+        LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
+    End Sub
+    Private Function GetSelectedTypeId() As Integer
+        If cboTypeOfProduct.SelectedValue IsNot Nothing AndAlso IsNumeric(cboTypeOfProduct.SelectedValue) Then
+            Return Convert.ToInt32(cboTypeOfProduct.SelectedValue)
+        End If
+        Return 0
+    End Function
     Private Sub LoadTypes(catId As Integer)
+        Dim wasFilling As Boolean = isFilling
+        isFilling = True
         If catId = 0 Then
             cboTypeOfProduct.DataSource = Nothing
-            Exit Sub
+        Else
+            Dim dt As DataTable = GetDataTable("SELECT category_type_id, type_name FROM TBL_CATEGORY_TYPES WHERE category_id = @c ORDER BY type_name",
+                                           New String() {"@c"}, New Object() {catId})
+            FillCombo(cboTypeOfProduct, dt, "type_name", "category_type_id")
+            cboTypeOfProduct.SelectedIndex = -1
         End If
-        Dim dt As DataTable = GetDataTable("SELECT category_type_id, type_name FROM TBL_CATEGORY_TYPES WHERE category_id = @c ORDER BY type_name",
-                                       New String() {"@c"}, New Object() {catId})
-        FillCombo(cboTypeOfProduct, dt, "type_name", "category_type_id")
+        isFilling = wasFilling
     End Sub
 
 
@@ -121,54 +137,39 @@ Public Class frmManageProducts
 
         Return True
     End Function
-
-    ' ------------------------------------------------------------------
-    ' Data Grid Operations
-    ' ------------------------------------------------------------------
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        If pg Is Nothing Then Exit Sub
+        pg.Reset()
         LoadGrid(txtSearch.Text.Trim(), GetSelectedCategoryId())
     End Sub
 
     Private Sub LoadGrid(searchText As String, categoryId As Integer)
-        Try
-            If Not connection() Then Exit Sub
-            Dim query As String = "SELECT v.variant_id, p.product_id, v.product_code, p.product_name, p.product_description, " &
-                                  "c.category_name, ct.type_name, v.size, p.unit_price, v.quantity_on_hand, v.reorder_level, p.status " &
-                                  "FROM TBL_PRODUCT_VARIANTS v " &
-                                  "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-                                  "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
-                                  "INNER JOIN TBL_CATEGORIES c ON ct.category_id = c.category_id " &
-                                  "WHERE (@cat = 0 OR c.category_id = @cat) " &
-                                  "AND (v.product_code LIKE @s OR p.product_name LIKE @s) " &
-                                  "ORDER BY p.product_name, v.size" & If(categoryId = 0 AndAlso searchText = "", " LIMIT 200", "")
+        Dim query As String =
+        "SELECT v.variant_id, p.product_id, v.product_code, p.product_name, p.product_description, " &
+        "c.category_name, ct.type_name, v.size, p.unit_price, v.quantity_on_hand, v.reorder_level, p.status " &
+        "FROM TBL_PRODUCT_VARIANTS v " &
+        "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+        "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
+        "INNER JOIN TBL_CATEGORIES c ON ct.category_id = c.category_id " &
+        "WHERE (@cat = 0 OR c.category_id = @cat) AND (@type = 0 OR ct.category_type_id = @type) " &
+        "AND (v.product_code LIKE @s OR p.product_name LIKE @s) " &
+        "ORDER BY p.product_name, v.size"
 
-            Using localCmd As New MySqlCommand(query, cn)
-                localCmd.Parameters.AddWithValue("@cat", categoryId)
-                localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
-                Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    dgvListOfProducts.Rows.Clear()
-                    While localDr.Read()
-                        Dim idx As Integer = dgvListOfProducts.Rows.Add(
-                            localDr("product_code").ToString(),
-                            localDr("product_name").ToString(),
-                            localDr("product_description").ToString(),
-                            localDr("category_name").ToString(),
-                            localDr("type_name").ToString(),
-                            localDr("size").ToString(),
-                            Convert.ToDecimal(localDr("unit_price")).ToString("N2"),
-                            localDr("quantity_on_hand").ToString(),
-                            localDr("reorder_level").ToString(),
-                            localDr("status").ToString()
-                        )
-                        dgvListOfProducts.Rows(idx).Tag = New Integer() {Convert.ToInt32(localDr("product_id")), Convert.ToInt32(localDr("variant_id"))}
-                    End While
-                End Using
-            End Using
-            cn.Close()
-        Catch ex As Exception
-            If cn.State = ConnectionState.Open Then cn.Close()
-            MsgBox("Error loading products: " & ex.Message, vbCritical, "Error")
-        End Try
+        Dim dt As DataTable = pg.LoadPage(query, New String() {"@cat", "@type", "@s"},
+                                      New Object() {categoryId, GetSelectedTypeId(), "%" & searchText & "%"})
+
+        dgvListOfProducts.SuspendLayout()
+        dgvListOfProducts.Rows.Clear()
+        For Each r As DataRow In dt.Rows
+            Dim idx As Integer = dgvListOfProducts.Rows.Add(
+            r("product_code").ToString(), r("product_name").ToString(), r("product_description").ToString(),
+            r("category_name").ToString(), r("type_name").ToString(), r("size").ToString(),
+            Convert.ToDecimal(r("unit_price")).ToString("N2"), r("quantity_on_hand").ToString(),
+            r("reorder_level").ToString(), r("status").ToString())
+            dgvListOfProducts.Rows(idx).Tag = New Integer() {Convert.ToInt32(r("product_id")), Convert.ToInt32(r("variant_id"))}
+        Next
+        dgvListOfProducts.ClearSelection()
+        dgvListOfProducts.ResumeLayout()
     End Sub
 
     Private Sub dgvListOfProducts_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvListOfProducts.CellClick
@@ -316,6 +317,7 @@ Public Class frmManageProducts
     End Sub
     Private Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
         ClearFields()
+        pg.Reset()
         LoadGrid("", 0)
     End Sub
 
