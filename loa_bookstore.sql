@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 04, 2026 at 10:54 AM
+-- Host: localhost
+-- Generation Time: Oct 04, 2026 at 12:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -238,6 +238,31 @@ INSERT INTO `tbl_category_types` (`category_type_id`, `category_id`, `type_name`
 (38, 1, 'College Program Uniform'),
 (39, 1, 'Special Program Uniform'),
 (40, 1, 'Uniform Accessories');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_employees`
+--
+
+CREATE TABLE `tbl_employees` (
+  `employee_id` int(11) NOT NULL,
+  `employee_no` varchar(20) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `department` varchar(100) DEFAULT NULL,
+  `job_position` varchar(100) DEFAULT NULL,
+  `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_employees`
+--
+
+INSERT INTO `tbl_employees` (`employee_id`, `employee_no`, `last_name`, `first_name`, `department`, `job_position`, `status`) VALUES
+(1, 'EMP-0001', 'Villanueva', 'Rosa', 'Registrar', 'Registrar Staff', 'Active'),
+(2, 'EMP-0002', 'Mercado', 'Daniel', 'Faculty', 'Teacher', 'Active'),
+(3, 'EMP-0003', 'Lim', 'Grace', 'Accounting', 'Accounting Staff', 'Active');
 
 -- --------------------------------------------------------
 
@@ -570,12 +595,32 @@ INSERT INTO `tbl_products` (`product_id`, `product_name`, `product_description`,
 (221, 'BSCA SHOULDER BOARD', NULL, NULL, 40, NULL, 0.00, 180.00, 'Active'),
 (222, 'HM BLAZER W NAME (M)', NULL, NULL, 40, NULL, 0.00, 850.00, 'Active'),
 (223, 'HM BLAZER W NAME (F)', NULL, NULL, 40, NULL, 0.00, 850.00, 'Active'),
-(224, 'LOA KATAPATAN PATCH', NULL, NULL, 40, NULL, 0.00, 80.00, 'Active'),
+(224, 'KATAPATAN PATCH', NULL, NULL, 40, NULL, 0.00, 80.00, 'Active'),
 (225, 'CTHM NECKTIE', NULL, NULL, 40, NULL, 0.00, 120.00, 'Active'),
-(226, 'LOA RESERVE PATCH', NULL, NULL, 40, NULL, 0.00, 80.00, 'Active'),
+(226, 'RESERVE PATCH', NULL, NULL, 40, NULL, 0.00, 80.00, 'Active'),
 (227, 'HUKBONG KATIHAN PATCH', NULL, NULL, 40, NULL, 0.00, 80.00, 'Active'),
 (228, 'Sample Grade 7 English Textbook', NULL, NULL, 12, NULL, 0.00, 350.00, 'Active'),
-(229, 'Sample General Math Module', NULL, NULL, 7, NULL, 0.00, 120.00, 'Active');
+(229, 'Sample General Math Module', NULL, NULL, 7, NULL, 0.00, 120.00, 'Active'),
+(230, 'Basic Ed - Grade 7 English Communication Textbook', NULL, NULL, 12, NULL, 0.00, 380.00, 'Active'),
+(231, 'Basic Ed - Grade 8 Science & Technology Textbook', NULL, NULL, 12, NULL, 0.00, 420.00, 'Active'),
+(232, 'Basic Ed - Grade 9 Mathematics & Algebra Module', NULL, NULL, 7, NULL, 0.00, 250.00, 'Active'),
+(233, 'Basic Ed - Grade 10 Araling Panlipunan Learning Module', NULL, NULL, 7, NULL, 0.00, 230.00, 'Active'),
+(234, 'SHS - Practical Research 1 & 2 Learning Module', NULL, NULL, 7, NULL, 0.00, 180.00, 'Active'),
+(235, 'SHS - Fundamentals of Accountancy, Business & Management (ABM)', NULL, NULL, 12, NULL, 0.00, 450.00, 'Active'),
+(236, 'SHS - General Mathematics & Pre-Calculus (STEM)', NULL, NULL, 12, NULL, 0.00, 480.00, 'Active'),
+(237, 'SHS - Empowerment Technologies & ICT Module', NULL, NULL, 7, NULL, 0.00, 195.00, 'Active'),
+(238, 'SHS - Computer Systems Servicing NC II Worktext', NULL, NULL, 12, NULL, 0.00, 350.00, 'Active'),
+(239, 'CCS - Object-Oriented Programming (Java / C#) Module', NULL, NULL, 7, NULL, 0.00, 220.00, 'Active'),
+(240, 'CCS - Data Structures and Algorithms Courseware', NULL, NULL, 12, NULL, 0.00, 550.00, 'Active'),
+(241, 'CCS - Database Management Systems & MySQL Laboratory Manual', NULL, NULL, 7, NULL, 0.00, 250.00, 'Active'),
+(242, 'CCS - Web Systems and Technologies Course Module', NULL, NULL, 7, NULL, 0.00, 210.00, 'Active'),
+(243, 'CBME - Financial Management & Accounting Principles', NULL, NULL, 12, NULL, 0.00, 520.00, 'Active'),
+(244, 'CBME - Customs Laws, Rules and Regulations Guidebook', NULL, NULL, 12, NULL, 0.00, 600.00, 'Active'),
+(245, 'CBME - Marketing Management Principles Module', NULL, NULL, 7, NULL, 0.00, 240.00, 'Active'),
+(246, 'CCJ - Introduction to Criminology & Criminalistics Manual', NULL, NULL, 12, NULL, 0.00, 490.00, 'Active'),
+(247, 'COE - Differential & Integral Calculus Coursebook', NULL, NULL, 12, NULL, 0.00, 580.00, 'Active'),
+(248, 'TESDA - Bookkeeping NC II Training Module', NULL, NULL, 7, NULL, 0.00, 160.00, 'Active'),
+(249, 'TESDA - Cookery & Food Service Management Manual', NULL, NULL, 7, NULL, 0.00, 280.00, 'Active');
 
 -- --------------------------------------------------------
 
@@ -1368,7 +1413,29 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (769, 226, 'UNI-ACC-019-NA', 'N/A', 30, 8),
 (770, 227, 'UNI-ACC-020-NA', 'N/A', 30, 8),
 (771, 228, 'BK-SAMPLE-228', 'N/A', 20, 5),
-(772, 229, 'BK-SAMPLE-229', 'N/A', 20, 5);
+(772, 229, 'BK-SAMPLE-229', 'N/A', 20, 5),
+(774, 224, 'BK-0224', 'N/A', 30, 10),
+(775, 226, 'BK-0226', 'N/A', 30, 10),
+(776, 230, 'BK-0230', 'N/A', 30, 10),
+(777, 231, 'BK-0231', 'N/A', 30, 10),
+(778, 232, 'BK-0232', 'N/A', 30, 10),
+(779, 233, 'BK-0233', 'N/A', 30, 10),
+(780, 234, 'BK-0234', 'N/A', 30, 10),
+(781, 235, 'BK-0235', 'N/A', 30, 10),
+(782, 236, 'BK-0236', 'N/A', 30, 10),
+(783, 237, 'BK-0237', 'N/A', 30, 10),
+(784, 238, 'BK-0238', 'N/A', 30, 10),
+(785, 239, 'BK-0239', 'N/A', 30, 10),
+(786, 240, 'BK-0240', 'N/A', 30, 10),
+(787, 241, 'BK-0241', 'N/A', 30, 10),
+(788, 242, 'BK-0242', 'N/A', 30, 10),
+(789, 243, 'BK-0243', 'N/A', 30, 10),
+(790, 244, 'BK-0244', 'N/A', 30, 10),
+(791, 245, 'BK-0245', 'N/A', 30, 10),
+(792, 246, 'BK-0246', 'N/A', 30, 10),
+(793, 247, 'BK-0247', 'N/A', 30, 10),
+(794, 248, 'BK-0248', 'N/A', 30, 10),
+(795, 249, 'BK-0249', 'N/A', 30, 10);
 
 -- --------------------------------------------------------
 
@@ -1730,6 +1797,13 @@ ALTER TABLE `tbl_category_types`
   ADD KEY `fk_type_category` (`category_id`);
 
 --
+-- Indexes for table `tbl_employees`
+--
+ALTER TABLE `tbl_employees`
+  ADD PRIMARY KEY (`employee_id`),
+  ADD UNIQUE KEY `uq_employee_no` (`employee_no`);
+
+--
 -- Indexes for table `tbl_end_of_day`
 --
 ALTER TABLE `tbl_end_of_day`
@@ -1888,6 +1962,12 @@ ALTER TABLE `tbl_category_types`
   MODIFY `category_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
+-- AUTO_INCREMENT for table `tbl_employees`
+--
+ALTER TABLE `tbl_employees`
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `tbl_end_of_day`
 --
 ALTER TABLE `tbl_end_of_day`
@@ -1909,13 +1989,13 @@ ALTER TABLE `tbl_inventory_count_details`
 -- AUTO_INCREMENT for table `tbl_products`
 --
 ALTER TABLE `tbl_products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
 
 --
 -- AUTO_INCREMENT for table `tbl_product_variants`
 --
 ALTER TABLE `tbl_product_variants`
-  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=774;
+  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=805;
 
 --
 -- AUTO_INCREMENT for table `tbl_remittances`
