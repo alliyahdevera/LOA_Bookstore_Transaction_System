@@ -84,17 +84,60 @@ Public Class frmStudentManagement
         End Select
     End Sub
 
-    Private Sub LoadSectionOptions()
-        cboSection.Items.Clear()
-        If cboGradeLevel.SelectedIndex < 0 Then Exit Sub
+    ' Section is only usable once a Program/Strand is chosen
+    ' (Kinder - Grade 10 have no program, so "N/A" is auto-selected and the section opens up).
+    Private Sub UpdateSectionState()
+        Dim ready As Boolean = cboGradeLevel.SelectedIndex >= 0 AndAlso cboProgram.SelectedIndex >= 0
+        cboSection.Enabled = ready
+        If Not ready Then
+            cboSection.Items.Clear()
+            cboSection.Text = ""
+        End If
+    End Sub
 
-        Dim prog As String = If(cboProgram.SelectedIndex >= 0 AndAlso cboProgram.Text <> "N/A", cboProgram.Text, "")
+    ' Ready-made sections for a year level (+ program/strand). Edit the names to match your school.
+    Private Function DefaultSections(grade As String, prog As String) As List(Of String)
+        Dim list As New List(Of String)
+        Dim letters As String() = {"A", "B", "C", "D"}
+
+        Select Case LevelOf(grade)
+            Case "Grade School"
+                list.AddRange({"Sampaguita", "Rosal", "Narra", "Molave"})
+            Case "Junior High School"
+                list.AddRange({"Newton", "Einstein", "Galileo", "Darwin"})
+            Case "Senior High School"
+                If prog <> "" Then
+                    For Each l As String In letters : list.Add(prog & "-" & l) : Next
+                End If
+            Case "College"
+                If prog <> "" Then
+                    Dim yr As String = Regex.Match(grade, "\d").Value        ' "3rd Year College" -> "3"
+                    For Each l As String In letters : list.Add(prog & " " & yr & l) : Next
+                End If
+        End Select
+        Return list
+    End Function
+
+    Private Sub LoadSectionOptions()
+        UpdateSectionState()
+        cboSection.Items.Clear()
+        If Not cboSection.Enabled Then Exit Sub
+
+        Dim prog As String = If(cboProgram.Text <> "N/A", cboProgram.Text, "")
+        Dim sections As List(Of String) = DefaultSections(cboGradeLevel.Text, prog)
+
+        ' also include sections already used by students of this grade/program
         Dim dt As DataTable = GetDataTable(
             "SELECT DISTINCT section FROM tbl_students " &
             "WHERE grade_level = @g AND section IS NOT NULL AND section <> '' AND (@p = '' OR program_strand = @p) ORDER BY section",
             New String() {"@g", "@p"}, New Object() {cboGradeLevel.Text, prog})
         For Each r As DataRow In dt.Rows
-            cboSection.Items.Add(r("section").ToString())
+            Dim s As String = r("section").ToString()
+            If Not sections.Contains(s) Then sections.Add(s)
+        Next
+
+        For Each s As String In sections
+            cboSection.Items.Add(s)
         Next
     End Sub
 
@@ -183,7 +226,10 @@ Public Class frmStudentManagement
         txtlastname.Text = Convert.ToString(row.Cells("LastName").Value)
         txtfirstname.Text = Convert.ToString(row.Cells("FirstName").Value)
 
-        cboGradeLevel.SelectedIndex = cboGradeLevel.FindStringExact(Convert.ToString(row.Cells("GradeLevel").Value))
+        Dim gradeText As String = Convert.ToString(row.Cells("GradeLevel").Value)
+        Dim gi As Integer = cboGradeLevel.FindStringExact(gradeText)
+        If gi < 0 Then gi = cboGradeLevel.FindString(gradeText)      ' old rows saved as "3rd Year"
+        cboGradeLevel.SelectedIndex = gi
         LoadProgramOptions()
         Dim prog As String = Convert.ToString(row.Cells("ProgramStrand").Value)
         If cboProgram.Enabled Then cboProgram.SelectedIndex = cboProgram.FindStringExact(prog)
@@ -286,6 +332,7 @@ Public Class frmStudentManagement
         cboProgram.Enabled = True
         cboSection.Items.Clear()
         cboSection.Text = ""
+        cboSection.Enabled = False
         txtSearch.Clear()
         dgvstudents.ClearSelection()
         isFilling = False

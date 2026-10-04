@@ -23,8 +23,8 @@ Partial Class frmTransactionHistory
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTransactionHistory))
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -69,11 +69,10 @@ Partial Class frmTransactionHistory
         Me.dtto = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtfrom = New System.Windows.Forms.DateTimePicker()
-        Me.cboGradeLevel = New System.Windows.Forms.ComboBox()
+        Me.cboCategory = New System.Windows.Forms.ComboBox()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cboType = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvtransaction, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
@@ -119,25 +118,25 @@ Partial Class frmTransactionHistory
         Me.dgvtransaction.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvtransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvtransaction.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.BuyerName, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.SubTotal, Me.Quantity, Me.TotalAmount, Me.tDate, Me.Time, Me.AmountPaid, Me.AmountChange, Me.PaymentMethod, Me.Status, Me.ProcessedBy})
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvtransaction.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvtransaction.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvtransaction.Location = New System.Drawing.Point(-1, 35)
         Me.dgvtransaction.Name = "dgvtransaction"
         Me.dgvtransaction.ReadOnly = True
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvtransaction.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvtransaction.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvtransaction.Size = New System.Drawing.Size(1167, 575)
         Me.dgvtransaction.TabIndex = 1
         '
@@ -416,7 +415,6 @@ Partial Class frmTransactionHistory
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
         Me.Panel1.Location = New System.Drawing.Point(97, 121)
@@ -491,15 +489,14 @@ Partial Class frmTransactionHistory
         Me.dtfrom.Size = New System.Drawing.Size(251, 27)
         Me.dtfrom.TabIndex = 139
         '
-        'cboGradeLevel
+        'cboCategory
         '
-        Me.cboGradeLevel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cboGradeLevel.FormattingEnabled = True
-        Me.cboGradeLevel.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
-        Me.cboGradeLevel.Location = New System.Drawing.Point(430, 121)
-        Me.cboGradeLevel.Name = "cboGradeLevel"
-        Me.cboGradeLevel.Size = New System.Drawing.Size(206, 25)
-        Me.cboGradeLevel.TabIndex = 145
+        Me.cboCategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboCategory.FormattingEnabled = True
+        Me.cboCategory.Location = New System.Drawing.Point(430, 121)
+        Me.cboCategory.Name = "cboCategory"
+        Me.cboCategory.Size = New System.Drawing.Size(206, 25)
+        Me.cboCategory.TabIndex = 145
         '
         'Label11
         '
@@ -511,15 +508,14 @@ Partial Class frmTransactionHistory
         Me.Label11.TabIndex = 144
         Me.Label11.Text = "Category"
         '
-        'ComboBox1
+        'cboType
         '
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
-        Me.ComboBox1.Location = New System.Drawing.Point(704, 121)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(188, 25)
-        Me.ComboBox1.TabIndex = 147
+        Me.cboType.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboType.FormattingEnabled = True
+        Me.cboType.Location = New System.Drawing.Point(704, 121)
+        Me.cboType.Name = "cboType"
+        Me.cboType.Size = New System.Drawing.Size(188, 25)
+        Me.cboType.TabIndex = 147
         '
         'Label4
         '
@@ -531,25 +527,14 @@ Partial Class frmTransactionHistory
         Me.Label4.TabIndex = 146
         Me.Label4.Text = "Type"
         '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label5.Location = New System.Drawing.Point(3, 5)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(228, 11)
-        Me.Label5.TabIndex = 148
-        Me.Label5.Text = "Transaction No., Buyer name, Product Code, or Product Name"
-        '
         'frmTransactionHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.cboType)
         Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.cboGradeLevel)
+        Me.Controls.Add(Me.cboCategory)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label2)
@@ -609,9 +594,9 @@ Partial Class frmTransactionHistory
     Friend WithEvents dtto As DateTimePicker
     Friend WithEvents Label1 As Label
     Friend WithEvents dtfrom As DateTimePicker
-    Friend WithEvents cboGradeLevel As ComboBox
+    Friend WithEvents cboCategory As ComboBox
     Friend WithEvents Label11 As Label
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cboType As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
     Friend WithEvents BuyerName As DataGridViewTextBoxColumn
@@ -629,5 +614,4 @@ Partial Class frmTransactionHistory
     Friend WithEvents PaymentMethod As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents ProcessedBy As DataGridViewTextBoxColumn
-    Friend WithEvents Label5 As Label
 End Class

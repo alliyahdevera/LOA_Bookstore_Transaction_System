@@ -8,16 +8,74 @@ Public Class frmTransactionHistory
     "INNER JOIN tbl_product_variants v2 ON ti2.variant_id = v2.variant_id " &
     "INNER JOIN tbl_products p2 ON v2.product_id = p2.product_id " &
     "WHERE v2.product_code LIKE @s OR p2.product_name LIKE @s)) "
+    Private isLoadingFilters As Boolean = True
+
     Private Sub frmTransactionHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
+        LoadCategoryCombo()
 
         dtfrom.Value = New Date(Date.Today.Year, Date.Today.Month, 1)   ' 1st of this month
         dtto.Value = Date.Today
 
         Button3.Text = "Cancel Transaction"
         Button3.Visible = (currentuser.Role = ROLE_SUPERVISOR)
+        isLoadingFilters = False
         LoadGrid("")
     End Sub
+
+    ' ---------- Category / Type filters ----------
+    Private Sub LoadCategoryCombo()
+        cboCategory.DropDownStyle = ComboBoxStyle.DropDownList
+        cboCategory.Items.Clear()
+        cboCategory.Items.Add("All Categories")
+        For Each r As DataRow In GetDataTable("SELECT category_name FROM tbl_categories ORDER BY category_name").Rows
+            cboCategory.Items.Add(r("category_name").ToString())
+        Next
+        cboCategory.SelectedIndex = 0
+        LoadTypeCombo()
+    End Sub
+
+    Private Sub LoadTypeCombo()
+        cboType.DropDownStyle = ComboBoxStyle.DropDownList
+        cboType.Items.Clear()
+        cboType.Items.Add("All Types")
+
+        Dim dt As DataTable
+        If cboCategory.SelectedIndex <= 0 Then
+            dt = GetDataTable("SELECT DISTINCT type_name FROM tbl_category_types ORDER BY type_name")
+        Else
+            dt = GetDataTable("SELECT ct.type_name FROM tbl_category_types ct " &
+                              "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
+                              "WHERE c.category_name = @c ORDER BY ct.type_name",
+                              New String() {"@c"}, New Object() {Convert.ToString(cboCategory.SelectedItem)})
+        End If
+        For Each r As DataRow In dt.Rows
+            cboType.Items.Add(r("type_name").ToString())
+        Next
+        cboType.SelectedIndex = 0
+    End Sub
+
+    Private Function SelectedCategory() As String
+        Return If(cboCategory.SelectedIndex <= 0, "", Convert.ToString(cboCategory.SelectedItem))
+    End Function
+
+    Private Function SelectedType() As String
+        Return If(cboType.SelectedIndex <= 0, "", Convert.ToString(cboType.SelectedItem))
+    End Function
+
+    Private Sub cboCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCategory.SelectedIndexChanged
+        If isLoadingFilters Then Exit Sub
+        isLoadingFilters = True
+        LoadTypeCombo()
+        isLoadingFilters = False
+        LoadGrid(txtSearch.Text.Trim())
+    End Sub
+
+    Private Sub cboType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboType.SelectedIndexChanged
+        If isLoadingFilters Then Exit Sub
+        LoadGrid(txtSearch.Text.Trim())
+    End Sub
+
     Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
         If dtfrom.Value.Date > dtto.Value.Date Then
             MsgBox("'From' date cannot be later than 'To' date.", vbExclamation, "Transaction History")
@@ -50,15 +108,20 @@ Public Class frmTransactionHistory
                               "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
                               "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
                               "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+                              "LEFT JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
+                              "LEFT JOIN tbl_categories c ON ct.category_id = c.category_id " &
                               "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
                               "WHERE " & SEARCH_FILTER &
       "AND DATE(t.created_at) BETWEEN @f AND @t " &
+      "AND (@cat = '' OR c.category_name = @cat) AND (@typ = '' OR ct.type_name = @typ) " &
       "ORDER BY t.transaction_id DESC"
 
             Using localCmd As New MySqlCommand(query, cn)
                 localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
                 localCmd.Parameters.AddWithValue("@f", dtfrom.Value.Date)
                 localCmd.Parameters.AddWithValue("@t", dtto.Value.Date)
+                localCmd.Parameters.AddWithValue("@cat", SelectedCategory())
+                localCmd.Parameters.AddWithValue("@typ", SelectedType())
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
                     dgvtransaction.Rows.Clear()
                     While localDr.Read()
@@ -86,11 +149,28 @@ Public Class frmTransactionHistory
             End Using
             cn.Close()
 
-            Dim totalSum As Object = ExecScalar(
-            "SELECT IFNULL(SUM(t.total_amount),0) FROM TBL_TRANSACTIONS t WHERE " & SEARCH_FILTER &
-"AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled'",
-            New String() {"@s", "@f", "@t"},
-            New Object() {"%" & searchText & "%", dtfrom.Value.Date, dtto.Value.Date})
+            Dim totalSum As Object
+            If SelectedCategory() = "" AndAlso SelectedType() = "" Then
+                totalSum = ExecScalar(
+                "SELECT IFNULL(SUM(t.total_amount),0) FROM TBL_TRANSACTIONS t WHERE " & SEARCH_FILTER &
+                "AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled'",
+                New String() {"@s", "@f", "@t"},
+                New Object() {"%" & searchText & "%", dtfrom.Value.Date, dtto.Value.Date})
+            Else
+                ' category/type chosen: add up only the matching items
+                totalSum = ExecScalar(
+                "SELECT IFNULL(SUM(ti.subtotal),0) FROM TBL_TRANSACTION_ITEMS ti " &
+                "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
+                "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
+                "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+                "LEFT JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
+                "LEFT JOIN tbl_categories c ON ct.category_id = c.category_id " &
+                "WHERE " & SEARCH_FILTER &
+                "AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled' " &
+                "AND (@cat = '' OR c.category_name = @cat) AND (@typ = '' OR ct.type_name = @typ)",
+                New String() {"@s", "@f", "@t", "@cat", "@typ"},
+                New Object() {"%" & searchText & "%", dtfrom.Value.Date, dtto.Value.Date, SelectedCategory(), SelectedType()})
+            End If
 
             lbltotalsales.Text = ChrW(8369) & Convert.ToDecimal(If(totalSum, 0)).ToString("N2")
 
