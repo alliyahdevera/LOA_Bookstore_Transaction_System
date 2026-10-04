@@ -79,6 +79,7 @@ Partial Class frmTransactionDetails
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.txtCondition = New System.Windows.Forms.TextBox()
         Me.reason = New System.Windows.Forms.Label()
         Me.lblcondition = New System.Windows.Forms.Label()
         Me.txtcreatedby = New System.Windows.Forms.TextBox()
@@ -93,7 +94,7 @@ Partial Class frmTransactionDetails
         Me.Panel12 = New System.Windows.Forms.Panel()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.txtCondition = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel4.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.Panel7.SuspendLayout()
@@ -361,7 +362,7 @@ Partial Class frmTransactionDetails
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label19.ForeColor = System.Drawing.Color.White
-        Me.Label19.Location = New System.Drawing.Point(16, 17)
+        Me.Label19.Location = New System.Drawing.Point(16, 11)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(90, 21)
         Me.Label19.TabIndex = 100
@@ -372,7 +373,7 @@ Partial Class frmTransactionDetails
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label18.ForeColor = System.Drawing.Color.White
-        Me.Label18.Location = New System.Drawing.Point(16, 47)
+        Me.Label18.Location = New System.Drawing.Point(16, 54)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(111, 21)
         Me.Label18.TabIndex = 102
@@ -383,7 +384,7 @@ Partial Class frmTransactionDetails
         Me.lbltotitem.AutoSize = True
         Me.lbltotitem.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbltotitem.ForeColor = System.Drawing.Color.White
-        Me.lbltotitem.Location = New System.Drawing.Point(135, 17)
+        Me.lbltotitem.Location = New System.Drawing.Point(135, 11)
         Me.lbltotitem.Name = "lbltotitem"
         Me.lbltotitem.Size = New System.Drawing.Size(16, 21)
         Me.lbltotitem.TabIndex = 107
@@ -394,7 +395,7 @@ Partial Class frmTransactionDetails
         Me.lbltotquantity.AutoSize = True
         Me.lbltotquantity.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbltotquantity.ForeColor = System.Drawing.Color.White
-        Me.lbltotquantity.Location = New System.Drawing.Point(135, 47)
+        Me.lbltotquantity.Location = New System.Drawing.Point(135, 54)
         Me.lbltotquantity.Name = "lbltotquantity"
         Me.lbltotquantity.Size = New System.Drawing.Size(16, 21)
         Me.lbltotquantity.TabIndex = 108
@@ -699,6 +700,16 @@ Partial Class frmTransactionDetails
         Me.Panel11.Size = New System.Drawing.Size(413, 260)
         Me.Panel11.TabIndex = 130
         '
+        'txtCondition
+        '
+        Me.txtCondition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtCondition.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCondition.Location = New System.Drawing.Point(126, 175)
+        Me.txtCondition.Name = "txtCondition"
+        Me.txtCondition.ReadOnly = True
+        Me.txtCondition.Size = New System.Drawing.Size(264, 25)
+        Me.txtCondition.TabIndex = 121
+        '
         'reason
         '
         Me.reason.AutoSize = True
@@ -834,6 +845,7 @@ Partial Class frmTransactionDetails
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.lbltotitem)
         Me.Panel1.Controls.Add(Me.lbltotquantity)
         Me.Panel1.Controls.Add(Me.Label19)
@@ -843,15 +855,16 @@ Partial Class frmTransactionDetails
         Me.Panel1.Size = New System.Drawing.Size(250, 84)
         Me.Panel1.TabIndex = 132
         '
-        'txtCondition
+        'Label2
         '
-        Me.txtCondition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtCondition.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCondition.Location = New System.Drawing.Point(126, 175)
-        Me.txtCondition.Name = "txtCondition"
-        Me.txtCondition.ReadOnly = True
-        Me.txtCondition.Size = New System.Drawing.Size(264, 25)
-        Me.txtCondition.TabIndex = 121
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.Silver
+        Me.Label2.Location = New System.Drawing.Point(-15, 34)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(307, 17)
+        Me.Label2.TabIndex = 126
+        Me.Label2.Text = "———————————————————————" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'frmTransactionDetails
         '
@@ -967,4 +980,5 @@ Partial Class frmTransactionDetails
     Friend WithEvents txttdate As TextBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents txtCondition As TextBox
+    Friend WithEvents Label2 As Label
 End Class

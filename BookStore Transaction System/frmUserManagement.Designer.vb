@@ -364,9 +364,9 @@ Partial Class frmUserManagement
         Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.Location = New System.Drawing.Point(28, 323)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(213, 17)
+        Me.Label14.Size = New System.Drawing.Size(48, 17)
         Me.Label14.TabIndex = 58
-        Me.Label14.Text = "Search by Username or LastName"
+        Me.Label14.Text = "Search"
         '
         'Panel13
         '
@@ -461,7 +461,7 @@ Partial Class frmUserManagement
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(246, 320)
+        Me.Panel1.Location = New System.Drawing.Point(82, 320)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 96

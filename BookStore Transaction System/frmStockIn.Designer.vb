@@ -22,8 +22,10 @@ Partial Class frmStockIn
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.lbldatetime = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
         Me.lblname = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
@@ -51,8 +53,8 @@ Partial Class frmStockIn
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cbocategory = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.lbldatetime = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -73,6 +75,30 @@ Partial Class frmStockIn
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(1220, 27)
         Me.Panel13.TabIndex = 98
+        '
+        'lbldatetime
+        '
+        Me.lbldatetime.AutoSize = True
+        Me.lbldatetime.BackColor = System.Drawing.Color.Transparent
+        Me.lbldatetime.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbldatetime.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.lbldatetime.Location = New System.Drawing.Point(638, 3)
+        Me.lbldatetime.Name = "lbldatetime"
+        Me.lbldatetime.Size = New System.Drawing.Size(16, 21)
+        Me.lbldatetime.TabIndex = 70
+        Me.lbldatetime.Text = "-"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.Transparent
+        Me.Label27.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label27.Location = New System.Drawing.Point(566, 3)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(65, 21)
+        Me.Label27.TabIndex = 69
+        Me.Label27.Text = "Today is"
         '
         'lblname
         '
@@ -138,14 +164,14 @@ Partial Class frmStockIn
         Me.DataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeOfProduct, Me.Amount, Me.Quantity, Me.ReorderLevel, Me.Status})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle3
         Me.DataGridView1.Location = New System.Drawing.Point(-1, 35)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
@@ -249,19 +275,21 @@ Partial Class frmStockIn
         '
         'btnstocks
         '
+        Me.btnstocks.BackColor = System.Drawing.Color.MidnightBlue
         Me.btnstocks.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnstocks.Location = New System.Drawing.Point(1008, 72)
+        Me.btnstocks.ForeColor = System.Drawing.Color.White
+        Me.btnstocks.Location = New System.Drawing.Point(1030, 74)
         Me.btnstocks.Name = "btnstocks"
-        Me.btnstocks.Size = New System.Drawing.Size(110, 25)
+        Me.btnstocks.Size = New System.Drawing.Size(89, 25)
         Me.btnstocks.TabIndex = 102
         Me.btnstocks.Text = "Add Stock(s)"
-        Me.btnstocks.UseVisualStyleBackColor = True
+        Me.btnstocks.UseVisualStyleBackColor = False
         '
         'txtstocks
         '
         Me.txtstocks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtstocks.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtstocks.Location = New System.Drawing.Point(1124, 72)
+        Me.txtstocks.Location = New System.Drawing.Point(1124, 74)
         Me.txtstocks.Name = "txtstocks"
         Me.txtstocks.Size = New System.Drawing.Size(72, 25)
         Me.txtstocks.TabIndex = 103
@@ -270,27 +298,27 @@ Partial Class frmStockIn
         '
         Me.txtreference.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtreference.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtreference.Location = New System.Drawing.Point(133, 72)
+        Me.txtreference.Location = New System.Drawing.Point(119, 72)
         Me.txtreference.Name = "txtreference"
         Me.txtreference.ReadOnly = True
-        Me.txtreference.Size = New System.Drawing.Size(137, 25)
+        Me.txtreference.Size = New System.Drawing.Size(152, 25)
         Me.txtreference.TabIndex = 105
         '
         'txtstockintime
         '
         Me.txtstockintime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtstockintime.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtstockintime.Location = New System.Drawing.Point(414, 72)
+        Me.txtstockintime.Location = New System.Drawing.Point(407, 72)
         Me.txtstockintime.Name = "txtstockintime"
         Me.txtstockintime.ReadOnly = True
-        Me.txtstockintime.Size = New System.Drawing.Size(233, 25)
+        Me.txtstockintime.Size = New System.Drawing.Size(214, 25)
         Me.txtstockintime.TabIndex = 106
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(291, 74)
+        Me.Label2.Location = New System.Drawing.Point(284, 74)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(117, 17)
         Me.Label2.TabIndex = 108
@@ -312,50 +340,48 @@ Partial Class frmStockIn
         Me.cbocategory.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cbocategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbocategory.FormattingEnabled = True
-        Me.cbocategory.Location = New System.Drawing.Point(819, 72)
+        Me.cbocategory.Location = New System.Drawing.Point(709, 74)
         Me.cbocategory.Name = "cbocategory"
-        Me.cbocategory.Size = New System.Drawing.Size(158, 25)
+        Me.cbocategory.Size = New System.Drawing.Size(127, 25)
         Me.cbocategory.TabIndex = 126
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(749, 75)
+        Me.Label9.Location = New System.Drawing.Point(639, 77)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(64, 17)
         Me.Label9.TabIndex = 125
         Me.Label9.Text = "Category"
         '
-        'lbldatetime
+        'ComboBox1
         '
-        Me.lbldatetime.AutoSize = True
-        Me.lbldatetime.BackColor = System.Drawing.Color.Transparent
-        Me.lbldatetime.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbldatetime.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.lbldatetime.Location = New System.Drawing.Point(638, 3)
-        Me.lbldatetime.Name = "lbldatetime"
-        Me.lbldatetime.Size = New System.Drawing.Size(16, 21)
-        Me.lbldatetime.TabIndex = 70
-        Me.lbldatetime.Text = "-"
+        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(888, 74)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(127, 25)
+        Me.ComboBox1.TabIndex = 128
         '
-        'Label27
+        'Label3
         '
-        Me.Label27.AutoSize = True
-        Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label27.Location = New System.Drawing.Point(566, 3)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(65, 21)
-        Me.Label27.TabIndex = 69
-        Me.Label27.Text = "Today is"
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(846, 77)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(36, 17)
+        Me.Label3.TabIndex = 127
+        Me.Label3.Text = "Type"
         '
         'frmStockIn
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 804)
+        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.cbocategory)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label5)
@@ -411,4 +437,6 @@ Partial Class frmStockIn
     Friend WithEvents Label9 As Label
     Friend WithEvents lbldatetime As Label
     Friend WithEvents Label27 As Label
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents Label3 As Label
 End Class

@@ -22,41 +22,41 @@ Partial Class frmDashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series5 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea6 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend6 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series6 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea7 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend7 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series7 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea8 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend8 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series8 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Me.Panel9 = New System.Windows.Forms.Panel()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Me.pnllowprod = New System.Windows.Forms.Panel()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
-        Me.pnlmostreqdoc = New System.Windows.Forms.Panel()
+        Me.chrtlowlevlprod = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.pnlmostpurchasedprod = New System.Windows.Forms.Panel()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.chtMostreqdoc = New System.Windows.Forms.DataVisualization.Charting.Chart()
-        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.chtmostpurchased = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.pnlsalespmonth = New System.Windows.Forms.Panel()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
-        Me.pnlDocreqpermonth = New System.Windows.Forms.Panel()
+        Me.chrtsalespermonth = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.pnldistrsale = New System.Windows.Forms.Panel()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.chtdocreqpermonth = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.chtdistsales = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.pnllowstock = New System.Windows.Forms.Panel()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.pnltotqprod = New System.Windows.Forms.Panel()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.pnlsalestoday = New System.Windows.Forms.Panel()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.pnltotprod = New System.Windows.Forms.Panel()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel13 = New System.Windows.Forms.Panel()
@@ -67,31 +67,30 @@ Partial Class frmDashboard
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.Panel9.SuspendLayout()
-        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.pnlmostreqdoc.SuspendLayout()
-        CType(Me.chtMostreqdoc, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel10.SuspendLayout()
-        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.pnlDocreqpermonth.SuspendLayout()
-        CType(Me.chtdocreqpermonth, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel7.SuspendLayout()
-        Me.Panel6.SuspendLayout()
-        Me.Panel8.SuspendLayout()
-        Me.Panel5.SuspendLayout()
+        Me.pnllowprod.SuspendLayout()
+        CType(Me.chrtlowlevlprod, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlmostpurchasedprod.SuspendLayout()
+        CType(Me.chtmostpurchased, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlsalespmonth.SuspendLayout()
+        CType(Me.chrtsalespermonth, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnldistrsale.SuspendLayout()
+        CType(Me.chtdistsales, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnllowstock.SuspendLayout()
+        Me.pnltotqprod.SuspendLayout()
+        Me.pnlsalestoday.SuspendLayout()
+        Me.pnltotprod.SuspendLayout()
         Me.Panel13.SuspendLayout()
         Me.SuspendLayout()
         '
-        'Panel9
+        'pnllowprod
         '
-        Me.Panel9.BackColor = System.Drawing.Color.White
-        Me.Panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel9.Controls.Add(Me.Label14)
-        Me.Panel9.Controls.Add(Me.Chart1)
-        Me.Panel9.Location = New System.Drawing.Point(29, 522)
-        Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(570, 275)
-        Me.Panel9.TabIndex = 85
+        Me.pnllowprod.BackColor = System.Drawing.Color.White
+        Me.pnllowprod.Controls.Add(Me.Label14)
+        Me.pnllowprod.Controls.Add(Me.chrtlowlevlprod)
+        Me.pnllowprod.Location = New System.Drawing.Point(29, 522)
+        Me.pnllowprod.Name = "pnllowprod"
+        Me.pnllowprod.Size = New System.Drawing.Size(570, 275)
+        Me.pnllowprod.TabIndex = 85
         '
         'Label14
         '
@@ -103,32 +102,32 @@ Partial Class frmDashboard
         Me.Label14.TabIndex = 36
         Me.Label14.Text = "LOW LEVEL PRODUCTS"
         '
-        'Chart1
+        'chrtlowlevlprod
         '
-        ChartArea5.Name = "ChartArea1"
-        Me.Chart1.ChartAreas.Add(ChartArea5)
-        Legend5.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend5)
-        Me.Chart1.Location = New System.Drawing.Point(23, 49)
-        Me.Chart1.Name = "Chart1"
-        Series5.ChartArea = "ChartArea1"
-        Series5.Legend = "Legend1"
-        Series5.Name = "Series1"
-        Me.Chart1.Series.Add(Series5)
-        Me.Chart1.Size = New System.Drawing.Size(520, 200)
-        Me.Chart1.TabIndex = 35
-        Me.Chart1.Text = "Chart3"
+        ChartArea1.Name = "ChartArea1"
+        Me.chrtlowlevlprod.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.chrtlowlevlprod.Legends.Add(Legend1)
+        Me.chrtlowlevlprod.Location = New System.Drawing.Point(23, 49)
+        Me.chrtlowlevlprod.Name = "chrtlowlevlprod"
+        Series1.ChartArea = "ChartArea1"
+        Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.chrtlowlevlprod.Series.Add(Series1)
+        Me.chrtlowlevlprod.Size = New System.Drawing.Size(520, 200)
+        Me.chrtlowlevlprod.TabIndex = 35
+        Me.chrtlowlevlprod.Text = "Chart3"
         '
-        'pnlmostreqdoc
+        'pnlmostpurchasedprod
         '
-        Me.pnlmostreqdoc.BackColor = System.Drawing.Color.White
-        Me.pnlmostreqdoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlmostreqdoc.Controls.Add(Me.Label12)
-        Me.pnlmostreqdoc.Controls.Add(Me.chtMostreqdoc)
-        Me.pnlmostreqdoc.Location = New System.Drawing.Point(29, 224)
-        Me.pnlmostreqdoc.Name = "pnlmostreqdoc"
-        Me.pnlmostreqdoc.Size = New System.Drawing.Size(570, 275)
-        Me.pnlmostreqdoc.TabIndex = 83
+        Me.pnlmostpurchasedprod.BackColor = System.Drawing.Color.White
+        Me.pnlmostpurchasedprod.Controls.Add(Me.Label12)
+        Me.pnlmostpurchasedprod.Controls.Add(Me.chtmostpurchased)
+        Me.pnlmostpurchasedprod.Location = New System.Drawing.Point(29, 224)
+        Me.pnlmostpurchasedprod.Name = "pnlmostpurchasedprod"
+        Me.pnlmostpurchasedprod.Size = New System.Drawing.Size(570, 275)
+        Me.pnlmostpurchasedprod.TabIndex = 83
         '
         'Label12
         '
@@ -140,33 +139,32 @@ Partial Class frmDashboard
         Me.Label12.TabIndex = 36
         Me.Label12.Text = "MOST PURCHASED PRODUCT"
         '
-        'chtMostreqdoc
+        'chtmostpurchased
         '
-        ChartArea6.Name = "ChartArea1"
-        Me.chtMostreqdoc.ChartAreas.Add(ChartArea6)
-        Legend6.Name = "Legend1"
-        Me.chtMostreqdoc.Legends.Add(Legend6)
-        Me.chtMostreqdoc.Location = New System.Drawing.Point(17, 46)
-        Me.chtMostreqdoc.Name = "chtMostreqdoc"
-        Series6.ChartArea = "ChartArea1"
-        Series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar
-        Series6.Legend = "Legend1"
-        Series6.Name = "Series1"
-        Me.chtMostreqdoc.Series.Add(Series6)
-        Me.chtMostreqdoc.Size = New System.Drawing.Size(520, 200)
-        Me.chtMostreqdoc.TabIndex = 35
-        Me.chtMostreqdoc.Text = "Chart3"
+        ChartArea2.Name = "ChartArea1"
+        Me.chtmostpurchased.ChartAreas.Add(ChartArea2)
+        Legend2.Name = "Legend1"
+        Me.chtmostpurchased.Legends.Add(Legend2)
+        Me.chtmostpurchased.Location = New System.Drawing.Point(17, 46)
+        Me.chtmostpurchased.Name = "chtmostpurchased"
+        Series2.ChartArea = "ChartArea1"
+        Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.chtmostpurchased.Series.Add(Series2)
+        Me.chtmostpurchased.Size = New System.Drawing.Size(520, 200)
+        Me.chtmostpurchased.TabIndex = 35
+        Me.chtmostpurchased.Text = "Chart3"
         '
-        'Panel10
+        'pnlsalespmonth
         '
-        Me.Panel10.BackColor = System.Drawing.Color.White
-        Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel10.Controls.Add(Me.Label15)
-        Me.Panel10.Controls.Add(Me.Chart2)
-        Me.Panel10.Location = New System.Drawing.Point(625, 522)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(570, 275)
-        Me.Panel10.TabIndex = 84
+        Me.pnlsalespmonth.BackColor = System.Drawing.Color.White
+        Me.pnlsalespmonth.Controls.Add(Me.Label15)
+        Me.pnlsalespmonth.Controls.Add(Me.chrtsalespermonth)
+        Me.pnlsalespmonth.Location = New System.Drawing.Point(625, 522)
+        Me.pnlsalespmonth.Name = "pnlsalespmonth"
+        Me.pnlsalespmonth.Size = New System.Drawing.Size(570, 275)
+        Me.pnlsalespmonth.TabIndex = 84
         '
         'Label15
         '
@@ -178,33 +176,32 @@ Partial Class frmDashboard
         Me.Label15.TabIndex = 38
         Me.Label15.Text = "SALES PER MONTH"
         '
-        'Chart2
+        'chrtsalespermonth
         '
-        ChartArea7.Name = "ChartArea1"
-        Me.Chart2.ChartAreas.Add(ChartArea7)
-        Legend7.Name = "Legend1"
-        Me.Chart2.Legends.Add(Legend7)
-        Me.Chart2.Location = New System.Drawing.Point(27, 49)
-        Me.Chart2.Name = "Chart2"
-        Series7.ChartArea = "ChartArea1"
-        Series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series7.Legend = "Legend1"
-        Series7.Name = "Series1"
-        Me.Chart2.Series.Add(Series7)
-        Me.Chart2.Size = New System.Drawing.Size(520, 200)
-        Me.Chart2.TabIndex = 37
-        Me.Chart2.Text = "Chart3"
+        ChartArea3.Name = "ChartArea1"
+        Me.chrtsalespermonth.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.chrtsalespermonth.Legends.Add(Legend3)
+        Me.chrtsalespermonth.Location = New System.Drawing.Point(27, 49)
+        Me.chrtsalespermonth.Name = "chrtsalespermonth"
+        Series3.ChartArea = "ChartArea1"
+        Series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.chrtsalespermonth.Series.Add(Series3)
+        Me.chrtsalespermonth.Size = New System.Drawing.Size(520, 200)
+        Me.chrtsalespermonth.TabIndex = 37
+        Me.chrtsalespermonth.Text = "Chart3"
         '
-        'pnlDocreqpermonth
+        'pnldistrsale
         '
-        Me.pnlDocreqpermonth.BackColor = System.Drawing.Color.White
-        Me.pnlDocreqpermonth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlDocreqpermonth.Controls.Add(Me.Label13)
-        Me.pnlDocreqpermonth.Controls.Add(Me.chtdocreqpermonth)
-        Me.pnlDocreqpermonth.Location = New System.Drawing.Point(625, 224)
-        Me.pnlDocreqpermonth.Name = "pnlDocreqpermonth"
-        Me.pnlDocreqpermonth.Size = New System.Drawing.Size(570, 275)
-        Me.pnlDocreqpermonth.TabIndex = 82
+        Me.pnldistrsale.BackColor = System.Drawing.Color.White
+        Me.pnldistrsale.Controls.Add(Me.Label13)
+        Me.pnldistrsale.Controls.Add(Me.chtdistsales)
+        Me.pnldistrsale.Location = New System.Drawing.Point(625, 224)
+        Me.pnldistrsale.Name = "pnldistrsale"
+        Me.pnldistrsale.Size = New System.Drawing.Size(570, 275)
+        Me.pnldistrsale.TabIndex = 82
         '
         'Label13
         '
@@ -216,22 +213,22 @@ Partial Class frmDashboard
         Me.Label13.TabIndex = 36
         Me.Label13.Text = "DISTRIBUTION SALES"
         '
-        'chtdocreqpermonth
+        'chtdistsales
         '
-        ChartArea8.Name = "ChartArea1"
-        Me.chtdocreqpermonth.ChartAreas.Add(ChartArea8)
-        Legend8.Name = "Legend1"
-        Me.chtdocreqpermonth.Legends.Add(Legend8)
-        Me.chtdocreqpermonth.Location = New System.Drawing.Point(27, 46)
-        Me.chtdocreqpermonth.Name = "chtdocreqpermonth"
-        Series8.ChartArea = "ChartArea1"
-        Series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie
-        Series8.Legend = "Legend1"
-        Series8.Name = "Series1"
-        Me.chtdocreqpermonth.Series.Add(Series8)
-        Me.chtdocreqpermonth.Size = New System.Drawing.Size(520, 200)
-        Me.chtdocreqpermonth.TabIndex = 35
-        Me.chtdocreqpermonth.Text = "Chart1"
+        ChartArea4.Name = "ChartArea1"
+        Me.chtdistsales.ChartAreas.Add(ChartArea4)
+        Legend4.Name = "Legend1"
+        Me.chtdistsales.Legends.Add(Legend4)
+        Me.chtdistsales.Location = New System.Drawing.Point(27, 46)
+        Me.chtdistsales.Name = "chtdistsales"
+        Series4.ChartArea = "ChartArea1"
+        Series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie
+        Series4.Legend = "Legend1"
+        Series4.Name = "Series1"
+        Me.chtdistsales.Series.Add(Series4)
+        Me.chtdistsales.Size = New System.Drawing.Size(520, 200)
+        Me.chtdistsales.TabIndex = 35
+        Me.chtdistsales.Text = "Chart1"
         '
         'Label7
         '
@@ -244,16 +241,15 @@ Partial Class frmDashboard
         Me.Label7.TabIndex = 81
         Me.Label7.Text = "Dashboard"
         '
-        'Panel7
+        'pnllowstock
         '
-        Me.Panel7.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel7.Controls.Add(Me.Label11)
-        Me.Panel7.Controls.Add(Me.Label6)
-        Me.Panel7.Location = New System.Drawing.Point(925, 77)
-        Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(270, 125)
-        Me.Panel7.TabIndex = 80
+        Me.pnllowstock.BackColor = System.Drawing.Color.White
+        Me.pnllowstock.Controls.Add(Me.Label11)
+        Me.pnllowstock.Controls.Add(Me.Label6)
+        Me.pnllowstock.Location = New System.Drawing.Point(925, 77)
+        Me.pnllowstock.Name = "pnllowstock"
+        Me.pnllowstock.Size = New System.Drawing.Size(270, 125)
+        Me.pnllowstock.TabIndex = 80
         '
         'Label11
         '
@@ -276,16 +272,15 @@ Partial Class frmDashboard
         Me.Label6.TabIndex = 3
         Me.Label6.Text = "Low Stock Items"
         '
-        'Panel6
+        'pnltotqprod
         '
-        Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel6.Controls.Add(Me.Label9)
-        Me.Panel6.Controls.Add(Me.Label2)
-        Me.Panel6.Location = New System.Drawing.Point(329, 77)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(270, 125)
-        Me.Panel6.TabIndex = 78
+        Me.pnltotqprod.BackColor = System.Drawing.Color.White
+        Me.pnltotqprod.Controls.Add(Me.Label9)
+        Me.pnltotqprod.Controls.Add(Me.Label2)
+        Me.pnltotqprod.Location = New System.Drawing.Point(329, 77)
+        Me.pnltotqprod.Name = "pnltotqprod"
+        Me.pnltotqprod.Size = New System.Drawing.Size(270, 125)
+        Me.pnltotqprod.TabIndex = 78
         '
         'Label9
         '
@@ -308,16 +303,15 @@ Partial Class frmDashboard
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Total Quantity of Products"
         '
-        'Panel8
+        'pnlsalestoday
         '
-        Me.Panel8.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel8.Controls.Add(Me.Label10)
-        Me.Panel8.Controls.Add(Me.Label3)
-        Me.Panel8.Location = New System.Drawing.Point(625, 77)
-        Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(270, 125)
-        Me.Panel8.TabIndex = 79
+        Me.pnlsalestoday.BackColor = System.Drawing.Color.White
+        Me.pnlsalestoday.Controls.Add(Me.Label10)
+        Me.pnlsalestoday.Controls.Add(Me.Label3)
+        Me.pnlsalestoday.Location = New System.Drawing.Point(625, 77)
+        Me.pnlsalestoday.Name = "pnlsalestoday"
+        Me.pnlsalestoday.Size = New System.Drawing.Size(270, 125)
+        Me.pnlsalestoday.TabIndex = 79
         '
         'Label10
         '
@@ -340,16 +334,15 @@ Partial Class frmDashboard
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Total Sales Today"
         '
-        'Panel5
+        'pnltotprod
         '
-        Me.Panel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.Label8)
-        Me.Panel5.Controls.Add(Me.Label1)
-        Me.Panel5.Location = New System.Drawing.Point(29, 77)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(270, 125)
-        Me.Panel5.TabIndex = 77
+        Me.pnltotprod.BackColor = System.Drawing.Color.White
+        Me.pnltotprod.Controls.Add(Me.Label8)
+        Me.pnltotprod.Controls.Add(Me.Label1)
+        Me.pnltotprod.Location = New System.Drawing.Point(29, 77)
+        Me.pnltotprod.Name = "pnltotprod"
+        Me.pnltotprod.Size = New System.Drawing.Size(270, 125)
+        Me.pnltotprod.TabIndex = 77
         '
         'Label8
         '
@@ -477,38 +470,38 @@ Partial Class frmDashboard
         Me.ClientSize = New System.Drawing.Size(1220, 850)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Panel13)
-        Me.Controls.Add(Me.Panel9)
-        Me.Controls.Add(Me.pnlmostreqdoc)
-        Me.Controls.Add(Me.Panel10)
-        Me.Controls.Add(Me.pnlDocreqpermonth)
+        Me.Controls.Add(Me.pnllowprod)
+        Me.Controls.Add(Me.pnlmostpurchasedprod)
+        Me.Controls.Add(Me.pnlsalespmonth)
+        Me.Controls.Add(Me.pnldistrsale)
         Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.Panel7)
-        Me.Controls.Add(Me.Panel6)
-        Me.Controls.Add(Me.Panel8)
-        Me.Controls.Add(Me.Panel5)
+        Me.Controls.Add(Me.pnllowstock)
+        Me.Controls.Add(Me.pnltotqprod)
+        Me.Controls.Add(Me.pnlsalestoday)
+        Me.Controls.Add(Me.pnltotprod)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmDashboard"
         Me.Text = "frmDashboard"
-        Me.Panel9.ResumeLayout(False)
-        Me.Panel9.PerformLayout()
-        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.pnlmostreqdoc.ResumeLayout(False)
-        Me.pnlmostreqdoc.PerformLayout()
-        CType(Me.chtMostreqdoc, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel10.ResumeLayout(False)
-        Me.Panel10.PerformLayout()
-        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.pnlDocreqpermonth.ResumeLayout(False)
-        Me.pnlDocreqpermonth.PerformLayout()
-        CType(Me.chtdocreqpermonth, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel7.ResumeLayout(False)
-        Me.Panel7.PerformLayout()
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout()
-        Me.Panel8.ResumeLayout(False)
-        Me.Panel8.PerformLayout()
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel5.PerformLayout()
+        Me.pnllowprod.ResumeLayout(False)
+        Me.pnllowprod.PerformLayout()
+        CType(Me.chrtlowlevlprod, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlmostpurchasedprod.ResumeLayout(False)
+        Me.pnlmostpurchasedprod.PerformLayout()
+        CType(Me.chtmostpurchased, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlsalespmonth.ResumeLayout(False)
+        Me.pnlsalespmonth.PerformLayout()
+        CType(Me.chrtsalespermonth, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnldistrsale.ResumeLayout(False)
+        Me.pnldistrsale.PerformLayout()
+        CType(Me.chtdistsales, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnllowstock.ResumeLayout(False)
+        Me.pnllowstock.PerformLayout()
+        Me.pnltotqprod.ResumeLayout(False)
+        Me.pnltotqprod.PerformLayout()
+        Me.pnlsalestoday.ResumeLayout(False)
+        Me.pnlsalestoday.PerformLayout()
+        Me.pnltotprod.ResumeLayout(False)
+        Me.pnltotprod.PerformLayout()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
         Me.ResumeLayout(False)
@@ -516,29 +509,29 @@ Partial Class frmDashboard
 
     End Sub
 
-    Friend WithEvents Panel9 As Panel
+    Friend WithEvents pnllowprod As Panel
     Friend WithEvents Label14 As Label
-    Friend WithEvents Chart1 As DataVisualization.Charting.Chart
-    Friend WithEvents pnlmostreqdoc As Panel
+    Friend WithEvents chrtlowlevlprod As DataVisualization.Charting.Chart
+    Friend WithEvents pnlmostpurchasedprod As Panel
     Friend WithEvents Label12 As Label
-    Friend WithEvents chtMostreqdoc As DataVisualization.Charting.Chart
-    Friend WithEvents Panel10 As Panel
+    Friend WithEvents chtmostpurchased As DataVisualization.Charting.Chart
+    Friend WithEvents pnlsalespmonth As Panel
     Friend WithEvents Label15 As Label
-    Friend WithEvents Chart2 As DataVisualization.Charting.Chart
-    Friend WithEvents pnlDocreqpermonth As Panel
+    Friend WithEvents chrtsalespermonth As DataVisualization.Charting.Chart
+    Friend WithEvents pnldistrsale As Panel
     Friend WithEvents Label13 As Label
-    Friend WithEvents chtdocreqpermonth As DataVisualization.Charting.Chart
+    Friend WithEvents chtdistsales As DataVisualization.Charting.Chart
     Friend WithEvents Label7 As Label
-    Friend WithEvents Panel7 As Panel
+    Friend WithEvents pnllowstock As Panel
     Friend WithEvents Label11 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents Panel6 As Panel
+    Friend WithEvents pnltotqprod As Panel
     Friend WithEvents Label9 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Panel8 As Panel
+    Friend WithEvents pnlsalestoday As Panel
     Friend WithEvents Label10 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents Panel5 As Panel
+    Friend WithEvents pnltotprod As Panel
     Friend WithEvents Label8 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel13 As Panel

@@ -51,6 +51,8 @@ Partial Class frmSalesByItem
         Me.dtto = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtfrom = New System.Windows.Forms.DateTimePicker()
+        Me.cbocategory = New System.Windows.Forms.ComboBox()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvsalesreport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -344,11 +346,34 @@ Partial Class frmSalesByItem
         Me.dtfrom.Size = New System.Drawing.Size(251, 27)
         Me.dtfrom.TabIndex = 134
         '
+        'cbocategory
+        '
+        Me.cbocategory.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cbocategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbocategory.FormattingEnabled = True
+        Me.cbocategory.Items.AddRange(New Object() {"Uniforms", "Books", "Modules", "School Supplies", "Office Supplies", "All Items"})
+        Me.cbocategory.Location = New System.Drawing.Point(1014, 83)
+        Me.cbocategory.Name = "cbocategory"
+        Me.cbocategory.Size = New System.Drawing.Size(178, 25)
+        Me.cbocategory.TabIndex = 139
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(947, 87)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(61, 17)
+        Me.Label11.TabIndex = 140
+        Me.Label11.Text = "Category"
+        '
         'frmSalesByItem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 808)
+        Me.Controls.Add(Me.cbocategory)
+        Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.dtto)
@@ -406,4 +431,6 @@ Partial Class frmSalesByItem
     Friend WithEvents dtto As DateTimePicker
     Friend WithEvents Label1 As Label
     Friend WithEvents dtfrom As DateTimePicker
+    Friend WithEvents cbocategory As ComboBox
+    Friend WithEvents Label11 As Label
 End Class

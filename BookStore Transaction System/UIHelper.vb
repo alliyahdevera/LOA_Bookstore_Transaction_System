@@ -1,9 +1,22 @@
 ﻿Imports System.Data
+Imports System.Drawing.Drawing2D
 Imports MySql.Data.MySqlClient
 
 Public Module UIHelper
+    Public Sub RoundPanel(panel As Panel, Optional radius As Integer = 25)
 
-    ' Runs a SELECT and returns the results as a DataTable (used to fill ComboBoxes)
+        Dim path As New GraphicsPath()
+
+        path.AddArc(0, 0, radius, radius, 180, 90)
+        path.AddArc(panel.Width - radius, 0, radius, radius, 270, 90)
+        path.AddArc(panel.Width - radius, panel.Height - radius, radius, radius, 0, 90)
+        path.AddArc(0, panel.Height - radius, radius, radius, 90, 90)
+
+        path.CloseFigure()
+
+        panel.Region = New Region(path)
+
+    End Sub
     Public Function GetDataTable(query As String, Optional paramNames As String() = Nothing, Optional paramValues As Object() = Nothing) As DataTable
         Dim dt As New DataTable()
         Try

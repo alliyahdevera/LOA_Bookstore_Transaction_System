@@ -33,7 +33,6 @@ Partial Class frmAdminDashboard
         Me.btnInventory = New System.Windows.Forms.Button()
         Me.btnPOS = New System.Windows.Forms.Button()
         Me.btnDashboard = New System.Windows.Forms.Button()
-        Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -41,6 +40,7 @@ Partial Class frmAdminDashboard
         Me.Logo = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.pnlContent = New System.Windows.Forms.Panel()
+        Me.Panel4 = New System.Windows.Forms.Panel()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.Logo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -78,9 +78,9 @@ Partial Class frmAdminDashboard
         Me.btnlogout.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnlogout.ForeColor = System.Drawing.Color.White
         Me.btnlogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnlogout.Location = New System.Drawing.Point(10, 802)
+        Me.btnlogout.Location = New System.Drawing.Point(8, 802)
         Me.btnlogout.Name = "btnlogout"
-        Me.btnlogout.Size = New System.Drawing.Size(221, 49)
+        Me.btnlogout.Size = New System.Drawing.Size(225, 49)
         Me.btnlogout.TabIndex = 16
         Me.btnlogout.Text = "Logout"
         Me.btnlogout.UseVisualStyleBackColor = False
@@ -93,12 +93,15 @@ Partial Class frmAdminDashboard
         Me.btnAuditLogs.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnAuditLogs.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAuditLogs.ForeColor = System.Drawing.Color.White
+        Me.btnAuditLogs.Image = CType(resources.GetObject("btnAuditLogs.Image"), System.Drawing.Image)
         Me.btnAuditLogs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnAuditLogs.Location = New System.Drawing.Point(10, 443)
+        Me.btnAuditLogs.Location = New System.Drawing.Point(8, 443)
         Me.btnAuditLogs.Name = "btnAuditLogs"
-        Me.btnAuditLogs.Size = New System.Drawing.Size(221, 49)
+        Me.btnAuditLogs.Size = New System.Drawing.Size(225, 49)
         Me.btnAuditLogs.TabIndex = 15
-        Me.btnAuditLogs.Text = "Audit Logs"
+        Me.btnAuditLogs.Text = "          Audit Logs"
+        Me.btnAuditLogs.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnAuditLogs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnAuditLogs.UseVisualStyleBackColor = False
         '
         'btnStudentManagement
@@ -109,12 +112,15 @@ Partial Class frmAdminDashboard
         Me.btnStudentManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnStudentManagement.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnStudentManagement.ForeColor = System.Drawing.Color.White
+        Me.btnStudentManagement.Image = CType(resources.GetObject("btnStudentManagement.Image"), System.Drawing.Image)
         Me.btnStudentManagement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnStudentManagement.Location = New System.Drawing.Point(10, 394)
+        Me.btnStudentManagement.Location = New System.Drawing.Point(8, 394)
         Me.btnStudentManagement.Name = "btnStudentManagement"
-        Me.btnStudentManagement.Size = New System.Drawing.Size(221, 49)
+        Me.btnStudentManagement.Size = New System.Drawing.Size(225, 49)
         Me.btnStudentManagement.TabIndex = 14
-        Me.btnStudentManagement.Text = "Student Management"
+        Me.btnStudentManagement.Text = "         Student Management"
+        Me.btnStudentManagement.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnStudentManagement.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnStudentManagement.UseVisualStyleBackColor = False
         '
         'btnUserManagement
@@ -125,12 +131,15 @@ Partial Class frmAdminDashboard
         Me.btnUserManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnUserManagement.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUserManagement.ForeColor = System.Drawing.Color.White
+        Me.btnUserManagement.Image = CType(resources.GetObject("btnUserManagement.Image"), System.Drawing.Image)
         Me.btnUserManagement.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnUserManagement.Location = New System.Drawing.Point(10, 345)
+        Me.btnUserManagement.Location = New System.Drawing.Point(8, 345)
         Me.btnUserManagement.Name = "btnUserManagement"
-        Me.btnUserManagement.Size = New System.Drawing.Size(221, 49)
+        Me.btnUserManagement.Size = New System.Drawing.Size(225, 49)
         Me.btnUserManagement.TabIndex = 13
-        Me.btnUserManagement.Text = "User Management"
+        Me.btnUserManagement.Text = "         User Management"
+        Me.btnUserManagement.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnUserManagement.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnUserManagement.UseVisualStyleBackColor = False
         '
         'btnReports
@@ -141,12 +150,15 @@ Partial Class frmAdminDashboard
         Me.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnReports.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnReports.ForeColor = System.Drawing.Color.White
+        Me.btnReports.Image = CType(resources.GetObject("btnReports.Image"), System.Drawing.Image)
         Me.btnReports.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnReports.Location = New System.Drawing.Point(10, 296)
+        Me.btnReports.Location = New System.Drawing.Point(8, 296)
         Me.btnReports.Name = "btnReports"
-        Me.btnReports.Size = New System.Drawing.Size(221, 49)
+        Me.btnReports.Size = New System.Drawing.Size(225, 49)
         Me.btnReports.TabIndex = 12
-        Me.btnReports.Text = "Reports"
+        Me.btnReports.Text = "         Reports"
+        Me.btnReports.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnReports.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnReports.UseVisualStyleBackColor = False
         '
         'btnTransaction
@@ -157,12 +169,15 @@ Partial Class frmAdminDashboard
         Me.btnTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnTransaction.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnTransaction.ForeColor = System.Drawing.Color.White
+        Me.btnTransaction.Image = CType(resources.GetObject("btnTransaction.Image"), System.Drawing.Image)
         Me.btnTransaction.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnTransaction.Location = New System.Drawing.Point(10, 247)
+        Me.btnTransaction.Location = New System.Drawing.Point(8, 247)
         Me.btnTransaction.Name = "btnTransaction"
-        Me.btnTransaction.Size = New System.Drawing.Size(221, 49)
+        Me.btnTransaction.Size = New System.Drawing.Size(225, 49)
         Me.btnTransaction.TabIndex = 9
-        Me.btnTransaction.Text = "Transaction"
+        Me.btnTransaction.Text = "         Transaction History"
+        Me.btnTransaction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnTransaction.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnTransaction.UseVisualStyleBackColor = False
         '
         'btnInventory
@@ -173,12 +188,15 @@ Partial Class frmAdminDashboard
         Me.btnInventory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnInventory.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnInventory.ForeColor = System.Drawing.Color.White
+        Me.btnInventory.Image = CType(resources.GetObject("btnInventory.Image"), System.Drawing.Image)
         Me.btnInventory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnInventory.Location = New System.Drawing.Point(10, 198)
+        Me.btnInventory.Location = New System.Drawing.Point(8, 198)
         Me.btnInventory.Name = "btnInventory"
-        Me.btnInventory.Size = New System.Drawing.Size(221, 49)
+        Me.btnInventory.Size = New System.Drawing.Size(225, 49)
         Me.btnInventory.TabIndex = 8
-        Me.btnInventory.Text = "Inventory"
+        Me.btnInventory.Text = "         Inventory"
+        Me.btnInventory.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnInventory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnInventory.UseVisualStyleBackColor = False
         '
         'btnPOS
@@ -189,12 +207,15 @@ Partial Class frmAdminDashboard
         Me.btnPOS.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnPOS.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnPOS.ForeColor = System.Drawing.Color.White
+        Me.btnPOS.Image = CType(resources.GetObject("btnPOS.Image"), System.Drawing.Image)
         Me.btnPOS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnPOS.Location = New System.Drawing.Point(10, 149)
+        Me.btnPOS.Location = New System.Drawing.Point(8, 149)
         Me.btnPOS.Name = "btnPOS"
-        Me.btnPOS.Size = New System.Drawing.Size(221, 49)
+        Me.btnPOS.Size = New System.Drawing.Size(225, 49)
         Me.btnPOS.TabIndex = 4
-        Me.btnPOS.Text = "POS"
+        Me.btnPOS.Text = "         POS"
+        Me.btnPOS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnPOS.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnPOS.UseVisualStyleBackColor = False
         '
         'btnDashboard
@@ -205,22 +226,16 @@ Partial Class frmAdminDashboard
         Me.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnDashboard.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnDashboard.ForeColor = System.Drawing.Color.White
+        Me.btnDashboard.Image = CType(resources.GetObject("btnDashboard.Image"), System.Drawing.Image)
         Me.btnDashboard.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnDashboard.Location = New System.Drawing.Point(10, 100)
+        Me.btnDashboard.Location = New System.Drawing.Point(8, 100)
         Me.btnDashboard.Name = "btnDashboard"
-        Me.btnDashboard.Size = New System.Drawing.Size(221, 49)
+        Me.btnDashboard.Size = New System.Drawing.Size(225, 49)
         Me.btnDashboard.TabIndex = 3
-        Me.btnDashboard.Text = "Dashboard"
+        Me.btnDashboard.Text = "         Dashboard"
+        Me.btnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnDashboard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnDashboard.UseVisualStyleBackColor = False
-        '
-        'Panel4
-        '
-        Me.Panel4.BackColor = System.Drawing.Color.Transparent
-        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel4.Location = New System.Drawing.Point(231, 100)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(10, 751)
-        Me.Panel4.TabIndex = 2
         '
         'Panel3
         '
@@ -228,7 +243,7 @@ Partial Class frmAdminDashboard
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel3.Location = New System.Drawing.Point(0, 100)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(10, 751)
+        Me.Panel3.Size = New System.Drawing.Size(8, 751)
         Me.Panel3.TabIndex = 1
         '
         'Panel2
@@ -293,6 +308,15 @@ Partial Class frmAdminDashboard
         Me.pnlContent.Size = New System.Drawing.Size(1223, 851)
         Me.pnlContent.TabIndex = 72
         '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.Transparent
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel4.Location = New System.Drawing.Point(233, 100)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(8, 751)
+        Me.Panel4.TabIndex = 2
+        '
         'frmAdminDashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -328,6 +352,6 @@ Partial Class frmAdminDashboard
     Friend WithEvents btnAuditLogs As Button
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents btnlogout As Button
-    Friend WithEvents Panel4 As Panel
     Friend WithEvents Panel3 As Panel
+    Friend WithEvents Panel4 As Panel
 End Class

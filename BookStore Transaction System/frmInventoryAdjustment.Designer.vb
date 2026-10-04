@@ -22,6 +22,7 @@ Partial Class frmInventoryAdjustment
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInventoryAdjustment))
         Me.txtsize = New System.Windows.Forms.ComboBox()
         Me.txtProductname = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -200,7 +201,7 @@ Partial Class frmInventoryAdjustment
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.LemonChiffon
+        Me.Panel1.BackColor = System.Drawing.Color.LightCoral
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.Label6)
         Me.Panel1.Controls.Add(Me.Label5)
@@ -211,9 +212,11 @@ Partial Class frmInventoryAdjustment
         '
         'PictureBox1
         '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.Location = New System.Drawing.Point(15, 15)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(50, 50)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 145
         Me.PictureBox1.TabStop = False
         '
@@ -221,18 +224,18 @@ Partial Class frmInventoryAdjustment
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label6.ForeColor = System.Drawing.Color.White
         Me.Label6.Location = New System.Drawing.Point(72, 42)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(360, 17)
+        Me.Label6.Size = New System.Drawing.Size(363, 17)
         Me.Label6.TabIndex = 144
-        Me.Label6.Text = "This action will be recorded in the stock entry and audit logs" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label6.Text = "This action will be recorded in the stock entry and audit logs." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Bold)
-        Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label5.ForeColor = System.Drawing.Color.White
         Me.Label5.Location = New System.Drawing.Point(71, 21)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(518, 20)

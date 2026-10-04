@@ -96,9 +96,9 @@ Partial Class frmManageProducts
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.Location = New System.Drawing.Point(23, 252)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(205, 17)
+        Me.Label14.Size = New System.Drawing.Size(47, 17)
         Me.Label14.TabIndex = 90
-        Me.Label14.Text = "Search by Product Code or Name"
+        Me.Label14.Text = "Search"
         '
         'Panel13
         '
@@ -512,7 +512,7 @@ Partial Class frmManageProducts
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(237, 248)
+        Me.Panel1.Location = New System.Drawing.Point(76, 248)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 99

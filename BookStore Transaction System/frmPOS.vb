@@ -11,7 +11,6 @@ Public Class frmPOS
     Private paymentEmployee As String = ""
     Private isUpdatingNud As Boolean = False
 
-    ' Column names/indices matching SetupDataGridView & LoadProducts
     Private Const COL_CODE As String = "colCode"
     Private Const COL_NAME As String = "colName"
     Private Const COL_CATEGORY As String = "colCategory"
@@ -24,8 +23,10 @@ Public Class frmPOS
     Private Const MAX_PICKUP_QTY As Integer = 10
     Private ReadOnly backorders As New Dictionary(Of Integer, Date)   ' variant_id -> pick-up date
 
-    ' ================= LOAD & INITIALIZATION =================
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        txtProductSearch.Text = "Product code or name"
+        txtProductSearch.ForeColor = Color.Gray
         ' Prevent auto-generating extra columns at runtime
         dgvlistproducts.AutoGenerateColumns = False
         dgvCart.AutoGenerateColumns = False
@@ -73,7 +74,6 @@ Public Class frmPOS
 
         cbocategory.SelectedIndex = 0
     End Sub
-
     Private Sub SetupDataGridView()
         dgvlistproducts.Columns.Clear()
         dgvlistproducts.AutoGenerateColumns = False
@@ -113,53 +113,26 @@ Public Class frmPOS
         Next
     End Sub
 
-    ' ================= STUDENT SEARCH =================
-    Private Sub btnSearchStudent_Click(sender As Object, e As EventArgs) Handles btnSearchStudent.Click
-        If Not Ask("Search for a student record?", "Search Student") Then Exit Sub
-        Using frm As New frmStudentList()
-            frm.InitialSearch = txtStudentNo.Text.Trim()
-            frm.StartPosition = FormStartPosition.CenterParent
-            If frm.ShowDialog(Me) = DialogResult.OK Then
-                foundStudentId = frm.SelectedStudentId
-                selectedStudentNo = frm.SelectedStudentNo
-                txtStudentNo.Text = frm.SelectedStudentNo
-                txtStudentName.Text = frm.SelectedStudentName
-                txtgrade.Text = frm.SelectedGradeLevel
-                txtProgramStrand.Text = frm.SelectedProgramStrand
-                txtGuestName.Clear()
-            End If
-        End Using
-    End Sub
+    Private Sub txtProductSearch_Enter(sender As Object, e As EventArgs) Handles txtProductSearch.Enter
 
-    Private Sub txtStudentNo_KeyDown(sender As Object, e As KeyEventArgs) Handles txtStudentNo.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            e.SuppressKeyPress = True
-            btnSearchStudent.PerformClick()
+        If txtProductSearch.Text = "Product code or name" Then
+            txtProductSearch.Text = ""
+            txtProductSearch.ForeColor = Color.Black
         End If
+
     End Sub
 
-    Private Sub txtStudentNo_TextChanged(sender As Object, e As EventArgs) Handles txtStudentNo.TextChanged
-        If foundStudentId > 0 AndAlso txtStudentNo.Text <> selectedStudentNo Then
-            ClearStudentFields(True)
+
+
+    Private Sub txtProductSearch_Leave(sender As Object, e As EventArgs) Handles txtProductSearch.Leave
+
+        If String.IsNullOrWhiteSpace(txtProductSearch.Text) Then
+            txtProductSearch.Text = "Product code or name"
+            txtProductSearch.ForeColor = Color.Gray
         End If
+
     End Sub
 
-    Private Sub txtGuestName_TextChanged(sender As Object, e As EventArgs) Handles txtGuestName.TextChanged
-        If txtGuestName.Text <> "" AndAlso foundStudentId > 0 Then
-            ClearStudentFields(False)
-        End If
-    End Sub
-
-    Private Sub ClearStudentFields(keepStudentNoText As Boolean)
-        foundStudentId = 0
-        selectedStudentNo = ""
-        If Not keepStudentNoText Then txtStudentNo.Clear()
-        txtStudentName.Clear()
-        txtgrade.Clear()
-        txtProgramStrand.Clear()
-    End Sub
-
-    ' ================= CATEGORY + PRODUCT SEARCH =================
     Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
         ResetQuantity()
         LoadProducts()
@@ -528,7 +501,6 @@ Public Class frmPOS
         If MsgBox("Are you sure you want to clear the customer fields?", vbYesNo + vbQuestion, "Clear Fields") <> MsgBoxResult.Yes Then
             Exit Sub
         End If
-        ResetCustomerInfo()
     End Sub
 
     Private Sub btnCancelTransaction_Click(sender As Object, e As EventArgs) Handles btnCancelTransaction.Click
@@ -589,12 +561,6 @@ Public Class frmPOS
             Exit Sub
         End If
 
-        Dim buyerName As String = If(foundStudentId > 0, txtStudentName.Text.Trim(), txtGuestName.Text.Trim())
-        If buyerName = "" Then
-            MsgBox("Search and select a student, or type a guest name.", vbExclamation, "Point of Sale")
-            Exit Sub
-        End If
-
         If foundStudentId = 0 Then
             Dim ids As New List(Of String)
             For Each crow As DataGridViewRow In dgvCart.Rows
@@ -636,7 +602,7 @@ Public Class frmPOS
             Try
                 Dim transactionId As Long = 0
                 Dim insTxn As String = "INSERT INTO TBL_TRANSACTIONS " &
-                                        "(transaction_no, buyer_type, student_id, buyer_name, or_no, or_date, payment_method, employee_name, " &
+                                        "(transaction_no, buyer_type, student_id,or_no, or_date, payment_method, employee_name, " &
                                         "total_amount, amount_paid, amount_change, created_by, status) " &
                                         "VALUES (@tno, @bt, @sid, @bn, @orno, @ord, @pm, @emp, @tot, @paid, @chg, @by, 'Completed')"
 
@@ -644,7 +610,6 @@ Public Class frmPOS
                     c1.Parameters.AddWithValue("@tno", txnNo)
                     c1.Parameters.AddWithValue("@bt", buyerType)
                     c1.Parameters.AddWithValue("@sid", If(foundStudentId > 0, CType(foundStudentId, Object), DBNull.Value))
-                    c1.Parameters.AddWithValue("@bn", buyerName)
                     c1.Parameters.AddWithValue("@orno", txtReferenceNo.Text.Trim())
                     c1.Parameters.AddWithValue("@ord", paymentDate.Date)
                     c1.Parameters.AddWithValue("@pm", method)
@@ -698,17 +663,6 @@ Public Class frmPOS
         End Try
     End Sub
 
-    ' ================= HELPER & RESET METHODS =================
-    Private Sub ResetCustomerInfo()
-        foundStudentId = 0
-        selectedStudentNo = ""
-        txtStudentNo.Clear()
-        txtStudentName.Clear()
-        txtgrade.Clear()
-        txtProgramStrand.Clear()
-        txtGuestName.Clear()
-    End Sub
-
     Private Sub ResetPaymentInfo()
         txtReferenceNo.Clear()
         txtAmountReceived.Clear()
@@ -720,7 +674,6 @@ Public Class frmPOS
     End Sub
 
     Private Sub ResetAll()
-        ResetCustomerInfo()
         ResetPaymentInfo()
         txtProductSearch.Clear()
         ResetQuantity()

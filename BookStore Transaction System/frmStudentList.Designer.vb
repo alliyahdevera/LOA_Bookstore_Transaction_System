@@ -55,7 +55,7 @@ Partial Class frmStudentList
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(261, 87)
+        Me.Panel1.Location = New System.Drawing.Point(80, 86)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 112
@@ -83,11 +83,11 @@ Partial Class frmStudentList
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(22, 90)
+        Me.Label14.Location = New System.Drawing.Point(24, 90)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(229, 17)
+        Me.Label14.Size = New System.Drawing.Size(48, 17)
         Me.Label14.TabIndex = 111
-        Me.Label14.Text = "Search by Student No. or Last Name"
+        Me.Label14.Text = "Search"
         '
         'Panel6
         '

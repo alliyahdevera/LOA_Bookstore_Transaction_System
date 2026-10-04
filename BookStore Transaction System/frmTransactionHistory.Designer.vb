@@ -68,8 +68,11 @@ Partial Class frmTransactionHistory
         Me.Time = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AmountChange = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PaymentMethod = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ProcessedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvtransaction, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
@@ -82,11 +85,11 @@ Partial Class frmTransactionHistory
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(27, 80)
+        Me.Label14.Location = New System.Drawing.Point(25, 125)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(264, 17)
+        Me.Label14.Size = New System.Drawing.Size(47, 17)
         Me.Label14.TabIndex = 33
-        Me.Label14.Text = "Search by Transaction No. or Student Name"
+        Me.Label14.Text = "Search"
         '
         'Label6
         '
@@ -114,7 +117,7 @@ Partial Class frmTransactionHistory
         Me.dgvtransaction.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvtransaction.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvtransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvtransaction.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.BuyerName, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.SubTotal, Me.Quantity, Me.TotalAmount, Me.tDate, Me.Time, Me.AmountPaid, Me.AmountChange, Me.Status, Me.ProcessedBy})
+        Me.dgvtransaction.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.BuyerName, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.SubTotal, Me.Quantity, Me.TotalAmount, Me.tDate, Me.Time, Me.AmountPaid, Me.AmountChange, Me.PaymentMethod, Me.Status, Me.ProcessedBy})
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -268,9 +271,9 @@ Partial Class frmTransactionHistory
         Me.btnviewdetails.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btnviewdetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnviewdetails.ForeColor = System.Drawing.Color.White
-        Me.btnviewdetails.Location = New System.Drawing.Point(1079, 116)
+        Me.btnviewdetails.Location = New System.Drawing.Point(1079, 121)
         Me.btnviewdetails.Name = "btnviewdetails"
-        Me.btnviewdetails.Size = New System.Drawing.Size(115, 28)
+        Me.btnviewdetails.Size = New System.Drawing.Size(115, 26)
         Me.btnviewdetails.TabIndex = 75
         Me.btnviewdetails.Text = "View Details"
         Me.btnviewdetails.UseVisualStyleBackColor = False
@@ -302,16 +305,16 @@ Partial Class frmTransactionHistory
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(306, 75)
+        Me.Panel1.Location = New System.Drawing.Point(97, 121)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(263, 26)
+        Me.Panel1.Size = New System.Drawing.Size(251, 26)
         Me.Panel1.TabIndex = 96
         '
         'PictureBox1
         '
         Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox1.Location = New System.Drawing.Point(239, 3)
+        Me.PictureBox1.Location = New System.Drawing.Point(223, 3)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(19, 19)
         Me.PictureBox1.TabIndex = 29
@@ -323,7 +326,7 @@ Partial Class frmTransactionHistory
         Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtSearch.Location = New System.Drawing.Point(3, 3)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(230, 20)
+        Me.txtSearch.Size = New System.Drawing.Size(214, 20)
         Me.txtSearch.TabIndex = 28
         '
         'btngenerate
@@ -331,7 +334,7 @@ Partial Class frmTransactionHistory
         Me.btngenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btngenerate.ForeColor = System.Drawing.Color.White
-        Me.btngenerate.Location = New System.Drawing.Point(659, 116)
+        Me.btngenerate.Location = New System.Drawing.Point(660, 79)
         Me.btngenerate.Name = "btngenerate"
         Me.btngenerate.Size = New System.Drawing.Size(101, 28)
         Me.btngenerate.TabIndex = 143
@@ -342,7 +345,7 @@ Partial Class frmTransactionHistory
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(359, 122)
+        Me.Label2.Location = New System.Drawing.Point(360, 85)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 142
@@ -351,7 +354,7 @@ Partial Class frmTransactionHistory
         'dtto
         '
         Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtto.Location = New System.Drawing.Point(387, 117)
+        Me.dtto.Location = New System.Drawing.Point(388, 80)
         Me.dtto.Name = "dtto"
         Me.dtto.Size = New System.Drawing.Size(251, 27)
         Me.dtto.TabIndex = 141
@@ -360,7 +363,7 @@ Partial Class frmTransactionHistory
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(26, 122)
+        Me.Label1.Location = New System.Drawing.Point(27, 85)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 17)
         Me.Label1.TabIndex = 140
@@ -369,7 +372,7 @@ Partial Class frmTransactionHistory
         'dtfrom
         '
         Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtfrom.Location = New System.Drawing.Point(99, 117)
+        Me.dtfrom.Location = New System.Drawing.Point(97, 80)
         Me.dtfrom.Name = "dtfrom"
         Me.dtfrom.Size = New System.Drawing.Size(251, 27)
         Me.dtfrom.TabIndex = 139
@@ -379,16 +382,16 @@ Partial Class frmTransactionHistory
         Me.cboGradeLevel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboGradeLevel.FormattingEnabled = True
         Me.cboGradeLevel.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
-        Me.cboGradeLevel.Location = New System.Drawing.Point(913, 118)
+        Me.cboGradeLevel.Location = New System.Drawing.Point(430, 121)
         Me.cboGradeLevel.Name = "cboGradeLevel"
-        Me.cboGradeLevel.Size = New System.Drawing.Size(147, 25)
+        Me.cboGradeLevel.Size = New System.Drawing.Size(206, 25)
         Me.cboGradeLevel.TabIndex = 145
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(843, 120)
+        Me.Label11.Location = New System.Drawing.Point(360, 125)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(64, 17)
         Me.Label11.TabIndex = 144
@@ -485,6 +488,13 @@ Partial Class frmTransactionHistory
         Me.AmountChange.ReadOnly = True
         Me.AmountChange.Width = 99
         '
+        'PaymentMethod
+        '
+        Me.PaymentMethod.HeaderText = "PaymentMethod"
+        Me.PaymentMethod.Name = "PaymentMethod"
+        Me.PaymentMethod.ReadOnly = True
+        Me.PaymentMethod.Width = 109
+        '
         'Status
         '
         Me.Status.HeaderText = "Status"
@@ -499,11 +509,33 @@ Partial Class frmTransactionHistory
         Me.ProcessedBy.ReadOnly = True
         Me.ProcessedBy.Width = 89
         '
+        'ComboBox1
+        '
+        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
+        Me.ComboBox1.Location = New System.Drawing.Point(704, 121)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(188, 25)
+        Me.ComboBox1.TabIndex = 147
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(656, 124)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(36, 17)
+        Me.Label4.TabIndex = 146
+        Me.Label4.Text = "Type"
+        '
         'frmTransactionHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
+        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.cboGradeLevel)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.btngenerate)
@@ -564,6 +596,8 @@ Partial Class frmTransactionHistory
     Friend WithEvents dtto As DateTimePicker
     Friend WithEvents Label1 As Label
     Friend WithEvents dtfrom As DateTimePicker
+    Friend WithEvents cboGradeLevel As ComboBox
+    Friend WithEvents Label11 As Label
     Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
     Friend WithEvents BuyerName As DataGridViewTextBoxColumn
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
@@ -577,8 +611,9 @@ Partial Class frmTransactionHistory
     Friend WithEvents Time As DataGridViewTextBoxColumn
     Friend WithEvents AmountPaid As DataGridViewTextBoxColumn
     Friend WithEvents AmountChange As DataGridViewTextBoxColumn
+    Friend WithEvents PaymentMethod As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents ProcessedBy As DataGridViewTextBoxColumn
-    Friend WithEvents cboGradeLevel As ComboBox
-    Friend WithEvents Label11 As Label
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents Label4 As Label
 End Class

@@ -1,29 +1,25 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Drawing.Drawing2D
+Imports MySql.Data.MySqlClient
 
 Public Class frmDashboard
-
-    ' Control map (names from the designer):
-    '   Label8  = Total Products               Label9  = Total Quantity of Products
-    '   Label10 = Total Sales Today            Label11 = Low Stock Items
-    '   chtMostreqdoc     = MOST BOUGHT PRODUCT (bar)
-    '   chtdocreqpermonth = PRODUCT SALES (pie)
-    '   Chart1            = CRITICAL PRODUCTS (column)
-    '   Chart2            = SALES PER MONTH (line)
-
     Private Const QTY_SOLD As String = "ti.quantity"
 
     Private WithEvents tmrClock As System.Windows.Forms.Timer
 
     Private Sub frmDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            ' Configure Chart Legends
-            If Chart1.Legends.Count > 0 Then Chart1.Legends(0).Enabled = False
-            If chtMostreqdoc.Legends.Count > 0 Then chtMostreqdoc.Legends(0).Enabled = False
-            If Chart2.Legends.Count > 0 Then Chart2.Legends(0).Enabled = False
 
-            ' Footer profile info & live timer
             lblname.Text = currentuser.FullName
             lblposition.Text = currentuser.Role
+
+            RoundPanel(pnltotprod)
+            RoundPanel(pnltotqprod)
+            RoundPanel(pnllowstock)
+            RoundPanel(pnlsalestoday)
+            RoundPanel(pnldistrsale)
+            RoundPanel(pnlmostpurchasedprod)
+            RoundPanel(pnlsalespmonth)
+            RoundPanel(pnllowprod)
 
             tmrClock = New System.Windows.Forms.Timer()
             tmrClock.Interval = 1000
@@ -35,7 +31,6 @@ Public Class frmDashboard
             MsgBox("Error initializing Dashboard Form: " & ex.Message, vbCritical, "Init Error")
         End Try
     End Sub
-
     Private Sub frmDashboard_Disposed(sender As Object, e As EventArgs) Handles MyBase.Disposed
         If tmrClock IsNot Nothing Then
             tmrClock.Stop()
@@ -132,12 +127,12 @@ Public Class frmDashboard
 
             Using localCmd As New MySqlCommand(query, cn)
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    chtMostreqdoc.Series("Series1").Points.Clear()
-                    chtMostreqdoc.Series("Series1").IsValueShownAsLabel = True
-                    chtMostreqdoc.ChartAreas(0).AxisX.IsReversed = True   ' best seller on top
-                    chtMostreqdoc.ChartAreas(0).AxisX.Interval = 1
+                    chtmostpurchased.Series("Series1").Points.Clear()
+                    chtmostpurchased.Series("Series1").IsValueShownAsLabel = True
+                    chtmostpurchased.ChartAreas(0).AxisX.IsReversed = True   ' best seller on top
+                    chtmostpurchased.ChartAreas(0).AxisX.Interval = 1
                     While localDr.Read()
-                        chtMostreqdoc.Series("Series1").Points.AddXY(localDr("product_name").ToString(), Convert.ToInt32(localDr("qty_sold")))
+                        chtmostpurchased.Series("Series1").Points.AddXY(localDr("product_name").ToString(), Convert.ToInt32(localDr("qty_sold")))
                     End While
                 End Using
             End Using
@@ -169,7 +164,7 @@ Public Class frmDashboard
 
             Using localCmd As New MySqlCommand(query, cn)
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    With chtdocreqpermonth.Series("Series1")
+                    With chtdistsales.Series("Series1")
                         .Points.Clear()
                         .IsValueShownAsLabel = True
                         .Label = "#PERCENT{P0}"          ' show percentage on each slice
@@ -205,13 +200,13 @@ Public Class frmDashboard
 
             Using localCmd As New MySqlCommand(query, cn)
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    Chart1.Series("Series1").Points.Clear()
-                    Chart1.Series("Series1").IsValueShownAsLabel = True
-                    Chart1.ChartAreas(0).AxisX.Interval = 1
+                    chrtlowlevlprod.Series("Series1").Points.Clear()
+                    chrtlowlevlprod.Series("Series1").IsValueShownAsLabel = True
+                    chrtlowlevlprod.ChartAreas(0).AxisX.Interval = 1
                     While localDr.Read()
-                        Dim idx As Integer = Chart1.Series("Series1").Points.AddXY(localDr("item_name").ToString(), Convert.ToInt32(localDr("quantity_on_hand")))
-                        Chart1.Series("Series1").Points(idx).Color = Color.Firebrick
-                        Chart1.Series("Series1").Points(idx).ToolTip = "Reorder level: " & localDr("reorder_level").ToString()
+                        Dim idx As Integer = chrtlowlevlprod.Series("Series1").Points.AddXY(localDr("item_name").ToString(), Convert.ToInt32(localDr("quantity_on_hand")))
+                        chrtlowlevlprod.Series("Series1").Points(idx).Color = Color.Firebrick
+                        chrtlowlevlprod.Series("Series1").Points(idx).ToolTip = "Reorder level: " & localDr("reorder_level").ToString()
                     End While
                 End Using
             End Using
@@ -247,7 +242,7 @@ Public Class frmDashboard
                 End Using
             End Using
 
-            With Chart2.Series("Series1")
+            With chrtsalespermonth.Series("Series1")
                 .Points.Clear()
                 .BorderWidth = 3
                 .MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle
@@ -256,8 +251,8 @@ Public Class frmDashboard
                     .Points.AddXY(MonthName(m, True), Convert.ToDouble(totals(m)))
                 Next
             End With
-            Chart2.ChartAreas(0).AxisX.Interval = 1
-            Chart2.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
+            chrtsalespermonth.ChartAreas(0).AxisX.Interval = 1
+            chrtsalespermonth.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
 
             cn.Close()
         Catch ex As Exception

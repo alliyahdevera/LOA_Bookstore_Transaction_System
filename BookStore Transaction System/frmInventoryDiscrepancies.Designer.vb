@@ -294,7 +294,7 @@ Partial Class frmInventoryDiscrepancies
         '
         'Panel11
         '
-        Me.Panel11.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Panel11.BackColor = System.Drawing.Color.White
         Me.Panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel11.Controls.Add(Me.lbloutofstocks)
         Me.Panel11.Controls.Add(Me.Label8)
@@ -326,7 +326,7 @@ Partial Class frmInventoryDiscrepancies
         '
         'Panel9
         '
-        Me.Panel9.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.Panel9.BackColor = System.Drawing.Color.White
         Me.Panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel9.Controls.Add(Me.lblcriticallvl)
         Me.Panel9.Controls.Add(Me.Label3)
@@ -358,7 +358,7 @@ Partial Class frmInventoryDiscrepancies
         '
         'Panel7
         '
-        Me.Panel7.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Panel7.BackColor = System.Drawing.Color.White
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.lblonhand)
         Me.Panel7.Controls.Add(Me.Label6)
@@ -390,7 +390,7 @@ Partial Class frmInventoryDiscrepancies
         '
         'Panel8
         '
-        Me.Panel8.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.Panel8.BackColor = System.Drawing.Color.White
         Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel8.Controls.Add(Me.lbltotalqproducts)
         Me.Panel8.Controls.Add(Me.Label2)
@@ -422,7 +422,7 @@ Partial Class frmInventoryDiscrepancies
         '
         'Panel10
         '
-        Me.Panel10.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.Panel10.BackColor = System.Drawing.Color.White
         Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel10.Controls.Add(Me.lbltotalproducts)
         Me.Panel10.Controls.Add(Me.Label1)

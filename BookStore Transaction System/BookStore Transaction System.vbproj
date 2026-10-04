@@ -155,6 +155,24 @@
     <Compile Include="frmDashboard.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmEmployeeManagement.Designer.vb">
+      <DependentUpon>frmEmployeeManagement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmployeeManagement.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmployeepos.Designer.vb">
+      <DependentUpon>frmEmployeepos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmployeepos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGuestPos.Designer.vb">
+      <DependentUpon>frmGuestPos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmGuestPos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmInventoryAdjustment.Designer.vb">
       <DependentUpon>frmInventoryAdjustment.vb</DependentUpon>
     </Compile>
@@ -269,6 +287,12 @@
     <Compile Include="frmStudentManagement.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmStudentpos.Designer.vb">
+      <DependentUpon>frmStudentpos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmStudentpos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmTransactionDetails.Designer.vb">
       <DependentUpon>frmTransactionDetails.vb</DependentUpon>
     </Compile>
@@ -330,6 +354,15 @@
     <EmbeddedResource Include="frmDashboard.resx">
       <DependentUpon>frmDashboard.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmEmployeeManagement.resx">
+      <DependentUpon>frmEmployeeManagement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmployeepos.resx">
+      <DependentUpon>frmEmployeepos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGuestPos.resx">
+      <DependentUpon>frmGuestPos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInventoryAdjustment.resx">
       <DependentUpon>frmInventoryAdjustment.vb</DependentUpon>
     </EmbeddedResource>
@@ -386,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmStudentManagement.resx">
       <DependentUpon>frmStudentManagement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStudentpos.resx">
+      <DependentUpon>frmStudentpos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTransactionDetails.resx">
       <DependentUpon>frmTransactionDetails.vb</DependentUpon>
