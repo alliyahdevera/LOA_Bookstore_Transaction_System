@@ -34,7 +34,7 @@ Partial Class frmAuditLogs
         Me.btnLoginHistory.FlatAppearance.BorderSize = 0
         Me.btnLoginHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnLoginHistory.ForeColor = System.Drawing.Color.White
-        Me.btnLoginHistory.Location = New System.Drawing.Point(400, 0)
+        Me.btnLoginHistory.Location = New System.Drawing.Point(402, 0)
         Me.btnLoginHistory.Name = "btnLoginHistory"
         Me.btnLoginHistory.Size = New System.Drawing.Size(198, 33)
         Me.btnLoginHistory.TabIndex = 18
@@ -68,7 +68,7 @@ Partial Class frmAuditLogs
         Me.btnPriceChangeHistory.FlatAppearance.BorderSize = 0
         Me.btnPriceChangeHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnPriceChangeHistory.ForeColor = System.Drawing.Color.White
-        Me.btnPriceChangeHistory.Location = New System.Drawing.Point(201, 0)
+        Me.btnPriceChangeHistory.Location = New System.Drawing.Point(202, 0)
         Me.btnPriceChangeHistory.Name = "btnPriceChangeHistory"
         Me.btnPriceChangeHistory.Size = New System.Drawing.Size(198, 33)
         Me.btnPriceChangeHistory.TabIndex = 15
