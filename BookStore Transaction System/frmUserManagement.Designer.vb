@@ -67,6 +67,7 @@ Partial Class frmUserManagement
         Me.btnremove = New System.Windows.Forms.Button()
         Me.btnupd = New System.Windows.Forms.Button()
         Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel5.SuspendLayout()
         Me.Panel11.SuspendLayout()
         Me.Panel6.SuspendLayout()
@@ -459,6 +460,7 @@ Partial Class frmUserManagement
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
         Me.Panel1.Location = New System.Drawing.Point(82, 320)
@@ -531,6 +533,17 @@ Partial Class frmUserManagement
         Me.Label15.Size = New System.Drawing.Size(149, 15)
         Me.Label15.TabIndex = 97
         Me.Label15.Text = "View and Manage All Users"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label4.Location = New System.Drawing.Point(3, 5)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(215, 17)
+        Me.Label4.TabIndex = 98
+        Me.Label4.Text = "Search by Username or Last name"
         '
         'frmUserManagement
         '
@@ -613,4 +626,5 @@ Partial Class frmUserManagement
     Friend WithEvents cboStatus As ComboBox
     Friend WithEvents cboRole As ComboBox
     Friend WithEvents Label15 As Label
+    Friend WithEvents Label4 As Label
 End Class
