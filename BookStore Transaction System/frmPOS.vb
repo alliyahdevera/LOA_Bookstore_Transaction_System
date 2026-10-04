@@ -50,6 +50,11 @@ Public Class frmPOS
         nudQuantity.DecimalPlaces = 0
         nudQuantity.Minimum = 0
 
+        ' Logged-in user shown in the footer
+        lblname.Text = If(Not String.IsNullOrEmpty(currentuser.FullName), currentuser.FullName, "N/A")
+        lblposition.Text = If(Not String.IsNullOrEmpty(currentuser.Role), currentuser.Role, "N/A")
+        ApplySearchPlaceholders(Me)
+
         LoadCategoryComboBox()
         LoadBuyerTypeCombo()
         ' Reset all form fields and fetch initial product list
@@ -105,10 +110,11 @@ Public Class frmPOS
         If cbocategory.SelectedIndex <= 0 Then
             dt = GetDataTable("SELECT DISTINCT type_name FROM tbl_category_types ORDER BY type_name")
         Else
+            ' look the category up by name (same text that is shown in cbocategory)
             dt = GetDataTable("SELECT ct.type_name FROM tbl_category_types ct " &
                           "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
                           "WHERE c.category_name = @c ORDER BY ct.type_name",
-                          New String() {"@c"}, New Object() {cbocategory.Text})
+                          New String() {"@c"}, New Object() {Convert.ToString(cbocategory.SelectedItem)})
         End If
         For Each r As DataRow In dt.Rows
             cboType.Items.Add(r("type_name").ToString())
@@ -200,7 +206,7 @@ Public Class frmPOS
             paramValues.Add(typeName)
         End If
         If keyword <> "" Then
-            query &= "AND (v.product_code LIKE @like OR p.product_name LIKE @like) "
+            query &= "AND (v.product_code LIKE @like OR p.product_name LIKE @like OR ct.type_name LIKE @like) "
             paramNames.Add("@like")
             paramValues.Add("%" & keyword & "%")
         End If
