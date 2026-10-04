@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 03, 2026 at 07:46 AM
+-- Host: 127.0.0.1
+-- Generation Time: Oct 04, 2026 at 10:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -122,7 +122,28 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 (72, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-03 12:38:29'),
 (73, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-03 12:41:21'),
 (74, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-03 12:58:50'),
-(75, 2, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-03 13:00:35');
+(75, 2, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-03 13:00:35'),
+(76, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 13:07:24'),
+(77, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 13:21:57'),
+(78, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 13:36:58'),
+(79, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 13:45:39'),
+(80, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 13:50:23'),
+(81, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 14:36:30'),
+(82, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 15:00:23'),
+(83, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 15:04:47'),
+(84, 1, 'Activity', 'Update Student', '1235-23', NULL, NULL, NULL, NULL, 'Updated Sofia Aquino', 'Success', NULL, '2026-10-04 15:11:38'),
+(85, 1, 'Activity', 'Add Student', '2657-24', NULL, NULL, NULL, NULL, 'Added Alyah Mikhailovna', 'Success', NULL, '2026-10-04 15:12:21'),
+(86, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 15:21:02'),
+(87, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 15:25:49'),
+(88, 1, 'Activity', 'Item Exchange', 'EXC-20261004153729154', NULL, NULL, NULL, NULL, 'Exchange of 1 item(s) from TXN-20261004152552471. Reason: 12321', 'Success', NULL, '2026-10-04 15:37:29'),
+(89, 1, 'Activity', 'Update Student', '2324-24', NULL, NULL, NULL, NULL, 'Updated Angela Mercado', 'Success', NULL, '2026-10-04 15:45:11'),
+(90, 1, 'Activity', 'Update Student', '2864-23', NULL, NULL, NULL, NULL, 'Updated Joshua Navarro', 'Success', NULL, '2026-10-04 15:45:20'),
+(91, 1, 'Activity', 'Update Student', '1234-22', NULL, NULL, NULL, NULL, 'Updated Bianca Pascual', 'Success', NULL, '2026-10-04 15:45:32'),
+(92, 1, 'Activity', 'Update Student', '1543-23', NULL, NULL, NULL, NULL, 'Updated Gabriel Ramirez', 'Success', NULL, '2026-10-04 15:45:52'),
+(93, 1, 'Activity', 'Update Student', '2346-24', NULL, NULL, NULL, NULL, 'Updated Isabella Villanueva', 'Success', NULL, '2026-10-04 15:45:58'),
+(94, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 16:30:52'),
+(95, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 16:33:34'),
+(96, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-04 16:52:19');
 
 -- --------------------------------------------------------
 
@@ -578,15 +599,15 @@ CREATE TABLE `tbl_product_variants` (
 INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, `size`, `quantity_on_hand`, `reorder_level`) VALUES
 (1, 1, 'SUP-ART', 'N/A', 5, 20),
 (2, 2, 'SUP-IPC-1-2', 'N/A', 100, 20),
-(3, 3, 'SUP-BC-1-4', 'N/A', 50, 10),
+(3, 3, 'SUP-BC-1-4', 'N/A', 49, 10),
 (4, 4, 'SUP-IPL-1-2', 'N/A', 100, 20),
 (5, 5, 'SUP-BC-5-8', 'N/A', 49, 10),
 (6, 6, 'SUP-JP-01', 'N/A', 50, 10),
-(7, 7, 'SUP-BC-1', 'N/A', 4, 10),
+(7, 7, 'SUP-BC-1', 'N/A', 3, 10),
 (8, 8, 'SUP-JP-02', 'N/A', 100, 20),
 (9, 9, 'SUP-BC-2', 'N/A', 50, 10),
 (10, 10, 'SUP-LAM', 'N/A', 50, 10),
-(11, 11, 'SUP-BB', 'N/A', 60, 15),
+(11, 11, 'SUP-BB', 'N/A', 59, 15),
 (12, 12, 'SUP-LS', 'N/A', 50, 10),
 (13, 13, 'SUP-BPL-01', 'N/A', 100, 20),
 (14, 14, 'SUP-LE', 'N/A', 50, 10),
@@ -1072,7 +1093,7 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (494, 182, 'UNI-CP-034-5XL', '5XL', 20, 5),
 (495, 182, 'UNI-CP-034-6XL', '6XL', 20, 5),
 (496, 183, 'UNI-CP-035-XS', 'XS', 20, 5),
-(497, 183, 'UNI-CP-035-S', 'S', 20, 5),
+(497, 183, 'UNI-CP-035-S', 'S', 19, 5),
 (498, 183, 'UNI-CP-035-M', 'M', 20, 5),
 (499, 183, 'UNI-CP-035-L', 'L', 20, 5),
 (500, 183, 'UNI-CP-035-XL', 'XL', 20, 5),
@@ -1403,7 +1424,8 @@ CREATE TABLE `tbl_returns_exchanges` (
 
 INSERT INTO `tbl_returns_exchanges` (`return_exchange_id`, `reference_no`, `transaction_id`, `action_type`, `reason`, `processed_by`, `processed_at`, `status`) VALUES
 (1, 'RET-20261002210533009', 2, 'Return', 'dsa', 1, '2026-10-02 21:05:33', 'Completed'),
-(2, 'EXC-20261002212805372', 4, 'Exchange', 'wala lng', 2, '2026-10-02 21:28:05', 'Completed');
+(2, 'EXC-20261002212805372', 4, 'Exchange', 'wala lng', 2, '2026-10-02 21:28:05', 'Completed'),
+(3, 'EXC-20261004153729154', 6, 'Exchange', '12321', 1, '2026-10-04 15:37:29', 'Completed');
 
 -- --------------------------------------------------------
 
@@ -1427,7 +1449,8 @@ CREATE TABLE `tbl_return_exchange_items` (
 
 INSERT INTO `tbl_return_exchange_items` (`return_exchange_item_id`, `return_exchange_id`, `transaction_item_id`, `quantity`, `item_condition`, `replacement_variant_id`, `replacement_quantity`) VALUES
 (1, 1, 2, 4, 'das', NULL, NULL),
-(2, 2, 4, 1, '3123', 756, 1);
+(2, 2, 4, 1, '3123', 756, 1),
+(3, 3, 8, 1, 'Good', 497, 1);
 
 -- --------------------------------------------------------
 
@@ -1521,7 +1544,9 @@ INSERT INTO `tbl_stock_movements` (`movement_id`, `variant_id`, `movement_type`,
 (3, 7, 'Returned', 4, 0, 4, 'RET-20261002210533009', 'Return of TXN-20261002205439014', 1, '2026-10-02 21:05:33'),
 (4, 665, 'Returned', 1, 19, 20, 'EXC-20261002212805372', 'Exchange of TXN-20261002211935813', 2, '2026-10-02 21:28:05'),
 (5, 756, 'Stock Out', 1, 30, 29, 'EXC-20261002212805372', 'Exchange replacement for TXN-20261002211935813', 2, '2026-10-02 21:28:05'),
-(6, 1, 'Adjustment', 5, 10, 5, 'CNT-20261002213112', '231231', 1, '2026-10-02 21:31:54');
+(6, 1, 'Adjustment', 5, 10, 5, 'CNT-20261002213112', '231231', 1, '2026-10-02 21:31:54'),
+(7, 17, 'Returned', 1, 99, 100, 'EXC-20261004153729154', 'Exchange of TXN-20261004152552471', 1, '2026-10-04 15:37:29'),
+(8, 497, 'Stock Out', 1, 20, 19, 'EXC-20261004153729154', 'Exchange replacement for TXN-20261004152552471', 1, '2026-10-04 15:37:29');
 
 -- --------------------------------------------------------
 
@@ -1546,13 +1571,13 @@ CREATE TABLE `tbl_students` (
 
 INSERT INTO `tbl_students` (`student_id`, `student_no`, `last_name`, `first_name`, `education_level`, `grade_level`, `program_strand`, `section`) VALUES
 (1, '2235-20', 'Dela Cruz', 'Miguel', 'Grade School', 'Grade 3', NULL, 'Sampaguita'),
-(2, '2026-00102', 'Villanueva', 'Isabella', 'Grade School', 'Grade 5', NULL, 'Rosal'),
-(3, '2025-00215', 'Ramirez', 'Gabriel', 'Grade School', 'Grade 7', NULL, 'Narra'),
-(4, '1235-23', 'Aquino', 'Sofia', 'Grade School', 'Grade 8', NULL, 'Molave'),
+(2, '2346-24', 'Villanueva', 'Isabella', 'Grade School', 'Grade 5', '', 'Rosal'),
+(3, '1543-23', 'Ramirez', 'Gabriel', 'Grade School', 'Grade 7', '', 'Narra'),
+(4, '1235-23', 'Aquino', 'Sofia', 'Grade School', 'Grade 8', '', 'Molave'),
 (5, '2435-23', 'Castillo', 'Lucas', 'Grade School', 'Grade 10', NULL, 'Newton'),
-(6, '2024-00318', 'Mercado', 'Angela', 'Grade School', 'Grade 10', NULL, 'Einstein'),
-(7, '2025-00420', 'Navarro', 'Joshua', 'Senior High School', 'Grade 11', 'ABM', 'STEM-A'),
-(8, '2025-00421', 'Pascual', 'Bianca', 'Senior High School', 'Grade 12', 'HUMSS', 'ABM-B'),
+(6, '2324-24', 'Mercado', 'Angela', 'Grade School', 'Grade 10', '', 'Einstein'),
+(7, '2864-23', 'Navarro', 'Joshua', 'Senior High School', 'Grade 11', 'ABM', 'STEM-A'),
+(8, '1234-22', 'Pascual', 'Bianca', 'Senior High School', 'Grade 12', 'HUMSS', 'ABM-B'),
 (9, '2343-22', 'Fernandez', 'Carlo', 'College', '1st Year College', 'BSCS', 'BSIT 1A'),
 (10, '1785-23', 'Domingo', 'Patricia', 'College', '2nd Year College', 'BSCpE', 'BSCS-2B'),
 (11, '1123-24', 'Fernandez', 'Gio', 'College', '3rd Year', 'BSPsych', '31E1'),
@@ -1569,7 +1594,8 @@ INSERT INTO `tbl_students` (`student_id`, `student_no`, `last_name`, `first_name
 (22, '2154-24', 'Sabasaje', 'Sho Uno', 'College', '3rd Year', 'BSHM', '31E1'),
 (23, '2208-24', 'Eullo', 'John Raven', 'College', '3rd Year', 'BSCS', '31E1'),
 (24, '2786-24', 'Roque', 'Kevin Clerck', 'College', '3rd Year', 'BSIE', '31E1'),
-(25, '2789-24', 'De Vera', 'Alliyah', 'College', '3rd Year', 'BSCpE', '31E1');
+(25, '2789-24', 'De Vera', 'Alliyah', 'College', '3rd Year', 'BSCpE', '31E1'),
+(26, '2657-24', 'Mikhailovna', 'Alyah', NULL, '3rd Year College', 'BSIT', '31E1');
 
 -- --------------------------------------------------------
 
@@ -1606,7 +1632,9 @@ INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`
 (1, 'TXN-20261002205141910', 'Student', 25, 'Alliyah De Vera', 'OR-20261002205150475', '2026-10-02', '2026-10-02 20:54:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL),
 (2, 'TXN-20261002205439014', 'Walk-in', NULL, '123', 'OR-20261002205507126', '2026-10-02', '2026-10-02 20:55:14', 'Cash', NULL, 1225.00, 3000.00, 1775.00, 1, 'Partially Returned', NULL, NULL, NULL),
 (3, 'TXN-20261002210939244', 'Student', 1, 'Miguel Dela Cruz', 'OR-20261002211016756', '2026-10-02', '2026-10-02 21:10:27', 'Salary Deduction', 'Daniel Lopez', 25.00, 25.00, 0.00, 6, 'Completed', NULL, NULL, NULL),
-(4, 'TXN-20261002211935813', 'Student', 25, 'Alliyah De Vera', 'OR-20261002212507211', '2026-10-02', '2026-10-02 21:25:25', 'Cash', NULL, 850.00, 900.00, 50.00, 2, 'Exchanged', NULL, NULL, NULL);
+(4, 'TXN-20261002211935813', 'Student', 25, 'Alliyah De Vera', 'OR-20261002212507211', '2026-10-02', '2026-10-02 21:25:25', 'Cash', NULL, 850.00, 900.00, 50.00, 2, 'Exchanged', NULL, NULL, NULL),
+(5, 'TXN-20261004150727709', 'Student', 18, 'Marc Denize Barcinas', 'OR-20261004150738291', '2026-10-04', '2026-10-04 15:08:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL),
+(6, 'TXN-20261004152552471', 'Student', 17, 'Stephanie Mendoza', 'OR-20261004152656588', '2026-10-04', '2026-10-04 15:27:33', 'Cash', NULL, 275.00, 300.00, 25.00, 1, 'Partially Exchanged', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1632,7 +1660,11 @@ INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `v
 (1, 1, 7, 1, 25.00, 0, NULL),
 (2, 2, 7, 49, 1225.00, 0, NULL),
 (3, 3, 5, 1, 25.00, 0, NULL),
-(4, 4, 665, 1, 850.00, 0, NULL);
+(4, 4, 665, 1, 850.00, 0, NULL),
+(5, 5, 7, 1, 25.00, 0, NULL),
+(6, 6, 3, 1, 25.00, 0, NULL),
+(7, 6, 11, 1, 30.00, 0, NULL),
+(8, 6, 17, 1, 220.00, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1835,7 +1867,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_audit_logs`
 --
 ALTER TABLE `tbl_audit_logs`
-  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `tbl_cash_denominations`
@@ -1895,13 +1927,13 @@ ALTER TABLE `tbl_remittances`
 -- AUTO_INCREMENT for table `tbl_returns_exchanges`
 --
 ALTER TABLE `tbl_returns_exchanges`
-  MODIFY `return_exchange_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `return_exchange_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_return_exchange_items`
 --
 ALTER TABLE `tbl_return_exchange_items`
-  MODIFY `return_exchange_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `return_exchange_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`
@@ -1925,25 +1957,25 @@ ALTER TABLE `tbl_stock_in_details`
 -- AUTO_INCREMENT for table `tbl_stock_movements`
 --
 ALTER TABLE `tbl_stock_movements`
-  MODIFY `movement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `movement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction_items`
 --
 ALTER TABLE `tbl_transaction_items`
-  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
