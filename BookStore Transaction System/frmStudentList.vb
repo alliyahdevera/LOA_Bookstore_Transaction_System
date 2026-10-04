@@ -14,7 +14,6 @@ Public Class frmStudentList
     Private isLoading As Boolean = True
 
     Private Sub frmStudentList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        dgvstudents.ReadOnly = True
         dgvstudents.AllowUserToAddRows = False
         dgvstudents.AllowUserToDeleteRows = False
         dgvstudents.MultiSelect = False

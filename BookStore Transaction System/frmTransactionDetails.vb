@@ -21,7 +21,7 @@ Public Class frmTransactionDetails
     Private txnId As Integer = 0
     Private txnStatus As String = ""
     Private isBinding As Boolean = False
-    Private isClamping As Boolean = False  ' <-- ADD THIS LINE HERE
+    Private isClamping As Boolean = False
     Private sizeTable As DataTable
     Private ReadOnly Peso As String = ChrW(8369)
     Private isLoadingGrid As Boolean = False
@@ -35,9 +35,7 @@ Public Class frmTransactionDetails
         dgvCart.MultiSelect = False
         dgvCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect
 
-        For Each col As DataGridViewColumn In dgvCart.Columns
-            col.ReadOnly = True
-        Next
+
 
         If Not dgvCart.Columns.Contains("colSelect") Then
             dgvCart.Columns.Insert(0, New DataGridViewCheckBoxColumn With {.Name = "colSelect", .HeaderText = "Select", .Width = 55})
@@ -53,27 +51,21 @@ Public Class frmTransactionDetails
 
         ' locked fields
         txtcreatedby.Text = currentuser.FullName
-        txtcreatedby.ReadOnly = True
         txtcreatedby.TabStop = False
         dtpORDate.Value = DateTime.Now
         dtpORDate.Enabled = False
 
         txtReason.MaxLength = 255
-        txtCondition.Visible = False
 
         ' 2. Programmatically create and position the ComboBox over the TextBox
         cboCondition = New ComboBox With {
         .Name = "cboCondition",
-        .DropDownStyle = ComboBoxStyle.DropDownList,
-        .Font = txtCondition.Font,
-        .Location = txtCondition.Location,
-        .Size = txtCondition.Size,
-        .TabIndex = txtCondition.TabIndex
-    }
+        .DropDownStyle = ComboBoxStyle.DropDownList
+        }
+
 
         ' 3. Add items and insert control into the parent form/panel
         cboCondition.Items.AddRange(New Object() {"Good", "Fair", "Damaged"})
-        txtCondition.Parent.Controls.Add(cboCondition)
         cboCondition.BringToFront()
         txtProduct.DropDownStyle = ComboBoxStyle.DropDown          ' typeable (autocomplete)
         txtProduct.AutoCompleteMode = AutoCompleteMode.SuggestAppend
@@ -749,7 +741,6 @@ Public Class frmTransactionDetails
     Private Sub btnclose_Click(sender As Object, e As EventArgs) Handles btnclose.Click
         Me.Close()
     End Sub
-    Private isUpdatingQty As Boolean = False
     Private Sub Qty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles nudQuantity.KeyPress, numupqty.KeyPress
         If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then e.Handled = True
     End Sub

@@ -28,7 +28,7 @@ Public Class frmInventoryAdjustment
         ' "Available Stock" = what the system has right now
         Dim cur As Object = ExecScalar("SELECT quantity_on_hand FROM tbl_product_variants WHERE variant_id = @v",
                                        New String() {"@v"}, New Object() {VariantId})
-        txtStatus.ReadOnly = True
+
         txtStatus.Text = If(cur Is Nothing, "-", Convert.ToString(cur))
 
         lblsysq.Text = SystemQty

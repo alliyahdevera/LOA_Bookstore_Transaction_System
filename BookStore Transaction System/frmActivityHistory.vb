@@ -9,7 +9,7 @@ Public Class frmActivityHistory
             ' Add the missing Date & Time column in code
             If Not dgvActivityHistory.Columns.Contains("LogDateTime") Then
                 dgvActivityHistory.Columns.Add("LogDateTime", "Date & Time")
-                dgvActivityHistory.Columns("LogDateTime").ReadOnly = True
+
             End If
 
             ' User Profile Info
@@ -30,6 +30,13 @@ Public Class frmActivityHistory
         Catch ex As Exception
             MsgBox("Error initializing Activity History: " & ex.Message, vbCritical, "Init Error")
         End Try
+        For Each col As DataGridViewColumn In dgvActivityHistory.Columns
+            If col.HeaderText = "Details" Then
+                col.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+                col.Width = 420
+            End If
+        Next
+        dgvActivityHistory.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
     End Sub
 
     Private Sub frmActivityHistory_Disposed(sender As Object, e As EventArgs) Handles MyBase.Disposed

@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class frmSalesByItem
-
+    Private isFilling As Boolean = False
     Private ReadOnly Peso As String = ChrW(8369)
 
     Private Sub frmSalesByItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -14,13 +14,23 @@ Public Class frmSalesByItem
         dgvsalesreport.Columns("AmountPaid").HeaderText = "Last Sold"
         dgvsalesreport.AllowUserToAddRows = False
         dgvsalesreport.AllowUserToDeleteRows = False
-        dgvsalesreport.ReadOnly = True
 
         btnexportexcel.Visible = (currentuser.Role = ROLE_SUPERVISOR OrElse currentuser.Role = ROLE_MANAGEMENT)
-
+        isFilling = True
+        Dim cats As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
+        Dim allRow As DataRow = cats.NewRow()
+        allRow("category_id") = 0
+        allRow("category_name") = "-- All Categories --"
+        cats.Rows.InsertAt(allRow, 0)
+        FillCombo(cbocategory, cats, "category_name", "category_id")
+        cbocategory.SelectedIndex = 0
+        isFilling = False
         LoadGrid()
     End Sub
-
+    Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
+        If isFilling Then Exit Sub
+        LoadGrid()
+    End Sub
     Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
         If dtfrom.Value.Date > dtto.Value.Date Then
             MsgBox("'Date from' cannot be later than 'To'.", vbExclamation, "Sales by Item")
@@ -42,10 +52,10 @@ Public Class frmSalesByItem
             "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
             "INNER JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
             "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
-            "WHERE t.or_date BETWEEN @d1 AND @d2 AND t.status <> 'Cancelled' " &
+            "WHERE t.or_date BETWEEN @d1 AND @d2 AND t.status <> 'Cancelled' AND (@cat = 0 OR c.category_id = @cat) " &
             "GROUP BY v.variant_id, v.product_code, p.product_name, v.size, c.category_name " &
             "ORDER BY amt DESC",
-            New String() {"@d1", "@d2"}, New Object() {dtfrom.Value.Date, dtto.Value.Date})
+            New String() {"@d1", "@d2", "@cat"}, New Object() {dtfrom.Value.Date, dtto.Value.Date, SelectedId(cbocategory)})
 
         dgvsalesreport.Rows.Clear()
 

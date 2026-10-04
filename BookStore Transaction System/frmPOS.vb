@@ -5,8 +5,6 @@ Imports System.Transactions
 Imports MySql.Data.MySqlClient
 
 Public Class frmPOS
-
-    Private Const PRODUCT_SEARCH_HINT As String = "Product code or name"
     Private pgProducts As GridPager
     Private currentBuyerForm As Form
     Private isLoadingFilters As Boolean = False
@@ -28,8 +26,6 @@ Public Class frmPOS
 
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        txtProductSearch.Text = PRODUCT_SEARCH_HINT
-        txtProductSearch.ForeColor = Color.Gray
         dgvlistproducts.AutoGenerateColumns = False
         dgvCart.AutoGenerateColumns = False
 
@@ -59,65 +55,6 @@ Public Class frmPOS
         ' Reset all form fields and fetch initial product list
         ResetAll()
     End Sub
-
-    Private Function Ask(msg As String, title As String) As Boolean
-        Return MsgBox(msg, vbYesNo + vbQuestion, title) = MsgBoxResult.Yes
-    End Function
-
-    Private Sub LoadCategoryComboBox()
-        isLoadingFilters = True
-        cbocategory.DropDownStyle = ComboBoxStyle.DropDownList
-        cbocategory.Items.Clear()
-        cbocategory.Items.Add("All Items")
-        Dim dt As DataTable = GetDataTable("SELECT category_name FROM tbl_categories ORDER BY category_name")
-        For Each row As DataRow In dt.Rows
-            cbocategory.Items.Add(row("category_name").ToString())
-        Next
-        cbocategory.SelectedIndex = 0
-        LoadTypeCombo()
-        isLoadingFilters = False
-    End Sub
-
-    Private Sub LoadTypeCombo()
-        cbotype.DropDownStyle = ComboBoxStyle.DropDownList
-        cbotype.Items.Clear()
-        cbotype.Items.Add("All Types")
-
-        Dim dt As DataTable
-        If cbocategory.SelectedIndex <= 0 Then
-            dt = GetDataTable("SELECT DISTINCT type_name FROM tbl_category_types ORDER BY type_name")
-        Else
-            dt = GetDataTable("SELECT ct.type_name FROM tbl_category_types ct " &
-                          "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
-                          "WHERE c.category_name = @c ORDER BY ct.type_name",
-                          New String() {"@c"}, New Object() {cbocategory.Text})
-        End If
-        For Each r As DataRow In dt.Rows
-            cbotype.Items.Add(r("type_name").ToString())
-        Next
-        cbotype.SelectedIndex = 0
-    End Sub
-
-    Private Sub LoadBuyerTypeCombo()
-        cbobuyertype.DropDownStyle = ComboBoxStyle.DropDownList
-        cbobuyertype.Items.Clear()
-        cbobuyertype.Items.AddRange(New Object() {"Student", "Employee", "Guest"})
-        cbobuyertype.SelectedIndex = -1
-    End Sub
-    Private Sub SetupDataGridView()
-        dgvlistproducts.Columns.Clear()
-        dgvlistproducts.AutoGenerateColumns = False
-
-        dgvlistproducts.Columns.Add(COL_CODE, "Product Code")
-        dgvlistproducts.Columns.Add(COL_NAME, "Product Name")
-        dgvlistproducts.Columns.Add(COL_CATEGORY, "Category")
-        dgvlistproducts.Columns.Add(COL_TYPE, "Type")
-        dgvlistproducts.Columns.Add(COL_SIZE, "Size")
-        dgvlistproducts.Columns.Add(COL_PRICE, "Price")
-        dgvlistproducts.Columns.Add(COL_STOCK, "Stock")
-        dgvlistproducts.Columns.Add(COL_STATUS, "Status")
-    End Sub
-
     Private Sub SetupGrid(dgv As DataGridView)
         dgv.ReadOnly = True
         dgv.AllowUserToAddRows = False
@@ -141,25 +78,62 @@ Public Class frmPOS
             End If
         Next
     End Sub
+    Private Function Ask(msg As String, title As String) As Boolean
+        Return MsgBox(msg, vbYesNo + vbQuestion, title) = MsgBoxResult.Yes
+    End Function
 
-    Private Sub txtProductSearch_Enter(sender As Object, e As EventArgs) Handles txtProductSearch.Enter
-
-        If txtProductSearch.Text = "Product code or name" Then
-            txtProductSearch.Text = ""
-            txtProductSearch.ForeColor = Color.Black
-        End If
-
+    Private Sub LoadCategoryComboBox()
+        isLoadingFilters = True
+        cbocategory.DropDownStyle = ComboBoxStyle.DropDownList
+        cbocategory.Items.Clear()
+        cbocategory.Items.Add("All Items")
+        Dim dt As DataTable = GetDataTable("SELECT category_name FROM tbl_categories ORDER BY category_name")
+        For Each row As DataRow In dt.Rows
+            cbocategory.Items.Add(row("category_name").ToString())
+        Next
+        cbocategory.SelectedIndex = 0
+        LoadTypeCombo()
+        isLoadingFilters = False
     End Sub
 
+    Private Sub LoadTypeCombo()
+        cboType.DropDownStyle = ComboBoxStyle.DropDownList
+        cboType.Items.Clear()
+        cboType.Items.Add("All Types")
 
-
-    Private Sub txtProductSearch_Leave(sender As Object, e As EventArgs) Handles txtProductSearch.Leave
-
-        If String.IsNullOrWhiteSpace(txtProductSearch.Text) Then
-            txtProductSearch.Text = "Product code or name"
-            txtProductSearch.ForeColor = Color.Gray
+        Dim dt As DataTable
+        If cbocategory.SelectedIndex <= 0 Then
+            dt = GetDataTable("SELECT DISTINCT type_name FROM tbl_category_types ORDER BY type_name")
+        Else
+            dt = GetDataTable("SELECT ct.type_name FROM tbl_category_types ct " &
+                          "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
+                          "WHERE c.category_name = @c ORDER BY ct.type_name",
+                          New String() {"@c"}, New Object() {cbocategory.Text})
         End If
+        For Each r As DataRow In dt.Rows
+            cboType.Items.Add(r("type_name").ToString())
+        Next
+        cboType.SelectedIndex = 0
+    End Sub
 
+    Private Sub LoadBuyerTypeCombo()
+        cbobuyertype.DropDownStyle = ComboBoxStyle.DropDownList
+        cbobuyertype.Items.Clear()
+        cbobuyertype.Items.AddRange(New Object() {"Student", "Employee", "Guest"})
+        cbobuyertype.SelectedIndex = -1
+    End Sub
+    Private Sub SetupDataGridView()
+        dgvlistproducts.Columns.Clear()
+        dgvlistproducts.AutoGenerateColumns = False
+
+        dgvlistproducts.Columns.Add(COL_CODE, "Product Code")
+        dgvlistproducts.Columns.Add(COL_NAME, "Product Name")
+        dgvlistproducts.Columns.Add(COL_CATEGORY, "Category")
+        dgvlistproducts.Columns.Add(COL_TYPE, "Type")
+        dgvlistproducts.Columns.Add(COL_SIZE, "Size")
+        dgvlistproducts.Columns.Add(COL_PRICE, "Price")
+        dgvlistproducts.Columns.Add(COL_STOCK, "Stock")
+        dgvlistproducts.Columns.Add(COL_STATUS, "Status")
     End Sub
 
     Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
@@ -189,10 +163,8 @@ Public Class frmPOS
         pgProducts.Reset()
         LoadProducts()
     End Sub
-
     Private Function GetKeyword() As String
-        Dim t As String = txtProductSearch.Text.Trim()
-        Return If(t = PRODUCT_SEARCH_HINT, "", t)
+        Return txtProductSearch.Text.Trim()
     End Function
 
     Private Sub LoadProducts()
@@ -685,7 +657,14 @@ Public Class frmPOS
                     End If
                 Next
 
+                Dim itemParts As New List(Of String)
+                For Each crow As DataGridViewRow In dgvCart.Rows
+                    itemParts.Add(Convert.ToString(crow.Cells("ProductName").Value) & " x" & Convert.ToString(crow.Cells("Quantity").Value))
+                Next
+
                 trans.Commit()
+                LogActivity("Sale", txnNo, "Sale to " & buyerName & " (" & buyerType & ") - Total: " & total.ToString("N2") &
+            " (" & method & ", OR " & txtReferenceNo.Text.Trim() & "). Items: " & String.Join(", ", itemParts))
                 MsgBox("Transaction saved successfully!", vbInformation, "Point of Sale")
                 backorders.Clear()
                 ResetAll()
@@ -710,8 +689,6 @@ Public Class frmPOS
     End Sub
     Private Sub ResetAll()
         ResetPaymentInfo()
-        txtProductSearch.Text = PRODUCT_SEARCH_HINT
-        txtProductSearch.ForeColor = Color.Gray
         ResetQuantity()
         dgvCart.Rows.Clear()
         txtTotalAMount.Text = "₱0.00"

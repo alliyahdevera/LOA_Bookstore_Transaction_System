@@ -1,4 +1,28 @@
-﻿Public Module ApprovalHelper
+﻿Public Module PlaceholderHelper
+
+    Private Declare Unicode Function SendMessage Lib "user32.dll" Alias "SendMessageW" (hWnd As IntPtr, msg As Integer, wParam As Integer, lParam As String) As IntPtr
+    Private Const EM_SETCUEBANNER As Integer = &H1501
+
+    Public Sub SetPlaceholder(tb As TextBox, hint As String)
+        If tb.IsHandleCreated Then
+            SendMessage(tb.Handle, EM_SETCUEBANNER, 0, hint)
+        Else
+            AddHandler tb.HandleCreated, Sub() SendMessage(tb.Handle, EM_SETCUEBANNER, 0, hint)
+        End If
+    End Sub
+
+    Public Sub ApplySearchPlaceholders(parent As Control)
+        For Each c As Control In parent.Controls
+            Dim tb As TextBox = TryCast(c, TextBox)
+            If tb IsNot Nothing AndAlso Not tb.Multiline AndAlso tb.Name.IndexOf("search", StringComparison.OrdinalIgnoreCase) >= 0 Then
+                SetPlaceholder(tb, If(tb.Name = "txtProductSearch", "Product code or name", "Search..."))
+            End If
+            If c.HasChildren Then ApplySearchPlaceholders(c)
+        Next
+    End Sub
+
+End Module
+Public Module ApprovalHelper
 
     ' Returns the approving supervisor's full name, or Nothing if cancelled / not approved.
     Public Function RequireSupervisorApproval(owner As IWin32Window, action As String) As String

@@ -11,8 +11,8 @@ Public Class frmUserManagement
         cboStatus.DropDownStyle = ComboBoxStyle.DropDownList
 
         ' Populate Role ComboBox
-        cboRole.Items.Clear()
-        cboRole.Items.AddRange(New Object() {ROLE_SUPERVISOR, ROLE_CASHIER, ROLE_INVENTORY_STAFF, ROLE_MANAGEMENT})
+        FillCombo(cboRole, GetDataTable("SELECT role_id, role_name FROM TBL_ROLES ORDER BY role_id"), "role_name", "role_id")
+        cboRole.SelectedIndex = -1
 
         ' Populate Status ComboBox
         cboStatus.Items.Clear()
@@ -63,7 +63,7 @@ Public Class frmUserManagement
         End If
 
         ' Dropdown validations
-        If cboRole.SelectedIndex = -1 OrElse Not cboRole.Items.Contains(cboRole.Text) Then
+        If cboRole.SelectedIndex = -1 Then
             MsgBox("Please select a valid Role from the list.", vbExclamation, "Validation Error")
             cboRole.Focus()
             Return False
@@ -144,7 +144,7 @@ Public Class frmUserManagement
         txtusername.Text = row.Cells(0).Value.ToString()
         txtpassword.Clear()
         txtconfirmpassword.Clear()
-        cboRole.Text = row.Cells(2).Value.ToString()
+        cboRole.SelectedIndex = cboRole.FindStringExact(row.Cells(2).Value.ToString())
         txtfirstname.Text = row.Cells(3).Value.ToString()
         txtlastname.Text = row.Cells(4).Value.ToString()
         cboStatus.Text = row.Cells(5).Value.ToString()
@@ -154,7 +154,7 @@ Public Class frmUserManagement
         If Not ValidateUserInputs(True) Then Exit Sub
 
         Try
-            Dim roleId As Integer = Convert.ToInt32(If(ExecScalar("SELECT role_id FROM TBL_ROLES WHERE role_name = @r", New String() {"@r"}, New Object() {cboRole.Text.Trim()}), 0))
+            Dim roleId As Integer = SelectedId(cboRole)
 
             Dim ok As Boolean = ExecNonQuery(
                 "INSERT INTO TBL_USERS (username, password, first_name, last_name, role_id, status) VALUES (@u, @p, @f, @l, @r, @s)",

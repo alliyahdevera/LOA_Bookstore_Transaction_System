@@ -76,14 +76,11 @@ Public Class frmPayment
         Dim hasPrefill As Boolean = Not String.IsNullOrWhiteSpace(PrefillORNo)
 
         txtORNo.Text = If(hasPrefill, PrefillORNo, NewORNo())
-        txtORNo.ReadOnly = True
 
         dtpORDate.MaxDate = Date.Today
         dtpORDate.Value = If(hasPrefill AndAlso PrefillDate.Date <= Date.Today, PrefillDate.Date, Date.Today)
 
-        txtGrandTotal.Text = Peso & GrandTotal.ToString("N2")     ' comes from frmPOS
-        txtGrandTotal.ReadOnly = True
-        txtChange.ReadOnly = True
+        txtGrandTotal.Text = Peso & GrandTotal.ToString("N2")
         txtEmployeeName.MaxLength = 150
 
         cboPaymentMethod.DropDownStyle = ComboBoxStyle.DropDownList

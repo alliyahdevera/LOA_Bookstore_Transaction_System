@@ -30,6 +30,22 @@ Partial Class frmTransactionHistory
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvtransaction = New System.Windows.Forms.DataGridView()
+        Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SubTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TotalAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Time = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AmountChange = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PaymentMethod = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProcessedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Panel13 = New System.Windows.Forms.Panel()
@@ -57,22 +73,6 @@ Partial Class frmTransactionHistory
         Me.Label11 = New System.Windows.Forms.Label()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SubTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TotalAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.tDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Time = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AmountChange = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PaymentMethod = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProcessedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvtransaction, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
@@ -139,6 +139,118 @@ Partial Class frmTransactionHistory
         Me.dgvtransaction.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvtransaction.Size = New System.Drawing.Size(1167, 575)
         Me.dgvtransaction.TabIndex = 1
+        '
+        'TransactionNo
+        '
+        Me.TransactionNo.HeaderText = "Transaction No."
+        Me.TransactionNo.Name = "TransactionNo"
+        Me.TransactionNo.ReadOnly = True
+        Me.TransactionNo.Width = 99
+        '
+        'BuyerName
+        '
+        Me.BuyerName.HeaderText = "Buyer Name"
+        Me.BuyerName.Name = "BuyerName"
+        Me.BuyerName.ReadOnly = True
+        Me.BuyerName.Width = 83
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
+        Me.ProductCode.Width = 89
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
+        Me.ProductName.Width = 92
+        '
+        'Size
+        '
+        Me.Size.HeaderText = "Size"
+        Me.Size.Name = "Size"
+        Me.Size.ReadOnly = True
+        Me.Size.Width = 52
+        '
+        'UnitPrice
+        '
+        Me.UnitPrice.HeaderText = "Unit Price"
+        Me.UnitPrice.Name = "UnitPrice"
+        Me.UnitPrice.ReadOnly = True
+        Me.UnitPrice.Width = 72
+        '
+        'SubTotal
+        '
+        Me.SubTotal.HeaderText = "Sub Total"
+        Me.SubTotal.Name = "SubTotal"
+        Me.SubTotal.ReadOnly = True
+        Me.SubTotal.Width = 72
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
+        Me.Quantity.Width = 71
+        '
+        'TotalAmount
+        '
+        Me.TotalAmount.HeaderText = "Total Amount"
+        Me.TotalAmount.Name = "TotalAmount"
+        Me.TotalAmount.ReadOnly = True
+        Me.TotalAmount.Width = 88
+        '
+        'tDate
+        '
+        Me.tDate.HeaderText = "Date"
+        Me.tDate.Name = "tDate"
+        Me.tDate.ReadOnly = True
+        Me.tDate.Width = 55
+        '
+        'Time
+        '
+        Me.Time.HeaderText = "Time"
+        Me.Time.Name = "Time"
+        Me.Time.ReadOnly = True
+        Me.Time.Width = 55
+        '
+        'AmountPaid
+        '
+        Me.AmountPaid.HeaderText = "Amount Paid"
+        Me.AmountPaid.Name = "AmountPaid"
+        Me.AmountPaid.ReadOnly = True
+        Me.AmountPaid.Width = 85
+        '
+        'AmountChange
+        '
+        Me.AmountChange.HeaderText = "Amount Change"
+        Me.AmountChange.Name = "AmountChange"
+        Me.AmountChange.ReadOnly = True
+        Me.AmountChange.Width = 99
+        '
+        'PaymentMethod
+        '
+        Me.PaymentMethod.HeaderText = "Payment Method"
+        Me.PaymentMethod.Name = "PaymentMethod"
+        Me.PaymentMethod.ReadOnly = True
+        Me.PaymentMethod.Width = 103
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
+        Me.Status.Width = 62
+        '
+        'ProcessedBy
+        '
+        Me.ProcessedBy.HeaderText = "Processed By"
+        Me.ProcessedBy.Name = "ProcessedBy"
+        Me.ProcessedBy.ReadOnly = True
+        Me.ProcessedBy.Width = 89
         '
         'Panel6
         '
@@ -416,118 +528,6 @@ Partial Class frmTransactionHistory
         Me.Label4.Size = New System.Drawing.Size(36, 17)
         Me.Label4.TabIndex = 146
         Me.Label4.Text = "Type"
-        '
-        'TransactionNo
-        '
-        Me.TransactionNo.HeaderText = "Transaction No."
-        Me.TransactionNo.Name = "TransactionNo"
-        Me.TransactionNo.ReadOnly = True
-        Me.TransactionNo.Width = 99
-        '
-        'BuyerName
-        '
-        Me.BuyerName.HeaderText = "Buyer Name"
-        Me.BuyerName.Name = "BuyerName"
-        Me.BuyerName.ReadOnly = True
-        Me.BuyerName.Width = 83
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        Me.ProductCode.ReadOnly = True
-        Me.ProductCode.Width = 89
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        Me.ProductName.ReadOnly = True
-        Me.ProductName.Width = 92
-        '
-        'Size
-        '
-        Me.Size.HeaderText = "Size"
-        Me.Size.Name = "Size"
-        Me.Size.ReadOnly = True
-        Me.Size.Width = 52
-        '
-        'UnitPrice
-        '
-        Me.UnitPrice.HeaderText = "Unit Price"
-        Me.UnitPrice.Name = "UnitPrice"
-        Me.UnitPrice.ReadOnly = True
-        Me.UnitPrice.Width = 72
-        '
-        'SubTotal
-        '
-        Me.SubTotal.HeaderText = "Sub Total"
-        Me.SubTotal.Name = "SubTotal"
-        Me.SubTotal.ReadOnly = True
-        Me.SubTotal.Width = 72
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        Me.Quantity.ReadOnly = True
-        Me.Quantity.Width = 71
-        '
-        'TotalAmount
-        '
-        Me.TotalAmount.HeaderText = "Total Amount"
-        Me.TotalAmount.Name = "TotalAmount"
-        Me.TotalAmount.ReadOnly = True
-        Me.TotalAmount.Width = 88
-        '
-        'tDate
-        '
-        Me.tDate.HeaderText = "Date"
-        Me.tDate.Name = "tDate"
-        Me.tDate.ReadOnly = True
-        Me.tDate.Width = 55
-        '
-        'Time
-        '
-        Me.Time.HeaderText = "Time"
-        Me.Time.Name = "Time"
-        Me.Time.ReadOnly = True
-        Me.Time.Width = 55
-        '
-        'AmountPaid
-        '
-        Me.AmountPaid.HeaderText = "Amount Paid"
-        Me.AmountPaid.Name = "AmountPaid"
-        Me.AmountPaid.ReadOnly = True
-        Me.AmountPaid.Width = 85
-        '
-        'AmountChange
-        '
-        Me.AmountChange.HeaderText = "Amount Change"
-        Me.AmountChange.Name = "AmountChange"
-        Me.AmountChange.ReadOnly = True
-        Me.AmountChange.Width = 99
-        '
-        'PaymentMethod
-        '
-        Me.PaymentMethod.HeaderText = "Payment Method"
-        Me.PaymentMethod.Name = "PaymentMethod"
-        Me.PaymentMethod.ReadOnly = True
-        Me.PaymentMethod.Width = 103
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
-        Me.Status.Width = 62
-        '
-        'ProcessedBy
-        '
-        Me.ProcessedBy.HeaderText = "Processed By"
-        Me.ProcessedBy.Name = "ProcessedBy"
-        Me.ProcessedBy.ReadOnly = True
-        Me.ProcessedBy.Width = 89
         '
         'frmTransactionHistory
         '

@@ -67,7 +67,7 @@ Partial Class frmStudentManagement
         Me.Label8 = New System.Windows.Forms.Label()
         Me.btnadd = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cboSearchGradeLevel = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -528,15 +528,15 @@ Partial Class frmStudentManagement
         Me.Label6.TabIndex = 98
         Me.Label6.Text = "Student Management"
         '
-        'ComboBox1
+        'cboSearchGradeLevel
         '
-        Me.ComboBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
-        Me.ComboBox1.Location = New System.Drawing.Point(1013, 293)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(174, 25)
-        Me.ComboBox1.TabIndex = 123
+        Me.cboSearchGradeLevel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboSearchGradeLevel.FormattingEnabled = True
+        Me.cboSearchGradeLevel.Items.AddRange(New Object() {"Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "1st Year College", "2nd Year College", "3rd Year College", "4th Year College"})
+        Me.cboSearchGradeLevel.Location = New System.Drawing.Point(1013, 293)
+        Me.cboSearchGradeLevel.Name = "cboSearchGradeLevel"
+        Me.cboSearchGradeLevel.Size = New System.Drawing.Size(174, 25)
+        Me.cboSearchGradeLevel.TabIndex = 123
         '
         'Label5
         '
@@ -553,7 +553,7 @@ Partial Class frmStudentManagement
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.cboSearchGradeLevel)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.btnclear)
@@ -630,7 +630,7 @@ Partial Class frmStudentManagement
     Friend WithEvents GradeLevel As DataGridViewTextBoxColumn
     Friend WithEvents ProgramStrand As DataGridViewTextBoxColumn
     Friend WithEvents Section As DataGridViewTextBoxColumn
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cboSearchGradeLevel As ComboBox
     Friend WithEvents Label5 As Label
     Friend WithEvents cboProgram As ComboBox
     Friend WithEvents Label3 As Label

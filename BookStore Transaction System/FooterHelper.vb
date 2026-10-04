@@ -2,6 +2,7 @@
 
     ' Same footer everywhere: Name | Position | live date & time
     Public Sub SetupFooter(frm As Form, lblName As Label, lblPosition As Label, lblDateTime As Label)
+        ApplySearchPlaceholders(frm)
         lblName.Text = If(Not String.IsNullOrEmpty(currentuser.FullName), currentuser.FullName, "N/A")
         lblPosition.Text = If(Not String.IsNullOrEmpty(currentuser.Role), currentuser.Role, "N/A")
         lblDateTime.Text = DateTime.Now.ToString("dddd, MMMM d, yyyy h:mm:ss tt")

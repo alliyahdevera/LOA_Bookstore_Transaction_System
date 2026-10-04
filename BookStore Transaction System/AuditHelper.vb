@@ -39,5 +39,19 @@ Public Module AuditHelper
             If cn.State = ConnectionState.Open Then cn.Close()
         End Try
     End Sub
+    Public Function TransactionItemsSummary(transactionId As Integer) As String
+        Dim dt As DataTable = GetDataTable(
+            "SELECT p.product_name, v.size, ti.quantity FROM tbl_transaction_items ti " &
+            "INNER JOIN tbl_product_variants v ON ti.variant_id = v.variant_id " &
+            "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
+            "WHERE ti.transaction_id = @id ORDER BY ti.transaction_item_id",
+            New String() {"@id"}, New Object() {transactionId})
 
+        Dim parts As New List(Of String)
+        For Each r As DataRow In dt.Rows
+            Dim sz As String = r("size").ToString()
+            parts.Add(r("product_name").ToString() & If(sz <> "" AndAlso sz <> "N/A", " (" & sz & ")", "") & " x" & r("quantity").ToString())
+        Next
+        Return String.Join(", ", parts)
+    End Function
 End Module

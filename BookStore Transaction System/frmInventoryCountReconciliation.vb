@@ -19,7 +19,7 @@ Public Class frmInventoryCountReconciliation
 
     ' ==================== LOAD ====================
     Private Sub frmInventoryCountReconciliation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        txtGrandTotal.ReadOnly = True          ' Displays the Count Date
+
         txtGrandTotal.Text = Date.Today.ToString("MMMM d, yyyy")
 
         cbocategory.DropDownStyle = ComboBoxStyle.DropDownList

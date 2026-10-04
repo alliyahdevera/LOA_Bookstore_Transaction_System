@@ -91,15 +91,15 @@ Public Class frmRemittance
         End If
 
         Dim dt As DataTable = GetDataTable(
-            "SELECT r.remittance_no, e.reconciliation_date, CONCAT(u.first_name, ' ', u.last_name) AS cashier, " &
-            "e.total_sales, e.cash_sales, e.actual_cash, e.salary_deduction, r.remittance_amount, r.or_from, r.or_to, " &
-            "r.remitted_at, r.received_by, r.remarks AS rem_remarks, e.remarks AS eod_remarks, e.difference, e.status " &
-            "FROM tbl_remittances r " &
-            "INNER JOIN tbl_end_of_day e ON r.end_of_day_id = e.end_of_day_id " &
-            "INNER JOIN tbl_users u ON e.cashier_id = u.user_id " &
-            "WHERE e.reconciliation_date BETWEEN @d1 AND @d2 " &
-            "AND (@c = 0 OR e.cashier_id = @c) " &
-            "ORDER BY r.remitted_at DESC, r.remittance_id DESC",
+            "SELECT r.remittance_no, COALESCE(r.reconciliation_date, DATE(r.remitted_at)) AS reconciliation_date, " &
+"CONCAT(u.first_name, ' ', u.last_name) AS cashier, " &
+"r.total_sales, r.cash_sales, r.actual_cash, r.salary_deduction, r.remittance_amount, r.or_from, r.or_to, " &
+"r.remitted_at, r.received_by, r.remarks AS rem_remarks, r.variance_remarks AS eod_remarks, r.difference, r.cash_status AS status " &
+"FROM tbl_remittances r " &
+"INNER JOIN tbl_users u ON r.prepared_by = u.user_id " &
+"WHERE COALESCE(r.reconciliation_date, DATE(r.remitted_at)) BETWEEN @d1 AND @d2 " &
+"AND (@c = 0 OR r.prepared_by = @c) " &
+"ORDER BY r.remitted_at DESC, r.remittance_id DESC",
             New String() {"@d1", "@d2", "@c"},
             New Object() {dtfrom.Value.Date, dtto.Value.Date, cashierId})
 

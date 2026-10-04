@@ -5,7 +5,6 @@ Public Class frmLowLevelStocks
     Private Sub frmLowLevelStocks_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
-        dgvListOfProducts.ReadOnly = True
         dgvListOfProducts.AllowUserToAddRows = False
         pg = New GridPager(dgvListOfProducts, 20)
         AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim())

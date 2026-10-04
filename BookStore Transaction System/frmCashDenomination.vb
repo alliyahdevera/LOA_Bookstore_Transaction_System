@@ -222,24 +222,31 @@ Public Class frmCashDenomination
                     Try
                         Dim remittanceId As Long
 
-                        ' Clean INSERT query into tbl_remittances (end_of_day_id removed)
                         Using q As New MySqlCommand(
-                            "INSERT INTO tbl_remittances (remittance_no, prepared_by, verified_by, remittance_amount, status, " &
-                            "prepared_at, remarks, or_from, or_to, received_by, remitted_at) " &
-                            "VALUES (@no, @by, NULL, @amt, @st, NOW(), @rm, @f, @t, @rb, NOW())", c, tx)
+    "INSERT INTO tbl_remittances (remittance_no, prepared_by, verified_by, remittance_amount, status, prepared_at, remarks, " &
+    "or_from, or_to, received_by, remitted_at, reconciliation_date, total_sales, cash_sales, salary_deduction, " &
+    "cash_transaction_count, salary_deduction_count, actual_cash, difference, cash_status, variance_remarks) " &
+    "VALUES (@no, @by, NULL, @amt, 'Pending', NOW(), @rm, @f, @t, @rb, NOW(), CURDATE(), @ts, @cs, @sd, @cc, @sc, @act, @diff, @cst, @vr)", c, tx)
                             q.Parameters.AddWithValue("@no", remittanceNo)
                             q.Parameters.AddWithValue("@by", currentuser.UserID)
                             q.Parameters.AddWithValue("@amt", actual)
-                            q.Parameters.AddWithValue("@st", statusText)
                             q.Parameters.AddWithValue("@rm", If(remitRemarks = "", CType(DBNull.Value, Object), remitRemarks))
                             q.Parameters.AddWithValue("@f", cboFrom.Text)
                             q.Parameters.AddWithValue("@t", cboTo.Text)
                             q.Parameters.AddWithValue("@rb", TextBox1.Text.Trim())
+                            q.Parameters.AddWithValue("@ts", cashSales + salaryDeduction)
+                            q.Parameters.AddWithValue("@cs", cashSales)
+                            q.Parameters.AddWithValue("@sd", salaryDeduction)
+                            q.Parameters.AddWithValue("@cc", cashCount)
+                            q.Parameters.AddWithValue("@sc", salaryCount)
+                            q.Parameters.AddWithValue("@act", actual)
+                            q.Parameters.AddWithValue("@diff", diff)
+                            q.Parameters.AddWithValue("@cst", statusText)
+                            q.Parameters.AddWithValue("@vr", If(String.IsNullOrWhiteSpace(txtRemarksr.Text), CType(DBNull.Value, Object), txtRemarksr.Text.Trim()))
                             q.ExecuteNonQuery()
                             remittanceId = q.LastInsertedId
                         End Using
 
-                        ' Insert cash breakdown into tbl_cash_denominations using remittanceId
                         For Each row As DataGridViewRow In dgvcashbreakdown.Rows
                             Dim qty As Integer = 0
                             Integer.TryParse(Convert.ToString(row.Cells("Quantity").Value), qty)
@@ -247,7 +254,7 @@ Public Class frmCashDenomination
                             Dim denom As Decimal = CDec(row.Tag)
 
                             Using q As New MySqlCommand(
-                                "INSERT INTO tbl_cash_denominations (end_of_day_id, denomination, quantity, amount) VALUES (@e, @d, @q, @a)", c, tx)
+        "INSERT INTO tbl_cash_denominations (remittance_id, denomination, quantity, amount) VALUES (@e, @d, @q, @a)", c, tx)
                                 q.Parameters.AddWithValue("@e", remittanceId)
                                 q.Parameters.AddWithValue("@d", denom)
                                 q.Parameters.AddWithValue("@q", qty)

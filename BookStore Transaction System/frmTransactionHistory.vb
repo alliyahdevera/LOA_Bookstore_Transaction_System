@@ -1,5 +1,4 @@
-﻿Imports System.Data.SqlClient
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
 
 Public Class frmTransactionHistory
     Private Const SEARCH_FILTER As String =
@@ -178,7 +177,7 @@ Public Class frmTransactionHistory
                 trans.Commit()
                 MsgBox("Transaction cancelled successfully and inventory stock restored.", vbInformation, "Transaction")
                 cn.Close()
-                LogActivity("Cancel Transaction", txnNo, "Cancelled " & txnNo & ". Reason: " & reason.Trim())
+                LogActivity("Cancel Transaction", txnNo, "Cancelled " & txnNo & ". Items: " & TransactionItemsSummary(transactionId) & ". Reason: " & reason.Trim())
 
                 LoadGrid(txtSearch.Text.Trim())
 
@@ -192,16 +191,5 @@ Public Class frmTransactionHistory
             If cn.State = ConnectionState.Open Then cn.Close()
             MsgBox("Error cancelling transaction: " & ex.Message, vbCritical, "Error")
         End Try
-    End Sub
-
-    Private Sub SetControlText(parent As Control, controlName As String, textValue As String)
-        For Each ctrl As Control In parent.Controls
-            If String.Equals(ctrl.Name, controlName, StringComparison.OrdinalIgnoreCase) Then
-                ctrl.Text = textValue
-            End If
-            If ctrl.HasChildren Then
-                SetControlText(ctrl, controlName, textValue)
-            End If
-        Next
     End Sub
 End Class
