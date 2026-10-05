@@ -60,6 +60,7 @@ Partial Class frmStockInHistory
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cbotype = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvstockinhistory, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -322,6 +323,7 @@ Partial Class frmStockInHistory
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Label10)
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
         Me.Panel1.Location = New System.Drawing.Point(94, 125)
@@ -432,6 +434,17 @@ Partial Class frmStockInHistory
         Me.Label8.TabIndex = 129
         Me.Label8.Text = "Type"
         '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label10.Location = New System.Drawing.Point(3, 3)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(223, 17)
+        Me.Label10.TabIndex = 131
+        Me.Label10.Text = "Reference Number or Product Name"
+        '
         'frmStockInHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -508,4 +521,5 @@ Partial Class frmStockInHistory
     Friend WithEvents Label9 As Label
     Friend WithEvents cbotype As ComboBox
     Friend WithEvents Label8 As Label
+    Friend WithEvents Label10 As Label
 End Class

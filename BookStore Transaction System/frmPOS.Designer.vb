@@ -96,6 +96,7 @@ Partial Class frmPOS
         Me.txtTransactionNo = New System.Windows.Forms.TextBox()
         Me.cboType = New System.Windows.Forms.ComboBox()
         Me.Type = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel5.SuspendLayout()
         Me.Panel11.SuspendLayout()
         Me.Panel7.SuspendLayout()
@@ -715,6 +716,7 @@ Partial Class frmPOS
         '
         Me.Panel12.BackColor = System.Drawing.Color.White
         Me.Panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel12.Controls.Add(Me.Label3)
         Me.Panel12.Controls.Add(Me.picSearchProduct)
         Me.Panel12.Controls.Add(Me.txtProductSearch)
         Me.Panel12.Location = New System.Drawing.Point(555, 78)
@@ -810,6 +812,17 @@ Partial Class frmPOS
         Me.Type.Size = New System.Drawing.Size(35, 17)
         Me.Type.TabIndex = 118
         Me.Type.Text = "Type"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label3.Location = New System.Drawing.Point(3, 3)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(193, 17)
+        Me.Label3.TabIndex = 119
+        Me.Label3.Text = "Product Name or Product Code"
         '
         'frmPOS
         '
@@ -939,4 +952,5 @@ Partial Class frmPOS
     Friend WithEvents Label13 As Label
     Friend WithEvents Label16 As Label
     Friend WithEvents pnlbuyertype As Panel
+    Friend WithEvents Label3 As Label
 End Class
