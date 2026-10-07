@@ -79,7 +79,6 @@ Partial Class frmTransactionDetails
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Panel11 = New System.Windows.Forms.Panel()
-        Me.txtCondition = New System.Windows.Forms.TextBox()
         Me.reason = New System.Windows.Forms.Label()
         Me.lblcondition = New System.Windows.Forms.Label()
         Me.txtcreatedby = New System.Windows.Forms.TextBox()
@@ -95,6 +94,7 @@ Partial Class frmTransactionDetails
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.cbocondt = New System.Windows.Forms.ComboBox()
         Me.Panel4.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.Panel7.SuspendLayout()
@@ -682,7 +682,7 @@ Partial Class frmTransactionDetails
         'Panel11
         '
         Me.Panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel11.Controls.Add(Me.txtCondition)
+        Me.Panel11.Controls.Add(Me.cbocondt)
         Me.Panel11.Controls.Add(Me.reason)
         Me.Panel11.Controls.Add(Me.lblcondition)
         Me.Panel11.Controls.Add(Me.txtcreatedby)
@@ -699,16 +699,6 @@ Partial Class frmTransactionDetails
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(413, 260)
         Me.Panel11.TabIndex = 130
-        '
-        'txtCondition
-        '
-        Me.txtCondition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtCondition.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCondition.Location = New System.Drawing.Point(126, 175)
-        Me.txtCondition.Name = "txtCondition"
-        Me.txtCondition.ReadOnly = True
-        Me.txtCondition.Size = New System.Drawing.Size(264, 25)
-        Me.txtCondition.TabIndex = 121
         '
         'reason
         '
@@ -866,6 +856,15 @@ Partial Class frmTransactionDetails
         Me.Label2.TabIndex = 126
         Me.Label2.Text = "———————————————————————" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
+        'cbocondt
+        '
+        Me.cbocondt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbocondt.FormattingEnabled = True
+        Me.cbocondt.Location = New System.Drawing.Point(126, 177)
+        Me.cbocondt.Name = "cbocondt"
+        Me.cbocondt.Size = New System.Drawing.Size(263, 25)
+        Me.cbocondt.TabIndex = 134
+        '
         'frmTransactionDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -979,6 +978,6 @@ Partial Class frmTransactionDetails
     Friend WithEvents Label28 As Label
     Friend WithEvents txttdate As TextBox
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents txtCondition As TextBox
     Friend WithEvents Label2 As Label
+    Friend WithEvents cbocondt As ComboBox
 End Class

@@ -37,16 +37,6 @@ Partial Class frmInventoryCountReconciliation
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvlistproducts = New System.Windows.Forms.DataGridView()
-        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TypeofProduct = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SystemQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PhysicalQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Difference = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Remarks = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -77,6 +67,17 @@ Partial Class frmInventoryCountReconciliation
         Me.Label23 = New System.Windows.Forms.Label()
         Me.cboType = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TypeofProduct = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SystemQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PhysicalQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Difference = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Condition = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Remarks = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
@@ -228,7 +229,7 @@ Partial Class frmInventoryCountReconciliation
         Me.dgvlistproducts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvlistproducts.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvlistproducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvlistproducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.Category, Me.TypeofProduct, Me.Size, Me.SystemQuantity, Me.PhysicalQuantity, Me.Difference, Me.Status, Me.Remarks})
+        Me.dgvlistproducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.Category, Me.TypeofProduct, Me.Size, Me.SystemQuantity, Me.PhysicalQuantity, Me.Difference, Me.Status, Me.Condition, Me.Remarks})
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -242,66 +243,6 @@ Partial Class frmInventoryCountReconciliation
         Me.dgvlistproducts.ReadOnly = True
         Me.dgvlistproducts.Size = New System.Drawing.Size(1161, 538)
         Me.dgvlistproducts.TabIndex = 1
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        Me.ProductCode.ReadOnly = True
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        Me.ProductName.ReadOnly = True
-        '
-        'Category
-        '
-        Me.Category.HeaderText = "Category"
-        Me.Category.Name = "Category"
-        Me.Category.ReadOnly = True
-        '
-        'TypeofProduct
-        '
-        Me.TypeofProduct.HeaderText = "Type of Product"
-        Me.TypeofProduct.Name = "TypeofProduct"
-        Me.TypeofProduct.ReadOnly = True
-        '
-        'Size
-        '
-        Me.Size.HeaderText = "Size"
-        Me.Size.Name = "Size"
-        Me.Size.ReadOnly = True
-        '
-        'SystemQuantity
-        '
-        Me.SystemQuantity.HeaderText = "System Quantity"
-        Me.SystemQuantity.Name = "SystemQuantity"
-        Me.SystemQuantity.ReadOnly = True
-        '
-        'PhysicalQuantity
-        '
-        Me.PhysicalQuantity.HeaderText = "Physical Quantity"
-        Me.PhysicalQuantity.Name = "PhysicalQuantity"
-        Me.PhysicalQuantity.ReadOnly = True
-        '
-        'Difference
-        '
-        Me.Difference.HeaderText = "Difference"
-        Me.Difference.Name = "Difference"
-        Me.Difference.ReadOnly = True
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
-        '
-        'Remarks
-        '
-        Me.Remarks.HeaderText = "Remarks"
-        Me.Remarks.Name = "Remarks"
-        Me.Remarks.ReadOnly = True
         '
         'Panel6
         '
@@ -624,6 +565,72 @@ Partial Class frmInventoryCountReconciliation
         Me.Label5.TabIndex = 177
         Me.Label5.Text = "Type"
         '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
+        '
+        'Category
+        '
+        Me.Category.HeaderText = "Category"
+        Me.Category.Name = "Category"
+        Me.Category.ReadOnly = True
+        '
+        'TypeofProduct
+        '
+        Me.TypeofProduct.HeaderText = "Type of Product"
+        Me.TypeofProduct.Name = "TypeofProduct"
+        Me.TypeofProduct.ReadOnly = True
+        '
+        'Size
+        '
+        Me.Size.HeaderText = "Size"
+        Me.Size.Name = "Size"
+        Me.Size.ReadOnly = True
+        '
+        'SystemQuantity
+        '
+        Me.SystemQuantity.HeaderText = "System Quantity"
+        Me.SystemQuantity.Name = "SystemQuantity"
+        Me.SystemQuantity.ReadOnly = True
+        '
+        'PhysicalQuantity
+        '
+        Me.PhysicalQuantity.HeaderText = "Physical Quantity"
+        Me.PhysicalQuantity.Name = "PhysicalQuantity"
+        Me.PhysicalQuantity.ReadOnly = True
+        '
+        'Difference
+        '
+        Me.Difference.HeaderText = "Difference"
+        Me.Difference.Name = "Difference"
+        Me.Difference.ReadOnly = True
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
+        '
+        'Condition
+        '
+        Me.Condition.HeaderText = "Condition"
+        Me.Condition.Name = "Condition"
+        Me.Condition.ReadOnly = True
+        '
+        'Remarks
+        '
+        Me.Remarks.HeaderText = "Remarks"
+        Me.Remarks.Name = "Remarks"
+        Me.Remarks.ReadOnly = True
+        '
         'frmInventoryCountReconciliation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -698,16 +705,6 @@ Partial Class frmInventoryCountReconciliation
     Friend WithEvents Label4 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents cbocategory As ComboBox
-    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
-    Friend WithEvents ProductName As DataGridViewTextBoxColumn
-    Friend WithEvents Category As DataGridViewTextBoxColumn
-    Friend WithEvents TypeofProduct As DataGridViewTextBoxColumn
-    Friend WithEvents Size As DataGridViewTextBoxColumn
-    Friend WithEvents SystemQuantity As DataGridViewTextBoxColumn
-    Friend WithEvents PhysicalQuantity As DataGridViewTextBoxColumn
-    Friend WithEvents Difference As DataGridViewTextBoxColumn
-    Friend WithEvents Status As DataGridViewTextBoxColumn
-    Friend WithEvents Remarks As DataGridViewTextBoxColumn
     Friend WithEvents btngenerate As Button
     Friend WithEvents btnreconcile As Button
     Friend WithEvents btnclear As Button
@@ -733,4 +730,15 @@ Partial Class frmInventoryCountReconciliation
     Friend WithEvents Label23 As Label
     Friend WithEvents cboType As ComboBox
     Friend WithEvents Label5 As Label
+    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
+    Friend WithEvents ProductName As DataGridViewTextBoxColumn
+    Friend WithEvents Category As DataGridViewTextBoxColumn
+    Friend WithEvents TypeofProduct As DataGridViewTextBoxColumn
+    Friend WithEvents Size As DataGridViewTextBoxColumn
+    Friend WithEvents SystemQuantity As DataGridViewTextBoxColumn
+    Friend WithEvents PhysicalQuantity As DataGridViewTextBoxColumn
+    Friend WithEvents Difference As DataGridViewTextBoxColumn
+    Friend WithEvents Status As DataGridViewTextBoxColumn
+    Friend WithEvents Condition As DataGridViewTextBoxColumn
+    Friend WithEvents Remarks As DataGridViewTextBoxColumn
 End Class

@@ -44,6 +44,7 @@ Partial Class frmDashboard
         Me.Label12 = New System.Windows.Forms.Label()
         Me.chtmostpurchased = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.pnlsalespmonth = New System.Windows.Forms.Panel()
+        Me.cbomonth = New System.Windows.Forms.ComboBox()
         Me.PictureBox7 = New System.Windows.Forms.PictureBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.chrtsalespermonth = New System.Windows.Forms.DataVisualization.Charting.Chart()
@@ -204,6 +205,7 @@ Partial Class frmDashboard
         'pnlsalespmonth
         '
         Me.pnlsalespmonth.BackColor = System.Drawing.Color.White
+        Me.pnlsalespmonth.Controls.Add(Me.cbomonth)
         Me.pnlsalespmonth.Controls.Add(Me.PictureBox7)
         Me.pnlsalespmonth.Controls.Add(Me.Label15)
         Me.pnlsalespmonth.Controls.Add(Me.chrtsalespermonth)
@@ -211,6 +213,15 @@ Partial Class frmDashboard
         Me.pnlsalespmonth.Name = "pnlsalespmonth"
         Me.pnlsalespmonth.Size = New System.Drawing.Size(570, 275)
         Me.pnlsalespmonth.TabIndex = 84
+        '
+        'cbomonth
+        '
+        Me.cbomonth.FormattingEnabled = True
+        Me.cbomonth.Items.AddRange(New Object() {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"})
+        Me.cbomonth.Location = New System.Drawing.Point(452, 21)
+        Me.cbomonth.Name = "cbomonth"
+        Me.cbomonth.Size = New System.Drawing.Size(98, 21)
+        Me.cbomonth.TabIndex = 40
         '
         'PictureBox7
         '
@@ -473,11 +484,11 @@ Partial Class frmDashboard
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(73, 93)
+        Me.Label3.Location = New System.Drawing.Point(98, 93)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(133, 21)
+        Me.Label3.Size = New System.Drawing.Size(86, 21)
         Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Total Sales Today"
+        Me.Label3.Text = "Total Sales"
         '
         'pnltotprod
         '
@@ -733,4 +744,5 @@ Partial Class frmDashboard
     Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label5 As Label
+    Friend WithEvents cbomonth As ComboBox
 End Class
