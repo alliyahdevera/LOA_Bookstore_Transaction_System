@@ -27,7 +27,6 @@ Public Class frmPOS
 
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplySearchPlaceholders(Me)
-
         dgvlistproducts.AutoGenerateColumns = False
         dgvCart.AutoGenerateColumns = False
 

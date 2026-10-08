@@ -3,6 +3,7 @@
     Private Const PAGE_SIZE As Integer = 25
     Private pg As GridPager
     Private isLoading As Boolean = True
+
     Private WithEvents tmrSearch As New System.Windows.Forms.Timer With {.Interval = 400}
 
     Private Sub frmNonSaleableStocks_Load(sender As Object, e As EventArgs) Handles MyBase.Load

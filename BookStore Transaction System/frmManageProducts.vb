@@ -5,8 +5,11 @@ Public Class frmManageProducts
     Private selectedProductId As Integer = 0
     Private selectedVariantId As Integer = 0
     Private isFilling As Boolean = False
+    Public Property InitialSearch As String = ""
+
 
     Private Sub frmManageProducts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         cboCategory.DropDownStyle = ComboBoxStyle.DropDownList          ' Product Information (add / update)
@@ -15,6 +18,7 @@ Public Class frmManageProducts
 
         pg = New GridPager(dgvListOfProducts, 20)
         AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim(), GetFilterCategoryId())
+        txtSearch.Text = InitialSearch
         LoadCategoryCombo()
         LoadFilterCombo()
         LoadGrid("", 0)

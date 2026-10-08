@@ -5,7 +5,10 @@ Public Class frmProductList
     Private pg As GridPager
     Private isFilling As Boolean = False
 
+    Public Property InitialSearch As String = ""
+
     Private Sub frmProductList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         pg = New GridPager(dgvlistproducts, 20)
@@ -15,7 +18,7 @@ Public Class frmProductList
         LoadCategoryCombo()
         FillTypeCombo(cbotype, 0)
         isFilling = False
-
+        txtSearch.Text = InitialSearch
         LoadCards()
         LoadGrid()
     End Sub

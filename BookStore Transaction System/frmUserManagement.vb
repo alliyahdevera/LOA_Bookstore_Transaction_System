@@ -4,7 +4,12 @@ Public Class frmUserManagement
 
     Private selectedUserId As Integer = 0
     Private pg As GridPager
+    Public Property InitialSearch As String = ""
+
+
+
     Private Sub frmUserManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         ' Restrict ComboBoxes to selection only (no free typing)
@@ -20,6 +25,9 @@ Public Class frmUserManagement
         cboStatus.Items.AddRange(New Object() {"Active", "Inactive"})
         pg = New GridPager(dgvlistusers, 20)
         AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim())
+        txtSearch.Text = InitialSearch
+
+
         LoadGrid("")
         ClearFields()
     End Sub

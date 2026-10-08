@@ -6,6 +6,10 @@ Public Class frmStudentManagement
     Private selectedStudentId As Integer = 0
     Private isFilling As Boolean = False
     Private pg As GridPager
+
+    Public Property InitialSearch As String = ""
+
+
     Private ReadOnly GradeLevels As String() = {
         "Kinder", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6",
         "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12",
@@ -16,6 +20,7 @@ Public Class frmStudentManagement
         "BSCpE", "BSIE", "BSREM", "BSTM", "BSHM", "JD"}
 
     Private Sub frmStudentManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         BindGridColumns()
@@ -32,6 +37,8 @@ Public Class frmStudentManagement
         Next
         pg = New GridPager(dgvstudents, 20)
         AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim())
+        txtSearch.Text = InitialSearch
+
         LoadGrid("")
         ClearFields()
     End Sub

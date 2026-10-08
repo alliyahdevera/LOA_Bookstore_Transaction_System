@@ -42,6 +42,7 @@ Partial Class frmStudentList
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cboGradeLevel = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
@@ -53,9 +54,10 @@ Partial Class frmStudentList
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(80, 86)
+        Me.Panel1.Location = New System.Drawing.Point(91, 86)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 112
@@ -85,9 +87,9 @@ Partial Class frmStudentList
         Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.Location = New System.Drawing.Point(24, 90)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(48, 17)
+        Me.Label14.Size = New System.Drawing.Size(67, 17)
         Me.Label14.TabIndex = 111
-        Me.Label14.Text = "Search"
+        Me.Label14.Text = "Search by"
         '
         'Panel6
         '
@@ -221,6 +223,17 @@ Partial Class frmStudentList
         Me.cboGradeLevel.Size = New System.Drawing.Size(174, 25)
         Me.cboGradeLevel.TabIndex = 121
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label2.Location = New System.Drawing.Point(3, 4)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(223, 17)
+        Me.Label2.TabIndex = 122
+        Me.Label2.Text = "Student Number or Student Name "
+        '
         'frmStudentList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -266,4 +279,5 @@ Partial Class frmStudentList
     Friend WithEvents GradeLevel As DataGridViewTextBoxColumn
     Friend WithEvents ProgramStrand As DataGridViewTextBoxColumn
     Friend WithEvents Section As DataGridViewTextBoxColumn
+    Friend WithEvents Label2 As Label
 End Class

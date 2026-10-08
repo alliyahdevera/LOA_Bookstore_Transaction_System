@@ -2,12 +2,17 @@
 
 Public Class frmLowLevelStocks
     Private pg As GridPager
+    Public Property InitialSearch As String = ""
+
+
     Private Sub frmLowLevelStocks_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         dgvListOfProducts.AllowUserToAddRows = False
         pg = New GridPager(dgvListOfProducts, 20)
         AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim())
+        txtSearch.Text = InitialSearch
         LoadGrid("")
     End Sub
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged

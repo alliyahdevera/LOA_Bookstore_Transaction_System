@@ -77,6 +77,7 @@ Public Class frmInventoryCountReconciliation
         GetType(DataGridView).InvokeMember("DoubleBuffered",
             Reflection.BindingFlags.NonPublic Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.SetProperty,
             Nothing, dgvlistproducts, New Object() {True})
+        txtSearch.Text = InitialSearch
 
         isLoading = False
         LoadProducts()          ' no pager: everything loads in one list
