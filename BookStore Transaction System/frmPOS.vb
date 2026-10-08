@@ -100,26 +100,11 @@ Public Class frmPOS
         LoadTypeCombo()
         isLoadingFilters = False
     End Sub
-
     Private Sub LoadTypeCombo()
         cboType.DropDownStyle = ComboBoxStyle.DropDownList
-        cboType.Items.Clear()
-        cboType.Items.Add("All Types")
-
-        Dim dt As DataTable
-        If cbocategory.SelectedIndex <= 0 Then
-            dt = GetDataTable("SELECT DISTINCT type_name FROM tbl_category_types ORDER BY type_name")
-        Else
-            ' look the category up by name (same text that is shown in cbocategory)
-            dt = GetDataTable("SELECT ct.type_name FROM tbl_category_types ct " &
-                          "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
-                          "WHERE c.category_name = @c ORDER BY ct.type_name",
-                          New String() {"@c"}, New Object() {Convert.ToString(cbocategory.SelectedItem)})
-        End If
-        For Each r As DataRow In dt.Rows
-            cboType.Items.Add(r("type_name").ToString())
-        Next
-        cboType.SelectedIndex = 0
+        FillTypeNameCombo(cboType,
+            If(cbocategory.SelectedIndex <= 0, "", Convert.ToString(cbocategory.SelectedItem)),
+            TypeSource.Products, True)
     End Sub
 
     Private Sub LoadBuyerTypeCombo()

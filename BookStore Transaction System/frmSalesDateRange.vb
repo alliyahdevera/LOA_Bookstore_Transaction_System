@@ -17,7 +17,7 @@
         dt.Rows.InsertAt(row, 0)
         FillCombo(cbocategory, dt, "category_name", "category_id")
         cbocategory.SelectedIndex = 0
-        FillTypeCombo(cbotype, 0)
+        FillTypeCombo(cbotype, 0, TypeSource.Sales)
         isFilling = False
 
         LoadGrid()
@@ -26,7 +26,7 @@
     Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
         If isFilling Then Exit Sub
         isFilling = True
-        FillTypeCombo(cbotype, SelectedId(cbocategory))
+        FillTypeCombo(cbotype, SelectedId(cbocategory), TypeSource.Sales)
         isFilling = False
         LoadGrid()
     End Sub

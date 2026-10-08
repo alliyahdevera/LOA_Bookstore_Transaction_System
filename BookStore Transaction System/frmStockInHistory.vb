@@ -15,7 +15,7 @@ Public Class frmStockInHistory
 
         LoadCategoryCombo()
         isFilling = True
-        FillTypeCombo(cbotype, 0)
+        FillTypeCombo(cbotype, 0, TypeSource.StockIns)
         isFilling = False
         LoadGrid()
     End Sub
@@ -34,7 +34,7 @@ Public Class frmStockInHistory
     Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
         If isFilling Then Exit Sub
         isFilling = True
-        FillTypeCombo(cbotype, SelectedId(cbocategory))
+        FillTypeCombo(cbotype, SelectedId(cbocategory), TypeSource.StockIns)
         isFilling = False
         pg.Reset()
         LoadGrid()

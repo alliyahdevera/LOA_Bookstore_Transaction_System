@@ -93,20 +93,81 @@ Public Module InventoryUi
         Return 0
     End Function
 
-    ' Fills a "Type" filter combo for a category (0 = all categories). Index 0 is "-- All Types --".
-    Public Sub FillTypeCombo(cbo As ComboBox, categoryId As Integer)
-        Dim dt As DataTable
+    ' Which data a type must have to appear in the combo
+    Public Enum TypeSource
+        Products   ' type has at least one product that has a variant
+        StockIns   ' type has at least one stock-in record
+        Sales      ' type has at least one sold (non-cancelled) item
+    End Enum
+
+    Private Function TypeHasDataSql(source As TypeSource, activeOnly As Boolean) As String
+        Select Case source
+            Case TypeSource.StockIns
+                Return "EXISTS (SELECT 1 FROM TBL_STOCK_IN_DETAILS sid " &
+                       "INNER JOIN TBL_PRODUCT_VARIANTS v ON sid.variant_id = v.variant_id " &
+                       "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+                       "WHERE p.category_type_id = ct.category_type_id)"
+            Case TypeSource.Sales
+                Return "EXISTS (SELECT 1 FROM TBL_TRANSACTION_ITEMS ti " &
+                       "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
+                       "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
+                       "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+                       "WHERE p.category_type_id = ct.category_type_id AND t.status <> 'Cancelled')"
+            Case Else
+                Return "EXISTS (SELECT 1 FROM TBL_PRODUCTS p " &
+                       "INNER JOIN TBL_PRODUCT_VARIANTS v ON v.product_id = p.product_id " &
+                       "WHERE p.category_type_id = ct.category_type_id" &
+                       If(activeOnly, " AND p.status = 'Active'", "") & ")"
+        End Select
+    End Function
+
+    ' Returns category_type_id + type_name for types that have data (categoryId 0 = all categories)
+    Public Function GetTypesWithData(categoryId As Integer, source As TypeSource, activeOnly As Boolean) As DataTable
+        Dim sql As String = "SELECT ct.category_type_id, ct.type_name FROM TBL_CATEGORY_TYPES ct WHERE " &
+                            TypeHasDataSql(source, activeOnly)
         If categoryId = 0 Then
-            dt = GetDataTable("SELECT category_type_id, type_name FROM TBL_CATEGORY_TYPES ORDER BY type_name")
-        Else
-            dt = GetDataTable("SELECT category_type_id, type_name FROM TBL_CATEGORY_TYPES WHERE category_id = @c ORDER BY type_name",
-                              New String() {"@c"}, New Object() {categoryId})
+            Return GetDataTable(sql & " ORDER BY ct.type_name")
         End If
+        Return GetDataTable(sql & " AND ct.category_id = @c ORDER BY ct.type_name",
+                            New String() {"@c"}, New Object() {categoryId})
+    End Function
+
+    ' ID-based type combo (ValueMember = category_type_id). Index 0 is "-- All Types --".
+    Public Sub FillTypeCombo(cbo As ComboBox, categoryId As Integer,
+                             Optional source As TypeSource = TypeSource.Products,
+                             Optional activeOnly As Boolean = False)
+        Dim dt As DataTable = GetTypesWithData(categoryId, source, activeOnly)
         Dim row As DataRow = dt.NewRow()
         row("category_type_id") = 0
         row("type_name") = "-- All Types --"
         dt.Rows.InsertAt(row, 0)
         FillCombo(cbo, dt, "type_name", "category_type_id")
+        cbo.SelectedIndex = 0
+    End Sub
+
+    ' Name-based type combo (Items list) for forms that filter by type name. Index 0 is "All Types".
+    ' categoryName "" = all categories.
+    Public Sub FillTypeNameCombo(cbo As ComboBox, categoryName As String,
+                                 Optional source As TypeSource = TypeSource.Products,
+                                 Optional activeOnly As Boolean = False)
+        Dim catId As Integer = 0
+        If categoryName <> "" Then
+            catId = Convert.ToInt32(If(ExecScalar("SELECT category_id FROM TBL_CATEGORIES WHERE category_name = @n",
+                                                  New String() {"@n"}, New Object() {categoryName}), 0))
+        End If
+
+        cbo.Items.Clear()
+        cbo.Items.Add("All Types")
+
+        ' category chosen but not found -> only "All Types"
+        If categoryName = "" OrElse catId > 0 Then
+            Dim dt As DataTable = GetTypesWithData(catId, source, activeOnly)
+            Dim seen As New HashSet(Of String)(StringComparer.OrdinalIgnoreCase)
+            For Each r As DataRow In dt.Rows
+                Dim n As String = r("type_name").ToString()
+                If seen.Add(n) Then cbo.Items.Add(n)   ' avoids duplicate names across categories
+            Next
+        End If
         cbo.SelectedIndex = 0
     End Sub
 
