@@ -8,6 +8,8 @@
     Public Const FRM_USERMGMT As String = "FRM_USERMGMT"
     Public Const FRM_STUDENTMGMT As String = "FRM_STUDENTMGMT"
     Public Const FRM_AUDITLOGS As String = "FRM_AUDITLOGS"
+    Public Const FRM_EMPLOYEEMGMT As String = "FRM_EMPLOYEEMGMT"
+    Public Const FRM_SETTINGS As String = "FRM_SETTINGS"
     Public Const ROLE_SUPERVISOR As String = "Bookstore Supervisor"
     Public Const ROLE_CASHIER As String = "Cashier"
     Public Const ROLE_INVENTORY_STAFF As String = "Inventory Staff"
@@ -17,7 +19,8 @@
 
     Private ReadOnly AllModules As String() = New String() {
         FRM_DASHBOARD, FRM_POS, FRM_INVENTORY, FRM_TRANSACTION,
-        FRM_REPORTS, FRM_USERMGMT, FRM_STUDENTMGMT, FRM_AUDITLOGS
+        FRM_REPORTS, FRM_USERMGMT, FRM_STUDENTMGMT, FRM_AUDITLOGS,
+        FRM_EMPLOYEEMGMT, FRM_SETTINGS
     }
 
     Private Function IsRole(roleName As String, expected As String) As Boolean

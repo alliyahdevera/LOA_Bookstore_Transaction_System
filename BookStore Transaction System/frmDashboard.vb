@@ -3,7 +3,7 @@ Imports MySql.Data.MySqlClient
 
 Public Class frmDashboard
     Private Const QTY_SOLD As String = "ti.quantity"
-
+    Private isLoadingMonth As Boolean = True
     Private WithEvents tmrClock As System.Windows.Forms.Timer
 
     Private Sub frmDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -25,11 +25,28 @@ Public Class frmDashboard
             tmrClock.Interval = 1000
             tmrClock.Start()
             UpdateFooterDateTime()
-
+            InitMonthCombo()
+            RefreshDashboard()
             RefreshDashboard()
         Catch ex As Exception
             MsgBox("Error initializing Dashboard Form: " & ex.Message, vbCritical, "Init Error")
         End Try
+    End Sub
+    Private Sub InitMonthCombo()
+        cbomonth.DropDownStyle = ComboBoxStyle.DropDownList
+        cbomonth.Items.Clear()
+        cbomonth.Items.Add("Whole Year")
+        For m As Integer = 1 To 12
+            cbomonth.Items.Add(MonthName(m))
+        Next
+        cbomonth.SelectedIndex = 0
+        cbomonth.BringToFront()
+        isLoadingMonth = False
+    End Sub
+
+    Private Sub cbomonth_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbomonth.SelectedIndexChanged
+        If isLoadingMonth Then Exit Sub
+        LoadSalesPerMonth()
     End Sub
     Private Sub frmDashboard_Disposed(sender As Object, e As EventArgs) Handles MyBase.Disposed
         If tmrClock IsNot Nothing Then
@@ -202,42 +219,69 @@ Public Class frmDashboard
 
     Private Sub LoadSalesPerMonth()
         Dim currentYear As Integer = DateTime.Today.Year
+        Dim selMonth As Integer = If(cbomonth.SelectedIndex > 0, cbomonth.SelectedIndex, 0)   ' 0 = whole year
 
         Try
             If Not connection() Then Exit Sub
 
-            Dim totals(12) As Decimal
-
-            Dim monthSql As String = "SELECT MONTH(or_date) AS m, SUM(total_amount) AS total " &
-                                     "FROM TBL_TRANSACTIONS WHERE YEAR(or_date) = @year AND status <> 'Cancelled' " &
-                                     "GROUP BY MONTH(or_date)"
-
-            Using localCmd As New MySqlCommand(monthSql, cn)
-                localCmd.Parameters.AddWithValue("@year", currentYear)
-                Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    While localDr.Read()
-                        totals(Convert.ToInt32(localDr("m"))) = Convert.ToDecimal(localDr("total"))
-                    End While
-                End Using
-            End Using
+            Label15.AutoSize = True
 
             With chrtsalespermonth.Series("Series1")
                 .Points.Clear()
                 .BorderWidth = 3
                 .MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle
                 .MarkerSize = 7
-                For m As Integer = 1 To 12
-                    .Points.AddXY(MonthName(m, True), Convert.ToDouble(totals(m)))
-                Next
             End With
-            chrtsalespermonth.ChartAreas(0).AxisX.Interval = 1
-            chrtsalespermonth.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
 
+            If selMonth = 0 Then
+                ' ---- 12 months of the year ----
+                Dim totals(12) As Decimal
+                Dim monthSql As String = "SELECT MONTH(or_date) AS m, SUM(total_amount) AS total " &
+                                         "FROM TBL_TRANSACTIONS WHERE YEAR(or_date) = @year AND status <> 'Cancelled' " &
+                                         "GROUP BY MONTH(or_date)"
+                Using localCmd As New MySqlCommand(monthSql, cn)
+                    localCmd.Parameters.AddWithValue("@year", currentYear)
+                    Using localDr As MySqlDataReader = localCmd.ExecuteReader()
+                        While localDr.Read()
+                            totals(Convert.ToInt32(localDr("m"))) = Convert.ToDecimal(localDr("total"))
+                        End While
+                    End Using
+                End Using
+
+                For m As Integer = 1 To 12
+                    chrtsalespermonth.Series("Series1").Points.AddXY(MonthName(m, True), Convert.ToDouble(totals(m)))
+                Next
+                chrtsalespermonth.ChartAreas(0).AxisX.Interval = 1
+                Label15.Text = "SALES PER MONTH - " & currentYear
+            Else
+                ' ---- every day of the chosen month ----
+                Dim days As Integer = DateTime.DaysInMonth(currentYear, selMonth)
+                Dim daily(days) As Decimal
+                Dim daySql As String = "SELECT DAY(or_date) AS d, SUM(total_amount) AS total " &
+                                       "FROM TBL_TRANSACTIONS WHERE YEAR(or_date) = @year AND MONTH(or_date) = @month " &
+                                       "AND status <> 'Cancelled' GROUP BY DAY(or_date)"
+                Using localCmd As New MySqlCommand(daySql, cn)
+                    localCmd.Parameters.AddWithValue("@year", currentYear)
+                    localCmd.Parameters.AddWithValue("@month", selMonth)
+                    Using localDr As MySqlDataReader = localCmd.ExecuteReader()
+                        While localDr.Read()
+                            daily(Convert.ToInt32(localDr("d"))) = Convert.ToDecimal(localDr("total"))
+                        End While
+                    End Using
+                End Using
+
+                For d As Integer = 1 To days
+                    chrtsalespermonth.Series("Series1").Points.AddXY(d.ToString(), Convert.ToDouble(daily(d)))
+                Next
+                chrtsalespermonth.ChartAreas(0).AxisX.Interval = 2
+                Label15.Text = "DAILY SALES - " & MonthName(selMonth) & " " & currentYear
+            End If
+
+            chrtsalespermonth.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
             cn.Close()
         Catch ex As Exception
             If cn.State = ConnectionState.Open Then cn.Close()
             MsgBox("Error loading sales per month chart: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub
-
 End Class

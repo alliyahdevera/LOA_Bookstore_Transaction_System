@@ -687,7 +687,8 @@ Public Class frmPOS
         dgvCart.Rows.Clear()
         txtTotalAMount.Text = "₱0.00"
         txtTransactionNo.Text = NewTransactionNo()
-        cbobuyertype.SelectedIndex = -1
+        cbobuyertype.SelectedIndex = -1     ' clears any old customer form
+        cbobuyertype.SelectedIndex = 0      ' default buyer type = Student
 
         isLoadingFilters = True
         If cbocategory.Items.Count > 0 Then cbocategory.SelectedIndex = 0

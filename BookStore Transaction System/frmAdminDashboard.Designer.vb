@@ -24,6 +24,9 @@ Partial Class frmAdminDashboard
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAdminDashboard))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnchangepass = New System.Windows.Forms.Button()
+        Me.btnsettings = New System.Windows.Forms.Button()
+        Me.btnemployeeman = New System.Windows.Forms.Button()
         Me.btnlogout = New System.Windows.Forms.Button()
         Me.btnAuditLogs = New System.Windows.Forms.Button()
         Me.btnStudentManagement = New System.Windows.Forms.Button()
@@ -40,9 +43,6 @@ Partial Class frmAdminDashboard
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Logo = New System.Windows.Forms.PictureBox()
         Me.pnlContent = New System.Windows.Forms.Panel()
-        Me.btnemployeeman = New System.Windows.Forms.Button()
-        Me.btnsettings = New System.Windows.Forms.Button()
-        Me.btnchangepass = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.Logo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -71,6 +71,63 @@ Partial Class frmAdminDashboard
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(241, 851)
         Me.Panel1.TabIndex = 0
+        '
+        'btnchangepass
+        '
+        Me.btnchangepass.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnchangepass.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnchangepass.FlatAppearance.BorderSize = 0
+        Me.btnchangepass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnchangepass.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnchangepass.ForeColor = System.Drawing.Color.White
+        Me.btnchangepass.Image = CType(resources.GetObject("btnchangepass.Image"), System.Drawing.Image)
+        Me.btnchangepass.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnchangepass.Location = New System.Drawing.Point(8, 590)
+        Me.btnchangepass.Name = "btnchangepass"
+        Me.btnchangepass.Size = New System.Drawing.Size(225, 49)
+        Me.btnchangepass.TabIndex = 21
+        Me.btnchangepass.Text = "          Change Password"
+        Me.btnchangepass.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnchangepass.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnchangepass.UseVisualStyleBackColor = False
+        '
+        'btnsettings
+        '
+        Me.btnsettings.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnsettings.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnsettings.FlatAppearance.BorderSize = 0
+        Me.btnsettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnsettings.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnsettings.ForeColor = System.Drawing.Color.White
+        Me.btnsettings.Image = CType(resources.GetObject("btnsettings.Image"), System.Drawing.Image)
+        Me.btnsettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnsettings.Location = New System.Drawing.Point(8, 541)
+        Me.btnsettings.Name = "btnsettings"
+        Me.btnsettings.Size = New System.Drawing.Size(225, 49)
+        Me.btnsettings.TabIndex = 20
+        Me.btnsettings.Text = "          Settings"
+        Me.btnsettings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnsettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnsettings.UseVisualStyleBackColor = False
+        '
+        'btnemployeeman
+        '
+        Me.btnemployeeman.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnemployeeman.Dock = System.Windows.Forms.DockStyle.Top
+        Me.btnemployeeman.FlatAppearance.BorderSize = 0
+        Me.btnemployeeman.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnemployeeman.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnemployeeman.ForeColor = System.Drawing.Color.White
+        Me.btnemployeeman.Image = CType(resources.GetObject("btnemployeeman.Image"), System.Drawing.Image)
+        Me.btnemployeeman.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnemployeeman.Location = New System.Drawing.Point(8, 492)
+        Me.btnemployeeman.Name = "btnemployeeman"
+        Me.btnemployeeman.Size = New System.Drawing.Size(225, 49)
+        Me.btnemployeeman.TabIndex = 19
+        Me.btnemployeeman.Text = "         Employee Management"
+        Me.btnemployeeman.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnemployeeman.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnemployeeman.UseVisualStyleBackColor = False
         '
         'btnlogout
         '
@@ -309,63 +366,6 @@ Partial Class frmAdminDashboard
         Me.pnlContent.Name = "pnlContent"
         Me.pnlContent.Size = New System.Drawing.Size(1223, 851)
         Me.pnlContent.TabIndex = 72
-        '
-        'btnemployeeman
-        '
-        Me.btnemployeeman.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnemployeeman.Dock = System.Windows.Forms.DockStyle.Top
-        Me.btnemployeeman.FlatAppearance.BorderSize = 0
-        Me.btnemployeeman.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnemployeeman.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnemployeeman.ForeColor = System.Drawing.Color.White
-        Me.btnemployeeman.Image = CType(resources.GetObject("btnemployeeman.Image"), System.Drawing.Image)
-        Me.btnemployeeman.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnemployeeman.Location = New System.Drawing.Point(8, 492)
-        Me.btnemployeeman.Name = "btnemployeeman"
-        Me.btnemployeeman.Size = New System.Drawing.Size(225, 49)
-        Me.btnemployeeman.TabIndex = 19
-        Me.btnemployeeman.Text = "         Employee Management"
-        Me.btnemployeeman.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnemployeeman.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnemployeeman.UseVisualStyleBackColor = False
-        '
-        'btnsettings
-        '
-        Me.btnsettings.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnsettings.Dock = System.Windows.Forms.DockStyle.Top
-        Me.btnsettings.FlatAppearance.BorderSize = 0
-        Me.btnsettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnsettings.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnsettings.ForeColor = System.Drawing.Color.White
-        Me.btnsettings.Image = CType(resources.GetObject("btnsettings.Image"), System.Drawing.Image)
-        Me.btnsettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnsettings.Location = New System.Drawing.Point(8, 541)
-        Me.btnsettings.Name = "btnsettings"
-        Me.btnsettings.Size = New System.Drawing.Size(225, 49)
-        Me.btnsettings.TabIndex = 20
-        Me.btnsettings.Text = "          Settings"
-        Me.btnsettings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnsettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnsettings.UseVisualStyleBackColor = False
-        '
-        'btnchangepass
-        '
-        Me.btnchangepass.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnchangepass.Dock = System.Windows.Forms.DockStyle.Top
-        Me.btnchangepass.FlatAppearance.BorderSize = 0
-        Me.btnchangepass.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnchangepass.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnchangepass.ForeColor = System.Drawing.Color.White
-        Me.btnchangepass.Image = CType(resources.GetObject("btnchangepass.Image"), System.Drawing.Image)
-        Me.btnchangepass.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnchangepass.Location = New System.Drawing.Point(8, 590)
-        Me.btnchangepass.Name = "btnchangepass"
-        Me.btnchangepass.Size = New System.Drawing.Size(225, 49)
-        Me.btnchangepass.TabIndex = 21
-        Me.btnchangepass.Text = "          Change Password"
-        Me.btnchangepass.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnchangepass.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnchangepass.UseVisualStyleBackColor = False
         '
         'frmAdminDashboard
         '

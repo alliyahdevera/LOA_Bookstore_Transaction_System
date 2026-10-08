@@ -11,10 +11,10 @@ Public Class frmAdminDashboard
     Private ReadOnly _normalColor As Color = Color.FromArgb(1, 21, 78)
     Private ReadOnly _activeColor As Color = Color.FromArgb(25, 55, 140)
 
-    ' Navigation module list
     Private ReadOnly _allModules As String() = {
         FRM_DASHBOARD, FRM_POS, FRM_INVENTORY, FRM_TRANSACTION,
-        FRM_REPORTS, FRM_USERMGMT, FRM_STUDENTMGMT, FRM_AUDITLOGS
+        FRM_REPORTS, FRM_USERMGMT, FRM_STUDENTMGMT, FRM_AUDITLOGS,
+        FRM_EMPLOYEEMGMT, FRM_SETTINGS
     }
 
     ' ==================================================================
@@ -62,6 +62,10 @@ Public Class frmAdminDashboard
                 Return btnStudentManagement
             Case FRM_AUDITLOGS
                 Return btnAuditLogs
+            Case FRM_EMPLOYEEMGMT
+                Return btnemployeeman
+            Case FRM_SETTINGS
+                Return btnsettings
             Case Else
                 Return Nothing
         End Select
@@ -85,6 +89,10 @@ Public Class frmAdminDashboard
                 Return New frmStudentManagement()
             Case FRM_AUDITLOGS
                 Return New frmAuditLogs()
+            Case FRM_EMPLOYEEMGMT
+                Return New frmEmployeeManagement()
+            Case FRM_SETTINGS
+                Return New frmSettings()
             Case Else
                 Return Nothing
         End Select
@@ -184,6 +192,20 @@ Public Class frmAdminDashboard
 
     Private Sub btnAuditLogs_Click(sender As Object, e As EventArgs) Handles btnAuditLogs.Click
         OpenModule(FRM_AUDITLOGS)
+    End Sub
+    Private Sub btnemployeeman_Click(sender As Object, e As EventArgs) Handles btnemployeeman.Click
+        OpenModule(FRM_EMPLOYEEMGMT)
+    End Sub
+
+    Private Sub btnsettings_Click(sender As Object, e As EventArgs) Handles btnsettings.Click
+        OpenModule(FRM_SETTINGS)
+    End Sub
+
+    ' every role may change their own password
+    Private Sub btnchangepass_Click(sender As Object, e As EventArgs) Handles btnchangepass.Click
+        Using f As New frmChangePassword()
+            f.ShowDialog(Me)
+        End Using
     End Sub
 
     ' ==================================================================

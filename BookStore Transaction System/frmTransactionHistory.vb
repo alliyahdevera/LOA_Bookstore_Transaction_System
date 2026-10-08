@@ -121,14 +121,11 @@ Public Class frmTransactionHistory
             dgvtransaction.SuspendLayout()
             dgvtransaction.Rows.Clear()
             For Each r As DataRow In dt.Rows
-                ' same column order as before
                 dgvtransaction.Rows.Add(
                     r("transaction_no").ToString(),
                     r("buyer_name").ToString(),
-                    r("buyer_name").ToString(),
                     If(IsDBNull(r("id_number")) OrElse r("id_number").ToString() = "", "N/A", r("id_number").ToString()),
                     r("buyer_type").ToString(),
-                    r("product_code").ToString(),
                     r("product_code").ToString(),
                     r("product_name").ToString(),
                     r("size").ToString(),
