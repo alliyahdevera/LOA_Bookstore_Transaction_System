@@ -57,16 +57,11 @@ Public Class frmTransactionDetails
 
         txtReason.MaxLength = 255
 
-        ' 2. Programmatically create and position the ComboBox over the TextBox
-        cboCondition = New ComboBox With {
-        .Name = "cboCondition",
-        .DropDownStyle = ComboBoxStyle.DropDownList
-        }
-
-
-        ' 3. Add items and insert control into the parent form/panel
-        cboCondition.Items.AddRange(New Object() {"Good", "Fair", "Damaged"})
-        cboCondition.BringToFront()
+        ' Condition combo (designer control cbocondt)
+        cbocondt.DropDownStyle = ComboBoxStyle.DropDownList
+        cbocondt.Items.Clear()
+        cbocondt.Items.AddRange(New Object() {"Good", "Fair", "Damaged"})
+        cbocondt.SelectedIndex = -1
         txtProduct.DropDownStyle = ComboBoxStyle.DropDown          ' typeable (autocomplete)
         txtProduct.AutoCompleteMode = AutoCompleteMode.SuggestAppend
         txtProduct.AutoCompleteSource = AutoCompleteSource.ListItems
@@ -80,8 +75,12 @@ Public Class frmTransactionDetails
         LoadTransaction()
         LoadReplacementProducts()
         ResetActionPanel()
-    End Sub
-    Private cboCondition As ComboBox
+    End Sub    ' all existing code keeps using cboCondition; it now points at the real designer combo
+    Private ReadOnly Property cboCondition As ComboBox
+        Get
+            Return cbocondt
+        End Get
+    End Property
 
     ' ===================== LOAD TRANSACTION =====================
     Private Sub LoadTransaction()
@@ -468,7 +467,8 @@ Public Class frmTransactionDetails
         If approver Is Nothing Then Exit Sub
 
         Dim refNo As String = If(isExchange, "EXC-", "RET-") & DateTime.Now.ToString("yyyyMMddHHmmssfff")
-        Dim resellable As Boolean = (cboCondition.SelectedIndex <= 1)   ' Good / Fair go back to stock
+        Dim resellable As Boolean = Not String.Equals(cboCondition.Text, "Damaged", StringComparison.OrdinalIgnoreCase)   ' Good / Fair go back to stock
+        Dim sellable As Boolean = (cboCondition.SelectedIndex <= 1)   ' Good / Fair go back to stock
 
         Try
             Using c As MySqlConnection = NewConnection()
