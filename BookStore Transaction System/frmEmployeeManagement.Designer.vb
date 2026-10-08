@@ -23,7 +23,7 @@ Partial Class frmEmployeeManagement
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmEmployeeManagement))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -46,13 +46,6 @@ Partial Class frmEmployeeManagement
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.dgvstudents = New System.Windows.Forms.DataGridView()
-        Me.StudentNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.EducationalLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.GradeLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProgramStrand = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Section = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
@@ -69,6 +62,14 @@ Partial Class frmEmployeeManagement
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.EmployeeNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LastName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FirstName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EducationalLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.GradeLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProgramStrand = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Section = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
@@ -138,9 +139,10 @@ Partial Class frmEmployeeManagement
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(86, 282)
+        Me.Panel1.Location = New System.Drawing.Point(98, 282)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 135
@@ -281,9 +283,9 @@ Partial Class frmEmployeeManagement
         Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.Location = New System.Drawing.Point(28, 286)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(52, 17)
+        Me.Label14.Size = New System.Drawing.Size(67, 17)
         Me.Label14.TabIndex = 130
-        Me.Label14.Text = "Search "
+        Me.Label14.Text = "Search by"
         '
         'Panel6
         '
@@ -319,67 +321,20 @@ Partial Class frmEmployeeManagement
         Me.dgvstudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvstudents.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvstudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvstudents.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.StudentNo, Me.LastName, Me.FirstName, Me.EducationalLevel, Me.GradeLevel, Me.ProgramStrand, Me.Section})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvstudents.DefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvstudents.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.EmployeeNo, Me.LastName, Me.FirstName, Me.EducationalLevel, Me.GradeLevel, Me.ProgramStrand, Me.Section})
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvstudents.DefaultCellStyle = DataGridViewCellStyle3
         Me.dgvstudents.Location = New System.Drawing.Point(-1, 34)
         Me.dgvstudents.Name = "dgvstudents"
         Me.dgvstudents.ReadOnly = True
         Me.dgvstudents.Size = New System.Drawing.Size(1157, 433)
         Me.dgvstudents.TabIndex = 2
-        '
-        'StudentNo
-        '
-        Me.StudentNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.StudentNo.HeaderText = "Student Number"
-        Me.StudentNo.Name = "StudentNo"
-        Me.StudentNo.ReadOnly = True
-        '
-        'LastName
-        '
-        Me.LastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.LastName.HeaderText = "Last Name"
-        Me.LastName.Name = "LastName"
-        Me.LastName.ReadOnly = True
-        '
-        'FirstName
-        '
-        Me.FirstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.FirstName.HeaderText = "First Name"
-        Me.FirstName.Name = "FirstName"
-        Me.FirstName.ReadOnly = True
-        '
-        'EducationalLevel
-        '
-        Me.EducationalLevel.HeaderText = "Educational Level"
-        Me.EducationalLevel.Name = "EducationalLevel"
-        Me.EducationalLevel.ReadOnly = True
-        '
-        'GradeLevel
-        '
-        Me.GradeLevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.GradeLevel.HeaderText = "Grade Level"
-        Me.GradeLevel.Name = "GradeLevel"
-        Me.GradeLevel.ReadOnly = True
-        '
-        'ProgramStrand
-        '
-        Me.ProgramStrand.HeaderText = "Program/Strand"
-        Me.ProgramStrand.Name = "ProgramStrand"
-        Me.ProgramStrand.ReadOnly = True
-        '
-        'Section
-        '
-        Me.Section.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Section.HeaderText = "Section"
-        Me.Section.Name = "Section"
-        Me.Section.ReadOnly = True
         '
         'Panel11
         '
@@ -548,6 +503,64 @@ Partial Class frmEmployeeManagement
         Me.Label6.TabIndex = 125
         Me.Label6.Text = "Employee Management"
         '
+        'EmployeeNo
+        '
+        Me.EmployeeNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.EmployeeNo.HeaderText = "Employee Number"
+        Me.EmployeeNo.Name = "EmployeeNo"
+        Me.EmployeeNo.ReadOnly = True
+        '
+        'LastName
+        '
+        Me.LastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.LastName.HeaderText = "Last Name"
+        Me.LastName.Name = "LastName"
+        Me.LastName.ReadOnly = True
+        '
+        'FirstName
+        '
+        Me.FirstName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.FirstName.HeaderText = "First Name"
+        Me.FirstName.Name = "FirstName"
+        Me.FirstName.ReadOnly = True
+        '
+        'EducationalLevel
+        '
+        Me.EducationalLevel.HeaderText = "Educational Level"
+        Me.EducationalLevel.Name = "EducationalLevel"
+        Me.EducationalLevel.ReadOnly = True
+        '
+        'GradeLevel
+        '
+        Me.GradeLevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.GradeLevel.HeaderText = "Grade Level"
+        Me.GradeLevel.Name = "GradeLevel"
+        Me.GradeLevel.ReadOnly = True
+        '
+        'ProgramStrand
+        '
+        Me.ProgramStrand.HeaderText = "Program/Strand"
+        Me.ProgramStrand.Name = "ProgramStrand"
+        Me.ProgramStrand.ReadOnly = True
+        '
+        'Section
+        '
+        Me.Section.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Section.HeaderText = "Section"
+        Me.Section.Name = "Section"
+        Me.Section.ReadOnly = True
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label4.Location = New System.Drawing.Point(3, 3)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(178, 17)
+        Me.Label4.TabIndex = 139
+        Me.Label4.Text = "Employee Number or Name"
+        '
         'frmEmployeeManagement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -611,13 +624,6 @@ Partial Class frmEmployeeManagement
     Friend WithEvents Label10 As Label
     Friend WithEvents Panel7 As Panel
     Friend WithEvents dgvstudents As DataGridView
-    Friend WithEvents StudentNo As DataGridViewTextBoxColumn
-    Friend WithEvents LastName As DataGridViewTextBoxColumn
-    Friend WithEvents FirstName As DataGridViewTextBoxColumn
-    Friend WithEvents EducationalLevel As DataGridViewTextBoxColumn
-    Friend WithEvents GradeLevel As DataGridViewTextBoxColumn
-    Friend WithEvents ProgramStrand As DataGridViewTextBoxColumn
-    Friend WithEvents Section As DataGridViewTextBoxColumn
     Friend WithEvents Panel11 As Panel
     Friend WithEvents Label9 As Label
     Friend WithEvents Panel5 As Panel
@@ -634,4 +640,12 @@ Partial Class frmEmployeeManagement
     Friend WithEvents Label1 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label6 As Label
+    Friend WithEvents EmployeeNo As DataGridViewTextBoxColumn
+    Friend WithEvents LastName As DataGridViewTextBoxColumn
+    Friend WithEvents FirstName As DataGridViewTextBoxColumn
+    Friend WithEvents EducationalLevel As DataGridViewTextBoxColumn
+    Friend WithEvents GradeLevel As DataGridViewTextBoxColumn
+    Friend WithEvents ProgramStrand As DataGridViewTextBoxColumn
+    Friend WithEvents Section As DataGridViewTextBoxColumn
+    Friend WithEvents Label4 As Label
 End Class

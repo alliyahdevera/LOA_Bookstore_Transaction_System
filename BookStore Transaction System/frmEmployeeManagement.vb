@@ -1,10 +1,13 @@
 ﻿Imports System.Text.RegularExpressions
 
 Public Class frmEmployeeManagement
+
     Private pg As GridPager
     Private selectedEmployeeId As Integer = 0
+    Public Property InitialSearch As String = ""
 
     Private Sub frmEmployeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         Relabel(Me, New Dictionary(Of String, String) From {
@@ -35,6 +38,7 @@ Public Class frmEmployeeManagement
         cboSection.Items.AddRange(New Object() {"Active", "Inactive"})
         pg = New GridPager(dgvstudents, 20)
         AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim())
+        txtSearch.Text = InitialSearch
         LoadLists()
         LoadGrid("")
         ClearFields()
