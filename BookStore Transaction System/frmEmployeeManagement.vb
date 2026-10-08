@@ -118,7 +118,7 @@ Public Class frmEmployeeManagement
         LoadGrid(txtSearch.Text.Trim())
     End Sub
 
-    Private Sub dgvstudents_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvstudents.CellClick
+    Private Sub dgvstudents_CellClick(sender As Object, e As DataGridViewCellEventArgs) 
         If e.RowIndex < 0 Then Exit Sub
         Dim row As DataGridViewRow = dgvstudents.Rows(e.RowIndex)
         If row.Cells("colId").Value Is Nothing OrElse IsDBNull(row.Cells("colId").Value) Then Exit Sub

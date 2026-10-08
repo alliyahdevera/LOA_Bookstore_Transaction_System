@@ -104,7 +104,7 @@ Partial Class frmEmployeeList
         Me.Label10.ForeColor = System.Drawing.Color.White
         Me.Label10.Location = New System.Drawing.Point(7, 8)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(119, 20)
+        Me.Label10.Size = New System.Drawing.Size(132, 20)
         Me.Label10.TabIndex = 10
         Me.Label10.Text = "List of Employees"
         '
@@ -131,7 +131,6 @@ Partial Class frmEmployeeList
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvstudents.DefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvstudents.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dgvstudents.Location = New System.Drawing.Point(0, 34)
         Me.dgvstudents.Name = "dgvstudents"
         Me.dgvstudents.ReadOnly = True
@@ -178,7 +177,7 @@ Partial Class frmEmployeeList
         Me.Label5.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(806, 90)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(78, 17)
+        Me.Label5.Size = New System.Drawing.Size(81, 17)
         Me.Label5.TabIndex = 118
         Me.Label5.Text = "Department"
         '
@@ -189,7 +188,7 @@ Partial Class frmEmployeeList
         Me.Label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Label1.Location = New System.Drawing.Point(23, 53)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(257, 15)
+        Me.Label1.Size = New System.Drawing.Size(271, 15)
         Me.Label1.TabIndex = 120
         Me.Label1.Text = "View list of all employees and filter by Department"
         '
@@ -200,7 +199,7 @@ Partial Class frmEmployeeList
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Label6.Location = New System.Drawing.Point(20, 18)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(148, 32)
+        Me.Label6.Size = New System.Drawing.Size(171, 32)
         Me.Label6.TabIndex = 119
         Me.Label6.Text = "Employee List"
         '
