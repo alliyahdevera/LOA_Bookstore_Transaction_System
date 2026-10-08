@@ -630,13 +630,17 @@ Public Class frmPOS
                     Dim qty As Integer = Convert.ToInt32(row.Cells("Quantity").Value)
                     Dim isBack As Boolean = backorders.ContainsKey(variantId)
 
-                    Using c2 As New MySqlCommand("INSERT INTO TBL_TRANSACTION_ITEMS (transaction_id, variant_id, quantity, subtotal, is_backorder, pickup_date) VALUES (@t, @v, @q, @s, @bo, @pd)", cn, trans)
+                    Using c2 As New MySqlCommand(
+                        "INSERT INTO TBL_TRANSACTION_ITEMS (transaction_id, variant_id, quantity, subtotal, is_backorder, pickup_date, released_at, released_by, received_by) " &
+                        "VALUES (@t, @v, @q, @s, @bo, @pd, IF(@bo = 1, NULL, NOW()), IF(@bo = 1, NULL, @by), IF(@bo = 1, NULL, @rb))", cn, trans)
                         c2.Parameters.AddWithValue("@t", transactionId)
                         c2.Parameters.AddWithValue("@v", variantId)
                         c2.Parameters.AddWithValue("@q", qty)
                         c2.Parameters.AddWithValue("@s", subtotal)
                         c2.Parameters.AddWithValue("@bo", If(isBack, 1, 0))
                         c2.Parameters.AddWithValue("@pd", If(isBack, CType(backorders(variantId), Object), DBNull.Value))
+                        c2.Parameters.AddWithValue("@by", currentuser.UserID)
+                        c2.Parameters.AddWithValue("@rb", buyerName)
                         c2.ExecuteNonQuery()
                     End Using
 

@@ -84,5 +84,7 @@ Public Class frmLoginHistory
             MsgBox("Error loading login logs: " & ex.Message, vbCritical, "Audit Logs")
         End Try
     End Sub
-
+    Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
+        pg.ExportAllPages(Sub() LoadLoginLogs(), Sub() ExportGridToCsv(dgvLoginHistory, "LoginHistory"))
+    End Sub
 End Class
