@@ -6,9 +6,9 @@
     Private Function AllowedReports() As String()
         Select Case If(currentuser.Role, "").Trim()
             Case ROLE_SUPERVISOR
-                Return New String() {"Sales By Item", "Sales by Date Range", "Cash Denomination", "Remittance Report", "Inventory Discrepancy"}
+                Return New String() {"Sales By Item", "Sales by Date Range", "Cash Denomination", "Remittance Report", "Inventory Discrepancy", "Damaged Report"}
             Case ROLE_MANAGEMENT
-                Return New String() {"Sales By Item", "Sales by Date Range", "Remittance Report", "Inventory Discrepancy"}
+                Return New String() {"Sales By Item", "Sales by Date Range", "Remittance Report", "Inventory Discrepancy", "Damaged Report"}
             Case ROLE_CASHIER
                 Return New String() {"Cash Denomination", "Remittance Report"}
             Case Else
@@ -17,6 +17,7 @@
     End Function
 
     Private Sub frmReports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If Not cboReportType.Items.Contains("Damaged Report") Then cboReportType.Items.Add("Damaged Report")
         _loading = True
         Dim allowed As String() = AllowedReports()
 
@@ -51,7 +52,8 @@
 
             Case "Inventory Discrepancy"
                 OpenReport(GetType(frmInventoryDiscrepancies))
-
+            Case "Damaged Report"
+                OpenReport(GetType(frmNonSaleableStocks))
             Case Else
                 MsgBox("No form is linked to report type: " & cboReportType.Text,
                        vbExclamation, "Reports")
@@ -82,4 +84,7 @@
         Me.BeginInvoke(Sub() cboReportType.SelectedItem = "Remittance Report")
     End Sub
 
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
 End Class

@@ -7,18 +7,19 @@
         Select Case If(currentuser.Role, "").Trim()
             Case ROLE_SUPERVISOR
                 Return New String() {"Product List", "Manage Products", "Stock In", "Stock In History",
-                                     "Low Level Stocks", "Inventory Count & Reconciliation"}
+                                     "Low Level Stocks", "Inventory Count & Reconciliation", "Non-Saleable Stocks"}
             Case ROLE_INVENTORY_STAFF
                 Return New String() {"Product List", "Stock In", "Stock In History",
-                                     "Low Level Stocks", "Inventory Count & Reconciliation"}
+                                     "Low Level Stocks", "Inventory Count & Reconciliation", "Non-Saleable Stocks"}
             Case ROLE_MANAGEMENT
-                Return New String() {"Product List", "Stock In History", "Low Level Stocks"}
+                Return New String() {"Product List", "Stock In History", "Low Level Stocks", "Non-Saleable Stocks"}
             Case Else
                 Return New String() {}
         End Select
     End Function
 
     Private Sub frmInventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If Not cboInventory.Items.Contains("Non-Saleable Stocks") Then cboInventory.Items.Add("Non-Saleable Stocks")
         _isReverting = True
         Dim allowed As String() = AllowedItems()
 
@@ -61,7 +62,8 @@
 
             Case "Inventory Count & Reconciliation"
                 OpenInventoryForm(GetType(frmInventoryCountReconciliation))
-
+            Case "Non-Saleable Stocks"
+                OpenInventoryForm(GetType(frmNonSaleableStocks))
             Case Else
                 MsgBox("No form is linked to: " & cboInventory.Text, vbExclamation, "Inventory")
         End Select
@@ -88,6 +90,10 @@
     End Sub
 
     Private Sub pnlinventory_Paint(sender As Object, e As PaintEventArgs) Handles pnlinventory.Paint
+
+    End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
 
     End Sub
 End Class

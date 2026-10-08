@@ -53,7 +53,7 @@ Partial Class frmInventory
         Me.cboInventory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboInventory.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboInventory.FormattingEnabled = True
-        Me.cboInventory.Items.AddRange(New Object() {"Product List", "Manage Products", "Stock In", "Stock In History", "Low Level Stocks", "Inventory Count & Reconciliation"})
+        Me.cboInventory.Items.AddRange(New Object() {"Product List", "Manage Products", "Stock In", "Stock In History", "Low Level Stocks", "Inventory Count & Reconciliation", "Non-Saleable Stocks"})
         Me.cboInventory.Location = New System.Drawing.Point(140, 10)
         Me.cboInventory.Name = "cboInventory"
         Me.cboInventory.Size = New System.Drawing.Size(298, 29)

@@ -8,27 +8,37 @@ Public Class frmInventoryCountReconciliation
         Public Adjusted As Boolean = False
     End Class
 
-    ' Moved NewCountNo out of CountRow to form level
+    ' A count typed on screen but not saved yet (survives paging / searching / filtering)
+    Private Class PendingCount
+        Public Physical As Integer = -1       ' -1 = nothing typed yet
+        Public Remarks As String = ""
+        Public System As Integer = 0
+    End Class
+
     Private Function NewCountNo() As String
         Return "CNT-" & DateTime.Now.ToString("yyyyMMddHHmmss")
     End Function
+
+    Private Const PAGE_SIZE As Integer = 25
 
     Private currentCountId As Long = 0
     Private currentCountNo As String = ""
     Private isLoading As Boolean = True
     Private activeCard As String = ""          ' "", counted, matched, discrepancy, short, excess
-    Private lastCategoryIndex As Integer = 0
-    Private lastTypeIndex As Integer = 0
+    Private pg As GridPager
+    Private ReadOnly pending As New Dictionary(Of Integer, PendingCount)
+    Private WithEvents tmrSearch As New System.Windows.Forms.Timer With {.Interval = 400}
 
     ' ==================== LOAD ====================
     Private Sub frmInventoryCountReconciliation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         txtGrandTotal.Text = Date.Today.ToString("MMMM d, yyyy")
+        lblname.Text = If(Not String.IsNullOrEmpty(currentuser.FullName), currentuser.FullName, "N/A")
+        lblposition.Text = If(Not String.IsNullOrEmpty(currentuser.Role), currentuser.Role, "N/A")
 
         cbocategory.DropDownStyle = ComboBoxStyle.DropDownList
         cbocategory.Items.Clear()
         cbocategory.Items.Add("All Categories")
-
         Dim cats As DataTable = GetDataTable("SELECT category_name FROM tbl_categories ORDER BY category_name")
         If cats IsNot Nothing Then
             For Each r As DataRow In cats.Rows
@@ -36,24 +46,38 @@ Public Class frmInventoryCountReconciliation
             Next
         End If
         cbocategory.SelectedIndex = 0
-        lblname.Text = If(Not String.IsNullOrEmpty(currentuser.FullName), currentuser.FullName, "N/A")
-        lblposition.Text = If(Not String.IsNullOrEmpty(currentuser.Role), currentuser.Role, "N/A")
         cboType.DropDownStyle = ComboBoxStyle.DropDownList
         LoadTypeCombo()
         SetupCards()
+
+        ' extra columns
         dgvlistproducts.Columns.Insert(0, New DataGridViewTextBoxColumn With {.Name = "CountNo", .HeaderText = "Count No.", .Width = 150})
+        dgvlistproducts.Columns.Insert(3, New DataGridViewTextBoxColumn With {.Name = "ProductDescription", .HeaderText = "Product Description", .Width = 200})
+
         currentCountNo = NewCountNo()
         txtCountNo.Text = currentCountNo
+
         With dgvlistproducts
             .AllowUserToAddRows = False
             .AllowUserToDeleteRows = False
             .MultiSelect = False
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
             .ReadOnly = False
+            .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None
             For Each col As DataGridViewColumn In .Columns
                 col.ReadOnly = Not (col.Name = "PhysicalQuantity" OrElse col.Name = "Remarks")
             Next
+            ' the grid is taller than its panel: shrink it so the pager bar fits at the bottom
+            .Height = Panel5.ClientSize.Height - .Top
         End With
+
+        ' smoother drawing
+        GetType(DataGridView).InvokeMember("DoubleBuffered",
+            Reflection.BindingFlags.NonPublic Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.SetProperty,
+            Nothing, dgvlistproducts, New Object() {True})
+
+        pg = New GridPager(dgvlistproducts, PAGE_SIZE)
+        AddHandler pg.PageChanged, Sub() LoadProducts()
 
         isLoading = False
         LoadProducts()
@@ -73,44 +97,64 @@ Public Class frmInventoryCountReconciliation
                               "WHERE c.category_name = @c ORDER BY ct.type_name",
                               New String() {"@c"}, New Object() {Convert.ToString(cbocategory.SelectedItem)})
         End If
-        For Each r As DataRow In dt.Rows
-            cboType.Items.Add(r("type_name").ToString())
-        Next
+        If dt IsNot Nothing Then
+            For Each r As DataRow In dt.Rows
+                cboType.Items.Add(r("type_name").ToString())
+            Next
+        End If
         cboType.SelectedIndex = 0
-        lastTypeIndex = 0
     End Sub
-
-    ' Changing a filter reloads the sheet - ask first if there are unsaved counts.
-    Private Function ConfirmReload() As Boolean
-        If Not HasUnsavedEntries() Then Return True
-        Return MsgBox("You have counts that are not saved yet. Discard them and reload the list?",
-                      vbYesNo + vbQuestion, "Inventory Count") = MsgBoxResult.Yes
-    End Function
 
     Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
         If isLoading Then Exit Sub
-        If Not ConfirmReload() Then
-            isLoading = True : cbocategory.SelectedIndex = lastCategoryIndex : isLoading = False
-            Exit Sub
-        End If
-        lastCategoryIndex = cbocategory.SelectedIndex
         isLoading = True
         LoadTypeCombo()
         isLoading = False
+        pg.Reset()
         LoadProducts()
     End Sub
 
     Private Sub cboType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboType.SelectedIndexChanged
         If isLoading Then Exit Sub
-        If Not ConfirmReload() Then
-            isLoading = True : cboType.SelectedIndex = lastTypeIndex : isLoading = False
-            Exit Sub
-        End If
-        lastTypeIndex = cboType.SelectedIndex
+        pg.Reset()
         LoadProducts()
     End Sub
 
-    ' ==================== SUMMARY CARDS (click to filter the list) ====================
+    ' ==================== SEARCH (waits 0.4s after typing, then reloads page 1) ====================
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        If isLoading Then Exit Sub
+        tmrSearch.Stop()
+        tmrSearch.Start()
+    End Sub
+
+    Private Sub tmrSearch_Tick(sender As Object, e As EventArgs) Handles tmrSearch.Tick
+        tmrSearch.Stop()
+        pg.Reset()
+        LoadProducts()
+    End Sub
+
+    Private Sub txtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
+            tmrSearch.Stop()
+            pg.Reset()
+            LoadProducts()
+        End If
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        tmrSearch.Stop()
+        pg.Reset()
+        LoadProducts()
+    End Sub
+
+    Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
+        tmrSearch.Stop()
+        pg.Reset()
+        LoadProducts()          ' typed counts are kept, nothing is discarded
+    End Sub
+
+    ' ==================== SUMMARY CARDS (click = filter the rows on this page) ====================
     Private Sub SetupCards()
         WireCard(Panel10, "counted")        ' Total Items Counted
         WireCard(Panel8, "matched")         ' Matched Items
@@ -135,10 +179,9 @@ Public Class frmInventoryCountReconciliation
         activeCard = If(activeCard = key, "", key)      ' click the same card again to show everything
         ApplyCardFilter()
     End Sub
+
     Private Function RowMatchesCard(row As DataGridViewRow) As Boolean
-        If Not RowMatchesSearch(row) Then Return False
         If activeCard = "" Then Return True
-        ' ...rest of the function stays the same
         Dim d As String = Convert.ToString(row.Cells("Difference").Value)
         Dim diff As Integer
         If d = "" OrElse Not Integer.TryParse(d, diff) Then Return False     ' not counted yet
@@ -161,49 +204,17 @@ Public Class frmInventoryCountReconciliation
         Next
         dgvlistproducts.ClearSelection()
 
-        ' highlight the active card
         For Each p As Panel In New Panel() {Panel10, Panel8, Panel7, Panel9, Panel11}
             p.BorderStyle = If(Convert.ToString(p.Tag) = activeCard, BorderStyle.FixedSingle, BorderStyle.None)
         Next
     End Sub
 
-    ' ==================== LOAD PRODUCTS ====================
-    Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
-        If HasUnsavedEntries() Then
-            If MsgBox("You have counts that are not saved yet. Discard them and reload the list?",
-                      vbYesNo + vbQuestion, "Inventory Count") <> MsgBoxResult.Yes Then Exit Sub
-        End If
-        LoadProducts()
-    End Sub
-    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        If isLoading Then Exit Sub
-        ApplyCardFilter()
-    End Sub
-
-    Private Sub txtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            e.SuppressKeyPress = True
-            ApplyCardFilter()
-        End If
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        ApplyCardFilter()
-    End Sub
-
-    Private Function RowMatchesSearch(row As DataGridViewRow) As Boolean
-        Dim kw As String = txtSearch.Text.Trim()
-        If kw = "" Then Return True
-        For Each colName As String In New String() {"ProductCode", "ProductName", "ProductDescription", "Category", "TypeofProduct", "Size"}
-            If Convert.ToString(row.Cells(colName).Value).IndexOf(kw, StringComparison.OrdinalIgnoreCase) >= 0 Then Return True
-        Next
-        Return False
-    End Function
-
+    ' ==================== LOAD ONE PAGE OF PRODUCTS ====================
     Private Sub LoadProducts()
-        dgvlistproducts.Rows.Clear()
+        If pg Is Nothing Then Exit Sub
+        dgvlistproducts.EndEdit()
 
-        Dim keyword As String = ""      ' search is now live on the grid, not in SQL
+        Dim keyword As String = txtSearch.Text.Trim()
         Dim category As String = If(cbocategory.SelectedIndex <= 0, "", cbocategory.Text)
         Dim typeName As String = If(cboType.SelectedIndex <= 0, "", Convert.ToString(cboType.SelectedItem))
 
@@ -216,7 +227,8 @@ Public Class frmInventoryCountReconciliation
             "INNER JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
             "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
             "LEFT JOIN tbl_inventory_count_details d ON d.variant_id = v.variant_id AND d.inventory_count_id = @cid " &
-            "WHERE p.status = 'Active' AND (v.product_code LIKE @s OR p.product_name LIKE @s) "
+            "WHERE p.status = 'Active' AND (v.product_code LIKE @s OR p.product_name LIKE @s OR p.product_description LIKE @s " &
+            "OR c.category_name LIKE @s OR ct.type_name LIKE @s OR v.size LIKE @s) "
 
         Dim names As New List(Of String)({"@cid", "@s"})
         Dim values As New List(Of Object)({CType(currentCountId, Object), "%" & keyword & "%"})
@@ -231,20 +243,22 @@ Public Class frmInventoryCountReconciliation
             names.Add("@type")
             values.Add(typeName)
         End If
-        query &= "ORDER BY p.product_name, v.size"
+        query &= "ORDER BY p.product_name, v.size, v.variant_id"
 
-        Dim dt As DataTable = GetDataTable(query, names.ToArray(), values.ToArray())
+        Dim dt As DataTable = pg.LoadPage(query, names.ToArray(), values.ToArray())
+
+        dgvlistproducts.SuspendLayout()
+        dgvlistproducts.Rows.Clear()
 
         If dt IsNot Nothing Then
             For Each r As DataRow In dt.Rows
                 Dim idx As Integer = dgvlistproducts.Rows.Add()
                 Dim row As DataGridViewRow = dgvlistproducts.Rows(idx)
-                Dim info As New CountRow With {.VariantId = Convert.ToInt32(r("variant_id"))}
+                Dim variantId As Integer = Convert.ToInt32(r("variant_id"))
+                Dim info As New CountRow With {.VariantId = variantId}
 
                 row.Cells("ProductCode").Value = r("product_code").ToString()
                 row.Cells("CountNo").Value = currentCountNo
-                dgvlistproducts.Columns.Insert(3, New DataGridViewTextBoxColumn With {
-            .Name = "ProductDescription", .HeaderText = "Product Description", .Width = 200, .ReadOnly = True})
                 row.Cells("ProductName").Value = r("product_name").ToString()
                 row.Cells("ProductDescription").Value = If(IsDBNull(r("product_description")), "", r("product_description").ToString())
                 row.Cells("Category").Value = r("category_name").ToString()
@@ -252,11 +266,18 @@ Public Class frmInventoryCountReconciliation
                 row.Cells("Size").Value = r("size").ToString()
 
                 If Not IsDBNull(r("inventory_count_detail_id")) AndAlso Convert.ToInt32(r("inventory_count_detail_id")) > 0 Then
+                    ' already saved in this count: locked
                     info.DetailId = Convert.ToInt32(r("inventory_count_detail_id"))
                     info.Adjusted = Convert.ToInt32(r("adjusted")) = 1
                     row.Cells("SystemQuantity").Value = Convert.ToInt32(r("system_quantity"))
                     row.Cells("PhysicalQuantity").Value = Convert.ToInt32(r("physical_quantity"))
                     row.Cells("Remarks").Value = If(IsDBNull(r("remarks")), "", r("remarks").ToString())
+                ElseIf pending.ContainsKey(variantId) Then
+                    ' typed earlier on screen (maybe on another page): restore it
+                    Dim pc As PendingCount = pending(variantId)
+                    row.Cells("SystemQuantity").Value = pc.System
+                    row.Cells("PhysicalQuantity").Value = If(pc.Physical >= 0, pc.Physical.ToString(), "")
+                    row.Cells("Remarks").Value = pc.Remarks
                 Else
                     row.Cells("SystemQuantity").Value = If(IsDBNull(r("quantity_on_hand")), 0, Convert.ToInt32(r("quantity_on_hand")))
                     row.Cells("PhysicalQuantity").Value = ""
@@ -269,6 +290,7 @@ Public Class frmInventoryCountReconciliation
         End If
 
         dgvlistproducts.ClearSelection()
+        dgvlistproducts.ResumeLayout()
         UpdateCards()
         ApplyCardFilter()
     End Sub
@@ -277,8 +299,7 @@ Public Class frmInventoryCountReconciliation
     Private Sub dgvlistproducts_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles dgvlistproducts.CellBeginEdit
         If e.RowIndex < 0 Then Exit Sub
         Dim info As CountRow = TryCast(dgvlistproducts.Rows(e.RowIndex).Tag, CountRow)
-        ' Lock line if already saved
-        If info IsNot Nothing AndAlso info.DetailId > 0 Then e.Cancel = True
+        If info IsNot Nothing AndAlso info.DetailId > 0 Then e.Cancel = True      ' saved lines are locked
     End Sub
 
     Private Sub dgvlistproducts_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles dgvlistproducts.EditingControlShowing
@@ -296,9 +317,33 @@ Public Class frmInventoryCountReconciliation
 
     Private Sub dgvlistproducts_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvlistproducts.CellEndEdit
         If e.RowIndex < 0 Then Exit Sub
-        If dgvlistproducts.Columns(e.ColumnIndex).Name <> "PhysicalQuantity" Then Exit Sub
-        RefreshRow(dgvlistproducts.Rows(e.RowIndex))
+        Dim colName As String = dgvlistproducts.Columns(e.ColumnIndex).Name
+        If colName <> "PhysicalQuantity" AndAlso colName <> "Remarks" Then Exit Sub
+
+        Dim row As DataGridViewRow = dgvlistproducts.Rows(e.RowIndex)
+        RefreshRow(row)
+        StorePending(row)
         UpdateCards()
+    End Sub
+
+    ' remember what was typed so it survives paging / searching
+    Private Sub StorePending(row As DataGridViewRow)
+        Dim info As CountRow = TryCast(row.Tag, CountRow)
+        If info Is Nothing OrElse info.DetailId > 0 Then Exit Sub
+
+        Dim txt As String = Convert.ToString(row.Cells("PhysicalQuantity").Value).Trim()
+        Dim remarks As String = Convert.ToString(row.Cells("Remarks").Value).Trim()
+        Dim phys As Integer = -1
+        If txt = "" OrElse Not Integer.TryParse(txt, phys) OrElse phys < 0 Then phys = -1
+
+        If phys < 0 AndAlso remarks = "" Then
+            pending.Remove(info.VariantId)
+            Exit Sub
+        End If
+
+        Dim sys As Integer = 0
+        Integer.TryParse(Convert.ToString(row.Cells("SystemQuantity").Value), sys)
+        pending(info.VariantId) = New PendingCount With {.Physical = phys, .Remarks = remarks, .System = sys}
     End Sub
 
     Private Function StatusOf(diff As Integer) As String
@@ -341,23 +386,34 @@ Public Class frmInventoryCountReconciliation
         End If
     End Sub
 
+    ' Cards cover the WHOLE count sheet: saved lines (database) + typed-but-unsaved lines (memory)
     Private Sub UpdateCards()
         Dim counted As Integer = 0, matched As Integer = 0, shortCount As Integer = 0, excess As Integer = 0
 
-        For Each row As DataGridViewRow In dgvlistproducts.Rows
-            Dim d As Object = row.Cells("Difference").Value
-            If d Is Nothing OrElse Convert.ToString(d) = "" Then Continue For
+        If currentCountId > 0 Then
+            Dim dt As DataTable = GetDataTable(
+                "SELECT COUNT(*) AS n, IFNULL(SUM(status = 'Matched'), 0) AS m, " &
+                "IFNULL(SUM(status = 'Short'), 0) AS s, IFNULL(SUM(status = 'Excess'), 0) AS x " &
+                "FROM tbl_inventory_count_details WHERE inventory_count_id = @c",
+                New String() {"@c"}, New Object() {CType(currentCountId, Object)})
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                counted = Convert.ToInt32(dt.Rows(0)("n"))
+                matched = Convert.ToInt32(dt.Rows(0)("m"))
+                shortCount = Convert.ToInt32(dt.Rows(0)("s"))
+                excess = Convert.ToInt32(dt.Rows(0)("x"))
+            End If
+        End If
 
-            Dim diff As Integer = 0
-            If Integer.TryParse(Convert.ToString(d), diff) Then
-                counted += 1
-                If diff = 0 Then
-                    matched += 1
-                ElseIf diff < 0 Then
-                    shortCount += 1
-                Else
-                    excess += 1
-                End If
+        For Each pc As PendingCount In pending.Values
+            If pc.Physical < 0 Then Continue For
+            counted += 1
+            Dim diff As Integer = pc.Physical - pc.System
+            If diff = 0 Then
+                matched += 1
+            ElseIf diff < 0 Then
+                shortCount += 1
+            Else
+                excess += 1
             End If
         Next
 
@@ -369,45 +425,38 @@ Public Class frmInventoryCountReconciliation
     End Sub
 
     Private Function HasUnsavedEntries() As Boolean
-        For Each row As DataGridViewRow In dgvlistproducts.Rows
-            Dim info As CountRow = TryCast(row.Tag, CountRow)
-            If info IsNot Nothing AndAlso info.DetailId = 0 AndAlso
-               Convert.ToString(row.Cells("PhysicalQuantity").Value).Trim() <> "" Then Return True
+        For Each pc As PendingCount In pending.Values
+            If pc.Physical >= 0 Then Return True
         Next
         Return False
     End Function
+
+    ' ==================== SAVE COUNT ====================
     Private Sub btnsave_Click(sender As Object, e As EventArgs) Handles btnsave.Click
         If RolePermissions.IsViewOnly() Then
             MsgBox("Your role has view-only access.", vbExclamation, "Inventory Count")
             Exit Sub
         End If
+        dgvlistproducts.EndEdit()
 
-        ' Filter pending rows safely
-        Dim pending As New List(Of DataGridViewRow)
-        For Each row As DataGridViewRow In dgvlistproducts.Rows
-            If row.IsNewRow Then Continue For
-            Dim info As CountRow = TryCast(row.Tag, CountRow)
-            Dim physVal As String = Convert.ToString(row.Cells("PhysicalQuantity").Value).Trim()
-
-            If info IsNot Nothing AndAlso info.DetailId = 0 AndAlso physVal <> "" Then
-                pending.Add(row)
-            End If
+        ' every counted line from ALL pages
+        Dim toSave As New List(Of KeyValuePair(Of Integer, PendingCount))
+        For Each kv As KeyValuePair(Of Integer, PendingCount) In pending
+            If kv.Value.Physical >= 0 Then toSave.Add(kv)
         Next
 
-        If pending.Count = 0 Then
+        If toSave.Count = 0 Then
             MsgBox("Type the physical quantity of at least one item first.", vbExclamation, "Inventory Count")
             Exit Sub
         End If
 
         Dim discrepancies As Integer = 0
-        For Each row As DataGridViewRow In pending
-            Dim diff As Integer = 0
-            Integer.TryParse(Convert.ToString(row.Cells("Difference").Value), diff)
-            If diff <> 0 Then discrepancies += 1
+        For Each kv As KeyValuePair(Of Integer, PendingCount) In toSave
+            If kv.Value.Physical - kv.Value.System <> 0 Then discrepancies += 1
         Next
 
-        If MsgBox("Save " & pending.Count & " counted item(s) (" & discrepancies & " with discrepancy)?",
-              vbYesNo + vbQuestion, "Save Count") <> MsgBoxResult.Yes Then Exit Sub
+        If MsgBox("Save " & toSave.Count & " counted item(s) (" & discrepancies & " with discrepancy)?",
+                  vbYesNo + vbQuestion, "Save Count") <> MsgBoxResult.Yes Then Exit Sub
 
         Try
             Dim countId As Long = currentCountId
@@ -417,12 +466,11 @@ Public Class frmInventoryCountReconciliation
                 c.Open()
                 Using tx As MySqlTransaction = c.BeginTransaction()
                     Try
-                        ' Create header record if not created yet
                         If countId = 0 Then
                             If String.IsNullOrEmpty(countNo) Then countNo = NewCountNo()
                             Using q As New MySqlCommand(
-                            "INSERT INTO tbl_inventory_counts (count_no, count_date, prepared_by, status, remarks) " &
-                            "VALUES (@no, CURDATE(), @uid, 'Pending', NULL)", c, tx)
+                                "INSERT INTO tbl_inventory_counts (count_no, count_date, prepared_by, status, remarks) " &
+                                "VALUES (@no, CURDATE(), @uid, 'Pending', NULL)", c, tx)
                                 q.Parameters.AddWithValue("@no", countNo)
                                 q.Parameters.AddWithValue("@uid", currentuser.UserID)
                                 q.ExecuteNonQuery()
@@ -430,46 +478,37 @@ Public Class frmInventoryCountReconciliation
                             End Using
                         End If
 
-                        ' Insert details
-                        For Each row As DataGridViewRow In pending
-                            Dim info As CountRow = CType(row.Tag, CountRow)
-
-                            Dim sys As Integer = 0
-                            Dim phys As Integer = 0
-                            Integer.TryParse(Convert.ToString(row.Cells("SystemQuantity").Value), sys)
-                            Integer.TryParse(Convert.ToString(row.Cells("PhysicalQuantity").Value), phys)
-
+                        For Each kv As KeyValuePair(Of Integer, PendingCount) In toSave
+                            Dim sys As Integer = kv.Value.System
+                            Dim phys As Integer = kv.Value.Physical
                             Dim diff As Integer = phys - sys
-                            Dim remarks As String = Convert.ToString(row.Cells("Remarks").Value).Trim()
+                            Dim remarks As String = kv.Value.Remarks
 
                             Using q As New MySqlCommand(
-                            "INSERT INTO tbl_inventory_count_details " &
-                            "(inventory_count_id, variant_id, system_quantity, physical_quantity, difference, status, remarks, adjusted) " &
-                            "VALUES (@c, @v, @s, @p, @d, @st, @r, 0)", c, tx)
+                                "INSERT INTO tbl_inventory_count_details " &
+                                "(inventory_count_id, variant_id, system_quantity, physical_quantity, difference, status, remarks, adjusted) " &
+                                "VALUES (@c, @v, @s, @p, @d, @st, @r, 0)", c, tx)
                                 q.Parameters.AddWithValue("@c", countId)
-                                q.Parameters.AddWithValue("@v", info.VariantId)
+                                q.Parameters.AddWithValue("@v", kv.Key)
                                 q.Parameters.AddWithValue("@s", sys)
                                 q.Parameters.AddWithValue("@p", phys)
                                 q.Parameters.AddWithValue("@d", diff)
                                 q.Parameters.AddWithValue("@st", StatusOf(diff))
                                 q.Parameters.AddWithValue("@r", If(remarks = "", CType(DBNull.Value, Object), remarks))
                                 q.ExecuteNonQuery()
-
-                                info.DetailId = CInt(q.LastInsertedId)
                             End Using
                         Next
 
-                        ' Update header status
                         Using q As New MySqlCommand(
-                        "UPDATE tbl_inventory_counts SET status = IF((SELECT COUNT(*) FROM tbl_inventory_count_details " &
-                        "WHERE inventory_count_id = @c AND status <> 'Matched' AND adjusted = 0) = 0, 'Reconciled', 'Pending') " &
-                        "WHERE inventory_count_id = @c", c, tx)
+                            "UPDATE tbl_inventory_counts SET status = IF((SELECT COUNT(*) FROM tbl_inventory_count_details " &
+                            "WHERE inventory_count_id = @c AND status <> 'Matched' AND adjusted = 0) = 0, 'Reconciled', 'Pending') " &
+                            "WHERE inventory_count_id = @c", c, tx)
                             q.Parameters.AddWithValue("@c", countId)
                             q.ExecuteNonQuery()
                         End Using
 
                         tx.Commit()
-                    Catch ex As Exception
+                    Catch
                         tx.Rollback()
                         Throw
                     End Try
@@ -479,11 +518,17 @@ Public Class frmInventoryCountReconciliation
             currentCountId = countId
             currentCountNo = countNo
 
-            LogActivity("Inventory Count", countNo, "Saved " & pending.Count & " counted item(s), " & discrepancies & " discrepancy(ies)")
+            For Each kv As KeyValuePair(Of Integer, PendingCount) In toSave
+                pending.Remove(kv.Key)
+            Next
+
+            LogActivity("Inventory Count", countNo, "Saved " & toSave.Count & " counted item(s), " & discrepancies & " discrepancy(ies)")
 
             MsgBox("Count " & countNo & " saved." & vbCrLf &
-               If(discrepancies > 0, "To correct a Short/Excess item, select its row and click 'Adjust Inventory'.", "No discrepancies found."),
-               vbInformation, "Inventory Count")
+                   If(discrepancies > 0, "To correct a Short/Excess item, select its row and click 'Adjust Inventory'.", "No discrepancies found."),
+                   vbInformation, "Inventory Count")
+
+            LoadProducts()      ' saved lines now show as locked
 
         Catch ex As Exception
             MsgBox("Saving the count failed and was rolled back: " & ex.Message, vbCritical, "Inventory Count")
@@ -536,36 +581,25 @@ Public Class frmInventoryCountReconciliation
         End Using
     End Sub
 
-    ' Populate Category Dropdown with "All Categories" option
-    Private Sub LoadCategoryCombo()
-        Dim dt As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
-
-        ' Add default "All Categories" option
-        Dim row As DataRow = dt.NewRow()
-        row("category_id") = 0
-        row("category_name") = "-- All Categories --"
-        dt.Rows.InsertAt(row, 0)
-
-        FillCombo(cbocategory, dt, "category_name", "category_id")
-        cbocategory.SelectedIndex = 0
-    End Sub
-
     ' ==================== CLEAR / CANCEL ====================
     Private Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
         If HasUnsavedEntries() Then
             If MsgBox("Discard the counts that are not saved yet and start a new count sheet?",
                       vbYesNo + vbQuestion, "Inventory Count") <> MsgBoxResult.Yes Then Exit Sub
         End If
+        pending.Clear()
         currentCountId = 0
         currentCountNo = NewCountNo()
         txtCountNo.Text = currentCountNo
-        txtSearch.Clear()
+        activeCard = ""
+
         isLoading = True
+        txtSearch.Clear()
         cbocategory.SelectedIndex = 0
-        lastCategoryIndex = 0
         LoadTypeCombo()
         isLoading = False
-        activeCard = ""
+
+        pg.Reset()
         LoadProducts()
     End Sub
 

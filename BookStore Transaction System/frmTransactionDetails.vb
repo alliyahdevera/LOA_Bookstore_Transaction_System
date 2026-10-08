@@ -520,6 +520,16 @@ Public Class frmTransactionDetails
                                         q.Parameters.AddWithValue("@uid", currentuser.UserID)
                                         q.ExecuteNonQuery()
                                     End Using
+                                    Using q As New MySqlCommand(
+"INSERT INTO tbl_nonsaleable_stocks (variant_id, quantity, stock_condition, reason, reference_no, reported_by) " &
+"VALUES (@v, @q, 'Damaged', @rm, @ref, @uid)", c, tx)
+                                        q.Parameters.AddWithValue("@v", it.VariantId)
+                                        q.Parameters.AddWithValue("@q", qty)
+                                        q.Parameters.AddWithValue("@rm", actionName & " of " & TransactionNo & " (" & cboCondition.Text & ")")
+                                        q.Parameters.AddWithValue("@ref", refNo)
+                                        q.Parameters.AddWithValue("@uid", currentuser.UserID)
+                                        q.ExecuteNonQuery()
+                                    End Using
                                 End If
                             End If
                         Next

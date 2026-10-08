@@ -42,7 +42,7 @@ Partial Class frmReports
         Me.cboReportType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboReportType.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboReportType.FormattingEnabled = True
-        Me.cboReportType.Items.AddRange(New Object() {"Sales By Item", "Sales by Date Range", "Cash Denomination", "Remittance Report", "Inventory Discrepancy"})
+        Me.cboReportType.Items.AddRange(New Object() {"Sales By Item", "Sales by Date Range", "Cash Denomination", "Remittance Report", "Inventory Discrepancy", "Damaged Report"})
         Me.cboReportType.Location = New System.Drawing.Point(115, 6)
         Me.cboReportType.Name = "cboReportType"
         Me.cboReportType.Size = New System.Drawing.Size(197, 29)
