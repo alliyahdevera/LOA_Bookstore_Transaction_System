@@ -23,6 +23,15 @@ Public Class frmStudentpos
             Return foundId
         End Get
     End Property
+    Public ReadOnly Property IdNumber As String Implements IBuyerInfo.IdNumber
+        Get
+            Return foundNo
+        End Get
+    End Property
+
+    Private Sub frmStudentpos_LoadId(sender As Object, e As EventArgs) Handles MyBase.Load
+        Label3.Text = "ID Number"
+    End Sub
 
     Public Function ValidateBuyer(ByRef message As String) As Boolean Implements IBuyerInfo.ValidateBuyer
         Dim no As String = txtStudentNo.Text.Trim()
@@ -123,5 +132,4 @@ Public Class frmStudentpos
         txtgrade.Text = r("grade_level").ToString()
         txtProgramStrand.Text = If(IsDBNull(r("program_strand")) OrElse r("program_strand").ToString() = "", "N/A", r("program_strand").ToString())
     End Sub
-
 End Class

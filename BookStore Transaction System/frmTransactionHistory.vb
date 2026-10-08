@@ -3,7 +3,7 @@
 Public Class frmTransactionHistory
     Private Const SEARCH_FILTER As String =
     "(t.transaction_no LIKE @s OR t.buyer_name LIKE @s OR t.or_no LIKE @s OR t.status LIKE @s " &
-    "OR t.student_id IN (SELECT student_id FROM tbl_students WHERE student_no LIKE @s) " &
+    "OR t.id_number LIKE @s OR t.student_id IN (SELECT student_id FROM tbl_students WHERE student_no LIKE @s) " &
     "OR t.transaction_id IN (SELECT ti2.transaction_id FROM tbl_transaction_items ti2 " &
     "INNER JOIN tbl_product_variants v2 ON ti2.variant_id = v2.variant_id " &
     "INNER JOIN tbl_products p2 ON v2.product_id = p2.product_id " &
@@ -13,7 +13,10 @@ Public Class frmTransactionHistory
     Private Sub frmTransactionHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
         LoadCategoryCombo()
-
+        If Not dgvtransaction.Columns.Contains("CustomerID") Then
+            dgvtransaction.Columns.Insert(2, New DataGridViewTextBoxColumn With {.Name = "CustomerID", .HeaderText = "Customer ID"})
+            dgvtransaction.Columns.Insert(3, New DataGridViewTextBoxColumn With {.Name = "BuyerType", .HeaderText = "Buyer Type"})
+        End If
         dtfrom.Value = New Date(Date.Today.Year, Date.Today.Month, 1)   ' 1st of this month
         dtto.Value = Date.Today
 
@@ -101,7 +104,7 @@ Public Class frmTransactionHistory
         Try
             If Not connection() Then Exit Sub
 
-            Dim query As String = "SELECT t.transaction_no, t.buyer_name, DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, " &
+            Dim query As String = "SELECT t.transaction_no, t.buyer_name, t.buyer_type, t.id_number, DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, " &
                               "v.product_code, p.product_name, v.size, p.unit_price, ti.quantity AS qty, " &
                               "ti.subtotal, t.total_amount, t.amount_paid, t.amount_change, t.payment_method, t.status, u.username " &
                               "FROM TBL_TRANSACTION_ITEMS ti " &
@@ -130,6 +133,10 @@ Public Class frmTransactionHistory
                         dgvtransaction.Rows.Add(
                         localDr("transaction_no").ToString(),
                         localDr("buyer_name").ToString(),
+                        localDr("buyer_name").ToString(),
+                        If(IsDBNull(localDr("id_number")) OrElse localDr("id_number").ToString() = "", "N/A", localDr("id_number").ToString()),
+                        localDr("buyer_type").ToString(),
+                        localDr("product_code").ToString(),
                         localDr("product_code").ToString(),
                         localDr("product_name").ToString(),
                         localDr("size").ToString(),

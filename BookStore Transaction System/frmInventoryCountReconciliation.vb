@@ -135,9 +135,10 @@ Public Class frmInventoryCountReconciliation
         activeCard = If(activeCard = key, "", key)      ' click the same card again to show everything
         ApplyCardFilter()
     End Sub
-
     Private Function RowMatchesCard(row As DataGridViewRow) As Boolean
+        If Not RowMatchesSearch(row) Then Return False
         If activeCard = "" Then Return True
+        ' ...rest of the function stays the same
         Dim d As String = Convert.ToString(row.Cells("Difference").Value)
         Dim diff As Integer
         If d = "" OrElse Not Integer.TryParse(d, diff) Then Return False     ' not counted yet
@@ -174,23 +175,40 @@ Public Class frmInventoryCountReconciliation
         End If
         LoadProducts()
     End Sub
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        If isLoading Then Exit Sub
+        ApplyCardFilter()
+    End Sub
 
     Private Sub txtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
-            btngenerate.PerformClick()
+            ApplyCardFilter()
         End If
     End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        ApplyCardFilter()
+    End Sub
+
+    Private Function RowMatchesSearch(row As DataGridViewRow) As Boolean
+        Dim kw As String = txtSearch.Text.Trim()
+        If kw = "" Then Return True
+        For Each colName As String In New String() {"ProductCode", "ProductName", "ProductDescription", "Category", "TypeofProduct", "Size"}
+            If Convert.ToString(row.Cells(colName).Value).IndexOf(kw, StringComparison.OrdinalIgnoreCase) >= 0 Then Return True
+        Next
+        Return False
+    End Function
 
     Private Sub LoadProducts()
         dgvlistproducts.Rows.Clear()
 
-        Dim keyword As String = txtSearch.Text.Trim()
+        Dim keyword As String = ""      ' search is now live on the grid, not in SQL
         Dim category As String = If(cbocategory.SelectedIndex <= 0, "", cbocategory.Text)
         Dim typeName As String = If(cboType.SelectedIndex <= 0, "", Convert.ToString(cboType.SelectedItem))
 
         Dim query As String =
-            "SELECT v.variant_id, v.product_code, p.product_name, c.category_name, ct.type_name, v.size, " &
+            "SELECT v.variant_id, v.product_code, p.product_name, p.product_description, c.category_name, ct.type_name, v.size, " &
             "v.quantity_on_hand, d.inventory_count_detail_id, d.system_quantity, d.physical_quantity, " &
             "d.status AS count_status, d.remarks, d.adjusted " &
             "FROM tbl_product_variants v " &
@@ -225,7 +243,10 @@ Public Class frmInventoryCountReconciliation
 
                 row.Cells("ProductCode").Value = r("product_code").ToString()
                 row.Cells("CountNo").Value = currentCountNo
+                dgvlistproducts.Columns.Insert(3, New DataGridViewTextBoxColumn With {
+            .Name = "ProductDescription", .HeaderText = "Product Description", .Width = 200, .ReadOnly = True})
                 row.Cells("ProductName").Value = r("product_name").ToString()
+                row.Cells("ProductDescription").Value = If(IsDBNull(r("product_description")), "", r("product_description").ToString())
                 row.Cells("Category").Value = r("category_name").ToString()
                 row.Cells("TypeofProduct").Value = r("type_name").ToString()
                 row.Cells("Size").Value = r("size").ToString()
@@ -495,10 +516,6 @@ Public Class frmInventoryCountReconciliation
 
         Dim sys As Integer = Convert.ToInt32(row.Cells("SystemQuantity").Value)
         Dim phys As Integer = Convert.ToInt32(row.Cells("PhysicalQuantity").Value)
-        If sys = phys Then
-            MsgBox("This item matches the system quantity. Nothing to adjust.", vbInformation, "Inventory Adjustment")
-            Exit Sub
-        End If
 
         Using frm As New frmInventoryAdjustment()
             frm.VariantId = info.VariantId

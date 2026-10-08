@@ -115,6 +115,7 @@ Public Interface IBuyerInfo
     ReadOnly Property BuyerType As String
     ReadOnly Property BuyerName As String
     ReadOnly Property StudentId As Integer
+    ReadOnly Property IdNumber As String          ' <-- NEW
     Function ValidateBuyer(ByRef message As String) As Boolean
     Sub ClearBuyer()
 End Interface

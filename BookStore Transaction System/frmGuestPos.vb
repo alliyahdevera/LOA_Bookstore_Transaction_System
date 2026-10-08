@@ -33,13 +33,35 @@ Public Class frmGuestPos
         End If
         Return True
     End Function
-
     Public Sub ClearBuyer() Implements IBuyerInfo.ClearBuyer
         txtGuestName.Clear()
+        txtGuestId.Clear()
     End Sub
 
     Private Sub txtGuestName_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtGuestName.KeyPress
         If Char.IsDigit(e.KeyChar) Then e.Handled = True
+    End Sub
+    Private txtGuestId As TextBox
+
+    Public ReadOnly Property IdNumber As String Implements IBuyerInfo.IdNumber
+        Get
+            Return txtGuestId.Text.Trim()
+        End Get
+    End Property
+
+    Private Sub frmGuestPos_LoadId(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim lbl As New Label With {.AutoSize = True, .Font = Label13.Font, .Text = "ID Number",
+                                   .Location = New Point(Label13.Left, 52)}
+        txtGuestId = New TextBox With {.BorderStyle = BorderStyle.FixedSingle, .Font = txtGuestName.Font,
+                                       .Location = New Point(txtGuestName.Left, 50), .Size = txtGuestName.Size,
+                                       .MaxLength = 30}
+        AddHandler txtGuestId.KeyPress, Sub(s, ev)
+                                            If Not Char.IsLetterOrDigit(ev.KeyChar) AndAlso ev.KeyChar <> "-"c AndAlso Not Char.IsControl(ev.KeyChar) Then ev.Handled = True
+                                        End Sub
+        Controls.Add(lbl)
+        Controls.Add(txtGuestId)
+        Panel1.Top = 90
+        Panel1.Height = 70
     End Sub
 
 End Class

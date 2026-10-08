@@ -600,6 +600,7 @@ Public Class frmPOS
         Dim buyerType As String = info.BuyerType
         Dim buyerName As String = info.BuyerName
         Dim studentId As Object = If(info.StudentId > 0, CType(info.StudentId, Object), DBNull.Value)
+        Dim idNumber As Object = If(String.IsNullOrWhiteSpace(info.IdNumber), CType(DBNull.Value, Object), info.IdNumber)
         Dim empName As Object = DBNull.Value
         If buyerType = "Employee" Then
             empName = buyerName
@@ -615,14 +616,15 @@ Public Class frmPOS
             Try
                 Dim transactionId As Long = 0
                 Dim insTxn As String = "INSERT INTO TBL_TRANSACTIONS " &
-                                   "(transaction_no, buyer_type, student_id, buyer_name, or_no, or_date, payment_method, employee_name, " &
+                                   "(transaction_no, buyer_type, student_id, id_number, buyer_name, or_no, or_date, payment_method, employee_name, " &
                                    "total_amount, amount_paid, amount_change, created_by, status) " &
-                                   "VALUES (@tno, @bt, @sid, @bn, @orno, @ord, @pm, @emp, @tot, @paid, @chg, @by, 'Completed')"
+                                   "VALUES (@tno, @bt, @sid, @idn, @bn, @orno, @ord, @pm, @emp, @tot, @paid, @chg, @by, 'Completed')"
 
                 Using c1 As New MySqlCommand(insTxn, cn, trans)
                     c1.Parameters.AddWithValue("@tno", txnNo)
                     c1.Parameters.AddWithValue("@bt", buyerType)
                     c1.Parameters.AddWithValue("@sid", studentId)
+                    c1.Parameters.AddWithValue("@idn", idNumber)
                     c1.Parameters.AddWithValue("@bn", buyerName)
                     c1.Parameters.AddWithValue("@orno", txtReferenceNo.Text.Trim())
                     c1.Parameters.AddWithValue("@ord", paymentDate.Date)
