@@ -5,7 +5,7 @@ Public Class frmStudentManagement
 
     Private selectedStudentId As Integer = 0
     Private isFilling As Boolean = False
-
+    Private pg As GridPager
     Private ReadOnly GradeLevels As String() = {
         "Kinder", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6",
         "Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11", "Grade 12",
@@ -30,7 +30,8 @@ Public Class frmStudentManagement
         For Each g As String In GradeLevels
             cboGradeLevel.Items.Add(g)
         Next
-
+        pg = New GridPager(dgvstudents, 20)
+        AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim())
         LoadGrid("")
         ClearFields()
     End Sub
@@ -200,18 +201,20 @@ Public Class frmStudentManagement
         If cboProgram.SelectedIndex < 0 OrElse cboProgram.Text = "N/A" Then Return DBNull.Value
         Return cboProgram.Text.Trim()
     End Function
-
-    ' ---------- grid ----------
     Public Sub LoadGrid(searchText As String)
-        Dim dt As DataTable = GetDataTable(
+        If pg Is Nothing Then Exit Sub
+        Dim dt As DataTable = pg.LoadPage(
             "SELECT student_id, student_no, last_name, first_name, education_level, grade_level, program_strand, section " &
-            "FROM tbl_students WHERE student_no LIKE @s OR last_name LIKE @s OR first_name LIKE @s ORDER BY last_name, first_name",
+            "FROM tbl_students WHERE student_no LIKE @s OR last_name LIKE @s OR first_name LIKE @s " &
+            "ORDER BY last_name, first_name, student_id",
             New String() {"@s"}, New Object() {"%" & searchText & "%"})
         dgvstudents.DataSource = dt
         dgvstudents.ClearSelection()
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        If pg Is Nothing Then Exit Sub
+        pg.Reset()
         LoadGrid(txtSearch.Text.Trim())
     End Sub
 

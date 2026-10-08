@@ -3,6 +3,7 @@
 Public Class frmUserManagement
 
     Private selectedUserId As Integer = 0
+    Private pg As GridPager
     Private Sub frmUserManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
@@ -17,7 +18,8 @@ Public Class frmUserManagement
         ' Populate Status ComboBox
         cboStatus.Items.Clear()
         cboStatus.Items.AddRange(New Object() {"Active", "Inactive"})
-
+        pg = New GridPager(dgvlistusers, 20)
+        AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim())
         LoadGrid("")
         ClearFields()
     End Sub
@@ -101,35 +103,33 @@ Public Class frmUserManagement
     End Function
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        If pg Is Nothing Then Exit Sub
+        pg.Reset()
         LoadGrid(txtSearch.Text.Trim())
     End Sub
 
     Private Sub LoadGrid(searchText As String)
+        If pg Is Nothing Then Exit Sub
         Try
-            If Not connection() Then Exit Sub
-            Dim query As String = "SELECT u.user_id, u.username, u.first_name, u.last_name, r.role_name, u.status " &
-                                  "FROM TBL_USERS u INNER JOIN TBL_ROLES r ON u.role_id = r.role_id " &
-                                  "WHERE u.username LIKE @s OR u.last_name LIKE @s ORDER BY u.last_name, u.first_name"
-            Using localCmd As New MySqlCommand(query, cn)
-                localCmd.Parameters.AddWithValue("@s", "%" & searchText & "%")
-                Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    dgvlistusers.Rows.Clear()
-                    While localDr.Read()
-                        Dim idx As Integer = dgvlistusers.Rows.Add(
-                            localDr("username").ToString(),
-                            "********",
-                            localDr("role_name").ToString(),
-                            localDr("first_name").ToString(),
-                            localDr("last_name").ToString(),
-                            localDr("status").ToString()
-                        )
-                        dgvlistusers.Rows(idx).Tag = Convert.ToInt32(localDr("user_id"))
-                    End While
-                End Using
-            End Using
-            cn.Close()
+            Dim dt As DataTable = pg.LoadPage(
+                "SELECT u.user_id, u.username, u.first_name, u.last_name, r.role_name, u.status " &
+                "FROM TBL_USERS u INNER JOIN TBL_ROLES r ON u.role_id = r.role_id " &
+                "WHERE u.username LIKE @s OR u.last_name LIKE @s " &
+                "ORDER BY u.last_name, u.first_name, u.user_id",
+                New String() {"@s"}, New Object() {"%" & searchText & "%"})
+
+            dgvlistusers.Rows.Clear()
+            For Each r As DataRow In dt.Rows
+                Dim idx As Integer = dgvlistusers.Rows.Add(
+                    r("username").ToString(),
+                    "********",
+                    r("role_name").ToString(),
+                    r("first_name").ToString(),
+                    r("last_name").ToString(),
+                    r("status").ToString())
+                dgvlistusers.Rows(idx).Tag = Convert.ToInt32(r("user_id"))
+            Next
         Catch ex As Exception
-            If cn.State = ConnectionState.Open Then cn.Close()
             MsgBox("Error loading users: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub

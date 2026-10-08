@@ -1,4 +1,7 @@
-﻿Public Module PlaceholderHelper
+﻿Imports System.Drawing
+Imports System.Windows.Forms
+
+Public Module PlaceholderHelper
 
     Private Declare Unicode Function SendMessage Lib "user32.dll" Alias "SendMessageW" (hWnd As IntPtr, msg As Integer, wParam As Integer, lParam As String) As IntPtr
     Private Const EM_SETCUEBANNER As Integer = &H1501
@@ -63,6 +66,7 @@
     End Sub
 
 End Module
+
 Public Module ApprovalHelper
 
     ' Returns the approving supervisor's full name, or Nothing if cancelled / not approved.
@@ -77,7 +81,7 @@ Public Module ApprovalHelper
                 "WHERE u.username = @u AND u.password = @p AND u.status = 'Active' AND r.role_name = @role",
                 New String() {"@u", "@p", "@role"}, New Object() {user, HashPassword(pw), ROLE_SUPERVISOR})
 
-            If dt.Rows.Count > 0 Then
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
                 Dim name As String = dt.Rows(0)("full_name").ToString()
                 LogActivity("Supervisor Approval", "", action & " approved by " & name)
                 Return name
@@ -175,8 +179,8 @@ Public Module InventoryUi
 
     ' ID-based type combo (ValueMember = category_type_id). Index 0 is "-- All Types --".
     Public Sub FillTypeCombo(cbo As ComboBox, categoryId As Integer,
-                             Optional source As TypeSource = TypeSource.Products,
-                             Optional activeOnly As Boolean = False)
+                              Optional source As TypeSource = TypeSource.Products,
+                              Optional activeOnly As Boolean = False)
         Dim dt As DataTable = GetTypesWithData(categoryId, source, activeOnly)
         Dim row As DataRow = dt.NewRow()
         row("category_type_id") = 0
@@ -213,11 +217,12 @@ Public Module InventoryUi
     End Sub
 
 End Module
+
 Public Interface IBuyerInfo
     ReadOnly Property BuyerType As String
     ReadOnly Property BuyerName As String
     ReadOnly Property StudentId As Integer
-    ReadOnly Property IdNumber As String          ' <-- NEW
+    ReadOnly Property IdNumber As String
     Function ValidateBuyer(ByRef message As String) As Boolean
     Sub ClearBuyer()
 End Interface
@@ -226,10 +231,14 @@ Public Class GridPager
 
     Public Event PageChanged As EventHandler
 
+    Private Const MAX_SLOTS As Integer = 7                      ' renamed constant to avoid name collision
+    Private ReadOnly navy As Color = Color.FromArgb(1, 21, 78)
+
     Private ReadOnly pnl As New Panel()
+    Private ReadOnly lblInfo As New Label()
     Private ReadOnly btnPrev As New Button()
     Private ReadOnly btnNext As New Button()
-    Private ReadOnly lblPage As New Label()
+    Private ReadOnly slots As New List(Of Button)()
 
     Public Property PageSize As Integer = 20
     Public Property CurrentPage As Integer = 1
@@ -245,16 +254,27 @@ Public Class GridPager
         PageSize = size
         Dim host As Control = grid.Parent
 
-        btnPrev.Text = "< Prev"
-        btnNext.Text = "Next >"
-        For Each b As Button In New Button() {btnPrev, btnNext}
-            b.FlatStyle = FlatStyle.Flat
-            b.BackColor = Color.White
-            b.Cursor = Cursors.Hand
+        StyleButton(btnPrev, "<")
+        StyleButton(btnNext, ">")
+        btnPrev.Visible = True
+        btnNext.Visible = True
+        AddHandler btnPrev.Click, Sub() GoToPage(CurrentPage - 1)
+        AddHandler btnNext.Click, Sub() GoToPage(CurrentPage + 1)
+
+        lblInfo.AutoSize = False
+        lblInfo.TextAlign = ContentAlignment.MiddleLeft
+        lblInfo.Font = New Font("Segoe UI", 9)
+
+        pnl.Controls.Add(lblInfo)
+        pnl.Controls.Add(btnPrev)
+        pnl.Controls.Add(btnNext)
+        For i As Integer = 1 To MAX_SLOTS
+            Dim b As New Button()
+            StyleButton(b, "")
+            AddHandler b.Click, AddressOf PageButton_Click
+            slots.Add(b)
+            pnl.Controls.Add(b)
         Next
-        lblPage.TextAlign = ContentAlignment.MiddleRight
-        lblPage.Font = New Font("Segoe UI", 9)
-        pnl.Controls.AddRange(New Control() {lblPage, btnPrev, btnNext})
 
         If grid.Dock = DockStyle.None Then
             grid.Height -= 34
@@ -272,16 +292,117 @@ Public Class GridPager
         End If
 
         AddHandler pnl.Resize, Sub() LayoutControls()
-        AddHandler btnPrev.Click, Sub() GoToPage(CurrentPage - 1)
-        AddHandler btnNext.Click, Sub() GoToPage(CurrentPage + 1)
-        LayoutControls()
-        UpdateLabels()
+        UpdateUi()
     End Sub
 
+    Private Sub StyleButton(b As Button, text As String)
+        b.Text = text
+        b.FlatStyle = FlatStyle.Flat
+        b.FlatAppearance.BorderColor = Color.Silver
+        b.BackColor = Color.White
+        b.ForeColor = Color.Black
+        b.Font = New Font("Segoe UI", 9)
+        b.Cursor = Cursors.Hand
+        b.TabStop = False
+        b.Visible = False
+    End Sub
+
+    ' ---------- which page numbers to show (0 = "...") ----------
+    '  <  1 2 3 4 ... 10  >      <  1 ... 4 5 6 ... 10  >      <  1 ... 7 8 9 10  >
+    Private Function BuildPageList() As List(Of Integer)
+        Dim items As New List(Of Integer)()
+        Dim total As Integer = TotalPages
+
+        If total <= MAX_SLOTS Then
+            For i As Integer = 1 To total
+                items.Add(i)
+            Next
+            Return items
+        End If
+
+        Dim s As Integer = Math.Max(2, CurrentPage - 1)
+        Dim e As Integer = Math.Min(total - 1, CurrentPage + 1)
+        If CurrentPage <= 3 Then
+            s = 2
+            e = 4
+        ElseIf CurrentPage >= total - 2 Then
+            s = total - 3
+            e = total - 1
+        End If
+
+        items.Add(1)
+        If s > 2 Then items.Add(0)
+        For i As Integer = s To e
+            items.Add(i)
+        Next
+        If e < total - 1 Then items.Add(0)
+        items.Add(total)
+        Return items
+    End Function
+
+    Private Sub UpdateUi()
+        lblInfo.Text = "Page " & CurrentPage & " of " & TotalPages & "   (" & TotalRows & " items)"
+        btnPrev.Enabled = CurrentPage > 1
+        btnNext.Enabled = CurrentPage < TotalPages
+
+        Dim items As List(Of Integer) = BuildPageList()
+        For i As Integer = 0 To slots.Count - 1
+            Dim b As Button = slots(i)
+            If i >= items.Count Then
+                b.Visible = False
+                Continue For
+            End If
+
+            Dim pageNo As Integer = items(i)
+            b.Tag = pageNo
+            b.Visible = True
+
+            If pageNo = 0 Then                          ' "..."
+                b.Text = "..."
+                b.Cursor = Cursors.Default
+                b.FlatAppearance.BorderSize = 0
+                b.BackColor = Color.White
+                b.ForeColor = Color.Gray
+            ElseIf pageNo = CurrentPage Then            ' current page highlighted
+                b.Text = pageNo.ToString()
+                b.Cursor = Cursors.Default
+                b.FlatAppearance.BorderSize = 1
+                b.BackColor = navy
+                b.ForeColor = Color.White
+            Else
+                b.Text = pageNo.ToString()
+                b.Cursor = Cursors.Hand
+                b.FlatAppearance.BorderSize = 1
+                b.BackColor = Color.White
+                b.ForeColor = Color.Black
+            End If
+        Next
+        LayoutControls()
+    End Sub
+
+    ' buttons are packed against the right edge, the info text takes the rest
     Private Sub LayoutControls()
-        btnNext.SetBounds(pnl.Width - 74, 3, 70, 26)
-        btnPrev.SetBounds(btnNext.Left - 74, 3, 70, 26)
-        lblPage.SetBounds(0, 3, Math.Max(0, btnPrev.Left - 6), 26)
+        Dim x As Integer = pnl.Width - 4
+
+        PlaceRight(btnNext, x)
+        For i As Integer = slots.Count - 1 To 0 Step -1
+            If slots(i).Visible Then PlaceRight(slots(i), x)
+        Next
+        PlaceRight(btnPrev, x)
+
+        lblInfo.SetBounds(0, 3, Math.Max(0, x), 26)
+    End Sub
+
+    Private Sub PlaceRight(b As Button, ByRef x As Integer)
+        Dim w As Integer = Math.Max(28, TextRenderer.MeasureText(b.Text, b.Font).Width + 16)
+        x -= w
+        b.SetBounds(x, 3, w, 26)
+        x -= 3
+    End Sub
+
+    Private Sub PageButton_Click(sender As Object, e As EventArgs)
+        Dim p As Integer = Convert.ToInt32(DirectCast(sender, Button).Tag)
+        If p > 0 AndAlso p <> CurrentPage Then GoToPage(p)
     End Sub
 
     Private Sub GoToPage(p As Integer)
@@ -298,14 +419,24 @@ Public Class GridPager
     Public Function LoadPage(baseQuery As String, names As String(), values As Object()) As DataTable
         TotalRows = Convert.ToInt32(If(ExecScalar("SELECT COUNT(*) FROM (" & baseQuery & ") AS pg_count", names, values), 0))
         If CurrentPage > TotalPages Then CurrentPage = TotalPages
-        UpdateLabels()
+        UpdateUi()
         Return GetDataTable(baseQuery & " LIMIT " & PageSize & " OFFSET " & ((CurrentPage - 1) * PageSize), names, values)
     End Function
 
-    Private Sub UpdateLabels()
-        lblPage.Text = "Page " & CurrentPage & " of " & TotalPages & "   (" & TotalRows & " items)"
-        btnPrev.Enabled = CurrentPage > 1
-        btnNext.Enabled = CurrentPage < TotalPages
-    End Sub
+    ' for screens that already load the whole list into a DataTable: returns just the current page
+    Public Function Slice(source As DataTable) As DataTable
+        TotalRows = If(source Is Nothing, 0, source.Rows.Count)
+        If CurrentPage > TotalPages Then CurrentPage = TotalPages
+        UpdateUi()
+
+        If source Is Nothing Then Return New DataTable()
+        Dim result As DataTable = source.Clone()
+        Dim first As Integer = (CurrentPage - 1) * PageSize
+        Dim last As Integer = Math.Min(first + PageSize, source.Rows.Count) - 1
+        For i As Integer = first To last
+            result.ImportRow(source.Rows(i))
+        Next
+        Return result
+    End Function
 
 End Class
