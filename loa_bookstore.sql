@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 04, 2026 at 07:10 PM
+-- Host: 127.0.0.1
+-- Generation Time: Oct 08, 2026 at 01:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -148,7 +148,28 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 (98, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-05 00:11:18'),
 (99, 1, 'Activity', 'Sale', 'TXN-20261005001120942', NULL, NULL, NULL, NULL, 'Sale to sdwdwqdsads (Guest) - Total: 12.00 (Cash, OR OR-20261005001217239). Items: Art Paper x1', 'Success', NULL, '2026-10-05 00:12:28'),
 (100, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-05 00:44:28'),
-(101, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-05 01:07:36');
+(101, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-05 01:07:36'),
+(102, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 13:29:25'),
+(103, 2, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 13:30:20'),
+(104, 5, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 13:30:44'),
+(105, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 13:33:26'),
+(106, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 13:37:04'),
+(107, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 13:53:20'),
+(108, 1, 'Activity', 'Inventory Count', 'CNT-20261008135401', NULL, NULL, NULL, NULL, 'Saved 1 counted item(s), 1 discrepancy(ies)', 'Success', NULL, '2026-10-08 13:57:17'),
+(109, 1, 'Activity', 'Supervisor Approval', NULL, NULL, NULL, NULL, NULL, 'Inventory adjustment of UNI-CP-035-S (S): 19 to 10 (2 damaged) approved by Maria Santos', 'Success', NULL, '2026-10-08 14:03:14'),
+(110, 1, 'Activity', 'Inventory Adjustment', 'CNT-20261008135401', NULL, NULL, NULL, NULL, 'UNI-CP-035-S (S): 19 -> 10, 2 moved to non-saleable (damaged). Reason: stained badly Approved by Maria Santos', 'Success', NULL, '2026-10-08 14:03:15'),
+(111, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 14:33:09'),
+(112, 1, 'Activity', 'Sale', 'TXN-20261008143526506', NULL, NULL, NULL, NULL, 'Sale to Marc Denize Barcinas (Student) - Total: 850.00 (Cash, OR OR-20261008143604267). Items: BSA BLAZER (FEMALE) x1', 'Success', NULL, '2026-10-08 14:36:41'),
+(113, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 14:45:54'),
+(114, 5, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 15:06:20'),
+(115, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 15:08:54'),
+(116, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 15:14:17'),
+(117, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 16:28:56'),
+(118, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 17:17:31'),
+(119, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 17:29:06'),
+(120, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 17:35:33'),
+(121, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 18:08:02'),
+(122, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-08 18:14:18');
 
 -- --------------------------------------------------------
 
@@ -326,7 +347,8 @@ CREATE TABLE `tbl_inventory_counts` (
 
 INSERT INTO `tbl_inventory_counts` (`inventory_count_id`, `count_no`, `count_date`, `prepared_by`, `status`, `remarks`, `created_at`) VALUES
 (1, 'CNT-20261002210232', '2026-10-02', 1, 'Reconciled', NULL, '2026-10-02 21:02:32'),
-(2, 'CNT-20261002213112', '2026-10-02', 1, 'Pending', NULL, '2026-10-02 21:31:12');
+(2, 'CNT-20261002213112', '2026-10-02', 1, 'Pending', NULL, '2026-10-02 21:31:12'),
+(3, 'CNT-20261008135401', '2026-10-08', 1, 'Reconciled', NULL, '2026-10-08 13:57:17');
 
 -- --------------------------------------------------------
 
@@ -342,6 +364,7 @@ CREATE TABLE `tbl_inventory_count_details` (
   `physical_quantity` int(11) NOT NULL,
   `difference` int(11) NOT NULL,
   `status` enum('Matched','Short','Excess') NOT NULL,
+  `item_condition` varchar(20) DEFAULT NULL,
   `remarks` varchar(255) DEFAULT NULL,
   `adjusted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -350,10 +373,37 @@ CREATE TABLE `tbl_inventory_count_details` (
 -- Dumping data for table `tbl_inventory_count_details`
 --
 
-INSERT INTO `tbl_inventory_count_details` (`inventory_count_detail_id`, `inventory_count_id`, `variant_id`, `system_quantity`, `physical_quantity`, `difference`, `status`, `remarks`, `adjusted`) VALUES
-(1, 1, 1, 101, 10, -91, 'Short', 'e', 1),
-(2, 2, 1, 10, 5, -5, 'Short', '231231', 1),
-(3, 2, 746, 30, 35, 5, 'Excess', NULL, 0);
+INSERT INTO `tbl_inventory_count_details` (`inventory_count_detail_id`, `inventory_count_id`, `variant_id`, `system_quantity`, `physical_quantity`, `difference`, `status`, `item_condition`, `remarks`, `adjusted`) VALUES
+(1, 1, 1, 101, 10, -91, 'Short', NULL, 'e', 1),
+(2, 2, 1, 10, 5, -5, 'Short', NULL, '231231', 1),
+(3, 2, 746, 30, 35, 5, 'Excess', NULL, NULL, 0),
+(4, 3, 497, 19, 10, -9, 'Short', NULL, 'stained badly', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_nonsaleable_stocks`
+--
+
+CREATE TABLE `tbl_nonsaleable_stocks` (
+  `nonsaleable_id` int(11) NOT NULL,
+  `variant_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `stock_condition` enum('Damaged','Defective') NOT NULL DEFAULT 'Damaged',
+  `reason` varchar(255) DEFAULT NULL,
+  `reference_no` varchar(100) DEFAULT NULL,
+  `count_detail_id` int(11) DEFAULT NULL,
+  `reported_by` int(11) NOT NULL,
+  `reported_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `status` enum('Nonsaleable','Disposed') NOT NULL DEFAULT 'Nonsaleable'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_nonsaleable_stocks`
+--
+
+INSERT INTO `tbl_nonsaleable_stocks` (`nonsaleable_id`, `variant_id`, `quantity`, `stock_condition`, `reason`, `reference_no`, `count_detail_id`, `reported_by`, `reported_at`, `status`) VALUES
+(1, 497, 2, 'Damaged', 'stained badly', 'CNT-20261008135401', 4, 1, '2026-10-08 14:03:15', 'Nonsaleable');
 
 -- --------------------------------------------------------
 
@@ -641,7 +691,7 @@ CREATE TABLE `tbl_product_variants` (
   `size` varchar(20) NOT NULL DEFAULT 'N/A',
   `quantity_on_hand` int(11) NOT NULL DEFAULT 0,
   `reorder_level` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ;
 
 --
 -- Dumping data for table `tbl_product_variants`
@@ -1144,7 +1194,7 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (494, 182, 'UNI-CP-034-5XL', '5XL', 20, 5),
 (495, 182, 'UNI-CP-034-6XL', '6XL', 20, 5),
 (496, 183, 'UNI-CP-035-XS', 'XS', 20, 5),
-(497, 183, 'UNI-CP-035-S', 'S', 19, 5),
+(497, 183, 'UNI-CP-035-S', 'S', 8, 5),
 (498, 183, 'UNI-CP-035-M', 'M', 20, 5),
 (499, 183, 'UNI-CP-035-L', 'L', 20, 5),
 (500, 183, 'UNI-CP-035-XL', 'XL', 20, 5),
@@ -1178,7 +1228,7 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (528, 186, 'UNI-CP-038-M', 'M', 20, 5),
 (529, 186, 'UNI-CP-038-L', 'L', 20, 5),
 (530, 186, 'UNI-CP-038-XL', 'XL', 20, 5),
-(531, 186, 'UNI-CP-038-2XL', '2XL', 20, 5),
+(531, 186, 'UNI-CP-038-2XL', '2XL', 19, 5),
 (532, 186, 'UNI-CP-038-3XL', '3XL', 20, 5),
 (533, 186, 'UNI-CP-038-4XL', '4XL', 20, 5),
 (534, 186, 'UNI-CP-038-5XL', '5XL', 20, 5),
@@ -1559,6 +1609,29 @@ INSERT INTO `tbl_roles` (`role_id`, `role_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_school_years`
+--
+
+CREATE TABLE `tbl_school_years` (
+  `school_year_id` int(11) NOT NULL,
+  `label` varchar(9) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `is_current` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_school_years`
+--
+
+INSERT INTO `tbl_school_years` (`school_year_id`, `label`, `start_date`, `end_date`, `is_current`, `created_at`) VALUES
+(1, '2025-2026', '2025-06-01', '2026-05-31', 0, '2026-10-08 17:57:17'),
+(2, '2026-2027', '2026-06-01', '2027-05-31', 1, '2026-10-08 17:57:17');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_stock_ins`
 --
 
@@ -1629,7 +1702,9 @@ INSERT INTO `tbl_stock_movements` (`movement_id`, `variant_id`, `movement_type`,
 (5, 756, 'Stock Out', 1, 30, 29, 'EXC-20261002212805372', 'Exchange replacement for TXN-20261002211935813', 2, '2026-10-02 21:28:05'),
 (6, 1, 'Adjustment', 5, 10, 5, 'CNT-20261002213112', '231231', 1, '2026-10-02 21:31:54'),
 (7, 17, 'Returned', 1, 99, 100, 'EXC-20261004153729154', 'Exchange of TXN-20261004152552471', 1, '2026-10-04 15:37:29'),
-(8, 497, 'Stock Out', 1, 20, 19, 'EXC-20261004153729154', 'Exchange replacement for TXN-20261004152552471', 1, '2026-10-04 15:37:29');
+(8, 497, 'Stock Out', 1, 20, 19, 'EXC-20261004153729154', 'Exchange replacement for TXN-20261004152552471', 1, '2026-10-04 15:37:29'),
+(9, 497, 'Adjustment', 9, 19, 10, 'CNT-20261008135401', 'stained badly [Approved: Maria Santos]', 1, '2026-10-08 14:03:15'),
+(10, 497, 'Damaged', 2, 10, 8, 'CNT-20261008135401', '2 damaged unit(s) moved to non-saleable. stained badly [Approved: Maria Santos]', 1, '2026-10-08 14:03:15');
 
 -- --------------------------------------------------------
 
@@ -1691,6 +1766,7 @@ CREATE TABLE `tbl_transactions` (
   `transaction_no` varchar(30) NOT NULL,
   `buyer_type` varchar(20) NOT NULL,
   `student_id` int(11) DEFAULT NULL,
+  `id_number` varchar(30) DEFAULT NULL,
   `buyer_name` varchar(150) NOT NULL,
   `or_no` varchar(30) NOT NULL,
   `or_date` date NOT NULL,
@@ -1711,14 +1787,15 @@ CREATE TABLE `tbl_transactions` (
 -- Dumping data for table `tbl_transactions`
 --
 
-INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`, `student_id`, `buyer_name`, `or_no`, `or_date`, `created_at`, `payment_method`, `employee_name`, `total_amount`, `amount_paid`, `amount_change`, `created_by`, `status`, `cancel_reason`, `cancelled_by`, `cancelled_at`) VALUES
-(1, 'TXN-20261002205141910', 'Student', 25, 'Alliyah De Vera', 'OR-20261002205150475', '2026-10-02', '2026-10-02 20:54:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL),
-(2, 'TXN-20261002205439014', 'Walk-in', NULL, '123', 'OR-20261002205507126', '2026-10-02', '2026-10-02 20:55:14', 'Cash', NULL, 1225.00, 3000.00, 1775.00, 1, 'Partially Returned', NULL, NULL, NULL),
-(3, 'TXN-20261002210939244', 'Student', 1, 'Miguel Dela Cruz', 'OR-20261002211016756', '2026-10-02', '2026-10-02 21:10:27', 'Salary Deduction', 'Daniel Lopez', 25.00, 25.00, 0.00, 6, 'Completed', NULL, NULL, NULL),
-(4, 'TXN-20261002211935813', 'Student', 25, 'Alliyah De Vera', 'OR-20261002212507211', '2026-10-02', '2026-10-02 21:25:25', 'Cash', NULL, 850.00, 900.00, 50.00, 2, 'Exchanged', NULL, NULL, NULL),
-(5, 'TXN-20261004150727709', 'Student', 18, 'Marc Denize Barcinas', 'OR-20261004150738291', '2026-10-04', '2026-10-04 15:08:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL),
-(6, 'TXN-20261004152552471', 'Student', 17, 'Stephanie Mendoza', 'OR-20261004152656588', '2026-10-04', '2026-10-04 15:27:33', 'Cash', NULL, 275.00, 300.00, 25.00, 1, 'Partially Exchanged', NULL, NULL, NULL),
-(7, 'TXN-20261005001120942', 'Guest', NULL, 'sdwdwqdsads', 'OR-20261005001217239', '2026-10-05', '2026-10-05 00:12:28', 'Cash', NULL, 12.00, 14.00, 2.00, 1, 'Completed', NULL, NULL, NULL);
+INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`, `student_id`, `id_number`, `buyer_name`, `or_no`, `or_date`, `created_at`, `payment_method`, `employee_name`, `total_amount`, `amount_paid`, `amount_change`, `created_by`, `status`, `cancel_reason`, `cancelled_by`, `cancelled_at`) VALUES
+(1, 'TXN-20261002205141910', 'Student', 25, '2789-24', 'Alliyah De Vera', 'OR-20261002205150475', '2026-10-02', '2026-10-02 20:54:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL),
+(2, 'TXN-20261002205439014', 'Walk-in', NULL, NULL, '123', 'OR-20261002205507126', '2026-10-02', '2026-10-02 20:55:14', 'Cash', NULL, 1225.00, 3000.00, 1775.00, 1, 'Partially Returned', NULL, NULL, NULL),
+(3, 'TXN-20261002210939244', 'Student', 1, '2235-20', 'Miguel Dela Cruz', 'OR-20261002211016756', '2026-10-02', '2026-10-02 21:10:27', 'Salary Deduction', 'Daniel Lopez', 25.00, 25.00, 0.00, 6, 'Completed', NULL, NULL, NULL),
+(4, 'TXN-20261002211935813', 'Student', 25, '2789-24', 'Alliyah De Vera', 'OR-20261002212507211', '2026-10-02', '2026-10-02 21:25:25', 'Cash', NULL, 850.00, 900.00, 50.00, 2, 'Exchanged', NULL, NULL, NULL),
+(5, 'TXN-20261004150727709', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261004150738291', '2026-10-04', '2026-10-04 15:08:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL),
+(6, 'TXN-20261004152552471', 'Student', 17, '1396-24', 'Stephanie Mendoza', 'OR-20261004152656588', '2026-10-04', '2026-10-04 15:27:33', 'Cash', NULL, 275.00, 300.00, 25.00, 1, 'Partially Exchanged', NULL, NULL, NULL),
+(7, 'TXN-20261005001120942', 'Guest', NULL, NULL, 'sdwdwqdsads', 'OR-20261005001217239', '2026-10-05', '2026-10-05 00:12:28', 'Cash', NULL, 12.00, 14.00, 2.00, 1, 'Completed', NULL, NULL, NULL),
+(8, 'TXN-20261008143526506', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261008143604267', '2026-10-08', '2026-10-08 14:36:41', 'Cash', NULL, 850.00, 1000.00, 150.00, 1, 'Completed', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1749,7 +1826,8 @@ INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `v
 (6, 6, 3, 1, 25.00, 0, NULL),
 (7, 6, 11, 1, 30.00, 0, NULL),
 (8, 6, 17, 1, 220.00, 0, NULL),
-(9, 7, 1, 1, 12.00, 0, NULL);
+(9, 7, 1, 1, 12.00, 0, NULL),
+(10, 8, 531, 1, 850.00, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1844,7 +1922,15 @@ ALTER TABLE `tbl_inventory_counts`
 ALTER TABLE `tbl_inventory_count_details`
   ADD PRIMARY KEY (`inventory_count_detail_id`),
   ADD KEY `fk_count_detail_header` (`inventory_count_id`),
-  ADD KEY `fk_count_detail_variant` (`variant_id`);
+  ADD KEY `fk_count_detail_variant` (`variant_id`),
+  ADD KEY `idx_count_variant` (`inventory_count_id`,`variant_id`);
+
+--
+-- Indexes for table `tbl_nonsaleable_stocks`
+--
+ALTER TABLE `tbl_nonsaleable_stocks`
+  ADD PRIMARY KEY (`nonsaleable_id`),
+  ADD KEY `variant_id` (`variant_id`);
 
 --
 -- Indexes for table `tbl_products`
@@ -1894,6 +1980,13 @@ ALTER TABLE `tbl_return_exchange_items`
 ALTER TABLE `tbl_roles`
   ADD PRIMARY KEY (`role_id`),
   ADD UNIQUE KEY `role_name` (`role_name`);
+
+--
+-- Indexes for table `tbl_school_years`
+--
+ALTER TABLE `tbl_school_years`
+  ADD PRIMARY KEY (`school_year_id`),
+  ADD UNIQUE KEY `label` (`label`);
 
 --
 -- Indexes for table `tbl_stock_ins`
@@ -1960,7 +2053,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_audit_logs`
 --
 ALTER TABLE `tbl_audit_logs`
-  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 
 --
 -- AUTO_INCREMENT for table `tbl_cash_denominations`
@@ -1996,13 +2089,19 @@ ALTER TABLE `tbl_end_of_day`
 -- AUTO_INCREMENT for table `tbl_inventory_counts`
 --
 ALTER TABLE `tbl_inventory_counts`
-  MODIFY `inventory_count_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `inventory_count_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_inventory_count_details`
 --
 ALTER TABLE `tbl_inventory_count_details`
-  MODIFY `inventory_count_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `inventory_count_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbl_nonsaleable_stocks`
+--
+ALTER TABLE `tbl_nonsaleable_stocks`
+  MODIFY `nonsaleable_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_products`
@@ -2014,7 +2113,7 @@ ALTER TABLE `tbl_products`
 -- AUTO_INCREMENT for table `tbl_product_variants`
 --
 ALTER TABLE `tbl_product_variants`
-  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=805;
+  MODIFY `variant_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_remittances`
@@ -2041,6 +2140,12 @@ ALTER TABLE `tbl_roles`
   MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `tbl_school_years`
+--
+ALTER TABLE `tbl_school_years`
+  MODIFY `school_year_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `tbl_stock_ins`
 --
 ALTER TABLE `tbl_stock_ins`
@@ -2056,7 +2161,7 @@ ALTER TABLE `tbl_stock_in_details`
 -- AUTO_INCREMENT for table `tbl_stock_movements`
 --
 ALTER TABLE `tbl_stock_movements`
-  MODIFY `movement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `movement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_students`
@@ -2068,13 +2173,13 @@ ALTER TABLE `tbl_students`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction_items`
 --
 ALTER TABLE `tbl_transaction_items`
-  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
