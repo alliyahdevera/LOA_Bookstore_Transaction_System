@@ -1,6 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class frmTransactionHistory
+    Public Property InitialSearch As String = ""
     Private Const SEARCH_FILTER As String =
     "(t.transaction_no LIKE @s OR t.buyer_name LIKE @s OR t.or_no LIKE @s OR t.status LIKE @s " &
     "OR t.id_number LIKE @s OR t.student_id IN (SELECT student_id FROM tbl_students WHERE student_no LIKE @s) " &
@@ -11,6 +12,7 @@ Public Class frmTransactionHistory
     Private isLoadingFilters As Boolean = True
 
     Private Sub frmTransactionHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
         LoadCategoryCombo()
         If Not dgvtransaction.Columns.Contains("CustomerID") Then
@@ -19,7 +21,7 @@ Public Class frmTransactionHistory
         End If
         dtfrom.Value = New Date(Date.Today.Year, Date.Today.Month, 1)   ' 1st of this month
         dtto.Value = Date.Today
-
+        txtSearch.Text = InitialSearch
         Button3.Text = "Cancel Transaction"
         Button3.Visible = (currentuser.Role = ROLE_SUPERVISOR)
         isLoadingFilters = False

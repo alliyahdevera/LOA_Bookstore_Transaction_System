@@ -5,6 +5,7 @@ Imports System.Transactions
 Imports MySql.Data.MySqlClient
 
 Public Class frmPOS
+    Public Property InitialSearch As String = ""
     Private pgProducts As GridPager
     Private currentBuyerForm As Form
     Private isLoadingFilters As Boolean = False
@@ -25,6 +26,7 @@ Public Class frmPOS
     Private ReadOnly backorders As New Dictionary(Of Integer, Date)   ' variant_id -> pick-up date
 
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
 
         dgvlistproducts.AutoGenerateColumns = False
         dgvCart.AutoGenerateColumns = False
@@ -45,7 +47,7 @@ Public Class frmPOS
         If dgvCart.Columns.Contains("SubTotal") Then
             dgvCart.Columns("SubTotal").DefaultCellStyle.Format = "N2"
         End If
-
+        txtProductSearch.Text = InitialSearch
         ' Configure numeric up/down control
         nudQuantity.DecimalPlaces = 0
         nudQuantity.Minimum = 0

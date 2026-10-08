@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class frmInventoryCountReconciliation
-
+    Public Property InitialSearch As String = ""
     Private Class CountRow
         Public VariantId As Integer
         Public DetailId As Integer = 0        ' > 0 once the line is saved
@@ -31,6 +31,7 @@ Public Class frmInventoryCountReconciliation
 
     ' ==================== LOAD ====================
     Private Sub frmInventoryCountReconciliation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
 
         txtGrandTotal.Text = Date.Today.ToString("MMMM d, yyyy")
         lblname.Text = If(Not String.IsNullOrEmpty(currentuser.FullName), currentuser.FullName, "N/A")
@@ -49,7 +50,7 @@ Public Class frmInventoryCountReconciliation
         cboType.DropDownStyle = ComboBoxStyle.DropDownList
         LoadTypeCombo()
         SetupCards()
-
+        txtSearch.Text = InitialSearch
         ' extra columns
         dgvlistproducts.Columns.Insert(0, New DataGridViewTextBoxColumn With {.Name = "CountNo", .HeaderText = "Count No.", .Width = 150})
         dgvlistproducts.Columns.Insert(3, New DataGridViewTextBoxColumn With {.Name = "ProductDescription", .HeaderText = "Product Description", .Width = 200})

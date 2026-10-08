@@ -3,6 +3,9 @@
     Private Declare Unicode Function SendMessage Lib "user32.dll" Alias "SendMessageW" (hWnd As IntPtr, msg As Integer, wParam As Integer, lParam As String) As IntPtr
     Private Const EM_SETCUEBANNER As Integer = &H1501
 
+    ' remembers which search boxes were already set up (so calling this twice is harmless)
+    Private ReadOnly handled As New System.Runtime.CompilerServices.ConditionalWeakTable(Of TextBox, Object)()
+
     Public Sub SetPlaceholder(tb As TextBox, hint As String)
         If tb.IsHandleCreated Then
             SendMessage(tb.Handle, EM_SETCUEBANNER, 0, hint)
@@ -15,10 +18,48 @@
         For Each c As Control In parent.Controls
             Dim tb As TextBox = TryCast(c, TextBox)
             If tb IsNot Nothing AndAlso Not tb.Multiline AndAlso tb.Name.IndexOf("search", StringComparison.OrdinalIgnoreCase) >= 0 Then
-                SetPlaceholder(tb, If(tb.Name = "txtProductSearch", "Product code or name", "Search..."))
+                SetupSearchBox(tb)
             End If
             If c.HasChildren Then ApplySearchPlaceholders(c)
         Next
+    End Sub
+
+    Private Sub SetupSearchBox(tb As TextBox)
+        Dim dummy As Object = Nothing
+        If handled.TryGetValue(tb, dummy) Then Return
+        handled.Add(tb, New Object())
+
+        ' find overlay labels: Labels in the same container that sit on top of the textbox
+        Dim hints As New List(Of Label)()
+        If tb.Parent IsNot Nothing Then
+            For Each ctl As Control In tb.Parent.Controls
+                Dim lb As Label = TryCast(ctl, Label)
+                If lb IsNot Nothing AndAlso lb.Bounds.IntersectsWith(tb.Bounds) Then hints.Add(lb)
+            Next
+        End If
+
+        ' no overlay label -> use the native placeholder (it hides itself when the box gets focus)
+        If hints.Count = 0 Then
+            SetPlaceholder(tb, If(tb.Name = "txtProductSearch", "Product code or name", "Search..."))
+            Return
+        End If
+
+        ' overlay label -> show only when the box is empty AND not focused
+        Dim refreshHints As Action =
+            Sub()
+                Dim show As Boolean = (tb.Text.Length = 0 AndAlso Not tb.Focused)
+                For Each lb As Label In hints
+                    lb.Visible = show
+                Next
+            End Sub
+
+        For Each lb As Label In hints
+            AddHandler lb.Click, Sub() tb.Focus()      ' clicking the label types into the box
+        Next
+        AddHandler tb.Enter, Sub() refreshHints()
+        AddHandler tb.Leave, Sub() refreshHints()
+        AddHandler tb.TextChanged, Sub() refreshHints()
+        refreshHints()
     End Sub
 
 End Module

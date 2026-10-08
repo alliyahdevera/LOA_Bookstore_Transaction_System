@@ -2,9 +2,12 @@
 Imports MySql.Data.MySqlClient
 
 Public Class frmStockInHistory
+    Public Property InitialSearch As String = ""
     Private pg As GridPager
     Private isFilling As Boolean = False
     Private Sub frmStockInHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
+        txtSearch.Text = InitialSearch
         SetupFooter(Me, lblname, lblposition, lbldatetime)
         Label4.Text = "Total Quantity"
         DateTimePicker1.Value = New DateTime(Today.Year, Today.Month, 1)

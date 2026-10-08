@@ -3,8 +3,10 @@
 Public Class frmInventoryDiscrepancies
     Private pg As GridPager
     Private isLoading As Boolean = True
+    Public Property InitialSearch As String = ""
 
     Private Sub frmInventoryDiscrepancies_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
         btngenerate.Text = "Generate"
 
         cbocategory.DropDownStyle = ComboBoxStyle.DropDownList
@@ -26,6 +28,7 @@ Public Class frmInventoryDiscrepancies
         AddHandler pg.PageChanged, Sub() LoadHistory()
         isLoading = False
         LoadHistory()
+        txtSearch.Text = InitialSearch
     End Sub
 
     Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click

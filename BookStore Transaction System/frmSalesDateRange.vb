@@ -3,6 +3,7 @@
     Private isFilling As Boolean = False
 
     Private Sub frmDateReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         dtfrom.Value = New DateTime(Date.Today.Year, Date.Today.Month, 1)

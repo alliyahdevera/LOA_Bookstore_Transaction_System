@@ -11,6 +11,7 @@
     Private isLoading As Boolean = True
 
     Private Sub frmEmployeeList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
         dgvstudents.AutoGenerateColumns = False
         dgvstudents.ReadOnly = True
         dgvstudents.AllowUserToAddRows = False

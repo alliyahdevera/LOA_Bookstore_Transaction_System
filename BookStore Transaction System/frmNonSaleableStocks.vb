@@ -1,11 +1,12 @@
 ﻿Public Class frmNonSaleableStocks
-
+    Public Property InitialSearch As String = ""
     Private Const PAGE_SIZE As Integer = 25
     Private pg As GridPager
     Private isLoading As Boolean = True
     Private WithEvents tmrSearch As New System.Windows.Forms.Timer With {.Interval = 400}
 
     Private Sub frmNonSaleableStocks_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
         ApplySearchPlaceholders(Me)
         Label7.Text = "NON-SALEABLE / DAMAGED ITEMS"
@@ -32,7 +33,7 @@
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
             .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None
         End With
-
+        txtSearch.Text = InitialSearch
         pg = New GridPager(dgvlistproducts, PAGE_SIZE)
         AddHandler pg.PageChanged, Sub() LoadItems()
 
