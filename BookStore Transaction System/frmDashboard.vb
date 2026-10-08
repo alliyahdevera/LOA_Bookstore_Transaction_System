@@ -5,7 +5,74 @@ Public Class frmDashboard
     Private Const QTY_SOLD As String = "ti.quantity"
 
     Private WithEvents tmrClock As System.Windows.Forms.Timer
+    Private WithEvents cboSchoolYear As ComboBox
+    Private WithEvents btnManageSY As Button
+    Private isLoadingSY As Boolean = False
 
+    Private Sub BuildSchoolYearSelector()
+        EnsureSchoolYearInitialized()
+
+        Dim lbl As New Label With {.Text = "School Year", .AutoSize = True, .BackColor = Color.Transparent,
+                                   .Font = New Font("Segoe UI", 9.75!, FontStyle.Bold), .Location = New Point(850, 32)}
+        cboSchoolYear = New ComboBox With {.DropDownStyle = ComboBoxStyle.DropDownList,
+                                           .Font = New Font("Segoe UI", 9.75!), .Location = New Point(940, 28), .Width = 150}
+        btnManageSY = New Button With {.Text = "Manage", .Location = New Point(1098, 27), .Size = New Size(80, 28),
+                                       .FlatStyle = FlatStyle.Flat, .Cursor = Cursors.Hand,
+                                       .Visible = String.Equals(currentuser.Role, ROLE_SUPERVISOR, StringComparison.OrdinalIgnoreCase)}
+        Controls.Add(lbl)
+        Controls.Add(cboSchoolYear)
+        Controls.Add(btnManageSY)
+        lbl.BringToFront() : cboSchoolYear.BringToFront() : btnManageSY.BringToFront()
+        FillSchoolYearCombo()
+    End Sub
+
+    Private Sub FillSchoolYearCombo()
+        isLoadingSY = True
+        Dim years As List(Of SchoolYearInfo) = GetSchoolYears()
+
+        ' keep the same school year selected (re-read, in case its dates were edited)
+        If SelectedSchoolYear IsNot Nothing Then
+            Dim keepId As Integer = SelectedSchoolYear.Id
+            SelectSchoolYear(years.Find(Function(y) y.Id = keepId))
+        End If
+
+        cboSchoolYear.Items.Clear()
+        cboSchoolYear.Items.Add("All School Years")
+        For Each sy As SchoolYearInfo In years
+            cboSchoolYear.Items.Add(sy)
+        Next
+        cboSchoolYear.SelectedIndex = 0
+        If SelectedSchoolYear IsNot Nothing Then
+            For i As Integer = 1 To cboSchoolYear.Items.Count - 1
+                If DirectCast(cboSchoolYear.Items(i), SchoolYearInfo).Id = SelectedSchoolYear.Id Then
+                    cboSchoolYear.SelectedIndex = i
+                    Exit For
+                End If
+            Next
+        End If
+        isLoadingSY = False
+    End Sub
+
+    Private Sub cboSchoolYear_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSchoolYear.SelectedIndexChanged
+        If isLoadingSY Then Exit Sub
+        SelectSchoolYear(TryCast(cboSchoolYear.SelectedItem, SchoolYearInfo))    ' "All School Years" gives Nothing
+        RefreshDashboard()
+    End Sub
+
+    Private Sub btnManageSY_Click(sender As Object, e As EventArgs) Handles btnManageSY.Click
+        Using f As New frmSchoolYears()
+            f.ShowDialog(Me)
+        End Using
+        FillSchoolYearCombo()
+        RefreshDashboard()
+    End Sub
+
+    Private Sub UpdateCaptions()
+        Dim tag As String = "  -  " & SchoolYearLabel()
+        Label12.AutoSize = True : Label12.Text = "TOP 5 MOST PURCHASED PRODUCT" & tag
+        Label13.AutoSize = True : Label13.Text = "DISTRIBUTION SALES" & tag
+        Label15.AutoSize = True : Label15.Text = "SALES PER MONTH" & tag
+    End Sub
     Private Sub frmDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
 
@@ -25,7 +92,8 @@ Public Class frmDashboard
             tmrClock.Interval = 1000
             tmrClock.Start()
             UpdateFooterDateTime()
-
+            BuildSchoolYearSelector()
+            RefreshDashboard()
             RefreshDashboard()
         Catch ex As Exception
             MsgBox("Error initializing Dashboard Form: " & ex.Message, vbCritical, "Init Error")
@@ -46,14 +114,12 @@ Public Class frmDashboard
         lbldatetime.Text = DateTime.Now.ToString("dddd, MMMM d, yyyy h:mm:ss tt")
     End Sub
 
-    ''' <summary>
-    ''' Reloads every card and chart in one call.
-    ''' </summary>
     Public Sub RefreshDashboard()
-        ' Test the connection once so we don't show one error per widget
+        UpdateCaptions()
         If Not connection() Then Exit Sub
         cn.Close()
 
+        UpdateCaptions()
         LoadTotals()
         LoadMostBoughtProducts()
         LoadProductSales()
@@ -69,7 +135,7 @@ Public Class frmDashboard
 
         lbltotqprod.Text = GetScalar("SELECT IFNULL(SUM(quantity_on_hand), 0) FROM TBL_PRODUCT_VARIANTS").ToString("N0")
 
-        lblsalest.Text = ChrW(8369) & GetScalar("SELECT IFNULL(SUM(total_amount), 0) FROM TBL_TRANSACTIONS WHERE DATE(or_date) = CURDATE() AND status <> 'Cancelled'").ToString("N2")
+        lblsalest.Text = ChrW(8369) & GetScalar("SELECT IFNULL(SUM(total_amount), 0) FROM TBL_TRANSACTIONS WHERE status <> 'Cancelled'" & SchoolYearFilter("or_date")).ToString("N2")
 
         lbllowstock.Text = GetScalar("SELECT COUNT(*) FROM TBL_PRODUCT_VARIANTS WHERE quantity_on_hand <= reorder_level").ToString("N0")
     End Sub
@@ -108,7 +174,7 @@ Public Class frmDashboard
                       "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
                       "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
                       "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-                      "WHERE t.status <> 'Cancelled' " &
+                                            "WHERE t.status <> 'Cancelled' " & SchoolYearFilter("t.or_date") &
                       "GROUP BY p.product_id, p.product_name " &
                       "ORDER BY qty_sold DESC " &
                       "LIMIT 5"
@@ -143,7 +209,7 @@ Public Class frmDashboard
                                   "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
                                   "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
                                   "INNER JOIN TBL_CATEGORIES c ON ct.category_id = c.category_id " &
-                                  "WHERE t.status <> 'Cancelled' " &
+                                  "WHERE t.status <> 'Cancelled' " & SchoolYearFilter("t.or_date") &
                                   "GROUP BY c.category_id, c.category_name " &
                                   "ORDER BY total_sales DESC"
 
@@ -199,24 +265,34 @@ Public Class frmDashboard
             MsgBox("Error loading critical products chart: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub
-
     Private Sub LoadSalesPerMonth()
-        Dim currentYear As Integer = DateTime.Today.Year
-
         Try
             If Not connection() Then Exit Sub
 
-            Dim totals(12) As Decimal
+            Dim sy As SchoolYearInfo = SelectedSchoolYear
+            Dim firstMonth As Date
+            Dim monthCount As Integer
+            If sy IsNot Nothing Then
+                firstMonth = New Date(sy.StartDate.Year, sy.StartDate.Month, 1)
+                monthCount = (sy.EndDate.Year - sy.StartDate.Year) * 12 + sy.EndDate.Month - sy.StartDate.Month + 1
+            Else
+                firstMonth = New Date(DateTime.Today.Year, 1, 1)
+                monthCount = 12
+            End If
 
-            Dim monthSql As String = "SELECT MONTH(or_date) AS m, SUM(total_amount) AS total " &
-                                     "FROM TBL_TRANSACTIONS WHERE YEAR(or_date) = @year AND status <> 'Cancelled' " &
-                                     "GROUP BY MONTH(or_date)"
+            Dim totals(monthCount - 1) As Decimal
+
+            Dim monthSql As String =
+                "SELECT YEAR(or_date) AS y, MONTH(or_date) AS m, SUM(total_amount) AS total " &
+                "FROM TBL_TRANSACTIONS WHERE status <> 'Cancelled' " &
+                If(sy IsNot Nothing, SchoolYearFilter("or_date"), " AND YEAR(or_date) = " & DateTime.Today.Year & " ") &
+                "GROUP BY YEAR(or_date), MONTH(or_date)"
 
             Using localCmd As New MySqlCommand(monthSql, cn)
-                localCmd.Parameters.AddWithValue("@year", currentYear)
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
                     While localDr.Read()
-                        totals(Convert.ToInt32(localDr("m"))) = Convert.ToDecimal(localDr("total"))
+                        Dim idx As Integer = (Convert.ToInt32(localDr("y")) - firstMonth.Year) * 12 + Convert.ToInt32(localDr("m")) - firstMonth.Month
+                        If idx >= 0 AndAlso idx < monthCount Then totals(idx) = Convert.ToDecimal(localDr("total"))
                     End While
                 End Using
             End Using
@@ -226,8 +302,9 @@ Public Class frmDashboard
                 .BorderWidth = 3
                 .MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle
                 .MarkerSize = 7
-                For m As Integer = 1 To 12
-                    .Points.AddXY(MonthName(m, True), Convert.ToDouble(totals(m)))
+                For i As Integer = 0 To monthCount - 1
+                    Dim m As Date = firstMonth.AddMonths(i)
+                    .Points.AddXY(If(sy IsNot Nothing, m.ToString("MMM yy"), m.ToString("MMM")), Convert.ToDouble(totals(i)))
                 Next
             End With
             chrtsalespermonth.ChartAreas(0).AxisX.Interval = 1
@@ -239,5 +316,4 @@ Public Class frmDashboard
             MsgBox("Error loading sales per month chart: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub
-
 End Class
