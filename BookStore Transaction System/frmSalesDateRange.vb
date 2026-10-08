@@ -1,6 +1,8 @@
 ﻿Public Class frmSalesDateRange
 
     Private isFilling As Boolean = False
+    Private pg As GridPager
+    Private allRows As DataTable
 
     Private Sub frmDateReport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -16,11 +18,11 @@
         row("category_id") = 0
         row("category_name") = "-- All Categories --"
         dt.Rows.InsertAt(row, 0)
-        FillCombo(cbocategory, dt, "category_name", "category_id")
         cbocategory.SelectedIndex = 0
         FillTypeCombo(cbotype, 0, TypeSource.Sales)
         isFilling = False
-
+        pg = New GridPager(DataGridView1, 20)
+        AddHandler pg.PageChanged, Sub() ShowPage()
         LoadGrid()
     End Sub
 
@@ -51,7 +53,7 @@
         Dim names As String() = {"@d1", "@d2", "@cat", "@type"}
         Dim values As Object() = {dtfrom.Value.Date, dtto.Value.Date, catId, typeId}
 
-        Dim dt As DataTable = GetDataTable(
+        allRows = GetDataTable(
             "SELECT t.transaction_no, t.buyer_name, v.product_code, p.product_name, v.size, p.unit_price, " &
             "ti.quantity AS qty, t.total_amount, t.amount_paid, t.amount_change, t.payment_method, ti.subtotal, " &
             "DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, u.username " &
@@ -66,20 +68,12 @@
             "ORDER BY t.transaction_id DESC", names, values)
 
         Dim sumSubtotal As Decimal = 0D
-        DataGridView1.SuspendLayout()
-        DataGridView1.Rows.Clear()
-        For Each r As DataRow In dt.Rows
+        For Each r As DataRow In allRows.Rows
             sumSubtotal += Convert.ToDecimal(r("subtotal"))
-            DataGridView1.Rows.Add(
-                r("transaction_no").ToString(), r("buyer_name").ToString(),
-                r("product_code").ToString(), r("product_name").ToString(), r("size").ToString(),
-                Convert.ToDecimal(r("unit_price")).ToString("N2"), r("qty").ToString(),
-                Convert.ToDecimal(r("total_amount")).ToString("N2"), Convert.ToDecimal(r("amount_paid")).ToString("N2"),
-                Convert.ToDecimal(r("amount_change")).ToString("N2"), r("payment_method").ToString(),
-                Convert.ToDateTime(r("tdate")).ToString("yyyy-MM-dd"), r("ttime").ToString(), r("username").ToString())
         Next
-        DataGridView1.ClearSelection()
-        DataGridView1.ResumeLayout()
+
+        If pg IsNot Nothing Then pg.Reset()
+        ShowPage()
 
         Label8.Text = sumSubtotal.ToString("N2")
 
@@ -91,9 +85,25 @@
             Label3.Text = ChrW(8369) & sumSubtotal.ToString("N2")
         End If
     End Sub
-
+    Private Sub ShowPage()
+        If allRows Is Nothing OrElse pg Is Nothing Then Exit Sub
+        Dim dt As DataTable = pg.Slice(allRows)
+        DataGridView1.SuspendLayout()
+        DataGridView1.Rows.Clear()
+        For Each r As DataRow In dt.Rows
+            DataGridView1.Rows.Add(
+                r("transaction_no").ToString(), r("buyer_name").ToString(),
+                r("product_code").ToString(), r("product_name").ToString(), r("size").ToString(),
+                Convert.ToDecimal(r("unit_price")).ToString("N2"), r("qty").ToString(),
+                Convert.ToDecimal(r("total_amount")).ToString("N2"), Convert.ToDecimal(r("amount_paid")).ToString("N2"),
+                Convert.ToDecimal(r("amount_change")).ToString("N2"), r("payment_method").ToString(),
+                Convert.ToDateTime(r("tdate")).ToString("yyyy-MM-dd"), r("ttime").ToString(), r("username").ToString())
+        Next
+        DataGridView1.ClearSelection()
+        DataGridView1.ResumeLayout()
+    End Sub
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
-        ExportGridToCsv(DataGridView1, "SalesReport")
+        pg.ExportAllPages(Sub() ShowPage(), Sub() ExportGridToCsv(DataGridView1, "SalesReport"))
     End Sub
 
 End Class

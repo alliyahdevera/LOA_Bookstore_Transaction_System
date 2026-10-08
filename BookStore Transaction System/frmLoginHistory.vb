@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class frmLoginHistory
-
+    Private pg As GridPager
     Private WithEvents tmrClock As System.Windows.Forms.Timer
 
     Private Sub frmLoginHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -19,7 +19,8 @@ Public Class frmLoginHistory
             ' Date Picker Initial Values
             dtpFrom.Value = System.DateTime.Today
             dtpTo.Value = System.DateTime.Today
-
+            pg = New GridPager(dgvLoginHistory, 20)
+            AddHandler pg.PageChanged, Sub() LoadLoginLogs()
             LoadLoginLogs()
         Catch ex As Exception
             MsgBox("Error initializing Login History: " & ex.Message, vbCritical, "Init Error")
@@ -44,13 +45,13 @@ Public Class frmLoginHistory
     End Sub
 
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
+        pg.Reset()
         LoadLoginLogs()
     End Sub
 
     Public Sub LoadLoginLogs()
+        If pg Is Nothing Then Exit Sub
         Try
-            If Not connection() Then Exit Sub
-
             Dim query As String = "SELECT u.username, " &
                                   "CONCAT(u.first_name, ' ', u.last_name) AS fullname, " &
                                   "r.role_name, " &
@@ -61,31 +62,25 @@ Public Class frmLoginHistory
                                   "INNER JOIN tbl_roles r ON u.role_id = r.role_id " &
                                   "WHERE a.log_type = 'Login' " &
                                   "AND DATE(a.created_at) BETWEEN @dateFrom AND @dateTo " &
-                                  "ORDER BY a.created_at DESC"
+                                  "ORDER BY a.created_at DESC, a.audit_id DESC"
 
-            Using cmd As New MySqlCommand(query, cn)
-                cmd.Parameters.AddWithValue("@dateFrom", dtpFrom.Value.ToString("yyyy-MM-dd"))
-                cmd.Parameters.AddWithValue("@dateTo", dtpTo.Value.ToString("yyyy-MM-dd"))
+            Dim dt As DataTable = pg.LoadPage(query,
+                New String() {"@dateFrom", "@dateTo"},
+                New Object() {dtpFrom.Value.ToString("yyyy-MM-dd"), dtpTo.Value.ToString("yyyy-MM-dd")})
 
-                Using dr As MySqlDataReader = cmd.ExecuteReader()
-                    dgvLoginHistory.Rows.Clear()
-                    While dr.Read()
-                        Dim idx As Integer = dgvLoginHistory.Rows.Add(
-        dr("username").ToString(),
-        dr("fullname").ToString(),
-        dr("role_name").ToString(),
-        dr("status").ToString(),
-        dr("log_datetime").ToString()
-    )
-                        If dr("status").ToString().StartsWith("Failed") Then
-                            dgvLoginHistory.Rows(idx).DefaultCellStyle.ForeColor = Color.Firebrick
-                        End If
-                    End While
-                End Using
-            End Using
-            cn.Close()
+            dgvLoginHistory.Rows.Clear()
+            For Each r As DataRow In dt.Rows
+                Dim idx As Integer = dgvLoginHistory.Rows.Add(
+                    r("username").ToString(),
+                    r("fullname").ToString(),
+                    r("role_name").ToString(),
+                    r("status").ToString(),
+                    r("log_datetime").ToString())
+                If r("status").ToString().StartsWith("Failed") Then
+                    dgvLoginHistory.Rows(idx).DefaultCellStyle.ForeColor = Color.Firebrick
+                End If
+            Next
         Catch ex As Exception
-            If cn.State = ConnectionState.Open Then cn.Close()
             MsgBox("Error loading login logs: " & ex.Message, vbCritical, "Audit Logs")
         End Try
     End Sub

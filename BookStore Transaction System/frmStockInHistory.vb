@@ -95,7 +95,7 @@ Public Class frmStockInHistory
     End Sub
 
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
-        ExportGridToCsv(dgvstockinhistory, "StockInHistory")
+        pg.ExportAllPages(Sub() LoadGrid(), Sub() ExportGridToCsv(dgvstockinhistory, "StockInHistory"))
     End Sub
 
 End Class

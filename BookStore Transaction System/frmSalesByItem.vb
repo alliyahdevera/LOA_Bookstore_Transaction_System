@@ -3,6 +3,8 @@
 Public Class frmSalesByItem
     Private isFilling As Boolean = False
     Private ReadOnly Peso As String = ChrW(8369)
+    Private pg As GridPager
+    Private allRows As DataTable
 
     Private Sub frmSalesByItem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
@@ -25,6 +27,8 @@ Public Class frmSalesByItem
         FillCombo(cbocategory, cats, "category_name", "category_id")
         cbocategory.SelectedIndex = 0
         isFilling = False
+        pg = New GridPager(dgvsalesreport, 20)
+        AddHandler pg.PageChanged, Sub() ShowPage()
         LoadGrid()
     End Sub
     Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
@@ -43,7 +47,7 @@ Public Class frmSalesByItem
     End Sub
 
     Private Sub LoadGrid()
-        Dim dt As DataTable = GetDataTable(
+        allRows = GetDataTable(
             "SELECT v.product_code, p.product_name, v.size, c.category_name, " &
             "SUM(ti.quantity) AS qty, SUM(ti.subtotal) AS amt, MAX(t.or_date) AS last_sold " &
             "FROM tbl_transaction_items ti " &
@@ -57,17 +61,23 @@ Public Class frmSalesByItem
             "ORDER BY amt DESC",
             New String() {"@d1", "@d2", "@cat"}, New Object() {dtfrom.Value.Date, dtto.Value.Date, SelectedId(cbocategory)})
 
-        dgvsalesreport.Rows.Clear()
-
         Dim totalQty As Integer = 0
         Dim totalSales As Decimal = 0D
+        For Each r As DataRow In allRows.Rows
+            totalQty += Convert.ToInt32(r("qty"))
+            totalSales += Convert.ToDecimal(r("amt"))
+        Next
 
+        If pg IsNot Nothing Then pg.Reset()
+        ShowPage()
+        Label3.Text = Peso & totalSales.ToString("N2")     ' Total Sales
+        Label8.Text = totalQty.ToString("N0")              ' Total Quantity
+    End Sub
+    Private Sub ShowPage()
+        If allRows Is Nothing OrElse pg Is Nothing Then Exit Sub
+        Dim dt As DataTable = pg.Slice(allRows)
+        dgvsalesreport.Rows.Clear()
         For Each r As DataRow In dt.Rows
-            Dim qty As Integer = Convert.ToInt32(r("qty"))
-            Dim amt As Decimal = Convert.ToDecimal(r("amt"))
-            totalQty += qty
-            totalSales += amt
-
             Dim size As String = r("size").ToString()
             Dim name As String = r("product_name").ToString() & If(size <> "" AndAlso size <> "N/A", " (" & size & ")", "")
 
@@ -76,18 +86,15 @@ Public Class frmSalesByItem
             row.Cells("ProductCode").Value = r("product_code").ToString()
             row.Cells("ProductName").Value = name
             row.Cells("Category").Value = r("category_name").ToString()
-            row.Cells("Quantity").Value = qty
-            row.Cells("TotalSales").Value = amt.ToString("N2")
+            row.Cells("Quantity").Value = Convert.ToInt32(r("qty"))
+            row.Cells("TotalSales").Value = Convert.ToDecimal(r("amt")).ToString("N2")
             row.Cells("AmountPaid").Value = Convert.ToDateTime(r("last_sold")).ToString("yyyy-MM-dd")
         Next
-
         dgvsalesreport.ClearSelection()
-        Label3.Text = Peso & totalSales.ToString("N2")     ' Total Sales
-        Label8.Text = totalQty.ToString("N0")              ' Total Quantity
     End Sub
 
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
-        ExportGridToCsv(dgvsalesreport, "SalesByItem")
+        pg.ExportAllPages(Sub() ShowPage(), Sub() ExportGridToCsv(dgvsalesreport, "SalesByItem"))
     End Sub
 
 End Class

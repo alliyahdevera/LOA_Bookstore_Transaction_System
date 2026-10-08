@@ -45,6 +45,8 @@ Public Class frmLowLevelStocks
     End Sub
 
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
-        ExportGridToCsv(dgvListOfProducts, "LowLevelStocks")
+        ' frmLowLevelStocks
+        pg.ExportAllPages(Sub() LoadGrid(txtSearch.Text.Trim()), Sub() ExportGridToCsv(dgvListOfProducts, "LowLevelStocks"))
+
     End Sub
 End Class

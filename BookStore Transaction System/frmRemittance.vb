@@ -6,6 +6,7 @@ Public Class frmRemittance
     Private ReadOnly Peso As String = ChrW(8369)
     Private isLoading As Boolean = True
     Private printRow As DataGridViewRow
+    Private pg As GridPager
     Private Function IsAdminUser() As Boolean
         Dim r As String = If(currentuser.Role, "").Trim()
         Return r.Equals(ROLE_SUPERVISOR, StringComparison.OrdinalIgnoreCase) OrElse r.Equals("Admin", StringComparison.OrdinalIgnoreCase)
@@ -58,11 +59,14 @@ Public Class frmRemittance
             cbocashier.Enabled = False
         End If
         isLoading = False
+        pg = New GridPager(dgvsalesreport, 20)
+        AddHandler pg.PageChanged, Sub() LoadGrid()
         LoadGrid()
     End Sub
 
     Private Sub cbocashier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocashier.SelectedIndexChanged
         If isLoading Then Exit Sub
+        pg.Reset()
         LoadGrid()
     End Sub
 
@@ -71,6 +75,7 @@ Public Class frmRemittance
             MsgBox("'Date from' cannot be later than 'To'.", vbExclamation, "Remittance Report")
             Exit Sub
         End If
+        pg.Reset()
         LoadGrid()
         If dgvsalesreport.Rows.Count = 0 Then
             MsgBox("No remittance records found for the selected filters.", vbInformation, "Remittance Report")
@@ -89,7 +94,7 @@ Public Class frmRemittance
         ElseIf cbocashier.SelectedValue IsNot Nothing Then
             Integer.TryParse(cbocashier.SelectedValue.ToString(), cashierId)
         End If
-
+        If pg Is Nothing Then Exit Sub
         Dim dt As DataTable = GetDataTable(
             "SELECT r.remittance_no, COALESCE(r.reconciliation_date, DATE(r.remitted_at)) AS reconciliation_date, " &
 "CONCAT(u.first_name, ' ', u.last_name) AS cashier, " &

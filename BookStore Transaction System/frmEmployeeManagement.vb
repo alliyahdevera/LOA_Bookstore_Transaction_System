@@ -1,7 +1,7 @@
 ﻿Imports System.Text.RegularExpressions
 
 Public Class frmEmployeeManagement
-
+    Private pg As GridPager
     Private selectedEmployeeId As Integer = 0
 
     Private Sub frmEmployeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -33,7 +33,8 @@ Public Class frmEmployeeManagement
         cboSection.DropDownStyle = ComboBoxStyle.DropDownList
         cboSection.Items.Clear()
         cboSection.Items.AddRange(New Object() {"Active", "Inactive"})
-
+        pg = New GridPager(dgvstudents, 20)
+        AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim())
         LoadLists()
         LoadGrid("")
         ClearFields()
@@ -96,18 +97,20 @@ Public Class frmEmployeeManagement
         End If
         Return True
     End Function
-
     Private Sub LoadGrid(searchText As String)
-        Dim dt As DataTable = GetDataTable(
+        If pg Is Nothing Then Exit Sub
+        Dim dt As DataTable = pg.LoadPage(
             "SELECT employee_id, employee_no, last_name, first_name, department, job_position, status FROM tbl_employees " &
             "WHERE employee_no LIKE @s OR last_name LIKE @s OR first_name LIKE @s OR department LIKE @s OR job_position LIKE @s " &
-            "ORDER BY last_name, first_name",
+            "ORDER BY last_name, first_name, employee_id",
             New String() {"@s"}, New Object() {"%" & searchText & "%"})
         dgvstudents.DataSource = dt
         dgvstudents.ClearSelection()
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        If pg Is Nothing Then Exit Sub
+        pg.Reset()
         LoadGrid(txtSearch.Text.Trim())
     End Sub
 

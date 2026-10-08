@@ -294,7 +294,21 @@ Public Class GridPager
         AddHandler pnl.Resize, Sub() LayoutControls()
         UpdateUi()
     End Sub
-
+    ' runs an export with ALL rows in the grid, then returns the grid to the page the user was on
+    Public Sub ExportAllPages(reload As Action, doExport As Action)
+        Dim oldSize As Integer = PageSize
+        Dim oldPage As Integer = CurrentPage
+        Try
+            PageSize = 1000000
+            CurrentPage = 1
+            reload()
+            doExport()
+        Finally
+            PageSize = oldSize
+            CurrentPage = oldPage
+            reload()
+        End Try
+    End Sub
     Private Sub StyleButton(b As Button, text As String)
         b.Text = text
         b.FlatStyle = FlatStyle.Flat

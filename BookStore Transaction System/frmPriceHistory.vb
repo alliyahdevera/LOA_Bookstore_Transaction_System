@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class frmPriceHistory
-
+    Private pg As GridPager
     Private WithEvents tmrClock As System.Windows.Forms.Timer
 
     Private Sub frmPriceHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -19,7 +19,8 @@ Public Class frmPriceHistory
             ' Date Picker Initial Values
             dtpfrom.Value = DateTime.Today
             dtpto.Value = DateTime.Today
-
+            pg = New GridPager(dgvPriceHistory, 20)
+            AddHandler pg.PageChanged, Sub() LoadPriceHistoryLogs()
             LoadPriceHistoryLogs()
         Catch ex As Exception
             MsgBox("Error initializing Price History: " & ex.Message, vbCritical, "Init Error")
@@ -42,23 +43,22 @@ Public Class frmPriceHistory
             lbldatetime.Text = DateTime.Now.ToString("dddd, MMMM d, yyyy h:mm:ss tt")
         End If
     End Sub
-
     Private Sub btnGenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
         If dtpfrom.Value.Date > dtpto.Value.Date Then
             MsgBox("'Date from' cannot be later than 'To'.", vbExclamation, "Price Change History")
             Exit Sub
         End If
+        pg.Reset()
         LoadPriceHistoryLogs()
     End Sub
 
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
-        ExportGridToCsv(dgvPriceHistory, "PriceChangeHistory")
+        pg.ExportAllPages(Sub() LoadPriceHistoryLogs(), Sub() ExportGridToCsv(dgvPriceHistory, "PriceChangeHistory"))
     End Sub
 
     Public Sub LoadPriceHistoryLogs()
+        If pg Is Nothing Then Exit Sub
         Try
-            If Not connection() Then Exit Sub
-
             Dim query As String = "SELECT IFNULL(a.product_code, '-') AS product_code, " &
                                   "IFNULL(a.product_name, '-') AS product_name, " &
                                   "IFNULL(a.old_price, 0) AS old_price, " &
@@ -70,32 +70,25 @@ Public Class frmPriceHistory
                                   "INNER JOIN tbl_users u ON a.user_id = u.user_id " &
                                   "WHERE a.log_type = 'Price Change' " &
                                   "AND DATE(a.created_at) BETWEEN @dateFrom AND @dateTo " &
-                                  "ORDER BY a.created_at DESC"
+                                  "ORDER BY a.created_at DESC, a.audit_id DESC"
 
-            Using cmd As New MySqlCommand(query, cn)
-                cmd.Parameters.AddWithValue("@dateFrom", dtpfrom.Value.ToString("yyyy-MM-dd"))
-                cmd.Parameters.AddWithValue("@dateTo", dtpto.Value.ToString("yyyy-MM-dd"))
+            Dim dt As DataTable = pg.LoadPage(query,
+                New String() {"@dateFrom", "@dateTo"},
+                New Object() {dtpfrom.Value.ToString("yyyy-MM-dd"), dtpto.Value.ToString("yyyy-MM-dd")})
 
-                Using dr As MySqlDataReader = cmd.ExecuteReader()
-                    dgvPriceHistory.Rows.Clear()
-                    While dr.Read()
-                        dgvPriceHistory.Rows.Add(
-                            dr("product_code").ToString(),
-                            dr("product_name").ToString(),
-                            Convert.ToDecimal(dr("old_price")).ToString("N2"),
-                            Convert.ToDecimal(dr("new_price")).ToString("N2"),
-                            dr("changed_by").ToString(),
-                            dr("date_changed").ToString(),
-                            dr("reason").ToString()
-                        )
-                    End While
-                End Using
-            End Using
-            cn.Close()
+            dgvPriceHistory.Rows.Clear()
+            For Each r As DataRow In dt.Rows
+                dgvPriceHistory.Rows.Add(
+                    r("product_code").ToString(),
+                    r("product_name").ToString(),
+                    Convert.ToDecimal(r("old_price")).ToString("N2"),
+                    Convert.ToDecimal(r("new_price")).ToString("N2"),
+                    r("changed_by").ToString(),
+                    r("date_changed").ToString(),
+                    r("reason").ToString())
+            Next
         Catch ex As Exception
-            If cn.State = ConnectionState.Open Then cn.Close()
             MsgBox("Error loading price history logs: " & ex.Message, vbCritical, "Price History")
         End Try
     End Sub
-
 End Class

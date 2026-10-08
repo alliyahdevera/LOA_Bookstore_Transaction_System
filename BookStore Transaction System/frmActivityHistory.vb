@@ -5,7 +5,7 @@ Public Class frmActivityHistory
     Private WithEvents tmrClock As System.Windows.Forms.Timer
     Private WithEvents cboActionType As ComboBox
     Private isInitializing As Boolean = True
-
+    Private pg As GridPager
     ' filter name -> action_type patterns (% = anything). "Login" is handled separately because it lives under log_type = 'Login'.
     Private ReadOnly actionGroups As New Dictionary(Of String, String()) From {
         {"Add", New String() {"Add %"}},
@@ -38,6 +38,7 @@ Public Class frmActivityHistory
 
     Private Sub cboActionType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboActionType.SelectedIndexChanged
         If isInitializing Then Exit Sub
+        pg.Reset()
         LoadActivityLogs()
     End Sub
 
@@ -64,6 +65,8 @@ Public Class frmActivityHistory
             dtpto.Value = DateTime.Today
 
             BuildActionFilter()
+            pg = New GridPager(dgvActivityHistory, 20)
+            AddHandler pg.PageChanged, Sub() LoadActivityLogs()
             isInitializing = False
             LoadActivityLogs()
         Catch ex As Exception
@@ -100,14 +103,16 @@ Public Class frmActivityHistory
             MsgBox("'Date from' cannot be later than 'To'.", vbExclamation, "Activity Logs")
             Exit Sub
         End If
+        pg.Reset()
         LoadActivityLogs()
     End Sub
 
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
-        ExportGridToCsv(dgvActivityHistory, "ActivityLogs")
+        pg.ExportAllPages(Sub() LoadActivityLogs(), Sub() ExportGridToCsv(dgvActivityHistory, "ActivityLogs"))
     End Sub
     Public Sub LoadActivityLogs()
         Try
+            If pg Is Nothing Then Exit Sub
             Dim selected As String = If(cboActionType Is Nothing OrElse cboActionType.SelectedIndex <= 0, "", cboActionType.Text)
 
             Dim names As New List(Of String)({"@dateFrom", "@dateTo"})
@@ -139,9 +144,9 @@ Public Class frmActivityHistory
                 query &= "AND (" & String.Join(" OR ", parts) & ") "
             End If
 
-            query &= "ORDER BY a.created_at DESC"
+            query &= "ORDER BY a.created_at DESC, a.audit_id DESC"
 
-            Dim dt As DataTable = GetDataTable(query, names.ToArray(), values.ToArray())
+            Dim dt As DataTable = pg.LoadPage(query, names.ToArray(), values.ToArray())
 
             dgvActivityHistory.SuspendLayout()
             dgvActivityHistory.Rows.Clear()

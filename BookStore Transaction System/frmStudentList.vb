@@ -12,7 +12,7 @@ Public Class frmStudentList
     Public Property SelectedSection As String = ""
 
     Private isLoading As Boolean = True
-
+    Private pg As GridPager
     Private Sub frmStudentList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplySearchPlaceholders(Me)
         dgvstudents.AllowUserToAddRows = False
@@ -31,20 +31,23 @@ Public Class frmStudentList
 
         txtSearch.Text = InitialSearch      ' whatever was typed in the POS Student No. box
         isLoading = False
+        pg = New GridPager(dgvstudents, 15)
+        AddHandler pg.PageChanged, Sub() LoadStudents()
         LoadStudents()
         txtSearch.Focus()
     End Sub
 
     Private Sub LoadStudents()
+        If pg Is Nothing Then Exit Sub
         Dim grade As String = If(cboGradeLevel.SelectedIndex <= 0, "", cboGradeLevel.Text)
         Dim kw As String = txtSearch.Text.Trim()
 
-        Dim dt As DataTable = GetDataTable(
+        Dim dt As DataTable = pg.LoadPage(
             "SELECT student_id, student_no, last_name, first_name, education_level, grade_level, program_strand, section " &
             "FROM tbl_students " &
             "WHERE (student_no LIKE @s OR last_name LIKE @s OR first_name LIKE @s OR CONCAT(first_name, ' ', last_name) LIKE @s) " &
             "AND (@g = '' OR grade_level = @g) " &
-            "ORDER BY last_name, first_name",
+            "ORDER BY last_name, first_name, student_id",
             New String() {"@s", "@g"}, New Object() {"%" & kw & "%", grade})
 
         dgvstudents.Rows.Clear()
@@ -62,15 +65,20 @@ Public Class frmStudentList
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        If Not isLoading Then LoadStudents()
+        If isLoading Then Exit Sub
+        pg.Reset()
+        LoadStudents()
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        pg.Reset()
         LoadStudents()
     End Sub
 
     Private Sub cboGradeLevel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboGradeLevel.SelectedIndexChanged
-        If Not isLoading Then LoadStudents()
+        If isLoading Then Exit Sub
+        pg.Reset()
+        LoadStudents()
     End Sub
 
     ' ---- choose a student: double-click a row or press Enter ----

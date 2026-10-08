@@ -7,7 +7,7 @@
     Public Property SelectedEmployeeName As String = ""      ' "First Last"
     Public Property SelectedDepartment As String = ""
     Public Property SelectedPosition As String = ""
-
+    Private pg As GridPager
     Private isLoading As Boolean = True
 
     Private Sub frmEmployeeList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -29,20 +29,23 @@
 
         txtSearch.Text = InitialSearch
         isLoading = False
+        pg = New GridPager(dgvstudents, 15)
+        AddHandler pg.PageChanged, Sub() LoadEmployees()
         LoadEmployees()
         txtSearch.Focus()
     End Sub
 
     Private Sub LoadEmployees()
+        If pg Is Nothing Then Exit Sub
         Dim dept As String = If(cboDepartment.SelectedIndex <= 0, "", cboDepartment.Text)
         Dim kw As String = txtSearch.Text.Trim()
 
-        Dim dt As DataTable = GetDataTable(
+        Dim dt As DataTable = pg.LoadPage(
             "SELECT employee_id, employee_no, last_name, first_name, department, job_position, status " &
             "FROM tbl_employees " &
             "WHERE (employee_no LIKE @s OR last_name LIKE @s OR first_name LIKE @s OR CONCAT(first_name, ' ', last_name) LIKE @s) " &
             "AND (@d = '' OR department = @d) " &
-            "ORDER BY last_name, first_name",
+            "ORDER BY last_name, first_name, employee_id",
             New String() {"@s", "@d"}, New Object() {"%" & kw & "%", dept})
 
         dgvstudents.Rows.Clear()
@@ -59,17 +62,21 @@
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        If Not isLoading Then LoadEmployees()
+        If isLoading Then Exit Sub
+        pg.Reset()
+        LoadEmployees()
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        pg.Reset()
         LoadEmployees()
     End Sub
 
     Private Sub cboDepartment_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboDepartment.SelectedIndexChanged
-        If Not isLoading Then LoadEmployees()
+        If isLoading Then Exit Sub
+        pg.Reset()
+        LoadEmployees()
     End Sub
-
     ' ---- choose an employee: double-click a row or press Enter ----
     Private Sub dgvstudents_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvstudents.CellDoubleClick
         If e.RowIndex >= 0 Then SelectCurrent()
