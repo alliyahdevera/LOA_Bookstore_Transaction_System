@@ -22,6 +22,7 @@ Public Class frmTransactionHistory
         End If
         dtfrom.Value = New Date(Date.Today.Year, Date.Today.Month, 1)   ' 1st of this month
         dtto.Value = Date.Today
+        ResetSchoolYear()
         txtSearch.Text = InitialSearch
         Button3.Text = "Cancel Transaction"
         Button3.Visible = (currentuser.Role = ROLE_SUPERVISOR)

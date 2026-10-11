@@ -96,7 +96,7 @@
             "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
             "INNER JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
             "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
-            "WHERE n.status = 'Nonsaleable' " &
+            "WHERE n.status = 'Nonsaleable' " & SchoolYearFilter("n.reported_at") &
             "AND (v.product_code LIKE @s OR p.product_name LIKE @s OR p.product_description LIKE @s) "
 
         Dim names As New List(Of String)({"@s"})

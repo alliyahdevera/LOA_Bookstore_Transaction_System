@@ -28,8 +28,8 @@ Partial Class frmManageSY
         Me.btnupd = New System.Windows.Forms.Button()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
@@ -101,17 +101,6 @@ Partial Class frmManageSY
         Me.Panel2.Size = New System.Drawing.Size(482, 262)
         Me.Panel2.TabIndex = 62
         '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(13, 12)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(172, 25)
-        Me.Label2.TabIndex = 63
-        Me.Label2.Text = "Select School Year"
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -123,6 +112,17 @@ Partial Class frmManageSY
         Me.Label4.TabIndex = 89
         Me.Label4.Text = "Click a school year to show only its data in the Dashboard, Request List, and Rep" &
     "orts. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Choose 'All Time' to see every year combined."
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label2.Location = New System.Drawing.Point(13, 12)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(172, 25)
+        Me.Label2.TabIndex = 63
+        Me.Label2.Text = "Select School Year"
         '
         'frmManageSY
         '

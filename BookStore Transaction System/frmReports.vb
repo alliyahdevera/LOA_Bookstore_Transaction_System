@@ -6,17 +6,18 @@
     Private Function AllowedReports() As String()
         Select Case If(currentuser.Role, "").Trim()
             Case ROLE_SUPERVISOR
-                Return New String() {"Sales By Item", "Sales by Date Range", "Cash Denomination", "Remittance Report", "Inventory Discrepancy", "Damaged Report"}
+                Return New String() {"Sales By Item", "Sales by Date Range", "Cash Denomination", "Remittance Report", "Inventory Discrepancy", "Damaged Report", "Unreleased Items"}
             Case ROLE_MANAGEMENT
-                Return New String() {"Sales By Item", "Sales by Date Range", "Remittance Report", "Inventory Discrepancy", "Damaged Report"}
+                Return New String() {"Sales By Item", "Sales by Date Range", "Remittance Report", "Inventory Discrepancy", "Damaged Report", "Unreleased Items"}
             Case ROLE_CASHIER
-                Return New String() {"Cash Denomination", "Remittance Report"}
+                Return New String() {"Cash Denomination", "Remittance Report", "Unreleased Items"}
             Case Else
                 Return New String() {}
         End Select
     End Function
 
     Private Sub frmReports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If Not cboReportType.Items.Contains("Unreleased Items") Then cboReportType.Items.Add("Unreleased Items")
         If Not cboReportType.Items.Contains("Damaged Report") Then cboReportType.Items.Add("Damaged Report")
         _loading = True
         Dim allowed As String() = AllowedReports()
@@ -54,6 +55,8 @@
                 OpenReport(GetType(frmInventoryDiscrepancies))
             Case "Damaged Report"
                 OpenReport(GetType(frmNonSaleableStocks))
+            Case "Unreleased Items"
+                OpenReport(GetType(frmReleasing))
             Case Else
                 MsgBox("No form is linked to report type: " & cboReportType.Text,
                        vbExclamation, "Reports")

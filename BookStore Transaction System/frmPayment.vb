@@ -103,10 +103,9 @@ Public Class frmPayment
         End If
         RecalculateChange()
     End Sub
-
-    ' ==================== CASH vs SALARY DEDUCTION ====================
     Private Sub cboPaymentMethod_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboPaymentMethod.SelectedIndexChanged
         ApplyMethodState()
+        Me.BeginInvoke(New Action(AddressOf OpenListIfNeeded))
     End Sub
 
     Private Sub ApplyMethodState()
@@ -120,9 +119,7 @@ Public Class frmPayment
         btnSearchEmployee.Enabled = isSalary
 
         If isSalary Then
-
-            ' Salary Deduction
-            txtEmployeeName.ReadOnly = False
+            txtEmployeeName.ReadOnly = True          ' pick from the Employee List, no typing
 
             ' No cash is physically received
             txtAmountReceived.ReadOnly = True
@@ -155,49 +152,25 @@ Public Class frmPayment
         If " .-',".IndexOf(e.KeyChar) >= 0 Then Exit Sub
         e.Handled = True
     End Sub
-
-    ' ===== Employee search (optional shortcut, salary deduction only) =====
+    ' Salary Deduction: the employee must come from the Employee List
     Private Sub btnSearchEmployee_Click(sender As Object, e As EventArgs) Handles btnSearchEmployee.Click
-        Dim kw As String = InputBox("Enter the employee's name (leave blank to list all):", "Search Employee")
-        Dim picked As String = PickEmployee(kw.Trim())
-        If picked <> "" Then txtEmployeeName.Text = picked
+        PickEmployeeFromList()
     End Sub
 
-    Private Function PickEmployee(keyword As String) As String
-        Dim dt As DataTable = GetDataTable(
-            "SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM tbl_users " &
-            "WHERE status = 'Active' AND (first_name LIKE @s OR last_name LIKE @s OR CONCAT(first_name, ' ', last_name) LIKE @s) " &
-            "ORDER BY last_name, first_name",
-            New String() {"@s"}, New Object() {"%" & keyword & "%"})
-
-        If dt.Rows.Count = 0 Then
-            MsgBox("No employee found. You can also type the name directly.", vbInformation, "Search Employee")
-            Return ""
-        End If
-        If dt.Rows.Count = 1 Then Return dt.Rows(0)("full_name").ToString()
-
-        Using dlg As New Form(), lst As New ListBox()
-            dlg.Text = "Select Employee (double-click)"
-            dlg.StartPosition = FormStartPosition.CenterParent
-            dlg.FormBorderStyle = FormBorderStyle.FixedDialog
-            dlg.MinimizeBox = False
-            dlg.MaximizeBox = False
-            dlg.ClientSize = New Size(340, 280)
-
-            lst.Dock = DockStyle.Fill
-            lst.Font = New Font("Segoe UI", 10.5F)
-            lst.DataSource = dt
-            lst.DisplayMember = "full_name"
-            AddHandler lst.DoubleClick, Sub(s As Object, ev As EventArgs) dlg.DialogResult = DialogResult.OK
-            dlg.Controls.Add(lst)
-
-            If dlg.ShowDialog(Me) = DialogResult.OK AndAlso lst.SelectedIndex >= 0 Then
-                Return CType(lst.SelectedItem, DataRowView)("full_name").ToString()
+    Private Sub PickEmployeeFromList()
+        Using frm As New frmEmployeeList()
+            frm.InitialSearch = txtEmployeeName.Text.Trim()
+            frm.StartPosition = FormStartPosition.CenterParent
+            If frm.ShowDialog(Me) = DialogResult.OK AndAlso frm.SelectedEmployeeId > 0 Then
+                txtEmployeeName.Text = frm.SelectedEmployeeName
             End If
         End Using
-        Return ""
-    End Function
+    End Sub
 
+    ' opens the list right after Salary Deduction is chosen
+    Private Sub OpenListIfNeeded()
+        If cboPaymentMethod.Text = METHOD_SALARY AndAlso txtEmployeeName.Text.Trim() = "" Then PickEmployeeFromList()
+    End Sub
     ' ===== NO NEGATIVES: only digits and one decimal point can be typed =====
     Private Sub txtAmountReceived_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtAmountReceived.KeyPress
         If Char.IsControl(e.KeyChar) Then Exit Sub

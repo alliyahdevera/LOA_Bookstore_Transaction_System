@@ -653,19 +653,39 @@ Public Class frmTransactionDetails
             q.ExecuteNonQuery()
         End Using
     End Sub
+    Private rcDuplicateNote As String = ""
 
-    ' ===================== PRINT RECEIPT =====================
     Private Sub btnprint_Click(sender As Object, e As EventArgs) Handles btnprint.Click
         If txnId = 0 Then Exit Sub
+
+        Dim printed As Integer = Convert.ToInt32(If(ExecScalar(
+            "SELECT print_count FROM tbl_transactions WHERE transaction_id = @id",
+            New String() {"@id"}, New Object() {txnId}), 0))
+        rcDuplicateNote = ""
+
+        If printed > 0 Then
+            ' already printed once: a lost receipt needs a reason and supervisor approval
+            Dim reason As String = InputBox("A receipt was already printed for this transaction (" & printed & " time(s))." & vbCrLf &
+                                            "Reason for the reprint (e.g. receipt lost):", "Reprint Receipt").Trim()
+            If reason = "" Then Exit Sub
+            Dim approver As String = RequireSupervisorApproval(Me, "Reprint receipt of " & TransactionNo & " - " & reason)
+            If approver Is Nothing Then Exit Sub
+            rcDuplicateNote = "*** DUPLICATE COPY #" & printed & " ***"
+            LogActivity("Reprint Receipt", TransactionNo, "Reason: " & reason & ". Approved by " & approver)
+        End If
+
+        ExecNonQuery("UPDATE tbl_transactions SET print_count = print_count + 1 WHERE transaction_id = @id",
+                     New String() {"@id"}, New Object() {txnId})
+
         Dim pd As New PrintDocument()
-        pd.DefaultPageSettings.PaperSize = New PaperSize("Receipt", 315, 420 + dgvCart.Rows.Count * 45)   ' ~80mm wide
+        pd.DefaultPageSettings.PaperSize = New PaperSize("Receipt", 315, 420 + dgvCart.Rows.Count * 45)
         pd.DefaultPageSettings.Margins = New Margins(10, 10, 10, 10)
         AddHandler pd.PrintPage, AddressOf PrintReceiptPage
 
         Using dlg As New PrintPreviewDialog()
             dlg.Document = pd
             dlg.WindowState = FormWindowState.Maximized
-            dlg.ShowDialog(Me)          ' has a Print button; use pd.Print() instead to skip the preview
+            dlg.ShowDialog(Me)
         End Using
     End Sub
 
@@ -677,6 +697,7 @@ Public Class frmTransactionDetails
             rY = 10
             RcCenter(g, "LOA BOOKSTORE", fTitle, w)
             RcCenter(g, "OFFICIAL RECEIPT", fBold, w)
+            If rcDuplicateNote <> "" Then RcCenter(g, rcDuplicateNote, fBold, w)
             RcLine(g, w)
             RcLR(g, "OR No:", rcOR, fReg, w)
             RcLR(g, "Txn No:", TransactionNo, fReg, w)

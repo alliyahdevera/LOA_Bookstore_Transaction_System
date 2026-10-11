@@ -12,7 +12,7 @@ Public Class frmActivityHistory
         {"Edit", New String() {"Update %"}},
         {"Delete", New String() {"Delete %", "Remove %", "Deactivate %"}},
         {"Login", New String() {}},
-        {"Sale", New String() {"Sale", "Cancel Transaction"}},
+        {"Sale", New String() {"Sale", "Cancel Transaction", "Reprint Receipt"}},
         {"Return / Exchange", New String() {"Item %"}},
         {"Stock In", New String() {"Stock In"}},
         {"Inventory Count / Adjustment", New String() {"Inventory %"}},

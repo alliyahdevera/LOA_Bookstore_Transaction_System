@@ -121,6 +121,7 @@ Public Class Login
                 cn.Close()
             End If
         End Try
+        ResetSchoolYear()
     End Sub
 
     Private Sub cboShowPW_CheckedChanged(sender As Object, e As EventArgs) Handles cboShowPW.CheckedChanged

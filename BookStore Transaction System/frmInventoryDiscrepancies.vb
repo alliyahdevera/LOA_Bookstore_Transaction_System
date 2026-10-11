@@ -66,7 +66,7 @@ Public Class frmInventoryDiscrepancies
         "INNER JOIN tbl_categories cat ON ct.category_id = cat.category_id " &
         "INNER JOIN tbl_users u ON cnt.prepared_by = u.user_id " &
         "WHERE (p.product_name LIKE @s OR v.product_code LIKE @s OR cnt.count_no LIKE @s) " &
-        "AND (@cat = '' OR cat.category_name = @cat) " &
+        "AND (@cat = '' OR cat.category_name = @cat) " & SchoolYearFilter("cnt.count_date") &
         "ORDER BY cnt.count_date DESC, cnt.inventory_count_id DESC, p.product_name"
         Dim names As String() = {"@s", "@cat"}
         Dim values As Object() = {"%" & keyword & "%", category}

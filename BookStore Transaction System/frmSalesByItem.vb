@@ -30,6 +30,8 @@ Public Class frmSalesByItem
         pg = New GridPager(dgvsalesreport, 20)
         AddHandler pg.PageChanged, Sub() ShowPage()
         LoadGrid()
+        ApplySchoolYearToPickers(dtfrom, dtto)
+        ResetSchoolYear()
     End Sub
     Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
         If isFilling Then Exit Sub

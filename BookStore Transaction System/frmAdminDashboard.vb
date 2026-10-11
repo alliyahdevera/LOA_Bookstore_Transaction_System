@@ -200,12 +200,15 @@ Public Class frmAdminDashboard
     Private Sub btnsettings_Click(sender As Object, e As EventArgs) Handles btnsettings.Click
         OpenModule(FRM_SETTINGS)
     End Sub
-
-    ' every role may change their own password
+    ' sidebar button (every role)
     Private Sub btnchangepass_Click(sender As Object, e As EventArgs) Handles btnchangepass.Click
-        Using f As New frmChangePassword()
-            f.ShowDialog(Me)
-        End Using
+        Try
+            Using f As New frmChangePassword()
+                f.ShowDialog(Me)
+            End Using
+        Catch ex As Exception
+            MsgBox("Could not open Change Password: " & ex.Message, vbCritical, "Change Password")
+        End Try
     End Sub
 
     ' ==================================================================
@@ -223,5 +226,4 @@ Public Class frmAdminDashboard
         End If
 
     End Sub
-
 End Class

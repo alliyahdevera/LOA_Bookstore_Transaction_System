@@ -367,6 +367,7 @@
     <Compile Include="PasswordHelper.vb" />
     <Compile Include="PosHelpers.vb" />
     <Compile Include="RolePermissions.vb" />
+    <Compile Include="SchoolYearHelper.vb" />
     <Compile Include="UIHelper.vb" />
   </ItemGroup>
   <ItemGroup>

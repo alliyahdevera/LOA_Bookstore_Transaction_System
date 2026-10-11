@@ -62,6 +62,8 @@ Public Class frmRemittance
         pg = New GridPager(dgvsalesreport, 20)
         AddHandler pg.PageChanged, Sub() LoadGrid()
         LoadGrid()
+        ApplySchoolYearToPickers(dtfrom, dtto)
+        ResetSchoolYear()
     End Sub
 
     Private Sub cbocashier_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocashier.SelectedIndexChanged

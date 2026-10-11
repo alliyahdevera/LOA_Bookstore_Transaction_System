@@ -86,7 +86,8 @@ Public Class frmDashboard
 
         lbltotqprod.Text = GetScalar("SELECT IFNULL(SUM(quantity_on_hand), 0) FROM TBL_PRODUCT_VARIANTS").ToString("N0")
 
-        lblsalest.Text = ChrW(8369) & GetScalar("SELECT IFNULL(SUM(total_amount), 0) FROM TBL_TRANSACTIONS WHERE DATE(or_date) = CURDATE() AND status <> 'Cancelled'").ToString("N2")
+        lblsalest.Text = ChrW(8369) & GetScalar("SELECT IFNULL(SUM(total_amount), 0) FROM TBL_TRANSACTIONS WHERE status <> 'Cancelled'" & SchoolYearFilter("or_date")).ToString("N2")
+        lblsalest.Font = New Font(lblsalest.Font.FontFamily, If(lblsalest.Text.Length > 9, 18.0F, 24.0F), FontStyle.Bold)
 
         lbllowstock.Text = GetScalar("SELECT COUNT(*) FROM TBL_PRODUCT_VARIANTS WHERE quantity_on_hand <= reorder_level").ToString("N0")
     End Sub

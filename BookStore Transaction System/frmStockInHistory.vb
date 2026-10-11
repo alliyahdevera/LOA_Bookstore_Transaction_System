@@ -21,6 +21,8 @@ Public Class frmStockInHistory
         FillTypeCombo(cbotype, 0, TypeSource.StockIns)
         isFilling = False
         LoadGrid()
+        ApplySchoolYearToPickers(DateTimePicker1, DateTimePicker2)
+        ResetSchoolYear()
     End Sub
     Private Sub LoadCategoryCombo()
         isFilling = True
