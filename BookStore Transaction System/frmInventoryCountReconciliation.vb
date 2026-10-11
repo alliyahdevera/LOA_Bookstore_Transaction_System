@@ -89,13 +89,26 @@ Public Class frmInventoryCountReconciliation
         End If
 
         Dim dmg As New DataGridViewTextBoxColumn With {
-            .Name = "DamagedQty", .HeaderText = "Damaged Pieces", .Width = 95,
-            .SortMode = DataGridViewColumnSortMode.NotSortable}
+        .Name = "DamagedQty", .HeaderText = "Damaged Pieces", .Width = 95,
+        .SortMode = DataGridViewColumnSortMode.NotSortable}
         Dim cond As New DataGridViewTextBoxColumn With {
-            .Name = "Condition", .HeaderText = "Condition", .Width = 140, .ReadOnly = True,
-            .SortMode = DataGridViewColumnSortMode.NotSortable}
+        .Name = "Condition", .HeaderText = "Condition", .Width = 140, .ReadOnly = True,
+        .SortMode = DataGridViewColumnSortMode.NotSortable}
         dgvlistproducts.Columns.Insert(idx, dmg)
         dgvlistproducts.Columns.Insert(idx + 1, cond)
+
+        ' columns that LoadProducts fills but the designer never created
+        If Not dgvlistproducts.Columns.Contains("ProductDescription") Then
+            Dim pos As Integer = dgvlistproducts.Columns("ProductName").Index + 1
+            dgvlistproducts.Columns.Insert(pos, New DataGridViewTextBoxColumn With {
+            .Name = "ProductDescription", .HeaderText = "Description", .Width = 180,
+            .ReadOnly = True, .SortMode = DataGridViewColumnSortMode.NotSortable})
+        End If
+        If Not dgvlistproducts.Columns.Contains("CountNo") Then
+            dgvlistproducts.Columns.Insert(0, New DataGridViewTextBoxColumn With {
+            .Name = "CountNo", .HeaderText = "Count No.", .Width = 150,
+            .ReadOnly = True, .SortMode = DataGridViewColumnSortMode.NotSortable})
+        End If
     End Sub
 
     Private Function ConditionText(counted As Integer, damaged As Integer) As String

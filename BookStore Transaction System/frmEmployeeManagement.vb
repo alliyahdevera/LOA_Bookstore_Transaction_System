@@ -15,7 +15,8 @@ Public Class frmEmployeeManagement
             {"Section", "Status"}, {"View and Manage All Students", "View and Manage All Employees"},
             {"List of Students", "List of Employees"}, {"Student Information", "Employee Information"}})
 
-        dgvemployee.AutoGenerateColumns = False
+        If dgvemployee.Columns.Contains("EducationalLevel") Then dgvemployee.Columns("EducationalLevel").Visible = False
+        AddHandler dgvemployee.CellClick, AddressOf dgvstudents_CellClick
         BindColumn("EmployeeNo", "employee_no", "Employee No.")
         BindColumn("LastName", "last_name", "Last Name")
         BindColumn("Firstname", "first_name", "First Name")
