@@ -204,11 +204,31 @@ Public Class frmTransactionDetails
     End Sub
     Private Function DepartmentOf(program As String, grade As String) As String
         Select Case program.Trim().ToUpper()
+            ' College of Computer Studies (CCS)
             Case "BSIT", "BSCS" : Return "CCS"
+
+            ' College of Engineering (COE)
             Case "BSCPE", "BSIE" : Return "COE"
-            Case "BSBA", "BSA", "BSCA", "BSREM" : Return "CBA"
+
+            ' College of Business Administration / Accountancy (CBA)
+            Case "BSA" : Return "CBA"
+
+            ' College of Hospitality and Tourism Management (CHTM)
             Case "BSHM", "BSTM" : Return "CHTM"
+
+            ' College of Arts and Sciences (CAS)
             Case "BSPSYCH" : Return "CAS"
+
+            ' College of Criminal Justice / Criminology (CCJ)
+            Case "BSCRIM" : Return "CCJ"
+
+            ' College of Education (COED)
+            Case "BEED", "BSED" : Return "COED"
+
+            ' Standalone / Direct Mappings
+            Case "BSBA" : Return "BSBA"
+            Case "BSCA" : Return "BSCA"
+            Case "BSREM" : Return "BSREM"
             Case "JD" : Return "College of Law"
             Case "ABM", "HUMSS", "GAS", "STEM" : Return "Senior High School"
         End Select

@@ -14,7 +14,11 @@ Public Class SchoolYearInfo
 End Class
 
 Public Module SchoolYearHelper
-
+    ' the school year marked as current in the database (used by the cashier / inventory dashboards)
+    Public Function ActiveSchoolYearLabel() As String
+        Dim v As Object = ExecScalar("SELECT label FROM tbl_school_years WHERE is_current = 1 LIMIT 1")
+        Return If(v Is Nothing OrElse IsDBNull(v), "Not set", Convert.ToString(v))
+    End Function
     ' The school year the whole system is viewing. Nothing = "All Time".
     Public SelectedSchoolYear As SchoolYearInfo = Nothing
     Private initialized As Boolean = False

@@ -74,7 +74,12 @@ Public Class frmAdminDashboard
     Private Function CreateForm(moduleName As String) As Form
         Select Case moduleName
             Case FRM_DASHBOARD
-                Return New frmDashboard()
+                If String.Equals(currentuser.Role, ROLE_CASHIER, StringComparison.OrdinalIgnoreCase) Then
+                    Return New frmCashierDashboard()
+                ElseIf String.Equals(currentuser.Role, ROLE_INVENTORY_STAFF, StringComparison.OrdinalIgnoreCase) Then
+                    Return New frmInventoryStaffDashboard()
+                End If
+                Return New frmDashboard()                 ' Supervisor / Management
             Case FRM_POS
                 Return New frmPOS()
             Case FRM_INVENTORY
