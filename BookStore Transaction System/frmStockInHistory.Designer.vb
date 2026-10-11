@@ -265,13 +265,15 @@ Partial Class frmStockInHistory
         '
         'btngenerate
         '
+        Me.btngenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btngenerate.Location = New System.Drawing.Point(656, 85)
+        Me.btngenerate.ForeColor = System.Drawing.Color.White
+        Me.btngenerate.Location = New System.Drawing.Point(412, 82)
         Me.btngenerate.Name = "btngenerate"
-        Me.btngenerate.Size = New System.Drawing.Size(96, 28)
+        Me.btngenerate.Size = New System.Drawing.Size(110, 28)
         Me.btngenerate.TabIndex = 82
-        Me.btngenerate.Text = "Generate"
-        Me.btngenerate.UseVisualStyleBackColor = True
+        Me.btngenerate.Text = "Load Data"
+        Me.btngenerate.UseVisualStyleBackColor = False
         '
         'Label6
         '
@@ -288,7 +290,7 @@ Partial Class frmStockInHistory
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(354, 90)
+        Me.Label2.Location = New System.Drawing.Point(240, 88)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 80
@@ -297,9 +299,10 @@ Partial Class frmStockInHistory
         'DateTimePicker2
         '
         Me.DateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker2.Location = New System.Drawing.Point(382, 85)
+        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker2.Location = New System.Drawing.Point(268, 83)
         Me.DateTimePicker2.Name = "DateTimePicker2"
-        Me.DateTimePicker2.Size = New System.Drawing.Size(251, 27)
+        Me.DateTimePicker2.Size = New System.Drawing.Size(129, 27)
         Me.DateTimePicker2.TabIndex = 79
         '
         'Label1
@@ -315,9 +318,10 @@ Partial Class frmStockInHistory
         'DateTimePicker1
         '
         Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.DateTimePicker1.Location = New System.Drawing.Point(94, 85)
         Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(251, 27)
+        Me.DateTimePicker1.Size = New System.Drawing.Size(129, 27)
         Me.DateTimePicker1.TabIndex = 77
         '
         'Label14

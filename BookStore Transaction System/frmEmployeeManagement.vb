@@ -15,16 +15,16 @@ Public Class frmEmployeeManagement
             {"Section", "Status"}, {"View and Manage All Students", "View and Manage All Employees"},
             {"List of Students", "List of Employees"}, {"Student Information", "Employee Information"}})
 
-        dgvstudents.AutoGenerateColumns = False
+        dgvemployee.AutoGenerateColumns = False
         BindColumn("StudentNo", "employee_no", "Employee No.")
         BindColumn("LastName", "last_name", "Last Name")
         BindColumn("FirstName", "first_name", "First Name")
         BindColumn("GradeLevel", "department", "Department")
         BindColumn("ProgramStrand", "job_position", "Position")
         BindColumn("Section", "status", "Status")
-        dgvstudents.Columns("EducationalLevel").Visible = False
-        If Not dgvstudents.Columns.Contains("colId") Then
-            dgvstudents.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "colId", .DataPropertyName = "employee_id", .Visible = False})
+        dgvemployee.Columns("EducationalLevel").Visible = False
+        If Not dgvemployee.Columns.Contains("colId") Then
+            dgvemployee.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "colId", .DataPropertyName = "employee_id", .Visible = False})
         End If
 
         cboGradeLevel.DropDownStyle = ComboBoxStyle.DropDown
@@ -36,7 +36,7 @@ Public Class frmEmployeeManagement
         cboSection.DropDownStyle = ComboBoxStyle.DropDownList
         cboSection.Items.Clear()
         cboSection.Items.AddRange(New Object() {"Active", "Inactive"})
-        pg = New GridPager(dgvstudents, 20)
+        pg = New GridPager(dgvemployee, 20)
         AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim())
         txtSearch.Text = InitialSearch
         LoadLists()
@@ -45,8 +45,8 @@ Public Class frmEmployeeManagement
     End Sub
 
     Private Sub BindColumn(colName As String, field As String, header As String)
-        dgvstudents.Columns(colName).DataPropertyName = field
-        dgvstudents.Columns(colName).HeaderText = header
+        dgvemployee.Columns(colName).DataPropertyName = field
+        dgvemployee.Columns(colName).HeaderText = header
     End Sub
 
     Private Sub Relabel(parent As Control, map As Dictionary(Of String, String))
@@ -108,8 +108,8 @@ Public Class frmEmployeeManagement
             "WHERE employee_no LIKE @s OR last_name LIKE @s OR first_name LIKE @s OR department LIKE @s OR job_position LIKE @s " &
             "ORDER BY last_name, first_name, employee_id",
             New String() {"@s"}, New Object() {"%" & searchText & "%"})
-        dgvstudents.DataSource = dt
-        dgvstudents.ClearSelection()
+        dgvemployee.DataSource = dt
+        dgvemployee.ClearSelection()
     End Sub
 
     Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
@@ -118,9 +118,9 @@ Public Class frmEmployeeManagement
         LoadGrid(txtSearch.Text.Trim())
     End Sub
 
-    Private Sub dgvstudents_CellClick(sender As Object, e As DataGridViewCellEventArgs) 
+    Private Sub dgvstudents_CellClick(sender As Object, e As DataGridViewCellEventArgs)
         If e.RowIndex < 0 Then Exit Sub
-        Dim row As DataGridViewRow = dgvstudents.Rows(e.RowIndex)
+        Dim row As DataGridViewRow = dgvemployee.Rows(e.RowIndex)
         If row.Cells("colId").Value Is Nothing OrElse IsDBNull(row.Cells("colId").Value) Then Exit Sub
 
         selectedEmployeeId = Convert.ToInt32(row.Cells("colId").Value)
@@ -219,7 +219,7 @@ Public Class frmEmployeeManagement
         cboProgram.Text = ""
         cboSection.SelectedIndex = 0
         txtSearch.Clear()
-        dgvstudents.ClearSelection()
+        dgvemployee.ClearSelection()
     End Sub
 
 End Class

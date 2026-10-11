@@ -448,6 +448,7 @@ Partial Class frmInventoryStaffDashboard
         Me.PictureBox6.Location = New System.Drawing.Point(14, 10)
         Me.PictureBox6.Name = "PictureBox6"
         Me.PictureBox6.Size = New System.Drawing.Size(38, 35)
+        Me.PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox6.TabIndex = 38
         Me.PictureBox6.TabStop = False
         '

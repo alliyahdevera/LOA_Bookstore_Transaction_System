@@ -3,15 +3,13 @@
 Public Class frmActivityHistory
 
     Private WithEvents tmrClock As System.Windows.Forms.Timer
-    Private WithEvents cboActionType As ComboBox
     Private isInitializing As Boolean = True
     Private pg As GridPager
-    ' filter name -> action_type patterns (% = anything). "Login" is handled separately because it lives under log_type = 'Login'.
+    ' filter name -> action_type patterns (% = anything). Logins are NOT shown here - see frmLoginHistory.
     Private ReadOnly actionGroups As New Dictionary(Of String, String()) From {
         {"Add", New String() {"Add %"}},
         {"Edit", New String() {"Update %"}},
         {"Delete", New String() {"Delete %", "Remove %", "Deactivate %"}},
-        {"Login", New String() {}},
         {"Sale", New String() {"Sale", "Cancel Transaction", "Reprint Receipt"}},
         {"Return / Exchange", New String() {"Item %"}},
         {"Stock In", New String() {"Stock In"}},
@@ -20,23 +18,18 @@ Public Class frmActivityHistory
         {"Remittance", New String() {"Remittance"}}
     }
 
-    Private Sub BuildActionFilter()
-        Dim lbl As New Label With {.AutoSize = True, .Font = Label1.Font, .Text = "Action Type",
-                                   .Location = New Point(780, 91)}
-        cboActionType = New ComboBox With {.DropDownStyle = ComboBoxStyle.DropDownList, .Font = dtpfrom.Font,
-                                           .Location = New Point(868, 86), .Width = 220}
-        cboActionType.Items.Add("All Actions")
+    ' fills the cbofilter combobox that is already on the form
+    Private Sub FillActionFilter()
+        cbofilter.DropDownStyle = ComboBoxStyle.DropDownList
+        cbofilter.Items.Clear()
+        cbofilter.Items.Add("All Actions")
         For Each k As String In actionGroups.Keys
-            cboActionType.Items.Add(k)
+            cbofilter.Items.Add(k)
         Next
-        cboActionType.SelectedIndex = 0
-        Controls.Add(lbl)
-        Controls.Add(cboActionType)
-        lbl.BringToFront()
-        cboActionType.BringToFront()
+        cbofilter.SelectedIndex = 0
     End Sub
 
-    Private Sub cboActionType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboActionType.SelectedIndexChanged
+    Private Sub cbofilter_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbofilter.SelectedIndexChanged
         If isInitializing Then Exit Sub
         pg.Reset()
         LoadActivityLogs()
@@ -64,7 +57,7 @@ Public Class frmActivityHistory
             dtpfrom.Value = DateTime.Today
             dtpto.Value = DateTime.Today
 
-            BuildActionFilter()
+            FillActionFilter()
             pg = New GridPager(dgvActivityHistory, 20)
             AddHandler pg.PageChanged, Sub() LoadActivityLogs()
             isInitializing = False
@@ -113,7 +106,7 @@ Public Class frmActivityHistory
     Public Sub LoadActivityLogs()
         Try
             If pg Is Nothing Then Exit Sub
-            Dim selected As String = If(cboActionType Is Nothing OrElse cboActionType.SelectedIndex <= 0, "", cboActionType.Text)
+            Dim selected As String = If(cbofilter Is Nothing OrElse cbofilter.SelectedIndex <= 0, "", cbofilter.Text)
 
             Dim names As New List(Of String)({"@dateFrom", "@dateTo"})
             Dim values As New List(Of Object)({CType(dtpfrom.Value.Date, Object), CType(dtpto.Value.Date, Object)})
@@ -128,12 +121,8 @@ Public Class frmActivityHistory
                 "INNER JOIN tbl_roles r ON u.role_id = r.role_id " &
                 "WHERE DATE(a.created_at) BETWEEN @dateFrom AND @dateTo "
 
-            If selected = "" Then
-                query &= "AND a.log_type IN ('Activity', 'Login') "      ' remove 'Login' here to hide logins from "All Actions"
-            ElseIf selected = "Login" Then
-                query &= "AND a.log_type = 'Login' "
-            Else
-                query &= "AND a.log_type = 'Activity' "
+            query &= "AND a.log_type = 'Activity' AND a.action_type NOT LIKE '%Login%' "
+            If selected <> "" Then
                 Dim patterns As String() = actionGroups(selected)
                 Dim parts As New List(Of String)
                 For i As Integer = 0 To patterns.Length - 1

@@ -77,6 +77,7 @@ Public Class frmReleasing
     Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents ReleasedBy As DataGridViewTextBoxColumn
     Friend WithEvents ReleasedTo As DataGridViewTextBoxColumn
+    Friend WithEvents Button1 As Button
     Private slipY As Single
 
     Public Sub New()
@@ -525,15 +526,6 @@ Public Class frmReleasing
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvstockinhistory = New System.Windows.Forms.DataGridView()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.btngenerate = New System.Windows.Forms.Button()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.Label14 = New System.Windows.Forms.Label()
         Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ORNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -547,6 +539,16 @@ Public Class frmReleasing
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ReleasedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ReleasedTo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.btngenerate = New System.Windows.Forms.Button()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
@@ -613,11 +615,11 @@ Public Class frmReleasing
         Me.btnexportexcel.FlatAppearance.BorderSize = 0
         Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnexportexcel.ForeColor = System.Drawing.Color.White
-        Me.btnexportexcel.Location = New System.Drawing.Point(1061, 738)
+        Me.btnexportexcel.Location = New System.Drawing.Point(920, 738)
         Me.btnexportexcel.Name = "btnexportexcel"
         Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
         Me.btnexportexcel.TabIndex = 131
-        Me.btnexportexcel.Text = "Export to Excel"
+        Me.btnexportexcel.Text = "Release Item/s"
         Me.btnexportexcel.UseVisualStyleBackColor = False
         '
         'Panel1
@@ -770,6 +772,85 @@ Public Class frmReleasing
         Me.dgvstockinhistory.Size = New System.Drawing.Size(1169, 573)
         Me.dgvstockinhistory.TabIndex = 1
         '
+        'TransactionNo
+        '
+        Me.TransactionNo.HeaderText = "Transaction No."
+        Me.TransactionNo.Name = "TransactionNo"
+        Me.TransactionNo.ReadOnly = True
+        Me.TransactionNo.Width = 110
+        '
+        'ORNo
+        '
+        Me.ORNo.HeaderText = "OR No."
+        Me.ORNo.Name = "ORNo"
+        Me.ORNo.ReadOnly = True
+        '
+        'BuyerName
+        '
+        Me.BuyerName.HeaderText = "Buyer Name"
+        Me.BuyerName.Name = "BuyerName"
+        Me.BuyerName.ReadOnly = True
+        '
+        'IDNumber
+        '
+        Me.IDNumber.HeaderText = "ID No."
+        Me.IDNumber.Name = "IDNumber"
+        Me.IDNumber.ReadOnly = True
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
+        '
+        'ProductCategory
+        '
+        Me.ProductCategory.HeaderText = "Product Category"
+        Me.ProductCategory.Name = "ProductCategory"
+        Me.ProductCategory.ReadOnly = True
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
+        '
+        'PickUpdate
+        '
+        Me.PickUpdate.HeaderText = "PickUp Date"
+        Me.PickUpdate.Name = "PickUpdate"
+        Me.PickUpdate.ReadOnly = True
+        '
+        'InStock
+        '
+        Me.InStock.HeaderText = "In Stock"
+        Me.InStock.Name = "InStock"
+        Me.InStock.ReadOnly = True
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
+        '
+        'ReleasedBy
+        '
+        Me.ReleasedBy.HeaderText = "Released By"
+        Me.ReleasedBy.Name = "ReleasedBy"
+        Me.ReleasedBy.ReadOnly = True
+        '
+        'ReleasedTo
+        '
+        Me.ReleasedTo.HeaderText = "Released To"
+        Me.ReleasedTo.Name = "ReleasedTo"
+        Me.ReleasedTo.ReadOnly = True
+        '
         'Panel6
         '
         Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
@@ -862,88 +943,23 @@ Public Class frmReleasing
         Me.Label14.TabIndex = 132
         Me.Label14.Text = "Search "
         '
-        'TransactionNo
+        'Button1
         '
-        Me.TransactionNo.HeaderText = "Transaction No."
-        Me.TransactionNo.Name = "TransactionNo"
-        Me.TransactionNo.ReadOnly = True
-        Me.TransactionNo.Width = 110
-        '
-        'ORNo
-        '
-        Me.ORNo.HeaderText = "OR No."
-        Me.ORNo.Name = "ORNo"
-        Me.ORNo.ReadOnly = True
-        '
-        'BuyerName
-        '
-        Me.BuyerName.HeaderText = "Buyer Name"
-        Me.BuyerName.Name = "BuyerName"
-        Me.BuyerName.ReadOnly = True
-        '
-        'IDNumber
-        '
-        Me.IDNumber.HeaderText = "ID No."
-        Me.IDNumber.Name = "IDNumber"
-        Me.IDNumber.ReadOnly = True
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        Me.ProductCode.ReadOnly = True
-        '
-        'ProductCategory
-        '
-        Me.ProductCategory.HeaderText = "Product Category"
-        Me.ProductCategory.Name = "ProductCategory"
-        Me.ProductCategory.ReadOnly = True
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        Me.ProductName.ReadOnly = True
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        Me.Quantity.ReadOnly = True
-        '
-        'PickUpdate
-        '
-        Me.PickUpdate.HeaderText = "PickUp Date"
-        Me.PickUpdate.Name = "PickUpdate"
-        Me.PickUpdate.ReadOnly = True
-        '
-        'InStock
-        '
-        Me.InStock.HeaderText = "In Stock"
-        Me.InStock.Name = "InStock"
-        Me.InStock.ReadOnly = True
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
-        '
-        'ReleasedBy
-        '
-        Me.ReleasedBy.HeaderText = "Released By"
-        Me.ReleasedBy.Name = "ReleasedBy"
-        Me.ReleasedBy.ReadOnly = True
-        '
-        'ReleasedTo
-        '
-        Me.ReleasedTo.HeaderText = "Released To"
-        Me.ReleasedTo.Name = "ReleasedTo"
-        Me.ReleasedTo.ReadOnly = True
+        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Button1.FlatAppearance.BorderSize = 0
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.ForeColor = System.Drawing.Color.White
+        Me.Button1.Location = New System.Drawing.Point(1061, 738)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(130, 31)
+        Me.Button1.TabIndex = 147
+        Me.Button1.Text = "Print Slip"
+        Me.Button1.UseVisualStyleBackColor = False
         '
         'frmReleasing
         '
         Me.ClientSize = New System.Drawing.Size(1220, 808)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.cbocategory)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label3)

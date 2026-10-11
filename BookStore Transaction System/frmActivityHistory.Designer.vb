@@ -50,6 +50,8 @@ Partial Class frmActivityHistory
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtpfrom = New System.Windows.Forms.DateTimePicker()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.cbofilter = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvActivityHistory, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -324,11 +326,31 @@ Partial Class frmActivityHistory
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 1000
         '
+        'cbofilter
+        '
+        Me.cbofilter.FormattingEnabled = True
+        Me.cbofilter.Location = New System.Drawing.Point(1030, 87)
+        Me.cbofilter.Name = "cbofilter"
+        Me.cbofilter.Size = New System.Drawing.Size(162, 21)
+        Me.cbofilter.TabIndex = 163
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(970, 89)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(54, 17)
+        Me.Label3.TabIndex = 164
+        Me.Label3.Text = "Filter by"
+        '
         'frmActivityHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 817)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.cbofilter)
         Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.dtpto)
@@ -379,4 +401,6 @@ Partial Class frmActivityHistory
     Friend WithEvents Label1 As Label
     Friend WithEvents dtpfrom As DateTimePicker
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents cbofilter As ComboBox
+    Friend WithEvents Label3 As Label
 End Class

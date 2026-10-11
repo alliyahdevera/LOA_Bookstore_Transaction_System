@@ -81,6 +81,8 @@ Partial Class frmManageProducts
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.cboFilterCategory = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.cbotype = New System.Windows.Forms.ComboBox()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvListOfProducts, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -629,7 +631,7 @@ Partial Class frmManageProducts
         Me.cboFilterCategory.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cboFilterCategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboFilterCategory.FormattingEnabled = True
-        Me.cboFilterCategory.Location = New System.Drawing.Point(1015, 249)
+        Me.cboFilterCategory.Location = New System.Drawing.Point(792, 249)
         Me.cboFilterCategory.Name = "cboFilterCategory"
         Me.cboFilterCategory.Size = New System.Drawing.Size(172, 25)
         Me.cboFilterCategory.TabIndex = 117
@@ -638,17 +640,40 @@ Partial Class frmManageProducts
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(922, 252)
+        Me.Label9.Location = New System.Drawing.Point(725, 252)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(61, 17)
         Me.Label9.TabIndex = 118
         Me.Label9.Text = "Category"
+        '
+        'cbotype
+        '
+        Me.cbotype.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cbotype.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbotype.FormattingEnabled = True
+        Me.cbotype.Items.AddRange(New Object() {"Uniforms", "Books", "Modules", "School Supplies", "Office Supplies", "All Items"})
+        Me.cbotype.Location = New System.Drawing.Point(1009, 249)
+        Me.cbotype.Name = "cbotype"
+        Me.cbotype.Size = New System.Drawing.Size(178, 25)
+        Me.cbotype.TabIndex = 130
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(968, 252)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(35, 17)
+        Me.Label16.TabIndex = 131
+        Me.Label16.Text = "Type"
         '
         'frmManageProducts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 804)
+        Me.Controls.Add(Me.cbotype)
+        Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.cboFilterCategory)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label4)
@@ -738,4 +763,6 @@ Partial Class frmManageProducts
     Friend WithEvents cboFilterCategory As ComboBox
     Friend WithEvents Label9 As Label
     Friend WithEvents Label15 As Label
+    Friend WithEvents cbotype As ComboBox
+    Friend WithEvents Label16 As Label
 End Class
