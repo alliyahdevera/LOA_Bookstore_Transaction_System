@@ -203,6 +203,7 @@ Public Class frmAdminDashboard
     End Sub
 
     Private Sub btnsettings_Click(sender As Object, e As EventArgs) Handles btnsettings.Click
+        MsgBox("Settings clicked. Role = " & currentuser.Role)
         OpenModule(FRM_SETTINGS)
     End Sub
     ' sidebar button (every role)

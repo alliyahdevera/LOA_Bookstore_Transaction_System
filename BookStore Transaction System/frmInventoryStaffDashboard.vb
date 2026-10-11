@@ -3,7 +3,6 @@
 Public Class frmInventoryStaffDashboard
 
     Private WithEvents tmrRefresh As New System.Windows.Forms.Timer With {.Interval = 60000}
-    Private ReadOnly tip As New ToolTip()
 
     Private Sub frmInventoryStaffDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
@@ -18,10 +17,11 @@ Public Class frmInventoryStaffDashboard
         RoundPanel(pnltotqprod)
 
         Label11.Text = "Active School Year: " & ActiveSchoolYearLabel()
-        chtmostpurchased.Legends(0).Enabled = False            ' one series: no "Series1" legend
 
-        tip.SetToolTip(pnltotprod, "Items (variants) with 0 on hand.")
-        tip.SetToolTip(pnltotqprod, "Items above 0 but at or below their reorder level.")
+        ' each chart has a single series, so hide the "Series1" legend
+        For Each ch As Chart In New Chart() {chrtlowlevlprod, chtmostpurchased, chtdistsales}
+            If ch.Legends.Count > 0 Then ch.Legends(0).Enabled = False
+        Next
 
         With dgvstockin
             .AllowUserToAddRows = False
@@ -61,43 +61,28 @@ Public Class frmInventoryStaffDashboard
         Return Convert.ToInt32(If(ExecScalar(sql), 0))
     End Function
 
-    ' ==================== CARDS ====================
+    ' ==================== CARDS (captions come from the designer) ====================
     Private Sub LoadCards()
         Const ACTIVE_VARIANTS As String =
             "FROM tbl_product_variants v INNER JOIN tbl_products p ON v.product_id = p.product_id WHERE p.status = 'Active' "
 
-        SetValue(lbltotp, Count("SELECT COUNT(*) " & ACTIVE_VARIANTS & "AND v.quantity_on_hand = 0").ToString("N0"))         ' Out of Stock Items
+        ' Out of Stock Items
+        SetValue(lbltotp, Count("SELECT COUNT(*) " & ACTIVE_VARIANTS & "AND v.quantity_on_hand = 0").ToString("N0"))
+
+        ' Low Stock Items
         SetValue(lbltotqprod, Count("SELECT COUNT(*) " & ACTIVE_VARIANTS &
-                                    "AND v.quantity_on_hand > 0 AND v.quantity_on_hand <= v.reorder_level").ToString("N0"))   ' Low Stock Items
+                                    "AND v.quantity_on_hand > 0 AND v.quantity_on_hand <= v.reorder_level").ToString("N0"))
 
-        ' damaged + missing units this month
-        Dim damaged As Integer = 0, missing As Integer = 0
-        Dim mv As DataTable = GetDataTable(
-            "SELECT movement_type, SUM(quantity) AS q FROM tbl_stock_movements " &
-            "WHERE movement_type IN ('Damaged', 'Missing') AND YEAR(created_at) = YEAR(CURDATE()) AND MONTH(created_at) = MONTH(CURDATE()) " &
-            "GROUP BY movement_type")
-        If mv IsNot Nothing Then
-            For Each r As DataRow In mv.Rows
-                If r("movement_type").ToString() = "Damaged" Then damaged = Convert.ToInt32(r("q")) Else missing = Convert.ToInt32(r("q"))
-            Next
-        End If
-        Label3.Text = "Damaged && Missing This Month"
-        SetValue(lblsalest, (damaged + missing).ToString("N0"))
-        tip.SetToolTip(pnlsalestoday, "Damaged: " & damaged & " pc(s)    Missing: " & missing & " pc(s)")
+        ' Damaged Items (pieces currently held as non-saleable)
+        SetValue(lblsalest, Count("SELECT IFNULL(SUM(quantity), 0) FROM tbl_nonsaleable_stocks WHERE status = 'Nonsaleable'").ToString("N0"))
 
-        ' units received today / this month
-        Dim si As DataTable = GetDataTable(
-            "SELECT IFNULL(SUM(CASE WHEN si.stock_in_date = CURDATE() THEN sid.quantity ELSE 0 END), 0) AS today, " &
-            "IFNULL(SUM(sid.quantity), 0) AS month_total " &
-            "FROM tbl_stock_in_details sid INNER JOIN tbl_stock_ins si ON sid.stock_in_id = si.stock_in_id " &
-            "WHERE YEAR(si.stock_in_date) = YEAR(CURDATE()) AND MONTH(si.stock_in_date) = MONTH(CURDATE())")
-        If si IsNot Nothing AndAlso si.Rows.Count > 0 Then
-            Label6.Text = "Stocked In Today / This Month"
-            SetValue(lbllowstock, Convert.ToInt32(si.Rows(0)("today")).ToString("N0") & " / " & Convert.ToInt32(si.Rows(0)("month_total")).ToString("N0"))
-        End If
+        ' Stocked In Today (pieces received today)
+        SetValue(lbllowstock, Count(
+            "SELECT IFNULL(SUM(sid.quantity), 0) FROM tbl_stock_in_details sid " &
+            "INNER JOIN tbl_stock_ins si ON sid.stock_in_id = si.stock_in_id WHERE si.stock_in_date = CURDATE()").ToString("N0"))
     End Sub
 
-    ' ==================== STOCK MOVEMENT: LAST 7 DAYS, IN vs OUT ====================
+    ' ==================== STOCK MOVEMENT: last 7 days (pieces in + pieces out) ====================
     Private Sub LoadMovementChart()
         Dim startDay As Date = Date.Today.AddDays(-6)
         Dim stockIn(6) As Integer
@@ -115,7 +100,7 @@ Public Class frmInventoryStaffDashboard
             Next
         End If
 
-        ' "Out" = items that actually left the shelf (sold at the counter or released from pick-up)
+        ' "out" = items that left the shelf (sold at the counter or released from pick-up)
         Dim b As DataTable = GetDataTable(
             "SELECT DATE(ti.released_at) AS d, SUM(ti.quantity) AS q " &
             "FROM tbl_transaction_items ti INNER JOIN tbl_transactions t ON ti.transaction_id = t.transaction_id " &
@@ -129,40 +114,15 @@ Public Class frmInventoryStaffDashboard
             Next
         End If
 
-        With chrtlowlevlprod
-            .Series.Clear()
-            .Legends(0).Enabled = True
-
-            Dim sIn As New Series("Stock In")
-            sIn.ChartType = SeriesChartType.Line
-            sIn.BorderWidth = 3
-            sIn.Color = Color.SeaGreen
-            sIn.MarkerStyle = MarkerStyle.Circle
-            sIn.MarkerSize = 7
-            sIn.ChartArea = .ChartAreas(0).Name
-            sIn.Legend = .Legends(0).Name
-
-            Dim sOut As New Series("Stock Out")
-            sOut.ChartType = SeriesChartType.Line
-            sOut.BorderWidth = 3
-            sOut.Color = Color.Firebrick
-            sOut.MarkerStyle = MarkerStyle.Circle
-            sOut.MarkerSize = 7
-            sOut.ChartArea = .ChartAreas(0).Name
-            sOut.Legend = .Legends(0).Name
-
-            For i As Integer = 0 To 6
-                Dim label As String = startDay.AddDays(i).ToString("MMM d")
-                sIn.Points.AddXY(label, stockIn(i))
-                sOut.Points.AddXY(label, stockOut(i))
-            Next
-            sIn.ToolTip = "#AXISLABEL: #VAL pc(s) in"
-            sOut.ToolTip = "#AXISLABEL: #VAL pc(s) out"
-            .Series.Add(sIn)
-            .Series.Add(sOut)
-            .ChartAreas(0).AxisX.Interval = 1
-            .ChartAreas(0).AxisY.LabelStyle.Format = "N0"
-        End With
+        Dim s As Series = chrtlowlevlprod.Series("Series1")
+        s.Points.Clear()
+        For i As Integer = 0 To 6
+            Dim label As String = startDay.AddDays(i).ToString("MMM d")
+            Dim idx As Integer = s.Points.AddXY(label, stockIn(i) + stockOut(i))
+            s.Points(idx).ToolTip = label & ": " & stockIn(i) & " pc(s) in, " & stockOut(i) & " pc(s) out"
+        Next
+        chrtlowlevlprod.ChartAreas(0).AxisX.Interval = 1
+        chrtlowlevlprod.ChartAreas(0).AxisY.LabelStyle.Format = "N0"
     End Sub
 
     ' ==================== STOCK LEVELS BY CATEGORY ====================
@@ -188,47 +148,30 @@ Public Class frmInventoryStaffDashboard
         chtmostpurchased.ChartAreas(0).AxisX.Interval = 1
     End Sub
 
-    ' ==================== LOW STOCK ITEMS (most urgent 6): on hand vs reorder level ====================
+    ' ==================== LOW STOCK ITEMS (6 most urgent, pieces on hand) ====================
     Private Sub LoadLowStockChart()
         Dim dt As DataTable = GetDataTable(
-            "SELECT p.product_name, v.size, v.quantity_on_hand AS qty, v.reorder_level AS lvl " &
+            "SELECT p.product_name, v.size, v.quantity_on_hand AS qty " &
             "FROM tbl_product_variants v INNER JOIN tbl_products p ON v.product_id = p.product_id " &
             "WHERE p.status = 'Active' AND v.quantity_on_hand <= v.reorder_level " &
             "ORDER BY (v.quantity_on_hand - v.reorder_level), p.product_name LIMIT 6")
 
-        With chtdistsales
-            .Series.Clear()
-            .Legends(0).Enabled = True
-
-            Dim sQty As New Series("On hand")
-            sQty.ChartType = SeriesChartType.Column
-            sQty.Color = Color.Firebrick
-            sQty.IsValueShownAsLabel = True
-            sQty.ChartArea = .ChartAreas(0).Name
-            sQty.Legend = .Legends(0).Name
-
-            Dim sLvl As New Series("Reorder level")
-            sLvl.ChartType = SeriesChartType.Column
-            sLvl.Color = Color.Silver
-            sLvl.ChartArea = .ChartAreas(0).Name
-            sLvl.Legend = .Legends(0).Name
-
-            If dt IsNot Nothing Then
-                For Each r As DataRow In dt.Rows
-                    Dim sz As String = r("size").ToString()
-                    Dim nm As String = r("product_name").ToString() & If(sz <> "" AndAlso sz <> "N/A", " (" & sz & ")", "")
-                    sQty.Points.AddXY(nm, Convert.ToInt32(r("qty")))
-                    sLvl.Points.AddXY(nm, Convert.ToInt32(r("lvl")))
-                Next
-            End If
-            .Series.Add(sQty)
-            .Series.Add(sLvl)
-            .ChartAreas(0).AxisX.Interval = 1
-            .ChartAreas(0).AxisX.LabelStyle.Angle = -25
-        End With
+        Dim s As Series = chtdistsales.Series("Series1")
+        s.Points.Clear()
+        s.IsValueShownAsLabel = True
+        s.ToolTip = "#AXISLABEL: #VAL pc(s) on hand"
+        If dt IsNot Nothing Then
+            For Each r As DataRow In dt.Rows
+                Dim sz As String = r("size").ToString()
+                Dim nm As String = r("product_name").ToString() & If(sz <> "" AndAlso sz <> "N/A", " (" & sz & ")", "")
+                s.Points.AddXY(nm, Convert.ToInt32(r("qty")))
+            Next
+        End If
+        chtdistsales.ChartAreas(0).AxisX.Interval = 1
+        chtdistsales.ChartAreas(0).AxisX.LabelStyle.Angle = -25
     End Sub
 
-    ' ==================== RECENT STOCK-INS ====================
+    ' ==================== RECENT STOCK INS ====================
     Private Sub LoadRecentStockIns()
         Dim dt As DataTable = GetDataTable(
             "SELECT si.reference_no, v.product_code, p.product_name, c.category_name, " &

@@ -285,9 +285,12 @@ Public Class frmDashboard
             MsgBox("Error loading critical products chart: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub
-
     Private Sub LoadSalesPerMonth()
-        Dim currentYear As Integer = DateTime.Today.Year
+        EnsureSchoolYearInitialized()
+        Dim sy As SchoolYearInfo = SelectedSchoolYear
+        Dim rangeStart As Date = If(sy Is Nothing, New Date(Date.Today.Year, 1, 1), sy.StartDate.Date)
+        Dim rangeEnd As Date = If(sy Is Nothing, New Date(Date.Today.Year, 12, 31), sy.EndDate.Date)
+        Dim periodName As String = If(sy Is Nothing, Date.Today.Year.ToString(), "SY " & sy.Label)
         Dim selMonth As Integer = If(cbomonth.SelectedIndex > 0, cbomonth.SelectedIndex, 0)   ' 0 = whole year
 
         Try
@@ -303,35 +306,43 @@ Public Class frmDashboard
             End With
 
             If selMonth = 0 Then
-                ' ---- 12 months of the year ----
-                Dim totals(12) As Decimal
-                Dim monthSql As String = "SELECT MONTH(or_date) AS m, SUM(total_amount) AS total " &
-                                         "FROM TBL_TRANSACTIONS WHERE YEAR(or_date) = @year AND status <> 'Cancelled' " &
-                                         "GROUP BY MONTH(or_date)"
-                Using localCmd As New MySqlCommand(monthSql, cn)
-                    localCmd.Parameters.AddWithValue("@year", currentYear)
+                ' ---- every month of the school year (or calendar year for All Time) ----
+                Dim totals As New Dictionary(Of Integer, Decimal)
+                Using localCmd As New MySqlCommand(
+                "SELECT YEAR(or_date) AS y, MONTH(or_date) AS m, SUM(total_amount) AS total " &
+                "FROM TBL_TRANSACTIONS WHERE status <> 'Cancelled' AND or_date BETWEEN @a AND @b " &
+                "GROUP BY YEAR(or_date), MONTH(or_date)", cn)
+                    localCmd.Parameters.AddWithValue("@a", rangeStart)
+                    localCmd.Parameters.AddWithValue("@b", rangeEnd)
                     Using localDr As MySqlDataReader = localCmd.ExecuteReader()
                         While localDr.Read()
-                            totals(Convert.ToInt32(localDr("m"))) = Convert.ToDecimal(localDr("total"))
+                            totals(Convert.ToInt32(localDr("y")) * 100 + Convert.ToInt32(localDr("m"))) = Convert.ToDecimal(localDr("total"))
                         End While
                     End Using
                 End Using
 
-                For m As Integer = 1 To 12
-                    chrtsalespermonth.Series("Series1").Points.AddXY(MonthName(m, True), Convert.ToDouble(totals(m)))
-                Next
+                Dim cursor As Date = New Date(rangeStart.Year, rangeStart.Month, 1)
+                While cursor <= rangeEnd
+                    Dim v As Decimal = 0D
+                    totals.TryGetValue(cursor.Year * 100 + cursor.Month, v)
+                    chrtsalespermonth.Series("Series1").Points.AddXY(
+                    If(sy Is Nothing, MonthName(cursor.Month, True), cursor.ToString("MMM yy")), Convert.ToDouble(v))
+                    cursor = cursor.AddMonths(1)
+                End While
                 chrtsalespermonth.ChartAreas(0).AxisX.Interval = 1
-                Label15.Text = "SALES PER MONTH - " & currentYear
+                Label15.Text = "SALES PER MONTH - " & periodName
             Else
-                ' ---- every day of the chosen month ----
-                Dim days As Integer = DateTime.DaysInMonth(currentYear, selMonth)
+                ' ---- every day of the chosen month, inside the chosen period ----
+                Dim monthStart As Date = New Date(rangeStart.Year, selMonth, 1)
+                If monthStart < New Date(rangeStart.Year, rangeStart.Month, 1) Then monthStart = monthStart.AddYears(1)
+                Dim days As Integer = DateTime.DaysInMonth(monthStart.Year, monthStart.Month)
                 Dim daily(days) As Decimal
-                Dim daySql As String = "SELECT DAY(or_date) AS d, SUM(total_amount) AS total " &
-                                       "FROM TBL_TRANSACTIONS WHERE YEAR(or_date) = @year AND MONTH(or_date) = @month " &
-                                       "AND status <> 'Cancelled' GROUP BY DAY(or_date)"
-                Using localCmd As New MySqlCommand(daySql, cn)
-                    localCmd.Parameters.AddWithValue("@year", currentYear)
-                    localCmd.Parameters.AddWithValue("@month", selMonth)
+
+                Using localCmd As New MySqlCommand(
+                "SELECT DAY(or_date) AS d, SUM(total_amount) AS total FROM TBL_TRANSACTIONS " &
+                "WHERE status <> 'Cancelled' AND or_date BETWEEN @a AND @b GROUP BY DAY(or_date)", cn)
+                    localCmd.Parameters.AddWithValue("@a", monthStart)
+                    localCmd.Parameters.AddWithValue("@b", monthStart.AddMonths(1).AddDays(-1))
                     Using localDr As MySqlDataReader = localCmd.ExecuteReader()
                         While localDr.Read()
                             daily(Convert.ToInt32(localDr("d"))) = Convert.ToDecimal(localDr("total"))
@@ -343,7 +354,7 @@ Public Class frmDashboard
                     chrtsalespermonth.Series("Series1").Points.AddXY(d.ToString(), Convert.ToDouble(daily(d)))
                 Next
                 chrtsalespermonth.ChartAreas(0).AxisX.Interval = 2
-                Label15.Text = "DAILY SALES - " & MonthName(selMonth) & " " & currentYear
+                Label15.Text = "DAILY SALES - " & MonthName(monthStart.Month) & " " & monthStart.Year
             End If
 
             chrtsalespermonth.ChartAreas(0).AxisY.LabelStyle.Format = "N0"

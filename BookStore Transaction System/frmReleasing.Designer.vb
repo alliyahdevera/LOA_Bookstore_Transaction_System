@@ -65,7 +65,8 @@ Partial Class frmReleasing
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.Label14 = New System.Windows.Forms.Label()
-        Me.Panel1.SuspendLayout()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -155,9 +156,7 @@ Partial Class frmReleasing
         '
         Me.Panel1.BackColor = System.Drawing.Color.White
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel1.Controls.Add(Me.Label10)
-        Me.Panel1.Controls.Add(Me.PictureBox1)
-        Me.Panel1.Location = New System.Drawing.Point(94, 77)
+        Me.Panel1.Location = New System.Drawing.Point(672, 145)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 175
@@ -165,11 +164,12 @@ Partial Class frmReleasing
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.BackColor = System.Drawing.SystemColors.Window
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label10.Location = New System.Drawing.Point(3, 3)
+        Me.Label10.Location = New System.Drawing.Point(96, 80)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(191, 17)
+        Me.Label10.Size = New System.Drawing.Size(164, 13)
         Me.Label10.TabIndex = 131
         Me.Label10.Text = "Transaction No. or Buyer Name"
         '
@@ -177,7 +177,7 @@ Partial Class frmReleasing
         '
         Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox1.Location = New System.Drawing.Point(239, 3)
+        Me.PictureBox1.Location = New System.Drawing.Point(351, 77)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(19, 19)
         Me.PictureBox1.TabIndex = 29
@@ -275,6 +275,7 @@ Partial Class frmReleasing
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.dgvstockinhistory)
         Me.Panel5.Controls.Add(Me.Panel6)
+        Me.Panel5.Controls.Add(Me.Panel1)
         Me.Panel5.Location = New System.Drawing.Point(20, 115)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1171, 610)
@@ -466,17 +467,33 @@ Partial Class frmReleasing
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(20, 81)
+        Me.Label14.Location = New System.Drawing.Point(37, 78)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(51, 17)
         Me.Label14.TabIndex = 166
         Me.Label14.Text = "Search "
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Location = New System.Drawing.Point(94, 77)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(276, 20)
+        Me.txtSearch.TabIndex = 182
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(403, 77)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox1.TabIndex = 183
         '
         'frmReleasing
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 804)
+        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.cbocategory)
         Me.Controls.Add(Me.Label9)
@@ -484,7 +501,6 @@ Partial Class frmReleasing
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.btnexportexcel)
-        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.btngenerate)
@@ -494,11 +510,10 @@ Partial Class frmReleasing
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DateTimePicker1)
         Me.Controls.Add(Me.Label14)
+        Me.Controls.Add(Me.txtSearch)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmReleasing"
         Me.Text = "frmReleasing"
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
@@ -552,4 +567,6 @@ Partial Class frmReleasing
     Friend WithEvents Label1 As Label
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents Label14 As Label
+    Friend WithEvents txtSearch As TextBox
+    Friend WithEvents TextBox1 As TextBox
 End Class
