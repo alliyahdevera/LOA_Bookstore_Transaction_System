@@ -4,6 +4,9 @@ Imports MySql.Data.MySqlClient
 Public Class frmDashboard
     Private Const QTY_SOLD As String = "ti.quantity"
     Private isLoadingMonth As Boolean = True
+    Private WithEvents cboschoolyear As New ComboBox()
+    Private ReadOnly _syList As New List(Of SchoolYearInfo)
+    Private isLoadingSY As Boolean = True
     Private WithEvents tmrClock As System.Windows.Forms.Timer
 
     Private Sub frmDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -25,13 +28,59 @@ Public Class frmDashboard
             tmrClock.Interval = 1000
             tmrClock.Start()
             UpdateFooterDateTime()
+            UpdateFooterDateTime()
+            InitSchoolYearCombo()      ' <-- add
             InitMonthCombo()
             HideSeriesLegends()
-            RefreshDashboard()
+            RefreshDashboard()         ' keep only one of these
+            InitMonthCombo()
+            HideSeriesLegends()
             RefreshDashboard()
         Catch ex As Exception
             MsgBox("Error initializing Dashboard Form: " & ex.Message, vbCritical, "Init Error")
         End Try
+    End Sub
+    Private Sub InitSchoolYearCombo()
+        EnsureSchoolYearInitialized()
+
+        ' make room beside the "School Year" caption
+        Label11.Left = 960
+        cboschoolyear.DropDownStyle = ComboBoxStyle.DropDownList
+        cboschoolyear.Font = New Font("Segoe UI", 9.0F)
+        cboschoolyear.Width = 150
+        cboschoolyear.Location = New Point(Label11.Right + 4, Label11.Top - 4)
+        Me.Controls.Add(cboschoolyear)
+        cboschoolyear.BringToFront()
+
+        _syList.Clear()
+        cboschoolyear.Items.Clear()
+        cboschoolyear.Items.Add("All Time")
+        For Each sy As SchoolYearInfo In GetSchoolYears()
+            _syList.Add(sy)
+            cboschoolyear.Items.Add(sy.Label & If(sy.IsCurrent, " (Current)", ""))
+        Next
+
+        cboschoolyear.SelectedIndex = 0
+        If SelectedSchoolYear IsNot Nothing Then
+            For i As Integer = 0 To _syList.Count - 1
+                If _syList(i).Id = SelectedSchoolYear.Id Then
+                    cboschoolyear.SelectedIndex = i + 1
+                    Exit For
+                End If
+            Next
+        End If
+        isLoadingSY = False
+    End Sub
+
+    Private Sub cboschoolyear_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboschoolyear.SelectedIndexChanged
+        If isLoadingSY OrElse cboschoolyear.SelectedIndex < 0 Then Exit Sub
+
+        If cboschoolyear.SelectedIndex = 0 Then
+            SelectSchoolYear(Nothing)                       ' All Time
+        Else
+            SelectSchoolYear(_syList(cboschoolyear.SelectedIndex - 1))
+        End If
+        RefreshDashboard()
     End Sub
     Private Sub HideSeriesLegends()
         For Each ch As System.Windows.Forms.DataVisualization.Charting.Chart In
