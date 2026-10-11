@@ -23,25 +23,26 @@ Partial Class frmDashboard
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmDashboard))
-        Dim ChartArea9 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend9 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series9 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea10 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend10 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series10 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea11 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend11 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series11 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea12 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend12 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series12 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.pnllowprod = New System.Windows.Forms.Panel()
         Me.PictureBox8 = New System.Windows.Forms.PictureBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.chrtlowlevlprod = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.pnlmostpurchasedprod = New System.Windows.Forms.Panel()
-        Me.PictureBox5 = New System.Windows.Forms.PictureBox()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label12 = New System.Windows.Forms.Label()
+        Me.PictureBox5 = New System.Windows.Forms.PictureBox()
         Me.chtmostpurchased = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.pnlsalespmonth = New System.Windows.Forms.Panel()
         Me.cbomonth = New System.Windows.Forms.ComboBox()
@@ -49,6 +50,7 @@ Partial Class frmDashboard
         Me.Label15 = New System.Windows.Forms.Label()
         Me.chrtsalespermonth = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.pnldistrsale = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.PictureBox6 = New System.Windows.Forms.PictureBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.chtdistsales = New System.Windows.Forms.DataVisualization.Charting.Chart()
@@ -81,20 +83,20 @@ Partial Class frmDashboard
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cboschoolyear = New System.Windows.Forms.ComboBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.pnllowprod.SuspendLayout()
         CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chrtlowlevlprod, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlmostpurchasedprod.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtmostpurchased, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlsalespmonth.SuspendLayout()
         CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chrtsalespermonth, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnldistrsale.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chtdistsales, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnllowstock.SuspendLayout()
@@ -106,8 +108,6 @@ Partial Class frmDashboard
         Me.pnltotprod.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
-        Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnllowprod
@@ -143,16 +143,16 @@ Partial Class frmDashboard
         '
         'chrtlowlevlprod
         '
-        ChartArea9.Name = "ChartArea1"
-        Me.chrtlowlevlprod.ChartAreas.Add(ChartArea9)
-        Legend9.Name = "Legend1"
-        Me.chrtlowlevlprod.Legends.Add(Legend9)
+        ChartArea1.Name = "ChartArea1"
+        Me.chrtlowlevlprod.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.chrtlowlevlprod.Legends.Add(Legend1)
         Me.chrtlowlevlprod.Location = New System.Drawing.Point(22, 64)
         Me.chrtlowlevlprod.Name = "chrtlowlevlprod"
-        Series9.ChartArea = "ChartArea1"
-        Series9.Legend = "Legend1"
-        Series9.Name = "Series1"
-        Me.chrtlowlevlprod.Series.Add(Series9)
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.chrtlowlevlprod.Series.Add(Series1)
         Me.chrtlowlevlprod.Size = New System.Drawing.Size(520, 200)
         Me.chrtlowlevlprod.TabIndex = 35
         Me.chrtlowlevlprod.Text = "Chart3"
@@ -167,16 +167,21 @@ Partial Class frmDashboard
         Me.pnlmostpurchasedprod.Size = New System.Drawing.Size(570, 275)
         Me.pnlmostpurchasedprod.TabIndex = 83
         '
-        'PictureBox5
+        'TableLayoutPanel1
         '
-        Me.PictureBox5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox5.Image = CType(resources.GetObject("PictureBox5.Image"), System.Drawing.Image)
-        Me.PictureBox5.Location = New System.Drawing.Point(14, 10)
-        Me.PictureBox5.Name = "PictureBox5"
-        Me.PictureBox5.Size = New System.Drawing.Size(39, 35)
-        Me.PictureBox5.TabIndex = 37
-        Me.PictureBox5.TabStop = False
+        Me.TableLayoutPanel1.ColumnCount = 3
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.45455!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.54546!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 516.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.Label12, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.PictureBox5, 1, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(570, 48)
+        Me.TableLayoutPanel1.TabIndex = 38
         '
         'Label12
         '
@@ -184,25 +189,36 @@ Partial Class frmDashboard
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label12.Location = New System.Drawing.Point(59, 13)
+        Me.Label12.Location = New System.Drawing.Point(56, 13)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(272, 21)
         Me.Label12.TabIndex = 36
         Me.Label12.Text = "TOP 5 MOST PURCHASED PRODUCT"
         '
+        'PictureBox5
+        '
+        Me.PictureBox5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox5.Image = CType(resources.GetObject("PictureBox5.Image"), System.Drawing.Image)
+        Me.PictureBox5.Location = New System.Drawing.Point(14, 10)
+        Me.PictureBox5.Name = "PictureBox5"
+        Me.PictureBox5.Size = New System.Drawing.Size(36, 35)
+        Me.PictureBox5.TabIndex = 37
+        Me.PictureBox5.TabStop = False
+        '
         'chtmostpurchased
         '
-        ChartArea10.Name = "ChartArea1"
-        Me.chtmostpurchased.ChartAreas.Add(ChartArea10)
-        Legend10.Name = "Legend1"
-        Me.chtmostpurchased.Legends.Add(Legend10)
+        ChartArea2.Name = "ChartArea1"
+        Me.chtmostpurchased.ChartAreas.Add(ChartArea2)
+        Legend2.Name = "Legend1"
+        Me.chtmostpurchased.Legends.Add(Legend2)
         Me.chtmostpurchased.Location = New System.Drawing.Point(17, 54)
         Me.chtmostpurchased.Name = "chtmostpurchased"
-        Series10.ChartArea = "ChartArea1"
-        Series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar
-        Series10.Legend = "Legend1"
-        Series10.Name = "Series1"
-        Me.chtmostpurchased.Series.Add(Series10)
+        Series2.ChartArea = "ChartArea1"
+        Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.chtmostpurchased.Series.Add(Series2)
         Me.chtmostpurchased.Size = New System.Drawing.Size(525, 207)
         Me.chtmostpurchased.TabIndex = 35
         Me.chtmostpurchased.Text = "Chart3"
@@ -250,17 +266,17 @@ Partial Class frmDashboard
         '
         'chrtsalespermonth
         '
-        ChartArea11.Name = "ChartArea1"
-        Me.chrtsalespermonth.ChartAreas.Add(ChartArea11)
-        Legend11.Name = "Legend1"
-        Me.chrtsalespermonth.Legends.Add(Legend11)
+        ChartArea3.Name = "ChartArea1"
+        Me.chrtsalespermonth.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.chrtsalespermonth.Legends.Add(Legend3)
         Me.chrtsalespermonth.Location = New System.Drawing.Point(16, 54)
         Me.chrtsalespermonth.Name = "chrtsalespermonth"
-        Series11.ChartArea = "ChartArea1"
-        Series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series11.Legend = "Legend1"
-        Series11.Name = "Series1"
-        Me.chrtsalespermonth.Series.Add(Series11)
+        Series3.ChartArea = "ChartArea1"
+        Series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.chrtsalespermonth.Series.Add(Series3)
         Me.chrtsalespermonth.Size = New System.Drawing.Size(541, 210)
         Me.chrtsalespermonth.TabIndex = 37
         Me.chrtsalespermonth.Text = "Chart3"
@@ -275,6 +291,22 @@ Partial Class frmDashboard
         Me.pnldistrsale.Size = New System.Drawing.Size(570, 275)
         Me.pnldistrsale.TabIndex = 82
         '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.ColumnCount = 3
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.45455!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.54546!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 516.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.PictureBox6, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.Label13, 2, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(570, 48)
+        Me.TableLayoutPanel2.TabIndex = 39
+        '
         'PictureBox6
         '
         Me.PictureBox6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
@@ -282,7 +314,7 @@ Partial Class frmDashboard
         Me.PictureBox6.Image = CType(resources.GetObject("PictureBox6.Image"), System.Drawing.Image)
         Me.PictureBox6.Location = New System.Drawing.Point(14, 10)
         Me.PictureBox6.Name = "PictureBox6"
-        Me.PictureBox6.Size = New System.Drawing.Size(39, 35)
+        Me.PictureBox6.Size = New System.Drawing.Size(36, 35)
         Me.PictureBox6.TabIndex = 38
         Me.PictureBox6.TabStop = False
         '
@@ -292,7 +324,7 @@ Partial Class frmDashboard
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label13.Location = New System.Drawing.Point(59, 13)
+        Me.Label13.Location = New System.Drawing.Point(56, 13)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(167, 21)
         Me.Label13.TabIndex = 36
@@ -300,17 +332,17 @@ Partial Class frmDashboard
         '
         'chtdistsales
         '
-        ChartArea12.Name = "ChartArea1"
-        Me.chtdistsales.ChartAreas.Add(ChartArea12)
-        Legend12.Name = "Legend1"
-        Me.chtdistsales.Legends.Add(Legend12)
+        ChartArea4.Name = "ChartArea1"
+        Me.chtdistsales.ChartAreas.Add(ChartArea4)
+        Legend4.Name = "Legend1"
+        Me.chtdistsales.Legends.Add(Legend4)
         Me.chtdistsales.Location = New System.Drawing.Point(16, 59)
         Me.chtdistsales.Name = "chtdistsales"
-        Series12.ChartArea = "ChartArea1"
-        Series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie
-        Series12.Legend = "Legend1"
-        Series12.Name = "Series1"
-        Me.chtdistsales.Series.Add(Series12)
+        Series4.ChartArea = "ChartArea1"
+        Series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie
+        Series4.Legend = "Legend1"
+        Series4.Name = "Series1"
+        Me.chtdistsales.Series.Add(Series4)
         Me.chtdistsales.Size = New System.Drawing.Size(541, 200)
         Me.chtdistsales.TabIndex = 35
         Me.chtdistsales.Text = "Chart1"
@@ -652,45 +684,13 @@ Partial Class frmDashboard
         Me.Label4.TabIndex = 87
         Me.Label4.Text = "View Performance of the System"
         '
-        'TableLayoutPanel1
+        'cboschoolyear
         '
-        Me.TableLayoutPanel1.ColumnCount = 3
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.45455!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.54546!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 513.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.Label12, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PictureBox5, 1, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 1
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(570, 48)
-        Me.TableLayoutPanel1.TabIndex = 38
-        '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.ColumnCount = 3
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.45455!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.54546!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 513.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.PictureBox6, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.Label13, 2, 0)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 1
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(570, 48)
-        Me.TableLayoutPanel2.TabIndex = 39
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(1065, 24)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(130, 21)
-        Me.ComboBox1.TabIndex = 88
+        Me.cboschoolyear.FormattingEnabled = True
+        Me.cboschoolyear.Location = New System.Drawing.Point(1065, 24)
+        Me.cboschoolyear.Name = "cboschoolyear"
+        Me.cboschoolyear.Size = New System.Drawing.Size(130, 21)
+        Me.cboschoolyear.TabIndex = 88
         '
         'Label11
         '
@@ -709,7 +709,7 @@ Partial Class frmDashboard
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
         Me.Controls.Add(Me.Label11)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.cboschoolyear)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.pnllowprod)
@@ -729,6 +729,8 @@ Partial Class frmDashboard
         CType(Me.PictureBox8, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chrtlowlevlprod, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlmostpurchasedprod.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chtmostpurchased, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlsalespmonth.ResumeLayout(False)
@@ -736,6 +738,8 @@ Partial Class frmDashboard
         CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chrtsalespermonth, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnldistrsale.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
         CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chtdistsales, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnllowstock.ResumeLayout(False)
@@ -752,10 +756,6 @@ Partial Class frmDashboard
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
-        Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -809,6 +809,6 @@ Partial Class frmDashboard
     Friend WithEvents cbomonth As ComboBox
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cboschoolyear As ComboBox
     Friend WithEvents Label11 As Label
 End Class

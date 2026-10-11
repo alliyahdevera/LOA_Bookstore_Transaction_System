@@ -7,6 +7,7 @@ Public Class frmAdminDashboard
 
     Private _currentForm As Form
     Private _isLoggingOut As Boolean = False
+    Private _isSwitching As Boolean = False
 
     Private ReadOnly _normalColor As Color = Color.FromArgb(1, 21, 78)
     Private ReadOnly _activeColor As Color = Color.FromArgb(25, 55, 140)
@@ -14,15 +15,54 @@ Public Class frmAdminDashboard
     Private ReadOnly _allModules As String() = {
         FRM_DASHBOARD, FRM_POS, FRM_INVENTORY, FRM_TRANSACTION,
         FRM_REPORTS, FRM_USERMGMT, FRM_STUDENTMGMT, FRM_AUDITLOGS,
-        FRM_EMPLOYEEMGMT, FRM_SETTINGS
+        FRM_EMPLOYEEMGMT, FRM_SETTINGS, FRM_CHANGEPASSWORD
     }
 
     ' ==================================================================
     ' Form events
     ' ==================================================================
     Private Sub frmAdminDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        FitToScreen()
         ApplyRolePermissions()
+        FitSidebar()
         OpenModule(RolePermissions.GetDefaultForm())
+    End Sub
+    ' Keeps the window inside the visible screen area (the designer size is 851px tall)
+    Private Sub FitToScreen()
+        Dim wa As Rectangle = Screen.FromControl(Me).WorkingArea
+        Me.AutoScroll = False
+        If Me.Height > wa.Height Then Me.Height = wa.Height
+        If Me.Width > wa.Width Then Me.Width = wa.Width
+        Me.Location = New Point(wa.Left + (wa.Width - Me.Width) \ 2,
+                            wa.Top + (wa.Height - Me.Height) \ 2)
+    End Sub
+
+    ' Shrinks the sidebar buttons (never below 36px) so every visible one fits above Logout
+    Private Sub FitSidebar()
+        If Panel1 Is Nothing Then Exit Sub
+
+        Const MAX_H As Integer = 49
+        Const MIN_H As Integer = 36
+
+        Dim topButtons As New List(Of Button)
+        For Each c As Control In Panel1.Controls
+            Dim b As Button = TryCast(c, Button)
+            If b IsNot Nothing AndAlso b.Dock = DockStyle.Top AndAlso b.Visible Then
+                topButtons.Add(b)
+            End If
+        Next
+        If topButtons.Count = 0 Then Exit Sub
+
+        Dim available As Integer = Panel1.ClientSize.Height - Panel2.Height - btnlogout.Height
+        Dim h As Integer = Math.Max(MIN_H, Math.Min(MAX_H, available \ topButtons.Count))
+
+        For Each b As Button In topButtons
+            b.Height = h
+        Next
+    End Sub
+
+    Private Sub frmAdminDashboard_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        FitSidebar()
     End Sub
 
     Private Sub frmAdminDashboard_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
@@ -66,6 +106,8 @@ Public Class frmAdminDashboard
                 Return btnemployeeman
             Case FRM_SETTINGS
                 Return btnsettings
+            Case FRM_CHANGEPASSWORD
+                Return btnchangepass
             Case Else
                 Return Nothing
         End Select
@@ -98,6 +140,8 @@ Public Class frmAdminDashboard
                 Return New frmEmployeeManagement()
             Case FRM_SETTINGS
                 Return New frmSettings()
+            Case FRM_CHANGEPASSWORD
+                Return New frmChangePassword()
             Case Else
                 Return Nothing
         End Select
@@ -123,19 +167,32 @@ Public Class frmAdminDashboard
                 Exit Sub
             End If
 
+            _isSwitching = True
             If _currentForm IsNot Nothing Then
                 _currentForm.Close()
                 _currentForm.Dispose()
                 _currentForm = Nothing
             End If
+            _isSwitching = False
 
             pnlContent.Controls.Clear()
 
             frm.TopLevel = False
             frm.FormBorderStyle = FormBorderStyle.None
-            frm.Dock = DockStyle.Fill
 
-            pnlContent.Controls.Add(frm)
+            If moduleName = FRM_CHANGEPASSWORD Then
+                ' small form: keep its own size and center it in the content area
+                frm.Dock = DockStyle.None
+                pnlContent.Controls.Add(frm)
+                frm.Location = New Point(Math.Max(0, (pnlContent.Width - frm.Width) \ 2),
+                                         Math.Max(0, (pnlContent.Height - frm.Height) \ 2))
+                frm.Anchor = AnchorStyles.None
+                AddHandler frm.FormClosed, AddressOf ChangePasswordClosed
+            Else
+                frm.Dock = DockStyle.Fill
+                pnlContent.Controls.Add(frm)
+            End If
+
             _currentForm = frm
 
             frm.Show()
@@ -144,10 +201,18 @@ Public Class frmAdminDashboard
             SetActiveButton(moduleName)
 
         Catch ex As Exception
+            _isSwitching = False
             MsgBox("Error embedding form into Dashboard Panel: " & ex.Message & vbCrLf & ex.StackTrace,
                    vbCritical, "UI Navigation Error")
         End Try
 
+    End Sub
+
+    ' When Change Password closes by itself (Esc or after a successful change), go back to the Dashboard
+    Private Sub ChangePasswordClosed(sender As Object, e As FormClosedEventArgs)
+        If _isSwitching OrElse _isLoggingOut OrElse Me.IsDisposed Then Exit Sub
+        If sender Is _currentForm Then _currentForm = Nothing
+        BeginInvoke(New MethodInvoker(Sub() OpenModule(FRM_DASHBOARD)))
     End Sub
 
     Private Sub SetActiveButton(moduleName As String)
@@ -203,18 +268,11 @@ Public Class frmAdminDashboard
     End Sub
 
     Private Sub btnsettings_Click(sender As Object, e As EventArgs) Handles btnsettings.Click
-        MsgBox("Settings clicked. Role = " & currentuser.Role)
         OpenModule(FRM_SETTINGS)
     End Sub
     ' sidebar button (every role)
     Private Sub btnchangepass_Click(sender As Object, e As EventArgs) Handles btnchangepass.Click
-        Try
-            Using f As New frmChangePassword()
-                f.ShowDialog(Me)
-            End Using
-        Catch ex As Exception
-            MsgBox("Could not open Change Password: " & ex.Message, vbCritical, "Change Password")
-        End Try
+        OpenModule(FRM_CHANGEPASSWORD)
     End Sub
 
     ' ==================================================================

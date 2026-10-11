@@ -10,6 +10,7 @@
     Public Const FRM_AUDITLOGS As String = "FRM_AUDITLOGS"
     Public Const FRM_EMPLOYEEMGMT As String = "FRM_EMPLOYEEMGMT"
     Public Const FRM_SETTINGS As String = "FRM_SETTINGS"
+    Public Const FRM_CHANGEPASSWORD As String = "FRM_CHANGEPASSWORD"
     Public Const ROLE_SUPERVISOR As String = "Bookstore Supervisor"
     Public Const ROLE_CASHIER As String = "Cashier"
     Public Const ROLE_INVENTORY_STAFF As String = "Inventory Staff"
@@ -39,7 +40,8 @@
 
     Private Function CanAccessAs(roleName As String, moduleName As String) As Boolean
         ' Dashboard is for everyone
-        If moduleName = FRM_DASHBOARD Then Return True
+        ' Dashboard and Change Password are for everyone
+        If moduleName = FRM_DASHBOARD OrElse moduleName = FRM_CHANGEPASSWORD Then Return True
 
         ' Supervisor: everything
         If IsRole(roleName, ROLE_SUPERVISOR) OrElse IsRole(roleName, "Admin") Then Return True

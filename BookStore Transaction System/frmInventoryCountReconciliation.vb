@@ -64,11 +64,15 @@ Public Class frmInventoryCountReconciliation
             .MultiSelect = False
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
             .ReadOnly = False
-            .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None
+            .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+            .DefaultCellStyle.WrapMode = DataGridViewTriState.True
+            .RowTemplate.MinimumHeight = 28
+            .ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+            .ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True
             For Each col As DataGridViewColumn In .Columns
                 col.ReadOnly = Not (col.Name = "PhysicalQuantity" OrElse col.Name = "Remarks" OrElse col.Name = "DamagedQty")
+                col.MinimumWidth = 60
             Next
-            .Height = Panel5.ClientSize.Height - .Top
         End With
 
         GetType(DataGridView).InvokeMember("DoubleBuffered",

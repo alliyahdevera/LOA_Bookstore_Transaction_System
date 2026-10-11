@@ -5,17 +5,15 @@ Public Class frmEmployeeManagement
     Private pg As GridPager
     Private selectedEmployeeId As Integer = 0
     Public Property InitialSearch As String = ""
-
     Private Sub frmEmployeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
 
         Relabel(Me, New Dictionary(Of String, String) From {
-            {"Student No.", "Employee No."}, {"Grade Level", "Department"}, {"Program/Strand", "Position"},
-            {"Section", "Status"}, {"View and Manage All Students", "View and Manage All Employees"},
-            {"List of Students", "List of Employees"}, {"Student Information", "Employee Information"}})
+        {"Student No.", "Employee No."}, {"Grade Level", "Department"}, {"Program/Strand", "Position"},
+        {"Section", "Status"}, {"View and Manage All Students", "View and Manage All Employees"},
+        {"List of Students", "List of Employees"}, {"Student Information", "Employee Information"}})
 
-        If dgvemployee.Columns.Contains("EducationalLevel") Then dgvemployee.Columns("EducationalLevel").Visible = False
         AddHandler dgvemployee.CellClick, AddressOf dgvstudents_CellClick
         BindColumn("EmployeeNo", "employee_no", "Employee No.")
         BindColumn("LastName", "last_name", "Last Name")
@@ -23,7 +21,6 @@ Public Class frmEmployeeManagement
         BindColumn("Department", "department", "Department")
         BindColumn("Position", "job_position", "Position")
         BindColumn("Status", "status", "Status")
-        dgvemployee.Columns("EducationalLevel").Visible = False
         If Not dgvemployee.Columns.Contains("colId") Then
             dgvemployee.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "colId", .DataPropertyName = "employee_id", .Visible = False})
         End If

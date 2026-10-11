@@ -4,14 +4,11 @@ Imports MySql.Data.MySqlClient
 Public Class frmDashboard
     Private Const QTY_SOLD As String = "ti.quantity"
     Private isLoadingMonth As Boolean = True
-    Private WithEvents cboschoolyear As New ComboBox()
     Private ReadOnly _syList As New List(Of SchoolYearInfo)
     Private isLoadingSY As Boolean = True
     Private WithEvents tmrClock As System.Windows.Forms.Timer
-
     Private Sub frmDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-
             lblname.Text = currentuser.FullName
             lblposition.Text = currentuser.Role
 
@@ -28,11 +25,8 @@ Public Class frmDashboard
             tmrClock.Interval = 1000
             tmrClock.Start()
             UpdateFooterDateTime()
-            UpdateFooterDateTime()
-            InitSchoolYearCombo()      ' <-- add
-            InitMonthCombo()
-            HideSeriesLegends()
-            RefreshDashboard()         ' keep only one of these
+
+            InitSchoolYearCombo()
             InitMonthCombo()
             HideSeriesLegends()
             RefreshDashboard()
@@ -40,18 +34,12 @@ Public Class frmDashboard
             MsgBox("Error initializing Dashboard Form: " & ex.Message, vbCritical, "Init Error")
         End Try
     End Sub
+
     Private Sub InitSchoolYearCombo()
         EnsureSchoolYearInitialized()
+        isLoadingSY = True
 
-        ' make room beside the "School Year" caption
-        Label11.Left = 960
         cboschoolyear.DropDownStyle = ComboBoxStyle.DropDownList
-        cboschoolyear.Font = New Font("Segoe UI", 9.0F)
-        cboschoolyear.Width = 150
-        cboschoolyear.Location = New Point(Label11.Right + 4, Label11.Top - 4)
-        Me.Controls.Add(cboschoolyear)
-        cboschoolyear.BringToFront()
-
         _syList.Clear()
         cboschoolyear.Items.Clear()
         cboschoolyear.Items.Add("All Time")
@@ -71,7 +59,6 @@ Public Class frmDashboard
         End If
         isLoadingSY = False
     End Sub
-
     Private Sub cboschoolyear_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboschoolyear.SelectedIndexChanged
         If isLoadingSY OrElse cboschoolyear.SelectedIndex < 0 Then Exit Sub
 
@@ -364,4 +351,5 @@ Public Class frmDashboard
             MsgBox("Error loading sales per month chart: " & ex.Message, vbCritical, "Error")
         End Try
     End Sub
+
 End Class

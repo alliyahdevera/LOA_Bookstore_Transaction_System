@@ -323,6 +323,7 @@ Public Class GridPager
             a = a Or If(grid.Anchor.HasFlag(AnchorStyles.Bottom), AnchorStyles.Bottom, AnchorStyles.Top)
             pnl.Anchor = a
             host.Controls.Add(pnl)
+            pnl.BringToFront()      ' <-- add this line
         Else
             pnl.Height = 32
             pnl.Dock = DockStyle.Bottom
