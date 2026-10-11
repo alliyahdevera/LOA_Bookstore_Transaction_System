@@ -11,7 +11,7 @@ Public Class frmInventoryAdjustment
     Public Property ItemSize As String
     Public Property SystemQty As String
     Public Property PhysicalQty As String
-
+    Public Property DamagedQty As Integer = 0
     Private nudDamaged As NumericUpDown
 
     Private Sub frmInventoryAdjustment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -51,6 +51,7 @@ Public Class frmInventoryAdjustment
         Dim lbl As New Label With {.AutoSize = True, .Font = Label9.Font, .Text = "Damaged Units", .Location = New Point(25, y + 3)}
         nudDamaged = New NumericUpDown With {.Location = New Point(145, y), .Width = 80, .Minimum = 0,
                                              .Maximum = Math.Max(0, CInt(Val(PhysicalQty))), .Font = txtReason.Font}
+        nudDamaged.Value = Math.Min(DamagedQty, CInt(nudDamaged.Maximum))
         Dim hint As New Label With {.AutoSize = True, .ForeColor = Color.DimGray, .Font = Label9.Font,
                                     .Text = "counted but unsellable - moved to Non-Saleable Stocks", .Location = New Point(235, y + 4)}
         Controls.Add(lbl)

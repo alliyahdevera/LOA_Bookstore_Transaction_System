@@ -8,9 +8,9 @@ Public Class frmInventoryCountReconciliation
         Public Adjusted As Boolean = False
     End Class
     Private Class PendingCount
-        Public Physical As Integer = -1       ' -1 = nothing typed yet
+        Public Physical As Integer = -1        ' -1 = nothing typed yet
+        Public Damaged As Integer = 0          ' pieces (out of the counted ones) that are damaged
         Public Remarks As String = ""
-        Public Condition As String = ""
         Public System As Integer = 0
     End Class
 
@@ -18,15 +18,18 @@ Public Class frmInventoryCountReconciliation
         Return "CNT-" & DateTime.Now.ToString("yyyyMMddHHmmss")
     End Function
 
-
-
     Private currentCountId As Long = 0
     Private currentCountNo As String = ""
     Private isLoading As Boolean = True
     Private activeCard As String = ""
     Private ReadOnly pending As New Dictionary(Of Integer, PendingCount)
     Private WithEvents tmrSearch As New System.Windows.Forms.Timer With {.Interval = 400}
+    Private pg As GridPager
 
+    Private Sub ReloadFromStart()
+        If pg IsNot Nothing Then pg.Reset()
+        LoadProducts()
+    End Sub
     ' ==================== LOAD ====================
     Private Sub frmInventoryCountReconciliation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplySearchPlaceholders(Me)         ' from Step 4
@@ -67,7 +70,7 @@ Public Class frmInventoryCountReconciliation
             .ReadOnly = False
             .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None
             For Each col As DataGridViewColumn In .Columns
-                col.ReadOnly = Not (col.Name = "PhysicalQuantity" OrElse col.Name = "Remarks" OrElse col.Name = "Condition")
+                col.ReadOnly = Not (col.Name = "PhysicalQuantity" OrElse col.Name = "Remarks" OrElse col.Name = "DamagedQty")
             Next
             ' the grid is taller than its panel: shrink it so it fits inside
             .Height = Panel5.ClientSize.Height - .Top
@@ -78,12 +81,13 @@ Public Class frmInventoryCountReconciliation
             Reflection.BindingFlags.NonPublic Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.SetProperty,
             Nothing, dgvlistproducts, New Object() {True})
         txtSearch.Text = InitialSearch
-
+        pg = New GridPager(dgvlistproducts, 20)
+        AddHandler pg.PageChanged, Sub() LoadProducts()
         isLoading = False
         LoadProducts()          ' no pager: everything loads in one list
     End Sub
 
-    ' replaces the designer's empty text column "Condition" with a combo box column
+    ' Condition is now automatic text; "Damaged Pieces" is what the user types
     Private Sub SetupConditionColumn()
         Dim idx As Integer = Math.Max(0, dgvlistproducts.Columns.Count - 1)    ' fallback: before Remarks
         If dgvlistproducts.Columns.Contains("Condition") Then
@@ -91,15 +95,22 @@ Public Class frmInventoryCountReconciliation
             dgvlistproducts.Columns.Remove("Condition")
         End If
 
-        Dim col As New DataGridViewComboBoxColumn()
-        col.Name = "Condition"
-        col.HeaderText = "Condition"
-        col.FlatStyle = FlatStyle.Flat
-        col.DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton
-        col.SortMode = DataGridViewColumnSortMode.NotSortable
-        col.Items.AddRange(New Object() {"Good", "Fair", "Damaged"})
-        dgvlistproducts.Columns.Insert(idx, col)
+        Dim dmg As New DataGridViewTextBoxColumn With {
+            .Name = "DamagedQty", .HeaderText = "Damaged Pieces", .Width = 95,
+            .SortMode = DataGridViewColumnSortMode.NotSortable}
+        Dim cond As New DataGridViewTextBoxColumn With {
+            .Name = "Condition", .HeaderText = "Condition", .Width = 140, .ReadOnly = True,
+            .SortMode = DataGridViewColumnSortMode.NotSortable}
+        dgvlistproducts.Columns.Insert(idx, dmg)
+        dgvlistproducts.Columns.Insert(idx + 1, cond)
     End Sub
+
+    Private Function ConditionText(counted As Integer, damaged As Integer) As String
+        If damaged <= 0 Then Return "Good"
+        If damaged >= counted Then Return "All damaged"
+        Return damaged & " of " & counted & " damaged"
+    End Function
+
     ' ==================== CATEGORY / TYPE FILTERS ====================
     Private Sub LoadTypeCombo()
         FillTypeNameCombo(cboType,
@@ -112,12 +123,12 @@ Public Class frmInventoryCountReconciliation
         isLoading = True
         LoadTypeCombo()
         isLoading = False
-        LoadProducts()
+        ReloadFromStart()
     End Sub
 
     Private Sub cboType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboType.SelectedIndexChanged
         If isLoading Then Exit Sub
-        LoadProducts()
+        ReloadFromStart()
     End Sub
 
     ' ==================== SEARCH (Item Code / Item Name, reloads 0.4s after typing) ====================
@@ -129,26 +140,27 @@ Public Class frmInventoryCountReconciliation
 
     Private Sub tmrSearch_Tick(sender As Object, e As EventArgs) Handles tmrSearch.Tick
         tmrSearch.Stop()
-        LoadProducts()
+        ReloadFromStart()
     End Sub
 
     Private Sub txtSearch_KeyDown(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
             tmrSearch.Stop()
-            LoadProducts()
+            ReloadFromStart()
         End If
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
         tmrSearch.Stop()
-        LoadProducts()
+        ReloadFromStart()
     End Sub
 
     Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
         tmrSearch.Stop()
-        LoadProducts()          ' typed counts are kept, nothing is discarded
+        ReloadFromStart()          ' typed counts are kept, nothing is discarded
     End Sub
+
     ' ==================== SUMMARY CARDS (click = filter the rows on this page) ====================
     Private Sub SetupCards()
         WireCard(Panel10, "counted")        ' Total Items Counted
@@ -179,7 +191,7 @@ Public Class frmInventoryCountReconciliation
         If activeCard = "" Then Return True
         Dim d As String = Convert.ToString(row.Cells("Difference").Value)
         Dim diff As Integer
-        If d = "" OrElse Not Integer.TryParse(d, diff) Then Return False     ' not counted yet
+        If d = "" OrElse Not Integer.TryParse(d, diff) Then Return False      ' not counted yet
         Select Case activeCard
             Case "counted" : Return True
             Case "matched" : Return diff = 0
@@ -206,7 +218,7 @@ Public Class frmInventoryCountReconciliation
 
     ' ==================== LOAD ONE PAGE OF PRODUCTS ====================
     Private Sub LoadProducts()
-        If isLoading Then Exit Sub
+        If isLoading OrElse pg Is Nothing Then Exit Sub
         dgvlistproducts.EndEdit()
 
         Dim keyword As String = txtSearch.Text.Trim()
@@ -216,7 +228,7 @@ Public Class frmInventoryCountReconciliation
         Dim query As String =
             "SELECT v.variant_id, v.product_code, p.product_name, p.product_description, c.category_name, ct.type_name, v.size, " &
             "v.quantity_on_hand, d.inventory_count_detail_id, d.system_quantity, d.physical_quantity, " &
-            "d.status AS count_status, d.item_condition, d.remarks, d.adjusted " &
+            "d.status AS count_status, d.damaged_quantity, d.item_condition, d.remarks, d.adjusted " &
             "FROM tbl_product_variants v " &
             "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
             "INNER JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
@@ -239,7 +251,7 @@ Public Class frmInventoryCountReconciliation
         End If
         query &= "ORDER BY p.product_name, v.size, v.variant_id"
 
-        Dim dt As DataTable = GetDataTable(query, names.ToArray(), values.ToArray())
+        Dim dt As DataTable = pg.LoadPage(query, names.ToArray(), values.ToArray())
 
         dgvlistproducts.SuspendLayout()
         dgvlistproducts.Rows.Clear()
@@ -265,6 +277,7 @@ Public Class frmInventoryCountReconciliation
                     info.Adjusted = Convert.ToInt32(r("adjusted")) = 1
                     row.Cells("SystemQuantity").Value = Convert.ToInt32(r("system_quantity"))
                     row.Cells("PhysicalQuantity").Value = Convert.ToInt32(r("physical_quantity"))
+                    row.Cells("DamagedQty").Value = Convert.ToInt32(r("damaged_quantity"))
                     Dim savedCond As String = If(IsDBNull(r("item_condition")), "", r("item_condition").ToString())
                     row.Cells("Condition").Value = If(savedCond = "", Nothing, savedCond)
                     row.Cells("Remarks").Value = If(IsDBNull(r("remarks")), "", r("remarks").ToString())
@@ -273,11 +286,12 @@ Public Class frmInventoryCountReconciliation
                     Dim pc As PendingCount = pending(variantId)
                     row.Cells("SystemQuantity").Value = pc.System
                     row.Cells("PhysicalQuantity").Value = If(pc.Physical >= 0, pc.Physical.ToString(), "")
-                    row.Cells("Condition").Value = If(pc.Condition = "", Nothing, pc.Condition)
+                    row.Cells("DamagedQty").Value = If(pc.Damaged > 0, pc.Damaged.ToString(), "")
                     row.Cells("Remarks").Value = pc.Remarks
                 Else
                     row.Cells("SystemQuantity").Value = If(IsDBNull(r("quantity_on_hand")), 0, Convert.ToInt32(r("quantity_on_hand")))
                     row.Cells("PhysicalQuantity").Value = ""
+                    row.Cells("DamagedQty").Value = ""
                     row.Cells("Condition").Value = Nothing
                     row.Cells("Remarks").Value = ""
                 End If
@@ -292,32 +306,7 @@ Public Class frmInventoryCountReconciliation
         UpdateCards()
         ApplyCardFilter()
     End Sub
-    ' one click opens the Condition dropdown (unsaved rows only)
-    Private Sub dgvlistproducts_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvlistproducts.CellClick
-        If e.RowIndex < 0 OrElse e.ColumnIndex < 0 Then Exit Sub
-        If dgvlistproducts.Columns(e.ColumnIndex).Name <> "Condition" Then Exit Sub
 
-        Dim info As CountRow = TryCast(dgvlistproducts.Rows(e.RowIndex).Tag, CountRow)
-        If info Is Nothing OrElse info.DetailId > 0 Then Exit Sub      ' saved lines are locked
-
-        dgvlistproducts.CurrentCell = dgvlistproducts(e.ColumnIndex, e.RowIndex)
-        dgvlistproducts.BeginEdit(True)
-        Dim cb As ComboBox = TryCast(dgvlistproducts.EditingControl, ComboBox)
-        If cb IsNot Nothing Then cb.DroppedDown = True
-    End Sub
-
-    ' the chosen condition is committed (and remembered) as soon as it is picked
-    Private Sub dgvlistproducts_CurrentCellDirtyStateChanged(sender As Object, e As EventArgs) Handles dgvlistproducts.CurrentCellDirtyStateChanged
-        If Not dgvlistproducts.IsCurrentCellDirty OrElse dgvlistproducts.CurrentCell Is Nothing Then Exit Sub
-        If dgvlistproducts.CurrentCell.OwningColumn.Name <> "Condition" Then Exit Sub
-
-        dgvlistproducts.CommitEdit(DataGridViewDataErrorContexts.Commit)
-        StorePending(dgvlistproducts.Rows(dgvlistproducts.CurrentCell.RowIndex))
-    End Sub
-
-    Private Sub dgvlistproducts_DataError(sender As Object, e As DataGridViewDataErrorEventArgs) Handles dgvlistproducts.DataError
-        e.ThrowException = False
-    End Sub
     ' ==================== TYPING THE PHYSICAL COUNT ====================
     Private Sub dgvlistproducts_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles dgvlistproducts.CellBeginEdit
         If e.RowIndex < 0 Then Exit Sub
@@ -329,7 +318,8 @@ Public Class frmInventoryCountReconciliation
         Dim tb As TextBox = TryCast(e.Control, TextBox)
         If tb Is Nothing Then Exit Sub
         RemoveHandler tb.KeyPress, AddressOf DigitsOnly_KeyPress
-        If dgvlistproducts.CurrentCell IsNot Nothing AndAlso dgvlistproducts.CurrentCell.OwningColumn.Name = "PhysicalQuantity" Then
+        If dgvlistproducts.CurrentCell IsNot Nothing AndAlso
+           (dgvlistproducts.CurrentCell.OwningColumn.Name = "PhysicalQuantity" OrElse dgvlistproducts.CurrentCell.OwningColumn.Name = "DamagedQty") Then
             AddHandler tb.KeyPress, AddressOf DigitsOnly_KeyPress
         End If
     End Sub
@@ -341,7 +331,7 @@ Public Class frmInventoryCountReconciliation
     Private Sub dgvlistproducts_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvlistproducts.CellEndEdit
         If e.RowIndex < 0 Then Exit Sub
         Dim colName As String = dgvlistproducts.Columns(e.ColumnIndex).Name
-        If colName <> "PhysicalQuantity" AndAlso colName <> "Remarks" Then Exit Sub
+        If colName <> "PhysicalQuantity" AndAlso colName <> "Remarks" AndAlso colName <> "DamagedQty" Then Exit Sub
 
         Dim row As DataGridViewRow = dgvlistproducts.Rows(e.RowIndex)
         RefreshRow(row)
@@ -349,41 +339,47 @@ Public Class frmInventoryCountReconciliation
         UpdateCards()
     End Sub
 
-    ' remember what was typed so it survives searching / filtering
+    ' remember what was typed so it survives searching / filtering / paging
     Private Sub StorePending(row As DataGridViewRow)
         Dim info As CountRow = TryCast(row.Tag, CountRow)
         If info Is Nothing OrElse info.DetailId > 0 Then Exit Sub
 
         Dim txt As String = Convert.ToString(row.Cells("PhysicalQuantity").Value).Trim()
         Dim remarks As String = Convert.ToString(row.Cells("Remarks").Value).Trim()
-        Dim cond As String = Convert.ToString(row.Cells("Condition").Value).Trim()
         Dim phys As Integer = -1
         If txt = "" OrElse Not Integer.TryParse(txt, phys) OrElse phys < 0 Then phys = -1
 
-        If phys < 0 AndAlso remarks = "" AndAlso cond = "" Then
+        Dim dmg As Integer = 0
+        Integer.TryParse(Convert.ToString(row.Cells("DamagedQty").Value).Trim(), dmg)
+        If dmg < 0 Then dmg = 0
+
+        If phys < 0 AndAlso remarks = "" AndAlso dmg = 0 Then
             pending.Remove(info.VariantId)
             Exit Sub
         End If
 
         Dim sys As Integer = 0
         Integer.TryParse(Convert.ToString(row.Cells("SystemQuantity").Value), sys)
-        pending(info.VariantId) = New PendingCount With {.Physical = phys, .Remarks = remarks, .Condition = cond, .System = sys}
+        pending(info.VariantId) = New PendingCount With {.Physical = phys, .Damaged = dmg, .Remarks = remarks, .System = sys}
     End Sub
 
-    Private Function StatusOf(diff As Integer) As String
-        If diff = 0 Then Return "Matched"
-        If diff < 0 Then Return "Short"
-        Return "Excess"
-    End Function
-
     Private Sub RefreshRow(row As DataGridViewRow)
+        ExplorerRefreshRow(row)
+    End Sub
+
+    Private Sub ExplorerRefreshRow(row As DataGridViewRow)
         Dim info As CountRow = TryCast(row.Tag, CountRow)
+        imports_RefreshRow(row, info)
+    End Sub
+
+    Private Sub imports_RefreshRow(row As DataGridViewRow, info As CountRow)
         Dim txt As String = Convert.ToString(row.Cells("PhysicalQuantity").Value).Trim()
         Dim phys As Integer
 
         If txt = "" OrElse Not Integer.TryParse(txt, phys) OrElse phys < 0 Then
             row.Cells("PhysicalQuantity").Value = ""
             row.Cells("Difference").Value = ""
+            row.Cells("Condition").Value = ""
             row.Cells("Status").Value = "Not counted"
             row.DefaultCellStyle.BackColor = Color.White
             row.DefaultCellStyle.ForeColor = Color.Black
@@ -393,7 +389,23 @@ Public Class frmInventoryCountReconciliation
         Dim sys As Integer = 0
         Integer.TryParse(Convert.ToString(row.Cells("SystemQuantity").Value), sys)
 
+        ' damaged pieces can never be more than the pieces counted
+        Dim dmg As Integer = 0
+        Integer.TryParse(Convert.ToString(row.Cells("DamagedQty").Value).Trim(), dmg)
+        If dmg < 0 Then dmg = 0
+        If dmg > phys Then
+            MsgBox("Damaged pieces cannot be more than the physical quantity (" & phys & ").", vbExclamation, "Inventory Count")
+            dmg = phys
+        End If
+        row.Cells("DamagedQty").Value = dmg
+        row.Cells("Condition").Value = ConditionText(phys, dmg)
+        row.Cells("Condition").Style.ForeColor = If(dmg > 0, Color.Firebrick, Color.Black)
+
         Dim diff As Integer = phys - sys
+        VB_RefreshRowFinal(row, info, phys, diff)
+    End Sub
+
+    Private Sub VB_RefreshRowFinal(row As DataGridViewRow, info As CountRow, phys As Integer, diff As Integer)
         Dim adjusted As Boolean = (info IsNot Nothing AndAlso info.Adjusted)
 
         row.Cells("PhysicalQuantity").Value = phys
@@ -409,6 +421,12 @@ Public Class frmInventoryCountReconciliation
             row.DefaultCellStyle.BackColor = Color.FromArgb(255, 248, 225)
         End If
     End Sub
+
+    Private Function StatusOf(diff As Integer) As String
+        If diff = 0 Then Return "Matched"
+        If diff < 0 Then Return "Short"
+        Return "Excess"
+    End Function
 
     ' Cards cover the WHOLE count sheet: saved lines (database) + typed-but-unsaved lines (memory)
     Private Sub UpdateCards()
@@ -505,19 +523,23 @@ Public Class frmInventoryCountReconciliation
                         For Each kv As KeyValuePair(Of Integer, PendingCount) In toSave
                             Dim sys As Integer = kv.Value.System
                             Dim phys As Integer = kv.Value.Physical
+                            Dim dmg As Integer = kv.Value.Damaged
                             Dim diff As Integer = phys - sys
                             Dim remarks As String = kv.Value.Remarks
+                            Dim cond As String = ConditionText(phys, dmg)
+
                             Using q As New MySqlCommand(
                                 "INSERT INTO tbl_inventory_count_details " &
-                                "(inventory_count_id, variant_id, system_quantity, physical_quantity, difference, status, item_condition, remarks, adjusted) " &
-                                "VALUES (@c, @v, @s, @p, @d, @st, @cond, @r, 0)", c, tx)
+                                "(inventory_count_id, variant_id, system_quantity, physical_quantity, damaged_quantity, difference, status, item_condition, remarks, adjusted) " &
+                                "VALUES (@c, @v, @s, @p, @dm, @d, @st, @cond, @r, 0)", c, tx)
                                 q.Parameters.AddWithValue("@c", countId)
                                 q.Parameters.AddWithValue("@v", kv.Key)
                                 q.Parameters.AddWithValue("@s", sys)
                                 q.Parameters.AddWithValue("@p", phys)
+                                q.Parameters.AddWithValue("@dm", dmg)
                                 q.Parameters.AddWithValue("@d", diff)
                                 q.Parameters.AddWithValue("@st", StatusOf(diff))
-                                q.Parameters.AddWithValue("@cond", If(kv.Value.Condition = "", CType(DBNull.Value, Object), kv.Value.Condition))
+                                q.Parameters.AddWithValue("@cond", cond)
                                 q.Parameters.AddWithValue("@r", If(remarks = "", CType(DBNull.Value, Object), remarks))
                                 q.ExecuteNonQuery()
                             End Using
@@ -595,6 +617,9 @@ Public Class frmInventoryCountReconciliation
             frm.ItemSize = Convert.ToString(row.Cells("Size").Value)
             frm.SystemQty = sys.ToString()
             frm.PhysicalQty = phys.ToString()
+            Dim damagedSaved As Integer = 0
+            Integer.TryParse(Convert.ToString(row.Cells("DamagedQty").Value), damagedSaved)
+            frm.DamagedQty = damagedSaved
             frm.StartPosition = FormStartPosition.CenterParent
 
             If frm.ShowDialog(Me) = DialogResult.OK Then
@@ -623,7 +648,7 @@ Public Class frmInventoryCountReconciliation
         LoadTypeCombo()
         isLoading = False
 
-        LoadProducts()
+        ReloadFromStart()
     End Sub
 
     Private Sub btncancel_Click(sender As Object, e As EventArgs) Handles btncancel.Click

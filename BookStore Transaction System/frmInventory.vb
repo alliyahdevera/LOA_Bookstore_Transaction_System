@@ -64,9 +64,9 @@
             Case "Inventory Count & Reconciliation"
                 OpenInventoryForm(GetType(frmInventoryCountReconciliation))
             Case "Non-Saleable Stocks"
-
+                OpenInventoryForm(GetType(frmNonSaleableStocks))
             Case "Releasing"
-                OpenInventoryForm(GetType(frmReleasing))OpenInventoryForm(GetType(frmNonSaleableStocks))
+                OpenInventoryForm(GetType(frmReleasing))
             Case Else
                 MsgBox("No form is linked to: " & cboInventory.Text, vbExclamation, "Inventory")
         End Select

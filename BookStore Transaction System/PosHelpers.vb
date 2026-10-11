@@ -226,19 +226,22 @@ Public Interface IBuyerInfo
     Function ValidateBuyer(ByRef message As String) As Boolean
     Sub ClearBuyer()
 End Interface
-
 Public Class GridPager
 
     Public Event PageChanged As EventHandler
 
-    Private Const MAX_SLOTS As Integer = 7                      ' renamed constant to avoid name collision
     Private ReadOnly navy As Color = Color.FromArgb(1, 21, 78)
 
     Private ReadOnly pnl As New Panel()
     Private ReadOnly lblInfo As New Label()
+    Private ReadOnly lblRows As New Label()
+    Private ReadOnly cboSize As New ComboBox()
+    Private ReadOnly btnFirst As New Button()
     Private ReadOnly btnPrev As New Button()
+    Private ReadOnly lblPage As New Label()
     Private ReadOnly btnNext As New Button()
-    Private ReadOnly slots As New List(Of Button)()
+    Private ReadOnly btnLast As New Button()
+    Private syncing As Boolean = False
 
     Public Property PageSize As Integer = 20
     Public Property CurrentPage As Integer = 1
@@ -253,30 +256,66 @@ Public Class GridPager
     Public Sub New(grid As DataGridView, Optional size As Integer = 20)
         PageSize = size
         Dim host As Control = grid.Parent
+        If host Is Nothing Then
+            Throw New InvalidOperationException("GridPager: put the grid on a form or panel before creating the pager.")
+        End If
 
-        StyleButton(btnPrev, "<")
-        StyleButton(btnNext, ">")
-        btnPrev.Visible = True
-        btnNext.Visible = True
+        ' paging only sorts one page at a time, so clicking a header must not sort
+        For Each col As DataGridViewColumn In grid.Columns
+            col.SortMode = DataGridViewColumnSortMode.NotSortable
+        Next
+        AddHandler grid.ColumnAdded,
+            Sub(snd As Object, args As DataGridViewColumnEventArgs)
+                args.Column.SortMode = DataGridViewColumnSortMode.NotSortable
+            End Sub
+
+        StyleNav(btnFirst, "<<")
+        StyleNav(btnPrev, "<")
+        StyleNav(btnNext, ">")
+        StyleNav(btnLast, ">>")
+        AddHandler btnFirst.Click, Sub() GoToPage(1)
         AddHandler btnPrev.Click, Sub() GoToPage(CurrentPage - 1)
         AddHandler btnNext.Click, Sub() GoToPage(CurrentPage + 1)
+        AddHandler btnLast.Click, Sub() GoToPage(TotalPages)
 
         lblInfo.AutoSize = False
         lblInfo.TextAlign = ContentAlignment.MiddleLeft
         lblInfo.Font = New Font("Segoe UI", 9)
+        lblInfo.ForeColor = navy
+
+        lblRows.AutoSize = False
+        lblRows.Text = "Rows per page:"
+        lblRows.TextAlign = ContentAlignment.MiddleRight
+        lblRows.Font = New Font("Segoe UI", 9)
+        lblRows.Height = 26
+        lblRows.Width = TextRenderer.MeasureText(lblRows.Text, lblRows.Font).Width + 8
+
+        lblPage.AutoSize = False
+        lblPage.TextAlign = ContentAlignment.MiddleCenter
+        lblPage.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+        lblPage.ForeColor = navy
+        lblPage.Height = 26
+
+        cboSize.DropDownStyle = ComboBoxStyle.DropDownList
+        cboSize.Font = New Font("Segoe UI", 9)
+        cboSize.Width = 56
+        cboSize.Items.AddRange(New Object() {"10", "20", "50", "100"})
+        AddHandler cboSize.SelectedIndexChanged, AddressOf RowsPerPage_Changed
 
         pnl.Controls.Add(lblInfo)
+        pnl.Controls.Add(lblRows)
+        pnl.Controls.Add(cboSize)
+        pnl.Controls.Add(btnFirst)
         pnl.Controls.Add(btnPrev)
+        pnl.Controls.Add(lblPage)
         pnl.Controls.Add(btnNext)
-        For i As Integer = 1 To MAX_SLOTS
-            Dim b As New Button()
-            StyleButton(b, "")
-            AddHandler b.Click, AddressOf PageButton_Click
-            slots.Add(b)
-            pnl.Controls.Add(b)
-        Next
+        pnl.Controls.Add(btnLast)
 
         If grid.Dock = DockStyle.None Then
+            ' a grid taller than its panel would push the page bar out of view: trim it first
+            If grid.Bottom > host.ClientSize.Height Then
+                grid.Height = Math.Max(120, host.ClientSize.Height - grid.Top)
+            End If
             grid.Height -= 34
             pnl.SetBounds(grid.Left, grid.Bottom + 2, grid.Width, 32)
             Dim a As AnchorStyles = AnchorStyles.Left
@@ -294,6 +333,7 @@ Public Class GridPager
         AddHandler pnl.Resize, Sub() LayoutControls()
         UpdateUi()
     End Sub
+
     ' runs an export with ALL rows in the grid, then returns the grid to the page the user was on
     Public Sub ExportAllPages(reload As Action, doExport As Action)
         Dim oldSize As Integer = PageSize
@@ -309,114 +349,81 @@ Public Class GridPager
             reload()
         End Try
     End Sub
-    Private Sub StyleButton(b As Button, text As String)
+
+    Private Sub StyleNav(b As Button, text As String)
         b.Text = text
         b.FlatStyle = FlatStyle.Flat
-        b.FlatAppearance.BorderColor = Color.Silver
-        b.BackColor = Color.White
-        b.ForeColor = Color.Black
-        b.Font = New Font("Segoe UI", 9)
+        b.Font = New Font("Segoe UI", 9, FontStyle.Bold)
         b.Cursor = Cursors.Hand
         b.TabStop = False
-        b.Visible = False
+        b.Size = New Size(34, 26)
     End Sub
 
-    ' ---------- which page numbers to show (0 = "...") ----------
-    '  <  1 2 3 4 ... 10  >      <  1 ... 4 5 6 ... 10  >      <  1 ... 7 8 9 10  >
-    Private Function BuildPageList() As List(Of Integer)
-        Dim items As New List(Of Integer)()
-        Dim total As Integer = TotalPages
-
-        If total <= MAX_SLOTS Then
-            For i As Integer = 1 To total
-                items.Add(i)
-            Next
-            Return items
-        End If
-
-        Dim s As Integer = Math.Max(2, CurrentPage - 1)
-        Dim e As Integer = Math.Min(total - 1, CurrentPage + 1)
-        If CurrentPage <= 3 Then
-            s = 2
-            e = 4
-        ElseIf CurrentPage >= total - 2 Then
-            s = total - 3
-            e = total - 1
-        End If
-
-        items.Add(1)
-        If s > 2 Then items.Add(0)
-        For i As Integer = s To e
-            items.Add(i)
-        Next
-        If e < total - 1 Then items.Add(0)
-        items.Add(total)
-        Return items
-    End Function
+    ' enabled = navy button with white text, disabled = light grey (like the sample)
+    Private Sub SetNav(b As Button, enabled As Boolean)
+        b.Enabled = enabled
+        b.BackColor = If(enabled, navy, Color.FromArgb(235, 235, 235))
+        b.ForeColor = If(enabled, Color.White, Color.Gray)
+        b.FlatAppearance.BorderColor = If(enabled, navy, Color.Silver)
+    End Sub
 
     Private Sub UpdateUi()
-        lblInfo.Text = "Page " & CurrentPage & " of " & TotalPages & "   (" & TotalRows & " items)"
-        btnPrev.Enabled = CurrentPage > 1
-        btnNext.Enabled = CurrentPage < TotalPages
+        Dim firstRow As Integer = If(TotalRows = 0, 0, (CurrentPage - 1) * PageSize + 1)
+        Dim lastRow As Integer = Math.Min(CurrentPage * PageSize, TotalRows)
+        lblInfo.Text = If(TotalRows = 0, "Showing 0 of 0", "Showing " & firstRow & "-" & lastRow & " of " & TotalRows)
+        lblPage.Text = "Page " & CurrentPage & " of " & TotalPages
+        lblPage.Width = TextRenderer.MeasureText(lblPage.Text, lblPage.Font).Width + 14
 
-        Dim items As List(Of Integer) = BuildPageList()
-        For i As Integer = 0 To slots.Count - 1
-            Dim b As Button = slots(i)
-            If i >= items.Count Then
-                b.Visible = False
-                Continue For
-            End If
+        SetNav(btnFirst, CurrentPage > 1)
+        SetNav(btnPrev, CurrentPage > 1)
+        SetNav(btnNext, CurrentPage < TotalPages)
+        SetNav(btnLast, CurrentPage < TotalPages)
 
-            Dim pageNo As Integer = items(i)
-            b.Tag = pageNo
-            b.Visible = True
-
-            If pageNo = 0 Then                          ' "..."
-                b.Text = "..."
-                b.Cursor = Cursors.Default
-                b.FlatAppearance.BorderSize = 0
-                b.BackColor = Color.White
-                b.ForeColor = Color.Gray
-            ElseIf pageNo = CurrentPage Then            ' current page highlighted
-                b.Text = pageNo.ToString()
-                b.Cursor = Cursors.Default
-                b.FlatAppearance.BorderSize = 1
-                b.BackColor = navy
-                b.ForeColor = Color.White
-            Else
-                b.Text = pageNo.ToString()
-                b.Cursor = Cursors.Hand
-                b.FlatAppearance.BorderSize = 1
-                b.BackColor = Color.White
-                b.ForeColor = Color.Black
-            End If
-        Next
+        SyncRowsBox()
         LayoutControls()
     End Sub
 
-    ' buttons are packed against the right edge, the info text takes the rest
+    ' keeps the "Rows per page" box showing the real page size (and adds odd sizes like 15 or 25)
+    Private Sub SyncRowsBox()
+        If PageSize > 1000 Then Return          ' temporary export size: leave the box alone
+        syncing = True
+        Dim s As String = PageSize.ToString()
+        If Not cboSize.Items.Contains(s) Then
+            Dim at As Integer = 0
+            While at < cboSize.Items.Count AndAlso Convert.ToInt32(cboSize.Items(at)) < PageSize
+                at += 1
+            End While
+            cboSize.Items.Insert(at, s)
+        End If
+        cboSize.SelectedItem = s
+        syncing = False
+    End Sub
+
+    Private Sub RowsPerPage_Changed(sender As Object, e As EventArgs)
+        If syncing OrElse cboSize.SelectedIndex < 0 Then Return
+        PageSize = Convert.ToInt32(cboSize.Text)
+        CurrentPage = 1
+        RaiseEvent PageChanged(Me, EventArgs.Empty)
+    End Sub
+
+    ' everything is packed against the right edge, the "Showing..." text takes the rest
     Private Sub LayoutControls()
         Dim x As Integer = pnl.Width - 4
-
+        PlaceRight(btnLast, x)
         PlaceRight(btnNext, x)
-        For i As Integer = slots.Count - 1 To 0 Step -1
-            If slots(i).Visible Then PlaceRight(slots(i), x)
-        Next
+        PlaceRight(lblPage, x)
         PlaceRight(btnPrev, x)
-
+        PlaceRight(btnFirst, x)
+        x -= 14
+        PlaceRight(cboSize, x)
+        PlaceRight(lblRows, x)
         lblInfo.SetBounds(0, 3, Math.Max(0, x), 26)
     End Sub
 
-    Private Sub PlaceRight(b As Button, ByRef x As Integer)
-        Dim w As Integer = Math.Max(28, TextRenderer.MeasureText(b.Text, b.Font).Width + 16)
-        x -= w
-        b.SetBounds(x, 3, w, 26)
+    Private Sub PlaceRight(c As Control, ByRef x As Integer)
+        x -= c.Width
+        c.SetBounds(x, 3 + (26 - c.Height) \ 2, c.Width, c.Height)
         x -= 3
-    End Sub
-
-    Private Sub PageButton_Click(sender As Object, e As EventArgs)
-        Dim p As Integer = Convert.ToInt32(DirectCast(sender, Button).Tag)
-        If p > 0 AndAlso p <> CurrentPage Then GoToPage(p)
     End Sub
 
     Private Sub GoToPage(p As Integer)

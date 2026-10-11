@@ -422,7 +422,12 @@ Public Class frmTransactionDetails
             If Not Integer.TryParse(Convert.ToString(r.Cells("colProcessQty").Value), q) OrElse q < 1 OrElse q > it.Available Then
                 MsgBox("Check the quantity for " & nm & " (maximum " & it.Available & ").", vbExclamation, "Return / Exchange") : Exit Sub
             End If
-
+            If it.IsBackorder AndAlso Convert.ToInt32(If(ExecScalar(
+                    "SELECT COUNT(*) FROM tbl_transaction_items WHERE transaction_item_id = @i AND is_backorder = 1 AND released_at IS NULL",
+                    New String() {"@i"}, New Object() {it.TransactionItemId}), 0)) > 0 Then
+                MsgBox(nm & " was paid for but has not been handed over yet (pick-up item), so there is nothing to return." & vbCrLf &
+                       "Ask a supervisor to cancel the transaction instead.", vbExclamation, "Return / Exchange") : Exit Sub
+            End If
             lines.Add(New KeyValuePair(Of ItemInfo, Integer)(it, q))
             itemTexts.Add(nm & If(sz <> "" AndAlso sz <> "N/A", " (" & sz & ")", "") & " x" & q)
             returnValue += it.UnitPrice * q
