@@ -22,17 +22,17 @@ Partial Class frmInventoryStaffDashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInventoryStaffDashboard))
-        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series5 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea6 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend6 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series6 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel13 = New System.Windows.Forms.Panel()
         Me.lblname = New System.Windows.Forms.Label()
@@ -226,18 +226,18 @@ Partial Class frmInventoryStaffDashboard
         '
         'chrtlowlevlprod
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.chrtlowlevlprod.ChartAreas.Add(ChartArea1)
+        ChartArea4.Name = "ChartArea1"
+        Me.chrtlowlevlprod.ChartAreas.Add(ChartArea4)
         Me.chrtlowlevlprod.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend1.Name = "Legend1"
-        Me.chrtlowlevlprod.Legends.Add(Legend1)
+        Legend4.Name = "Legend1"
+        Me.chrtlowlevlprod.Legends.Add(Legend4)
         Me.chrtlowlevlprod.Location = New System.Drawing.Point(0, 48)
         Me.chrtlowlevlprod.Name = "chrtlowlevlprod"
-        Series1.ChartArea = "ChartArea1"
-        Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.chrtlowlevlprod.Series.Add(Series1)
+        Series4.ChartArea = "ChartArea1"
+        Series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        Series4.Legend = "Legend1"
+        Series4.Name = "Series1"
+        Me.chrtlowlevlprod.Series.Add(Series4)
         Me.chrtlowlevlprod.Size = New System.Drawing.Size(570, 227)
         Me.chrtlowlevlprod.TabIndex = 35
         Me.chrtlowlevlprod.Text = "Chart3"
@@ -293,18 +293,18 @@ Partial Class frmInventoryStaffDashboard
         '
         'chtmostpurchased
         '
-        ChartArea2.Name = "ChartArea1"
-        Me.chtmostpurchased.ChartAreas.Add(ChartArea2)
+        ChartArea5.Name = "ChartArea1"
+        Me.chtmostpurchased.ChartAreas.Add(ChartArea5)
         Me.chtmostpurchased.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend2.Name = "Legend1"
-        Me.chtmostpurchased.Legends.Add(Legend2)
+        Legend5.Name = "Legend1"
+        Me.chtmostpurchased.Legends.Add(Legend5)
         Me.chtmostpurchased.Location = New System.Drawing.Point(0, 48)
         Me.chtmostpurchased.Name = "chtmostpurchased"
-        Series2.ChartArea = "ChartArea1"
-        Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar
-        Series2.Legend = "Legend1"
-        Series2.Name = "Series1"
-        Me.chtmostpurchased.Series.Add(Series2)
+        Series5.ChartArea = "ChartArea1"
+        Series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar
+        Series5.Legend = "Legend1"
+        Series5.Name = "Series1"
+        Me.chtmostpurchased.Series.Add(Series5)
         Me.chtmostpurchased.Size = New System.Drawing.Size(570, 227)
         Me.chtmostpurchased.TabIndex = 35
         Me.chtmostpurchased.Text = "Chart3"
@@ -409,17 +409,17 @@ Partial Class frmInventoryStaffDashboard
         '
         'chtdistsales
         '
-        ChartArea3.Name = "ChartArea1"
-        Me.chtdistsales.ChartAreas.Add(ChartArea3)
+        ChartArea6.Name = "ChartArea1"
+        Me.chtdistsales.ChartAreas.Add(ChartArea6)
         Me.chtdistsales.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend3.Name = "Legend1"
-        Me.chtdistsales.Legends.Add(Legend3)
+        Legend6.Name = "Legend1"
+        Me.chtdistsales.Legends.Add(Legend6)
         Me.chtdistsales.Location = New System.Drawing.Point(0, 48)
         Me.chtdistsales.Name = "chtdistsales"
-        Series3.ChartArea = "ChartArea1"
-        Series3.Legend = "Legend1"
-        Series3.Name = "Series1"
-        Me.chtdistsales.Series.Add(Series3)
+        Series6.ChartArea = "ChartArea1"
+        Series6.Legend = "Legend1"
+        Series6.Name = "Series1"
+        Me.chtdistsales.Series.Add(Series6)
         Me.chtdistsales.Size = New System.Drawing.Size(570, 227)
         Me.chtdistsales.TabIndex = 35
         Me.chtdistsales.Text = "Chart1"
@@ -708,14 +708,14 @@ Partial Class frmInventoryStaffDashboard
         Me.dgvstockin.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvstockin.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvstockin.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ReferenceNo, Me.ProductCode, Me.ProductName, Me.Category, Me.sDate, Me.Receivedby})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvstockin.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvstockin.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvstockin.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvstockin.Location = New System.Drawing.Point(0, 48)
         Me.dgvstockin.Name = "dgvstockin"
