@@ -146,7 +146,19 @@ Public Class frmRemittance
                 row.Cells("Remarks").Value = remarks
                 row.Cells("Signature").Value = ""
 
-                If diff <> 0D Then row.DefaultCellStyle.ForeColor = Color.Firebrick
+                ' Status: Match / Short (kulang) / Over, coloured
+                Dim stCell As DataGridViewCell = row.Cells("Status")
+                If diff = 0D Then
+                    stCell.Value = "Match"
+                    stCell.Style.ForeColor = Color.SeaGreen
+                ElseIf diff < 0D Then
+                    stCell.Value = "Short"
+                    stCell.Style.ForeColor = Color.Firebrick
+                Else
+                    stCell.Value = "Over"
+                    stCell.Style.ForeColor = Color.DarkOrange
+                End If
+                stCell.Style.Font = New Font(dgvsalesreport.Font, FontStyle.Bold)
             Next
         End If
 

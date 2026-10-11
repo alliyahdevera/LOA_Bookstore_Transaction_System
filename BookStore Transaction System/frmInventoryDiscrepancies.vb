@@ -93,7 +93,11 @@ Public Class frmInventoryDiscrepancies
             row.Cells("Status").Value = status
             row.Cells("Remarks").Value = If(IsDBNull(r("remarks")), "", r("remarks").ToString())
             row.Cells("PreparedBy").Value = r("prepared_by").ToString()
-            If status <> "Matched" AndAlso Not isAdjusted Then row.DefaultCellStyle.ForeColor = Color.Firebrick
+            ' only the Status cell is red, never the whole row
+            If status <> "Matched" AndAlso Not isAdjusted Then
+                row.Cells("Status").Style.ForeColor = Color.Firebrick
+                row.Cells("Status").Style.Font = New Font(dgvlistproducts.Font, FontStyle.Bold)
+            End If
         Next
         dgvlistproducts.ClearSelection()
         dgvlistproducts.ResumeLayout()

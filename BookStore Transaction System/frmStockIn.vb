@@ -78,6 +78,10 @@ Public Class frmStockIn
             Convert.ToDecimal(r("unit_price")).ToString("N2"), r("quantity_on_hand").ToString(),
             r("reorder_level").ToString(), r("calc_status").ToString())
             DataGridView1.Rows(idx).Tag = Convert.ToInt32(r("variant_id"))
+            If r("calc_status").ToString() <> "In Stock" Then          ' Low Stock and Out of Stock
+                DataGridView1.Rows(idx).DefaultCellStyle.ForeColor = Color.Firebrick
+                DataGridView1.Rows(idx).DefaultCellStyle.BackColor = Color.FromArgb(255, 235, 238)
+            End If
         Next
         DataGridView1.ClearSelection()
         DataGridView1.ResumeLayout()

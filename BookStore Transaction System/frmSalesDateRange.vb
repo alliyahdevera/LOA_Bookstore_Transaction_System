@@ -56,7 +56,7 @@
         Dim values As Object() = {dtfrom.Value.Date, dtto.Value.Date, catId, typeId}
 
         allRows = GetDataTable(
-            "SELECT t.transaction_no, t.buyer_name, v.product_code, p.product_name, v.size, p.unit_price, " &
+            "SELECT t.transaction_no, t.buyer_name, t.buyer_type, v.product_code,  p.product_name, v.size, p.unit_price, " &
             "ti.quantity AS qty, t.total_amount, t.amount_paid, t.amount_change, t.payment_method, ti.subtotal, " &
             "DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, u.username " &
             "FROM TBL_TRANSACTION_ITEMS ti " &
@@ -94,7 +94,7 @@
         DataGridView1.Rows.Clear()
         For Each r As DataRow In dt.Rows
             DataGridView1.Rows.Add(
-                r("transaction_no").ToString(), r("buyer_name").ToString(),
+                r("transaction_no").ToString(), r("buyer_name").ToString(), r("buyer_type").ToString(),
                 r("product_code").ToString(), r("product_name").ToString(), r("size").ToString(),
                 Convert.ToDecimal(r("unit_price")).ToString("N2"), r("qty").ToString(),
                 Convert.ToDecimal(r("total_amount")).ToString("N2"), Convert.ToDecimal(r("amount_paid")).ToString("N2"),

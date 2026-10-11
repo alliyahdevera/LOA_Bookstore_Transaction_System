@@ -16,12 +16,12 @@ Public Class frmEmployeeManagement
             {"List of Students", "List of Employees"}, {"Student Information", "Employee Information"}})
 
         dgvemployee.AutoGenerateColumns = False
-        BindColumn("StudentNo", "employee_no", "Employee No.")
+        BindColumn("EmployeeNo", "employee_no", "Employee No.")
         BindColumn("LastName", "last_name", "Last Name")
-        BindColumn("FirstName", "first_name", "First Name")
-        BindColumn("GradeLevel", "department", "Department")
-        BindColumn("ProgramStrand", "job_position", "Position")
-        BindColumn("Section", "status", "Status")
+        BindColumn("Firstname", "first_name", "First Name")
+        BindColumn("Department", "department", "Department")
+        BindColumn("Position", "job_position", "Position")
+        BindColumn("Status", "status", "Status")
         dgvemployee.Columns("EducationalLevel").Visible = False
         If Not dgvemployee.Columns.Contains("colId") Then
             dgvemployee.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "colId", .DataPropertyName = "employee_id", .Visible = False})
@@ -124,12 +124,12 @@ Public Class frmEmployeeManagement
         If row.Cells("colId").Value Is Nothing OrElse IsDBNull(row.Cells("colId").Value) Then Exit Sub
 
         selectedEmployeeId = Convert.ToInt32(row.Cells("colId").Value)
-        txtstudentno.Text = Convert.ToString(row.Cells("StudentNo").Value)
+        txtstudentno.Text = Convert.ToString(row.Cells("EmployeeNo").Value)
         txtlastname.Text = Convert.ToString(row.Cells("LastName").Value)
-        txtfirstname.Text = Convert.ToString(row.Cells("FirstName").Value)
-        cboGradeLevel.Text = Convert.ToString(row.Cells("GradeLevel").Value)
-        cboProgram.Text = Convert.ToString(row.Cells("ProgramStrand").Value)
-        cboSection.SelectedIndex = cboSection.FindStringExact(Convert.ToString(row.Cells("Section").Value))
+        txtfirstname.Text = Convert.ToString(row.Cells("Firstname").Value)
+        cboGradeLevel.Text = Convert.ToString(row.Cells("Department").Value)
+        cboProgram.Text = Convert.ToString(row.Cells("Position").Value)
+        cboSection.SelectedIndex = cboSection.FindStringExact(Convert.ToString(row.Cells("Status").Value))
     End Sub
 
     Private Sub btnadd_Click(sender As Object, e As EventArgs) Handles btnadd.Click

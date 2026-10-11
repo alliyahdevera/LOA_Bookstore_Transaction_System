@@ -365,6 +365,7 @@ Public Class frmInventoryCountReconciliation
             row.Cells("PhysicalQuantity").Value = ""
             row.Cells("Difference").Value = ""
             row.Cells("Condition").Value = ""
+            row.Cells("Status").Style.ForeColor = Color.Gray
             row.Cells("Status").Value = "Not counted"
             row.DefaultCellStyle.BackColor = Color.White
             row.DefaultCellStyle.ForeColor = Color.Black
@@ -397,14 +398,11 @@ Public Class frmInventoryCountReconciliation
         row.Cells("Difference").Value = diff
         row.Cells("Status").Value = StatusOf(diff) & If(adjusted, " (Adjusted)", "")
 
+        ' only the Status cell is coloured: Matched = green, Short = orange, Over (excess) = red
+        row.DefaultCellStyle.BackColor = Color.White
         row.DefaultCellStyle.ForeColor = If(adjusted, Color.Gray, Color.Black)
-        If diff = 0 Then
-            row.DefaultCellStyle.BackColor = Color.FromArgb(232, 245, 233)
-        ElseIf diff < 0 Then
-            row.DefaultCellStyle.BackColor = Color.FromArgb(255, 235, 238)
-        Else
-            row.DefaultCellStyle.BackColor = Color.FromArgb(255, 248, 225)
-        End If
+        row.Cells("Status").Style.ForeColor = If(diff = 0, Color.SeaGreen, If(diff < 0, Color.DarkOrange, Color.Firebrick))
+        row.Cells("Status").Style.Font = New Font(dgvlistproducts.Font, FontStyle.Bold)
     End Sub
 
     Private Function StatusOf(diff As Integer) As String

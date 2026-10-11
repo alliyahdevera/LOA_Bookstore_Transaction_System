@@ -87,10 +87,11 @@ Public Class frmTransactionDetails
         Dim h As DataTable = GetDataTable(
             "SELECT t.transaction_id, t.buyer_name, t.or_no, t.created_at, t.payment_method, " &
             "t.total_amount, t.amount_paid, t.amount_change, t.status, u.username, " &
-            "s.student_no, s.grade_level, s.program_strand " &
+            "s.student_no, s.grade_level, s.program_strand, t.buyer_type, t.id_number, e.department AS emp_dept " &
             "FROM tbl_transactions t " &
             "INNER JOIN tbl_users u ON t.created_by = u.user_id " &
             "LEFT JOIN tbl_students s ON t.student_id = s.student_id " &
+            "LEFT JOIN tbl_employees e ON t.buyer_type = 'Employee' AND e.employee_no = t.id_number " &
             "WHERE t.transaction_no = @t",
             New String() {"@t"}, New Object() {TransactionNo})
 
@@ -105,10 +106,20 @@ Public Class frmTransactionDetails
         txnStatus = Convert.ToString(r("status"))
 
         txtorno.Text = Convert.ToString(r("or_no"))
-        btnStudentno.Text = Convert.ToString(r("student_no"))
-        txtStudentName.Text = Convert.ToString(r("buyer_name"))
-        txtgrade.Text = Convert.ToString(r("grade_level"))
-        txtProgramStrand.Text = Convert.ToString(r("program_strand"))
+        Dim buyerType As String = Convert.ToString(r("buyer_type"))
+        Dim idNo As String = If(Not IsDBNull(r("id_number")) AndAlso Convert.ToString(r("id_number")) <> "",
+                                Convert.ToString(r("id_number")), Convert.ToString(r("student_no")))
+        btnStudentno.Text = If(idNo = "", "N/A", idNo)                       ' ID No.
+        txtStudentName.Text = Convert.ToString(r("buyer_name"))              ' Buyer Name
+        txtgrade.Text = If(Convert.ToString(r("grade_level")) = "", "N/A", Convert.ToString(r("grade_level")))
+        Select Case buyerType
+            Case "Student"
+                txtProgramStrand.Text = DepartmentOf(Convert.ToString(r("program_strand")), Convert.ToString(r("grade_level")))
+            Case "Employee"
+                txtProgramStrand.Text = If(IsDBNull(r("emp_dept")), "N/A", Convert.ToString(r("emp_dept")))
+            Case Else
+                txtProgramStrand.Text = "N/A"
+        End Select
         txttdate.Text = Convert.ToDateTime(r("created_at")).ToString("MMMM d, yyyy h:mm tt")
         txtpaymentmethod.Text = Convert.ToString(r("payment_method"))
         txtstatus.Text = txnStatus
@@ -191,8 +202,19 @@ Public Class frmTransactionDetails
         dgvCart.ClearSelection()
         UpdateSelectedItem()
     End Sub
-
-
+    Private Function DepartmentOf(program As String, grade As String) As String
+        Select Case program.Trim().ToUpper()
+            Case "BSIT", "BSCS" : Return "CCS"
+            Case "BSCPE", "BSIE" : Return "COE"
+            Case "BSBA", "BSA", "BSCA", "BSREM" : Return "CBA"
+            Case "BSHM", "BSTM" : Return "CHTM"
+            Case "BSPSYCH" : Return "CAS"
+            Case "JD" : Return "College of Law"
+            Case "ABM", "HUMSS", "GAS", "STEM" : Return "Senior High School"
+        End Select
+        If grade.StartsWith("Grade") OrElse grade.StartsWith("Kinder") Then Return "Basic Education"
+        Return If(program.Trim() = "", "N/A", program)
+    End Function
     Private Sub dgvCart_SelectionChanged(sender As Object, e As EventArgs) Handles dgvCart.SelectionChanged
         UpdateSelectedItem()
     End Sub

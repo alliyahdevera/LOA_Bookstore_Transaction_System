@@ -36,7 +36,9 @@ Public Class frmStudentList
         LoadStudents()
         txtSearch.Focus()
     End Sub
-
+    Private Sub btnselect_Click(sender As Object, e As EventArgs) Handles btnselect.Click
+        SelectCurrent()          ' same as double-click / Enter: picks the highlighted student
+    End Sub
     Private Sub LoadStudents()
         If pg Is Nothing Then Exit Sub
         Dim grade As String = If(cboGradeLevel.SelectedIndex <= 0, "", cboGradeLevel.Text)

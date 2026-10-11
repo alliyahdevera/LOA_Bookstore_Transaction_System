@@ -21,6 +21,8 @@ Public Class frmManageProducts
         txtSearch.Text = InitialSearch
         LoadCategoryCombo()
         LoadFilterCombo()
+        cbotype.DropDownStyle = ComboBoxStyle.DropDownList
+        LoadFilterTypes()
         LoadGrid("", 0)
         ClearFields()
     End Sub
@@ -39,7 +41,37 @@ Public Class frmManageProducts
         cboTypeOfProduct.DataSource = Nothing
         isFilling = False
     End Sub
+    Private Sub LoadFilterTypes()
+        isFilling = True
+        Dim catId As Integer = GetFilterCategoryId()
+        Dim dt As DataTable
+        If catId = 0 Then
+            dt = GetDataTable("SELECT category_type_id, type_name FROM TBL_CATEGORY_TYPES ORDER BY type_name")
+        Else
+            dt = GetDataTable("SELECT category_type_id, type_name FROM TBL_CATEGORY_TYPES WHERE category_id = @c ORDER BY type_name",
+                              New String() {"@c"}, New Object() {catId})
+        End If
+        Dim allRow As DataRow = dt.NewRow()
+        allRow("category_type_id") = 0
+        allRow("type_name") = "All Types"
+        dt.Rows.InsertAt(allRow, 0)
+        FillCombo(cbotype, dt, "type_name", "category_type_id")
+        cbotype.SelectedIndex = 0
+        isFilling = False
+    End Sub
 
+    Private Function GetFilterTypeId() As Integer
+        If cbotype.SelectedValue IsNot Nothing AndAlso IsNumeric(cbotype.SelectedValue) Then
+            Return Convert.ToInt32(cbotype.SelectedValue)
+        End If
+        Return 0
+    End Function
+
+    Private Sub cbotype_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbotype.SelectedIndexChanged
+        If isFilling OrElse pg Is Nothing Then Exit Sub
+        pg.Reset()
+        LoadGrid(txtSearch.Text.Trim(), GetFilterCategoryId())
+    End Sub
     Private Function GetSelectedCategoryId() As Integer
         If cboCategory.SelectedValue IsNot Nothing AndAlso IsNumeric(cboCategory.SelectedValue) Then
             Return Convert.ToInt32(cboCategory.SelectedValue)
@@ -96,6 +128,7 @@ Public Class frmManageProducts
 
     Private Sub cboFilterCategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFilterCategory.SelectedIndexChanged
         If isFilling OrElse pg Is Nothing Then Exit Sub
+        LoadFilterTypes()
         pg.Reset()
         LoadGrid(txtSearch.Text.Trim(), GetFilterCategoryId())
     End Sub
@@ -179,12 +212,12 @@ Public Class frmManageProducts
         "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
         "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
         "INNER JOIN TBL_CATEGORIES c ON ct.category_id = c.category_id " &
-        "WHERE (@cat = 0 OR c.category_id = @cat) " &
+        "WHERE (@cat = 0 OR c.category_id = @cat) AND (@type = 0 OR ct.category_type_id = @type) " &
         "AND (v.product_code LIKE @s OR p.product_name LIKE @s) " &
         "ORDER BY p.product_name, v.size"
 
-        Dim dt As DataTable = pg.LoadPage(query, New String() {"@cat", "@s"},
-                                      New Object() {categoryId, "%" & searchText & "%"})
+        Dim dt As DataTable = pg.LoadPage(query, New String() {"@cat", "@type", "@s"},
+                                      New Object() {categoryId, GetFilterTypeId(), "%" & searchText & "%"})
 
         dgvListOfProducts.SuspendLayout()
         dgvListOfProducts.Rows.Clear()
@@ -348,6 +381,7 @@ Public Class frmManageProducts
         isFilling = True
         cboFilterCategory.SelectedIndex = 0
         isFilling = False
+        LoadFilterTypes()
         pg.Reset()
         LoadGrid("", 0)
     End Sub

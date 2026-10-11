@@ -26,11 +26,18 @@ Public Class frmDashboard
             tmrClock.Start()
             UpdateFooterDateTime()
             InitMonthCombo()
+            HideSeriesLegends()
             RefreshDashboard()
             RefreshDashboard()
         Catch ex As Exception
             MsgBox("Error initializing Dashboard Form: " & ex.Message, vbCritical, "Init Error")
         End Try
+    End Sub
+    Private Sub HideSeriesLegends()
+        For Each ch As System.Windows.Forms.DataVisualization.Charting.Chart In
+                New System.Windows.Forms.DataVisualization.Charting.Chart() {chrtlowlevlprod, chtmostpurchased, chrtsalespermonth}
+            If ch.Legends.Count > 0 Then ch.Legends(0).Enabled = False
+        Next
     End Sub
     Private Sub InitMonthCombo()
         cbomonth.DropDownStyle = ComboBoxStyle.DropDownList
@@ -126,7 +133,7 @@ Public Class frmDashboard
                       "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
                       "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
                       "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-                      "WHERE t.status <> 'Cancelled' " &
+                      "WHERE t.status <> 'Cancelled' " & SchoolYearFilter("t.or_date") &
                       "GROUP BY p.product_id, p.product_name " &
                       "ORDER BY qty_sold DESC " &
                       "LIMIT 5"
@@ -165,19 +172,31 @@ Public Class frmDashboard
                                   "GROUP BY c.category_id, c.category_name " &
                                   "ORDER BY total_sales DESC"
 
+            Dim rows As New List(Of KeyValuePair(Of String, Double))
+            Dim grandTotal As Double = 0
+
             Using localCmd As New MySqlCommand(query, cn)
                 Using localDr As MySqlDataReader = localCmd.ExecuteReader()
-                    With chtdistsales.Series("Series1")
-                        .Points.Clear()
-                        .IsValueShownAsLabel = True
-                        .Label = "#PERCENT{P0}"          ' show percentage on each slice
-                        .LegendText = "#AXISLABEL"       ' legend shows the category name
-                        While localDr.Read()
-                            .Points.AddXY(localDr("category_name").ToString(), Convert.ToDouble(localDr("total_sales")))
-                        End While
-                    End With
+                    While localDr.Read()
+                        Dim amt As Double = Convert.ToDouble(localDr("total_sales"))
+                        rows.Add(New KeyValuePair(Of String, Double)(localDr("category_name").ToString(), amt))
+                        grandTotal += amt
+                    End While
                 End Using
             End Using
+
+            With chtdistsales.Series("Series1")
+                .Points.Clear()
+                .IsValueShownAsLabel = True
+                .Label = ChrW(8369) & "#VAL{N0}\n(#PERCENT{P0})"                          ' amount and percent on each slice
+                .ToolTip = "#AXISLABEL: " & ChrW(8369) & "#VAL{N2} (#PERCENT{P1})"
+                .SmartLabelStyle.Enabled = True
+                For Each kv As KeyValuePair(Of String, Double) In rows
+                    Dim idx As Integer = .Points.AddXY(kv.Key, kv.Value)
+                    Dim pct As Double = If(grandTotal > 0, kv.Value / grandTotal, 0)
+                    .Points(idx).LegendText = kv.Key & " - " & ChrW(8369) & kv.Value.ToString("N2") & " (" & pct.ToString("P0") & ")"
+                Next
+            End With
 
             cn.Close()
         Catch ex As Exception
