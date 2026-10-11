@@ -89,6 +89,7 @@ Partial Class frmActivityHistory
         Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
         Me.btnexportexcel.TabIndex = 148
         Me.btnexportexcel.Text = "Export to Excel"
+        Me.btnexportexcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnexportexcel.UseVisualStyleBackColor = False
         '
         'Panel13
@@ -205,6 +206,8 @@ Partial Class frmActivityHistory
         Me.dgvActivityHistory.Location = New System.Drawing.Point(-1, 34)
         Me.dgvActivityHistory.Name = "dgvActivityHistory"
         Me.dgvActivityHistory.ReadOnly = True
+        Me.dgvActivityHistory.RowHeadersVisible = False
+        Me.dgvActivityHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvActivityHistory.Size = New System.Drawing.Size(1170, 575)
         Me.dgvActivityHistory.TabIndex = 2
         '
@@ -270,18 +273,19 @@ Partial Class frmActivityHistory
         Me.btngenerate.FlatAppearance.BorderSize = 0
         Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btngenerate.ForeColor = System.Drawing.Color.White
-        Me.btngenerate.Location = New System.Drawing.Point(653, 85)
+        Me.btngenerate.Location = New System.Drawing.Point(392, 84)
         Me.btngenerate.Name = "btngenerate"
-        Me.btngenerate.Size = New System.Drawing.Size(101, 28)
+        Me.btngenerate.Size = New System.Drawing.Size(119, 28)
         Me.btngenerate.TabIndex = 162
-        Me.btngenerate.Text = "Generate"
+        Me.btngenerate.Text = "Load Data"
+        Me.btngenerate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btngenerate.UseVisualStyleBackColor = False
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(354, 91)
+        Me.Label2.Location = New System.Drawing.Point(225, 90)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 161
@@ -290,9 +294,10 @@ Partial Class frmActivityHistory
         'dtpto
         '
         Me.dtpto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpto.Location = New System.Drawing.Point(382, 86)
+        Me.dtpto.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpto.Location = New System.Drawing.Point(253, 85)
         Me.dtpto.Name = "dtpto"
-        Me.dtpto.Size = New System.Drawing.Size(251, 27)
+        Me.dtpto.Size = New System.Drawing.Size(123, 27)
         Me.dtpto.TabIndex = 160
         '
         'Label1
@@ -308,9 +313,10 @@ Partial Class frmActivityHistory
         'dtpfrom
         '
         Me.dtpfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpfrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtpfrom.Location = New System.Drawing.Point(94, 86)
         Me.dtpfrom.Name = "dtpfrom"
-        Me.dtpfrom.Size = New System.Drawing.Size(251, 27)
+        Me.dtpfrom.Size = New System.Drawing.Size(123, 27)
         Me.dtpfrom.TabIndex = 158
         '
         'Timer1

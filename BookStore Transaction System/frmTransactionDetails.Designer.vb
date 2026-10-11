@@ -22,7 +22,7 @@ Partial Class frmTransactionDetails
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -79,6 +79,7 @@ Partial Class frmTransactionDetails
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Panel11 = New System.Windows.Forms.Panel()
+        Me.cbocondt = New System.Windows.Forms.ComboBox()
         Me.reason = New System.Windows.Forms.Label()
         Me.lblcondition = New System.Windows.Forms.Label()
         Me.txtcreatedby = New System.Windows.Forms.TextBox()
@@ -94,7 +95,6 @@ Partial Class frmTransactionDetails
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.cbocondt = New System.Windows.Forms.ComboBox()
         Me.Panel4.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.Panel7.SuspendLayout()
@@ -115,9 +115,9 @@ Partial Class frmTransactionDetails
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.Location = New System.Drawing.Point(355, 54)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(110, 17)
+        Me.Label7.Size = New System.Drawing.Size(77, 17)
         Me.Label7.TabIndex = 14
-        Me.Label7.Text = "Program / Strand"
+        Me.Label7.Text = "Department"
         '
         'Label8
         '
@@ -135,9 +135,9 @@ Partial Class frmTransactionDetails
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.Location = New System.Drawing.Point(17, 91)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(91, 17)
+        Me.Label6.Size = New System.Drawing.Size(79, 17)
         Me.Label6.TabIndex = 12
-        Me.Label6.Text = "Student Name"
+        Me.Label6.Text = "Buyer Name"
         '
         'Label3
         '
@@ -145,9 +145,9 @@ Partial Class frmTransactionDetails
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(17, 56)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(77, 17)
+        Me.Label3.Size = New System.Drawing.Size(45, 17)
         Me.Label3.TabIndex = 11
-        Me.Label3.Text = "Student No."
+        Me.Label3.Text = "ID No."
         '
         'txtProgramStrand
         '
@@ -417,17 +417,18 @@ Partial Class frmTransactionDetails
         Me.dgvCart.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvCart.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductName, Me.Category, Me.Size, Me.Quantity, Me.UnitPrice, Me.SubTotal})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvCart.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvCart.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvCart.Location = New System.Drawing.Point(-1, 35)
         Me.dgvCart.Name = "dgvCart"
         Me.dgvCart.ReadOnly = True
+        Me.dgvCart.RowHeadersVisible = False
         Me.dgvCart.Size = New System.Drawing.Size(1063, 179)
         Me.dgvCart.TabIndex = 1
         '
@@ -700,6 +701,15 @@ Partial Class frmTransactionDetails
         Me.Panel11.Size = New System.Drawing.Size(413, 260)
         Me.Panel11.TabIndex = 130
         '
+        'cbocondt
+        '
+        Me.cbocondt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbocondt.FormattingEnabled = True
+        Me.cbocondt.Location = New System.Drawing.Point(126, 177)
+        Me.cbocondt.Name = "cbocondt"
+        Me.cbocondt.Size = New System.Drawing.Size(263, 25)
+        Me.cbocondt.TabIndex = 134
+        '
         'reason
         '
         Me.reason.AutoSize = True
@@ -855,15 +865,6 @@ Partial Class frmTransactionDetails
         Me.Label2.Size = New System.Drawing.Size(307, 17)
         Me.Label2.TabIndex = 126
         Me.Label2.Text = "———————————————————————" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'cbocondt
-        '
-        Me.cbocondt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbocondt.FormattingEnabled = True
-        Me.cbocondt.Location = New System.Drawing.Point(126, 177)
-        Me.cbocondt.Name = "cbocondt"
-        Me.cbocondt.Size = New System.Drawing.Size(263, 25)
-        Me.cbocondt.TabIndex = 134
         '
         'frmTransactionDetails
         '

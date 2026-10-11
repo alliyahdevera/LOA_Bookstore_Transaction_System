@@ -31,7 +31,9 @@ Partial Class frmReports
         '
         'pnlreports
         '
-        Me.pnlreports.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pnlreports.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlreports.Location = New System.Drawing.Point(0, 42)
         Me.pnlreports.Name = "pnlreports"
         Me.pnlreports.Size = New System.Drawing.Size(1220, 808)
@@ -43,7 +45,7 @@ Partial Class frmReports
         Me.cboReportType.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboReportType.FormattingEnabled = True
         Me.cboReportType.Items.AddRange(New Object() {"Sales By Item", "Sales by Date Range", "Cash Denomination", "Remittance Report", "Inventory Discrepancy", "Damaged Report"})
-        Me.cboReportType.Location = New System.Drawing.Point(115, 6)
+        Me.cboReportType.Location = New System.Drawing.Point(115, 7)
         Me.cboReportType.Name = "cboReportType"
         Me.cboReportType.Size = New System.Drawing.Size(197, 29)
         Me.cboReportType.TabIndex = 17
@@ -74,8 +76,8 @@ Partial Class frmReports
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.pnlreports)
+        Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmReports"
         Me.Text = "frmReports"

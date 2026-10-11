@@ -49,10 +49,10 @@ Partial Class frmLowLevelStocks
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.btnexportexcel = New System.Windows.Forms.Button()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvListOfProducts, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -152,7 +152,7 @@ Partial Class frmLowLevelStocks
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(27, 88)
+        Me.Label14.Location = New System.Drawing.Point(27, 80)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(47, 17)
         Me.Label14.TabIndex = 88
@@ -163,7 +163,7 @@ Partial Class frmLowLevelStocks
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.dgvListOfProducts)
         Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Location = New System.Drawing.Point(30, 126)
+        Me.Panel5.Location = New System.Drawing.Point(30, 120)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1155, 619)
         Me.Panel5.TabIndex = 86
@@ -184,6 +184,8 @@ Partial Class frmLowLevelStocks
         Me.dgvListOfProducts.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvListOfProducts.Location = New System.Drawing.Point(-1, 35)
         Me.dgvListOfProducts.Name = "dgvListOfProducts"
+        Me.dgvListOfProducts.RowHeadersVisible = False
+        Me.dgvListOfProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvListOfProducts.Size = New System.Drawing.Size(1155, 588)
         Me.dgvListOfProducts.TabIndex = 1
         '
@@ -286,10 +288,21 @@ Partial Class frmLowLevelStocks
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(80, 84)
+        Me.Panel1.Location = New System.Drawing.Point(80, 76)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(263, 26)
         Me.Panel1.TabIndex = 95
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label2.Location = New System.Drawing.Point(3, 3)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(193, 17)
+        Me.Label2.TabIndex = 96
+        Me.Label2.Text = "Product Code or Product Name"
         '
         'PictureBox1
         '
@@ -316,23 +329,12 @@ Partial Class frmLowLevelStocks
         Me.btnexportexcel.FlatAppearance.BorderSize = 0
         Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnexportexcel.ForeColor = System.Drawing.Color.White
-        Me.btnexportexcel.Location = New System.Drawing.Point(1055, 76)
+        Me.btnexportexcel.Location = New System.Drawing.Point(1055, 68)
         Me.btnexportexcel.Name = "btnexportexcel"
         Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
         Me.btnexportexcel.TabIndex = 76
         Me.btnexportexcel.Text = "Export to Excel"
         Me.btnexportexcel.UseVisualStyleBackColor = False
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label2.Location = New System.Drawing.Point(3, 3)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(193, 17)
-        Me.Label2.TabIndex = 96
-        Me.Label2.Text = "Product Code or Product Name"
         '
         'frmLowLevelStocks
         '

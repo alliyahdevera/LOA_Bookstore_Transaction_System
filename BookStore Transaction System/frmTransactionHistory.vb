@@ -24,8 +24,8 @@ Public Class frmTransactionHistory
         dtto.Value = Date.Today
         ResetSchoolYear()
         txtSearch.Text = InitialSearch
-        Button3.Text = "Cancel Transaction"
-        Button3.Visible = (currentuser.Role = ROLE_SUPERVISOR)
+        btndelete.Text = "Cancel Transaction"
+        btndelete.Visible = (currentuser.Role = ROLE_SUPERVISOR)
         isLoadingFilters = False
         pg = New GridPager(dgvtransaction, 20)
         AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim())
@@ -197,7 +197,7 @@ Public Class frmTransactionHistory
         LoadGrid(txtSearch.Text.Trim())   ' refresh: a return/exchange may have changed the status
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click   ' Cancel Transaction
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles btndelete.Click   ' Cancel Transaction
         If dgvtransaction.SelectedRows.Count = 0 Then
             MsgBox("Select a transaction row first.", vbExclamation, "Transaction")
             Exit Sub

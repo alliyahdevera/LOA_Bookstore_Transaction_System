@@ -1,4 +1,4 @@
-﻿Public Class frmNonSaleableStocks
+﻿Public Class frmDamagedStocks
     Public Property InitialSearch As String = ""
     Private Const PAGE_SIZE As Integer = 25
     Private pg As GridPager

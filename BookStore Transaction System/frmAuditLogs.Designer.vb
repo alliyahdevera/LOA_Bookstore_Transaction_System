@@ -22,37 +22,10 @@ Partial Class frmAuditLogs
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnLoginHistory = New System.Windows.Forms.Button()
-        Me.btnActivityHistory = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.btnPriceChangeHistory = New System.Windows.Forms.Button()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cboauditlogs = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
-        '
-        'btnLoginHistory
-        '
-        Me.btnLoginHistory.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnLoginHistory.FlatAppearance.BorderSize = 0
-        Me.btnLoginHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnLoginHistory.ForeColor = System.Drawing.Color.White
-        Me.btnLoginHistory.Location = New System.Drawing.Point(402, 0)
-        Me.btnLoginHistory.Name = "btnLoginHistory"
-        Me.btnLoginHistory.Size = New System.Drawing.Size(198, 33)
-        Me.btnLoginHistory.TabIndex = 18
-        Me.btnLoginHistory.Text = "Login History"
-        Me.btnLoginHistory.UseVisualStyleBackColor = False
-        '
-        'btnActivityHistory
-        '
-        Me.btnActivityHistory.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnActivityHistory.FlatAppearance.BorderSize = 0
-        Me.btnActivityHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnActivityHistory.ForeColor = System.Drawing.Color.White
-        Me.btnActivityHistory.Location = New System.Drawing.Point(2, 0)
-        Me.btnActivityHistory.Name = "btnActivityHistory"
-        Me.btnActivityHistory.Size = New System.Drawing.Size(198, 33)
-        Me.btnActivityHistory.TabIndex = 17
-        Me.btnActivityHistory.Text = "Activity History"
-        Me.btnActivityHistory.UseVisualStyleBackColor = False
         '
         'Panel1
         '
@@ -62,37 +35,46 @@ Partial Class frmAuditLogs
         Me.Panel1.Size = New System.Drawing.Size(1220, 817)
         Me.Panel1.TabIndex = 16
         '
-        'btnPriceChangeHistory
+        'Label6
         '
-        Me.btnPriceChangeHistory.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnPriceChangeHistory.FlatAppearance.BorderSize = 0
-        Me.btnPriceChangeHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnPriceChangeHistory.ForeColor = System.Drawing.Color.White
-        Me.btnPriceChangeHistory.Location = New System.Drawing.Point(202, 0)
-        Me.btnPriceChangeHistory.Name = "btnPriceChangeHistory"
-        Me.btnPriceChangeHistory.Size = New System.Drawing.Size(198, 33)
-        Me.btnPriceChangeHistory.TabIndex = 15
-        Me.btnPriceChangeHistory.Text = "Price Change History"
-        Me.btnPriceChangeHistory.UseVisualStyleBackColor = False
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label6.Location = New System.Drawing.Point(4, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(137, 32)
+        Me.Label6.TabIndex = 149
+        Me.Label6.Text = "Audit Logs"
+        '
+        'cboauditlogs
+        '
+        Me.cboauditlogs.AutoCompleteCustomSource.AddRange(New String() {"Activity History", "Price Change History", "Login History"})
+        Me.cboauditlogs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboauditlogs.DropDownWidth = 200
+        Me.cboauditlogs.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboauditlogs.FormattingEnabled = True
+        Me.cboauditlogs.Items.AddRange(New Object() {"Activity History", "Price Change History", "Login History"})
+        Me.cboauditlogs.Location = New System.Drawing.Point(146, 3)
+        Me.cboauditlogs.Name = "cboauditlogs"
+        Me.cboauditlogs.Size = New System.Drawing.Size(197, 29)
+        Me.cboauditlogs.TabIndex = 148
         '
         'frmAuditLogs
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.btnLoginHistory)
-        Me.Controls.Add(Me.btnActivityHistory)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.cboauditlogs)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.btnPriceChangeHistory)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmAuditLogs"
         Me.Text = "frmAuditLogs"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents btnLoginHistory As Button
-    Friend WithEvents btnActivityHistory As Button
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents btnPriceChangeHistory As Button
+    Friend WithEvents Label6 As Label
+    Friend WithEvents cboauditlogs As ComboBox
 End Class

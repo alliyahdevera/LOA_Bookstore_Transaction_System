@@ -23,29 +23,19 @@ Partial Class frmInventoryDiscrepancies
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInventoryDiscrepancies))
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btngenerate = New System.Windows.Forms.Button()
         Me.cbocategory = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvlistproducts = New System.Windows.Forms.DataGridView()
-        Me.CountNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CountDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SystemQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PhysicalQty = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Difference = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Adjusted = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Remarks = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PreparedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Panel11 = New System.Windows.Forms.Panel()
@@ -68,7 +58,17 @@ Partial Class frmInventoryDiscrepancies
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.CountNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CountDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SystemQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PhysicalQty = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Difference = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Adjusted = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Remarks = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PreparedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -149,6 +149,17 @@ Partial Class frmInventoryDiscrepancies
         Me.Panel1.Size = New System.Drawing.Size(216, 26)
         Me.Panel1.TabIndex = 168
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label4.Location = New System.Drawing.Point(3, 3)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(148, 17)
+        Me.Label4.TabIndex = 181
+        Me.Label4.Text = "Product Code or Name"
+        '
         'PictureBox1
         '
         Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
@@ -194,85 +205,21 @@ Partial Class frmInventoryDiscrepancies
         Me.dgvlistproducts.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvlistproducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvlistproducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CountNo, Me.CountDate, Me.ProductName, Me.Size, Me.SystemQuantity, Me.PhysicalQty, Me.Difference, Me.Adjusted, Me.Status, Me.Remarks, Me.PreparedBy})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvlistproducts.Location = New System.Drawing.Point(-1, 35)
         Me.dgvlistproducts.Name = "dgvlistproducts"
         Me.dgvlistproducts.ReadOnly = True
+        Me.dgvlistproducts.RowHeadersVisible = False
+        Me.dgvlistproducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvlistproducts.Size = New System.Drawing.Size(1161, 538)
         Me.dgvlistproducts.TabIndex = 1
-        '
-        'CountNo
-        '
-        Me.CountNo.HeaderText = "Count No."
-        Me.CountNo.Name = "CountNo"
-        Me.CountNo.ReadOnly = True
-        '
-        'CountDate
-        '
-        Me.CountDate.HeaderText = "Count Date"
-        Me.CountDate.Name = "CountDate"
-        Me.CountDate.ReadOnly = True
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        Me.ProductName.ReadOnly = True
-        '
-        'Size
-        '
-        Me.Size.HeaderText = "Size"
-        Me.Size.Name = "Size"
-        Me.Size.ReadOnly = True
-        '
-        'SystemQuantity
-        '
-        Me.SystemQuantity.HeaderText = "System Quantity"
-        Me.SystemQuantity.Name = "SystemQuantity"
-        Me.SystemQuantity.ReadOnly = True
-        '
-        'PhysicalQty
-        '
-        Me.PhysicalQty.HeaderText = "Physical Quantity"
-        Me.PhysicalQty.Name = "PhysicalQty"
-        Me.PhysicalQty.ReadOnly = True
-        '
-        'Difference
-        '
-        Me.Difference.HeaderText = "Difference"
-        Me.Difference.Name = "Difference"
-        Me.Difference.ReadOnly = True
-        '
-        'Adjusted
-        '
-        Me.Adjusted.HeaderText = "Adjusted"
-        Me.Adjusted.Name = "Adjusted"
-        Me.Adjusted.ReadOnly = True
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
-        '
-        'Remarks
-        '
-        Me.Remarks.HeaderText = "Remarks"
-        Me.Remarks.Name = "Remarks"
-        Me.Remarks.ReadOnly = True
-        '
-        'PreparedBy
-        '
-        Me.PreparedBy.HeaderText = "Prepared By"
-        Me.PreparedBy.Name = "PreparedBy"
-        Me.PreparedBy.ReadOnly = True
         '
         'Panel6
         '
@@ -515,16 +462,73 @@ Partial Class frmInventoryDiscrepancies
         Me.lblposition.TabIndex = 66
         Me.lblposition.Text = "NPosition"
         '
-        'Label4
+        'CountNo
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label4.Location = New System.Drawing.Point(3, 3)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(148, 17)
-        Me.Label4.TabIndex = 181
-        Me.Label4.Text = "Product Code or Name"
+        Me.CountNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.CountNo.HeaderText = "Count No."
+        Me.CountNo.Name = "CountNo"
+        Me.CountNo.ReadOnly = True
+        Me.CountNo.Width = 80
+        '
+        'CountDate
+        '
+        Me.CountDate.HeaderText = "Count Date"
+        Me.CountDate.Name = "CountDate"
+        Me.CountDate.ReadOnly = True
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
+        '
+        'Size
+        '
+        Me.Size.HeaderText = "Size"
+        Me.Size.Name = "Size"
+        Me.Size.ReadOnly = True
+        '
+        'SystemQuantity
+        '
+        Me.SystemQuantity.HeaderText = "System Quantity"
+        Me.SystemQuantity.Name = "SystemQuantity"
+        Me.SystemQuantity.ReadOnly = True
+        '
+        'PhysicalQty
+        '
+        Me.PhysicalQty.HeaderText = "Physical Quantity"
+        Me.PhysicalQty.Name = "PhysicalQty"
+        Me.PhysicalQty.ReadOnly = True
+        '
+        'Difference
+        '
+        Me.Difference.HeaderText = "Difference"
+        Me.Difference.Name = "Difference"
+        Me.Difference.ReadOnly = True
+        '
+        'Adjusted
+        '
+        Me.Adjusted.HeaderText = "Adjusted"
+        Me.Adjusted.Name = "Adjusted"
+        Me.Adjusted.ReadOnly = True
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
+        '
+        'Remarks
+        '
+        Me.Remarks.HeaderText = "Remarks"
+        Me.Remarks.Name = "Remarks"
+        Me.Remarks.ReadOnly = True
+        '
+        'PreparedBy
+        '
+        Me.PreparedBy.HeaderText = "Prepared By"
+        Me.PreparedBy.Name = "PreparedBy"
+        Me.PreparedBy.ReadOnly = True
         '
         'frmInventoryDiscrepancies
         '
@@ -584,17 +588,6 @@ Partial Class frmInventoryDiscrepancies
     Friend WithEvents dgvlistproducts As DataGridView
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents CountNo As DataGridViewTextBoxColumn
-    Friend WithEvents CountDate As DataGridViewTextBoxColumn
-    Friend WithEvents ProductName As DataGridViewTextBoxColumn
-    Friend WithEvents Size As DataGridViewTextBoxColumn
-    Friend WithEvents SystemQuantity As DataGridViewTextBoxColumn
-    Friend WithEvents PhysicalQty As DataGridViewTextBoxColumn
-    Friend WithEvents Difference As DataGridViewTextBoxColumn
-    Friend WithEvents Adjusted As DataGridViewTextBoxColumn
-    Friend WithEvents Status As DataGridViewTextBoxColumn
-    Friend WithEvents Remarks As DataGridViewTextBoxColumn
-    Friend WithEvents PreparedBy As DataGridViewTextBoxColumn
     Friend WithEvents Panel11 As Panel
     Friend WithEvents lbloutofstocks As Label
     Friend WithEvents Label8 As Label
@@ -616,4 +609,15 @@ Partial Class frmInventoryDiscrepancies
     Friend WithEvents Label28 As Label
     Friend WithEvents lblposition As Label
     Friend WithEvents Label4 As Label
+    Friend WithEvents CountNo As DataGridViewTextBoxColumn
+    Friend WithEvents CountDate As DataGridViewTextBoxColumn
+    Friend WithEvents ProductName As DataGridViewTextBoxColumn
+    Friend WithEvents Size As DataGridViewTextBoxColumn
+    Friend WithEvents SystemQuantity As DataGridViewTextBoxColumn
+    Friend WithEvents PhysicalQty As DataGridViewTextBoxColumn
+    Friend WithEvents Difference As DataGridViewTextBoxColumn
+    Friend WithEvents Adjusted As DataGridViewTextBoxColumn
+    Friend WithEvents Status As DataGridViewTextBoxColumn
+    Friend WithEvents Remarks As DataGridViewTextBoxColumn
+    Friend WithEvents PreparedBy As DataGridViewTextBoxColumn
 End Class

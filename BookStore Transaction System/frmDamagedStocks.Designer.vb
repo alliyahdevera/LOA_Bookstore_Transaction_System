@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmNonSaleableStocks
+Partial Class frmDamagedStocks
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class frmNonSaleableStocks
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmNonSaleableStocks))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmDamagedStocks))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.cbotype = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -110,11 +110,11 @@ Partial Class frmNonSaleableStocks
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label13.Location = New System.Drawing.Point(24, 39)
+        Me.Label13.Location = New System.Drawing.Point(24, 43)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(236, 15)
+        Me.Label13.Size = New System.Drawing.Size(367, 30)
         Me.Label13.TabIndex = 131
-        Me.Label13.Text = "View all of the products that cannot be sold" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label13.Text = "View all of the products that cannot be sold after Inventory checking" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'Label15
         '
@@ -123,9 +123,9 @@ Partial Class frmNonSaleableStocks
         Me.Label15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Label15.Location = New System.Drawing.Point(20, 7)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(246, 32)
+        Me.Label15.Size = New System.Drawing.Size(202, 32)
         Me.Label15.TabIndex = 130
-        Me.Label15.Text = "Non-Saleable Stocks"
+        Me.Label15.Text = "Damaged Stocks"
         '
         'Panel1
         '
@@ -144,7 +144,7 @@ Partial Class frmNonSaleableStocks
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label17.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label17.Location = New System.Drawing.Point(3, 4)
+        Me.Label17.Location = New System.Drawing.Point(3, 3)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(148, 17)
         Me.Label17.TabIndex = 121
@@ -271,9 +271,9 @@ Partial Class frmNonSaleableStocks
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.dgvlistproducts)
         Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Location = New System.Drawing.Point(25, 121)
+        Me.Panel5.Location = New System.Drawing.Point(25, 117)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1161, 634)
+        Me.Panel5.Size = New System.Drawing.Size(1161, 638)
         Me.Panel5.TabIndex = 121
         '
         'dgvlistproducts
@@ -290,10 +290,13 @@ Partial Class frmNonSaleableStocks
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvlistproducts.Location = New System.Drawing.Point(-1, 35)
+        Me.dgvlistproducts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvlistproducts.Location = New System.Drawing.Point(0, 35)
         Me.dgvlistproducts.Name = "dgvlistproducts"
         Me.dgvlistproducts.ReadOnly = True
-        Me.dgvlistproducts.Size = New System.Drawing.Size(1161, 598)
+        Me.dgvlistproducts.RowHeadersVisible = False
+        Me.dgvlistproducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvlistproducts.Size = New System.Drawing.Size(1159, 601)
         Me.dgvlistproducts.TabIndex = 1
         '
         'ProductCode
@@ -354,9 +357,10 @@ Partial Class frmNonSaleableStocks
         '
         Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Panel6.Controls.Add(Me.Label7)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1166, 35)
+        Me.Panel6.Size = New System.Drawing.Size(1159, 35)
         Me.Panel6.TabIndex = 0
         '
         'Label7

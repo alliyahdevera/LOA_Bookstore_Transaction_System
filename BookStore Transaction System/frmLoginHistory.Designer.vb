@@ -206,6 +206,8 @@ Partial Class frmLoginHistory
         Me.dgvLoginHistory.Location = New System.Drawing.Point(-1, 34)
         Me.dgvLoginHistory.Name = "dgvLoginHistory"
         Me.dgvLoginHistory.ReadOnly = True
+        Me.dgvLoginHistory.RowHeadersVisible = False
+        Me.dgvLoginHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvLoginHistory.Size = New System.Drawing.Size(1170, 575)
         Me.dgvLoginHistory.TabIndex = 1
         '
@@ -273,7 +275,7 @@ Partial Class frmLoginHistory
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(354, 91)
+        Me.Label2.Location = New System.Drawing.Point(225, 91)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 171
@@ -285,11 +287,11 @@ Partial Class frmLoginHistory
         Me.btngenerate.FlatAppearance.BorderSize = 0
         Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btngenerate.ForeColor = System.Drawing.Color.White
-        Me.btngenerate.Location = New System.Drawing.Point(653, 85)
+        Me.btngenerate.Location = New System.Drawing.Point(398, 85)
         Me.btngenerate.Name = "btngenerate"
         Me.btngenerate.Size = New System.Drawing.Size(101, 28)
         Me.btngenerate.TabIndex = 172
-        Me.btngenerate.Text = "Generate"
+        Me.btngenerate.Text = "Load Data"
         Me.btngenerate.UseVisualStyleBackColor = False
         '
         'DateTimePicker1
@@ -310,17 +312,19 @@ Partial Class frmLoginHistory
         'dtpFrom
         '
         Me.dtpFrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtpFrom.Location = New System.Drawing.Point(94, 86)
         Me.dtpFrom.Name = "dtpFrom"
-        Me.dtpFrom.Size = New System.Drawing.Size(251, 27)
+        Me.dtpFrom.Size = New System.Drawing.Size(123, 27)
         Me.dtpFrom.TabIndex = 173
         '
         'dtpTo
         '
         Me.dtpTo.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpTo.Location = New System.Drawing.Point(382, 86)
+        Me.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpTo.Location = New System.Drawing.Point(253, 86)
         Me.dtpTo.Name = "dtpTo"
-        Me.dtpTo.Size = New System.Drawing.Size(251, 27)
+        Me.dtpTo.Size = New System.Drawing.Size(123, 27)
         Me.dtpTo.TabIndex = 174
         '
         'Timer1

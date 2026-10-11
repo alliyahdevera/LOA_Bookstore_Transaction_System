@@ -23,7 +23,7 @@ Partial Class frmStudentList
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmStudentList))
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -43,6 +43,7 @@ Partial Class frmStudentList
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.cboGradeLevel = New System.Windows.Forms.ComboBox()
+        Me.btnselect = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
@@ -67,7 +68,7 @@ Partial Class frmStudentList
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label2.Location = New System.Drawing.Point(3, 4)
+        Me.Label2.Location = New System.Drawing.Point(3, 3)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(223, 17)
         Me.Label2.TabIndex = 122
@@ -106,9 +107,10 @@ Partial Class frmStudentList
         '
         Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Panel6.Controls.Add(Me.Label10)
-        Me.Panel6.Location = New System.Drawing.Point(25, 126)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1050, 35)
+        Me.Panel6.Size = New System.Drawing.Size(1048, 35)
         Me.Panel6.TabIndex = 109
         '
         'Label10
@@ -126,9 +128,10 @@ Partial Class frmStudentList
         '
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.dgvstudents)
+        Me.Panel7.Controls.Add(Me.Panel6)
         Me.Panel7.Location = New System.Drawing.Point(25, 126)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(1050, 571)
+        Me.Panel7.Size = New System.Drawing.Size(1050, 540)
         Me.Panel7.TabIndex = 110
         '
         'dgvstudents
@@ -137,18 +140,20 @@ Partial Class frmStudentList
         Me.dgvstudents.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvstudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvstudents.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.StudentNo, Me.StudentName, Me.EducationalLevel, Me.GradeLevel, Me.ProgramStrand, Me.Section})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvstudents.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvstudents.Location = New System.Drawing.Point(0, 30)
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvstudents.DefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvstudents.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvstudents.Location = New System.Drawing.Point(0, 35)
         Me.dgvstudents.Name = "dgvstudents"
         Me.dgvstudents.ReadOnly = True
-        Me.dgvstudents.Size = New System.Drawing.Size(1048, 539)
+        Me.dgvstudents.RowHeadersVisible = False
+        Me.dgvstudents.Size = New System.Drawing.Size(1048, 503)
         Me.dgvstudents.TabIndex = 3
         '
         'StudentNo
@@ -233,18 +238,30 @@ Partial Class frmStudentList
         Me.cboGradeLevel.Size = New System.Drawing.Size(174, 25)
         Me.cboGradeLevel.TabIndex = 121
         '
+        'btnselect
+        '
+        Me.btnselect.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnselect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnselect.ForeColor = System.Drawing.Color.White
+        Me.btnselect.Location = New System.Drawing.Point(904, 680)
+        Me.btnselect.Name = "btnselect"
+        Me.btnselect.Size = New System.Drawing.Size(172, 33)
+        Me.btnselect.TabIndex = 122
+        Me.btnselect.Text = "Select Student"
+        Me.btnselect.UseVisualStyleBackColor = False
+        '
         'frmStudentList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1097, 727)
+        Me.Controls.Add(Me.btnselect)
         Me.Controls.Add(Me.cboGradeLevel)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label14)
-        Me.Controls.Add(Me.Panel6)
         Me.Controls.Add(Me.Panel7)
         Me.Name = "frmStudentList"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -280,4 +297,5 @@ Partial Class frmStudentList
     Friend WithEvents ProgramStrand As DataGridViewTextBoxColumn
     Friend WithEvents Section As DataGridViewTextBoxColumn
     Friend WithEvents Label2 As Label
+    Friend WithEvents btnselect As Button
 End Class

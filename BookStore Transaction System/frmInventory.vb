@@ -64,7 +64,7 @@
             Case "Inventory Count & Reconciliation"
                 OpenInventoryForm(GetType(frmInventoryCountReconciliation))
             Case "Non-Saleable Stocks"
-                OpenInventoryForm(GetType(frmNonSaleableStocks))
+                OpenInventoryForm(GetType(frmDamagedStocks))
             Case "Releasing"
                 OpenInventoryForm(GetType(frmReleasing))
             Case Else

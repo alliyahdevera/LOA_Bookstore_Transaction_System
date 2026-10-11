@@ -149,6 +149,12 @@
     <Compile Include="frmCashDenomination.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmCashierDashboard.Designer.vb">
+      <DependentUpon>frmCashierDashboard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCashierDashboard.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmChangePassword.Designer.vb">
       <DependentUpon>frmChangePassword.vb</DependentUpon>
     </Compile>
@@ -197,6 +203,12 @@
     <Compile Include="frmInventoryDiscrepancies.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmInventoryStaffDashboard.Designer.vb">
+      <DependentUpon>frmInventoryStaffDashboard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmInventoryStaffDashboard.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmLoginHistory.Designer.vb">
       <DependentUpon>frmLoginHistory.vb</DependentUpon>
     </Compile>
@@ -209,10 +221,10 @@
     <Compile Include="frmManageSY.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmNonSaleableStocks.Designer.vb">
-      <DependentUpon>frmNonSaleableStocks.vb</DependentUpon>
+    <Compile Include="frmDamagedStocks.Designer.vb">
+      <DependentUpon>frmDamagedStocks.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmNonSaleableStocks.vb">
+    <Compile Include="frmDamagedStocks.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmPriceHistory.Designer.vb">
@@ -386,6 +398,9 @@
     <EmbeddedResource Include="frmCashDenomination.resx">
       <DependentUpon>frmCashDenomination.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCashierDashboard.resx">
+      <DependentUpon>frmCashierDashboard.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmChangePassword.resx">
       <DependentUpon>frmChangePassword.vb</DependentUpon>
     </EmbeddedResource>
@@ -410,17 +425,23 @@
     <EmbeddedResource Include="frmInventoryDiscrepancies.resx">
       <DependentUpon>frmInventoryDiscrepancies.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmInventoryStaffDashboard.resx">
+      <DependentUpon>frmInventoryStaffDashboard.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLoginHistory.resx">
       <DependentUpon>frmLoginHistory.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmManageSY.resx">
       <DependentUpon>frmManageSY.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmNonSaleableStocks.resx">
-      <DependentUpon>frmNonSaleableStocks.vb</DependentUpon>
+    <EmbeddedResource Include="frmDamagedStocks.resx">
+      <DependentUpon>frmDamagedStocks.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPriceHistory.resx">
       <DependentUpon>frmPriceHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReleasing.resx">
+      <DependentUpon>frmReleasing.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRemittance.resx">
       <DependentUpon>frmRemittance.vb</DependentUpon>

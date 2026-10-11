@@ -38,12 +38,6 @@ Partial Class frmSalesByItem
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvsalesreport = New System.Windows.Forms.DataGridView()
-        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TotalSales = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btngenerate = New System.Windows.Forms.Button()
@@ -53,6 +47,12 @@ Partial Class frmSalesByItem
         Me.dtfrom = New System.Windows.Forms.DateTimePicker()
         Me.cbocategory = New System.Windows.Forms.ComboBox()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TotalSales = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.LastSold = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvsalesreport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -235,12 +235,105 @@ Partial Class frmSalesByItem
         '
         Me.dgvsalesreport.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvsalesreport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvsalesreport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.Category, Me.Quantity, Me.TotalSales, Me.AmountPaid})
+        Me.dgvsalesreport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.Category, Me.Quantity, Me.TotalSales, Me.LastSold})
         Me.dgvsalesreport.Location = New System.Drawing.Point(-1, 34)
         Me.dgvsalesreport.Name = "dgvsalesreport"
         Me.dgvsalesreport.ReadOnly = True
+        Me.dgvsalesreport.RowHeadersVisible = False
+        Me.dgvsalesreport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvsalesreport.Size = New System.Drawing.Size(1170, 555)
         Me.dgvsalesreport.TabIndex = 1
+        '
+        'Panel6
+        '
+        Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Panel6.Controls.Add(Me.Label7)
+        Me.Panel6.Location = New System.Drawing.Point(0, 0)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(1169, 35)
+        Me.Panel6.TabIndex = 0
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.ForeColor = System.Drawing.Color.White
+        Me.Label7.Location = New System.Drawing.Point(7, 7)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(129, 21)
+        Me.Label7.TabIndex = 25
+        Me.Label7.Text = "SALES REPORTS"
+        '
+        'btngenerate
+        '
+        Me.btngenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btngenerate.ForeColor = System.Drawing.Color.White
+        Me.btngenerate.Location = New System.Drawing.Point(389, 85)
+        Me.btngenerate.Name = "btngenerate"
+        Me.btngenerate.Size = New System.Drawing.Size(122, 28)
+        Me.btngenerate.TabIndex = 138
+        Me.btngenerate.Text = "Load Data"
+        Me.btngenerate.UseVisualStyleBackColor = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(225, 91)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(22, 17)
+        Me.Label2.TabIndex = 137
+        Me.Label2.Text = "To"
+        '
+        'dtto
+        '
+        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtto.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtto.Location = New System.Drawing.Point(253, 86)
+        Me.dtto.Name = "dtto"
+        Me.dtto.Size = New System.Drawing.Size(120, 27)
+        Me.dtto.TabIndex = 136
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(23, 91)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(67, 17)
+        Me.Label1.TabIndex = 135
+        Me.Label1.Text = "Date from"
+        '
+        'dtfrom
+        '
+        Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtfrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtfrom.Location = New System.Drawing.Point(96, 86)
+        Me.dtfrom.Name = "dtfrom"
+        Me.dtfrom.Size = New System.Drawing.Size(120, 27)
+        Me.dtfrom.TabIndex = 134
+        '
+        'cbocategory
+        '
+        Me.cbocategory.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cbocategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbocategory.FormattingEnabled = True
+        Me.cbocategory.Items.AddRange(New Object() {"Uniforms", "Books", "Modules", "School Supplies", "Office Supplies", "All Items"})
+        Me.cbocategory.Location = New System.Drawing.Point(1014, 83)
+        Me.cbocategory.Name = "cbocategory"
+        Me.cbocategory.Size = New System.Drawing.Size(178, 25)
+        Me.cbocategory.TabIndex = 139
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(947, 87)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(61, 17)
+        Me.Label11.TabIndex = 140
+        Me.Label11.Text = "Category"
         '
         'ProductCode
         '
@@ -272,100 +365,11 @@ Partial Class frmSalesByItem
         Me.TotalSales.Name = "TotalSales"
         Me.TotalSales.ReadOnly = True
         '
-        'AmountPaid
+        'LastSold
         '
-        Me.AmountPaid.HeaderText = "Date"
-        Me.AmountPaid.Name = "AmountPaid"
-        Me.AmountPaid.ReadOnly = True
-        '
-        'Panel6
-        '
-        Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Panel6.Controls.Add(Me.Label7)
-        Me.Panel6.Location = New System.Drawing.Point(0, 0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1169, 35)
-        Me.Panel6.TabIndex = 0
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(7, 7)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(129, 21)
-        Me.Label7.TabIndex = 25
-        Me.Label7.Text = "SALES REPORTS"
-        '
-        'btngenerate
-        '
-        Me.btngenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btngenerate.ForeColor = System.Drawing.Color.White
-        Me.btngenerate.Location = New System.Drawing.Point(655, 85)
-        Me.btngenerate.Name = "btngenerate"
-        Me.btngenerate.Size = New System.Drawing.Size(122, 28)
-        Me.btngenerate.TabIndex = 138
-        Me.btngenerate.Text = "Generate"
-        Me.btngenerate.UseVisualStyleBackColor = False
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(356, 91)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(22, 17)
-        Me.Label2.TabIndex = 137
-        Me.Label2.Text = "To"
-        '
-        'dtto
-        '
-        Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtto.Location = New System.Drawing.Point(384, 86)
-        Me.dtto.Name = "dtto"
-        Me.dtto.Size = New System.Drawing.Size(251, 27)
-        Me.dtto.TabIndex = 136
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(23, 91)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(67, 17)
-        Me.Label1.TabIndex = 135
-        Me.Label1.Text = "Date from"
-        '
-        'dtfrom
-        '
-        Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtfrom.Location = New System.Drawing.Point(96, 86)
-        Me.dtfrom.Name = "dtfrom"
-        Me.dtfrom.Size = New System.Drawing.Size(251, 27)
-        Me.dtfrom.TabIndex = 134
-        '
-        'cbocategory
-        '
-        Me.cbocategory.FlatStyle = System.Windows.Forms.FlatStyle.System
-        Me.cbocategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cbocategory.FormattingEnabled = True
-        Me.cbocategory.Items.AddRange(New Object() {"Uniforms", "Books", "Modules", "School Supplies", "Office Supplies", "All Items"})
-        Me.cbocategory.Location = New System.Drawing.Point(1014, 83)
-        Me.cbocategory.Name = "cbocategory"
-        Me.cbocategory.Size = New System.Drawing.Size(178, 25)
-        Me.cbocategory.TabIndex = 139
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(947, 87)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(61, 17)
-        Me.Label11.TabIndex = 140
-        Me.Label11.Text = "Category"
+        Me.LastSold.HeaderText = "Last Sold"
+        Me.LastSold.Name = "LastSold"
+        Me.LastSold.ReadOnly = True
         '
         'frmSalesByItem
         '
@@ -420,12 +424,6 @@ Partial Class frmSalesByItem
     Friend WithEvents dgvsalesreport As DataGridView
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
-    Friend WithEvents ProductName As DataGridViewTextBoxColumn
-    Friend WithEvents Category As DataGridViewTextBoxColumn
-    Friend WithEvents Quantity As DataGridViewTextBoxColumn
-    Friend WithEvents TotalSales As DataGridViewTextBoxColumn
-    Friend WithEvents AmountPaid As DataGridViewTextBoxColumn
     Friend WithEvents btngenerate As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents dtto As DateTimePicker
@@ -433,4 +431,10 @@ Partial Class frmSalesByItem
     Friend WithEvents dtfrom As DateTimePicker
     Friend WithEvents cbocategory As ComboBox
     Friend WithEvents Label11 As Label
+    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
+    Friend WithEvents ProductName As DataGridViewTextBoxColumn
+    Friend WithEvents Category As DataGridViewTextBoxColumn
+    Friend WithEvents Quantity As DataGridViewTextBoxColumn
+    Friend WithEvents TotalSales As DataGridViewTextBoxColumn
+    Friend WithEvents LastSold As DataGridViewTextBoxColumn
 End Class

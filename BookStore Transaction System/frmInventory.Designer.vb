@@ -31,10 +31,10 @@ Partial Class frmInventory
         '
         'pnlinventory
         '
-        Me.pnlinventory.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlinventory.Location = New System.Drawing.Point(0, 46)
+        Me.pnlinventory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlinventory.Location = New System.Drawing.Point(0, 45)
         Me.pnlinventory.Name = "pnlinventory"
-        Me.pnlinventory.Size = New System.Drawing.Size(1220, 804)
+        Me.pnlinventory.Size = New System.Drawing.Size(1220, 805)
         Me.pnlinventory.TabIndex = 6
         '
         'Label6
@@ -74,8 +74,8 @@ Partial Class frmInventory
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 850)
-        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.pnlinventory)
+        Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmInventory"
         Me.Text = "frmInventory"

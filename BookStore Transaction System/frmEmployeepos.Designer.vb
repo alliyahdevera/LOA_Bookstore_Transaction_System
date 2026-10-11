@@ -46,7 +46,7 @@ Partial Class frmEmployeepos
         '
         Me.txtgrade.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtgrade.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtgrade.Location = New System.Drawing.Point(135, 88)
+        Me.txtgrade.Location = New System.Drawing.Point(135, 93)
         Me.txtgrade.Name = "txtgrade"
         Me.txtgrade.ReadOnly = True
         Me.txtgrade.Size = New System.Drawing.Size(190, 25)
@@ -69,7 +69,7 @@ Partial Class frmEmployeepos
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(18, 124)
+        Me.Label7.Location = New System.Drawing.Point(18, 136)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(54, 17)
         Me.Label7.TabIndex = 139
@@ -79,7 +79,7 @@ Partial Class frmEmployeepos
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(18, 90)
+        Me.Label8.Location = New System.Drawing.Point(18, 95)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(77, 17)
         Me.Label8.TabIndex = 138
@@ -109,7 +109,7 @@ Partial Class frmEmployeepos
         '
         Me.txtProgramStrand.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtProgramStrand.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtProgramStrand.Location = New System.Drawing.Point(135, 122)
+        Me.txtProgramStrand.Location = New System.Drawing.Point(135, 134)
         Me.txtProgramStrand.Name = "txtProgramStrand"
         Me.txtProgramStrand.ReadOnly = True
         Me.txtProgramStrand.Size = New System.Drawing.Size(190, 25)

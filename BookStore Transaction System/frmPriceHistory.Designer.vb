@@ -203,10 +203,13 @@ Partial Class frmPriceHistory
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvPriceHistory.DefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvPriceHistory.Location = New System.Drawing.Point(-1, 34)
+        Me.dgvPriceHistory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvPriceHistory.Location = New System.Drawing.Point(0, 35)
         Me.dgvPriceHistory.Name = "dgvPriceHistory"
         Me.dgvPriceHistory.ReadOnly = True
-        Me.dgvPriceHistory.Size = New System.Drawing.Size(1170, 575)
+        Me.dgvPriceHistory.RowHeadersVisible = False
+        Me.dgvPriceHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvPriceHistory.Size = New System.Drawing.Size(1168, 573)
         Me.dgvPriceHistory.TabIndex = 1
         '
         'ProductCode
@@ -255,9 +258,10 @@ Partial Class frmPriceHistory
         '
         Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Panel6.Controls.Add(Me.Label7)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1169, 35)
+        Me.Panel6.Size = New System.Drawing.Size(1168, 35)
         Me.Panel6.TabIndex = 0
         '
         'Label7
@@ -275,7 +279,7 @@ Partial Class frmPriceHistory
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(356, 92)
+        Me.Label2.Location = New System.Drawing.Point(239, 92)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 151
@@ -284,9 +288,10 @@ Partial Class frmPriceHistory
         'dtpto
         '
         Me.dtpto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtpto.Location = New System.Drawing.Point(384, 87)
+        Me.dtpto.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpto.Location = New System.Drawing.Point(267, 87)
         Me.dtpto.Name = "dtpto"
-        Me.dtpto.Size = New System.Drawing.Size(251, 27)
+        Me.dtpto.Size = New System.Drawing.Size(130, 27)
         Me.dtpto.TabIndex = 150
         '
         'Label1
@@ -302,9 +307,10 @@ Partial Class frmPriceHistory
         'dtpfrom
         '
         Me.dtpfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dtpfrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtpfrom.Location = New System.Drawing.Point(96, 87)
         Me.dtpfrom.Name = "dtpfrom"
-        Me.dtpfrom.Size = New System.Drawing.Size(251, 27)
+        Me.dtpfrom.Size = New System.Drawing.Size(130, 27)
         Me.dtpfrom.TabIndex = 148
         '
         'btngenerate
@@ -313,11 +319,11 @@ Partial Class frmPriceHistory
         Me.btngenerate.FlatAppearance.BorderSize = 0
         Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btngenerate.ForeColor = System.Drawing.Color.White
-        Me.btngenerate.Location = New System.Drawing.Point(663, 86)
+        Me.btngenerate.Location = New System.Drawing.Point(418, 86)
         Me.btngenerate.Name = "btngenerate"
-        Me.btngenerate.Size = New System.Drawing.Size(101, 28)
+        Me.btngenerate.Size = New System.Drawing.Size(117, 28)
         Me.btngenerate.TabIndex = 163
-        Me.btngenerate.Text = "Generate"
+        Me.btngenerate.Text = "Load Data"
         Me.btngenerate.UseVisualStyleBackColor = False
         '
         'Timer1

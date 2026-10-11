@@ -153,7 +153,6 @@ Public Class frmRemittance
         dgvsalesreport.ClearSelection()
     End Sub
 
-    ' ==================== PRINT ====================
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
         If dgvsalesreport.SelectedRows.Count = 0 Then
             MsgBox("Select a remittance record to print.", vbExclamation, "Remittance Report")

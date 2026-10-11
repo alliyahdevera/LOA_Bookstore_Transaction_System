@@ -120,7 +120,7 @@ Partial Class frmStudentManagement
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label4.Location = New System.Drawing.Point(3, 4)
+        Me.Label4.Location = New System.Drawing.Point(3, 3)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(167, 17)
         Me.Label4.TabIndex = 124
@@ -312,6 +312,7 @@ Partial Class frmStudentManagement
         Me.dgvstudents.Location = New System.Drawing.Point(-1, 34)
         Me.dgvstudents.Name = "dgvstudents"
         Me.dgvstudents.ReadOnly = True
+        Me.dgvstudents.RowHeadersVisible = False
         Me.dgvstudents.Size = New System.Drawing.Size(1157, 433)
         Me.dgvstudents.TabIndex = 2
         '

@@ -13,7 +13,6 @@ Public Class frmSalesByItem
         dtto.Value = Date.Today
 
         Label9.Text = "Total Quantity"
-        dgvsalesreport.Columns("AmountPaid").HeaderText = "Last Sold"
         dgvsalesreport.AllowUserToAddRows = False
         dgvsalesreport.AllowUserToDeleteRows = False
 
@@ -22,7 +21,7 @@ Public Class frmSalesByItem
         Dim cats As DataTable = GetDataTable("SELECT category_id, category_name FROM TBL_CATEGORIES ORDER BY category_name")
         Dim allRow As DataRow = cats.NewRow()
         allRow("category_id") = 0
-        allRow("category_name") = "-- All Categories --"
+        allRow("category_name") = "All Categories"
         cats.Rows.InsertAt(allRow, 0)
         FillCombo(cbocategory, cats, "category_name", "category_id")
         cbocategory.SelectedIndex = 0
@@ -90,7 +89,7 @@ Public Class frmSalesByItem
             row.Cells("Category").Value = r("category_name").ToString()
             row.Cells("Quantity").Value = Convert.ToInt32(r("qty"))
             row.Cells("TotalSales").Value = Convert.ToDecimal(r("amt")).ToString("N2")
-            row.Cells("AmountPaid").Value = Convert.ToDateTime(r("last_sold")).ToString("yyyy-MM-dd")
+            row.Cells("LastSold").Value = Convert.ToDateTime(r("last_sold")).ToString("yyyy-MM-dd")
         Next
         dgvsalesreport.ClearSelection()
     End Sub

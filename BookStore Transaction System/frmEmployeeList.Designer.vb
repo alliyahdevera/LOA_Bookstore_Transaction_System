@@ -134,6 +134,8 @@ Partial Class frmEmployeeList
         Me.dgvstudents.Location = New System.Drawing.Point(0, 34)
         Me.dgvstudents.Name = "dgvstudents"
         Me.dgvstudents.ReadOnly = True
+        Me.dgvstudents.RowHeadersVisible = False
+        Me.dgvstudents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvstudents.Size = New System.Drawing.Size(1048, 535)
         Me.dgvstudents.TabIndex = 3
         '

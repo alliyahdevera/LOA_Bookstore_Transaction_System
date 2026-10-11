@@ -177,6 +177,7 @@ Partial Class frmUserManagement
         Me.Panel5.Controls.Add(Me.Label11)
         Me.Panel5.Controls.Add(Me.txtlastname)
         Me.Panel5.Controls.Add(Me.Label3)
+        Me.Panel5.Controls.Add(Me.Panel11)
         Me.Panel5.Controls.Add(Me.txtusername)
         Me.Panel5.Controls.Add(Me.txtpassword)
         Me.Panel5.Controls.Add(Me.Label2)
@@ -262,9 +263,10 @@ Partial Class frmUserManagement
         '
         Me.Panel11.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Panel11.Controls.Add(Me.Label9)
-        Me.Panel11.Location = New System.Drawing.Point(30, 84)
+        Me.Panel11.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel11.Location = New System.Drawing.Point(0, 0)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(860, 35)
+        Me.Panel11.Size = New System.Drawing.Size(858, 35)
         Me.Panel11.TabIndex = 52
         '
         'Label9
@@ -282,9 +284,10 @@ Partial Class frmUserManagement
         '
         Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Panel6.Controls.Add(Me.Label10)
-        Me.Panel6.Location = New System.Drawing.Point(30, 355)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1157, 35)
+        Me.Panel6.Size = New System.Drawing.Size(1155, 35)
         Me.Panel6.TabIndex = 53
         '
         'Label10
@@ -302,6 +305,7 @@ Partial Class frmUserManagement
         '
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.dgvlistusers)
+        Me.Panel7.Controls.Add(Me.Panel6)
         Me.Panel7.Location = New System.Drawing.Point(30, 355)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(1157, 435)
@@ -309,12 +313,16 @@ Partial Class frmUserManagement
         '
         'dgvlistusers
         '
+        Me.dgvlistusers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvlistusers.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvlistusers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvlistusers.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Username, Me.Column2, Me.Column5, Me.FirstName, Me.LastName, Me.Column6})
-        Me.dgvlistusers.Location = New System.Drawing.Point(-1, 34)
+        Me.dgvlistusers.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvlistusers.Location = New System.Drawing.Point(0, 35)
         Me.dgvlistusers.Name = "dgvlistusers"
         Me.dgvlistusers.ReadOnly = True
-        Me.dgvlistusers.Size = New System.Drawing.Size(1167, 400)
+        Me.dgvlistusers.RowHeadersVisible = False
+        Me.dgvlistusers.Size = New System.Drawing.Size(1155, 398)
         Me.dgvlistusers.TabIndex = 2
         '
         'Username
@@ -322,42 +330,36 @@ Partial Class frmUserManagement
         Me.Username.HeaderText = "Username"
         Me.Username.Name = "Username"
         Me.Username.ReadOnly = True
-        Me.Username.Width = 200
         '
         'Column2
         '
         Me.Column2.HeaderText = "Password"
         Me.Column2.Name = "Column2"
         Me.Column2.ReadOnly = True
-        Me.Column2.Width = 200
         '
         'Column5
         '
         Me.Column5.HeaderText = "Role"
         Me.Column5.Name = "Column5"
         Me.Column5.ReadOnly = True
-        Me.Column5.Width = 155
         '
         'FirstName
         '
         Me.FirstName.HeaderText = "First Name"
         Me.FirstName.Name = "FirstName"
         Me.FirstName.ReadOnly = True
-        Me.FirstName.Width = 200
         '
         'LastName
         '
         Me.LastName.HeaderText = "Last Name"
         Me.LastName.Name = "LastName"
         Me.LastName.ReadOnly = True
-        Me.LastName.Width = 210
         '
         'Column6
         '
         Me.Column6.HeaderText = "Status"
         Me.Column6.Name = "Column6"
         Me.Column6.ReadOnly = True
-        Me.Column6.Width = 150
         '
         'Label14
         '
@@ -473,7 +475,7 @@ Partial Class frmUserManagement
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label4.Location = New System.Drawing.Point(3, 5)
+        Me.Label4.Location = New System.Drawing.Point(3, 3)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(152, 17)
         Me.Label4.TabIndex = 98
@@ -557,9 +559,7 @@ Partial Class frmUserManagement
         Me.Controls.Add(Me.btnremove)
         Me.Controls.Add(Me.btnupd)
         Me.Controls.Add(Me.Label14)
-        Me.Controls.Add(Me.Panel6)
         Me.Controls.Add(Me.Panel7)
-        Me.Controls.Add(Me.Panel11)
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.Label6)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None

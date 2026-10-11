@@ -30,22 +30,6 @@ Partial Class frmTransactionHistory
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvtransaction = New System.Windows.Forms.DataGridView()
-        Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SubTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TotalAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.tDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Time = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AmountChange = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PaymentMethod = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProcessedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Panel13 = New System.Windows.Forms.Panel()
@@ -56,7 +40,7 @@ Partial Class frmTransactionHistory
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Button3 = New System.Windows.Forms.Button()
+        Me.btndelete = New System.Windows.Forms.Button()
         Me.btnviewdetails = New System.Windows.Forms.Button()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.lbltotalsales = New System.Windows.Forms.Label()
@@ -74,6 +58,22 @@ Partial Class frmTransactionHistory
         Me.Label11 = New System.Windows.Forms.Label()
         Me.cboType = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SubTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TotalAmount = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Time = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AmountPaid = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AmountChange = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PaymentMethod = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProcessedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvtransaction, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
@@ -86,7 +86,7 @@ Partial Class frmTransactionHistory
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(25, 125)
+        Me.Label14.Location = New System.Drawing.Point(25, 88)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(47, 17)
         Me.Label14.TabIndex = 33
@@ -99,23 +99,22 @@ Partial Class frmTransactionHistory
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Label6.Location = New System.Drawing.Point(21, 15)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(146, 32)
+        Me.Label6.Size = New System.Drawing.Size(237, 32)
         Me.Label6.TabIndex = 40
-        Me.Label6.Text = "Transaction"
+        Me.Label6.Text = "Transaction History"
         '
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.dgvtransaction)
         Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Location = New System.Drawing.Point(27, 160)
+        Me.Panel5.Location = New System.Drawing.Point(27, 120)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1167, 611)
+        Me.Panel5.Size = New System.Drawing.Size(1167, 653)
         Me.Panel5.TabIndex = 42
         '
         'dgvtransaction
         '
-        Me.dgvtransaction.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells
         Me.dgvtransaction.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvtransaction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvtransaction.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.BuyerName, Me.ProductCode, Me.ProductName, Me.Size, Me.UnitPrice, Me.SubTotal, Me.Quantity, Me.TotalAmount, Me.tDate, Me.Time, Me.AmountPaid, Me.AmountChange, Me.PaymentMethod, Me.Status, Me.ProcessedBy})
@@ -127,7 +126,8 @@ Partial Class frmTransactionHistory
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvtransaction.DefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvtransaction.Location = New System.Drawing.Point(-1, 35)
+        Me.dgvtransaction.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvtransaction.Location = New System.Drawing.Point(0, 35)
         Me.dgvtransaction.Name = "dgvtransaction"
         Me.dgvtransaction.ReadOnly = True
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -138,128 +138,19 @@ Partial Class frmTransactionHistory
         DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvtransaction.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvtransaction.Size = New System.Drawing.Size(1167, 575)
+        Me.dgvtransaction.RowHeadersVisible = False
+        Me.dgvtransaction.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvtransaction.Size = New System.Drawing.Size(1165, 616)
         Me.dgvtransaction.TabIndex = 1
-        '
-        'TransactionNo
-        '
-        Me.TransactionNo.HeaderText = "Transaction No."
-        Me.TransactionNo.Name = "TransactionNo"
-        Me.TransactionNo.ReadOnly = True
-        Me.TransactionNo.Width = 99
-        '
-        'BuyerName
-        '
-        Me.BuyerName.HeaderText = "Buyer Name"
-        Me.BuyerName.Name = "BuyerName"
-        Me.BuyerName.ReadOnly = True
-        Me.BuyerName.Width = 83
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        Me.ProductCode.ReadOnly = True
-        Me.ProductCode.Width = 89
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        Me.ProductName.ReadOnly = True
-        Me.ProductName.Width = 92
-        '
-        'Size
-        '
-        Me.Size.HeaderText = "Size"
-        Me.Size.Name = "Size"
-        Me.Size.ReadOnly = True
-        Me.Size.Width = 52
-        '
-        'UnitPrice
-        '
-        Me.UnitPrice.HeaderText = "Unit Price"
-        Me.UnitPrice.Name = "UnitPrice"
-        Me.UnitPrice.ReadOnly = True
-        Me.UnitPrice.Width = 72
-        '
-        'SubTotal
-        '
-        Me.SubTotal.HeaderText = "Sub Total"
-        Me.SubTotal.Name = "SubTotal"
-        Me.SubTotal.ReadOnly = True
-        Me.SubTotal.Width = 72
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        Me.Quantity.ReadOnly = True
-        Me.Quantity.Width = 71
-        '
-        'TotalAmount
-        '
-        Me.TotalAmount.HeaderText = "Total Amount"
-        Me.TotalAmount.Name = "TotalAmount"
-        Me.TotalAmount.ReadOnly = True
-        Me.TotalAmount.Width = 88
-        '
-        'tDate
-        '
-        Me.tDate.HeaderText = "Date"
-        Me.tDate.Name = "tDate"
-        Me.tDate.ReadOnly = True
-        Me.tDate.Width = 55
-        '
-        'Time
-        '
-        Me.Time.HeaderText = "Time"
-        Me.Time.Name = "Time"
-        Me.Time.ReadOnly = True
-        Me.Time.Width = 55
-        '
-        'AmountPaid
-        '
-        Me.AmountPaid.HeaderText = "Amount Paid"
-        Me.AmountPaid.Name = "AmountPaid"
-        Me.AmountPaid.ReadOnly = True
-        Me.AmountPaid.Width = 85
-        '
-        'AmountChange
-        '
-        Me.AmountChange.HeaderText = "Amount Change"
-        Me.AmountChange.Name = "AmountChange"
-        Me.AmountChange.ReadOnly = True
-        Me.AmountChange.Width = 99
-        '
-        'PaymentMethod
-        '
-        Me.PaymentMethod.HeaderText = "Payment Method"
-        Me.PaymentMethod.Name = "PaymentMethod"
-        Me.PaymentMethod.ReadOnly = True
-        Me.PaymentMethod.Width = 103
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
-        Me.Status.Width = 62
-        '
-        'ProcessedBy
-        '
-        Me.ProcessedBy.HeaderText = "Processed By"
-        Me.ProcessedBy.Name = "ProcessedBy"
-        Me.ProcessedBy.ReadOnly = True
-        Me.ProcessedBy.Width = 89
         '
         'Panel6
         '
         Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Panel6.Controls.Add(Me.Label7)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1166, 35)
+        Me.Panel6.Size = New System.Drawing.Size(1165, 35)
         Me.Panel6.TabIndex = 0
         '
         'Label7
@@ -285,7 +176,7 @@ Partial Class frmTransactionHistory
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel13.Location = New System.Drawing.Point(0, 823)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1193, 27)
+        Me.Panel13.Size = New System.Drawing.Size(1226, 27)
         Me.Panel13.TabIndex = 70
         '
         'lblname
@@ -370,21 +261,24 @@ Partial Class frmTransactionHistory
         Me.Label3.TabIndex = 72
         Me.Label3.Text = "Total Sales"
         '
-        'Button3
+        'btndelete
         '
-        Me.Button3.Location = New System.Drawing.Point(1079, 775)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(113, 27)
-        Me.Button3.TabIndex = 73
-        Me.Button3.Text = "Delete Record"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.btndelete.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btndelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btndelete.ForeColor = System.Drawing.Color.White
+        Me.btndelete.Location = New System.Drawing.Point(1050, 779)
+        Me.btndelete.Name = "btndelete"
+        Me.btndelete.Size = New System.Drawing.Size(146, 35)
+        Me.btndelete.TabIndex = 73
+        Me.btndelete.Text = "Cancel Transaction"
+        Me.btndelete.UseVisualStyleBackColor = False
         '
         'btnviewdetails
         '
         Me.btnviewdetails.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btnviewdetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnviewdetails.ForeColor = System.Drawing.Color.White
-        Me.btnviewdetails.Location = New System.Drawing.Point(1079, 121)
+        Me.btnviewdetails.Location = New System.Drawing.Point(1079, 84)
         Me.btnviewdetails.Name = "btnviewdetails"
         Me.btnviewdetails.Size = New System.Drawing.Size(115, 26)
         Me.btnviewdetails.TabIndex = 75
@@ -419,7 +313,7 @@ Partial Class frmTransactionHistory
         Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(97, 121)
+        Me.Panel1.Location = New System.Drawing.Point(97, 84)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(251, 26)
         Me.Panel1.TabIndex = 96
@@ -429,7 +323,7 @@ Partial Class frmTransactionHistory
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label5.Location = New System.Drawing.Point(3, 5)
+        Me.Label5.Location = New System.Drawing.Point(3, 3)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(191, 17)
         Me.Label5.TabIndex = 148
@@ -459,18 +353,18 @@ Partial Class frmTransactionHistory
         Me.btngenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btngenerate.ForeColor = System.Drawing.Color.White
-        Me.btngenerate.Location = New System.Drawing.Point(660, 79)
+        Me.btngenerate.Location = New System.Drawing.Point(1079, 25)
         Me.btngenerate.Name = "btngenerate"
-        Me.btngenerate.Size = New System.Drawing.Size(101, 28)
+        Me.btngenerate.Size = New System.Drawing.Size(115, 28)
         Me.btngenerate.TabIndex = 143
-        Me.btngenerate.Text = "Generate"
+        Me.btngenerate.Text = "Load Data"
         Me.btngenerate.UseVisualStyleBackColor = False
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(360, 85)
+        Me.Label2.Location = New System.Drawing.Point(939, 31)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 142
@@ -479,16 +373,17 @@ Partial Class frmTransactionHistory
         'dtto
         '
         Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtto.Location = New System.Drawing.Point(388, 80)
+        Me.dtto.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtto.Location = New System.Drawing.Point(967, 25)
         Me.dtto.Name = "dtto"
-        Me.dtto.Size = New System.Drawing.Size(251, 27)
+        Me.dtto.Size = New System.Drawing.Size(99, 27)
         Me.dtto.TabIndex = 141
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(27, 85)
+        Me.Label1.Location = New System.Drawing.Point(767, 30)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 17)
         Me.Label1.TabIndex = 140
@@ -497,16 +392,17 @@ Partial Class frmTransactionHistory
         'dtfrom
         '
         Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dtfrom.Location = New System.Drawing.Point(97, 80)
+        Me.dtfrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtfrom.Location = New System.Drawing.Point(837, 25)
         Me.dtfrom.Name = "dtfrom"
-        Me.dtfrom.Size = New System.Drawing.Size(251, 27)
+        Me.dtfrom.Size = New System.Drawing.Size(99, 27)
         Me.dtfrom.TabIndex = 139
         '
         'cboCategory
         '
         Me.cboCategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboCategory.FormattingEnabled = True
-        Me.cboCategory.Location = New System.Drawing.Point(430, 121)
+        Me.cboCategory.Location = New System.Drawing.Point(430, 84)
         Me.cboCategory.Name = "cboCategory"
         Me.cboCategory.Size = New System.Drawing.Size(206, 25)
         Me.cboCategory.TabIndex = 145
@@ -515,7 +411,7 @@ Partial Class frmTransactionHistory
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(360, 125)
+        Me.Label11.Location = New System.Drawing.Point(360, 88)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(64, 17)
         Me.Label11.TabIndex = 144
@@ -525,7 +421,7 @@ Partial Class frmTransactionHistory
         '
         Me.cboType.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboType.FormattingEnabled = True
-        Me.cboType.Location = New System.Drawing.Point(704, 121)
+        Me.cboType.Location = New System.Drawing.Point(704, 84)
         Me.cboType.Name = "cboType"
         Me.cboType.Size = New System.Drawing.Size(188, 25)
         Me.cboType.TabIndex = 147
@@ -534,17 +430,117 @@ Partial Class frmTransactionHistory
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(656, 124)
+        Me.Label4.Location = New System.Drawing.Point(656, 87)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(36, 17)
         Me.Label4.TabIndex = 146
         Me.Label4.Text = "Type"
         '
+        'TransactionNo
+        '
+        Me.TransactionNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.TransactionNo.HeaderText = "Transaction No."
+        Me.TransactionNo.Name = "TransactionNo"
+        Me.TransactionNo.ReadOnly = True
+        Me.TransactionNo.Width = 99
+        '
+        'BuyerName
+        '
+        Me.BuyerName.HeaderText = "Buyer Name"
+        Me.BuyerName.Name = "BuyerName"
+        Me.BuyerName.ReadOnly = True
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
+        '
+        'Size
+        '
+        Me.Size.HeaderText = "Size"
+        Me.Size.Name = "Size"
+        Me.Size.ReadOnly = True
+        Me.Size.Width = 80
+        '
+        'UnitPrice
+        '
+        Me.UnitPrice.HeaderText = "Unit Price"
+        Me.UnitPrice.Name = "UnitPrice"
+        Me.UnitPrice.ReadOnly = True
+        '
+        'SubTotal
+        '
+        Me.SubTotal.HeaderText = "Sub Total"
+        Me.SubTotal.Name = "SubTotal"
+        Me.SubTotal.ReadOnly = True
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
+        Me.Quantity.Width = 80
+        '
+        'TotalAmount
+        '
+        Me.TotalAmount.HeaderText = "Total Amount"
+        Me.TotalAmount.Name = "TotalAmount"
+        Me.TotalAmount.ReadOnly = True
+        '
+        'tDate
+        '
+        Me.tDate.HeaderText = "Date"
+        Me.tDate.Name = "tDate"
+        Me.tDate.ReadOnly = True
+        '
+        'Time
+        '
+        Me.Time.HeaderText = "Time"
+        Me.Time.Name = "Time"
+        Me.Time.ReadOnly = True
+        '
+        'AmountPaid
+        '
+        Me.AmountPaid.HeaderText = "Amount Paid"
+        Me.AmountPaid.Name = "AmountPaid"
+        Me.AmountPaid.ReadOnly = True
+        '
+        'AmountChange
+        '
+        Me.AmountChange.HeaderText = "Amount Change"
+        Me.AmountChange.Name = "AmountChange"
+        Me.AmountChange.ReadOnly = True
+        '
+        'PaymentMethod
+        '
+        Me.PaymentMethod.HeaderText = "Payment Method"
+        Me.PaymentMethod.Name = "PaymentMethod"
+        Me.PaymentMethod.ReadOnly = True
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
+        '
+        'ProcessedBy
+        '
+        Me.ProcessedBy.HeaderText = "Processed By"
+        Me.ProcessedBy.Name = "ProcessedBy"
+        Me.ProcessedBy.ReadOnly = True
+        '
         'frmTransactionHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1193, 850)
+        Me.ClientSize = New System.Drawing.Size(1226, 850)
         Me.Controls.Add(Me.cboType)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.cboCategory)
@@ -558,7 +554,7 @@ Partial Class frmTransactionHistory
         Me.Controls.Add(Me.lbltotalsales)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.btnviewdetails)
-        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.btndelete)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Panel13)
         Me.Controls.Add(Me.Panel5)
@@ -594,7 +590,7 @@ Partial Class frmTransactionHistory
     Friend WithEvents Label28 As Label
     Friend WithEvents lblposition As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents Button3 As Button
+    Friend WithEvents btndelete As Button
     Friend WithEvents btnviewdetails As Button
     Friend WithEvents Label15 As Label
     Friend WithEvents lbltotalsales As Label
@@ -611,6 +607,7 @@ Partial Class frmTransactionHistory
     Friend WithEvents Label11 As Label
     Friend WithEvents cboType As ComboBox
     Friend WithEvents Label4 As Label
+    Friend WithEvents Label5 As Label
     Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
     Friend WithEvents BuyerName As DataGridViewTextBoxColumn
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
@@ -627,5 +624,4 @@ Partial Class frmTransactionHistory
     Friend WithEvents PaymentMethod As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents ProcessedBy As DataGridViewTextBoxColumn
-    Friend WithEvents Label5 As Label
 End Class

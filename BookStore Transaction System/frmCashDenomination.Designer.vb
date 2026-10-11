@@ -168,7 +168,7 @@ Partial Class frmCashDenomination
         'lblcashtc
         '
         Me.lblcashtc.AutoSize = True
-        Me.lblcashtc.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblcashtc.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblcashtc.Location = New System.Drawing.Point(217, 168)
         Me.lblcashtc.Name = "lblcashtc"
         Me.lblcashtc.Size = New System.Drawing.Size(13, 17)
@@ -178,7 +178,7 @@ Partial Class frmCashDenomination
         'lblsaldc
         '
         Me.lblsaldc.AutoSize = True
-        Me.lblsaldc.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblsaldc.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblsaldc.Location = New System.Drawing.Point(217, 197)
         Me.lblsaldc.Name = "lblsaldc"
         Me.lblsaldc.Size = New System.Drawing.Size(13, 17)
@@ -188,7 +188,7 @@ Partial Class frmCashDenomination
         'lblcashsales
         '
         Me.lblcashsales.AutoSize = True
-        Me.lblcashsales.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblcashsales.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblcashsales.Location = New System.Drawing.Point(217, 50)
         Me.lblcashsales.Name = "lblcashsales"
         Me.lblcashsales.Size = New System.Drawing.Size(13, 17)
@@ -198,7 +198,7 @@ Partial Class frmCashDenomination
         'lblsaldec
         '
         Me.lblsaldec.AutoSize = True
-        Me.lblsaldec.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblsaldec.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblsaldec.Location = New System.Drawing.Point(217, 77)
         Me.lblsaldec.Name = "lblsaldec"
         Me.lblsaldec.Size = New System.Drawing.Size(13, 17)
@@ -229,7 +229,7 @@ Partial Class frmCashDenomination
         'lbltottransac
         '
         Me.lbltottransac.AutoSize = True
-        Me.lbltottransac.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbltottransac.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbltottransac.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.lbltottransac.Location = New System.Drawing.Point(197, 9)
         Me.lbltottransac.Name = "lbltottransac"
@@ -240,11 +240,11 @@ Partial Class frmCashDenomination
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Label1.Location = New System.Drawing.Point(10, 9)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(120, 17)
+        Me.Label1.Size = New System.Drawing.Size(116, 17)
         Me.Label1.TabIndex = 104
         Me.Label1.Text = "Total Transactions"
         '
@@ -261,7 +261,7 @@ Partial Class frmCashDenomination
         'lbltotsales
         '
         Me.lbltotsales.AutoSize = True
-        Me.lbltotsales.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbltotsales.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbltotsales.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.lbltotsales.Location = New System.Drawing.Point(197, 9)
         Me.lbltotsales.Name = "lbltotsales"
@@ -272,31 +272,31 @@ Partial Class frmCashDenomination
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Label2.Location = New System.Drawing.Point(10, 9)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(74, 17)
+        Me.Label2.Size = New System.Drawing.Size(71, 17)
         Me.Label2.TabIndex = 104
         Me.Label2.Text = "Total Sales"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(19, 169)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(144, 17)
+        Me.Label3.Size = New System.Drawing.Size(151, 17)
         Me.Label3.TabIndex = 98
         Me.Label3.Text = "Cash Transaction Count"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(19, 196)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(144, 17)
+        Me.Label5.Size = New System.Drawing.Size(152, 17)
         Me.Label5.TabIndex = 92
         Me.Label5.Text = "Salary Deduction Count"
         '
@@ -323,20 +323,20 @@ Partial Class frmCashDenomination
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label17.Location = New System.Drawing.Point(17, 50)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(74, 17)
+        Me.Label17.Size = New System.Drawing.Size(75, 17)
         Me.Label17.TabIndex = 98
         Me.Label17.Text = "Cash Sales "
         '
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label24.Location = New System.Drawing.Point(17, 77)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(106, 17)
+        Me.Label24.Size = New System.Drawing.Size(111, 17)
         Me.Label24.TabIndex = 92
         Me.Label24.Text = "Salary Deduction"
         '
@@ -391,6 +391,8 @@ Partial Class frmCashDenomination
         Me.dgvcashbreakdown.Location = New System.Drawing.Point(-1, 34)
         Me.dgvcashbreakdown.Name = "dgvcashbreakdown"
         Me.dgvcashbreakdown.ReadOnly = True
+        Me.dgvcashbreakdown.RowHeadersVisible = False
+        Me.dgvcashbreakdown.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.dgvcashbreakdown.Size = New System.Drawing.Size(781, 218)
         Me.dgvcashbreakdown.TabIndex = 1
         '

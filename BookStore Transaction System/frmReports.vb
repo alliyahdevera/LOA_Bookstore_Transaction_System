@@ -54,7 +54,7 @@
             Case "Inventory Discrepancy"
                 OpenReport(GetType(frmInventoryDiscrepancies))
             Case "Damaged Report"
-                OpenReport(GetType(frmNonSaleableStocks))
+                OpenReport(GetType(frmDamagedStocks))
             Case "Unreleased Items"
                 OpenReport(GetType(frmReleasing))
             Case Else
