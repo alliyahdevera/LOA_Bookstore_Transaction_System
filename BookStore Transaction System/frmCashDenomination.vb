@@ -7,7 +7,7 @@ Public Class frmCashDenomination
     Private Const SESSION_FILTER As String =
     "created_by = @u AND DATE(created_at) = CURDATE() " &
     "AND status <> 'Cancelled' " &
-    "AND payment_method <> 'School Cashier' "
+    "AND payment_method = 'Cash' "
     Private ReadOnly Peso As String = ChrW(8369)
     Private ReadOnly Denominations As Decimal() = New Decimal() {1000D, 500D, 200D, 100D, 50D, 20D, 10D, 5D, 1D, 0.25D}
 
@@ -16,6 +16,7 @@ Public Class frmCashDenomination
     Private cashCount As Integer = 0
     Private salaryCount As Integer = 0
     Private isLoading As Boolean = True
+
     Private Sub frmCashDenomination_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         isLoading = True
 
@@ -73,35 +74,51 @@ Public Class frmCashDenomination
         row.Cells("Amount").Value = (CDec(row.Tag) * qty).ToString("N2")
         RecalculateActual()
     End Sub
+
     Private Sub LoadSummary()
-        cashSales = 0D : salaryDeduction = 0D : cashCount = 0 : salaryCount = 0
+        cashSales = 0D
+        cashCount = 0
+
+        ' Retained database fields are written as zero for cash remittance.
+        salaryDeduction = 0D
+        salaryCount = 0
+
         cboFrom.Items.Clear()
         cboTo.Items.Clear()
 
-        Dim uid As Object = currentuser.UserID
+        Dim summary As DataTable = GetDataTable(
+        "SELECT COUNT(*) AS transaction_count, " &
+        "IFNULL(SUM(total_amount), 0) AS cash_total " &
+        "FROM tbl_transactions WHERE " & SESSION_FILTER,
+        New String() {"@u"},
+        New Object() {currentuser.UserID})
 
-        Dim dt As DataTable = GetDataTable(
-        "SELECT payment_method, COUNT(*) AS cnt, IFNULL(SUM(total_amount), 0) AS amt " &
-        "FROM tbl_transactions WHERE " & SESSION_FILTER & "GROUP BY payment_method",
-        New String() {"@u"}, New Object() {uid})
+        If summary Is Nothing OrElse summary.Rows.Count = 0 Then
+            Throw New InvalidOperationException(
+            "The cash summary could not be loaded.")
+        End If
 
-        For Each r As DataRow In dt.Rows
-            Dim cnt As Integer = Convert.ToInt32(r("cnt"))
-            Dim amt As Decimal = Convert.ToDecimal(r("amt"))
-            If r("payment_method").ToString() = METHOD_SALARY Then
-                salaryCount += cnt : salaryDeduction += amt
-            Else
-                cashCount += cnt : cashSales += amt
-            End If
-        Next
+        cashCount =
+        Convert.ToInt32(summary.Rows(0)("transaction_count"))
 
-        Dim ors As DataTable = GetDataTable(
-        "SELECT or_no FROM tbl_transactions WHERE " & SESSION_FILTER & "ORDER BY transaction_id",
-        New String() {"@u"}, New Object() {uid})
+        cashSales =
+        Convert.ToDecimal(summary.Rows(0)("cash_total"))
 
-        For Each r As DataRow In ors.Rows
-            cboFrom.Items.Add(r("or_no").ToString())
-            cboTo.Items.Add(r("or_no").ToString())
+        Dim receipts As DataTable = GetDataTable(
+        "SELECT or_no FROM tbl_transactions WHERE " &
+        SESSION_FILTER &
+        "AND TRIM(or_no) <> '' ORDER BY transaction_id",
+        New String() {"@u"},
+        New Object() {currentuser.UserID})
+
+        If receipts Is Nothing Then
+            Throw New InvalidOperationException(
+            "The cash receipt list could not be loaded.")
+        End If
+
+        For Each receipt As DataRow In receipts.Rows
+            cboFrom.Items.Add(receipt("or_no").ToString())
+            cboTo.Items.Add(receipt("or_no").ToString())
         Next
 
         If cboFrom.Items.Count > 0 Then
@@ -110,9 +127,9 @@ Public Class frmCashDenomination
         End If
 
         lblcashsales.Text = Peso & cashSales.ToString("N2")
-        lbltotsales.Text = Peso & (cashSales + salaryDeduction).ToString("N2")
+        lbltotsales.Text = Peso & cashSales.ToString("N2")
         lblcashtc.Text = cashCount.ToString("N0")
-        lbltottransac.Text = (cashCount + salaryCount).ToString("N0")
+        lbltottransac.Text = cashCount.ToString("N0")
         txtexpected.Text = cashSales.ToString("N2")
 
         RecalculateActual()
@@ -181,7 +198,7 @@ Public Class frmCashDenomination
         Dim diff As Decimal = actual - cashSales
         If diff <> 0D AndAlso String.IsNullOrWhiteSpace(txtRemarksr.Text) Then
             MsgBox("The cash is " & txtstatus.Text & " by " & Peso & Math.Abs(diff).ToString("N2") &
-                   ". Enter the reason in Remarks.", vbExclamation, "Remittance")
+                    ". Enter the reason in Remarks.", vbExclamation, "Remittance")
             txtRemarksr.Focus()
             Exit Sub
         End If
@@ -232,11 +249,11 @@ Public Class frmCashDenomination
                             q.Parameters.AddWithValue("@f", cboFrom.Text)
                             q.Parameters.AddWithValue("@t", cboTo.Text)
                             q.Parameters.AddWithValue("@rb", TextBox1.Text.Trim())
-                            q.Parameters.AddWithValue("@ts", cashSales + salaryDeduction)
+                            q.Parameters.AddWithValue("@ts", cashSales)
                             q.Parameters.AddWithValue("@cs", cashSales)
-                            q.Parameters.AddWithValue("@sd", salaryDeduction)
+                            q.Parameters.AddWithValue("@sd", 0D)
                             q.Parameters.AddWithValue("@cc", cashCount)
-                            q.Parameters.AddWithValue("@sc", salaryCount)
+                            q.Parameters.AddWithValue("@sc", 0)
                             q.Parameters.AddWithValue("@act", actual)
                             q.Parameters.AddWithValue("@diff", diff)
                             q.Parameters.AddWithValue("@cst", statusText)
