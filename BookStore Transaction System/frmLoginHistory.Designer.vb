@@ -51,6 +51,8 @@ Partial Class frmLoginHistory
         Me.dtpFrom = New System.Windows.Forms.DateTimePicker()
         Me.dtpTo = New System.Windows.Forms.DateTimePicker()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.cbotype = New System.Windows.Forms.ComboBox()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvLoginHistory, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -332,11 +334,34 @@ Partial Class frmLoginHistory
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 1000
         '
+        'cbotype
+        '
+        Me.cbotype.FlatStyle = System.Windows.Forms.FlatStyle.System
+        Me.cbotype.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbotype.FormattingEnabled = True
+        Me.cbotype.Items.AddRange(New Object() {"Uniforms", "Books", "Modules", "School Supplies", "Office Supplies", "All Items"})
+        Me.cbotype.Location = New System.Drawing.Point(1014, 87)
+        Me.cbotype.Name = "cbotype"
+        Me.cbotype.Size = New System.Drawing.Size(178, 25)
+        Me.cbotype.TabIndex = 175
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(922, 91)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(85, 17)
+        Me.Label16.TabIndex = 176
+        Me.Label16.Text = "Filter by User"
+        '
         'frmLoginHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 817)
+        Me.Controls.Add(Me.cbotype)
+        Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.dtpTo)
         Me.Controls.Add(Me.dtpFrom)
         Me.Controls.Add(Me.btngenerate)
@@ -388,4 +413,6 @@ Partial Class frmLoginHistory
     Friend WithEvents dtpFrom As DateTimePicker
     Friend WithEvents dtpTo As DateTimePicker
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents cbotype As ComboBox
+    Friend WithEvents Label16 As Label
 End Class

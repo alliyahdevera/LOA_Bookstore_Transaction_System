@@ -23,7 +23,7 @@ Partial Class frmInventoryDiscrepancies
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInventoryDiscrepancies))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btngenerate = New System.Windows.Forms.Button()
         Me.cbocategory = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -36,6 +36,17 @@ Partial Class frmInventoryDiscrepancies
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvlistproducts = New System.Windows.Forms.DataGridView()
+        Me.CountNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CountDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SystemQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PhysicalQty = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Difference = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Adjusted = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Remarks = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PreparedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Panel11 = New System.Windows.Forms.Panel()
@@ -58,17 +69,16 @@ Partial Class frmInventoryDiscrepancies
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.lblposition = New System.Windows.Forms.Label()
-        Me.CountNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CountDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SystemQuantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PhysicalQty = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Difference = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Adjusted = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Remarks = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PreparedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox5 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox6 = New System.Windows.Forms.PictureBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -80,6 +90,11 @@ Partial Class frmInventoryDiscrepancies
         Me.Panel8.SuspendLayout()
         Me.Panel10.SuspendLayout()
         Me.Panel13.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btngenerate
@@ -205,14 +220,14 @@ Partial Class frmInventoryDiscrepancies
         Me.dgvlistproducts.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvlistproducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvlistproducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CountNo, Me.CountDate, Me.ProductName, Me.Size, Me.SystemQuantity, Me.PhysicalQty, Me.Difference, Me.Adjusted, Me.Status, Me.Remarks, Me.PreparedBy})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvlistproducts.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvlistproducts.Location = New System.Drawing.Point(-1, 35)
         Me.dgvlistproducts.Name = "dgvlistproducts"
         Me.dgvlistproducts.ReadOnly = True
@@ -220,6 +235,74 @@ Partial Class frmInventoryDiscrepancies
         Me.dgvlistproducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvlistproducts.Size = New System.Drawing.Size(1161, 538)
         Me.dgvlistproducts.TabIndex = 1
+        '
+        'CountNo
+        '
+        Me.CountNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.CountNo.HeaderText = "Count No."
+        Me.CountNo.Name = "CountNo"
+        Me.CountNo.ReadOnly = True
+        Me.CountNo.Width = 74
+        '
+        'CountDate
+        '
+        Me.CountDate.HeaderText = "Count Date"
+        Me.CountDate.Name = "CountDate"
+        Me.CountDate.ReadOnly = True
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
+        '
+        'Size
+        '
+        Me.Size.HeaderText = "Size"
+        Me.Size.Name = "Size"
+        Me.Size.ReadOnly = True
+        '
+        'SystemQuantity
+        '
+        Me.SystemQuantity.HeaderText = "System Quantity"
+        Me.SystemQuantity.Name = "SystemQuantity"
+        Me.SystemQuantity.ReadOnly = True
+        '
+        'PhysicalQty
+        '
+        Me.PhysicalQty.HeaderText = "Physical Quantity"
+        Me.PhysicalQty.Name = "PhysicalQty"
+        Me.PhysicalQty.ReadOnly = True
+        '
+        'Difference
+        '
+        Me.Difference.HeaderText = "Difference"
+        Me.Difference.Name = "Difference"
+        Me.Difference.ReadOnly = True
+        '
+        'Adjusted
+        '
+        Me.Adjusted.HeaderText = "Adjusted"
+        Me.Adjusted.Name = "Adjusted"
+        Me.Adjusted.ReadOnly = True
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
+        '
+        'Remarks
+        '
+        Me.Remarks.HeaderText = "Remarks"
+        Me.Remarks.Name = "Remarks"
+        Me.Remarks.ReadOnly = True
+        '
+        'PreparedBy
+        '
+        Me.PreparedBy.HeaderText = "Prepared By"
+        Me.PreparedBy.Name = "PreparedBy"
+        Me.PreparedBy.ReadOnly = True
         '
         'Panel6
         '
@@ -245,6 +328,8 @@ Partial Class frmInventoryDiscrepancies
         '
         Me.Panel11.BackColor = System.Drawing.Color.White
         Me.Panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel11.Controls.Add(Me.Label16)
+        Me.Panel11.Controls.Add(Me.PictureBox6)
         Me.Panel11.Controls.Add(Me.lbloutofstocks)
         Me.Panel11.Controls.Add(Me.Label8)
         Me.Panel11.Location = New System.Drawing.Point(996, 84)
@@ -256,18 +341,18 @@ Partial Class frmInventoryDiscrepancies
         '
         Me.lbloutofstocks.AutoSize = True
         Me.lbloutofstocks.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbloutofstocks.Location = New System.Drawing.Point(71, 24)
+        Me.lbloutofstocks.Location = New System.Drawing.Point(59, 11)
         Me.lbloutofstocks.Name = "lbloutofstocks"
         Me.lbloutofstocks.Size = New System.Drawing.Size(56, 45)
         Me.lbloutofstocks.TabIndex = 91
         Me.lbloutofstocks.Text = "00"
-        Me.lbloutofstocks.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lbloutofstocks.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label8
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(45, 7)
+        Me.Label8.Location = New System.Drawing.Point(44, 67)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(108, 15)
         Me.Label8.TabIndex = 3
@@ -277,6 +362,8 @@ Partial Class frmInventoryDiscrepancies
         '
         Me.Panel9.BackColor = System.Drawing.Color.White
         Me.Panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel9.Controls.Add(Me.Label12)
+        Me.Panel9.Controls.Add(Me.PictureBox5)
         Me.Panel9.Controls.Add(Me.lblcriticallvl)
         Me.Panel9.Controls.Add(Me.Label3)
         Me.Panel9.Location = New System.Drawing.Point(756, 84)
@@ -288,18 +375,18 @@ Partial Class frmInventoryDiscrepancies
         '
         Me.lblcriticallvl.AutoSize = True
         Me.lblcriticallvl.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblcriticallvl.Location = New System.Drawing.Point(68, 24)
+        Me.lblcriticallvl.Location = New System.Drawing.Point(60, 11)
         Me.lblcriticallvl.Name = "lblcriticallvl"
         Me.lblcriticallvl.Size = New System.Drawing.Size(56, 45)
         Me.lblcriticallvl.TabIndex = 90
         Me.lblcriticallvl.Text = "00"
-        Me.lblcriticallvl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblcriticallvl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(40, 8)
+        Me.Label3.Location = New System.Drawing.Point(44, 67)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(113, 15)
         Me.Label3.TabIndex = 2
@@ -309,6 +396,8 @@ Partial Class frmInventoryDiscrepancies
         '
         Me.Panel7.BackColor = System.Drawing.Color.White
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel7.Controls.Add(Me.Label11)
+        Me.Panel7.Controls.Add(Me.PictureBox4)
         Me.Panel7.Controls.Add(Me.lblonhand)
         Me.Panel7.Controls.Add(Me.Label6)
         Me.Panel7.Location = New System.Drawing.Point(513, 84)
@@ -320,18 +409,18 @@ Partial Class frmInventoryDiscrepancies
         '
         Me.lblonhand.AutoSize = True
         Me.lblonhand.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblonhand.Location = New System.Drawing.Point(71, 24)
+        Me.lblonhand.Location = New System.Drawing.Point(59, 11)
         Me.lblonhand.Name = "lblonhand"
         Me.lblonhand.Size = New System.Drawing.Size(56, 45)
         Me.lblonhand.TabIndex = 89
         Me.lblonhand.Text = "00"
-        Me.lblonhand.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblonhand.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(43, 7)
+        Me.Label6.Location = New System.Drawing.Point(41, 67)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(113, 15)
         Me.Label6.TabIndex = 3
@@ -341,6 +430,8 @@ Partial Class frmInventoryDiscrepancies
         '
         Me.Panel8.BackColor = System.Drawing.Color.White
         Me.Panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel8.Controls.Add(Me.Label10)
+        Me.Panel8.Controls.Add(Me.PictureBox3)
         Me.Panel8.Controls.Add(Me.lbltotalqproducts)
         Me.Panel8.Controls.Add(Me.Label2)
         Me.Panel8.Location = New System.Drawing.Point(273, 84)
@@ -352,18 +443,18 @@ Partial Class frmInventoryDiscrepancies
         '
         Me.lbltotalqproducts.AutoSize = True
         Me.lbltotalqproducts.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbltotalqproducts.Location = New System.Drawing.Point(68, 25)
+        Me.lbltotalqproducts.Location = New System.Drawing.Point(58, 11)
         Me.lbltotalqproducts.Name = "lbltotalqproducts"
         Me.lbltotalqproducts.Size = New System.Drawing.Size(56, 45)
         Me.lbltotalqproducts.TabIndex = 87
         Me.lbltotalqproducts.Text = "00"
-        Me.lbltotalqproducts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lbltotalqproducts.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(48, 7)
+        Me.Label2.Location = New System.Drawing.Point(51, 67)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(91, 15)
         Me.Label2.TabIndex = 1
@@ -373,6 +464,8 @@ Partial Class frmInventoryDiscrepancies
         '
         Me.Panel10.BackColor = System.Drawing.Color.White
         Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel10.Controls.Add(Me.Label5)
+        Me.Panel10.Controls.Add(Me.PictureBox2)
         Me.Panel10.Controls.Add(Me.lbltotalproducts)
         Me.Panel10.Controls.Add(Me.Label1)
         Me.Panel10.Location = New System.Drawing.Point(32, 84)
@@ -384,18 +477,18 @@ Partial Class frmInventoryDiscrepancies
         '
         Me.lbltotalproducts.AutoSize = True
         Me.lbltotalproducts.Font = New System.Drawing.Font("Segoe UI", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbltotalproducts.Location = New System.Drawing.Point(68, 24)
+        Me.lbltotalproducts.Location = New System.Drawing.Point(56, 11)
         Me.lbltotalproducts.Name = "lbltotalproducts"
         Me.lbltotalproducts.Size = New System.Drawing.Size(56, 45)
         Me.lbltotalproducts.TabIndex = 86
         Me.lbltotalproducts.Text = "00"
-        Me.lbltotalproducts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lbltotalproducts.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(37, 8)
+        Me.Label1.Location = New System.Drawing.Point(35, 67)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(119, 15)
         Me.Label1.TabIndex = 0
@@ -462,73 +555,100 @@ Partial Class frmInventoryDiscrepancies
         Me.lblposition.TabIndex = 66
         Me.lblposition.Text = "NPosition"
         '
-        'CountNo
+        'PictureBox2
         '
-        Me.CountNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.CountNo.HeaderText = "Count No."
-        Me.CountNo.Name = "CountNo"
-        Me.CountNo.ReadOnly = True
-        Me.CountNo.Width = 80
+        Me.PictureBox2.Location = New System.Drawing.Point(15, 15)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(35, 35)
+        Me.PictureBox2.TabIndex = 88
+        Me.PictureBox2.TabStop = False
         '
-        'CountDate
+        'PictureBox3
         '
-        Me.CountDate.HeaderText = "Count Date"
-        Me.CountDate.Name = "CountDate"
-        Me.CountDate.ReadOnly = True
+        Me.PictureBox3.Location = New System.Drawing.Point(17, 15)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(35, 35)
+        Me.PictureBox3.TabIndex = 89
+        Me.PictureBox3.TabStop = False
         '
-        'ProductName
+        'PictureBox4
         '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        Me.ProductName.ReadOnly = True
+        Me.PictureBox4.Location = New System.Drawing.Point(17, 15)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(35, 35)
+        Me.PictureBox4.TabIndex = 90
+        Me.PictureBox4.TabStop = False
         '
-        'Size
+        'PictureBox5
         '
-        Me.Size.HeaderText = "Size"
-        Me.Size.Name = "Size"
-        Me.Size.ReadOnly = True
+        Me.PictureBox5.Location = New System.Drawing.Point(19, 15)
+        Me.PictureBox5.Name = "PictureBox5"
+        Me.PictureBox5.Size = New System.Drawing.Size(35, 35)
+        Me.PictureBox5.TabIndex = 91
+        Me.PictureBox5.TabStop = False
         '
-        'SystemQuantity
+        'PictureBox6
         '
-        Me.SystemQuantity.HeaderText = "System Quantity"
-        Me.SystemQuantity.Name = "SystemQuantity"
-        Me.SystemQuantity.ReadOnly = True
+        Me.PictureBox6.Location = New System.Drawing.Point(18, 15)
+        Me.PictureBox6.Name = "PictureBox6"
+        Me.PictureBox6.Size = New System.Drawing.Size(35, 35)
+        Me.PictureBox6.TabIndex = 92
+        Me.PictureBox6.TabStop = False
         '
-        'PhysicalQty
+        'Label5
         '
-        Me.PhysicalQty.HeaderText = "Physical Quantity"
-        Me.PhysicalQty.Name = "PhysicalQty"
-        Me.PhysicalQty.ReadOnly = True
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.Silver
+        Me.Label5.Location = New System.Drawing.Point(9, 50)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(177, 17)
+        Me.Label5.TabIndex = 108
+        Me.Label5.Text = "—————————————"
         '
-        'Difference
+        'Label10
         '
-        Me.Difference.HeaderText = "Difference"
-        Me.Difference.Name = "Difference"
-        Me.Difference.ReadOnly = True
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.Color.Silver
+        Me.Label10.Location = New System.Drawing.Point(9, 50)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(177, 17)
+        Me.Label10.TabIndex = 109
+        Me.Label10.Text = "—————————————"
         '
-        'Adjusted
+        'Label11
         '
-        Me.Adjusted.HeaderText = "Adjusted"
-        Me.Adjusted.Name = "Adjusted"
-        Me.Adjusted.ReadOnly = True
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.ForeColor = System.Drawing.Color.Silver
+        Me.Label11.Location = New System.Drawing.Point(8, 50)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(177, 17)
+        Me.Label11.TabIndex = 109
+        Me.Label11.Text = "—————————————"
         '
-        'Status
+        'Label12
         '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.Silver
+        Me.Label12.Location = New System.Drawing.Point(9, 50)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(177, 17)
+        Me.Label12.TabIndex = 110
+        Me.Label12.Text = "—————————————"
         '
-        'Remarks
+        'Label16
         '
-        Me.Remarks.HeaderText = "Remarks"
-        Me.Remarks.Name = "Remarks"
-        Me.Remarks.ReadOnly = True
-        '
-        'PreparedBy
-        '
-        Me.PreparedBy.HeaderText = "Prepared By"
-        Me.PreparedBy.Name = "PreparedBy"
-        Me.PreparedBy.ReadOnly = True
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.ForeColor = System.Drawing.Color.Silver
+        Me.Label16.Location = New System.Drawing.Point(9, 50)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(177, 17)
+        Me.Label16.TabIndex = 110
+        Me.Label16.Text = "—————————————"
         '
         'frmInventoryDiscrepancies
         '
@@ -571,6 +691,11 @@ Partial Class frmInventoryDiscrepancies
         Me.Panel10.PerformLayout()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -620,4 +745,14 @@ Partial Class frmInventoryDiscrepancies
     Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents Remarks As DataGridViewTextBoxColumn
     Friend WithEvents PreparedBy As DataGridViewTextBoxColumn
+    Friend WithEvents PictureBox6 As PictureBox
+    Friend WithEvents PictureBox5 As PictureBox
+    Friend WithEvents PictureBox4 As PictureBox
+    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label5 As Label
 End Class

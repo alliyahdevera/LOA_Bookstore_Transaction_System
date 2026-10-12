@@ -23,6 +23,7 @@ Partial Class frmRemittance
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmRemittance))
         Me.btngenerate = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtfrom = New System.Windows.Forms.DateTimePicker()
@@ -58,11 +59,17 @@ Partial Class frmRemittance
         Me.ReceivedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Remarks = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Signature = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvsalesreport, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btngenerate
@@ -71,18 +78,18 @@ Partial Class frmRemittance
         Me.btngenerate.FlatAppearance.BorderSize = 0
         Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btngenerate.ForeColor = System.Drawing.Color.White
-        Me.btngenerate.Location = New System.Drawing.Point(419, 96)
+        Me.btngenerate.Location = New System.Drawing.Point(746, 95)
         Me.btngenerate.Name = "btngenerate"
         Me.btngenerate.Size = New System.Drawing.Size(130, 29)
         Me.btngenerate.TabIndex = 152
-        Me.btngenerate.Text = "Generate"
+        Me.btngenerate.Text = "Load Data"
         Me.btngenerate.UseVisualStyleBackColor = False
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(20, 102)
+        Me.Label1.Location = New System.Drawing.Point(347, 101)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 17)
         Me.Label1.TabIndex = 149
@@ -92,7 +99,7 @@ Partial Class frmRemittance
         '
         Me.dtfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtfrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtfrom.Location = New System.Drawing.Point(88, 96)
+        Me.dtfrom.Location = New System.Drawing.Point(415, 95)
         Me.dtfrom.Name = "dtfrom"
         Me.dtfrom.Size = New System.Drawing.Size(134, 27)
         Me.dtfrom.TabIndex = 148
@@ -233,7 +240,7 @@ Partial Class frmRemittance
         '
         Me.dgvsalesreport.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvsalesreport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvsalesreport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.RemittanceNo, Me.nDate, Me.CashierStaff, Me.SalesPeriod, Me.TotalSales, Me.CashCollected, Me.Difference, Me.TotalRemittance, Me.ORARRange, Me.AmtAccounting, Me.DateTimeRemitted, Me.ReceivedBy, Me.Remarks, Me.Status, Me.Signature})
+        Me.dgvsalesreport.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.RemittanceNo, Me.nDate, Me.CashierStaff, Me.SalesPeriod, Me.TotalSales, Me.CashCollected, Me.Difference, Me.TotalRemittance, Me.ORARRange, Me.AmtAccounting, Me.DateTimeRemitted, Me.ReceivedBy, Me.Remarks, Me.Status})
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -286,17 +293,17 @@ Partial Class frmRemittance
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(1013, 103)
+        Me.Label11.Location = New System.Drawing.Point(961, 104)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(52, 17)
+        Me.Label11.Size = New System.Drawing.Size(105, 17)
         Me.Label11.TabIndex = 147
-        Me.Label11.Text = "Cashier"
+        Me.Label11.Text = "Filter by Cashier"
         '
         'dtto
         '
         Me.dtto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtto.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtto.Location = New System.Drawing.Point(265, 96)
+        Me.dtto.Location = New System.Drawing.Point(592, 95)
         Me.dtto.Name = "dtto"
         Me.dtto.Size = New System.Drawing.Size(134, 27)
         Me.dtto.TabIndex = 150
@@ -305,7 +312,7 @@ Partial Class frmRemittance
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(236, 101)
+        Me.Label2.Location = New System.Drawing.Point(563, 100)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 151
@@ -407,18 +414,65 @@ Partial Class frmRemittance
         Me.Status.Name = "Status"
         Me.Status.ReadOnly = True
         '
-        'Signature
+        'Panel1
         '
-        Me.Signature.HeaderText = "Signature"
-        Me.Signature.Name = "Signature"
-        Me.Signature.ReadOnly = True
-        Me.Signature.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Label17)
+        Me.Panel1.Controls.Add(Me.PictureBox1)
+        Me.Panel1.Controls.Add(Me.txtSearch)
+        Me.Panel1.Location = New System.Drawing.Point(95, 98)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(235, 26)
+        Me.Panel1.TabIndex = 154
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label17.Location = New System.Drawing.Point(3, 3)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(101, 17)
+        Me.Label17.TabIndex = 121
+        Me.Label17.Text = "Remittance No."
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox1.Location = New System.Drawing.Point(210, 2)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(19, 19)
+        Me.PictureBox1.TabIndex = 29
+        Me.PictureBox1.TabStop = False
+        '
+        'txtSearch
+        '
+        Me.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSearch.Location = New System.Drawing.Point(3, 3)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(203, 20)
+        Me.txtSearch.TabIndex = 28
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(24, 102)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(71, 17)
+        Me.Label14.TabIndex = 153
+        Me.Label14.Text = "Search by "
         '
         'frmRemittance
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 808)
+        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.cbocashier)
         Me.Controls.Add(Me.btngenerate)
         Me.Controls.Add(Me.Label11)
@@ -440,6 +494,9 @@ Partial Class frmRemittance
         CType(Me.dgvsalesreport, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -480,5 +537,9 @@ Partial Class frmRemittance
     Friend WithEvents ReceivedBy As DataGridViewTextBoxColumn
     Friend WithEvents Remarks As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
-    Friend WithEvents Signature As DataGridViewTextBoxColumn
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Label17 As Label
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents txtSearch As TextBox
+    Friend WithEvents Label14 As Label
 End Class

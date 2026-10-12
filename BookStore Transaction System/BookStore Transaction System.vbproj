@@ -341,6 +341,12 @@
     <Compile Include="frmStudentpos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmSupervisorApproval.Designer.vb">
+      <DependentUpon>frmSupervisorApproval.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmSupervisorApproval.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmTransactionDetails.Designer.vb">
       <DependentUpon>frmTransactionDetails.vb</DependentUpon>
     </Compile>
@@ -496,6 +502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmStudentpos.resx">
       <DependentUpon>frmStudentpos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSupervisorApproval.resx">
+      <DependentUpon>frmSupervisorApproval.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTransactionDetails.resx">
       <DependentUpon>frmTransactionDetails.vb</DependentUpon>

@@ -22,6 +22,7 @@ Partial Class frmCashDenomination
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
@@ -29,9 +30,7 @@ Partial Class frmCashDenomination
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.lblcashtc = New System.Windows.Forms.Label()
-        Me.lblsaldc = New System.Windows.Forms.Label()
         Me.lblcashsales = New System.Windows.Forms.Label()
-        Me.lblsaldec = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lbltottransac = New System.Windows.Forms.Label()
@@ -40,19 +39,15 @@ Partial Class frmCashDenomination
         Me.lbltotsales = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label24 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.lblamtcash = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.dgvcashbreakdown = New System.Windows.Forms.DataGridView()
-        Me.Denomination = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label21 = New System.Windows.Forms.Label()
@@ -89,6 +84,9 @@ Partial Class frmCashDenomination
         Me.Label31 = New System.Windows.Forms.Label()
         Me.txtrefno = New System.Windows.Forms.TextBox()
         Me.txtCashier = New System.Windows.Forms.TextBox()
+        Me.Denomination = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel4.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -107,7 +105,7 @@ Partial Class frmCashDenomination
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.Black
-        Me.Label4.Location = New System.Drawing.Point(339, 130)
+        Me.Label4.Location = New System.Drawing.Point(335, 131)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(96, 17)
         Me.Label4.TabIndex = 127
@@ -128,7 +126,7 @@ Partial Class frmCashDenomination
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label13.Location = New System.Drawing.Point(26, 43)
+        Me.Label13.Location = New System.Drawing.Point(26, 45)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(394, 15)
         Me.Label13.TabIndex = 133
@@ -147,19 +145,16 @@ Partial Class frmCashDenomination
         '
         'Panel4
         '
+        Me.Panel4.BackColor = System.Drawing.Color.White
         Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel4.Controls.Add(Me.lblcashtc)
-        Me.Panel4.Controls.Add(Me.lblsaldc)
         Me.Panel4.Controls.Add(Me.lblcashsales)
-        Me.Panel4.Controls.Add(Me.lblsaldec)
         Me.Panel4.Controls.Add(Me.Label6)
         Me.Panel4.Controls.Add(Me.Panel1)
         Me.Panel4.Controls.Add(Me.Panel3)
         Me.Panel4.Controls.Add(Me.Label3)
-        Me.Panel4.Controls.Add(Me.Label5)
         Me.Panel4.Controls.Add(Me.Panel9)
         Me.Panel4.Controls.Add(Me.Label17)
-        Me.Panel4.Controls.Add(Me.Label24)
         Me.Panel4.Location = New System.Drawing.Point(29, 119)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(344, 280)
@@ -169,48 +164,28 @@ Partial Class frmCashDenomination
         '
         Me.lblcashtc.AutoSize = True
         Me.lblcashtc.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblcashtc.Location = New System.Drawing.Point(217, 168)
+        Me.lblcashtc.Location = New System.Drawing.Point(218, 185)
         Me.lblcashtc.Name = "lblcashtc"
         Me.lblcashtc.Size = New System.Drawing.Size(13, 17)
         Me.lblcashtc.TabIndex = 110
         Me.lblcashtc.Text = "-"
         '
-        'lblsaldc
-        '
-        Me.lblsaldc.AutoSize = True
-        Me.lblsaldc.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblsaldc.Location = New System.Drawing.Point(217, 197)
-        Me.lblsaldc.Name = "lblsaldc"
-        Me.lblsaldc.Size = New System.Drawing.Size(13, 17)
-        Me.lblsaldc.TabIndex = 109
-        Me.lblsaldc.Text = "-"
-        '
         'lblcashsales
         '
         Me.lblcashsales.AutoSize = True
         Me.lblcashsales.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblcashsales.Location = New System.Drawing.Point(217, 50)
+        Me.lblcashsales.Location = New System.Drawing.Point(218, 58)
         Me.lblcashsales.Name = "lblcashsales"
         Me.lblcashsales.Size = New System.Drawing.Size(13, 17)
         Me.lblcashsales.TabIndex = 108
         Me.lblcashsales.Text = "-"
-        '
-        'lblsaldec
-        '
-        Me.lblsaldec.AutoSize = True
-        Me.lblsaldec.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblsaldec.Location = New System.Drawing.Point(217, 77)
-        Me.lblsaldec.Name = "lblsaldec"
-        Me.lblsaldec.Size = New System.Drawing.Size(13, 17)
-        Me.lblsaldec.TabIndex = 107
-        Me.lblsaldec.Text = "-"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.Silver
-        Me.Label6.Location = New System.Drawing.Point(16, 148)
+        Me.Label6.Location = New System.Drawing.Point(18, 148)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(307, 17)
         Me.Label6.TabIndex = 106
@@ -253,7 +228,7 @@ Partial Class frmCashDenomination
         Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(237, Byte), Integer), CType(CType(254, Byte), Integer))
         Me.Panel3.Controls.Add(Me.lbltotsales)
         Me.Panel3.Controls.Add(Me.Label2)
-        Me.Panel3.Location = New System.Drawing.Point(20, 106)
+        Me.Panel3.Location = New System.Drawing.Point(20, 93)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(298, 35)
         Me.Panel3.TabIndex = 12
@@ -284,21 +259,11 @@ Partial Class frmCashDenomination
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(19, 169)
+        Me.Label3.Location = New System.Drawing.Point(30, 183)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(151, 17)
         Me.Label3.TabIndex = 98
         Me.Label3.Text = "Cash Transaction Count"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(19, 196)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(152, 17)
-        Me.Label5.TabIndex = 92
-        Me.Label5.Text = "Salary Deduction Count"
         '
         'Panel9
         '
@@ -324,21 +289,11 @@ Partial Class frmCashDenomination
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(17, 50)
+        Me.Label17.Location = New System.Drawing.Point(30, 58)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(75, 17)
         Me.Label17.TabIndex = 98
         Me.Label17.Text = "Cash Sales "
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(17, 77)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(111, 17)
-        Me.Label24.TabIndex = 92
-        Me.Label24.Text = "Salary Deduction"
         '
         'Panel5
         '
@@ -378,16 +333,17 @@ Partial Class frmCashDenomination
         'dgvcashbreakdown
         '
         Me.dgvcashbreakdown.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvcashbreakdown.BackgroundColor = System.Drawing.Color.White
         Me.dgvcashbreakdown.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvcashbreakdown.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Denomination, Me.Quantity, Me.Amount})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvcashbreakdown.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvcashbreakdown.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvcashbreakdown.Location = New System.Drawing.Point(-1, 34)
         Me.dgvcashbreakdown.Name = "dgvcashbreakdown"
         Me.dgvcashbreakdown.ReadOnly = True
@@ -396,32 +352,26 @@ Partial Class frmCashDenomination
         Me.dgvcashbreakdown.Size = New System.Drawing.Size(781, 218)
         Me.dgvcashbreakdown.TabIndex = 1
         '
-        'Denomination
-        '
-        Me.Denomination.HeaderText = "Denomination"
-        Me.Denomination.Name = "Denomination"
-        Me.Denomination.ReadOnly = True
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        Me.Quantity.ReadOnly = True
-        '
-        'Amount
-        '
-        Me.Amount.HeaderText = "Amount"
-        Me.Amount.Name = "Amount"
-        Me.Amount.ReadOnly = True
-        '
         'Panel6
         '
         Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Panel6.Controls.Add(Me.Label5)
         Me.Panel6.Controls.Add(Me.Label7)
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(1169, 35)
         Me.Panel6.TabIndex = 0
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.Location = New System.Drawing.Point(256, 7)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(337, 20)
+        Me.Label5.TabIndex = 26
+        Me.Label5.Text = "(Actual Cash Count - Double click Quantity to Edit)"
         '
         'Label7
         '
@@ -430,12 +380,13 @@ Partial Class frmCashDenomination
         Me.Label7.ForeColor = System.Drawing.Color.White
         Me.Label7.Location = New System.Drawing.Point(7, 6)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(406, 21)
+        Me.Label7.Size = New System.Drawing.Size(251, 21)
         Me.Label7.TabIndex = 25
-        Me.Label7.Text = "Cash Denomination Breakdown (Actual Cash Count)"
+        Me.Label7.Text = "Cash Denomination Breakdown"
         '
         'Panel2
         '
+        Me.Panel2.BackColor = System.Drawing.Color.White
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel2.Controls.Add(Me.Label21)
         Me.Panel2.Controls.Add(Me.Label23)
@@ -448,7 +399,7 @@ Partial Class frmCashDenomination
         Me.Panel2.Controls.Add(Me.txtdiff)
         Me.Panel2.Controls.Add(Me.txtexpected)
         Me.Panel2.Controls.Add(Me.Panel11)
-        Me.Panel2.Location = New System.Drawing.Point(29, 409)
+        Me.Panel2.Location = New System.Drawing.Point(29, 415)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1155, 131)
         Me.Panel2.TabIndex = 111
@@ -564,9 +515,10 @@ Partial Class frmCashDenomination
         '
         Me.Panel11.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Panel11.Controls.Add(Me.Label12)
+        Me.Panel11.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel11.Location = New System.Drawing.Point(0, 0)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(1144, 35)
+        Me.Panel11.Size = New System.Drawing.Size(1153, 35)
         Me.Panel11.TabIndex = 11
         '
         'Label12
@@ -586,7 +538,7 @@ Partial Class frmCashDenomination
         Me.btnClear.FlatAppearance.BorderSize = 0
         Me.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnClear.ForeColor = System.Drawing.Color.White
-        Me.btnClear.Location = New System.Drawing.Point(804, 743)
+        Me.btnClear.Location = New System.Drawing.Point(804, 748)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(185, 40)
         Me.btnClear.TabIndex = 147
@@ -599,7 +551,7 @@ Partial Class frmCashDenomination
         Me.btnSaveTransaction.FlatAppearance.BorderSize = 0
         Me.btnSaveTransaction.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSaveTransaction.ForeColor = System.Drawing.Color.White
-        Me.btnSaveTransaction.Location = New System.Drawing.Point(608, 743)
+        Me.btnSaveTransaction.Location = New System.Drawing.Point(608, 748)
         Me.btnSaveTransaction.Name = "btnSaveTransaction"
         Me.btnSaveTransaction.Size = New System.Drawing.Size(185, 40)
         Me.btnSaveTransaction.TabIndex = 146
@@ -608,6 +560,7 @@ Partial Class frmCashDenomination
         '
         'Panel7
         '
+        Me.Panel7.BackColor = System.Drawing.Color.White
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.cboTo)
         Me.Panel7.Controls.Add(Me.cboFrom)
@@ -626,7 +579,7 @@ Partial Class frmCashDenomination
         Me.Panel7.Controls.Add(Me.Label4)
         Me.Panel7.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Panel7.ForeColor = System.Drawing.Color.Black
-        Me.Panel7.Location = New System.Drawing.Point(30, 556)
+        Me.Panel7.Location = New System.Drawing.Point(30, 561)
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(1154, 173)
         Me.Panel7.TabIndex = 112
@@ -709,7 +662,7 @@ Partial Class frmCashDenomination
         Me.Label25.AutoSize = True
         Me.Label25.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label25.ForeColor = System.Drawing.Color.Black
-        Me.Label25.Location = New System.Drawing.Point(339, 92)
+        Me.Label25.Location = New System.Drawing.Point(335, 93)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(80, 17)
         Me.Label25.TabIndex = 135
@@ -751,7 +704,7 @@ Partial Class frmCashDenomination
         Me.Label26.AutoSize = True
         Me.Label26.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label26.ForeColor = System.Drawing.Color.Black
-        Me.Label26.Location = New System.Drawing.Point(338, 55)
+        Me.Label26.Location = New System.Drawing.Point(335, 54)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(183, 17)
         Me.Label26.TabIndex = 131
@@ -795,7 +748,7 @@ Partial Class frmCashDenomination
         Me.btncancel.FlatAppearance.BorderSize = 0
         Me.btncancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btncancel.ForeColor = System.Drawing.Color.White
-        Me.btncancel.Location = New System.Drawing.Point(998, 743)
+        Me.btncancel.Location = New System.Drawing.Point(998, 748)
         Me.btncancel.Name = "btncancel"
         Me.btncancel.Size = New System.Drawing.Size(185, 40)
         Me.btncancel.TabIndex = 149
@@ -831,6 +784,27 @@ Partial Class frmCashDenomination
         Me.txtCashier.ReadOnly = True
         Me.txtCashier.Size = New System.Drawing.Size(187, 25)
         Me.txtCashier.TabIndex = 153
+        '
+        'Denomination
+        '
+        Me.Denomination.HeaderText = "Denomination"
+        Me.Denomination.Name = "Denomination"
+        Me.Denomination.ReadOnly = True
+        '
+        'Quantity
+        '
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
+        Me.Quantity.DefaultCellStyle = DataGridViewCellStyle1
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
+        '
+        'Amount
+        '
+        Me.Amount.HeaderText = "Amount"
+        Me.Amount.Name = "Amount"
+        Me.Amount.ReadOnly = True
         '
         'frmCashDenomination
         '
@@ -886,25 +860,18 @@ Partial Class frmCashDenomination
     Friend WithEvents Panel9 As Panel
     Friend WithEvents Label20 As Label
     Friend WithEvents Label17 As Label
-    Friend WithEvents Label24 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents Label5 As Label
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Panel5 As Panel
     Friend WithEvents dgvcashbreakdown As DataGridView
-    Friend WithEvents Denomination As DataGridViewTextBoxColumn
-    Friend WithEvents Quantity As DataGridViewTextBoxColumn
-    Friend WithEvents Amount As DataGridViewTextBoxColumn
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents lblcashtc As Label
-    Friend WithEvents lblsaldc As Label
     Friend WithEvents lblcashsales As Label
-    Friend WithEvents lblsaldec As Label
     Friend WithEvents lbltottransac As Label
     Friend WithEvents lbltotsales As Label
     Friend WithEvents Panel2 As Panel
@@ -944,4 +911,8 @@ Partial Class frmCashDenomination
     Friend WithEvents Label31 As Label
     Friend WithEvents txtrefno As TextBox
     Friend WithEvents txtCashier As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Denomination As DataGridViewTextBoxColumn
+    Friend WithEvents Quantity As DataGridViewTextBoxColumn
+    Friend WithEvents Amount As DataGridViewTextBoxColumn
 End Class

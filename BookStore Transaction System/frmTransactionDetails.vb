@@ -44,10 +44,8 @@ Public Class frmTransactionDetails
         End If
     End Sub
 
-    ' ===================== LOAD =====================
     Private Sub frmTransactionDetails_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupCartGrid()
-        nudQuantity.Visible = False
 
         ' locked fields
         txtcreatedby.Text = currentuser.FullName
@@ -819,7 +817,7 @@ Public Class frmTransactionDetails
     Private Sub btnclose_Click(sender As Object, e As EventArgs) Handles btnclose.Click
         Me.Close()
     End Sub
-    Private Sub Qty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles nudQuantity.KeyPress, numupqty.KeyPress
+    Private Sub Qty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles numupqty.KeyPress
         If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then e.Handled = True
     End Sub
     Private Sub numupqty_TextChanged(sender As Object, e As EventArgs) Handles numupqty.TextChanged

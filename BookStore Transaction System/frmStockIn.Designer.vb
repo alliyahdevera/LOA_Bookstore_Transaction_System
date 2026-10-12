@@ -24,8 +24,6 @@ Partial Class frmStockIn
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel13 = New System.Windows.Forms.Panel()
-        Me.lbldatetime = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
         Me.lblname = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
@@ -64,8 +62,6 @@ Partial Class frmStockIn
         'Panel13
         '
         Me.Panel13.BackColor = System.Drawing.Color.White
-        Me.Panel13.Controls.Add(Me.lbldatetime)
-        Me.Panel13.Controls.Add(Me.Label27)
         Me.Panel13.Controls.Add(Me.lblname)
         Me.Panel13.Controls.Add(Me.Label29)
         Me.Panel13.Controls.Add(Me.Label28)
@@ -75,30 +71,6 @@ Partial Class frmStockIn
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(1220, 27)
         Me.Panel13.TabIndex = 98
-        '
-        'lbldatetime
-        '
-        Me.lbldatetime.AutoSize = True
-        Me.lbldatetime.BackColor = System.Drawing.Color.Transparent
-        Me.lbldatetime.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbldatetime.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.lbldatetime.Location = New System.Drawing.Point(638, 3)
-        Me.lbldatetime.Name = "lbldatetime"
-        Me.lbldatetime.Size = New System.Drawing.Size(16, 21)
-        Me.lbldatetime.TabIndex = 70
-        Me.lbldatetime.Text = "-"
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.BackColor = System.Drawing.Color.Transparent
-        Me.Label27.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label27.Location = New System.Drawing.Point(566, 3)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(65, 21)
-        Me.Label27.TabIndex = 69
-        Me.Label27.Text = "Today is"
         '
         'lblname
         '
@@ -270,7 +242,7 @@ Partial Class frmStockIn
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(22, 74)
+        Me.Label1.Location = New System.Drawing.Point(22, 77)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(91, 17)
         Me.Label1.TabIndex = 92
@@ -281,7 +253,7 @@ Partial Class frmStockIn
         Me.btnstocks.BackColor = System.Drawing.Color.MidnightBlue
         Me.btnstocks.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnstocks.ForeColor = System.Drawing.Color.White
-        Me.btnstocks.Location = New System.Drawing.Point(1030, 74)
+        Me.btnstocks.Location = New System.Drawing.Point(1030, 77)
         Me.btnstocks.Name = "btnstocks"
         Me.btnstocks.Size = New System.Drawing.Size(89, 25)
         Me.btnstocks.TabIndex = 102
@@ -292,7 +264,7 @@ Partial Class frmStockIn
         '
         Me.txtstocks.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtstocks.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtstocks.Location = New System.Drawing.Point(1124, 74)
+        Me.txtstocks.Location = New System.Drawing.Point(1124, 77)
         Me.txtstocks.Name = "txtstocks"
         Me.txtstocks.Size = New System.Drawing.Size(72, 25)
         Me.txtstocks.TabIndex = 103
@@ -301,7 +273,7 @@ Partial Class frmStockIn
         '
         Me.txtreference.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtreference.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtreference.Location = New System.Drawing.Point(119, 72)
+        Me.txtreference.Location = New System.Drawing.Point(119, 75)
         Me.txtreference.Name = "txtreference"
         Me.txtreference.ReadOnly = True
         Me.txtreference.Size = New System.Drawing.Size(152, 25)
@@ -311,7 +283,7 @@ Partial Class frmStockIn
         '
         Me.txtstockintime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtstockintime.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtstockintime.Location = New System.Drawing.Point(407, 72)
+        Me.txtstockintime.Location = New System.Drawing.Point(407, 76)
         Me.txtstockintime.Name = "txtstockintime"
         Me.txtstockintime.ReadOnly = True
         Me.txtstockintime.Size = New System.Drawing.Size(214, 25)
@@ -321,7 +293,7 @@ Partial Class frmStockIn
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(284, 74)
+        Me.Label2.Location = New System.Drawing.Point(284, 78)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(117, 17)
         Me.Label2.TabIndex = 108
@@ -343,7 +315,7 @@ Partial Class frmStockIn
         Me.cbocategory.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cbocategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbocategory.FormattingEnabled = True
-        Me.cbocategory.Location = New System.Drawing.Point(709, 74)
+        Me.cbocategory.Location = New System.Drawing.Point(709, 77)
         Me.cbocategory.Name = "cbocategory"
         Me.cbocategory.Size = New System.Drawing.Size(127, 25)
         Me.cbocategory.TabIndex = 126
@@ -352,7 +324,7 @@ Partial Class frmStockIn
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(639, 77)
+        Me.Label9.Location = New System.Drawing.Point(639, 80)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(64, 17)
         Me.Label9.TabIndex = 125
@@ -363,7 +335,7 @@ Partial Class frmStockIn
         Me.cboType.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cboType.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboType.FormattingEnabled = True
-        Me.cboType.Location = New System.Drawing.Point(888, 74)
+        Me.cboType.Location = New System.Drawing.Point(888, 77)
         Me.cboType.Name = "cboType"
         Me.cboType.Size = New System.Drawing.Size(127, 25)
         Me.cboType.TabIndex = 128
@@ -372,7 +344,7 @@ Partial Class frmStockIn
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(846, 77)
+        Me.Label3.Location = New System.Drawing.Point(846, 80)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(36, 17)
         Me.Label3.TabIndex = 127
@@ -438,8 +410,6 @@ Partial Class frmStockIn
     Friend WithEvents Label5 As Label
     Friend WithEvents cbocategory As ComboBox
     Friend WithEvents Label9 As Label
-    Friend WithEvents lbldatetime As Label
-    Friend WithEvents Label27 As Label
     Friend WithEvents cboType As ComboBox
     Friend WithEvents Label3 As Label
 End Class

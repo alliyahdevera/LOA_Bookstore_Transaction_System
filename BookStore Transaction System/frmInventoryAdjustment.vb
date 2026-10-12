@@ -15,14 +15,6 @@ Public Class frmInventoryAdjustment
     Private nudDamaged As NumericUpDown
 
     Private Sub frmInventoryAdjustment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        txtProductname.Items.Clear()
-        txtProductname.Items.Add(ProductName)
-        txtProductname.SelectedIndex = 0
-        txtProductname.Enabled = False
-
-        txtsize.Items.Clear()
-        txtsize.Items.Add(ItemSize)
-        txtsize.SelectedIndex = 0
         txtsize.Enabled = False
 
         Dim cur As Object = ExecScalar("SELECT quantity_on_hand FROM tbl_product_variants WHERE variant_id = @v",
@@ -39,7 +31,6 @@ Public Class frmInventoryAdjustment
         BuildDamagedRow()
     End Sub
 
-    ' "Damaged units" row, built in code so the designer is untouched
     Private Sub BuildDamagedRow()
         Const shift As Integer = 44
         For Each c As Control In New Control() {Me.reason, txtReason, btnconfirm, btncancel}

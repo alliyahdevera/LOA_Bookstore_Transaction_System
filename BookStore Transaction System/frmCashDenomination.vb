@@ -108,17 +108,14 @@ Public Class frmCashDenomination
         End If
 
         lblcashsales.Text = Peso & cashSales.ToString("N2")
-        lblsaldec.Text = Peso & salaryDeduction.ToString("N2")
         lbltotsales.Text = Peso & (cashSales + salaryDeduction).ToString("N2")
         lblcashtc.Text = cashCount.ToString("N0")
-        lblsaldc.Text = salaryCount.ToString("N0")
         lbltottransac.Text = (cashCount + salaryCount).ToString("N0")
         txtexpected.Text = cashSales.ToString("N2")
 
         RecalculateActual()
     End Sub
 
-    ' ==================== ACTUAL vs EXPECTED ====================
     Private Sub RecalculateActual()
         Dim total As Decimal = 0D
         For Each row As DataGridViewRow In dgvcashbreakdown.Rows
@@ -163,7 +160,6 @@ Public Class frmCashDenomination
         RecalculateActual()
     End Sub
 
-    ' ==================== GENERATE REMITTANCE ====================
     Private Sub btnSaveTransaction_Click(sender As Object, e As EventArgs) Handles btnSaveTransaction.Click
         If RolePermissions.IsViewOnly() Then
             MsgBox("This cashier has no transactions today. Nothing to reconcile.", vbExclamation, "Remittance")

@@ -40,7 +40,7 @@ Partial Class frmAuditLogs
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(4, 0)
+        Me.Label6.Location = New System.Drawing.Point(4, 1)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(137, 32)
         Me.Label6.TabIndex = 149

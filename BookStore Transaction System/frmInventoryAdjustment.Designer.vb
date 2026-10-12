@@ -23,8 +23,6 @@ Partial Class frmInventoryAdjustment
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInventoryAdjustment))
-        Me.txtsize = New System.Windows.Forms.ComboBox()
-        Me.txtProductname = New System.Windows.Forms.ComboBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -45,28 +43,16 @@ Partial Class frmInventoryAdjustment
         Me.btncancel = New System.Windows.Forms.Button()
         Me.btnconfirm = New System.Windows.Forms.Button()
         Me.txtStatus = New System.Windows.Forms.TextBox()
+        Me.txtsize = New System.Windows.Forms.TextBox()
+        Me.txtprodct = New System.Windows.Forms.TextBox()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.Panel5.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'txtsize
-        '
-        Me.txtsize.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtsize.FormattingEnabled = True
-        Me.txtsize.Location = New System.Drawing.Point(145, 195)
-        Me.txtsize.Name = "txtsize"
-        Me.txtsize.Size = New System.Drawing.Size(193, 25)
-        Me.txtsize.TabIndex = 131
-        '
-        'txtProductname
-        '
-        Me.txtProductname.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtProductname.FormattingEnabled = True
-        Me.txtProductname.Location = New System.Drawing.Point(145, 157)
-        Me.txtProductname.Name = "txtProductname"
-        Me.txtProductname.Size = New System.Drawing.Size(193, 25)
-        Me.txtProductname.TabIndex = 130
         '
         'Label9
         '
@@ -82,9 +68,10 @@ Partial Class frmInventoryAdjustment
         '
         Me.Panel5.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Panel5.Controls.Add(Me.Label4)
-        Me.Panel5.Location = New System.Drawing.Point(1, 0)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(799, 35)
+        Me.Panel5.Size = New System.Drawing.Size(660, 35)
         Me.Panel5.TabIndex = 11
         '
         'Label4
@@ -183,7 +170,7 @@ Partial Class frmInventoryAdjustment
         '
         Me.reason.AutoSize = True
         Me.reason.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.reason.Location = New System.Drawing.Point(25, 283)
+        Me.reason.Location = New System.Drawing.Point(25, 331)
         Me.reason.Name = "reason"
         Me.reason.Size = New System.Drawing.Size(79, 34)
         Me.reason.TabIndex = 139
@@ -193,7 +180,7 @@ Partial Class frmInventoryAdjustment
         '
         Me.txtReason.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtReason.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtReason.Location = New System.Drawing.Point(145, 283)
+        Me.txtReason.Location = New System.Drawing.Point(145, 331)
         Me.txtReason.Multiline = True
         Me.txtReason.Name = "txtReason"
         Me.txtReason.Size = New System.Drawing.Size(489, 79)
@@ -223,11 +210,11 @@ Partial Class frmInventoryAdjustment
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.White
         Me.Label6.Location = New System.Drawing.Point(72, 42)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(363, 17)
+        Me.Label6.Size = New System.Drawing.Size(345, 17)
         Me.Label6.TabIndex = 144
         Me.Label6.Text = "This action will be recorded in the stock entry and audit logs." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
@@ -247,7 +234,7 @@ Partial Class frmInventoryAdjustment
         Me.btncancel.BackColor = System.Drawing.Color.Gray
         Me.btncancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btncancel.ForeColor = System.Drawing.Color.White
-        Me.btncancel.Location = New System.Drawing.Point(484, 378)
+        Me.btncancel.Location = New System.Drawing.Point(484, 426)
         Me.btncancel.Name = "btncancel"
         Me.btncancel.Size = New System.Drawing.Size(150, 35)
         Me.btncancel.TabIndex = 142
@@ -259,7 +246,7 @@ Partial Class frmInventoryAdjustment
         Me.btnconfirm.BackColor = System.Drawing.Color.Navy
         Me.btnconfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnconfirm.ForeColor = System.Drawing.Color.White
-        Me.btnconfirm.Location = New System.Drawing.Point(320, 378)
+        Me.btnconfirm.Location = New System.Drawing.Point(320, 426)
         Me.btnconfirm.Name = "btnconfirm"
         Me.btnconfirm.Size = New System.Drawing.Size(150, 35)
         Me.btnconfirm.TabIndex = 141
@@ -272,14 +259,69 @@ Partial Class frmInventoryAdjustment
         Me.txtStatus.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStatus.Location = New System.Drawing.Point(145, 237)
         Me.txtStatus.Name = "txtStatus"
+        Me.txtStatus.ReadOnly = True
         Me.txtStatus.Size = New System.Drawing.Size(193, 25)
         Me.txtStatus.TabIndex = 143
+        '
+        'txtsize
+        '
+        Me.txtsize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtsize.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtsize.Location = New System.Drawing.Point(145, 196)
+        Me.txtsize.Name = "txtsize"
+        Me.txtsize.ReadOnly = True
+        Me.txtsize.Size = New System.Drawing.Size(193, 25)
+        Me.txtsize.TabIndex = 144
+        '
+        'txtprodct
+        '
+        Me.txtprodct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtprodct.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtprodct.Location = New System.Drawing.Point(145, 158)
+        Me.txtprodct.Name = "txtprodct"
+        Me.txtprodct.ReadOnly = True
+        Me.txtprodct.Size = New System.Drawing.Size(193, 25)
+        Me.txtprodct.TabIndex = 145
+        '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.NumericUpDown1.Location = New System.Drawing.Point(145, 283)
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.Size = New System.Drawing.Size(120, 27)
+        Me.NumericUpDown1.TabIndex = 146
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label7.Location = New System.Drawing.Point(271, 289)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(363, 15)
+        Me.Label7.TabIndex = 147
+        Me.Label7.Text = "counted but cannot be sold - this will be moved to damaged stocks"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(25, 287)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(101, 17)
+        Me.Label8.TabIndex = 148
+        Me.Label8.Text = "Damaged Units"
         '
         'frmInventoryAdjustment
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(660, 436)
+        Me.ClientSize = New System.Drawing.Size(660, 479)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.Label7)
+        Me.Controls.Add(Me.NumericUpDown1)
+        Me.Controls.Add(Me.txtprodct)
+        Me.Controls.Add(Me.txtsize)
         Me.Controls.Add(Me.txtStatus)
         Me.Controls.Add(Me.btncancel)
         Me.Controls.Add(Me.btnconfirm)
@@ -292,9 +334,7 @@ Partial Class frmInventoryAdjustment
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.txtsize)
         Me.Controls.Add(Me.Panel5)
-        Me.Controls.Add(Me.txtProductname)
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.Label9)
@@ -305,12 +345,11 @@ Partial Class frmInventoryAdjustment
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents txtsize As ComboBox
-    Friend WithEvents txtProductname As ComboBox
     Friend WithEvents Label9 As Label
     Friend WithEvents Panel5 As Panel
     Friend WithEvents Label4 As Label
@@ -331,4 +370,9 @@ Partial Class frmInventoryAdjustment
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents txtStatus As TextBox
+    Friend WithEvents txtsize As TextBox
+    Friend WithEvents txtprodct As TextBox
+    Friend WithEvents NumericUpDown1 As NumericUpDown
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label8 As Label
 End Class

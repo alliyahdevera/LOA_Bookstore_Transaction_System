@@ -5,7 +5,7 @@ Public Class frmActivityHistory
     Private WithEvents tmrClock As System.Windows.Forms.Timer
     Private isInitializing As Boolean = True
     Private pg As GridPager
-    ' filter name -> action_type patterns (% = anything). Logins are NOT shown here - see frmLoginHistory.
+
     Private ReadOnly actionGroups As New Dictionary(Of String, String()) From {
         {"Add", New String() {"Add %"}},
         {"Edit", New String() {"Update %"}},
@@ -17,8 +17,6 @@ Public Class frmActivityHistory
         {"Supervisor Approval", New String() {"Supervisor Approval%"}},
         {"Remittance", New String() {"Remittance"}}
     }
-
-    ' fills the cbofilter combobox that is already on the form
     Private Sub FillActionFilter()
         cbofilter.DropDownStyle = ComboBoxStyle.DropDownList
         cbofilter.Items.Clear()

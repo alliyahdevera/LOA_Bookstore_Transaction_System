@@ -43,19 +43,6 @@ Partial Class frmReleasing
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvstockinhistory = New System.Windows.Forms.DataGridView()
-        Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ORNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IDNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductCategory = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PickUpdate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.InStock = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ReleasedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ReleasedTo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btngenerate = New System.Windows.Forms.Button()
@@ -67,6 +54,18 @@ Partial Class frmReleasing
         Me.Label14 = New System.Windows.Forms.Label()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ORNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IDNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PickUpdate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.InStock = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ReleasedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ReleasedTo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -134,10 +133,9 @@ Partial Class frmReleasing
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Label5.Location = New System.Drawing.Point(21, 44)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(464, 15)
+        Me.Label5.Size = New System.Drawing.Size(267, 15)
         Me.Label5.TabIndex = 176
-        Me.Label5.Text = "Paid items that were out of stock at the time of purchase, and their release to t" &
-    "he buyer"
+        Me.Label5.Text = "Modules that are waiting to be paid in the cashier"
         '
         'btnexportexcel
         '
@@ -285,7 +283,7 @@ Partial Class frmReleasing
         '
         Me.dgvstockinhistory.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvstockinhistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvstockinhistory.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.ORNo, Me.BuyerName, Me.IDNumber, Me.ProductCode, Me.ProductCategory, Me.ProductName, Me.Quantity, Me.PickUpdate, Me.InStock, Me.Status, Me.ReleasedBy, Me.ReleasedTo})
+        Me.dgvstockinhistory.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.ORNo, Me.BuyerName, Me.IDNumber, Me.ProductCode, Me.ProductName, Me.Quantity, Me.PickUpdate, Me.InStock, Me.Status, Me.ReleasedBy, Me.ReleasedTo})
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -301,6 +299,112 @@ Partial Class frmReleasing
         Me.dgvstockinhistory.RowHeadersVisible = False
         Me.dgvstockinhistory.Size = New System.Drawing.Size(1169, 573)
         Me.dgvstockinhistory.TabIndex = 1
+        '
+        'Panel6
+        '
+        Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Panel6.Controls.Add(Me.Label7)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel6.Location = New System.Drawing.Point(0, 0)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(1169, 35)
+        Me.Panel6.TabIndex = 0
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.ForeColor = System.Drawing.Color.White
+        Me.Label7.Location = New System.Drawing.Point(7, 7)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(190, 21)
+        Me.Label7.TabIndex = 25
+        Me.Label7.Text = "MODULES FOR RELEASE"
+        '
+        'btngenerate
+        '
+        Me.btngenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btngenerate.ForeColor = System.Drawing.Color.White
+        Me.btngenerate.Location = New System.Drawing.Point(769, 72)
+        Me.btngenerate.Name = "btngenerate"
+        Me.btngenerate.Size = New System.Drawing.Size(110, 28)
+        Me.btngenerate.TabIndex = 172
+        Me.btngenerate.Text = "Load Data"
+        Me.btngenerate.UseVisualStyleBackColor = False
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.Label6.Location = New System.Drawing.Point(18, 8)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(300, 32)
+        Me.Label6.TabIndex = 171
+        Me.Label6.Text = "RELEASING OF MODULES"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(605, 77)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(22, 17)
+        Me.Label2.TabIndex = 170
+        Me.Label2.Text = "To"
+        '
+        'DateTimePicker2
+        '
+        Me.DateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker2.Location = New System.Drawing.Point(633, 72)
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(120, 27)
+        Me.DateTimePicker2.TabIndex = 169
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(401, 77)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(67, 17)
+        Me.Label1.TabIndex = 168
+        Me.Label1.Text = "Date from"
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker1.Location = New System.Drawing.Point(474, 72)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(120, 27)
+        Me.DateTimePicker1.TabIndex = 167
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(37, 78)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(51, 17)
+        Me.Label14.TabIndex = 166
+        Me.Label14.Text = "Search "
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Location = New System.Drawing.Point(94, 77)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(276, 20)
+        Me.txtSearch.TabIndex = 182
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(403, 77)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox1.TabIndex = 183
         '
         'TransactionNo
         '
@@ -332,12 +436,6 @@ Partial Class frmReleasing
         Me.ProductCode.HeaderText = "Product Code"
         Me.ProductCode.Name = "ProductCode"
         Me.ProductCode.ReadOnly = True
-        '
-        'ProductCategory
-        '
-        Me.ProductCategory.HeaderText = "Product Category"
-        Me.ProductCategory.Name = "ProductCategory"
-        Me.ProductCategory.ReadOnly = True
         '
         'ProductName
         '
@@ -380,112 +478,6 @@ Partial Class frmReleasing
         Me.ReleasedTo.HeaderText = "Released To"
         Me.ReleasedTo.Name = "ReleasedTo"
         Me.ReleasedTo.ReadOnly = True
-        '
-        'Panel6
-        '
-        Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Panel6.Controls.Add(Me.Label7)
-        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel6.Location = New System.Drawing.Point(0, 0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1169, 35)
-        Me.Panel6.TabIndex = 0
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(7, 7)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(225, 21)
-        Me.Label7.TabIndex = 25
-        Me.Label7.Text = "TRANSACTION FOR RELEASE"
-        '
-        'btngenerate
-        '
-        Me.btngenerate.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btngenerate.ForeColor = System.Drawing.Color.White
-        Me.btngenerate.Location = New System.Drawing.Point(1081, 18)
-        Me.btngenerate.Name = "btngenerate"
-        Me.btngenerate.Size = New System.Drawing.Size(110, 28)
-        Me.btngenerate.TabIndex = 172
-        Me.btngenerate.Text = "Load Data"
-        Me.btngenerate.UseVisualStyleBackColor = False
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(18, 8)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(257, 32)
-        Me.Label6.TabIndex = 171
-        Me.Label6.Text = "RELEASING OF ITEMS"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(917, 23)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(22, 17)
-        Me.Label2.TabIndex = 170
-        Me.Label2.Text = "To"
-        '
-        'DateTimePicker2
-        '
-        Me.DateTimePicker2.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker2.Location = New System.Drawing.Point(945, 18)
-        Me.DateTimePicker2.Name = "DateTimePicker2"
-        Me.DateTimePicker2.Size = New System.Drawing.Size(120, 27)
-        Me.DateTimePicker2.TabIndex = 169
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(713, 23)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(67, 17)
-        Me.Label1.TabIndex = 168
-        Me.Label1.Text = "Date from"
-        '
-        'DateTimePicker1
-        '
-        Me.DateTimePicker1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker1.Location = New System.Drawing.Point(786, 18)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(120, 27)
-        Me.DateTimePicker1.TabIndex = 167
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(37, 78)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(51, 17)
-        Me.Label14.TabIndex = 166
-        Me.Label14.Text = "Search "
-        '
-        'txtSearch
-        '
-        Me.txtSearch.Location = New System.Drawing.Point(94, 77)
-        Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(276, 20)
-        Me.txtSearch.TabIndex = 182
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(403, 77)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox1.TabIndex = 183
         '
         'frmReleasing
         '
@@ -545,19 +537,6 @@ Partial Class frmReleasing
     Friend WithEvents lblposition As Label
     Friend WithEvents Panel5 As Panel
     Friend WithEvents dgvstockinhistory As DataGridView
-    Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
-    Friend WithEvents ORNo As DataGridViewTextBoxColumn
-    Friend WithEvents BuyerName As DataGridViewTextBoxColumn
-    Friend WithEvents IDNumber As DataGridViewTextBoxColumn
-    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
-    Friend WithEvents ProductCategory As DataGridViewTextBoxColumn
-    Friend WithEvents ProductName As DataGridViewTextBoxColumn
-    Friend WithEvents Quantity As DataGridViewTextBoxColumn
-    Friend WithEvents PickUpdate As DataGridViewTextBoxColumn
-    Friend WithEvents InStock As DataGridViewTextBoxColumn
-    Friend WithEvents Status As DataGridViewTextBoxColumn
-    Friend WithEvents ReleasedBy As DataGridViewTextBoxColumn
-    Friend WithEvents ReleasedTo As DataGridViewTextBoxColumn
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
     Friend WithEvents btngenerate As Button
@@ -569,4 +548,16 @@ Partial Class frmReleasing
     Friend WithEvents Label14 As Label
     Friend WithEvents txtSearch As TextBox
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TransactionNo As DataGridViewTextBoxColumn
+    Friend WithEvents ORNo As DataGridViewTextBoxColumn
+    Friend WithEvents BuyerName As DataGridViewTextBoxColumn
+    Friend WithEvents IDNumber As DataGridViewTextBoxColumn
+    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
+    Friend WithEvents ProductName As DataGridViewTextBoxColumn
+    Friend WithEvents Quantity As DataGridViewTextBoxColumn
+    Friend WithEvents PickUpdate As DataGridViewTextBoxColumn
+    Friend WithEvents InStock As DataGridViewTextBoxColumn
+    Friend WithEvents Status As DataGridViewTextBoxColumn
+    Friend WithEvents ReleasedBy As DataGridViewTextBoxColumn
+    Friend WithEvents ReleasedTo As DataGridViewTextBoxColumn
 End Class

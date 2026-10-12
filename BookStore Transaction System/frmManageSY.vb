@@ -44,7 +44,7 @@
         Me.Close()
     End Sub
 
-    Private Sub ListBox1_DoubleClick(sender As Object, e As EventArgs) Handles ListBox1.DoubleClick
+    Private Sub ListBox1_DoubleClick(sender As Object, e As EventArgs)
         If ListBox1.SelectedIndex >= 0 Then btnupd.PerformClick()
     End Sub
 

@@ -24,6 +24,7 @@ Partial Class frmActivityHistory
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmActivityHistory))
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btnexportexcel = New System.Windows.Forms.Button()
@@ -49,13 +50,20 @@ Partial Class frmActivityHistory
         Me.dtpto = New System.Windows.Forms.DateTimePicker()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dtpfrom = New System.Windows.Forms.DateTimePicker()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.timerdate = New System.Windows.Forms.Timer(Me.components)
         Me.cbofilter = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvActivityHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label5
@@ -275,7 +283,7 @@ Partial Class frmActivityHistory
         Me.btngenerate.FlatAppearance.BorderSize = 0
         Me.btngenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btngenerate.ForeColor = System.Drawing.Color.White
-        Me.btngenerate.Location = New System.Drawing.Point(392, 84)
+        Me.btngenerate.Location = New System.Drawing.Point(739, 85)
         Me.btngenerate.Name = "btngenerate"
         Me.btngenerate.Size = New System.Drawing.Size(119, 28)
         Me.btngenerate.TabIndex = 162
@@ -287,7 +295,7 @@ Partial Class frmActivityHistory
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(225, 90)
+        Me.Label2.Location = New System.Drawing.Point(572, 91)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(22, 17)
         Me.Label2.TabIndex = 161
@@ -297,7 +305,7 @@ Partial Class frmActivityHistory
         '
         Me.dtpto.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpto.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpto.Location = New System.Drawing.Point(253, 85)
+        Me.dtpto.Location = New System.Drawing.Point(600, 86)
         Me.dtpto.Name = "dtpto"
         Me.dtpto.Size = New System.Drawing.Size(123, 27)
         Me.dtpto.TabIndex = 160
@@ -306,7 +314,7 @@ Partial Class frmActivityHistory
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(21, 91)
+        Me.Label1.Location = New System.Drawing.Point(368, 92)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(67, 17)
         Me.Label1.TabIndex = 159
@@ -316,39 +324,94 @@ Partial Class frmActivityHistory
         '
         Me.dtpfrom.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpfrom.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpfrom.Location = New System.Drawing.Point(94, 86)
+        Me.dtpfrom.Location = New System.Drawing.Point(441, 87)
         Me.dtpfrom.Name = "dtpfrom"
         Me.dtpfrom.Size = New System.Drawing.Size(123, 27)
         Me.dtpfrom.TabIndex = 158
         '
-        'Timer1
+        'timerdate
         '
-        Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 1000
+        Me.timerdate.Enabled = True
+        Me.timerdate.Interval = 1000
         '
         'cbofilter
         '
+        Me.cbofilter.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbofilter.FormattingEnabled = True
-        Me.cbofilter.Location = New System.Drawing.Point(1030, 87)
+        Me.cbofilter.Location = New System.Drawing.Point(1029, 87)
         Me.cbofilter.Name = "cbofilter"
-        Me.cbofilter.Size = New System.Drawing.Size(162, 21)
+        Me.cbofilter.Size = New System.Drawing.Size(162, 25)
         Me.cbofilter.TabIndex = 163
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(970, 89)
+        Me.Label3.Location = New System.Drawing.Point(930, 89)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(54, 17)
+        Me.Label3.Size = New System.Drawing.Size(94, 17)
         Me.Label3.TabIndex = 164
-        Me.Label3.Text = "Filter by"
+        Me.Label3.Text = "Filter by Action"
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Label10)
+        Me.Panel1.Controls.Add(Me.PictureBox1)
+        Me.Panel1.Controls.Add(Me.txtSearch)
+        Me.Panel1.Location = New System.Drawing.Point(92, 90)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(216, 26)
+        Me.Panel1.TabIndex = 166
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label10.Location = New System.Drawing.Point(3, 3)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(116, 17)
+        Me.Label10.TabIndex = 179
+        Me.Label10.Text = "Username or Role"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PictureBox1.Location = New System.Drawing.Point(192, 3)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(19, 19)
+        Me.PictureBox1.TabIndex = 29
+        Me.PictureBox1.TabStop = False
+        '
+        'txtSearch
+        '
+        Me.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSearch.Location = New System.Drawing.Point(3, 2)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(186, 20)
+        Me.txtSearch.TabIndex = 28
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(20, 94)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(67, 17)
+        Me.Label14.TabIndex = 165
+        Me.Label14.Text = "Search by"
         '
         'frmActivityHistory
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1220, 817)
+        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.cbofilter)
         Me.Controls.Add(Me.btngenerate)
@@ -370,6 +433,9 @@ Partial Class frmActivityHistory
         CType(Me.dgvActivityHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -400,7 +466,12 @@ Partial Class frmActivityHistory
     Friend WithEvents dtpto As DateTimePicker
     Friend WithEvents Label1 As Label
     Friend WithEvents dtpfrom As DateTimePicker
-    Friend WithEvents Timer1 As Timer
+    Friend WithEvents timerdate As Timer
     Friend WithEvents cbofilter As ComboBox
     Friend WithEvents Label3 As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Label10 As Label
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents txtSearch As TextBox
+    Friend WithEvents Label14 As Label
 End Class
