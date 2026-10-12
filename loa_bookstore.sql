@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2026 at 03:05 PM
+-- Generation Time: Oct 12, 2026 at 03:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -198,7 +198,32 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 (148, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 20:46:43'),
 (149, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 20:48:40'),
 (150, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 20:52:08'),
-(151, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 20:54:07');
+(151, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 20:54:07'),
+(152, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 22:31:32'),
+(153, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 22:38:19'),
+(154, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 22:39:51'),
+(155, 1, 'Activity', 'Sale', 'TXN-20261011224035641', NULL, NULL, NULL, NULL, 'Sale to Carl James Canua (Student) - Total: 230.00 (Salary Deduction, OR OR-20261011224042490). Items: Basic Ed - Grade 10 Araling Panlipunan Learning Module x1', 'Success', NULL, '2026-10-11 22:40:51'),
+(156, 1, 'Activity', 'Sale', 'TXN-20261011224123645', NULL, NULL, NULL, NULL, 'Sale to Marc Denize Barcinas (Student) - Total: 850.00 (Salary Deduction, OR OR-20261011224137435). Items: BSA BLAZER (FEMALE) x1', 'Success', NULL, '2026-10-11 22:41:45'),
+(157, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 22:45:15'),
+(158, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 22:46:08'),
+(159, 5, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 22:46:51'),
+(160, 2, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 22:47:54'),
+(161, 2, 'Activity', 'Sale', 'TXN-20261011224910721', NULL, NULL, NULL, NULL, 'Sale to Marc Denize Barcinas (Student) - Total: 420.00 (Salary Deduction, OR OR-20261011224917067). Items: Basic Ed - Grade 8 Science & Technology Textbook x1', 'Success', NULL, '2026-10-11 22:49:26'),
+(162, 2, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 22:50:56'),
+(163, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-11 23:25:38'),
+(164, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:01:45'),
+(165, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:07:52'),
+(166, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:10:59'),
+(167, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:11:57'),
+(168, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:12:23'),
+(169, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:34:14'),
+(170, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:34:40'),
+(171, 2, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:37:15'),
+(172, 5, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:37:45'),
+(173, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:44:16'),
+(174, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:49:57'),
+(175, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 00:53:49'),
+(176, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 01:00:51');
 
 -- --------------------------------------------------------
 
@@ -391,6 +416,7 @@ CREATE TABLE `tbl_inventory_count_details` (
   `variant_id` int(11) NOT NULL,
   `system_quantity` int(11) NOT NULL,
   `physical_quantity` int(11) NOT NULL,
+  `damaged_quantity` int(11) NOT NULL DEFAULT 0,
   `difference` int(11) NOT NULL,
   `status` enum('Matched','Short','Excess') NOT NULL,
   `item_condition` varchar(20) DEFAULT NULL,
@@ -402,11 +428,11 @@ CREATE TABLE `tbl_inventory_count_details` (
 -- Dumping data for table `tbl_inventory_count_details`
 --
 
-INSERT INTO `tbl_inventory_count_details` (`inventory_count_detail_id`, `inventory_count_id`, `variant_id`, `system_quantity`, `physical_quantity`, `difference`, `status`, `item_condition`, `remarks`, `adjusted`) VALUES
-(1, 1, 1, 101, 10, -91, 'Short', NULL, 'e', 1),
-(2, 2, 1, 10, 5, -5, 'Short', NULL, '231231', 1),
-(3, 2, 746, 30, 35, 5, 'Excess', NULL, NULL, 0),
-(4, 3, 497, 19, 10, -9, 'Short', NULL, 'stained badly', 1);
+INSERT INTO `tbl_inventory_count_details` (`inventory_count_detail_id`, `inventory_count_id`, `variant_id`, `system_quantity`, `physical_quantity`, `damaged_quantity`, `difference`, `status`, `item_condition`, `remarks`, `adjusted`) VALUES
+(1, 1, 1, 101, 10, 0, -91, 'Short', NULL, 'e', 1),
+(2, 2, 1, 10, 5, 0, -5, 'Short', NULL, '231231', 1),
+(3, 2, 746, 30, 35, 0, 5, 'Excess', NULL, NULL, 0),
+(4, 3, 497, 19, 10, 0, -9, 'Short', NULL, 'stained badly', 1);
 
 -- --------------------------------------------------------
 
@@ -1261,7 +1287,7 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (532, 186, 'UNI-CP-038-3XL', '3XL', 20, 5),
 (533, 186, 'UNI-CP-038-4XL', '4XL', 20, 5),
 (534, 186, 'UNI-CP-038-5XL', '5XL', 20, 5),
-(535, 186, 'UNI-CP-038-6XL', '6XL', 20, 5),
+(535, 186, 'UNI-CP-038-6XL', '6XL', 19, 5),
 (536, 187, 'UNI-CP-039-XS', 'XS', 20, 5),
 (537, 187, 'UNI-CP-039-S', 'S', 20, 5),
 (538, 187, 'UNI-CP-039-M', 'M', 20, 5),
@@ -1502,9 +1528,9 @@ INSERT INTO `tbl_product_variants` (`variant_id`, `product_id`, `product_code`, 
 (774, 224, 'BK-0224', 'N/A', 30, 10),
 (775, 226, 'BK-0226', 'N/A', 30, 10),
 (776, 230, 'BK-0230', 'N/A', 30, 10),
-(777, 231, 'BK-0231', 'N/A', 30, 10),
+(777, 231, 'BK-0231', 'N/A', 29, 10),
 (778, 232, 'BK-0232', 'N/A', 30, 10),
-(779, 233, 'BK-0233', 'N/A', 30, 10),
+(779, 233, 'BK-0233', 'N/A', 29, 10),
 (780, 234, 'BK-0234', 'N/A', 30, 10),
 (781, 235, 'BK-0235', 'N/A', 30, 10),
 (782, 236, 'BK-0236', 'N/A', 30, 10),
@@ -1809,22 +1835,26 @@ CREATE TABLE `tbl_transactions` (
   `status` varchar(20) NOT NULL DEFAULT 'Completed',
   `cancel_reason` varchar(255) DEFAULT NULL,
   `cancelled_by` int(11) DEFAULT NULL,
-  `cancelled_at` datetime DEFAULT NULL
+  `cancelled_at` datetime DEFAULT NULL,
+  `print_count` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_transactions`
 --
 
-INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`, `student_id`, `id_number`, `buyer_name`, `or_no`, `or_date`, `created_at`, `payment_method`, `employee_name`, `total_amount`, `amount_paid`, `amount_change`, `created_by`, `status`, `cancel_reason`, `cancelled_by`, `cancelled_at`) VALUES
-(1, 'TXN-20261002205141910', 'Student', 25, '2789-24', 'Alliyah De Vera', 'OR-20261002205150475', '2026-10-02', '2026-10-02 20:54:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL),
-(2, 'TXN-20261002205439014', 'Walk-in', NULL, NULL, '123', 'OR-20261002205507126', '2026-10-02', '2026-10-02 20:55:14', 'Cash', NULL, 1225.00, 3000.00, 1775.00, 1, 'Partially Returned', NULL, NULL, NULL),
-(3, 'TXN-20261002210939244', 'Student', 1, '2235-20', 'Miguel Dela Cruz', 'OR-20261002211016756', '2026-10-02', '2026-10-02 21:10:27', 'Salary Deduction', 'Daniel Lopez', 25.00, 25.00, 0.00, 6, 'Completed', NULL, NULL, NULL),
-(4, 'TXN-20261002211935813', 'Student', 25, '2789-24', 'Alliyah De Vera', 'OR-20261002212507211', '2026-10-02', '2026-10-02 21:25:25', 'Cash', NULL, 850.00, 900.00, 50.00, 2, 'Exchanged', NULL, NULL, NULL),
-(5, 'TXN-20261004150727709', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261004150738291', '2026-10-04', '2026-10-04 15:08:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL),
-(6, 'TXN-20261004152552471', 'Student', 17, '1396-24', 'Stephanie Mendoza', 'OR-20261004152656588', '2026-10-04', '2026-10-04 15:27:33', 'Cash', NULL, 275.00, 300.00, 25.00, 1, 'Partially Exchanged', NULL, NULL, NULL),
-(7, 'TXN-20261005001120942', 'Guest', NULL, NULL, 'sdwdwqdsads', 'OR-20261005001217239', '2026-10-05', '2026-10-05 00:12:28', 'Cash', NULL, 12.00, 14.00, 2.00, 1, 'Completed', NULL, NULL, NULL),
-(8, 'TXN-20261008143526506', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261008143604267', '2026-10-08', '2026-10-08 14:36:41', 'Cash', NULL, 850.00, 1000.00, 150.00, 1, 'Completed', NULL, NULL, NULL);
+INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`, `student_id`, `id_number`, `buyer_name`, `or_no`, `or_date`, `created_at`, `payment_method`, `employee_name`, `total_amount`, `amount_paid`, `amount_change`, `created_by`, `status`, `cancel_reason`, `cancelled_by`, `cancelled_at`, `print_count`) VALUES
+(1, 'TXN-20261002205141910', 'Student', 25, '2789-24', 'Alliyah De Vera', 'OR-20261002205150475', '2026-10-02', '2026-10-02 20:54:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL, 0),
+(2, 'TXN-20261002205439014', 'Walk-in', NULL, NULL, '123', 'OR-20261002205507126', '2026-10-02', '2026-10-02 20:55:14', 'Cash', NULL, 1225.00, 3000.00, 1775.00, 1, 'Partially Returned', NULL, NULL, NULL, 0),
+(3, 'TXN-20261002210939244', 'Student', 1, '2235-20', 'Miguel Dela Cruz', 'OR-20261002211016756', '2026-10-02', '2026-10-02 21:10:27', 'Salary Deduction', 'Daniel Lopez', 25.00, 25.00, 0.00, 6, 'Completed', NULL, NULL, NULL, 0),
+(4, 'TXN-20261002211935813', 'Student', 25, '2789-24', 'Alliyah De Vera', 'OR-20261002212507211', '2026-10-02', '2026-10-02 21:25:25', 'Cash', NULL, 850.00, 900.00, 50.00, 2, 'Exchanged', NULL, NULL, NULL, 0),
+(5, 'TXN-20261004150727709', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261004150738291', '2026-10-04', '2026-10-04 15:08:02', 'Cash', NULL, 25.00, 30.00, 5.00, 1, 'Completed', NULL, NULL, NULL, 0),
+(6, 'TXN-20261004152552471', 'Student', 17, '1396-24', 'Stephanie Mendoza', 'OR-20261004152656588', '2026-10-04', '2026-10-04 15:27:33', 'Cash', NULL, 275.00, 300.00, 25.00, 1, 'Partially Exchanged', NULL, NULL, NULL, 0),
+(7, 'TXN-20261005001120942', 'Guest', NULL, NULL, 'sdwdwqdsads', 'OR-20261005001217239', '2026-10-05', '2026-10-05 00:12:28', 'Cash', NULL, 12.00, 14.00, 2.00, 1, 'Completed', NULL, NULL, NULL, 0),
+(8, 'TXN-20261008143526506', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261008143604267', '2026-10-08', '2026-10-08 14:36:41', 'Cash', NULL, 850.00, 1000.00, 150.00, 1, 'Completed', NULL, NULL, NULL, 0),
+(9, 'TXN-20261011224035641', 'Student', 20, '2055-24', 'Carl James Canua', 'OR-20261011224042490', '2026-10-11', '2026-10-11 22:40:51', 'Salary Deduction', 'Rosa Villanueva', 230.00, 230.00, 0.00, 1, 'Completed', NULL, NULL, NULL, 0),
+(10, 'TXN-20261011224123645', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261011224137435', '2026-10-11', '2026-10-11 22:41:45', 'Salary Deduction', 'Daniel Mercado', 850.00, 850.00, 0.00, 1, 'Completed', NULL, NULL, NULL, 0),
+(11, 'TXN-20261011224910721', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261011224917067', '2026-10-11', '2026-10-11 22:49:26', 'Salary Deduction', 'Rosa Villanueva', 420.00, 420.00, 0.00, 2, 'Completed', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1839,24 +1869,30 @@ CREATE TABLE `tbl_transaction_items` (
   `quantity` int(11) NOT NULL DEFAULT 1,
   `subtotal` decimal(10,2) NOT NULL,
   `is_backorder` tinyint(1) NOT NULL DEFAULT 0,
-  `pickup_date` date DEFAULT NULL
+  `pickup_date` date DEFAULT NULL,
+  `released_at` datetime DEFAULT NULL,
+  `released_by` int(11) DEFAULT NULL,
+  `received_by` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_transaction_items`
 --
 
-INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `variant_id`, `quantity`, `subtotal`, `is_backorder`, `pickup_date`) VALUES
-(1, 1, 7, 1, 25.00, 0, NULL),
-(2, 2, 7, 49, 1225.00, 0, NULL),
-(3, 3, 5, 1, 25.00, 0, NULL),
-(4, 4, 665, 1, 850.00, 0, NULL),
-(5, 5, 7, 1, 25.00, 0, NULL),
-(6, 6, 3, 1, 25.00, 0, NULL),
-(7, 6, 11, 1, 30.00, 0, NULL),
-(8, 6, 17, 1, 220.00, 0, NULL),
-(9, 7, 1, 1, 12.00, 0, NULL),
-(10, 8, 531, 1, 850.00, 0, NULL);
+INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `variant_id`, `quantity`, `subtotal`, `is_backorder`, `pickup_date`, `released_at`, `released_by`, `received_by`) VALUES
+(1, 1, 7, 1, 25.00, 0, NULL, '2026-10-02 20:54:02', 1, 'Alliyah De Vera'),
+(2, 2, 7, 49, 1225.00, 0, NULL, '2026-10-02 20:55:14', 1, '123'),
+(3, 3, 5, 1, 25.00, 0, NULL, '2026-10-02 21:10:27', 6, 'Miguel Dela Cruz'),
+(4, 4, 665, 1, 850.00, 0, NULL, '2026-10-02 21:25:25', 2, 'Alliyah De Vera'),
+(5, 5, 7, 1, 25.00, 0, NULL, '2026-10-04 15:08:02', 1, 'Marc Denize Barcinas'),
+(6, 6, 3, 1, 25.00, 0, NULL, '2026-10-04 15:27:33', 1, 'Stephanie Mendoza'),
+(7, 6, 11, 1, 30.00, 0, NULL, '2026-10-04 15:27:33', 1, 'Stephanie Mendoza'),
+(8, 6, 17, 1, 220.00, 0, NULL, '2026-10-04 15:27:33', 1, 'Stephanie Mendoza'),
+(9, 7, 1, 1, 12.00, 0, NULL, '2026-10-05 00:12:28', 1, 'sdwdwqdsads'),
+(10, 8, 531, 1, 850.00, 0, NULL, '2026-10-08 14:36:41', 1, 'Marc Denize Barcinas'),
+(11, 9, 779, 1, 230.00, 0, NULL, '2026-10-11 22:40:51', 1, 'Carl James Canua'),
+(12, 10, 535, 1, 850.00, 0, NULL, '2026-10-11 22:41:45', 1, 'Marc Denize Barcinas'),
+(13, 11, 777, 1, 420.00, 0, NULL, '2026-10-11 22:49:26', 2, 'Marc Denize Barcinas');
 
 -- --------------------------------------------------------
 
@@ -2064,7 +2100,8 @@ ALTER TABLE `tbl_transactions`
 ALTER TABLE `tbl_transaction_items`
   ADD PRIMARY KEY (`transaction_item_id`),
   ADD KEY `fk_ti_txn` (`transaction_id`),
-  ADD KEY `fk_ti_variant` (`variant_id`);
+  ADD KEY `fk_ti_variant` (`variant_id`),
+  ADD KEY `idx_unreleased` (`is_backorder`,`released_at`);
 
 --
 -- Indexes for table `tbl_users`
@@ -2082,7 +2119,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_audit_logs`
 --
 ALTER TABLE `tbl_audit_logs`
-  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT for table `tbl_cash_denominations`
@@ -2202,13 +2239,13 @@ ALTER TABLE `tbl_students`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction_items`
 --
 ALTER TABLE `tbl_transaction_items`
-  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
