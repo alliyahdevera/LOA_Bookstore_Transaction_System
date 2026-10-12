@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2026 at 05:20 PM
+-- Generation Time: Oct 13, 2026 at 01:31 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -227,7 +227,27 @@ INSERT INTO `tbl_audit_logs` (`audit_id`, `user_id`, `log_type`, `action_type`, 
 (177, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 20:23:41'),
 (178, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 20:28:04'),
 (179, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 20:29:38'),
-(180, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 20:31:03');
+(180, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-12 20:31:03'),
+(181, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 02:37:39'),
+(182, 2, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 02:42:19'),
+(183, 2, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 02:44:38'),
+(184, 2, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 02:51:56'),
+(185, 5, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 02:52:37'),
+(186, 5, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 03:12:58'),
+(187, 5, 'Activity', 'Stock In', 'DR-20261013031356764', NULL, NULL, NULL, NULL, 'Added 1 pc(s) of SUP-ART', 'Success', NULL, '2026-10-13 03:14:16'),
+(188, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 03:15:15'),
+(189, 5, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 06:16:14'),
+(190, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 06:17:40'),
+(191, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 06:25:17'),
+(192, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 06:27:21'),
+(193, 5, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 06:29:13'),
+(194, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'Incorrect password entered', 'Failed - Incorrect Password', NULL, '2026-10-13 06:29:52'),
+(195, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 06:30:00'),
+(196, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 06:45:16'),
+(197, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 06:53:16'),
+(198, 1, 'Activity', 'School Year Added', '2027-2028', NULL, NULL, NULL, NULL, 'Added school year 2027-2028 (Jun 1, 2027 - May 31, 2028)', 'Success', NULL, '2026-10-13 06:54:36'),
+(199, 1, 'Login', 'User Login', NULL, NULL, NULL, NULL, NULL, 'User logged into system', 'Success', NULL, '2026-10-13 06:59:44'),
+(200, 1, 'Activity', 'Sale', 'TXN-20261013071808910', NULL, NULL, NULL, NULL, 'Transaction for ALLIYAH. Total: 12.00. Method: Cash. OR: OR-20261013071900209. Items: Art Paper x1', 'Success', NULL, '2026-10-13 07:19:11');
 
 -- --------------------------------------------------------
 
@@ -1686,7 +1706,8 @@ CREATE TABLE `tbl_school_years` (
 
 INSERT INTO `tbl_school_years` (`school_year_id`, `label`, `start_date`, `end_date`, `is_current`, `created_at`) VALUES
 (1, '2025-2026', '2025-06-01', '2026-05-31', 0, '2026-10-08 17:57:17'),
-(2, '2026-2027', '2026-06-01', '2027-05-31', 1, '2026-10-08 17:57:17');
+(2, '2026-2027', '2026-06-01', '2027-05-31', 1, '2026-10-08 17:57:17'),
+(3, '2027-2028', '2027-06-01', '2028-05-31', 0, '2026-10-13 06:54:36');
 
 -- --------------------------------------------------------
 
@@ -1708,7 +1729,8 @@ CREATE TABLE `tbl_stock_ins` (
 --
 
 INSERT INTO `tbl_stock_ins` (`stock_in_id`, `reference_no`, `received_by`, `stock_in_date`, `stock_in_time`, `created_by`) VALUES
-(1, 'DR-20261002210016648', 'Maria Santos', '2026-10-02', '21:00:20', 1);
+(1, 'DR-20261002210016648', 'Maria Santos', '2026-10-02', '21:00:20', 1),
+(2, 'DR-20261013031356764', 'Luz Garcia', '2026-10-13', '03:14:16', 5);
 
 -- --------------------------------------------------------
 
@@ -1728,7 +1750,8 @@ CREATE TABLE `tbl_stock_in_details` (
 --
 
 INSERT INTO `tbl_stock_in_details` (`stock_in_detail_id`, `stock_in_id`, `variant_id`, `quantity`) VALUES
-(1, 1, 1, 1);
+(1, 1, 1, 1),
+(2, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1862,7 +1885,8 @@ INSERT INTO `tbl_transactions` (`transaction_id`, `transaction_no`, `buyer_type`
 (8, 'TXN-20261008143526506', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261008143604267', '2026-10-08', '2026-10-08 14:36:41', 'Cash', NULL, 850.00, 1000.00, 150.00, 1, 'Completed', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
 (9, 'TXN-20261011224035641', 'Student', 20, '2055-24', 'Carl James Canua', 'OR-20261011224042490', '2026-10-11', '2026-10-11 22:40:51', 'Salary Deduction', 'Rosa Villanueva', 230.00, 230.00, 0.00, 1, 'Completed', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
 (10, 'TXN-20261011224123645', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261011224137435', '2026-10-11', '2026-10-11 22:41:45', 'Salary Deduction', 'Daniel Mercado', 850.00, 850.00, 0.00, 1, 'Completed', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
-(11, 'TXN-20261011224910721', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261011224917067', '2026-10-11', '2026-10-11 22:49:26', 'Salary Deduction', 'Rosa Villanueva', 420.00, 420.00, 0.00, 2, 'Completed', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL);
+(11, 'TXN-20261011224910721', 'Student', 18, '1522-24', 'Marc Denize Barcinas', 'OR-20261011224917067', '2026-10-11', '2026-10-11 22:49:26', 'Salary Deduction', 'Rosa Villanueva', 420.00, 420.00, 0.00, 2, 'Completed', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL),
+(12, 'TXN-20261013071808910', 'Guest', NULL, '4234645645656', 'ALLIYAH', 'OR-20261013071900209', '2026-10-13', '2026-10-13 07:19:11', 'Cash', NULL, 12.00, 12.00, 0.00, 1, 'Completed', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1900,7 +1924,8 @@ INSERT INTO `tbl_transaction_items` (`transaction_item_id`, `transaction_id`, `v
 (10, 8, 531, 1, 850.00, 0, NULL, '2026-10-08 14:36:41', 1, 'Marc Denize Barcinas'),
 (11, 9, 779, 1, 230.00, 0, NULL, '2026-10-11 22:40:51', 1, 'Carl James Canua'),
 (12, 10, 535, 1, 850.00, 0, NULL, '2026-10-11 22:41:45', 1, 'Marc Denize Barcinas'),
-(13, 11, 777, 1, 420.00, 0, NULL, '2026-10-11 22:49:26', 2, 'Marc Denize Barcinas');
+(13, 11, 777, 1, 420.00, 0, NULL, '2026-10-11 22:49:26', 2, 'Marc Denize Barcinas'),
+(14, 12, 1, 1, 12.00, 0, NULL, '2026-10-13 07:19:11', 1, 'ALLIYAH');
 
 -- --------------------------------------------------------
 
@@ -2127,7 +2152,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_audit_logs`
 --
 ALTER TABLE `tbl_audit_logs`
-  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+  MODIFY `audit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
 
 --
 -- AUTO_INCREMENT for table `tbl_cash_denominations`
@@ -2217,19 +2242,19 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT for table `tbl_school_years`
 --
 ALTER TABLE `tbl_school_years`
-  MODIFY `school_year_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `school_year_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_stock_ins`
 --
 ALTER TABLE `tbl_stock_ins`
-  MODIFY `stock_in_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `stock_in_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_stock_in_details`
 --
 ALTER TABLE `tbl_stock_in_details`
-  MODIFY `stock_in_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `stock_in_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_stock_movements`
@@ -2247,13 +2272,13 @@ ALTER TABLE `tbl_students`
 -- AUTO_INCREMENT for table `tbl_transactions`
 --
 ALTER TABLE `tbl_transactions`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaction_items`
 --
 ALTER TABLE `tbl_transaction_items`
-  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `transaction_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`
