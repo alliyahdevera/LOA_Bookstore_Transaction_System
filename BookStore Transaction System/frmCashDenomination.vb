@@ -152,13 +152,16 @@ Public Class frmCashDenomination
 
         If diff = 0D Then
             txtstatus.Text = "Balanced"
-            txtstatus.ForeColor = Color.SeaGreen
+            txtstatus.BackColor = Color.SeaGreen
+            txtstatus.ForeColor = Color.White
         ElseIf diff < 0D Then
             txtstatus.Text = "Short"
-            txtstatus.ForeColor = Color.Firebrick
+            txtstatus.BackColor = Color.DarkOrange
+            txtstatus.ForeColor = Color.White
         Else
             txtstatus.Text = "Over"
-            txtstatus.ForeColor = Color.DarkOrange
+            txtstatus.BackColor = Color.Firebrick
+            txtstatus.ForeColor = Color.White
         End If
     End Sub
 

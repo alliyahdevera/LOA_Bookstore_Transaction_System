@@ -23,12 +23,12 @@ Partial Class frmSupervisorApproval
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.btnStudentno = New System.Windows.Forms.TextBox()
+        Me.txtUsername = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtStudentName = New System.Windows.Forms.TextBox()
-        Me.btnclose = New System.Windows.Forms.Button()
-        Me.btnreturnexc = New System.Windows.Forms.Button()
+        Me.txtPassword = New System.Windows.Forms.TextBox()
+        Me.btnCancel = New System.Windows.Forms.Button()
+        Me.btnApprove = New System.Windows.Forms.Button()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel6.SuspendLayout()
@@ -36,7 +36,6 @@ Partial Class frmSupervisorApproval
         '
         'Label4
         '
-        Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
         Me.Label4.Location = New System.Drawing.Point(14, 47)
@@ -45,14 +44,14 @@ Partial Class frmSupervisorApproval
         Me.Label4.TabIndex = 89
         Me.Label4.Text = "A supervisor must approve" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " ----text here-----"
         '
-        'btnStudentno
+        'txtUsername
         '
-        Me.btnStudentno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.btnStudentno.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnStudentno.Location = New System.Drawing.Point(16, 116)
-        Me.btnStudentno.Name = "btnStudentno"
-        Me.btnStudentno.Size = New System.Drawing.Size(371, 27)
-        Me.btnStudentno.TabIndex = 111
+        Me.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtUsername.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtUsername.Location = New System.Drawing.Point(16, 116)
+        Me.txtUsername.Name = "txtUsername"
+        Me.txtUsername.Size = New System.Drawing.Size(371, 27)
+        Me.txtUsername.TabIndex = 111
         '
         'Label6
         '
@@ -74,38 +73,38 @@ Partial Class frmSupervisorApproval
         Me.Label3.TabIndex = 109
         Me.Label3.Text = "Supervisor Username"
         '
-        'txtStudentName
+        'txtPassword
         '
-        Me.txtStudentName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtStudentName.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStudentName.Location = New System.Drawing.Point(16, 175)
-        Me.txtStudentName.Name = "txtStudentName"
-        Me.txtStudentName.Size = New System.Drawing.Size(371, 27)
-        Me.txtStudentName.TabIndex = 108
+        Me.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtPassword.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPassword.Location = New System.Drawing.Point(16, 175)
+        Me.txtPassword.Name = "txtPassword"
+        Me.txtPassword.Size = New System.Drawing.Size(371, 27)
+        Me.txtPassword.TabIndex = 108
         '
-        'btnclose
+        'btnCancel
         '
-        Me.btnclose.BackColor = System.Drawing.Color.SlateGray
-        Me.btnclose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnclose.ForeColor = System.Drawing.Color.White
-        Me.btnclose.Location = New System.Drawing.Point(273, 220)
-        Me.btnclose.Name = "btnclose"
-        Me.btnclose.Size = New System.Drawing.Size(114, 31)
-        Me.btnclose.TabIndex = 118
-        Me.btnclose.Text = "Cancel"
-        Me.btnclose.UseVisualStyleBackColor = False
+        Me.btnCancel.BackColor = System.Drawing.Color.SlateGray
+        Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCancel.ForeColor = System.Drawing.Color.White
+        Me.btnCancel.Location = New System.Drawing.Point(273, 220)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(114, 31)
+        Me.btnCancel.TabIndex = 118
+        Me.btnCancel.Text = "Cancel"
+        Me.btnCancel.UseVisualStyleBackColor = False
         '
-        'btnreturnexc
+        'btnApprove
         '
-        Me.btnreturnexc.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.btnreturnexc.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnreturnexc.ForeColor = System.Drawing.Color.White
-        Me.btnreturnexc.Location = New System.Drawing.Point(147, 220)
-        Me.btnreturnexc.Name = "btnreturnexc"
-        Me.btnreturnexc.Size = New System.Drawing.Size(114, 31)
-        Me.btnreturnexc.TabIndex = 117
-        Me.btnreturnexc.Text = "Approve"
-        Me.btnreturnexc.UseVisualStyleBackColor = False
+        Me.btnApprove.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnApprove.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnApprove.ForeColor = System.Drawing.Color.White
+        Me.btnApprove.Location = New System.Drawing.Point(147, 220)
+        Me.btnApprove.Name = "btnApprove"
+        Me.btnApprove.Size = New System.Drawing.Size(114, 31)
+        Me.btnApprove.TabIndex = 117
+        Me.btnApprove.Text = "Approve"
+        Me.btnApprove.UseVisualStyleBackColor = False
         '
         'Panel6
         '
@@ -134,12 +133,12 @@ Partial Class frmSupervisorApproval
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(405, 269)
         Me.Controls.Add(Me.Panel6)
-        Me.Controls.Add(Me.btnclose)
-        Me.Controls.Add(Me.btnreturnexc)
-        Me.Controls.Add(Me.btnStudentno)
+        Me.Controls.Add(Me.btnCancel)
+        Me.Controls.Add(Me.btnApprove)
+        Me.Controls.Add(Me.txtUsername)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.txtStudentName)
+        Me.Controls.Add(Me.txtPassword)
         Me.Controls.Add(Me.Label4)
         Me.Name = "frmSupervisorApproval"
         Me.Text = "frmSupervisorApproval"
@@ -151,12 +150,12 @@ Partial Class frmSupervisorApproval
     End Sub
 
     Friend WithEvents Label4 As Label
-    Friend WithEvents btnStudentno As TextBox
+    Friend WithEvents txtUsername As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents txtStudentName As TextBox
-    Friend WithEvents btnclose As Button
-    Friend WithEvents btnreturnexc As Button
+    Friend WithEvents txtPassword As TextBox
+    Friend WithEvents btnCancel As Button
+    Friend WithEvents btnApprove As Button
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label10 As Label
 End Class

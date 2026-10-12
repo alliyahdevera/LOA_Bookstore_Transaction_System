@@ -20,6 +20,7 @@ Public Class frmRemittance
         isLoading = True
 
         SetupFooter(Me, lblname, lblposition, lbldatetime)
+        ApplySearchPlaceholders(Me)
 
         dtfrom.Value = New Date(Date.Today.Year, Date.Today.Month, 1)
         dtto.Value = Date.Today
@@ -97,18 +98,20 @@ Public Class frmRemittance
             Integer.TryParse(cbocashier.SelectedValue.ToString(), cashierId)
         End If
         If pg Is Nothing Then Exit Sub
+
         Dim dt As DataTable = GetDataTable(
-            "SELECT r.remittance_no, COALESCE(r.reconciliation_date, DATE(r.remitted_at)) AS reconciliation_date, " &
-"CONCAT(u.first_name, ' ', u.last_name) AS cashier, " &
-"r.total_sales, r.cash_sales, r.actual_cash, r.salary_deduction, r.remittance_amount, r.or_from, r.or_to, " &
-"r.remitted_at, r.received_by, r.remarks AS rem_remarks, r.variance_remarks AS eod_remarks, r.difference, r.cash_status AS status " &
-"FROM tbl_remittances r " &
-"INNER JOIN tbl_users u ON r.prepared_by = u.user_id " &
-"WHERE COALESCE(r.reconciliation_date, DATE(r.remitted_at)) BETWEEN @d1 AND @d2 " &
-"AND (@c = 0 OR r.prepared_by = @c) " &
-"ORDER BY r.remitted_at DESC, r.remittance_id DESC",
-            New String() {"@d1", "@d2", "@c"},
-            New Object() {dtfrom.Value.Date, dtto.Value.Date, cashierId})
+        "SELECT r.remittance_no, COALESCE(r.reconciliation_date, DATE(r.remitted_at)) AS reconciliation_date, " &
+        "CONCAT(u.first_name, ' ', u.last_name) AS cashier, " &
+        "r.total_sales, r.cash_sales, r.actual_cash, r.salary_deduction, r.remittance_amount, r.or_from, r.or_to, " &
+        "r.remitted_at, r.received_by, r.remarks AS rem_remarks, r.variance_remarks AS eod_remarks, r.difference, r.cash_status AS status " &
+        "FROM tbl_remittances r " &
+        "INNER JOIN tbl_users u ON r.prepared_by = u.user_id " &
+        "WHERE COALESCE(r.reconciliation_date, DATE(r.remitted_at)) BETWEEN @d1 AND @d2 " &
+        "AND (@c = 0 OR r.prepared_by = @c) " &
+        "AND r.remittance_no LIKE @s " &
+        "ORDER BY r.remitted_at DESC, r.remittance_id DESC",
+        New String() {"@d1", "@d2", "@c", "@s"},
+        New Object() {dtfrom.Value.Date, dtto.Value.Date, cashierId, "%" & txtSearch.Text.Trim() & "%"})
 
         dgvsalesreport.Rows.Clear()
 
@@ -164,7 +167,11 @@ Public Class frmRemittance
 
         dgvsalesreport.ClearSelection()
     End Sub
-
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        If isLoading Then Exit Sub
+        pg.Reset()
+        LoadGrid()
+    End Sub
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
         If dgvsalesreport.SelectedRows.Count = 0 Then
             MsgBox("Select a remittance record to print.", vbExclamation, "Remittance Report")

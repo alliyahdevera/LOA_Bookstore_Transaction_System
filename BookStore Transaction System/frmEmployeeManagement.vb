@@ -5,21 +5,18 @@ Public Class frmEmployeeManagement
     Private pg As GridPager
     Private selectedEmployeeId As Integer = 0
     Public Property InitialSearch As String = ""
+
     Private Sub frmEmployeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
         Relabel(Me, New Dictionary(Of String, String) From {
-    {"Student No.", "Employee ID No."},
-    {"Employee No.", "Employee ID No."},
-    {"Employee Number", "Employee ID No."},
-    {"Employee Number or Name", "Employee ID No. or Name"},
-    {"Grade Level", "Department"},
-    {"Program/Strand", "Position"},
-    {"Section", "Status"},
-    {"View and Manage All Students", "View and Manage All Employees"},
-    {"List of Students", "List of Employees"},
-    {"Student Information", "Employee Information"}
-})
+            {"Grade Level", "Department"},
+            {"Program/Strand", "Position"},
+            {"Section", "Status"},
+            {"View and Manage All Students", "View and Manage All Employees"},
+            {"List of Students", "List of Employees"},
+            {"Student Information", "Employee Information"}
+        })
 
         AddHandler dgvemployee.CellClick, AddressOf dgvstudents_CellClick
         BindColumn("EmployeeNo", "employee_no", "Employee ID No.")
@@ -81,7 +78,7 @@ Public Class frmEmployeeManagement
 
     Private Function ValidateInputs() As Boolean
         If Not Regex.IsMatch(txtstudentno.Text.Trim(), "^[A-Za-z0-9-]{3,20}$") Then
-            MsgBox("Employee No. is required (3-20 letters, numbers or dashes).", vbExclamation, "Validation Error")
+            MsgBox("Employee ID No. is required (3-20 letters, numbers or dashes).", vbExclamation, "Validation Error")
             txtstudentno.Focus() : Return False
         End If
         If String.IsNullOrWhiteSpace(txtlastname.Text) Then
@@ -106,6 +103,7 @@ Public Class frmEmployeeManagement
         End If
         Return True
     End Function
+
     Private Sub LoadGrid(searchText As String)
         If pg Is Nothing Then Exit Sub
         Dim dt As DataTable = pg.LoadPage(
@@ -141,9 +139,9 @@ Public Class frmEmployeeManagement
         If Not ValidateInputs() Then Exit Sub
 
         Dim count As Integer = Convert.ToInt32(ExecScalar("SELECT COUNT(*) FROM tbl_employees WHERE employee_no = @n",
-                                                           New String() {"@n"}, New Object() {txtstudentno.Text.Trim()}))
+                                                        New String() {"@n"}, New Object() {txtstudentno.Text.Trim()}))
         If count > 0 Then
-            MsgBox("An employee with this Employee No. already exists.", vbExclamation, "Duplicate Entry")
+            MsgBox("An employee with this Employee ID No. already exists.", vbExclamation, "Duplicate Entry")
             Exit Sub
         End If
 
@@ -170,9 +168,9 @@ Public Class frmEmployeeManagement
         If Not ValidateInputs() Then Exit Sub
 
         Dim count As Integer = Convert.ToInt32(ExecScalar("SELECT COUNT(*) FROM tbl_employees WHERE employee_no = @n AND employee_id <> @id",
-                                                           New String() {"@n", "@id"}, New Object() {txtstudentno.Text.Trim(), selectedEmployeeId}))
+                                                        New String() {"@n", "@id"}, New Object() {txtstudentno.Text.Trim(), selectedEmployeeId}))
         If count > 0 Then
-            MsgBox("Another employee is already using this Employee No.", vbExclamation, "Duplicate Entry")
+            MsgBox("Another employee is already using this Employee ID No.", vbExclamation, "Duplicate Entry")
             Exit Sub
         End If
 

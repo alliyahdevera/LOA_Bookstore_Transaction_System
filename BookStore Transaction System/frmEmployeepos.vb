@@ -36,7 +36,7 @@ Public Class frmEmployeepos
     Public Function ValidateBuyer(ByRef message As String) As Boolean Implements IBuyerInfo.ValidateBuyer
         Dim no As String = txtStudentNo.Text.Trim()
         If no = "" Then
-            message = "Enter the employee number and click Search."
+            message = "Enter the employee ID no. and click Search."
             Return False
         End If
         If Not Regex.IsMatch(no, "^[A-Za-z0-9-]{3,20}$") Then
@@ -44,7 +44,7 @@ Public Class frmEmployeepos
             Return False
         End If
         If foundId = 0 OrElse Not String.Equals(no, foundNo, StringComparison.OrdinalIgnoreCase) Then
-            message = "Click Search to verify the employee number first."
+            message = "Click Search to verify the employee ID no. first."
             Return False
         End If
         Return True
@@ -111,7 +111,7 @@ Public Class frmEmployeepos
     Private Sub SearchEmployee()
         Dim no As String = txtStudentNo.Text.Trim()
         If Not Regex.IsMatch(no, "^[A-Za-z0-9-]{3,20}$") Then
-            ShowInline("Invalid employee number")
+            ShowInline("Invalid employee ID no.")
             Exit Sub
         End If
 
@@ -137,4 +137,5 @@ Public Class frmEmployeepos
         txtgrade.Text = If(IsDBNull(r("department")), "", r("department").ToString())
         txtProgramStrand.Text = If(IsDBNull(r("job_position")), "", r("job_position").ToString())
     End Sub
+
 End Class

@@ -134,38 +134,11 @@ Public Module ApprovalHelper
     End Function
 
     Private Function PromptCredentials(owner As IWin32Window, action As String, ByRef user As String, ByRef pw As String) As Boolean
-        Using dlg As New Form(), lbl As New Label(), lblU As New Label(), lblP As New Label(),
-              txtU As New TextBox(), txtP As New TextBox(), ok As New Button(), cancel As New Button()
-            dlg.Text = "Supervisor Approval"
-            dlg.FormBorderStyle = FormBorderStyle.FixedDialog
-            dlg.StartPosition = FormStartPosition.CenterParent
-            dlg.MinimizeBox = False
-            dlg.MaximizeBox = False
-            dlg.ClientSize = New Size(340, 190)
-
-            lbl.Text = "A supervisor must approve:" & vbCrLf & action
-            lbl.SetBounds(12, 10, 316, 40)
-            lblU.Text = "Supervisor username"
-            lblU.SetBounds(12, 56, 150, 18)
-            txtU.SetBounds(12, 76, 316, 23)
-            lblP.Text = "Supervisor password"
-            lblP.SetBounds(12, 104, 150, 18)
-            txtP.UseSystemPasswordChar = True
-            txtP.SetBounds(12, 124, 316, 23)
-            ok.Text = "Approve"
-            ok.DialogResult = DialogResult.OK
-            ok.SetBounds(166, 154, 80, 28)
-            cancel.Text = "Cancel"
-            cancel.DialogResult = DialogResult.Cancel
-            cancel.SetBounds(252, 154, 76, 28)
-
-            dlg.AcceptButton = ok
-            dlg.CancelButton = cancel
-            dlg.Controls.AddRange(New Control() {lbl, lblU, txtU, lblP, txtP, ok, cancel})
-
+        Using dlg As New frmSupervisorApproval()
+            dlg.ActionText = action
             If dlg.ShowDialog(owner) <> DialogResult.OK Then Return False
-            user = txtU.Text.Trim()
-            pw = txtP.Text
+            user = dlg.SupervisorUsername
+            pw = dlg.SupervisorPassword
             Return user <> "" AndAlso pw <> ""
         End Using
     End Function

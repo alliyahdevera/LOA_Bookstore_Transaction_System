@@ -90,7 +90,8 @@
 
         Dim query As String =
             "SELECT v.variant_id, v.product_code, p.product_name, p.product_description, c.category_name, ct.type_name, " &
-            "v.size, p.unit_price, n.stock_condition, SUM(n.quantity) AS qty " &
+            "v.size, p.unit_price, n.stock_condition, SUM(n.quantity) AS qty, " &
+"GROUP_CONCAT(DISTINCT n.reason SEPARATOR '; ') AS remarks " &
             "FROM tbl_nonsaleable_stocks n " &
             "INNER JOIN tbl_product_variants v ON n.variant_id = v.variant_id " &
             "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
@@ -126,17 +127,18 @@
         dgvlistproducts.Rows.Clear()
         If dt IsNot Nothing Then
             For Each r As DataRow In dt.Rows
-                ' order = ProductCode, ProductName, ProductDescription, Category, TypeofProduct, Size, UnitPrice, Quantity, Condition
+                ' order = ProductCode, ProductName, ProductDescription, Category, TypeofProduct, Size, UnitPrice, Quantity, Condition, Remarks
                 Dim idx As Integer = dgvlistproducts.Rows.Add(
-                    r("product_code").ToString(),
-                    r("product_name").ToString(),
-                    If(IsDBNull(r("product_description")), "", r("product_description").ToString()),
-                    r("category_name").ToString(),
-                    r("type_name").ToString(),
-                    r("size").ToString(),
-                    Convert.ToDecimal(r("unit_price")).ToString("N2"),
-                    Convert.ToInt32(r("qty")).ToString("N0"),
-                    r("stock_condition").ToString())
+    r(“product_code”).ToString(),
+    r("product_name").ToString(),
+    If(IsDBNull(r("product_description")), "", r("product_description").ToString()),
+    r("category_name").ToString(),
+    r("type_name").ToString(),
+    r("size").ToString(),
+    Convert.ToDecimal(r("unit_price")).ToString("N2"),
+    Convert.ToInt32(r("qty")).ToString("N0"),
+    r("stock_condition").ToString(),
+    If(IsDBNull(r("remarks")), "", r("remarks").ToString()))
                 dgvlistproducts.Rows(idx).Cells("Condition").Style.ForeColor = Color.Firebrick
                 dgvlistproducts.Rows(idx).Cells("Quantity").Style.ForeColor = Color.Firebrick
             Next

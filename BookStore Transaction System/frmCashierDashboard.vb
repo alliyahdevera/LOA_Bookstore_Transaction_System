@@ -89,36 +89,30 @@ Public Class frmCashierDashboard
         New Object() {currentuser.UserID})
 
         If cash Is Nothing OrElse cash.Rows.Count = 0 OrElse
-       pending Is Nothing OrElse pending.Rows.Count = 0 Then
+           pending Is Nothing OrElse pending.Rows.Count = 0 Then
             Exit Sub
         End If
 
-        Dim cashAmount As Decimal =
-        Convert.ToDecimal(cash.Rows(0)("total"))
+        Dim cashAmount As Decimal = Convert.ToDecimal(cash.Rows(0)("total"))
 
         SetValue(lbltotp, Peso & cashAmount.ToString("N2"))
         SetValue(lblsalest, Peso & cashAmount.ToString("N2"))
 
-        SetValue(
-        lbltotqprod,
-        Convert.ToInt32(
-            cash.Rows(0)("transaction_count")).ToString("N0"))
+        SetValue(lbltotqprod,
+                 Convert.ToInt32(cash.Rows(0)("transaction_count")).ToString("N0"))
 
-        SetValue(
-        llbllowstock,
-        Peso &
-        Convert.ToDecimal(pending.Rows(0)("total")).ToString("N2"))
+        SetValue(lbllowstock,
+                 Peso & Convert.ToDecimal(pending.Rows(0)("total")).ToString("N2"))
 
-        Label16.Text =
-        "Pending Finance (" &
-        Convert.ToInt32(
-            pending.Rows(0)("transaction_count")).ToString() & ")"
+        ' Label6 is the caption under the salary-deduction card
+        Label6.Text = "Pending Finance (" &
+                      Convert.ToInt32(pending.Rows(0)("transaction_count")).ToString() & ")"
 
-        tip.SetToolTip(
-        pnlsalarydeduct,
-        "Unpaid salary-deduction requests awaiting finance approval. " &
-        "Excluded from daily cash totals.")
+        tip.SetToolTip(pnlsalarydeduct,
+            "Unpaid salary-deduction requests awaiting finance approval. " &
+            "Excluded from daily cash totals.")
     End Sub
+
     Private Sub LoadPaymentMethods()
         Dim totals As New Dictionary(Of String, Decimal)(
         StringComparer.OrdinalIgnoreCase) From {
@@ -134,9 +128,9 @@ Public Class frmCashierDashboard
         Dim result As DataTable = GetDataTable(
         "SELECT payment_method, " &
         "IFNULL(SUM(total_amount), 0) AS total " &
-        "FROM tbl_transactions " &
+        "FROM tbl_transactions t " &
         "WHERE created_by = @userId " &
-        "AND DATE(t.created_at) = CURDATE() AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier'" &
+        "AND DATE(t.created_at) = CURDATE() AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' " &
         "GROUP BY payment_method " &
         "ORDER BY payment_method",
         New String() {"@userId"},
@@ -210,13 +204,14 @@ Public Class frmCashierDashboard
         chtsalepymeth,
         If(hasAmounts, "", "No transactions recorded today"))
     End Sub
+
     Private Sub LoadSalesByHour()
         Dim totals(23) As Decimal
 
         Dim result As DataTable = GetDataTable(
         "SELECT HOUR(created_at) AS sale_hour, " &
         "IFNULL(SUM(total_amount), 0) AS total " &
-        "FROM tbl_transactions " &
+        "FROM tbl_transactions t " &
         "WHERE created_by = @userId " &
         "AND DATE(t.created_at) = CURDATE() AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' " &
         "AND HOUR(created_at) BETWEEN 8 AND 17 " &
@@ -270,6 +265,7 @@ Public Class frmCashierDashboard
         chrtsaleshr,
         If(hasSales, "", "No sales recorded for these hours"))
     End Sub
+
     Private Sub SetDashboardChartMessage(
     target As Chart,
     message As String)
@@ -298,6 +294,7 @@ Public Class frmCashierDashboard
 
         messageTitle.Text = message
     End Sub
+
     Private Sub LoadTopItems()
         Dim result As DataTable = GetDataTable(
         "SELECT p.product_name, SUM(ti.quantity) AS qty " &
@@ -355,6 +352,7 @@ Public Class frmCashierDashboard
             .AxisY.LabelStyle.Format = "#,##0"
         End With
     End Sub
+
     Private Sub LoadReadyForRelease()
         Dim result As DataTable = GetDataTable(
             "SELECT t.transaction_no, t.or_no, t.buyer_name, " &
@@ -421,4 +419,5 @@ Public Class frmCashierDashboard
             "MODULES READY FOR RELEASE (" &
             result.Rows.Count.ToString() & ")"
     End Sub
+
 End Class
