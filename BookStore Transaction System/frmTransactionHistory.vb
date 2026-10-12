@@ -100,19 +100,19 @@ Public Class frmTransactionHistory
         If pg Is Nothing Then Exit Sub
         Try
             Dim query As String = "SELECT t.transaction_no, t.buyer_name, t.buyer_type, t.id_number, DATE(t.created_at) AS tdate, TIME(t.created_at) AS ttime, " &
-                              "v.product_code, p.product_name, v.size, p.unit_price, ti.quantity AS qty, " &
-                              "ti.subtotal, t.total_amount, t.amount_paid, t.amount_change, t.payment_method, t.status, u.username " &
-                              "FROM TBL_TRANSACTION_ITEMS ti " &
-                              "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
-                              "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
-                              "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-                              "LEFT JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
-                              "LEFT JOIN tbl_categories c ON ct.category_id = c.category_id " &
-                              "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
-                              "WHERE " & SEARCH_FILTER &
-                              "AND DATE(t.created_at) BETWEEN @f AND @t " &
-                              "AND (@cat = '' OR c.category_name = @cat) AND (@typ = '' OR ct.type_name = @typ) " &
-                              "ORDER BY t.transaction_id DESC, ti.transaction_item_id"
+                                  "v.product_code, p.product_name, v.size, p.unit_price, ti.quantity AS qty, " &
+                                  "ti.subtotal, t.total_amount, t.amount_paid, t.amount_change, t.payment_method, t.status, u.username " &
+                                  "FROM TBL_TRANSACTION_ITEMS ti " &
+                                  "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
+                                  "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
+                                  "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
+                                  "LEFT JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
+                                  "LEFT JOIN tbl_categories c ON ct.category_id = c.category_id " &
+                                  "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
+                                  "WHERE " & SEARCH_FILTER &
+                                  "AND DATE(t.created_at) BETWEEN @f AND @t " &
+                                  "AND (@cat = '' OR c.category_name = @cat) AND (@typ = '' OR ct.type_name = @typ) " &
+                                  "ORDER BY t.transaction_id DESC, ti.transaction_item_id"
 
             Dim names As String() = {"@s", "@f", "@t", "@cat", "@typ"}
             Dim values As Object() = {"%" & searchText & "%", dtfrom.Value.Date, dtto.Value.Date, SelectedCategory(), SelectedType()}
@@ -144,12 +144,12 @@ Public Class frmTransactionHistory
             Next
             dgvtransaction.ResumeLayout()
 
-            ' total sales covers ALL pages, not just the one on screen
+            ' total sales covers ALL pages, excluding school cashier and pending finance orders
             Dim totalSum As Object
             If SelectedCategory() = "" AndAlso SelectedType() = "" Then
                 totalSum = ExecScalar(
                 "SELECT IFNULL(SUM(t.total_amount),0) FROM TBL_TRANSACTIONS t WHERE " & SEARCH_FILTER &
-                "AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier'",
+                "AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' AND t.status <> 'Pending Finance'",
                 New String() {"@s", "@f", "@t"},
                 New Object() {"%" & searchText & "%", dtfrom.Value.Date, dtto.Value.Date})
             Else
@@ -162,7 +162,7 @@ Public Class frmTransactionHistory
                 "LEFT JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
                 "LEFT JOIN tbl_categories c ON ct.category_id = c.category_id " &
                 "WHERE " & SEARCH_FILTER &
-                "AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled' AND payment_method <> 'School Cashier' " &
+                "AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' AND t.status <> 'Pending Finance' " &
                 "AND (@cat = '' OR c.category_name = @cat) AND (@typ = '' OR ct.type_name = @typ)",
                 New String() {"@s", "@f", "@t", "@cat", "@typ"},
                 New Object() {"%" & searchText & "%", dtfrom.Value.Date, dtto.Value.Date, SelectedCategory(), SelectedType()})

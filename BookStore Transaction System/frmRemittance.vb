@@ -26,7 +26,7 @@ Public Class frmRemittance
 
         cbocashier.DropDownStyle = ComboBoxStyle.DropDownList
 
-        dgvsalesreport.Columns("Difference").HeaderText = "Salary Deduction"
+        dgvsalesreport.Columns("Difference").Visible = False
         dgvsalesreport.AllowUserToAddRows = False
         dgvsalesreport.AllowUserToDeleteRows = False
         dgvsalesreport.MultiSelect = False
@@ -189,9 +189,9 @@ Public Class frmRemittance
         Dim pageW As Single = e.PageBounds.Width
 
         Using fTitle As New Font("Segoe UI", 15, FontStyle.Bold),
-              fSub As New Font("Segoe UI", 11, FontStyle.Bold),
-              fReg As New Font("Segoe UI", 10),
-              fBold As New Font("Segoe UI", 10, FontStyle.Bold)
+            fSub As New Font("Segoe UI", 11, FontStyle.Bold),
+            fReg As New Font("Segoe UI", 10),
+            fBold As New Font("Segoe UI", 10, FontStyle.Bold)
 
             Dim center As New StringFormat With {.Alignment = StringAlignment.Center}
             g.DrawString("LYCEUM OF ALABANG BOOKSTORE", fTitle, Brushes.Black, New RectangleF(0, y, pageW, 30), center)
@@ -205,7 +205,6 @@ Public Class frmRemittance
                 New KeyValuePair(Of String, String)("Cashier / Staff", "CashierStaff"),
                 New KeyValuePair(Of String, String)("Total Sales", "TotalSales"),
                 New KeyValuePair(Of String, String)("Cash Collected", "CashCollected"),
-                New KeyValuePair(Of String, String)("Salary Deduction", "Difference"),
                 New KeyValuePair(Of String, String)("Total Remittance", "TotalRemittance"),
                 New KeyValuePair(Of String, String)("OR / AR Range", "ORARRange"),
                 New KeyValuePair(Of String, String)("Amount Remitted to Accounting", "AmtAccounting"),

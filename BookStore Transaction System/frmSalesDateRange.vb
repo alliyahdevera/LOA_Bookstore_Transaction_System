@@ -65,14 +65,16 @@
             "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
             "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
             "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
-            "WHERE DATE(t.created_at) BETWEEN @d1 AND @d2 AND t.created_at >= @dateFrom AND t.created_at < @dateTo AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' " &
+            "WHERE DATE(t.created_at) BETWEEN @d1 AND @d2 AND t.created_at >= @dateFrom AND t.created_at < @dateTo AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' AND t.status <> 'Pending Finance' " &
             "AND (@cat = 0 OR ct.category_id = @cat) AND (@type = 0 OR ct.category_type_id = @type) " &
             "ORDER BY t.transaction_id DESC", names, values)
 
         Dim sumSubtotal As Decimal = 0D
-        For Each r As DataRow In allRows.Rows
-            sumSubtotal += Convert.ToDecimal(r("subtotal"))
-        Next
+        If allRows IsNot Nothing Then
+            For Each r As DataRow In allRows.Rows
+                sumSubtotal += Convert.ToDecimal(r("subtotal"))
+            Next
+        End If
 
         If pg IsNot Nothing Then pg.Reset()
         ShowPage()
@@ -81,12 +83,13 @@
 
         If catId = 0 AndAlso typeId = 0 Then
             Label3.Text = ChrW(8369) & Convert.ToDecimal(If(ExecScalar(
-                "SELECT IFNULL(SUM(total_amount),0) FROM TBL_TRANSACTIONS WHERE DATE(created_at) BETWEEN @d1 AND @d2 AND status <> 'Cancelled'",
+                "SELECT IFNULL(SUM(total_amount),0) FROM TBL_TRANSACTIONS WHERE DATE(created_at) BETWEEN @d1 AND @d2 AND status <> 'Cancelled' AND payment_method <> 'School Cashier' AND status <> 'Pending Finance'",
                 New String() {"@d1", "@d2"}, New Object() {dtfrom.Value.Date, dtto.Value.Date}), 0)).ToString("N2")
         Else
             Label3.Text = ChrW(8369) & sumSubtotal.ToString("N2")
         End If
     End Sub
+
     Private Sub ShowPage()
         If allRows Is Nothing OrElse pg Is Nothing Then Exit Sub
         Dim dt As DataTable = pg.Slice(allRows)
@@ -104,6 +107,7 @@
         DataGridView1.ClearSelection()
         DataGridView1.ResumeLayout()
     End Sub
+
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
         pg.ExportAllPages(Sub() ShowPage(), Sub() ExportGridToCsv(DataGridView1, "SalesReport"))
     End Sub

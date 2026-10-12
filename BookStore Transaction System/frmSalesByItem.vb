@@ -32,10 +32,12 @@ Public Class frmSalesByItem
         ApplySchoolYearToPickers(dtfrom, dtto)
         ResetSchoolYear()
     End Sub
+
     Private Sub cbocategory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbocategory.SelectedIndexChanged
         If isFilling Then Exit Sub
         LoadGrid()
     End Sub
+
     Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
         If dtfrom.Value.Date > dtto.Value.Date Then
             MsgBox("'Date from' cannot be later than 'To'.", vbExclamation, "Sales by Item")
@@ -57,23 +59,26 @@ Public Class frmSalesByItem
             "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
             "INNER JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
             "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
-           "WHERE t.or_date BETWEEN @d1 AND @d2 AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' AND (@cat = '' OR c.category_name = @cat) " &
+            "WHERE t.or_date BETWEEN @d1 AND @d2 AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' AND t.status <> 'Pending Finance' AND (@cat = '' OR c.category_name = @cat) " &
             "GROUP BY v.variant_id, v.product_code, p.product_name, v.size, c.category_name " &
             "ORDER BY amt DESC",
             New String() {"@d1", "@d2", "@cat"}, New Object() {dtfrom.Value.Date, dtto.Value.Date, SelectedId(cbocategory)})
 
         Dim totalQty As Integer = 0
         Dim totalSales As Decimal = 0D
-        For Each r As DataRow In allRows.Rows
-            totalQty += Convert.ToInt32(r("qty"))
-            totalSales += Convert.ToDecimal(r("amt"))
-        Next
+        If allRows IsNot Nothing Then
+            For Each r As DataRow In allRows.Rows
+                totalQty += Convert.ToInt32(r("qty"))
+                totalSales += Convert.ToDecimal(r("amt"))
+            Next
+        End If
 
         If pg IsNot Nothing Then pg.Reset()
         ShowPage()
         Label3.Text = Peso & totalSales.ToString("N2")     ' Total Sales
         Label8.Text = totalQty.ToString("N0")              ' Total Quantity
     End Sub
+
     Private Sub ShowPage()
         If allRows Is Nothing OrElse pg Is Nothing Then Exit Sub
         Dim dt As DataTable = pg.Slice(allRows)

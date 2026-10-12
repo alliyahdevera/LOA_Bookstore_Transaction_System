@@ -66,22 +66,58 @@ Public Class frmCashierDashboard
 
     ' ==================== CARDS ====================
     Private Sub LoadCards()
-        Dim dt As DataTable = GetDataTable(
-            "SELECT COUNT(*) AS n, IFNULL(SUM(total_amount), 0) AS total, " &
-            "IFNULL(SUM(CASE WHEN payment_method = 'Cash' THEN total_amount ELSE 0 END), 0) AS cash, " &
-            "IFNULL(SUM(CASE WHEN payment_method = 'Salary Deduction' THEN 1 ELSE 0 END), 0) AS sal_n, " &
-            "IFNULL(SUM(CASE WHEN payment_method = 'Salary Deduction' THEN total_amount ELSE 0 END), 0) AS sal_amt " &
-            "FROM tbl_transactions " &
-            "WHERE created_by = @u AND DATE(t.created_at) = CURDATE() AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier'",
-            New String() {"@u"}, New Object() {currentuser.UserID})
-        If dt Is Nothing OrElse dt.Rows.Count = 0 Then Exit Sub
+        Dim cash As DataTable = GetDataTable(
+        "SELECT COUNT(*) AS transaction_count, " &
+        "IFNULL(SUM(total_amount), 0) AS total " &
+        "FROM tbl_transactions " &
+        "WHERE created_by = @userId " &
+        "AND DATE(created_at) = CURDATE() " &
+        "AND status <> 'Cancelled' " &
+        "AND payment_method = 'Cash'",
+        New String() {"@userId"},
+        New Object() {currentuser.UserID})
 
-        Dim r As DataRow = dt.Rows(0)
-        SetValue(lbltotp, Peso & Convert.ToDecimal(r("total")).ToString("N2"))            ' Total Sales (mine, today)
-        SetValue(lbltotqprod, Convert.ToInt32(r("n")).ToString("N0"))                      ' Total Transactions Today
-        SetValue(lblsalest, Peso & Convert.ToDecimal(r("cash")).ToString("N2"))           ' Cash On Hand Today
-        SetValue(lbllowstock, Peso & Convert.ToDecimal(r("sal_amt")).ToString("N2"))      ' Salary Deduction Today (amount)
-        Label6.Text = "Salary Deduction Today (" & Convert.ToInt32(r("sal_n")) & ")"       '   ... and the count
+        Dim pending As DataTable = GetDataTable(
+        "SELECT COUNT(*) AS transaction_count, " &
+        "IFNULL(SUM(total_amount), 0) AS total " &
+        "FROM tbl_transactions " &
+        "WHERE created_by = @userId " &
+        "AND DATE(created_at) = CURDATE() " &
+        "AND payment_method = 'Salary Deduction' " &
+        "AND status = 'Pending Finance'",
+        New String() {"@userId"},
+        New Object() {currentuser.UserID})
+
+        If cash Is Nothing OrElse cash.Rows.Count = 0 OrElse
+       pending Is Nothing OrElse pending.Rows.Count = 0 Then
+            Exit Sub
+        End If
+
+        Dim cashAmount As Decimal =
+        Convert.ToDecimal(cash.Rows(0)("total"))
+
+        SetValue(lbltotp, Peso & cashAmount.ToString("N2"))
+        SetValue(lblsalest, Peso & cashAmount.ToString("N2"))
+
+        SetValue(
+        lbltotqprod,
+        Convert.ToInt32(
+            cash.Rows(0)("transaction_count")).ToString("N0"))
+
+        SetValue(
+        llbllowstock,
+        Peso &
+        Convert.ToDecimal(pending.Rows(0)("total")).ToString("N2"))
+
+        Label16.Text =
+        "Pending Finance (" &
+        Convert.ToInt32(
+            pending.Rows(0)("transaction_count")).ToString() & ")"
+
+        tip.SetToolTip(
+        pnlsalarydeduct,
+        "Unpaid salary-deduction requests awaiting finance approval. " &
+        "Excluded from daily cash totals.")
     End Sub
     Private Sub LoadPaymentMethods()
         Dim totals As New Dictionary(Of String, Decimal)(
