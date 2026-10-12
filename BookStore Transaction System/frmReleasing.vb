@@ -1,18 +1,15 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports System.Data
 Imports System.Drawing.Printing
+Imports System.Linq
 
 Public Class frmReleasing
-
-    Private Const ST_RELEASED As String = "Released"
+    Private Const ST_RELEASED As String = "Completed"
     Private Const ST_READY As String = "Ready for release"
 
     Private pg As GridPager
     Private isLoading As Boolean = True
     Private WithEvents tmrSearch As New System.Windows.Forms.Timer With {.Interval = 350}
-    Private WithEvents slipDoc As New PrintDocument()
-    Private ReadOnly slipLines As New List(Of String)
-
     ' ==================== LOAD ====================
     Private Sub frmReleasing_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplySearchPlaceholders(Me)
@@ -31,7 +28,6 @@ Public Class frmReleasing
         BindCol("BuyerName", "buyer_name")
         BindCol("IDNumber", "id_number")
         BindCol("ProductCode", "product_code")
-        BindCol("ProductCategory", "category_name")
         BindCol("ProductName", "item_name")
         BindCol("Quantity", "qty_n")
         BindCol("PickUpdate", "pickup_date")
@@ -43,14 +39,13 @@ Public Class frmReleasing
 
         cbocategory.DropDownStyle = ComboBoxStyle.DropDownList
         cbocategory.Items.Clear()
-        cbocategory.Items.Add("All Categories")
-        Dim cats As DataTable = GetDataTable("SELECT category_name FROM tbl_categories ORDER BY category_name")
-        If cats IsNot Nothing Then
-            For Each r As DataRow In cats.Rows
-                cbocategory.Items.Add(r("category_name").ToString())
-            Next
-        End If
+        cbocategory.Items.Add("Modules")
         cbocategory.SelectedIndex = 0
+        cbocategory.Enabled = False
+
+        Button1.Text = "Print Payment Slip"
+        btnexportexcel.Text = "Release Modules"
+        Label7.Text = "MODULES FOR RELEASE"
 
         DateTimePicker1.Value = Date.Today.AddYears(-1)
         DateTimePicker2.Value = Date.Today
@@ -100,45 +95,71 @@ Public Class frmReleasing
         pg.Reset()
         LoadRows()
     End Sub
-
-    ' ==================== DATA ====================
     Private Sub LoadRows()
         If isLoading OrElse pg Is Nothing Then Exit Sub
 
-        Dim names As New List(Of String)(New String() {"@d1", "@d2", "@s"})
-        Dim values As New List(Of Object)(New Object() {DateTimePicker1.Value.Date, DateTimePicker2.Value.Date,
-                                                        "%" & txtsearch.Text.Trim() & "%"})
-        Dim catCond As String = ""
-        If cbocategory.SelectedIndex > 0 Then
-            catCond = "AND c.category_name = @cat "
-            names.Add("@cat")
-            values.Add(cbocategory.Text)
+        If DateTimePicker1.Value.Date >
+        DateTimePicker2.Value.Date Then
+            Exit Sub
         End If
 
         Dim query As String =
-            "SELECT * FROM (" &
-            "SELECT ti.transaction_item_id, ti.variant_id, ti.quantity AS qty_n, " &
-            "t.transaction_no, t.or_no, t.buyer_name, t.id_number, v.product_code, c.category_name, " &
-            "CONCAT(p.product_name, IF(v.size IS NULL OR v.size IN ('', 'N/A'), '', CONCAT(' (', v.size, ')'))) AS item_name, " &
-            "ti.pickup_date, v.quantity_on_hand AS in_stock, " &
-            "CASE WHEN ti.released_at IS NOT NULL THEN 'Released' " &
-            "     WHEN v.quantity_on_hand >= ti.quantity THEN 'Ready for release' " &
-            "     ELSE 'Waiting for stock' END AS rel_status, " &
-            "CONCAT(u.first_name, ' ', u.last_name) AS released_by_name, ti.received_by, ti.released_at " &
-            "FROM tbl_transaction_items ti " &
-            "INNER JOIN tbl_transactions t ON ti.transaction_id = t.transaction_id " &
-            "INNER JOIN tbl_product_variants v ON ti.variant_id = v.variant_id " &
-            "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
-            "INNER JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
-            "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
-            "LEFT JOIN tbl_users u ON ti.released_by = u.user_id " &
-            "WHERE ti.is_backorder = 1 AND t.status <> 'Cancelled' AND t.or_date BETWEEN @d1 AND @d2 " & catCond &
-            ") x " &
-            "WHERE (x.transaction_no LIKE @s OR x.or_no LIKE @s OR x.buyer_name LIKE @s OR x.item_name LIKE @s " &
-            "OR x.product_code LIKE @s OR x.rel_status LIKE @s) " &
-            "ORDER BY (x.released_at IS NOT NULL), x.pickup_date, x.transaction_item_id"
+        "SELECT * FROM (" &
+        "SELECT t.transaction_id, ti.transaction_item_id, " &
+        "ti.variant_id, ti.quantity AS qty_n, " &
+        "t.transaction_no, t.or_no, t.buyer_name, t.id_number, " &
+        "v.product_code, c.category_name, " &
+        "CONCAT(p.product_name, " &
+        "IF(v.size IS NULL OR v.size IN ('', 'N/A'), '', " &
+        "CONCAT(' (', v.size, ')'))) AS item_name, " &
+        "ti.pickup_date, v.quantity_on_hand AS in_stock, " &
+        "CASE " &
+        "WHEN ti.released_at IS NOT NULL THEN 'Completed' " &
+        "WHEN NULLIF(TRIM(t.or_no), '') IS NULL " &
+        "THEN 'Waiting for OR No.' " &
+        "WHEN v.quantity_on_hand < ti.quantity " &
+        "THEN 'Waiting for stock' " &
+        "ELSE 'Ready for release' END AS rel_status, " &
+        "CONCAT(u.first_name, ' ', u.last_name) " &
+        "AS released_by_name, ti.received_by, ti.released_at " &
+        "FROM tbl_transaction_items ti " &
+        "INNER JOIN tbl_transactions t " &
+        "ON ti.transaction_id = t.transaction_id " &
+        "INNER JOIN tbl_product_variants v " &
+        "ON ti.variant_id = v.variant_id " &
+        "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
+        "INNER JOIN tbl_category_types ct " &
+        "ON p.category_type_id = ct.category_type_id " &
+        "INNER JOIN tbl_categories c " &
+        "ON ct.category_id = c.category_id " &
+        "LEFT JOIN tbl_users u ON ti.released_by = u.user_id " &
+        "WHERE c.category_name = 'Modules' " &
+        "AND t.payment_method = @method " &
+        "AND t.status <> 'Cancelled' " &
+        "AND t.created_at >= @dateFrom " &
+        "AND t.created_at < @dateTo" &
+        ") x " &
+        "WHERE (x.transaction_no LIKE @search " &
+        "OR x.or_no LIKE @search " &
+        "OR x.buyer_name LIKE @search " &
+        "OR x.item_name LIKE @search " &
+        "OR x.product_code LIKE @search " &
+        "OR x.rel_status LIKE @search) " &
+        "ORDER BY (x.released_at IS NOT NULL), " &
+        "x.transaction_id DESC, x.transaction_item_id"
 
-        dgvstockinhistory.DataSource = pg.LoadPage(query, names.ToArray(), values.ToArray())
+        dgvstockinhistory.DataSource = pg.LoadPage(
+        query,
+        New String() {
+            "@method", "@dateFrom", "@dateTo", "@search"
+        },
+        New Object() {
+            ModuleOrders.PAYMENT_METHOD,
+            DateTimePicker1.Value.Date,
+            DateTimePicker2.Value.Date.AddDays(1),
+            "%" & txtSearch.Text.Trim() & "%"
+        })
+
         Label3.Text = pg.TotalRows.ToString("N0")
     End Sub
 
@@ -164,194 +185,382 @@ Public Class frmReleasing
         Return list
     End Function
 
-    ' ==================== RELEASE ITEM/S ====================
-    Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
-        If RolePermissions.IsViewOnly() Then
-            MsgBox("Your role is view-only and cannot release items.", vbExclamation, "Releasing")
+    Private Sub btnexportexcel_Click(
+    sender As Object,
+    e As EventArgs
+) Handles btnexportexcel.Click
+
+        If RolePermissions.IsViewOnly() OrElse
+        Not (
+            RolePermissions.CanAccess(RolePermissions.FRM_POS) OrElse
+            RolePermissions.CanAccess(RolePermissions.FRM_INVENTORY)
+        ) Then
+
+            MsgBox(
+            "Your role cannot release modules.",
+            vbExclamation,
+            "Module Release")
             Exit Sub
         End If
 
         Dim items As List(Of DataRowView) = SelectedItems()
+
         If items.Count = 0 Then
-            MsgBox("Select the item/s you want to release first.", vbExclamation, "Releasing")
+            MsgBox(
+            "Select a module order first.",
+            vbExclamation,
+            "Module Release")
             Exit Sub
         End If
 
-        For Each it As DataRowView In items
-            If it("rel_status").ToString() <> ST_READY Then
-                MsgBox("Only items marked '" & ST_READY & "' can be released." & vbCrLf &
-                       "Unselect the items that are waiting for stock or already released.", vbExclamation, "Releasing")
+        Dim transactionId As Integer =
+        Convert.ToInt32(items(0)("transaction_id"))
+
+        For Each item As DataRowView In items
+            If Convert.ToInt32(item("transaction_id")) <>
+            transactionId Then
+
+                MsgBox(
+                "Select items from one transaction only.",
+                vbExclamation,
+                "Module Release")
                 Exit Sub
             End If
         Next
 
-        Dim trxNo As String = items(0)("transaction_no").ToString()
-        For Each it As DataRowView In items
-            If it("transaction_no").ToString() <> trxNo Then
-                MsgBox("Release the items of one transaction at a time.", vbExclamation, "Releasing")
-                Exit Sub
-            End If
-        Next
+        Dim orNumber As String = InputBox(
+        "Enter the OR number from the school cashier." &
+        vbCrLf &
+        "Check it against the customer's receipt.",
+        "School Cashier OR",
+        items(0)("or_no").ToString()).Trim()
 
-        Dim buyer As String = If(IsDBNull(items(0)("buyer_name")), "", items(0)("buyer_name").ToString())
-        Dim receiver As String = InputBox("Who is receiving the item/s?", "Release Item/s", buyer).Trim()
+        If orNumber = "" Then Exit Sub
+
+        If orNumber.Length > 30 OrElse
+        orNumber.Any(Function(character) Char.IsControl(character)) Then
+
+            MsgBox(
+            "The OR number must contain 1 to 30 printable characters.",
+            vbExclamation,
+            "Module Release")
+            Exit Sub
+        End If
+
+        Dim receiver As String = InputBox(
+        "Who is receiving the modules?",
+        "Module Receiver",
+        items(0)("buyer_name").ToString()).Trim()
+
         If receiver = "" Then Exit Sub
 
-        Dim summary As String = ""
-        For Each it As DataRowView In items
-            summary &= it("qty_n").ToString() & " x " & it("item_name").ToString() & vbCrLf
-        Next
-        If MsgBox("Release the following to " & receiver & "?" & vbCrLf & vbCrLf & summary & vbCrLf &
-                  "Stock on hand will be reduced.", vbYesNo + vbQuestion, "Confirm Release") <> MsgBoxResult.Yes Then Exit Sub
-
-        Dim released As List(Of Integer) = ReleaseItems(items, receiver)
-        If released Is Nothing Then Exit Sub
-
-        LoadRows()
-        If MsgBox("Item/s released. Print the release slip now?", vbYesNo + vbQuestion, "Releasing") = MsgBoxResult.Yes Then
-            PrintSlip(released)
-        End If
-    End Sub
-
-    Private Function ReleaseItems(items As List(Of DataRowView), receiver As String) As List(Of Integer)
-        Dim done As New List(Of Integer)
-        Using c As MySqlConnection = NewConnection()
-            Try
-                c.Open()
-                Using tx As MySqlTransaction = c.BeginTransaction()
-                    For Each it As DataRowView In items
-                        Dim itemId As Integer = Convert.ToInt32(it("transaction_item_id"))
-                        Dim variantId As Integer = Convert.ToInt32(it("variant_id"))
-                        Dim qty As Integer = Convert.ToInt32(it("qty_n"))
-                        Dim trxNo As String = it("transaction_no").ToString()
-                        Dim itemName As String = it("item_name").ToString()
-
-                        Dim prev As Integer = 0
-                        Using q As New MySqlCommand("SELECT quantity_on_hand FROM tbl_product_variants WHERE variant_id = @v FOR UPDATE", c, tx)
-                            q.Parameters.AddWithValue("@v", variantId)
-                            Dim o As Object = q.ExecuteScalar()
-                            prev = If(o Is Nothing OrElse IsDBNull(o), 0, Convert.ToInt32(o))
-                        End Using
-                        If prev < qty Then
-                            tx.Rollback()
-                            MsgBox("Not enough stock for " & itemName & " (on hand: " & prev & ", needed: " & qty & ").", vbExclamation, "Releasing")
-                            Return Nothing
-                        End If
-
-                        Using q As New MySqlCommand(
-                            "UPDATE tbl_transaction_items SET released_at = NOW(), released_by = @by, received_by = @rb " &
-                            "WHERE transaction_item_id = @id AND released_at IS NULL", c, tx)
-                            q.Parameters.AddWithValue("@by", currentuser.UserID)
-                            q.Parameters.AddWithValue("@rb", receiver)
-                            q.Parameters.AddWithValue("@id", itemId)
-                            If q.ExecuteNonQuery() = 0 Then
-                                tx.Rollback()
-                                MsgBox(itemName & " was already released.", vbExclamation, "Releasing")
-                                LoadRows()
-                                Return Nothing
-                            End If
-                        End Using
-
-                        Using q As New MySqlCommand("UPDATE tbl_product_variants SET quantity_on_hand = quantity_on_hand - @q WHERE variant_id = @v", c, tx)
-                            q.Parameters.AddWithValue("@q", qty)
-                            q.Parameters.AddWithValue("@v", variantId)
-                            q.ExecuteNonQuery()
-                        End Using
-
-                        Using q As New MySqlCommand(
-                            "INSERT INTO tbl_stock_movements (variant_id, movement_type, quantity, previous_quantity, new_quantity, reference_no, remarks, created_by) " &
-                            "VALUES (@v, 'Stock Out', @q, @prev, @new, @ref, @rem, @by)", c, tx)
-                            q.Parameters.AddWithValue("@v", variantId)
-                            q.Parameters.AddWithValue("@q", qty)
-                            q.Parameters.AddWithValue("@prev", prev)
-                            q.Parameters.AddWithValue("@new", prev - qty)
-                            q.Parameters.AddWithValue("@ref", trxNo)
-                            q.Parameters.AddWithValue("@rem", "Pick-up released to " & receiver)
-                            q.Parameters.AddWithValue("@by", currentuser.UserID)
-                            q.ExecuteNonQuery()
-                        End Using
-
-                        done.Add(itemId)
-                    Next
-                    tx.Commit()
-                End Using
-            Catch ex As Exception
-                MsgBox("Release failed: " & ex.Message, vbCritical, "Releasing")
-                Return Nothing
-            End Try
-        End Using
-
-        LogActivity("Release Item", items(0)("transaction_no").ToString(),
-                    "Released " & done.Count & " item(s) to " & receiver)
-        Return done
-    End Function
-
-    ' ==================== PRINT SLIP ====================
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click        ' "Print Slip"
-        Dim ids As New List(Of Integer)
-        For Each it As DataRowView In SelectedItems()
-            If it("rel_status").ToString() = ST_RELEASED Then ids.Add(Convert.ToInt32(it("transaction_item_id")))
-        Next
-        If ids.Count = 0 Then
-            MsgBox("Select one or more released items to print a slip.", vbExclamation, "Print Slip")
+        If receiver.Length > 100 Then
+            MsgBox(
+            "Receiver name must not exceed 100 characters.",
+            vbExclamation,
+            "Module Release")
             Exit Sub
         End If
-        PrintSlip(ids)
+
+        If MsgBox(
+        "Record OR No. " & orNumber &
+        " and release ALL remaining modules in transaction " &
+        items(0)("transaction_no").ToString() &
+        " to " & receiver & "?" &
+        vbCrLf & vbCrLf &
+        "Stock will decrease. No bookstore cash payment " &
+        "will be recorded.",
+        vbYesNo + vbQuestion + vbDefaultButton2,
+        "Confirm Module Release"
+    ) <> MsgBoxResult.Yes Then
+            Exit Sub
+        End If
+
+        Try
+            ReleaseModuleOrder(transactionId, orNumber, receiver)
+
+            MsgBox(
+            "Modules released. Transaction status: Completed.",
+            vbInformation,
+            "Module Release")
+
+            LoadRows()
+        Catch ex As Exception
+            MsgBox(
+            "Modules were not released: " & ex.Message,
+            vbCritical,
+            "Module Release")
+        End Try
+    End Sub
+    Private Sub ReleaseModuleOrder(
+    transactionId As Integer,
+    orNumber As String,
+    receiver As String)
+
+        Dim transactionNo As String
+
+        Using connection As MySqlConnection = NewConnection()
+            connection.Open()
+
+            Using transaction As MySqlTransaction =
+            connection.BeginTransaction()
+
+                Dim header As New DataTable()
+
+                Using command As New MySqlCommand(
+                "SELECT transaction_no, payment_method, status, or_no " &
+                "FROM tbl_transactions " &
+                "WHERE transaction_id = @id FOR UPDATE",
+                connection,
+                transaction)
+
+                    command.Parameters.AddWithValue("@id", transactionId)
+
+                    Using reader As MySqlDataReader = command.ExecuteReader()
+                        header.Load(reader)
+                    End Using
+                End Using
+
+                If header.Rows.Count <> 1 Then
+                    Throw New InvalidOperationException(
+                    "The module order could not be found.")
+                End If
+
+                Dim order As DataRow = header.Rows(0)
+                transactionNo = order("transaction_no").ToString()
+
+                If order("payment_method").ToString() <>
+                ModuleOrders.PAYMENT_METHOD OrElse
+                order("status").ToString() = "Cancelled" Then
+
+                    Throw New InvalidOperationException(
+                    "This transaction cannot be released as a module order.")
+                End If
+
+                Dim existingOR As String = order("or_no").ToString().Trim()
+
+                If existingOR <> "" AndAlso
+                Not String.Equals(
+                    existingOR,
+                    orNumber,
+                    StringComparison.OrdinalIgnoreCase) Then
+
+                    Throw New InvalidOperationException(
+                    "This order already has a different OR number.")
+                End If
+
+                Dim details As New DataTable()
+
+                Using command As New MySqlCommand(
+                "SELECT ti.transaction_item_id, ti.variant_id, " &
+                "ti.quantity, ti.released_at, c.category_name " &
+                "FROM tbl_transaction_items ti " &
+                "INNER JOIN tbl_product_variants v " &
+                "ON ti.variant_id = v.variant_id " &
+                "INNER JOIN tbl_products p " &
+                "ON v.product_id = p.product_id " &
+                "INNER JOIN tbl_category_types ct " &
+                "ON p.category_type_id = ct.category_type_id " &
+                "INNER JOIN tbl_categories c " &
+                "ON ct.category_id = c.category_id " &
+                "WHERE ti.transaction_id = @id " &
+                "ORDER BY ti.variant_id, ti.transaction_item_id FOR UPDATE",
+                connection,
+                transaction)
+
+                    command.Parameters.AddWithValue("@id", transactionId)
+
+                    Using reader As MySqlDataReader = command.ExecuteReader()
+                        details.Load(reader)
+                    End Using
+                End Using
+
+                If details.Rows.Count = 0 Then
+                    Throw New InvalidOperationException(
+                    "The order has no module items.")
+                End If
+
+                Dim releaseCount As Integer = 0
+
+                For Each item As DataRow In details.Rows
+                    If item("category_name").ToString() <> "Modules" Then
+                        Throw New InvalidOperationException(
+                        "This order contains a non-module product.")
+                    End If
+
+                    If Not IsDBNull(item("released_at")) Then Continue For
+
+                    Dim variantId As Integer =
+                    Convert.ToInt32(item("variant_id"))
+
+                    Dim quantity As Integer =
+                    Convert.ToInt32(item("quantity"))
+
+                    If quantity <= 0 Then
+                        Throw New InvalidOperationException(
+                        "An order item has an invalid quantity.")
+                    End If
+
+                    Dim previousQuantity As Integer
+
+                    Using command As New MySqlCommand(
+                    "SELECT quantity_on_hand " &
+                    "FROM tbl_product_variants " &
+                    "WHERE variant_id = @id FOR UPDATE",
+                    connection,
+                    transaction)
+
+                        command.Parameters.AddWithValue("@id", variantId)
+
+                        Dim value As Object = command.ExecuteScalar()
+
+                        If value Is Nothing OrElse IsDBNull(value) Then
+                            Throw New InvalidOperationException(
+                            "The module stock record is missing.")
+                        End If
+
+                        previousQuantity = Convert.ToInt32(value)
+                    End Using
+
+                    If previousQuantity < quantity Then
+                        Throw New InvalidOperationException(
+                        "Insufficient stock for module variant " &
+                        variantId.ToString() &
+                        ". Available: " & previousQuantity.ToString() &
+                        "; required: " & quantity.ToString() & ".")
+                    End If
+
+                    Using command As New MySqlCommand(
+                    "UPDATE tbl_product_variants " &
+                    "SET quantity_on_hand = quantity_on_hand - @quantity " &
+                    "WHERE variant_id = @id",
+                    connection,
+                    transaction)
+
+                        command.Parameters.AddWithValue("@quantity", quantity)
+                        command.Parameters.AddWithValue("@id", variantId)
+                        command.ExecuteNonQuery()
+                    End Using
+
+                    Using command As New MySqlCommand(
+                    "UPDATE tbl_transaction_items " &
+                    "SET released_at = NOW(), released_by = @userId, " &
+                    "received_by = @receiver " &
+                    "WHERE transaction_item_id = @itemId " &
+                    "AND released_at IS NULL",
+                    connection,
+                    transaction)
+
+                        command.Parameters.AddWithValue(
+                        "@userId", currentuser.UserID)
+                        command.Parameters.AddWithValue("@receiver", receiver)
+                        command.Parameters.AddWithValue(
+                        "@itemId", item("transaction_item_id"))
+
+                        If command.ExecuteNonQuery() <> 1 Then
+                            Throw New InvalidOperationException(
+                            "An item was already released. Refresh the list.")
+                        End If
+                    End Using
+
+                    Using command As New MySqlCommand(
+                    "INSERT INTO tbl_stock_movements " &
+                    "(variant_id, movement_type, quantity, " &
+                    "previous_quantity, new_quantity, reference_no, " &
+                    "remarks, created_by) " &
+                    "VALUES (@variantId, 'Stock Out', @quantity, " &
+                    "@previous, @new, @reference, @remarks, @userId)",
+                    connection,
+                    transaction)
+
+                        command.Parameters.AddWithValue("@variantId", variantId)
+                        command.Parameters.AddWithValue("@quantity", quantity)
+                        command.Parameters.AddWithValue(
+                        "@previous", previousQuantity)
+                        command.Parameters.AddWithValue(
+                        "@new", previousQuantity - quantity)
+                        command.Parameters.AddWithValue(
+                        "@reference", transactionNo)
+                        command.Parameters.AddWithValue(
+                        "@remarks",
+                        "Module released to " & receiver &
+                        "; school cashier OR " & orNumber)
+                        command.Parameters.AddWithValue(
+                        "@userId", currentuser.UserID)
+
+                        command.ExecuteNonQuery()
+                    End Using
+
+                    releaseCount += 1
+                Next
+
+                If releaseCount = 0 Then
+                    Throw New InvalidOperationException(
+                    "All modules in this order were already released.")
+                End If
+
+                Using command As New MySqlCommand(
+                "UPDATE tbl_transactions " &
+                "SET or_no = @orNumber, status = 'Completed' " &
+                "WHERE transaction_id = @id",
+                connection,
+                transaction)
+
+                    command.Parameters.AddWithValue("@orNumber", orNumber)
+                    command.Parameters.AddWithValue("@id", transactionId)
+                    command.ExecuteNonQuery()
+                End Using
+
+                transaction.Commit()
+            End Using
+        End Using
+
+        LogActivity(
+        "Module Release",
+        transactionNo,
+        "Modules released to " & receiver &
+        ". School cashier OR: " & orNumber &
+        ". No bookstore cash collected.")
     End Sub
 
-    Private Sub PrintSlip(ids As List(Of Integer))
-        If ids Is Nothing OrElse ids.Count = 0 Then Exit Sub
+    ' ==================== PRINT SLIP ====================
+    Private Sub Button1_Click(
+    sender As Object,
+    e As EventArgs
+) Handles Button1.Click
 
-        Dim dt As DataTable = GetDataTable(
-            "SELECT t.transaction_no, t.or_no, t.buyer_name, ti.quantity, " &
-            "CONCAT(p.product_name, IF(v.size IS NULL OR v.size IN ('', 'N/A'), '', CONCAT(' (', v.size, ')'))) AS item_name, " &
-            "ti.released_at, ti.received_by, CONCAT(u.first_name, ' ', u.last_name) AS released_by_name " &
-            "FROM tbl_transaction_items ti " &
-            "INNER JOIN tbl_transactions t ON ti.transaction_id = t.transaction_id " &
-            "INNER JOIN tbl_product_variants v ON ti.variant_id = v.variant_id " &
-            "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
-            "LEFT JOIN tbl_users u ON ti.released_by = u.user_id " &
-            "WHERE ti.released_at IS NOT NULL AND ti.transaction_item_id IN (" & String.Join(",", ids) & ") " &
-            "ORDER BY t.transaction_no, ti.transaction_item_id")
-        If dt Is Nothing OrElse dt.Rows.Count = 0 Then Exit Sub
+        Dim items As List(Of DataRowView) = SelectedItems()
 
-        Dim first As DataRow = dt.Rows(0)
-        slipLines.Clear()
-        slipLines.Add("LOA BOOKSTORE")
-        slipLines.Add("RELEASE SLIP")
-        slipLines.Add("")
-        slipLines.Add("Transaction No.: " & first("transaction_no").ToString())
-        slipLines.Add("OR No.: " & first("or_no").ToString())
-        slipLines.Add("Buyer: " & first("buyer_name").ToString())
-        slipLines.Add("Released on: " & Convert.ToDateTime(first("released_at")).ToString("MMM d, yyyy h:mm tt"))
-        slipLines.Add("")
-        slipLines.Add("Items released:")
-        For Each r As DataRow In dt.Rows
-            slipLines.Add("   " & r("quantity").ToString() & " x " & r("item_name").ToString())
+        If items.Count = 0 Then
+            MsgBox(
+            "Select a module order to print its payment slip.",
+            vbExclamation,
+            "Module Payment Slip")
+            Exit Sub
+        End If
+
+        Dim transactionId As Integer =
+        Convert.ToInt32(items(0)("transaction_id"))
+
+        For Each item As DataRowView In items
+            If Convert.ToInt32(item("transaction_id")) <>
+            transactionId Then
+
+                MsgBox(
+                "Select items from one transaction only.",
+                vbExclamation,
+                "Module Payment Slip")
+                Exit Sub
+            End If
         Next
-        slipLines.Add("")
-        slipLines.Add("Released by: " & first("released_by_name").ToString())
-        slipLines.Add("Received by: " & first("received_by").ToString())
-        slipLines.Add("")
-        slipLines.Add("Signature: ______________________________")
 
-        Using dlg As New PrintPreviewDialog()
-            dlg.Document = slipDoc
-            dlg.WindowState = FormWindowState.Maximized
-            dlg.ShowDialog()
-        End Using
+        Try
+            ModuleOrders.PrintPaymentSlip(transactionId, Me)
+        Catch ex As Exception
+            MsgBox(
+            "Could not open the payment slip: " & ex.Message,
+            vbCritical,
+            "Module Payment Slip")
+        End Try
     End Sub
-
-    Private Sub slipDoc_PrintPage(sender As Object, e As PrintPageEventArgs) Handles slipDoc.PrintPage
-        Dim y As Single = e.MarginBounds.Top
-        Using fTitle As New Font("Segoe UI", 14.0F, FontStyle.Bold), fBody As New Font("Segoe UI", 10.0F)
-            For i As Integer = 0 To slipLines.Count - 1
-                Dim f As Font = If(i < 2, fTitle, fBody)
-                e.Graphics.DrawString(slipLines(i), f, Brushes.Black, e.MarginBounds.Left, y)
-                y += f.GetHeight(e.Graphics) + 4
-            Next
-        End Using
-        e.HasMorePages = False
-    End Sub
-
 End Class

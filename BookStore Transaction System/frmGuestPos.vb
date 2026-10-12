@@ -3,65 +3,115 @@
 Public Class frmGuestPos
     Implements IBuyerInfo
 
-    Public ReadOnly Property BuyerType As String Implements IBuyerInfo.BuyerType
+    Public ReadOnly Property BuyerType As String _
+        Implements IBuyerInfo.BuyerType
+
         Get
             Return "Guest"
         End Get
     End Property
 
-    Public ReadOnly Property BuyerName As String Implements IBuyerInfo.BuyerName
+    Public ReadOnly Property BuyerName As String _
+        Implements IBuyerInfo.BuyerName
+
         Get
-            Return Regex.Replace(txtGuestName.Text.Trim(), "\s+", " ")
+            Return Regex.Replace(
+                txtGuestName.Text.Trim(),
+                "\s+",
+                " ")
         End Get
     End Property
 
-    Public ReadOnly Property StudentId As Integer Implements IBuyerInfo.StudentId
+    Public ReadOnly Property StudentId As Integer _
+        Implements IBuyerInfo.StudentId
+
         Get
             Return 0
         End Get
     End Property
 
-    Public Function ValidateBuyer(ByRef message As String) As Boolean Implements IBuyerInfo.ValidateBuyer
-        Dim n As String = BuyerName
-        If n = "" Then
-            message = "Enter the guest name."
-            Return False
-        End If
-        If Not Regex.IsMatch(n, "^\p{L}[\p{L} .,'\-]{1,99}$") Then
-            message = "Guest name must be at least 2 characters and may only contain letters, spaces and . , ' -"
-            Return False
-        End If
-        Return True
-    End Function
-    Public Sub ClearBuyer() Implements IBuyerInfo.ClearBuyer
-        txtGuestName.Clear()
-        txtGuestId.Clear()
-    End Sub
+    Public ReadOnly Property IdNumber As String _
+        Implements IBuyerInfo.IdNumber
 
-    Private Sub txtGuestName_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtGuestName.KeyPress
-        If Char.IsDigit(e.KeyChar) Then e.Handled = True
-    End Sub
-    Private txtGuestId As TextBox
-
-    Public ReadOnly Property IdNumber As String Implements IBuyerInfo.IdNumber
         Get
-            Return txtGuestId.Text.Trim()
+            Return TextBox1.Text.Trim()
         End Get
     End Property
 
-    Private Sub frmGuestPos_LoadId(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim lbl As New Label With {.AutoSize = True, .Font = Label13.Font, .Text = "ID Number",
-                                   .Location = New Point(Label13.Left, 52)}
-        txtGuestId = New TextBox With {.BorderStyle = BorderStyle.FixedSingle, .Font = txtGuestName.Font,
-                                       .Location = New Point(txtGuestName.Left, 50), .Size = txtGuestName.Size,
-                                       .MaxLength = 30}
-        AddHandler txtGuestId.KeyPress, Sub(s, ev)
-                                            If Not Char.IsLetterOrDigit(ev.KeyChar) AndAlso ev.KeyChar <> "-"c AndAlso Not Char.IsControl(ev.KeyChar) Then ev.Handled = True
-                                        End Sub
-        Controls.Add(lbl)
-        Controls.Add(txtGuestId)
-        Panel1.Top = 90
-        Panel1.Height = 70
+    Private Sub frmGuestPos_Load(
+        sender As Object,
+        e As EventArgs
+    ) Handles MyBase.Load
+
+        TextBox1.MaxLength = 30
+        txtGuestName.MaxLength = 100
+    End Sub
+
+    Public Function ValidateBuyer(
+        ByRef message As String
+    ) As Boolean Implements IBuyerInfo.ValidateBuyer
+
+        message = ""
+
+        Dim guestName As String = BuyerName
+
+        If guestName = "" Then
+            message = "Enter the guest name."
+            Return False
+        End If
+
+        If Not Regex.IsMatch(
+            guestName,
+            "^\p{L}[\p{L} .,'\-]{1,99}$") Then
+
+            message =
+                "Guest name must contain 2 to 100 characters " &
+                "using letters, spaces, periods, commas, " &
+                "apostrophes, or hyphens."
+
+            Return False
+        End If
+
+        ' ID is optional. Validate it only when supplied.
+        If IdNumber <> "" AndAlso
+            Not Regex.IsMatch(
+                IdNumber,
+                "^[\p{L}\p{N}\-]{1,30}$") Then
+
+            message =
+                "Guest ID No. may contain up to 30 letters, " &
+                "numbers, or hyphens, or it may be left blank."
+
+            Return False
+        End If
+
+        Return True
+    End Function
+
+    Public Sub ClearBuyer() Implements IBuyerInfo.ClearBuyer
+        txtGuestName.Clear()
+        TextBox1.Clear()
+    End Sub
+
+    Private Sub txtGuestName_KeyPress(
+        sender As Object,
+        e As KeyPressEventArgs
+    ) Handles txtGuestName.KeyPress
+
+        If Char.IsDigit(e.KeyChar) Then e.Handled = True
+    End Sub
+
+    Private Sub GuestId_KeyPress(
+        sender As Object,
+        e As KeyPressEventArgs
+    ) Handles TextBox1.KeyPress
+
+        If Not Char.IsControl(e.KeyChar) AndAlso
+            Not Char.IsLetterOrDigit(e.KeyChar) AndAlso
+            e.KeyChar <> "-"c Then
+
+            e.Handled = True
+        End If
     End Sub
 
 End Class

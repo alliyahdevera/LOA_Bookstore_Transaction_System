@@ -29,6 +29,18 @@ Public Class frmTransactionDetails
     Private rcTotal, rcPaid, rcChange As Decimal
     Private rY As Single
 
+    ' Printing components
+    Private WithEvents printDoc As New PrintDocument()
+    Private printPreview As New PrintPreviewDialog()
+
+    Private Function DisplayOrNA(value As Object) As String
+        If value Is Nothing OrElse Convert.IsDBNull(value) Then
+            Return "N/A"
+        End If
+        Dim text As String = Convert.ToString(value).Trim()
+        Return If(text = "", "N/A", text)
+    End Function
+
     Private Sub SetupCartGrid()
         dgvCart.ReadOnly = False
         dgvCart.AllowUserToAddRows = False
@@ -102,28 +114,35 @@ Public Class frmTransactionDetails
         txnId = Convert.ToInt32(r("transaction_id"))
         txnStatus = Convert.ToString(r("status"))
 
-        txtorno.Text = Convert.ToString(r("or_no"))
-        Dim buyerType As String = Convert.ToString(r("buyer_type"))
-        Dim idNo As String = If(Not IsDBNull(r("id_number")) AndAlso Convert.ToString(r("id_number")) <> "",
-                                Convert.ToString(r("id_number")), Convert.ToString(r("student_no")))
-        btnStudentno.Text = If(idNo = "", "N/A", idNo)               ' ID No.
-        txtStudentName.Text = Convert.ToString(r("buyer_name"))              ' Buyer Name
-        txtgrade.Text = If(Convert.ToString(r("grade_level")) = "", "N/A", Convert.ToString(r("grade_level")))
-        Select Case buyerType
-            Case "Student"
-                txtProgramStrand.Text = DepartmentOf(Convert.ToString(r("program_strand")), Convert.ToString(r("grade_level")))
-            Case "Employee"
-                txtProgramStrand.Text = If(IsDBNull(r("emp_dept")), "N/A", Convert.ToString(r("emp_dept")))
+        txtorno.Text = DisplayOrNA(r("or_no"))
+
+        Dim buyerType As String = Convert.ToString(r("buyer_type")).Trim()
+        Dim idNumber As String = Convert.ToString(r("id_number")).Trim()
+
+        If idNumber = "" AndAlso String.Equals(buyerType, "Student", StringComparison.OrdinalIgnoreCase) Then
+            idNumber = Convert.ToString(r("student_no")).Trim()
+        End If
+
+        btnStudentno.Text = DisplayOrNA(idNumber)
+        txtStudentName.Text = DisplayOrNA(r("buyer_name"))
+        txtgrade.Text = DisplayOrNA(buyerType)
+
+        Select Case buyerType.ToUpperInvariant()
+            Case "STUDENT"
+                txtProgramStrand.Text = DisplayOrNA(DepartmentOf(Convert.ToString(r("program_strand")), Convert.ToString(r("grade_level"))))
+            Case "EMPLOYEE"
+                txtProgramStrand.Text = DisplayOrNA(r("emp_dept"))
             Case Else
                 txtProgramStrand.Text = "N/A"
         End Select
+
         txttdate.Text = Convert.ToDateTime(r("created_at")).ToString("MMMM d, yyyy h:mm tt")
         txtpaymentmethod.Text = Convert.ToString(r("payment_method"))
         txtstatus.Text = txnStatus
         txtareceived.Text = Peso & Convert.ToDecimal(r("amount_paid")).ToString("N2")
         txtachange.Text = Peso & Convert.ToDecimal(r("amount_change")).ToString("N2")
 
-        ' receipt data
+        ' receipt data assignments
         rcOR = txtorno.Text
         rcDate = txttdate.Text
         rcBuyer = txtStudentName.Text
@@ -630,5 +649,92 @@ Public Class frmTransactionDetails
             txtProduct.Focus()
             e.Cancel = True
         End If
+    End Sub
+
+    ' ===================== PRINT RECEIPT =====================
+    Private Sub btnprint_Click(sender As Object, e As EventArgs) Handles btnprint.Click
+        If txnId = 0 Then Exit Sub
+
+        ' Block bookstore receipt printing for module orders paid at the school cashier
+        If String.Equals(
+        txtpaymentmethod.Text.Trim(),
+        ModuleOrders.PAYMENT_METHOD,
+        StringComparison.OrdinalIgnoreCase) Then
+
+            MsgBox(
+            "Module payment receipts are issued by the school cashier." &
+            vbCrLf &
+            "Print the payment slip from Modules for Release.",
+            vbInformation,
+            "Module Order")
+
+            Exit Sub
+        End If
+
+        printPreview.Document = printDoc
+        printPreview.Width = 600
+        printPreview.Height = 800
+        printPreview.ShowDialog(Me)
+    End Sub
+    Private Sub printDoc_PrintPage(sender As Object, e As PrintPageEventArgs) Handles printDoc.PrintPage
+        Dim g As Graphics = e.Graphics
+        Dim fHeader As New Font("Segoe UI", 12, FontStyle.Bold)
+        Dim fReg As New Font("Segoe UI", 9, FontStyle.Regular)
+        Dim fBold As New Font("Segoe UI", 9, FontStyle.Bold)
+        Dim brush As Brush = Brushes.Black
+        Dim x As Single = 20
+        Dim y As Single = 20
+        Dim w As Single = e.PageBounds.Width - 40
+
+        ' Header
+        g.DrawString("LYCEUM OF ALABANG - BOOKSTORE", fHeader, brush, x, y)
+        y += 25
+        g.DrawString("Transaction Receipt Details", fReg, brush, x, y)
+        y += 20
+        g.DrawLine(Pens.Black, x, y, x + w, y)
+        y += 10
+
+        ' Metadata fields using corrected labels
+        RcL(g, "OR No:", rcOR, fReg, fBold, x, y, w) : y += 18
+        RcL(g, "Date:", rcDate, fReg, fBold, x, y, w) : y += 18
+        RcL(g, "Buyer Name:", rcBuyer, fReg, fBold, x, y, w) : y += 18
+        RcL(g, "ID No:", rcStudentNo, fReg, fBold, x, y, w) : y += 18
+        RcL(g, "Buyer Type:", txtgrade.Text, fReg, fBold, x, y, w) : y += 18
+        RcL(g, "Department:", txtProgramStrand.Text, fReg, fBold, x, y, w) : y += 18
+        RcL(g, "Payment Method:", rcPayment, fReg, fBold, x, y, w) : y += 18
+        RcL(g, "Cashier:", rcCashier, fReg, fBold, x, y, w) : y += 18
+        RcL(g, "Status:", rcStatus, fReg, fBold, x, y, w) : y += 25
+
+        g.DrawLine(Pens.Gray, x, y, x + w, y)
+        y += 10
+
+        ' Items grid header
+        g.DrawString("Items Purchased:", fBold, brush, x, y)
+        y += 20
+
+        For Each row As DataGridViewRow In dgvCart.Rows
+            If row.IsNewRow Then Continue For
+            Dim pName As String = Convert.ToString(row.Cells(1).Value)
+            Dim qty As String = Convert.ToString(row.Cells(4).Value)
+            Dim subTot As String = Convert.ToString(row.Cells(6).Value)
+
+            g.DrawString(pName & " (x" & qty & ")", fReg, brush, x, y)
+            g.DrawString("₱" & subTot, fReg, brush, x + w - 100, y)
+            y += 18
+        Next
+
+        y += 10
+        g.DrawLine(Pens.Gray, x, y, x + w, y)
+        y += 15
+
+        ' Totals
+        RcL(g, "Total Amount:", "₱" & rcTotal.ToString("N2"), fReg, fBold, x, y, w) : y += 18
+        RcL(g, "Amount Paid:", "₱" & rcPaid.ToString("N2"), fReg, fBold, x, y, w) : y += 18
+        RcL(g, "Change:", "₱" & rcChange.ToString("N2"), fReg, fBold, x, y, w)
+    End Sub
+
+    Private Sub RcL(g As Graphics, label As String, val As String, fReg As Font, fBold As Font, x As Single, y As Single, w As Single)
+        g.DrawString(label, fReg, Brushes.Black, x, y)
+        g.DrawString(val, fBold, Brushes.Black, x + 120, y)
     End Sub
 End Class

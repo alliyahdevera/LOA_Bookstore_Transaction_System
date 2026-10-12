@@ -72,7 +72,7 @@ Public Class frmCashierDashboard
             "IFNULL(SUM(CASE WHEN payment_method = 'Salary Deduction' THEN 1 ELSE 0 END), 0) AS sal_n, " &
             "IFNULL(SUM(CASE WHEN payment_method = 'Salary Deduction' THEN total_amount ELSE 0 END), 0) AS sal_amt " &
             "FROM tbl_transactions " &
-            "WHERE created_by = @u AND DATE(created_at) = CURDATE() AND status <> 'Cancelled'",
+            "WHERE created_by = @u AND DATE(t.created_at) = CURDATE() AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier'",
             New String() {"@u"}, New Object() {currentuser.UserID})
         If dt Is Nothing OrElse dt.Rows.Count = 0 Then Exit Sub
 
@@ -83,124 +83,306 @@ Public Class frmCashierDashboard
         SetValue(lbllowstock, Peso & Convert.ToDecimal(r("sal_amt")).ToString("N2"))      ' Salary Deduction Today (amount)
         Label6.Text = "Salary Deduction Today (" & Convert.ToInt32(r("sal_n")) & ")"       '   ... and the count
     End Sub
-
-    ' ==================== SALES BY PAYMENT METHOD ====================
     Private Sub LoadPaymentMethods()
-        Dim dt As DataTable = GetDataTable(
-            "SELECT payment_method, SUM(total_amount) AS total FROM tbl_transactions " &
-            "WHERE created_by = @u AND DATE(created_at) = CURDATE() AND status <> 'Cancelled' " &
-            "GROUP BY payment_method ORDER BY total DESC",
-            New String() {"@u"}, New Object() {currentuser.UserID})
+        Dim totals As New Dictionary(Of String, Decimal)(
+        StringComparer.OrdinalIgnoreCase) From {
+        {"Cash", 0D},
+        {"Salary Deduction", 0D}
+    }
 
-        Dim s As Series = chtsalepymeth.Series("Series1")
-        s.Points.Clear()
-        s.IsValueShownAsLabel = True
-        s.Label = Peso & "#VAL{N0}\n(#PERCENT{P0})"
-        s.ToolTip = "#AXISLABEL: " & Peso & "#VAL{N2} (#PERCENT{P1})"
-        s.SmartLabelStyle.Enabled = True
-        If dt Is Nothing Then Exit Sub
+        Dim methodOrder As New List(Of String) From {
+        "Cash",
+        "Salary Deduction"
+    }
 
-        Dim grand As Double = 0
-        For Each r As DataRow In dt.Rows
-            grand += Convert.ToDouble(r("total"))
+        Dim result As DataTable = GetDataTable(
+        "SELECT payment_method, " &
+        "IFNULL(SUM(total_amount), 0) AS total " &
+        "FROM tbl_transactions " &
+        "WHERE created_by = @userId " &
+        "AND DATE(t.created_at) = CURDATE() AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier'" &
+        "GROUP BY payment_method " &
+        "ORDER BY payment_method",
+        New String() {"@userId"},
+        New Object() {currentuser.UserID})
+
+        If result Is Nothing Then
+            SetDashboardChartMessage(
+            chtsalepymeth,
+            "Payment data could not be loaded")
+            Exit Sub
+        End If
+
+        For Each row As DataRow In result.Rows
+            Dim methodName As String =
+            row("payment_method").ToString().Trim()
+
+            If methodName = "" Then methodName = "Unspecified"
+
+            If Not totals.ContainsKey(methodName) Then
+                totals.Add(methodName, 0D)
+                methodOrder.Add(methodName)
+            End If
+
+            totals(methodName) += Convert.ToDecimal(row("total"))
         Next
-        For Each r As DataRow In dt.Rows
-            Dim amt As Double = Convert.ToDouble(r("total"))
-            Dim idx As Integer = s.Points.AddXY(r("payment_method").ToString(), amt)
-            s.Points(idx).LegendText = r("payment_method").ToString() & " - " & Peso & amt.ToString("N2") &
-                                       " (" & If(grand > 0, amt / grand, 0).ToString("P0") & ")"
+
+        Dim payments As Series = chtsalepymeth.Series("Series1")
+
+        payments.Points.Clear()
+
+        ' Bars keep zero-value payment methods visible.
+        payments.ChartType = SeriesChartType.Column
+        payments.IsValueShownAsLabel = True
+        payments.Label = Peso & "#VAL{N2}"
+        payments.ToolTip = "#AXISLABEL: " & Peso & "#VAL{N2}"
+        payments.SmartLabelStyle.Enabled = True
+
+        Dim hasAmounts As Boolean = False
+
+        For Each methodName As String In methodOrder
+            Dim amount As Decimal = totals(methodName)
+
+            Dim pointIndex As Integer =
+            payments.Points.AddXY(
+                methodName,
+                Convert.ToDouble(amount))
+
+            payments.Points(pointIndex).Color =
+            If(methodName = "Cash",
+               Color.SeaGreen,
+               Color.SteelBlue)
+
+            If amount <> 0D Then hasAmounts = True
         Next
+
+        For Each legend As Legend In chtsalepymeth.Legends
+            legend.Enabled = False
+        Next
+
+        With chtsalepymeth.ChartAreas(0)
+            .AxisX.Enabled = AxisEnabled.True
+            .AxisY.Enabled = AxisEnabled.True
+            .AxisX.Interval = 1
+            .AxisX.LabelStyle.Angle = 0
+            .AxisY.Minimum = 0
+            .AxisY.Maximum = If(hasAmounts, Double.NaN, 1.0)
+            .AxisY.LabelStyle.Format = Peso & "#,##0"
+        End With
+
+        SetDashboardChartMessage(
+        chtsalepymeth,
+        If(hasAmounts, "", "No transactions recorded today"))
     End Sub
-
-    ' ==================== SALES BY HOUR ====================
     Private Sub LoadSalesByHour()
         Dim totals(23) As Decimal
-        Dim firstH As Integer = 7, lastH As Integer = 18               ' usual store hours, widened if a sale falls outside
 
-        Dim dt As DataTable = GetDataTable(
-            "SELECT HOUR(created_at) AS h, SUM(total_amount) AS total FROM tbl_transactions " &
-            "WHERE created_by = @u AND DATE(created_at) = CURDATE() AND status <> 'Cancelled' GROUP BY HOUR(created_at)",
-            New String() {"@u"}, New Object() {currentuser.UserID})
-        If dt IsNot Nothing Then
-            For Each r As DataRow In dt.Rows
-                Dim h As Integer = Convert.ToInt32(r("h"))
-                totals(h) = Convert.ToDecimal(r("total"))
-                firstH = Math.Min(firstH, h)
-                lastH = Math.Max(lastH, h)
-            Next
+        Dim result As DataTable = GetDataTable(
+        "SELECT HOUR(created_at) AS sale_hour, " &
+        "IFNULL(SUM(total_amount), 0) AS total " &
+        "FROM tbl_transactions " &
+        "WHERE created_by = @userId " &
+        "AND DATE(t.created_at) = CURDATE() AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' " &
+        "AND HOUR(created_at) BETWEEN 8 AND 17 " &
+        "GROUP BY HOUR(created_at)",
+        New String() {"@userId"},
+        New Object() {currentuser.UserID})
+
+        If result Is Nothing Then
+            SetDashboardChartMessage(
+            chrtsaleshr,
+            "Sales data could not be loaded")
+            Exit Sub
         End If
 
-        Dim s As Series = chrtsaleshr.Series("Series1")
-        s.Points.Clear()
-        s.BorderWidth = 3
-        s.MarkerStyle = MarkerStyle.Circle
-        s.MarkerSize = 7
-        s.ToolTip = "#AXISLABEL: " & Peso & "#VAL{N2}"
-        For h As Integer = firstH To lastH
-            s.Points.AddXY(New DateTime(2000, 1, 1, h, 0, 0).ToString("h tt"), Convert.ToDouble(totals(h)))
+        For Each row As DataRow In result.Rows
+            Dim saleHour As Integer = Convert.ToInt32(row("sale_hour"))
+            totals(saleHour) = Convert.ToDecimal(row("total"))
         Next
-        chrtsaleshr.ChartAreas(0).AxisX.Interval = 1
-        chrtsaleshr.ChartAreas(0).AxisY.LabelStyle.Format = Peso & "#,##0"
+
+        Dim sales As Series = chrtsaleshr.Series("Series1")
+
+        sales.Points.Clear()
+        sales.ChartType = SeriesChartType.Line
+        sales.BorderWidth = 3
+        sales.MarkerStyle = MarkerStyle.Circle
+        sales.MarkerSize = 7
+        sales.ToolTip = "#AXISLABEL: " & Peso & "#VAL{N2}"
+
+        Dim hasSales As Boolean = False
+
+        For saleHour As Integer = 8 To 17
+            Dim hourLabel As String =
+            New DateTime(2000, 1, 1, saleHour, 0, 0).
+                ToString("h tt")
+
+            sales.Points.AddXY(
+            hourLabel,
+            Convert.ToDouble(totals(saleHour)))
+
+            If totals(saleHour) <> 0D Then hasSales = True
+        Next
+
+        With chrtsaleshr.ChartAreas(0)
+            .AxisX.Interval = 1
+            .AxisY.Minimum = 0
+            .AxisY.Maximum = If(hasSales, Double.NaN, 1.0)
+            .AxisY.LabelStyle.Format = Peso & "#,##0"
+        End With
+
+        SetDashboardChartMessage(
+        chrtsaleshr,
+        If(hasSales, "", "No sales recorded for these hours"))
     End Sub
+    Private Sub SetDashboardChartMessage(
+    target As Chart,
+    message As String)
 
-    ' ==================== TOP 5 ITEMS TODAY ====================
-    Private Sub LoadTopItems()
-        Dim dt As DataTable = GetDataTable(
-            "SELECT p.product_name, SUM(ti.quantity) AS qty " &
-            "FROM tbl_transaction_items ti " &
-            "INNER JOIN tbl_transactions t ON ti.transaction_id = t.transaction_id " &
-            "INNER JOIN tbl_product_variants v ON ti.variant_id = v.variant_id " &
-            "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
-            "WHERE t.created_by = @u AND DATE(t.created_at) = CURDATE() AND t.status <> 'Cancelled' " &
-            "GROUP BY p.product_id, p.product_name ORDER BY qty DESC LIMIT 5",
-            New String() {"@u"}, New Object() {currentuser.UserID})
+        Const messageTitleName As String = "DashboardMessage"
 
-        Dim s As Series = chtmostpurchased.Series("Series1")
-        s.Points.Clear()
-        s.IsValueShownAsLabel = True
-        If dt IsNot Nothing Then
-            For Each r As DataRow In dt.Rows
-                s.Points.AddXY(r("product_name").ToString(), Convert.ToDouble(r("qty")))
-            Next
+        Dim messageTitle As Title =
+        target.Titles.FindByName(messageTitleName)
+
+        If message = "" Then
+            If messageTitle IsNot Nothing Then
+                target.Titles.Remove(messageTitle)
+            End If
+
+            Exit Sub
         End If
-        chtmostpurchased.ChartAreas(0).AxisX.IsReversed = True            ' biggest on top
-        chtmostpurchased.ChartAreas(0).AxisX.Interval = 1
-    End Sub
 
-    ' ==================== READY FOR RELEASE ====================
-    ' paid pick-up items whose stock has arrived and are waiting to be handed over
+        If messageTitle Is Nothing Then
+            messageTitle = New Title()
+            messageTitle.Name = messageTitleName
+            messageTitle.Docking = Docking.Top
+            messageTitle.ForeColor = Color.DimGray
+
+            target.Titles.Add(messageTitle)
+        End If
+
+        messageTitle.Text = message
+    End Sub
+    Private Sub LoadTopItems()
+        Dim result As DataTable = GetDataTable(
+        "SELECT p.product_name, SUM(ti.quantity) AS qty " &
+        "FROM tbl_transaction_items ti " &
+        "INNER JOIN tbl_transactions t " &
+        "ON ti.transaction_id = t.transaction_id " &
+        "INNER JOIN tbl_product_variants v " &
+        "ON ti.variant_id = v.variant_id " &
+        "INNER JOIN tbl_products p " &
+        "ON v.product_id = p.product_id " &
+        "WHERE t.created_by = @userId " &
+        "AND DATE(t.created_at) = CURDATE() AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' " &
+        "GROUP BY p.product_id, p.product_name " &
+        "ORDER BY qty DESC, p.product_name LIMIT 5",
+        New String() {"@userId"},
+        New Object() {currentuser.UserID})
+
+        If result Is Nothing Then
+            SetDashboardChartMessage(
+            chtmostpurchased,
+            "Product data could not be loaded")
+            Exit Sub
+        End If
+
+        Dim products As Series = chtmostpurchased.Series("Series1")
+
+        products.Points.Clear()
+        products.ChartType = SeriesChartType.Bar
+        products.IsValueShownAsLabel = True
+        products.Label = "#VAL{N0}"
+        products.ToolTip = "#AXISLABEL: #VAL{N0} item(s)"
+
+        If result.Rows.Count = 0 Then
+            products.Points.AddXY("No items sold", 0)
+
+            SetDashboardChartMessage(
+            chtmostpurchased,
+            "No items sold today")
+        Else
+            For Each row As DataRow In result.Rows
+                products.Points.AddXY(
+                row("product_name").ToString(),
+                Convert.ToDouble(row("qty")))
+            Next
+
+            SetDashboardChartMessage(chtmostpurchased, "")
+        End If
+
+        With chtmostpurchased.ChartAreas(0)
+            .AxisX.IsReversed = True
+            .AxisX.Interval = 1
+            .AxisY.Minimum = 0
+            .AxisY.Maximum =
+            If(result.Rows.Count = 0, 1.0, Double.NaN)
+            .AxisY.LabelStyle.Format = "#,##0"
+        End With
+    End Sub
     Private Sub LoadReadyForRelease()
-        Dim dt As DataTable = GetDataTable(
-            "SELECT t.transaction_no, t.or_no, t.buyer_name, p.product_name, v.size, ti.quantity AS qty, ti.pickup_date " &
+        Dim result As DataTable = GetDataTable(
+            "SELECT t.transaction_no, t.or_no, t.buyer_name, " &
+            "p.product_name, v.size, ti.quantity AS qty " &
             "FROM tbl_transaction_items ti " &
-            "INNER JOIN tbl_transactions t ON ti.transaction_id = t.transaction_id " &
-            "INNER JOIN tbl_product_variants v ON ti.variant_id = v.variant_id " &
-            "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
-            "WHERE ti.is_backorder = 1 AND ti.released_at IS NULL AND t.status <> 'Cancelled' " &
+            "INNER JOIN tbl_transactions t " &
+            "ON ti.transaction_id = t.transaction_id " &
+            "INNER JOIN tbl_product_variants v " &
+            "ON ti.variant_id = v.variant_id " &
+            "INNER JOIN tbl_products p " &
+            "ON v.product_id = p.product_id " &
+            "INNER JOIN tbl_category_types ct " &
+            "ON p.category_type_id = ct.category_type_id " &
+            "INNER JOIN tbl_categories c " &
+            "ON ct.category_id = c.category_id " &
+            "WHERE c.category_name = 'Modules' " &
+            "AND ti.released_at IS NULL " &
+            "AND t.status NOT IN ('Cancelled', 'Returned', 'Exchanged') " &
+            "AND NULLIF(TRIM(t.or_no), '') IS NOT NULL " &
             "AND v.quantity_on_hand >= ti.quantity " &
-            "ORDER BY ti.pickup_date, ti.transaction_item_id")
+            "ORDER BY t.created_at, ti.transaction_item_id")
+
+        If result Is Nothing Then
+            dgvreadyreleased.Rows.Clear()
+            Label15.Text = "MODULE RELEASE DATA UNAVAILABLE"
+            Exit Sub
+        End If
 
         dgvreadyreleased.SuspendLayout()
-        dgvreadyreleased.Rows.Clear()
-        Dim overdue As Integer = 0
-        If dt IsNot Nothing Then
-            For Each r As DataRow In dt.Rows
-                Dim sz As String = r("size").ToString()
-                Dim idx As Integer = dgvreadyreleased.Rows.Add(
-                    r("transaction_no").ToString(), r("or_no").ToString(), r("buyer_name").ToString(),
-                    r("product_name").ToString() & If(sz <> "" AndAlso sz <> "N/A", " (" & sz & ")", ""),
-                    r("qty").ToString())
-                If Not IsDBNull(r("pickup_date")) AndAlso Convert.ToDateTime(r("pickup_date")).Date < Date.Today Then
-                    dgvreadyreleased.Rows(idx).DefaultCellStyle.ForeColor = Color.Firebrick        ' waiting past the pick-up date
-                    overdue += 1
+
+        Try
+            dgvreadyreleased.Rows.Clear()
+
+            For Each row As DataRow In result.Rows
+                Dim itemName As String =
+                    row("product_name").ToString()
+
+                Dim itemSize As String =
+                    row("size").ToString().Trim()
+
+                If itemSize <> "" AndAlso
+                    Not String.Equals(
+                        itemSize,
+                        "N/A",
+                        StringComparison.OrdinalIgnoreCase) Then
+
+                    itemName &= " (" & itemSize & ")"
                 End If
+
+                dgvreadyreleased.Rows.Add(
+                    row("transaction_no").ToString(),
+                    row("or_no").ToString(),
+                    row("buyer_name").ToString(),
+                    itemName,
+                    row("qty").ToString())
             Next
-        End If
-        dgvreadyreleased.ClearSelection()
-        dgvreadyreleased.ResumeLayout()
 
-        Dim n As Integer = If(dt Is Nothing, 0, dt.Rows.Count)
-        Label15.Text = "READY FOR RELEASE ITEMS (" & n & If(overdue > 0, ", " & overdue & " overdue", "") & ")"
+            dgvreadyreleased.ClearSelection()
+        Finally
+            dgvreadyreleased.ResumeLayout()
+        End Try
+
+        Label15.Text =
+            "MODULES READY FOR RELEASE (" &
+            result.Rows.Count.ToString() & ")"
     End Sub
-
 End Class

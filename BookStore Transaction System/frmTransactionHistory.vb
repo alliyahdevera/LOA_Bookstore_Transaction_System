@@ -149,7 +149,7 @@ Public Class frmTransactionHistory
             If SelectedCategory() = "" AndAlso SelectedType() = "" Then
                 totalSum = ExecScalar(
                 "SELECT IFNULL(SUM(t.total_amount),0) FROM TBL_TRANSACTIONS t WHERE " & SEARCH_FILTER &
-                "AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled'",
+                "AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier'",
                 New String() {"@s", "@f", "@t"},
                 New Object() {"%" & searchText & "%", dtfrom.Value.Date, dtto.Value.Date})
             Else
@@ -162,7 +162,7 @@ Public Class frmTransactionHistory
                 "LEFT JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
                 "LEFT JOIN tbl_categories c ON ct.category_id = c.category_id " &
                 "WHERE " & SEARCH_FILTER &
-                "AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled' " &
+                "AND DATE(t.created_at) BETWEEN @f AND @t AND t.status <> 'Cancelled' AND payment_method <> 'School Cashier' " &
                 "AND (@cat = '' OR c.category_name = @cat) AND (@typ = '' OR ct.type_name = @typ)",
                 New String() {"@s", "@f", "@t", "@cat", "@typ"},
                 New Object() {"%" & searchText & "%", dtfrom.Value.Date, dtto.Value.Date, SelectedCategory(), SelectedType()})

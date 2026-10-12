@@ -169,7 +169,7 @@ Public Class frmDashboard
                       "INNER JOIN TBL_TRANSACTIONS t ON ti.transaction_id = t.transaction_id " &
                       "INNER JOIN TBL_PRODUCT_VARIANTS v ON ti.variant_id = v.variant_id " &
                       "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
-                      "WHERE t.status <> 'Cancelled' " & SchoolYearFilter("t.or_date") &
+                      "WHERE t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' " & SchoolYearFilter("t.or_date") &
                       "GROUP BY p.product_id, p.product_name " &
                       "ORDER BY qty_sold DESC " &
                       "LIMIT 5"
@@ -204,7 +204,7 @@ Public Class frmDashboard
                                   "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
                                   "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
                                   "INNER JOIN TBL_CATEGORIES c ON ct.category_id = c.category_id " &
-                                  "WHERE t.status <> 'Cancelled' " &
+                                  "WHERE t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' " &
                                   "GROUP BY c.category_id, c.category_name " &
                                   "ORDER BY total_sales DESC"
 

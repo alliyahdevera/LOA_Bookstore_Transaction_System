@@ -4,8 +4,10 @@ Imports MySql.Data.MySqlClient
 Public Class frmCashDenomination
 
     Private Const METHOD_SALARY As String = "Employee's Salary"
-    Private Const SESSION_FILTER As String = "created_by = @u AND DATE(created_at) = CURDATE() AND status <> 'Cancelled' "
-
+    Private Const SESSION_FILTER As String =
+    "created_by = @u AND DATE(created_at) = CURDATE() " &
+    "AND status <> 'Cancelled' " &
+    "AND payment_method <> 'School Cashier' "
     Private ReadOnly Peso As String = ChrW(8369)
     Private ReadOnly Denominations As Decimal() = New Decimal() {1000D, 500D, 200D, 100D, 50D, 20D, 10D, 5D, 1D, 0.25D}
 

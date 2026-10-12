@@ -24,7 +24,108 @@ Public Class frmPOS
 
     Private Const MAX_PICKUP_QTY As Integer = 10
     Private ReadOnly backorders As New Dictionary(Of Integer, Date)   ' variant_id -> pick-up date
+    Private Function HandleModuleCart(
+    paymentButton As Boolean
+) As Boolean
 
+        If dgvCart.Rows.Count = 0 Then Return False
+
+        Dim moduleCount As Integer = 0
+        Dim otherCount As Integer = 0
+
+        Try
+            For Each row As DataGridViewRow In dgvCart.Rows
+                If row.IsNewRow Then Continue For
+
+                If ModuleOrders.IsModuleVariant(
+                Convert.ToInt32(row.Tag)) Then
+
+                    moduleCount += 1
+                Else
+                    otherCount += 1
+                End If
+            Next
+
+            If moduleCount = 0 Then Return False
+
+            If otherCount > 0 Then
+                MsgBox(
+                "Modules must be saved in a separate transaction " &
+                "because payment is handled by the school cashier.",
+                vbExclamation,
+                "Module Order")
+
+                Return True
+            End If
+
+            If paymentButton Then
+                MsgBox(
+                "Module payment is handled by the school cashier." &
+                vbCrLf &
+                "Click Save Transaction to save the order " &
+                "and print its payment slip.",
+                vbInformation,
+                "Module Order")
+
+                Return True
+            End If
+
+            If Not ValidateBuyer() Then Return True
+
+            If MsgBox(
+            "Save this module order without collecting payment?",
+            vbYesNo + vbQuestion + vbDefaultButton2,
+            "Save Module Order"
+        ) <> MsgBoxResult.Yes Then
+                Return True
+            End If
+
+            Dim buyer As IBuyerInfo =
+            TryCast(currentBuyerForm, IBuyerInfo)
+
+            Dim transactionNo As String =
+            If(String.IsNullOrWhiteSpace(txtTransactionNo.Text),
+               NewTransactionNo(),
+               txtTransactionNo.Text.Trim())
+
+            Dim transactionId As Long =
+            ModuleOrders.SaveOrder(
+                buyer,
+                dgvCart,
+                transactionNo)
+
+            ' Saving is complete before attempting to print.
+            backorders.Clear()
+            ResetAll()
+
+            MsgBox(
+            "Module order " & transactionNo & " saved." &
+            vbCrLf &
+            "Status: Waiting for OR No.",
+            vbInformation,
+            "Module Order")
+
+            Try
+                ModuleOrders.PrintPaymentSlip(transactionId, Me)
+            Catch printError As Exception
+                MsgBox(
+                "The order was saved, but its slip could not " &
+                "be opened: " & printError.Message &
+                vbCrLf &
+                "You can print it from Modules for Release.",
+                vbExclamation,
+                "Module Payment Slip")
+            End Try
+
+        Catch ex As Exception
+            MsgBox(
+            "Could not process the module order: " & ex.Message,
+            vbCritical,
+            "Module Order")
+        End Try
+
+        Return True
+    End Function
     Private Sub frmPOS_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplySearchPlaceholders(Me)
         dgvlistproducts.AutoGenerateColumns = False
@@ -304,74 +405,84 @@ Public Class frmPOS
     End Sub
 
     Private Sub btnAddToCart_Click(sender As Object, e As EventArgs) Handles btnAddToCart.Click
-        If dgvlistproducts.SelectedRows.Count = 0 Then
-            MsgBox("Please click an item in the list first.", vbExclamation, "Point of Sale")
-            Exit Sub
-        End If
-
-        Dim qty As Integer = Convert.ToInt32(nudQuantity.Value)
-        If qty <= 0 Then
-            MsgBox("Quantity must be at least 1.", vbExclamation, "Point of Sale")
-            Exit Sub
-        End If
-
-        Dim prow As DataGridViewRow = dgvlistproducts.SelectedRows(0)
-        Dim variantId As Integer = Convert.ToInt32(prow.Tag)
-        Dim stock As Integer = Convert.ToInt32(prow.Cells(COL_STOCK).Value)
-        Dim price As Decimal = Convert.ToDecimal(prow.Cells(COL_PRICE).Value)
-        Dim itemName As String = Convert.ToString(prow.Cells(COL_NAME).Value)
-        Dim isBack As Boolean = (stock <= 0)
-
-        Dim existing As DataGridViewRow = Nothing
-        For Each crow As DataGridViewRow In dgvCart.Rows
-            If Convert.ToInt32(crow.Tag) = variantId Then
-                existing = crow
-                Exit For
-            End If
-        Next
-        Dim alreadyInCart As Integer = If(existing IsNot Nothing, Convert.ToInt32(existing.Cells("Quantity").Value), 0)
-
-        If isBack Then
-            If alreadyInCart + qty > MAX_PICKUP_QTY Then
-                MsgBox("Pick-up items are limited to " & MAX_PICKUP_QTY & " per item.", vbExclamation, "Point of Sale")
+        Try
+            If dgvlistproducts.SelectedRows.Count = 0 Then
+                MsgBox("Please click an item in the list first.", vbExclamation, "Point of Sale")
                 Exit Sub
             End If
-            If Not backorders.ContainsKey(variantId) Then
-                If Not Ask("'" & itemName & "' is out of stock." & vbCrLf & vbCrLf &
-                       "Record it as a pick-up item? The customer pays now and returns to claim it on the date you choose.",
-                       "Out of Stock") Then Exit Sub
-                Dim d As Date? = PromptPickupDate(itemName)
-                If Not d.HasValue Then Exit Sub
-                backorders(variantId) = d.Value
-            End If
-        Else
-            If alreadyInCart + qty > stock Then
-                MsgBox("Cannot enter quantity higher than stock (" & stock & "). You already have " & alreadyInCart & " in the cart.", vbExclamation, "Point of Sale")
+
+            Dim qty As Integer = Convert.ToInt32(nudQuantity.Value)
+            If qty <= 0 Then
+                MsgBox("Quantity must be at least 1.", vbExclamation, "Point of Sale")
                 Exit Sub
             End If
-            backorders.Remove(variantId)
-        End If
 
-        If existing IsNot Nothing Then
-            Dim newQty As Integer = alreadyInCart + qty
-            existing.Cells("Quantity").Value = newQty
-            existing.Cells("SubTotal").Value = newQty * price
-        Else
-            Dim label As String = itemName
-            If isBack Then label &= " [Pick-up " & backorders(variantId).ToString("MMM d") & "]"
-            Dim idx As Integer = dgvCart.Rows.Add(label, prow.Cells(COL_SIZE).Value, qty, price, qty * price)
-            dgvCart.Rows(idx).Tag = variantId
-            If isBack Then dgvCart.Rows(idx).DefaultCellStyle.ForeColor = Color.DarkOrange
-        End If
+            Dim prow As DataGridViewRow = dgvlistproducts.SelectedRows(0)
+            Dim variantId As Integer = Convert.ToInt32(prow.Tag)
+            Dim stock As Integer = Convert.ToInt32(prow.Cells(COL_STOCK).Value)
+            Dim price As Decimal = Convert.ToDecimal(prow.Cells(COL_PRICE).Value)
+            Dim itemName As String = Convert.ToString(prow.Cells(COL_NAME).Value)
+            Dim isBack As Boolean = (stock <= 0)
 
-        ResetQuantity()
-        ClearGridSelection(dgvlistproducts)
-        ClearGridSelection(dgvCart)
-        RecalculateTotal()
-        InvalidatePayment()
+            Dim existing As DataGridViewRow = Nothing
+            For Each crow As DataGridViewRow In dgvCart.Rows
+                If Convert.ToInt32(crow.Tag) = variantId Then
+                    existing = crow
+                    Exit For
+                End If
+            Next
+            Dim alreadyInCart As Integer = If(existing IsNot Nothing, Convert.ToInt32(existing.Cells("Quantity").Value), 0)
+
+            If ModuleOrders.IsModuleVariant(variantId) Then
+                ' Modules can wait for stock and are paid at the school cashier.
+                backorders.Remove(variantId)
+                isBack = False
+
+            ElseIf isBack Then
+                If alreadyInCart + qty > MAX_PICKUP_QTY Then
+                    MsgBox("Pick-up items are limited to " & MAX_PICKUP_QTY & " per item.", vbExclamation, "Point of Sale")
+                    Exit Sub
+                End If
+                If Not backorders.ContainsKey(variantId) Then
+                    If Not Ask("'" & itemName & "' is out of stock." & vbCrLf & vbCrLf &
+                           "Record it as a pick-up item? The customer pays now and returns to claim it on the date you choose.",
+                           "Out of Stock") Then Exit Sub
+                    Dim d As Date? = PromptPickupDate(itemName)
+                    If Not d.HasValue Then Exit Sub
+                    backorders(variantId) = d.Value
+                End If
+            Else
+                If alreadyInCart + qty > stock Then
+                    MsgBox("Cannot enter quantity higher than stock (" & stock & "). You already have " & alreadyInCart & " in the cart.", vbExclamation, "Point of Sale")
+                    Exit Sub
+                End If
+                backorders.Remove(variantId)
+            End If
+
+            If existing IsNot Nothing Then
+                Dim newQty As Integer = alreadyInCart + qty
+                existing.Cells("Quantity").Value = newQty
+                existing.Cells("SubTotal").Value = newQty * price
+            Else
+                Dim label As String = itemName
+                If isBack Then label &= " [Pick-up " & backorders(variantId).ToString("MMM d") & "]"
+                Dim idx As Integer = dgvCart.Rows.Add(label, prow.Cells(COL_SIZE).Value, qty, price, qty * price)
+                dgvCart.Rows(idx).Tag = variantId
+                If isBack Then dgvCart.Rows(idx).DefaultCellStyle.ForeColor = Color.DarkOrange
+            End If
+
+            ResetQuantity()
+            ClearGridSelection(dgvlistproducts)
+            ClearGridSelection(dgvCart)
+            RecalculateTotal()
+            InvalidatePayment()
+        Catch ex As Exception
+            MsgBox(
+                "Could not add the product: " & ex.Message,
+                vbCritical,
+                "Point of Sale")
+        End Try
     End Sub
-
-
     Private Function PromptPickupDate(itemName As String) As Date?
         Using dlg As New Form(), lbl As New Label(), dtp As New DateTimePicker(), ok As New Button(), cancel As New Button()
             dlg.Text = "Pick-up Date"
@@ -506,6 +617,7 @@ Public Class frmPOS
     End Sub
 
     Private Sub btnSettlePayment_Click(sender As Object, e As EventArgs) Handles btnSettlePayment.Click
+        If HandleModuleCart(True) Then Exit Sub
         If dgvCart.Rows.Count = 0 Then
             MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
             Exit Sub
@@ -543,6 +655,7 @@ Public Class frmPOS
         Return 0
     End Function
     Private Sub btnSaveTransaction_Click(sender As Object, e As EventArgs) Handles btnSaveTransaction.Click
+        If HandleModuleCart(False) Then Exit Sub
         If dgvCart.Rows.Count = 0 Then
             MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
             Exit Sub

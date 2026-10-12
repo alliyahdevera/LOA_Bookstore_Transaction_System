@@ -57,7 +57,7 @@ Public Class frmSalesByItem
             "INNER JOIN tbl_products p ON v.product_id = p.product_id " &
             "INNER JOIN tbl_category_types ct ON p.category_type_id = ct.category_type_id " &
             "INNER JOIN tbl_categories c ON ct.category_id = c.category_id " &
-            "WHERE t.or_date BETWEEN @d1 AND @d2 AND t.status <> 'Cancelled' AND (@cat = 0 OR c.category_id = @cat) " &
+           "WHERE t.or_date BETWEEN @d1 AND @d2 AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' AND (@cat = '' OR c.category_name = @cat) " &
             "GROUP BY v.variant_id, v.product_code, p.product_name, v.size, c.category_name " &
             "ORDER BY amt DESC",
             New String() {"@d1", "@d2", "@cat"}, New Object() {dtfrom.Value.Date, dtto.Value.Date, SelectedId(cbocategory)})

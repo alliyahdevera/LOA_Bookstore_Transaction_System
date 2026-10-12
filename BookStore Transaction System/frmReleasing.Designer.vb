@@ -43,17 +43,6 @@ Partial Class frmReleasing
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvstockinhistory = New System.Windows.Forms.DataGridView()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.btngenerate = New System.Windows.Forms.Button()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.txtSearch = New System.Windows.Forms.TextBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ORNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -66,6 +55,17 @@ Partial Class frmReleasing
         Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ReleasedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ReleasedTo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.btngenerate = New System.Windows.Forms.Button()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -173,6 +173,7 @@ Partial Class frmReleasing
         '
         'PictureBox1
         '
+        Me.PictureBox1.BackColor = System.Drawing.SystemColors.Window
         Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.PictureBox1.Location = New System.Drawing.Point(351, 77)
@@ -300,6 +301,79 @@ Partial Class frmReleasing
         Me.dgvstockinhistory.Size = New System.Drawing.Size(1169, 573)
         Me.dgvstockinhistory.TabIndex = 1
         '
+        'TransactionNo
+        '
+        Me.TransactionNo.HeaderText = "Transaction No."
+        Me.TransactionNo.Name = "TransactionNo"
+        Me.TransactionNo.ReadOnly = True
+        Me.TransactionNo.Width = 110
+        '
+        'ORNo
+        '
+        Me.ORNo.HeaderText = "OR No."
+        Me.ORNo.Name = "ORNo"
+        Me.ORNo.ReadOnly = True
+        '
+        'BuyerName
+        '
+        Me.BuyerName.HeaderText = "Buyer Name"
+        Me.BuyerName.Name = "BuyerName"
+        Me.BuyerName.ReadOnly = True
+        '
+        'IDNumber
+        '
+        Me.IDNumber.HeaderText = "ID No."
+        Me.IDNumber.Name = "IDNumber"
+        Me.IDNumber.ReadOnly = True
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
+        '
+        'PickUpdate
+        '
+        Me.PickUpdate.HeaderText = "PickUp Date"
+        Me.PickUpdate.Name = "PickUpdate"
+        Me.PickUpdate.ReadOnly = True
+        '
+        'InStock
+        '
+        Me.InStock.HeaderText = "In Stock"
+        Me.InStock.Name = "InStock"
+        Me.InStock.ReadOnly = True
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
+        '
+        'ReleasedBy
+        '
+        Me.ReleasedBy.HeaderText = "Released By"
+        Me.ReleasedBy.Name = "ReleasedBy"
+        Me.ReleasedBy.ReadOnly = True
+        '
+        'ReleasedTo
+        '
+        Me.ReleasedTo.HeaderText = "Released To"
+        Me.ReleasedTo.Name = "ReleasedTo"
+        Me.ReleasedTo.ReadOnly = True
+        '
         'Panel6
         '
         Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
@@ -405,79 +479,6 @@ Partial Class frmReleasing
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(100, 20)
         Me.TextBox1.TabIndex = 183
-        '
-        'TransactionNo
-        '
-        Me.TransactionNo.HeaderText = "Transaction No."
-        Me.TransactionNo.Name = "TransactionNo"
-        Me.TransactionNo.ReadOnly = True
-        Me.TransactionNo.Width = 110
-        '
-        'ORNo
-        '
-        Me.ORNo.HeaderText = "OR No."
-        Me.ORNo.Name = "ORNo"
-        Me.ORNo.ReadOnly = True
-        '
-        'BuyerName
-        '
-        Me.BuyerName.HeaderText = "Buyer Name"
-        Me.BuyerName.Name = "BuyerName"
-        Me.BuyerName.ReadOnly = True
-        '
-        'IDNumber
-        '
-        Me.IDNumber.HeaderText = "ID No."
-        Me.IDNumber.Name = "IDNumber"
-        Me.IDNumber.ReadOnly = True
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        Me.ProductCode.ReadOnly = True
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        Me.ProductName.ReadOnly = True
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        Me.Quantity.ReadOnly = True
-        '
-        'PickUpdate
-        '
-        Me.PickUpdate.HeaderText = "PickUp Date"
-        Me.PickUpdate.Name = "PickUpdate"
-        Me.PickUpdate.ReadOnly = True
-        '
-        'InStock
-        '
-        Me.InStock.HeaderText = "In Stock"
-        Me.InStock.Name = "InStock"
-        Me.InStock.ReadOnly = True
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
-        '
-        'ReleasedBy
-        '
-        Me.ReleasedBy.HeaderText = "Released By"
-        Me.ReleasedBy.Name = "ReleasedBy"
-        Me.ReleasedBy.ReadOnly = True
-        '
-        'ReleasedTo
-        '
-        Me.ReleasedTo.HeaderText = "Released To"
-        Me.ReleasedTo.Name = "ReleasedTo"
-        Me.ReleasedTo.ReadOnly = True
         '
         'frmReleasing
         '

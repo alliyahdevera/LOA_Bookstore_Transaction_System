@@ -22,7 +22,7 @@ Partial Class frmTransactionDetails
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -66,6 +66,7 @@ Partial Class frmTransactionDetails
         Me.btnprint = New System.Windows.Forms.Button()
         Me.btnclose = New System.Windows.Forms.Button()
         Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.btnsearch = New System.Windows.Forms.Button()
         Me.dtpORDate = New System.Windows.Forms.DateTimePicker()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtsize = New System.Windows.Forms.ComboBox()
@@ -92,7 +93,6 @@ Partial Class frmTransactionDetails
         Me.rbtnReturn = New System.Windows.Forms.RadioButton()
         Me.Panel12 = New System.Windows.Forms.Panel()
         Me.Label28 = New System.Windows.Forms.Label()
-        Me.btnsearch = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -418,14 +418,14 @@ Partial Class frmTransactionDetails
         Me.dgvCart.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvCart.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductName, Me.Category, Me.Size, Me.Quantity, Me.UnitPrice, Me.SubTotal})
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvCart.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvCart.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvCart.Location = New System.Drawing.Point(-1, 35)
         Me.dgvCart.Name = "dgvCart"
         Me.dgvCart.ReadOnly = True
@@ -567,6 +567,18 @@ Partial Class frmTransactionDetails
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(351, 260)
         Me.Panel6.TabIndex = 131
+        '
+        'btnsearch
+        '
+        Me.btnsearch.BackColor = System.Drawing.Color.MidnightBlue
+        Me.btnsearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnsearch.ForeColor = System.Drawing.Color.White
+        Me.btnsearch.Location = New System.Drawing.Point(259, 50)
+        Me.btnsearch.Name = "btnsearch"
+        Me.btnsearch.Size = New System.Drawing.Size(69, 25)
+        Me.btnsearch.TabIndex = 134
+        Me.btnsearch.Text = "Search"
+        Me.btnsearch.UseVisualStyleBackColor = False
         '
         'dtpORDate
         '
@@ -835,18 +847,6 @@ Partial Class frmTransactionDetails
         Me.Label28.Size = New System.Drawing.Size(196, 21)
         Me.Label28.TabIndex = 10
         Me.Label28.Text = "Return / Exchange Details"
-        '
-        'btnsearch
-        '
-        Me.btnsearch.BackColor = System.Drawing.Color.MidnightBlue
-        Me.btnsearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnsearch.ForeColor = System.Drawing.Color.White
-        Me.btnsearch.Location = New System.Drawing.Point(259, 50)
-        Me.btnsearch.Name = "btnsearch"
-        Me.btnsearch.Size = New System.Drawing.Size(69, 25)
-        Me.btnsearch.TabIndex = 134
-        Me.btnsearch.Text = "Search"
-        Me.btnsearch.UseVisualStyleBackColor = False
         '
         'Panel2
         '

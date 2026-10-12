@@ -65,7 +65,7 @@
             "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
             "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
             "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
-            "WHERE DATE(t.created_at) BETWEEN @d1 AND @d2 AND t.status <> 'Cancelled' " &
+            "WHERE DATE(t.created_at) BETWEEN @d1 AND @d2 AND t.created_at >= @dateFrom AND t.created_at < @dateTo AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' " &
             "AND (@cat = 0 OR ct.category_id = @cat) AND (@type = 0 OR ct.category_type_id = @type) " &
             "ORDER BY t.transaction_id DESC", names, values)
 

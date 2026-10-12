@@ -8,14 +8,21 @@ Public Class frmEmployeeManagement
     Private Sub frmEmployeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
-
         Relabel(Me, New Dictionary(Of String, String) From {
-        {"Student No.", "Employee No."}, {"Grade Level", "Department"}, {"Program/Strand", "Position"},
-        {"Section", "Status"}, {"View and Manage All Students", "View and Manage All Employees"},
-        {"List of Students", "List of Employees"}, {"Student Information", "Employee Information"}})
+    {"Student No.", "Employee ID No."},
+    {"Employee No.", "Employee ID No."},
+    {"Employee Number", "Employee ID No."},
+    {"Employee Number or Name", "Employee ID No. or Name"},
+    {"Grade Level", "Department"},
+    {"Program/Strand", "Position"},
+    {"Section", "Status"},
+    {"View and Manage All Students", "View and Manage All Employees"},
+    {"List of Students", "List of Employees"},
+    {"Student Information", "Employee Information"}
+})
 
         AddHandler dgvemployee.CellClick, AddressOf dgvstudents_CellClick
-        BindColumn("EmployeeNo", "employee_no", "Employee No.")
+        BindColumn("EmployeeNo", "employee_no", "Employee ID No.")
         BindColumn("LastName", "last_name", "Last Name")
         BindColumn("Firstname", "first_name", "First Name")
         BindColumn("Department", "department", "Department")

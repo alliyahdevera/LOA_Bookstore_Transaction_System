@@ -34,37 +34,72 @@
         LoadEmployees()
         txtSearch.Focus()
     End Sub
-
     Private Sub LoadEmployees()
         If pg Is Nothing Then Exit Sub
-        Dim dept As String = If(cboDepartment.SelectedIndex <= 0, "", cboDepartment.Text)
-        Dim kw As String = txtSearch.Text.Trim()
 
-        Dim dt As DataTable = pg.LoadPage(
-            "SELECT employee_id, employee_no, last_name, first_name, department, job_position, status " &
-            "FROM tbl_employees " &
-            "WHERE (employee_no LIKE @s OR last_name LIKE @s OR first_name LIKE @s OR CONCAT(first_name, ' ', last_name) LIKE @s) " &
-            "AND (@d = '' OR department = @d) " &
-            "ORDER BY last_name, first_name, employee_id",
-            New String() {"@s", "@d"}, New Object() {"%" & kw & "%", dept})
+        Dim departmentFilter As String =
+        If(cboDepartment.SelectedIndex <= 0,
+           "",
+           cboDepartment.Text)
+
+        Dim keyword As String = txtSearch.Text.Trim()
+
+        Dim result As DataTable = pg.LoadPage(
+        "SELECT employee_id, employee_no, last_name, " &
+        "first_name, department, job_position, status " &
+        "FROM tbl_employees " &
+        "WHERE (employee_no LIKE @search " &
+        "OR last_name LIKE @search " &
+        "OR first_name LIKE @search " &
+        "OR CONCAT(first_name, ' ', last_name) LIKE @search) " &
+        "AND (@department = '' OR department = @department) " &
+        "ORDER BY last_name, first_name, employee_id",
+        New String() {"@search", "@department"},
+        New Object() {
+            "%" & keyword & "%",
+            departmentFilter
+        })
 
         dgvstudents.Rows.Clear()
-        For Each r As DataRow In dt.Rows
-            Dim idx As Integer = dgvstudents.Rows.Add(
-                r("employee_no").ToString(),
-                r("last_name").ToString() & ", " & r("first_name").ToString(),
-                r("department").ToString(),
-                r("job_position").ToString(),
-                r("status").ToString())
-            dgvstudents.Rows(idx).Tag = r
-        Next
-        dgvstudents.ClearSelection()
-    End Sub
 
-    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
-        If isLoading Then Exit Sub
-        pg.Reset()
-        LoadEmployees()
+        If result Is Nothing Then Exit Sub
+
+        For Each employee As DataRow In result.Rows
+            Dim index As Integer = dgvstudents.Rows.Add()
+            Dim gridRow As DataGridViewRow = dgvstudents.Rows(index)
+
+            gridRow.Cells("EmployeeNo").Value =
+            employee("employee_no").ToString()
+
+            gridRow.Cells("EmployeeName").Value =
+            employee("last_name").ToString() & ", " &
+            employee("first_name").ToString()
+
+            gridRow.Cells("Department").Value =
+            If(String.IsNullOrWhiteSpace(
+                   employee("department").ToString()),
+               "N/A",
+               employee("department").ToString())
+
+            gridRow.Cells("Position").Value =
+            If(String.IsNullOrWhiteSpace(
+                   employee("job_position").ToString()),
+               "N/A",
+               employee("job_position").ToString())
+
+            ' Preserve status for SelectCurrent's inactive-user check.
+            gridRow.Tag = employee
+
+            If Not String.Equals(
+            employee("status").ToString(),
+            "Active",
+            StringComparison.OrdinalIgnoreCase) Then
+
+                gridRow.DefaultCellStyle.ForeColor = Color.Gray
+            End If
+        Next
+
+        dgvstudents.ClearSelection()
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
