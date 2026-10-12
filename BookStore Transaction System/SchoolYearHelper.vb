@@ -101,5 +101,71 @@ Public Module SchoolYearHelper
         dtFrom.MinDate = syStart : dtFrom.MaxDate = syEnd
         dtTo.MinDate = syStart : dtTo.MaxDate = syEnd
     End Sub
+    Private Function ToInt(o As Object) As Integer
+        If o Is Nothing OrElse IsDBNull(o) Then Return 0
+        Return Convert.ToInt32(o)
+    End Function
 
+    ' "2026-2027": two 4-digit years, the second exactly one more than the first
+    Public Function IsValidSchoolYearLabel(label As String) As Boolean
+        If Not System.Text.RegularExpressions.Regex.IsMatch(label, "^\d{4}-\d{4}$") Then Return False
+        Return Integer.Parse(label.Substring(5, 4)) = Integer.Parse(label.Substring(0, 4)) + 1
+    End Function
+
+    Public Function SchoolYearLabelExists(label As String, Optional excludeId As Integer = 0) As Boolean
+        Return ToInt(ExecScalar(
+            "SELECT COUNT(*) FROM tbl_school_years WHERE label = @l AND school_year_id <> @id",
+            New String() {"@l", "@id"}, New Object() {label, excludeId})) > 0
+    End Function
+
+    Public Function SchoolYearOverlaps(startDate As Date, endDate As Date, Optional excludeId As Integer = 0) As Boolean
+        Return ToInt(ExecScalar(
+            "SELECT COUNT(*) FROM tbl_school_years " &
+            "WHERE start_date <= @e AND end_date >= @s AND school_year_id <> @id",
+            New String() {"@s", "@e", "@id"},
+            New Object() {startDate.Date, endDate.Date, excludeId})) > 0
+    End Function
+
+    Public Function CountTransactionsInRange(startDate As Date, endDate As Date) As Integer
+        Return ToInt(ExecScalar(
+            "SELECT COUNT(*) FROM tbl_transactions WHERE DATE(created_at) BETWEEN @s AND @e",
+            New String() {"@s", "@e"}, New Object() {startDate.Date, endDate.Date}))
+    End Function
+
+    ' The very first school year becomes the current one automatically.
+    Public Function AddSchoolYear(label As String, startDate As Date, endDate As Date) As Boolean
+        Dim isFirst As Boolean = ToInt(ExecScalar("SELECT COUNT(*) FROM tbl_school_years")) = 0
+        Return ExecNonQuery(
+            "INSERT INTO tbl_school_years (label, start_date, end_date, is_current) " &
+            "VALUES (@l, @s, @e, @c)",
+            New String() {"@l", "@s", "@e", "@c"},
+            New Object() {label, startDate.Date, endDate.Date, If(isFirst, 1, 0)})
+    End Function
+
+    Public Function UpdateSchoolYear(id As Integer, label As String, startDate As Date, endDate As Date) As Boolean
+        Return ExecNonQuery(
+            "UPDATE tbl_school_years SET label = @l, start_date = @s, end_date = @e " &
+            "WHERE school_year_id = @id",
+            New String() {"@l", "@s", "@e", "@id"},
+            New Object() {label, startDate.Date, endDate.Date, id})
+    End Function
+
+    Public Function DeleteSchoolYear(id As Integer) As Boolean
+        Return ExecNonQuery(
+            "DELETE FROM tbl_school_years WHERE school_year_id = @id AND is_current = 0",
+            New String() {"@id"}, New Object() {id})
+    End Function
+
+    ' After an edit, make the "viewing" school year point at the updated record.
+    Public Sub RefreshSelectedSchoolYear()
+        If SelectedSchoolYear Is Nothing Then Exit Sub
+        For Each sy As SchoolYearInfo In GetSchoolYears()
+            If sy.Id = SelectedSchoolYear.Id Then
+                SelectSchoolYear(sy)
+                Exit Sub
+            End If
+        Next
+        ResetSchoolYear()
+        EnsureSchoolYearInitialized()
+    End Sub
 End Module

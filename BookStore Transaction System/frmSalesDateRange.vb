@@ -18,6 +18,8 @@
         row("category_id") = 0
         row("category_name") = "-- All Categories --"
         dt.Rows.InsertAt(row, 0)
+        cbocategory.Items.Clear()
+        FillCombo(cbocategory, dt, "category_name", "category_id")
         cbocategory.SelectedIndex = 0
         FillTypeCombo(cbotype, 0, TypeSource.Sales)
         isFilling = False
@@ -65,7 +67,7 @@
             "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &
             "INNER JOIN TBL_CATEGORY_TYPES ct ON p.category_type_id = ct.category_type_id " &
             "INNER JOIN TBL_USERS u ON t.created_by = u.user_id " &
-            "WHERE DATE(t.created_at) BETWEEN @d1 AND @d2 AND t.created_at >= @dateFrom AND t.created_at < @dateTo AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' AND t.status <> 'Pending Finance' " &
+            "WHERE DATE(t.created_at) BETWEEN @d1 AND @d2 AND t.status <> 'Cancelled' AND t.payment_method <> 'School Cashier' AND t.status <> 'Pending Finance' " & 'School Cashier' AND t.status <> 'Pending Finance' " &
             "AND (@cat = 0 OR ct.category_id = @cat) AND (@type = 0 OR ct.category_type_id = @type) " &
             "ORDER BY t.transaction_id DESC", names, values)
 

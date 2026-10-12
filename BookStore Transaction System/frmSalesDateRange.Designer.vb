@@ -363,7 +363,7 @@ Partial Class frmSalesDateRange
         Me.cbocategory.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cbocategory.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbocategory.FormattingEnabled = True
-        Me.cbocategory.Items.AddRange(New Object() {"Uniforms", "Books", "Modules", "School Supplies", "Office Supplies", "All Items"})
+
         Me.cbocategory.Location = New System.Drawing.Point(809, 86)
         Me.cbocategory.Name = "cbocategory"
         Me.cbocategory.Size = New System.Drawing.Size(148, 25)

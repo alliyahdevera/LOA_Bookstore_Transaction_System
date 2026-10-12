@@ -147,7 +147,7 @@ Public Class frmRemittance
                 row.Cells("DateTimeRemitted").Value = If(IsDBNull(r("remitted_at")), "", Convert.ToDateTime(r("remitted_at")).ToString("MMMM d, yyyy - h:mm tt"))
                 row.Cells("ReceivedBy").Value = Txt(r, "received_by")
                 row.Cells("Remarks").Value = remarks
-                row.Cells("Signature").Value = ""
+
 
                 ' Status: Match / Short (kulang) / Over, coloured
                 Dim stCell As DataGridViewCell = row.Cells("Status")
