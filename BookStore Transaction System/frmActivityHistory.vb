@@ -17,6 +17,7 @@ Public Class frmActivityHistory
         {"Supervisor Approval", New String() {"Supervisor Approval%"}},
         {"Remittance", New String() {"Remittance"}}
     }
+
     Private Sub FillActionFilter()
         cbofilter.DropDownStyle = ComboBoxStyle.DropDownList
         cbofilter.Items.Clear()
@@ -35,10 +36,12 @@ Public Class frmActivityHistory
 
     Private Sub frmActivityHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            ' Apply placeholder logic just like frmPOS
+            ApplySearchPlaceholders(Me)
+
             ' Add the missing Date & Time column in code
             If Not dgvActivityHistory.Columns.Contains("LogDateTime") Then
                 dgvActivityHistory.Columns.Add("LogDateTime", "Date & Time")
-
             End If
 
             ' User Profile Info
@@ -63,6 +66,7 @@ Public Class frmActivityHistory
         Catch ex As Exception
             MsgBox("Error initializing Activity History: " & ex.Message, vbCritical, "Init Error")
         End Try
+
         For Each col As DataGridViewColumn In dgvActivityHistory.Columns
             If col.HeaderText = "Details" Then
                 col.DefaultCellStyle.WrapMode = DataGridViewTriState.True
@@ -101,57 +105,96 @@ Public Class frmActivityHistory
     Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
         pg.ExportAllPages(Sub() LoadActivityLogs(), Sub() ExportGridToCsv(dgvActivityHistory, "ActivityLogs"))
     End Sub
-    Public Sub LoadActivityLogs()
-        Try
-            If pg Is Nothing Then Exit Sub
-            Dim selected As String = If(cbofilter Is Nothing OrElse cbofilter.SelectedIndex <= 0, "", cbofilter.Text)
 
-            Dim names As New List(Of String)({"@dateFrom", "@dateTo"})
-            Dim values As New List(Of Object)({CType(dtpfrom.Value.Date, Object), CType(dtpto.Value.Date, Object)})
+    Public Sub LoadActivityLogs()
+        If pg Is Nothing Then Exit Sub
+
+        If dtpfrom.Value.Date > dtpto.Value.Date Then
+            dgvActivityHistory.Rows.Clear()
+            Exit Sub
+        End If
+
+        Try
+            Dim selectedAction As String = If(cbofilter.SelectedIndex <= 0, "", cbofilter.Text)
+            Dim searchText As String = txtSearch.Text.Trim()
+
+            Dim names As New List(Of String) From {"@dateFrom", "@dateTo"}
+            Dim values As New List(Of Object) From {dtpfrom.Value.Date, dtpto.Value.Date.AddDays(1)}
 
             Dim query As String =
-                "SELECT u.username, CONCAT(u.first_name, ' ', u.last_name) AS fullname, r.role_name, " &
-                "IFNULL(a.action_type, '-') AS action_type, IFNULL(a.reference_no, '-') AS reference_no, " &
+                "SELECT u.username, " &
+                "CONCAT(u.first_name, ' ', u.last_name) AS fullname, " &
+                "r.role_name, " &
+                "IFNULL(a.action_type, '-') AS action_type, " &
+                "IFNULL(a.reference_no, '-') AS reference_no, " &
                 "IFNULL(a.details, '-') AS details, " &
                 "DATE_FORMAT(a.created_at, '%Y-%m-%d %h:%i:%s %p') AS log_datetime " &
                 "FROM tbl_audit_logs a " &
                 "INNER JOIN tbl_users u ON a.user_id = u.user_id " &
                 "INNER JOIN tbl_roles r ON u.role_id = r.role_id " &
-                "WHERE DATE(a.created_at) BETWEEN @dateFrom AND @dateTo "
+                "WHERE a.created_at >= @dateFrom " &
+                "AND a.created_at < @dateTo " &
+                "AND a.log_type = 'Activity' " &
+                "AND a.action_type NOT LIKE '%Login%' "
 
-            query &= "AND a.log_type = 'Activity' AND a.action_type NOT LIKE '%Login%' "
-            If selected <> "" Then
-                Dim patterns As String() = actionGroups(selected)
-                Dim parts As New List(Of String)
+            If searchText <> "" Then
+                query &=
+                    "AND (u.username LIKE @like " &
+                    "OR CONCAT(u.first_name, ' ', u.last_name) LIKE @like " &
+                    "OR r.role_name LIKE @like " &
+                    "OR a.reference_no LIKE @like " &
+                    "OR a.details LIKE @like) "
+
+                names.Add("@like")
+                values.Add("%" & searchText & "%")
+            End If
+
+            If selectedAction <> "" AndAlso actionGroups.ContainsKey(selectedAction) Then
+                Dim patterns As String() = actionGroups(selectedAction)
+                Dim conditions As New List(Of String)
+
                 For i As Integer = 0 To patterns.Length - 1
-                    parts.Add("a.action_type LIKE @p" & i)
-                    names.Add("@p" & i)
+                    Dim parameterName As String = "@action" & i.ToString()
+                    conditions.Add("a.action_type LIKE " & parameterName)
+                    names.Add(parameterName)
                     values.Add(patterns(i))
                 Next
-                query &= "AND (" & String.Join(" OR ", parts) & ") "
+
+                query &= "AND (" & String.Join(" OR ", conditions) & ") "
             End If
 
             query &= "ORDER BY a.created_at DESC, a.audit_id DESC"
 
-            Dim dt As DataTable = pg.LoadPage(query, names.ToArray(), values.ToArray())
+            Dim result As DataTable = pg.LoadPage(query, names.ToArray(), values.ToArray())
 
             dgvActivityHistory.SuspendLayout()
-            dgvActivityHistory.Rows.Clear()
-            If dt IsNot Nothing Then
-                For Each r As DataRow In dt.Rows
-                    dgvActivityHistory.Rows.Add(
-                        r("username").ToString(),
-                        r("fullname").ToString(),
-                        r("role_name").ToString(),
-                        r("action_type").ToString(),
-                        r("reference_no").ToString(),
-                        r("details").ToString(),
-                        r("log_datetime").ToString())
-                Next
-            End If
-            dgvActivityHistory.ResumeLayout()
+            Try
+                dgvActivityHistory.Rows.Clear()
+                If result IsNot Nothing Then
+                    For Each row As DataRow In result.Rows
+                        dgvActivityHistory.Rows.Add(
+                            row("username").ToString(),
+                            row("fullname").ToString(),
+                            row("role_name").ToString(),
+                            row("action_type").ToString(),
+                            row("reference_no").ToString(),
+                            row("details").ToString(),
+                            row("log_datetime").ToString())
+                    Next
+                End If
+            Finally
+                dgvActivityHistory.ResumeLayout()
+            End Try
+
         Catch ex As Exception
-            MsgBox("Error loading activity logs: " & ex.Message, vbCritical, "Audit Logs")
+            MsgBox("Error loading activity logs: " & ex.Message, vbCritical, "Activity Logs")
         End Try
     End Sub
+
+    Private Sub txtSearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
+        If isInitializing OrElse pg Is Nothing Then Exit Sub
+        pg.Reset()
+        LoadActivityLogs()
+    End Sub
+
 End Class

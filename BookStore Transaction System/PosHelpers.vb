@@ -1,5 +1,6 @@
 ﻿Imports System.Drawing
 Imports System.Windows.Forms
+Imports MySql.Data.MySqlClient
 
 Public Module PlaceholderHelper
 
@@ -16,7 +17,47 @@ Public Module PlaceholderHelper
             AddHandler tb.HandleCreated, Sub() SendMessage(tb.Handle, EM_SETCUEBANNER, 0, hint)
         End If
     End Sub
+    Public Sub MoveStock(conn As MySqlConnection, tx As MySqlTransaction, variantId As Integer, qtyChange As Integer, movementType As String, refNo As String, remarks As String)
+        Dim prevQty As Integer = 0
+        Using cmd As New MySqlCommand("SELECT quantity_on_hand FROM tbl_product_variants WHERE variant_id = @v", conn, tx)
+            cmd.Parameters.AddWithValue("@v", variantId)
+            Dim res = cmd.ExecuteScalar()
+            If res IsNot Nothing AndAlso Not DBNull.Value.Equals(res) Then
+                prevQty = Convert.ToInt32(res)
+            End If
+        End Using
 
+        Dim newQty As Integer = prevQty + qtyChange
+
+        Using cmd As New MySqlCommand("UPDATE tbl_product_variants SET quantity_on_hand = @nq WHERE variant_id = @v", conn, tx)
+            cmd.Parameters.AddWithValue("@nq", newQty)
+            cmd.Parameters.AddWithValue("@v", variantId)
+            cmd.ExecuteNonQuery()
+        End Using
+
+        Using cmd As New MySqlCommand("INSERT INTO tbl_stock_movements (variant_id, movement_type, quantity, previous_quantity, new_quantity, reference_no, remarks, created_by, created_at) VALUES (@v, @mt, @q, @pq, @nq, @ref, @rm, @uid, NOW())", conn, tx)
+            cmd.Parameters.AddWithValue("@v", variantId)
+            cmd.Parameters.AddWithValue("@mt", movementType)
+            cmd.Parameters.AddWithValue("@q", Math.Abs(qtyChange))
+            cmd.Parameters.AddWithValue("@pq", prevQty)
+            cmd.Parameters.AddWithValue("@nq", newQty)
+            cmd.Parameters.AddWithValue("@ref", refNo)
+            cmd.Parameters.AddWithValue("@rm", remarks)
+            cmd.Parameters.AddWithValue("@uid", currentuser.UserID)
+            cmd.ExecuteNonQuery()
+        End Using
+    End Sub
+
+    Public Function ScalarInt(conn As MySqlConnection, tx As MySqlTransaction, query As String, paramValue As Object) As Integer
+        Using cmd As New MySqlCommand(query, conn, tx)
+            cmd.Parameters.AddWithValue("@t", paramValue)
+            Dim res = cmd.ExecuteScalar()
+            If res IsNot Nothing AndAlso Not DBNull.Value.Equals(res) Then
+                Return Convert.ToInt32(res)
+            End If
+        End Using
+        Return 0
+    End Function
     Public Sub ApplySearchPlaceholders(parent As Control)
         For Each c As Control In parent.Controls
             Dim tb As TextBox = TryCast(c, TextBox)
