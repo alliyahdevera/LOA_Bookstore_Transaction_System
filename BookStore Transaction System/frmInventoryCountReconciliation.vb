@@ -15,7 +15,10 @@ Public Class frmInventoryCountReconciliation
     End Class
 
     Private Function NewCountNo() As String
-        Return "CNT-" & DateTime.Now.ToString("yyyyMMddHHmmss")
+        Return "CNT-" &
+        DateTime.Now.ToString("yyyyMMddHHmmssfff") &
+        "-" &
+        Guid.NewGuid().ToString("N").Substring(0, 8)
     End Function
 
     Private currentCountId As Long = 0
@@ -84,34 +87,42 @@ Public Class frmInventoryCountReconciliation
         isLoading = False
         LoadProducts()
     End Sub
-
     Private Sub SetupConditionColumn()
-        Dim idx As Integer = Math.Max(0, dgvlistproducts.Columns.Count - 1)
         If dgvlistproducts.Columns.Contains("Condition") Then
-            idx = dgvlistproducts.Columns("Condition").Index
             dgvlistproducts.Columns.Remove("Condition")
         End If
 
-        Dim dmg As New DataGridViewTextBoxColumn With {
-        .Name = "DamagedQty", .HeaderText = "Damaged Pieces", .Width = 95,
-        .SortMode = DataGridViewColumnSortMode.NotSortable}
-        Dim cond As New DataGridViewTextBoxColumn With {
-        .Name = "Condition", .HeaderText = "Condition", .Width = 140, .ReadOnly = True,
-        .SortMode = DataGridViewColumnSortMode.NotSortable}
-        dgvlistproducts.Columns.Insert(idx, dmg)
-        dgvlistproducts.Columns.Insert(idx + 1, cond)
-
-        ' columns that LoadProducts fills but the designer never created
-        If Not dgvlistproducts.Columns.Contains("ProductDescription") Then
-            Dim pos As Integer = dgvlistproducts.Columns("ProductName").Index + 1
-            dgvlistproducts.Columns.Insert(pos, New DataGridViewTextBoxColumn With {
-            .Name = "ProductDescription", .HeaderText = "Description", .Width = 180,
-            .ReadOnly = True, .SortMode = DataGridViewColumnSortMode.NotSortable})
+        If dgvlistproducts.Columns.Contains("CountNo") Then
+            dgvlistproducts.Columns.Remove("CountNo")
         End If
-        If Not dgvlistproducts.Columns.Contains("CountNo") Then
-            dgvlistproducts.Columns.Insert(0, New DataGridViewTextBoxColumn With {
-            .Name = "CountNo", .HeaderText = "Count No.", .Width = 150,
-            .ReadOnly = True, .SortMode = DataGridViewColumnSortMode.NotSortable})
+
+        If Not dgvlistproducts.Columns.Contains("DamagedQty") Then
+            Dim damagedColumn As New DataGridViewTextBoxColumn With {
+            .Name = "DamagedQty",
+            .HeaderText = "Damaged Pieces",
+            .Width = 95,
+            .SortMode = DataGridViewColumnSortMode.NotSortable
+        }
+
+            Dim position As Integer =
+            dgvlistproducts.Columns("PhysicalQuantity").Index + 1
+
+            dgvlistproducts.Columns.Insert(position, damagedColumn)
+        End If
+
+        If Not dgvlistproducts.Columns.Contains("ProductDescription") Then
+            Dim descriptionColumn As New DataGridViewTextBoxColumn With {
+            .Name = "ProductDescription",
+            .HeaderText = "Description",
+            .Width = 180,
+            .ReadOnly = True,
+            .SortMode = DataGridViewColumnSortMode.NotSortable
+        }
+
+            Dim position As Integer =
+            dgvlistproducts.Columns("ProductName").Index + 1
+
+            dgvlistproducts.Columns.Insert(position, descriptionColumn)
         End If
     End Sub
 
@@ -165,7 +176,7 @@ Public Class frmInventoryCountReconciliation
 
     Private Sub btngenerate_Click(sender As Object, e As EventArgs) Handles btngenerate.Click
         tmrSearch.Stop()
-        ReloadFromStart()          ' typed counts are kept, nothing is discarded
+        ReloadFromStart()         ' typed counts are kept, nothing is discarded
     End Sub
 
     Private Sub SetupCards()
@@ -268,7 +279,6 @@ Public Class frmInventoryCountReconciliation
                 Dim info As New CountRow With {.VariantId = variantId}
 
                 row.Cells("ProductCode").Value = r("product_code").ToString()
-                row.Cells("CountNo").Value = currentCountNo
                 row.Cells("ProductName").Value = r("product_name").ToString()
                 row.Cells("ProductDescription").Value = If(IsDBNull(r("product_description")), "", r("product_description").ToString())
                 row.Cells("Category").Value = r("category_name").ToString()
@@ -282,8 +292,6 @@ Public Class frmInventoryCountReconciliation
                     row.Cells("SystemQuantity").Value = Convert.ToInt32(r("system_quantity"))
                     row.Cells("PhysicalQuantity").Value = Convert.ToInt32(r("physical_quantity"))
                     row.Cells("DamagedQty").Value = Convert.ToInt32(r("damaged_quantity"))
-                    Dim savedCond As String = If(IsDBNull(r("item_condition")), "", r("item_condition").ToString())
-                    row.Cells("Condition").Value = If(savedCond = "", Nothing, savedCond)
                     row.Cells("Remarks").Value = If(IsDBNull(r("remarks")), "", r("remarks").ToString())
                 ElseIf pending.ContainsKey(variantId) Then
                     ' typed earlier on screen (before a search/filter change): restore it
@@ -296,7 +304,6 @@ Public Class frmInventoryCountReconciliation
                     row.Cells("SystemQuantity").Value = If(IsDBNull(r("quantity_on_hand")), 0, Convert.ToInt32(r("quantity_on_hand")))
                     row.Cells("PhysicalQuantity").Value = ""
                     row.Cells("DamagedQty").Value = ""
-                    row.Cells("Condition").Value = Nothing
                     row.Cells("Remarks").Value = ""
                 End If
 
@@ -364,63 +371,106 @@ Public Class frmInventoryCountReconciliation
         Integer.TryParse(Convert.ToString(row.Cells("SystemQuantity").Value), sys)
         pending(info.VariantId) = New PendingCount With {.Physical = phys, .Damaged = dmg, .Remarks = remarks, .System = sys}
     End Sub
-
     Private Sub RefreshRow(row As DataGridViewRow)
-        ExplorerRefreshRow(row)
-    End Sub
-
-    Private Sub ExplorerRefreshRow(row As DataGridViewRow)
         Dim info As CountRow = TryCast(row.Tag, CountRow)
-        imports_RefreshRow(row, info)
-    End Sub
 
-    Private Sub imports_RefreshRow(row As DataGridViewRow, info As CountRow)
-        Dim txt As String = Convert.ToString(row.Cells("PhysicalQuantity").Value).Trim()
-        Dim phys As Integer
+        Dim physicalText As String =
+        Convert.ToString(row.Cells("PhysicalQuantity").Value).Trim()
 
-        If txt = "" OrElse Not Integer.TryParse(txt, phys) OrElse phys < 0 Then
+        Dim physical As Integer
+
+        If physicalText = "" OrElse
+        Not Integer.TryParse(physicalText, physical) OrElse
+        physical < 0 Then
+
             row.Cells("PhysicalQuantity").Value = ""
             row.Cells("Difference").Value = ""
-            row.Cells("Condition").Value = ""
-            row.Cells("Status").Style.ForeColor = Color.Gray
             row.Cells("Status").Value = "Not counted"
+
             row.DefaultCellStyle.BackColor = Color.White
             row.DefaultCellStyle.ForeColor = Color.Black
+
+            SetCountStatusColor(
+            row.Cells("Status"),
+            Color.Gainsboro,
+            Color.Black)
+
             Exit Sub
         End If
 
-        Dim sys As Integer = 0
-        Integer.TryParse(Convert.ToString(row.Cells("SystemQuantity").Value), sys)
+        Dim systemQuantity As Integer = 0
 
+        Integer.TryParse(
+        Convert.ToString(row.Cells("SystemQuantity").Value),
+        systemQuantity)
 
-        Dim dmg As Integer = 0
-        Integer.TryParse(Convert.ToString(row.Cells("DamagedQty").Value).Trim(), dmg)
-        If dmg < 0 Then dmg = 0
-        If dmg > phys Then
-            MsgBox("Damaged pieces cannot be more than the physical quantity (" & phys & ").", vbExclamation, "Inventory Count")
-            dmg = phys
+        Dim damaged As Integer = 0
+
+        Integer.TryParse(
+        Convert.ToString(row.Cells("DamagedQty").Value).Trim(),
+        damaged)
+
+        If damaged < 0 Then damaged = 0
+
+        If damaged > physical Then
+            MsgBox(
+            "Damaged pieces cannot exceed the physical quantity (" &
+            physical.ToString() & ").",
+            vbExclamation,
+            "Inventory Count")
+
+            damaged = physical
         End If
-        row.Cells("DamagedQty").Value = dmg
-        row.Cells("Condition").Value = ConditionText(phys, dmg)
-        row.Cells("Condition").Style.ForeColor = If(dmg > 0, Color.Firebrick, Color.Black)
 
-        Dim diff As Integer = phys - sys
-        VB_RefreshRowFinal(row, info, phys, diff)
-    End Sub
+        Dim difference As Integer = physical - systemQuantity
+        Dim adjusted As Boolean =
+        info IsNot Nothing AndAlso info.Adjusted
 
-    Private Sub VB_RefreshRowFinal(row As DataGridViewRow, info As CountRow, phys As Integer, diff As Integer)
-        Dim adjusted As Boolean = (info IsNot Nothing AndAlso info.Adjusted)
+        row.Cells("PhysicalQuantity").Value = physical
+        row.Cells("DamagedQty").Value = damaged
+        row.Cells("Difference").Value = difference
 
-        row.Cells("PhysicalQuantity").Value = phys
-        row.Cells("Difference").Value = diff
-        row.Cells("Status").Value = StatusOf(diff) & If(adjusted, " (Adjusted)", "")
+        row.Cells("Status").Value =
+        StatusOf(difference) & If(adjusted, " (Adjusted)", "")
 
-        ' only the Status cell is coloured: Matched = green, Short = orange, Over (excess) = red
         row.DefaultCellStyle.BackColor = Color.White
-        row.DefaultCellStyle.ForeColor = If(adjusted, Color.Gray, Color.Black)
-        row.Cells("Status").Style.ForeColor = If(diff = 0, Color.SeaGreen, If(diff < 0, Color.DarkOrange, Color.Firebrick))
-        row.Cells("Status").Style.Font = New Font(dgvlistproducts.Font, FontStyle.Bold)
+        row.DefaultCellStyle.ForeColor =
+        If(adjusted, Color.Gray, Color.Black)
+
+        Select Case difference
+            Case 0
+                SetCountStatusColor(
+                row.Cells("Status"),
+                Color.SeaGreen,
+                Color.White)
+
+            Case Is < 0
+                SetCountStatusColor(
+                row.Cells("Status"),
+                Color.DarkOrange,
+                Color.Black)
+
+            Case Else
+                SetCountStatusColor(
+                row.Cells("Status"),
+                Color.Firebrick,
+                Color.White)
+        End Select
     End Sub
+
+    Private Sub SetCountStatusColor(
+    cell As DataGridViewCell,
+    background As Color,
+    foreground As Color)
+
+        With cell.Style
+            .BackColor = background
+            .ForeColor = foreground
+            .SelectionBackColor = background
+            .SelectionForeColor = foreground
+        End With
+    End Sub
+
 
     Private Function StatusOf(diff As Integer) As String
         If diff = 0 Then Return "Matched"
@@ -465,12 +515,8 @@ Public Class frmInventoryCountReconciliation
         lblcriticallvl.Text = shortCount.ToString("N0")
         lbloutofstocks.Text = excess.ToString("N0")
     End Sub
-
     Private Function HasUnsavedEntries() As Boolean
-        For Each pc As PendingCount In pending.Values
-            If pc.Physical >= 0 Then Return True
-        Next
-        Return False
+        Return pending.Count > 0
     End Function
 
     ' ==================== SAVE COUNT ====================
@@ -497,8 +543,29 @@ Public Class frmInventoryCountReconciliation
             If kv.Value.Physical - kv.Value.System <> 0 Then discrepancies += 1
         Next
 
-        If MsgBox("Save " & toSave.Count & " counted item(s) (" & discrepancies & " with discrepancy)?",
-                  vbYesNo + vbQuestion, "Save Count") <> MsgBoxResult.Yes Then Exit Sub
+        Dim saveMessage As String =
+    "Save " & toSave.Count.ToString() & " counted item(s)?" &
+    vbCrLf &
+    "Items with discrepancies: " & discrepancies.ToString() &
+    vbCrLf & vbCrLf &
+    "This count will be recorded in the Inventory Count " &
+    "and Reconciliation Report." &
+    vbCrLf &
+    "Saved entries will be locked." &
+    vbCrLf &
+    "Redo Save Count creates a new count sheet and keeps " &
+    "the original report." &
+    vbCrLf & vbCrLf &
+    "Saving the count does not change stock quantities. " &
+    "Stock changes require Adjust Inventory."
+
+        If MsgBox(
+    saveMessage,
+    vbYesNo + vbQuestion + vbDefaultButton2,
+    "Confirm Save Count"
+) <> MsgBoxResult.Yes Then
+            Exit Sub
+        End If
 
         Try
             Dim countId As Long = currentCountId
@@ -571,8 +638,8 @@ Public Class frmInventoryCountReconciliation
             LogActivity("Inventory Count", countNo, "Saved " & toSave.Count & " counted item(s), " & discrepancies & " discrepancy(ies)")
 
             MsgBox("Count " & countNo & " saved." & vbCrLf &
-                   If(discrepancies > 0, "To correct a Short/Excess item, select its row and click 'Adjust Inventory'.", "No discrepancies found."),
-                   vbInformation, "Inventory Count")
+                    If(discrepancies > 0, "To correct a Short/Excess item, select its row and click 'Adjust Inventory'.", "No discrepancies found."),
+                    vbInformation, "Inventory Count")
 
             LoadProducts()      ' saved lines now show as locked
 
@@ -630,29 +697,280 @@ Public Class frmInventoryCountReconciliation
         End Using
     End Sub
 
-    ' ==================== CLEAR / CANCEL ====================
-    Private Sub btnclear_Click(sender As Object, e As EventArgs) Handles btnclear.Click
-        If HasUnsavedEntries() Then
-            If MsgBox("Discard the counts that are not saved yet and start a new count sheet?",
-                      vbYesNo + vbQuestion, "Inventory Count") <> MsgBoxResult.Yes Then Exit Sub
+    Private Sub btnRedoSaveCount_Click(
+    sender As Object,
+    e As EventArgs) Handles btnRedoSaveCount.Click
+
+        If RolePermissions.IsViewOnly() Then
+            MsgBox(
+                "Your role has view-only access.",
+                vbExclamation,
+                "Redo Save Count")
+            Exit Sub
         End If
-        pending.Clear()
-        currentCountId = 0
-        currentCountNo = NewCountNo()
-        txtCountNo.Text = currentCountNo
-        activeCard = ""
+
+        dgvlistproducts.EndEdit()
+        tmrSearch.Stop()
+
+        If currentCountId <= 0 Then
+            MsgBox(
+                "Save a count first before using Redo Save Count.",
+                vbExclamation,
+                "Redo Save Count")
+            Exit Sub
+        End If
+
+        If HasUnsavedEntries() Then
+            MsgBox(
+                "Save or clear your unsaved entries before redoing " &
+                "the saved count.",
+                vbExclamation,
+                "Redo Save Count")
+            Exit Sub
+        End If
+
+        Try
+            Dim savedItems As DataTable = GetDataTable(
+                "SELECT d.variant_id, d.physical_quantity, " &
+                "d.damaged_quantity, d.remarks, d.adjusted, " &
+                "v.quantity_on_hand " &
+                "FROM tbl_inventory_count_details d " &
+                "INNER JOIN tbl_product_variants v " &
+                "ON d.variant_id = v.variant_id " &
+                "INNER JOIN tbl_products p " &
+                "ON v.product_id = p.product_id " &
+                "WHERE d.inventory_count_id = @countId " &
+                "AND p.status = 'Active' " &
+                "ORDER BY d.inventory_count_detail_id",
+                New String() {"@countId"},
+                New Object() {currentCountId})
+
+            If savedItems Is Nothing Then
+                Throw New InvalidOperationException(
+                    "The saved count could not be loaded.")
+            End If
+
+            If savedItems.Rows.Count = 0 Then
+                MsgBox(
+                    "There are no active product entries to redo.",
+                    vbInformation,
+                    "Redo Save Count")
+                Exit Sub
+            End If
+
+            ' Check the entire count, including inactive products.
+            Dim adjustedCount As Object = ExecScalar(
+                "SELECT COUNT(*) " &
+                "FROM tbl_inventory_count_details " &
+                "WHERE inventory_count_id = @countId " &
+                "AND adjusted = 1",
+                New String() {"@countId"},
+                New Object() {currentCountId})
+
+            If adjustedCount Is Nothing OrElse
+                Convert.IsDBNull(adjustedCount) Then
+
+                Throw New InvalidOperationException(
+                    "The adjustment status could not be checked.")
+            End If
+
+            If Convert.ToInt32(adjustedCount) > 0 Then
+                MsgBox(
+                    "This count already has inventory adjustments." &
+                    vbCrLf & vbCrLf &
+                    "Use Clear to start a fresh count and physically " &
+                    "recount the stock.",
+                    vbExclamation,
+                    "Redo Save Count")
+                Exit Sub
+            End If
+
+            Dim originalCountNo As String = currentCountNo
+
+            Dim message As String =
+                "Create a new count sheet from " &
+                originalCountNo & "?" &
+                vbCrLf & vbCrLf &
+                "The original report will remain." &
+                vbCrLf &
+                "The new sheet will copy the physical quantities, " &
+                "damaged pieces, and remarks for active products." &
+                vbCrLf &
+                "System quantities will use the current stock." &
+                vbCrLf & vbCrLf &
+                "Recheck the physical quantities before saving."
+
+            If MsgBox(
+                message,
+                vbYesNo + vbQuestion + vbDefaultButton2,
+                "Confirm Redo Save Count"
+            ) <> MsgBoxResult.Yes Then
+                Exit Sub
+            End If
+
+            ' Prepare all replacement entries before changing the screen.
+            Dim copiedEntries As New Dictionary(Of Integer, PendingCount)
+
+            For Each item As DataRow In savedItems.Rows
+                Dim variantId As Integer =
+                    Convert.ToInt32(item("variant_id"))
+
+                copiedEntries(variantId) = New PendingCount With {
+                    .Physical = Convert.ToInt32(item("physical_quantity")),
+                    .Damaged = Convert.ToInt32(item("damaged_quantity")),
+                    .Remarks = If(
+                        IsDBNull(item("remarks")),
+                        "",
+                        item("remarks").ToString()),
+                    .System = Convert.ToInt32(item("quantity_on_hand"))
+                }
+            Next
+
+            ' Change variable name from newCountNo to generatedCountNo to avoid naming conflict
+            Dim generatedCountNo As String = NewCountNo()
+
+            isLoading = True
+
+            Try
+                pending.Clear()
+
+                For Each kvp As KeyValuePair(Of Integer, PendingCount) _
+                    In copiedEntries
+
+                    pending.Add(kvp.Key, kvp.Value)
+                Next
+
+                currentCountId = 0
+                currentCountNo = generatedCountNo
+
+                txtCountNo.Text = currentCountNo
+                txtGrandTotal.Text = Date.Today.ToString("MMMM d, yyyy")
+
+                activeCard = ""
+                txtSearch.Clear()
+                cbocategory.SelectedIndex = 0
+                LoadTypeCombo()
+            Finally
+                isLoading = False
+            End Try
+
+            ReloadFromStart()
+
+            LogActivity(
+                "Inventory Count Redo",
+                originalCountNo,
+                "Prepared new count sheet " & generatedCountNo &
+                " from " & originalCountNo &
+                ". Original report retained; new sheet not yet saved.")
+
+            MsgBox(
+                "The new count sheet is ready." &
+                vbCrLf &
+                "Recheck the copied entries, make corrections, " &
+                "then click Save Count.",
+                vbInformation,
+                "Redo Save Count")
+
+        Catch ex As Exception
+            MsgBox(
+                "Could not prepare the redo count: " & ex.Message,
+                vbCritical,
+                "Redo Save Count")
+        End Try
+    End Sub
+
+    Private Sub ResetCountSheet()
+        tmrSearch.Stop()
 
         isLoading = True
-        txtSearch.Clear()
-        cbocategory.SelectedIndex = 0
-        LoadTypeCombo()
-        isLoading = False
+
+        Try
+            pending.Clear()
+
+            currentCountId = 0
+            currentCountNo = NewCountNo()
+            txtCountNo.Text = currentCountNo
+            txtGrandTotal.Text = Date.Today.ToString("MMMM d, yyyy")
+
+            activeCard = ""
+
+            txtSearch.Clear()
+            cbocategory.SelectedIndex = 0
+            LoadTypeCombo()
+        Finally
+            isLoading = False
+        End Try
 
         ReloadFromStart()
     End Sub
 
-    Private Sub btncancel_Click(sender As Object, e As EventArgs) Handles btncancel.Click
-        btnclear.PerformClick()
+    Private Sub btnclear_Click(
+        sender As Object,
+        e As EventArgs
+    ) Handles btnclear.Click
+
+        dgvlistproducts.EndEdit()
+
+        Dim message As String =
+            "Clear this screen and start a new count sheet?" &
+            vbCrLf & vbCrLf &
+            "Unsaved quantities, damaged pieces, and remarks " &
+            "will be discarded." &
+            vbCrLf &
+            "Previously saved reports will remain."
+
+        If MsgBox(
+            message,
+            vbYesNo + vbQuestion + vbDefaultButton2,
+            "Confirm Clear"
+        ) <> MsgBoxResult.Yes Then
+            Exit Sub
+        End If
+
+        ResetCountSheet()
     End Sub
 
+    Private Sub btncancel_Click(
+        sender As Object,
+        e As EventArgs
+    ) Handles btncancel.Click
+
+        dgvlistproducts.EndEdit()
+
+        Dim message As String =
+            "Cancel this count session?" &
+            vbCrLf & vbCrLf &
+            "Unsaved entries will be discarded and a fresh " &
+            "count sheet will be opened." &
+            vbCrLf &
+            "Previously saved reports will remain."
+
+        If MsgBox(
+            message,
+            vbYesNo + vbQuestion + vbDefaultButton2,
+            "Confirm Cancel"
+        ) <> MsgBoxResult.Yes Then
+            Exit Sub
+        End If
+
+        ResetCountSheet()
+    End Sub
+
+    Private Sub frmInventoryCountReconciliation_FormClosing(
+    sender As Object,
+    e As FormClosingEventArgs
+) Handles MyBase.FormClosing
+
+        dgvlistproducts.EndEdit()
+
+        If Not HasUnsavedEntries() Then Exit Sub
+
+        If MsgBox(
+            "Close this screen and discard the unsaved count entries?",
+            vbYesNo + vbQuestion + vbDefaultButton2,
+            "Unsaved Inventory Count"
+        ) <> MsgBoxResult.Yes Then
+            e.Cancel = True
+        End If
+    End Sub
 End Class

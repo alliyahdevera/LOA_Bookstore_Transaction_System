@@ -12,43 +12,89 @@ Public Class frmInventoryAdjustment
     Public Property SystemQty As String
     Public Property PhysicalQty As String
     Public Property DamagedQty As Integer = 0
-    Private nudDamaged As NumericUpDown
 
-    Private Sub frmInventoryAdjustment_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        txtsize.Enabled = False
+    Private Sub frmInventoryAdjustment_Load(
+    sender As Object,
+    e As EventArgs
+) Handles MyBase.Load
 
-        Dim cur As Object = ExecScalar("SELECT quantity_on_hand FROM tbl_product_variants WHERE variant_id = @v",
-                                       New String() {"@v"}, New Object() {VariantId})
-        txtStatus.Text = If(cur Is Nothing, "-", Convert.ToString(cur))
+        txtprodct.Text = ProductName
+        txtprodct.ReadOnly = True
 
-        lblsysq.Text = SystemQty
-        lblphyq.Text = PhysicalQty
-        Dim diff As Integer = CInt(Val(PhysicalQty)) - CInt(Val(SystemQty))
-        lblDifference.Text = If(diff > 0, "+" & diff, diff.ToString())
-        lblDifference.ForeColor = If(diff < 0, Color.Firebrick, If(diff > 0, Color.DarkOrange, Color.SeaGreen))
+        txtsize.Text = If(
+        String.IsNullOrWhiteSpace(ItemSize),
+        "N/A",
+        ItemSize)
+
+        txtsize.Enabled = True
+        txtsize.ReadOnly = True
+
+        Dim physical As Integer
+        Dim systemQuantity As Integer
+
+        If Not Integer.TryParse(PhysicalQty, physical) OrElse
+        physical < 0 OrElse
+        Not Integer.TryParse(SystemQty, systemQuantity) OrElse
+        systemQuantity < 0 Then
+
+            MsgBox(
+            "The saved physical or system quantity is invalid.",
+            vbCritical,
+            "Inventory Adjustment")
+
+            btnconfirm.Enabled = False
+            Exit Sub
+        End If
+
+        Dim currentStock As Object = ExecScalar(
+        "SELECT quantity_on_hand " &
+        "FROM tbl_product_variants WHERE variant_id = @variantId",
+        New String() {"@variantId"},
+        New Object() {VariantId})
+
+        If currentStock Is Nothing OrElse
+        Convert.IsDBNull(currentStock) Then
+
+            txtStatus.Text = "N/A"
+            btnconfirm.Enabled = False
+
+            MsgBox(
+            "The current stock could not be loaded.",
+            vbExclamation,
+            "Inventory Adjustment")
+
+            Exit Sub
+        End If
+
+        ' This textbox displays current stock, not count status.
+        txtStatus.Text = Convert.ToString(currentStock)
+
+        lblsysq.Text = systemQuantity.ToString()
+        lblphyq.Text = physical.ToString()
+
+        Dim difference As Integer = physical - systemQuantity
+
+        lblDifference.Text =
+        If(difference > 0,
+           "+" & difference.ToString(),
+           difference.ToString())
+
+        lblDifference.ForeColor =
+        If(difference = 0,
+           Color.SeaGreen,
+           If(difference < 0, Color.DarkOrange, Color.Firebrick))
+
+        With NumericUpDown1
+            .Minimum = 0
+            .Maximum = physical
+            .DecimalPlaces = 0
+            .Value = Math.Max(0, Math.Min(DamagedQty, physical))
+        End With
 
         txtReason.MaxLength = 255
-        BuildDamagedRow()
     End Sub
 
-    Private Sub BuildDamagedRow()
-        Const shift As Integer = 44
-        For Each c As Control In New Control() {Me.reason, txtReason, btnconfirm, btncancel}
-            c.Top += shift
-        Next
-        Me.ClientSize = New Size(Me.ClientSize.Width, Me.ClientSize.Height + shift)
 
-        Dim y As Integer = txtReason.Top - shift
-        Dim lbl As New Label With {.AutoSize = True, .Font = Label9.Font, .Text = "Damaged Units", .Location = New Point(25, y + 3)}
-        nudDamaged = New NumericUpDown With {.Location = New Point(145, y), .Width = 80, .Minimum = 0,
-                                             .Maximum = Math.Max(0, CInt(Val(PhysicalQty))), .Font = txtReason.Font}
-        nudDamaged.Value = Math.Min(DamagedQty, CInt(nudDamaged.Maximum))
-        Dim hint As New Label With {.AutoSize = True, .ForeColor = Color.DimGray, .Font = Label9.Font,
-                                    .Text = "counted but unsellable - moved to Non-Saleable Stocks", .Location = New Point(235, y + 4)}
-        Controls.Add(lbl)
-        Controls.Add(nudDamaged)
-        Controls.Add(hint)
-    End Sub
 
     Private Sub btnconfirm_Click(sender As Object, e As EventArgs) Handles btnconfirm.Click
         If RolePermissions.IsViewOnly() Then
@@ -62,7 +108,7 @@ Public Class frmInventoryAdjustment
 
         Dim physical As Integer = CInt(Val(PhysicalQty))
         Dim systemAtCount As Integer = CInt(Val(SystemQty))
-        Dim damaged As Integer = CInt(nudDamaged.Value)
+        Dim damaged As Integer = CInt(NumericUpDown1.Value)
         Dim currentQty As Integer = CInt(Val(txtStatus.Text))
         Dim reasonText As String = txtReason.Text.Trim()
 
@@ -82,7 +128,7 @@ Public Class frmInventoryAdjustment
         If damaged = 0 AndAlso physical < currentQty AndAlso reasonText.ToLower().Contains("damag") Then
             MsgBox("The reason mentions damage. Enter the number of Damaged Units so they are moved to Non-Saleable Stocks.",
                    vbExclamation, "Inventory Adjustment")
-            nudDamaged.Focus()
+            NumericUpDown1.Focus()
             Exit Sub
         End If
 
