@@ -96,6 +96,7 @@ Partial Class frmTransactionDetails
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.btnFinanceApproval = New System.Windows.Forms.Button()
         Me.Panel4.SuspendLayout()
         Me.Panel9.SuspendLayout()
         Me.Panel7.SuspendLayout()
@@ -882,11 +883,24 @@ Partial Class frmTransactionDetails
         Me.Label4.TabIndex = 10
         Me.Label4.Text = "Summary of Items"
         '
+        'btnFinanceApproval
+        '
+        Me.btnFinanceApproval.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
+        Me.btnFinanceApproval.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnFinanceApproval.ForeColor = System.Drawing.Color.White
+        Me.btnFinanceApproval.Location = New System.Drawing.Point(524, 23)
+        Me.btnFinanceApproval.Name = "btnFinanceApproval"
+        Me.btnFinanceApproval.Size = New System.Drawing.Size(256, 40)
+        Me.btnFinanceApproval.TabIndex = 134
+        Me.btnFinanceApproval.Text = "Record Finance Approval"
+        Me.btnFinanceApproval.UseVisualStyleBackColor = False
+        '
         'frmTransactionDetails
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1108, 776)
+        Me.Controls.Add(Me.btnFinanceApproval)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel6)
         Me.Controls.Add(Me.Panel11)
@@ -999,4 +1013,5 @@ Partial Class frmTransactionDetails
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Label4 As Label
+    Friend WithEvents btnFinanceApproval As Button
 End Class

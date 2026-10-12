@@ -40,7 +40,50 @@ Public Class frmTransactionDetails
         Dim text As String = Convert.ToString(value).Trim()
         Return If(text = "", "N/A", text)
     End Function
+    Private Sub btnFinanceApproval_Click(
+    sender As Object,
+    e As EventArgs
+) Handles btnFinanceApproval.Click
 
+        If txnId <= 0 Then Exit Sub
+
+        Dim reference As String = InputBox(
+        "Enter the reference from the returned finance approval form." &
+        vbCrLf &
+        "Proceed only after checking the approved form.",
+        "Record Finance Approval").Trim()
+
+        If reference = "" Then Exit Sub
+
+        If MsgBox(
+        "Record finance approval for " & TransactionNo & "?" &
+        vbCrLf &
+        "The deduction will be marked paid through salary deduction." &
+        vbCrLf &
+        "No cash collection will be recorded.",
+        vbYesNo + vbQuestion + vbDefaultButton2,
+        "Confirm Finance Approval"
+    ) <> MsgBoxResult.Yes Then
+            Exit Sub
+        End If
+
+        Try
+            SalaryDeductions.RecordFinanceApproval(txnId, reference)
+        Catch ex As Exception
+            MsgBox(
+            "Finance approval was not recorded: " & ex.Message,
+            vbCritical,
+            "Finance Approval")
+            Exit Sub
+        End Try
+
+        MsgBox(
+        "Finance approval recorded. The transaction is now Completed.",
+        vbInformation,
+        "Finance Approval")
+
+        LoadTransaction()
+    End Sub
     Private Sub SetupCartGrid()
         dgvCart.ReadOnly = False
         dgvCart.AllowUserToAddRows = False
@@ -210,13 +253,25 @@ Public Class frmTransactionDetails
         lbltotitem.Text = items.Rows.Count.ToString()
         lbltotquantity.Text = totalQty.ToString()
 
-        Dim canProcess As Boolean = (txnStatus <> "Cancelled") AndAlso anyEligible
+        Dim canProcess As Boolean =
+    txnStatus <> "Cancelled" AndAlso
+    txnStatus <> SalaryDeductions.PENDING_STATUS AndAlso
+    anyEligible
         btnreturnexc.Enabled = canProcess
         rbtnReturn.Enabled = canProcess
         rbtnexchange.Enabled = canProcess
 
         dgvCart.ClearSelection()
         UpdateSelectedItem()
+        Dim supervisor As Boolean =
+    currentuser.Role = RolePermissions.ROLE_SUPERVISOR OrElse
+    currentuser.Role = "Admin"
+
+        btnFinanceApproval.Visible = supervisor
+        btnFinanceApproval.Enabled =
+            supervisor AndAlso
+            txtpaymentmethod.Text = SalaryDeductions.METHOD AndAlso
+            txnStatus = SalaryDeductions.PENDING_STATUS
     End Sub
 
     Private Function DepartmentOf(program As String, grade As String) As String
@@ -654,7 +709,18 @@ Public Class frmTransactionDetails
     ' ===================== PRINT RECEIPT =====================
     Private Sub btnprint_Click(sender As Object, e As EventArgs) Handles btnprint.Click
         If txnId = 0 Then Exit Sub
+        If txtpaymentmethod.Text.Trim() = SalaryDeductions.METHOD Then
+            Try
+                SalaryDeductions.PrintSlip(txnId, Me)
+            Catch ex As Exception
+                MsgBox(
+            "Could not print the deduction slip: " & ex.Message,
+            vbCritical,
+            "Salary Deduction Slip")
+            End Try
 
+            Exit Sub
+        End If
         ' Block bookstore receipt printing for module orders paid at the school cashier
         If String.Equals(
         txtpaymentmethod.Text.Trim(),
