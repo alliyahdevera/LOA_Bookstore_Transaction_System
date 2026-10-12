@@ -624,7 +624,21 @@ Public Class frmPOS
         End If
         If Not ValidateBuyer() Then Exit Sub
         If Not Ask("Proceed to payment for " & txtTotalAMount.Text & "?", "Settle Payment") Then Exit Sub
+        Dim paymentBuyer As IBuyerInfo =
+    TryCast(currentBuyerForm, IBuyerInfo)
 
+        Dim salaryAllowed As Boolean
+
+        Try
+            salaryAllowed =
+        SalaryDeductions.CanUseForCart(paymentBuyer, dgvCart)
+        Catch ex As Exception
+            MsgBox(
+        "Payment eligibility could not be checked: " & ex.Message,
+        vbCritical,
+        "Payment")
+            Exit Sub
+        End Try
         Using frm As New frmPayment()
             frm.GrandTotal = ToMoney(txtTotalAMount.Text)
             frm.PrefillORNo = txtReferenceNo.Text.Trim()
@@ -633,7 +647,9 @@ Public Class frmPOS
             frm.PrefillEmployee = paymentEmployee
             frm.PrefillReceived = ToMoney(txtAmountReceived.Text)
             frm.StartPosition = FormStartPosition.CenterParent
-
+            frm.AllowSalaryDeduction = salaryAllowed
+            frm.SalaryEmployeeName =
+    If(salaryAllowed, paymentBuyer.BuyerName, "")
             If frm.ShowDialog(Me) = DialogResult.OK Then
                 txtReferenceNo.Text = frm.ResultORNo
                 paymentDate = frm.ResultDate
@@ -656,13 +672,31 @@ Public Class frmPOS
     End Function
     Private Sub btnSaveTransaction_Click(sender As Object, e As EventArgs) Handles btnSaveTransaction.Click
         If HandleModuleCart(False) Then Exit Sub
+        If RolePermissions.IsViewOnly() OrElse
+    Not RolePermissions.CanAccess(RolePermissions.FRM_POS) Then
+
+            MsgBox(
+        "Your role cannot save transactions.",
+        vbExclamation,
+        "Point of Sale")
+            Exit Sub
+        End If
+
+        Dim isSalary As Boolean =
+    txtPaymentMethod.Text.Trim() = SalaryDeductions.METHOD
         If dgvCart.Rows.Count = 0 Then
             MsgBox("Add at least one item to the cart first.", vbExclamation, "Point of Sale")
             Exit Sub
         End If
 
-        If String.IsNullOrWhiteSpace(txtReferenceNo.Text) OrElse String.IsNullOrWhiteSpace(txtPaymentMethod.Text) Then
-            MsgBox("Payment is not settled. Click 'Settle Payment' first.", vbExclamation, "Point of Sale")
+        If String.IsNullOrWhiteSpace(txtPaymentMethod.Text) OrElse
+    (Not isSalary AndAlso
+     String.IsNullOrWhiteSpace(txtReferenceNo.Text)) Then
+
+            MsgBox(
+        "Save the payment choice using Settle Payment first.",
+        vbExclamation,
+        "Point of Sale")
             Exit Sub
         End If
 
@@ -691,8 +725,19 @@ Public Class frmPOS
         Dim total As Decimal = ToMoney(txtTotalAMount.Text)
         Dim received As Decimal = ToMoney(txtAmountReceived.Text)
         Dim change As Decimal = ToMoney(txtAmountChange.Text)
-        If total <= 0 OrElse received < total OrElse change < 0 Then
-            MsgBox("The payment does not cover the total. Click 'Settle Payment' again.", vbExclamation, "Point of Sale")
+        If isSalary Then
+            received = 0D
+            change = 0D
+        End If
+
+        If total <= 0D OrElse
+    (Not isSalary AndAlso
+     (received < total OrElse change < 0D)) Then
+
+            MsgBox(
+        "Check the transaction total and settle payment again.",
+        vbExclamation,
+        "Point of Sale")
             Exit Sub
         End If
 
@@ -713,11 +758,25 @@ Public Class frmPOS
             If Not connection() Then Exit Sub
             Dim trans As MySqlTransaction = cn.BeginTransaction()
             Try
+                Dim salaryEmployeeId As Object = DBNull.Value
+
+                If isSalary Then
+                    salaryEmployeeId =
+        SalaryDeductions.VerifyEmployeeAndCart(
+            cn,
+            trans,
+            info,
+            dgvCart)
+                End If
                 Dim transactionId As Long = 0
-                Dim insTxn As String = "INSERT INTO TBL_TRANSACTIONS " &
-                                   "(transaction_no, buyer_type, student_id, id_number, buyer_name, or_no, or_date, payment_method, employee_name, " &
-                                   "total_amount, amount_paid, amount_change, created_by, status) " &
-                                   "VALUES (@tno, @bt, @sid, @idn, @bn, @orno, @ord, @pm, @emp, @tot, @paid, @chg, @by, 'Completed')"
+                Dim insTxn As String =
+    "INSERT INTO tbl_transactions " &
+    "(transaction_no, buyer_type, student_id, id_number, " &
+    "buyer_name, or_no, or_date, payment_method, employee_name, " &
+    "total_amount, amount_paid, amount_change, created_by, " &
+    "status, salary_employee_id) " &
+    "VALUES (@tno, @bt, @sid, @idn, @bn, @orno, @ord, " &
+    "@pm, @emp, @tot, @paid, @chg, @by, @status, @salaryEmployeeId)"
 
                 Using c1 As New MySqlCommand(insTxn, cn, trans)
                     c1.Parameters.AddWithValue("@tno", txnNo)
@@ -725,7 +784,9 @@ Public Class frmPOS
                     c1.Parameters.AddWithValue("@sid", studentId)
                     c1.Parameters.AddWithValue("@idn", idNumber)
                     c1.Parameters.AddWithValue("@bn", buyerName)
-                    c1.Parameters.AddWithValue("@orno", txtReferenceNo.Text.Trim())
+                    c1.Parameters.AddWithValue(
+    "@orno",
+    If(isSalary, "", txtReferenceNo.Text.Trim()))
                     c1.Parameters.AddWithValue("@ord", paymentDate.Date)
                     c1.Parameters.AddWithValue("@pm", method)
                     c1.Parameters.AddWithValue("@emp", empName)
@@ -733,6 +794,15 @@ Public Class frmPOS
                     c1.Parameters.AddWithValue("@paid", received)
                     c1.Parameters.AddWithValue("@chg", change)
                     c1.Parameters.AddWithValue("@by", currentuser.UserID)
+                    c1.Parameters.AddWithValue(
+    "@status",
+    If(isSalary,
+       SalaryDeductions.PENDING_STATUS,
+       "Completed"))
+
+                    c1.Parameters.AddWithValue(
+    "@salaryEmployeeId",
+    salaryEmployeeId)
                     c1.ExecuteNonQuery()
                     transactionId = c1.LastInsertedId
                 End Using
@@ -774,8 +844,31 @@ Public Class frmPOS
                 Next
 
                 trans.Commit()
-                LogActivity("Sale", txnNo, "Sale to " & buyerName & " (" & buyerType & ") - Total: " & total.ToString("N2") &
-            " (" & method & ", OR " & txtReferenceNo.Text.Trim() & "). Items: " & String.Join(", ", itemParts))
+                LogActivity(
+    If(isSalary, "Salary Deduction Request", "Sale"),
+    txnNo,
+    "Transaction for " & buyerName &
+    ". Total: " & total.ToString("N2") &
+    ". Method: " & method &
+    If(isSalary,
+       ". Pending finance approval; no cash collected.",
+       ". OR: " & txtReferenceNo.Text.Trim()) &
+    ". Items: " & String.Join(", ", itemParts))
+                If isSalary Then
+                    Try
+                        SalaryDeductions.PrintSlip(
+            Convert.ToInt32(transactionId),
+            Me)
+                    Catch printError As Exception
+                        MsgBox(
+            "The deduction request was saved, but the slip " &
+            "could not be opened: " & printError.Message &
+            vbCrLf &
+            "Open Transaction Details to print it again.",
+            vbExclamation,
+            "Salary Deduction Slip")
+                    End Try
+                End If
                 MsgBox("Transaction saved successfully!", vbInformation, "Point of Sale")
                 backorders.Clear()
                 ResetAll()
