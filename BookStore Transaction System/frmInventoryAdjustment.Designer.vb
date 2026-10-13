@@ -45,13 +45,11 @@ Partial Class frmInventoryAdjustment
         Me.txtStatus = New System.Windows.Forms.TextBox()
         Me.txtsize = New System.Windows.Forms.TextBox()
         Me.txtprodct = New System.Windows.Forms.TextBox()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Panel5.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label9
@@ -283,14 +281,6 @@ Partial Class frmInventoryAdjustment
         Me.txtprodct.Size = New System.Drawing.Size(193, 25)
         Me.txtprodct.TabIndex = 145
         '
-        'NumericUpDown1
-        '
-        Me.NumericUpDown1.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NumericUpDown1.Location = New System.Drawing.Point(145, 283)
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(120, 27)
-        Me.NumericUpDown1.TabIndex = 146
-        '
         'Label7
         '
         Me.Label7.AutoSize = True
@@ -319,7 +309,6 @@ Partial Class frmInventoryAdjustment
         Me.ClientSize = New System.Drawing.Size(660, 479)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.NumericUpDown1)
         Me.Controls.Add(Me.txtprodct)
         Me.Controls.Add(Me.txtsize)
         Me.Controls.Add(Me.txtStatus)
@@ -345,7 +334,6 @@ Partial Class frmInventoryAdjustment
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -372,7 +360,6 @@ Partial Class frmInventoryAdjustment
     Friend WithEvents txtStatus As TextBox
     Friend WithEvents txtsize As TextBox
     Friend WithEvents txtprodct As TextBox
-    Friend WithEvents NumericUpDown1 As NumericUpDown
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
 End Class
