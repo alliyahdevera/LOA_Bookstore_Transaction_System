@@ -39,11 +39,15 @@
     End Function
 
     Private Function CanAccessAs(roleName As String, moduleName As String) As Boolean
-        ' Dashboard is for everyone
-        ' Dashboard and Change Password are for everyone
-        If moduleName = FRM_DASHBOARD OrElse moduleName = FRM_CHANGEPASSWORD Then Return True
+        ' Block change password access ONLY for the Supervisor role
+        If (IsRole(roleName, ROLE_SUPERVISOR) OrElse IsRole(roleName, "Admin")) AndAlso moduleName = FRM_CHANGEPASSWORD Then
+            Return False
+        End If
 
-        ' Supervisor: everything
+        ' Dashboard is for everyone
+        If moduleName = FRM_DASHBOARD Then Return True
+
+        ' Supervisor: everything else
         If IsRole(roleName, ROLE_SUPERVISOR) OrElse IsRole(roleName, "Admin") Then Return True
 
         ' Management: monitoring only (all screens are read-only, see IsViewOnly)

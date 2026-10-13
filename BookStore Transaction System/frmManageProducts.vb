@@ -223,10 +223,10 @@ Public Class frmManageProducts
         dgvListOfProducts.Rows.Clear()
         For Each r As DataRow In dt.Rows
             Dim idx As Integer = dgvListOfProducts.Rows.Add(
-            r("product_code").ToString(), r("product_name").ToString(), r("product_description").ToString(),
-            r("category_name").ToString(), r("type_name").ToString(), r("size").ToString(),
-            Convert.ToDecimal(r("unit_price")).ToString("N2"), r("quantity_on_hand").ToString(),
-            r("reorder_level").ToString(), r("status").ToString())
+    r("product_code").ToString(), r("product_name").ToString(),
+    r("category_name").ToString(), r("type_name").ToString(), r("size").ToString(),
+    Convert.ToDecimal(r("unit_price")).ToString("N2"), r("quantity_on_hand").ToString(),
+    r("reorder_level").ToString(), r("status").ToString())
             dgvListOfProducts.Rows(idx).Tag = New Integer() {Convert.ToInt32(r("product_id")), Convert.ToInt32(r("variant_id"))}
         Next
         dgvListOfProducts.ClearSelection()
@@ -244,17 +244,19 @@ Public Class frmManageProducts
 
         txtProductCode.Text = row.Cells(0).Value.ToString()
         txtProductName.Text = row.Cells(1).Value.ToString()
-        txtProductDescription.Text = row.Cells(2).Value.ToString()
-        Dim catId As Integer = GetCategoryIdByName(row.Cells(3).Value.ToString())
-        isFilling = True                       ' list filter above the grid stays as it is
+        txtProductDescription.Text = Convert.ToString(ExecScalar(
+        "SELECT product_description FROM TBL_PRODUCTS WHERE product_id = @id",
+        New String() {"@id"}, New Object() {selectedProductId}))
+        Dim catId As Integer = GetCategoryIdByName(row.Cells(2).Value.ToString())
+        isFilling = True
         cboCategory.SelectedValue = catId
         LoadTypes(catId)
-        cboTypeOfProduct.SelectedValue = GetTypeIdByName(row.Cells(4).Value.ToString(), catId)
+        cboTypeOfProduct.SelectedValue = GetTypeIdByName(row.Cells(3).Value.ToString(), catId)
         isFilling = False
-        txtSize.Text = row.Cells(5).Value.ToString()
-        txtUnitPrice.Text = row.Cells(6).Value.ToString()
-        txtQuantity.Text = row.Cells(8).Value.ToString() ' Displays Reorder Level
-        txtStatus.Text = row.Cells(9).Value.ToString()
+        txtSize.Text = row.Cells(4).Value.ToString()
+        txtUnitPrice.Text = row.Cells(5).Value.ToString()
+        txtQuantity.Text = row.Cells(7).Value.ToString()   ' Reorder Level
+        txtStatus.Text = row.Cells(8).Value.ToString()
     End Sub
 
     Private Function GetCategoryIdByName(name As String) As Integer

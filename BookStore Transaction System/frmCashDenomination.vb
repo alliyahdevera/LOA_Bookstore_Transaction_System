@@ -173,7 +173,7 @@ Public Class frmCashDenomination
 
     Private Sub ResetEntryFields()
         txtrefno.Text = "REM-" & DateTime.Now.ToString("yyyyMMddHHmmss")
-        TextBox1.Clear()
+        TextBox1.Text = "Accounting"
         txtRemarksr.Clear()
         txtremarkrs.Clear()
         TextBox7.Text = Date.Today.ToString("MMMM d, yyyy")

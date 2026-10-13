@@ -7,12 +7,12 @@
         Select Case If(currentuser.Role, "").Trim()
             Case ROLE_SUPERVISOR
                 Return New String() {"Product List", "Manage Products", "Stock In", "Stock In History",
-                                     "Low Level Stocks", "Inventory Count & Reconciliation", "Non-Saleable Stocks", "Releasing"}
+                                     "Low Level Stocks", "Inventory Count & Reconciliation", "Damaged Stocks", "Releasing"}
             Case ROLE_INVENTORY_STAFF
                 Return New String() {"Product List", "Stock In", "Stock In History",
-                                     "Low Level Stocks", "Inventory Count & Reconciliation", "Non-Saleable Stocks", "Releasing"}
+                                     "Low Level Stocks", "Inventory Count & Reconciliation", "Damaged Stocks", "Releasing"}
             Case ROLE_MANAGEMENT
-                Return New String() {"Product List", "Stock In History", "Low Level Stocks", "Non-Saleable Stocks", "Releasing"}
+                Return New String() {"Product List", "Stock In History", "Low Level Stocks", "Damaged Stocks", "Releasing"}
             Case Else
                 Return New String() {}
         End Select
@@ -20,7 +20,7 @@
 
     Private Sub frmInventory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Not cboInventory.Items.Contains("Releasing") Then cboInventory.Items.Add("Releasing")
-        If Not cboInventory.Items.Contains("Non-Saleable Stocks") Then cboInventory.Items.Add("Non-Saleable Stocks")
+        If Not cboInventory.Items.Contains("Damaged Stocks") Then cboInventory.Items.Add("Damaged Stocks")
         _isReverting = True
         Dim allowed As String() = AllowedItems()
 
@@ -63,7 +63,7 @@
 
             Case "Inventory Count & Reconciliation"
                 OpenInventoryForm(GetType(frmInventoryCountReconciliation))
-            Case "Non-Saleable Stocks"
+            Case "Damaged Stocks"
                 OpenInventoryForm(GetType(frmDamagedStocks))
             Case "Releasing"
                 OpenInventoryForm(GetType(frmReleasing))

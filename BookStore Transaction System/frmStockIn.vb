@@ -73,10 +73,10 @@ Public Class frmStockIn
         DataGridView1.Rows.Clear()
         For Each r As DataRow In dt.Rows
             Dim idx As Integer = DataGridView1.Rows.Add(
-            r("product_code").ToString(), r("product_name").ToString(), r("product_description").ToString(),
-            r("category_name").ToString(), r("type_name").ToString(),
-            Convert.ToDecimal(r("unit_price")).ToString("N2"), r("quantity_on_hand").ToString(),
-            r("reorder_level").ToString(), r("calc_status").ToString())
+    r("product_code").ToString(), r("product_name").ToString(),
+    r("category_name").ToString(), r("type_name").ToString(),
+    Convert.ToDecimal(r("unit_price")).ToString("N2"), r("quantity_on_hand").ToString(),
+    r("reorder_level").ToString(), r("calc_status").ToString())
             DataGridView1.Rows(idx).Tag = Convert.ToInt32(r("variant_id"))
             If r("calc_status").ToString() <> "In Stock" Then          ' Low Stock and Out of Stock
                 DataGridView1.Rows(idx).DefaultCellStyle.ForeColor = Color.Firebrick

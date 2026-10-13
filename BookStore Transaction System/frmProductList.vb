@@ -92,11 +92,10 @@ Public Class frmProductList
         For Each r As DataRow In dt.Rows
             Dim status As String = r("calc_status").ToString()
             Dim idx As Integer = dgvlistproducts.Rows.Add(
-                r("product_code").ToString(), r("product_name").ToString(), r("product_description").ToString(),
-                r("category_name").ToString(), r("type_name").ToString(), r("size").ToString(),
-                Convert.ToDecimal(r("unit_price")).ToString("N2"), r("quantity_on_hand").ToString(),
-                r("reorder_level").ToString(), status)
-
+    r("product_code").ToString(), r("product_name").ToString(),
+    r("category_name").ToString(), r("type_name").ToString(), r("size").ToString(),
+    Convert.ToDecimal(r("unit_price")).ToString("N2"), r("quantity_on_hand").ToString(),
+    r("reorder_level").ToString(), status)
             If status = "Low Stock" Then
                 With dgvlistproducts.Rows(idx).DefaultCellStyle
                     .BackColor = Color.FromArgb(255, 220, 220)

@@ -46,6 +46,9 @@ Partial Class frmCashDenomination
         Me.lblamtcash = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.dgvcashbreakdown = New System.Windows.Forms.DataGridView()
+        Me.Denomination = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -84,9 +87,6 @@ Partial Class frmCashDenomination
         Me.Label31 = New System.Windows.Forms.Label()
         Me.txtrefno = New System.Windows.Forms.TextBox()
         Me.txtCashier = New System.Windows.Forms.TextBox()
-        Me.Denomination = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Amount = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel4.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -351,6 +351,27 @@ Partial Class frmCashDenomination
         Me.dgvcashbreakdown.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
         Me.dgvcashbreakdown.Size = New System.Drawing.Size(781, 218)
         Me.dgvcashbreakdown.TabIndex = 1
+        '
+        'Denomination
+        '
+        Me.Denomination.HeaderText = "Denomination"
+        Me.Denomination.Name = "Denomination"
+        Me.Denomination.ReadOnly = True
+        '
+        'Quantity
+        '
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveCaption
+        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
+        Me.Quantity.DefaultCellStyle = DataGridViewCellStyle1
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
+        '
+        'Amount
+        '
+        Me.Amount.HeaderText = "Amount"
+        Me.Amount.Name = "Amount"
+        Me.Amount.ReadOnly = True
         '
         'Panel6
         '
@@ -674,7 +695,6 @@ Partial Class frmCashDenomination
         Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.Location = New System.Drawing.Point(534, 89)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
         Me.TextBox1.Size = New System.Drawing.Size(218, 25)
         Me.TextBox1.TabIndex = 130
         '
@@ -784,27 +804,6 @@ Partial Class frmCashDenomination
         Me.txtCashier.ReadOnly = True
         Me.txtCashier.Size = New System.Drawing.Size(187, 25)
         Me.txtCashier.TabIndex = 153
-        '
-        'Denomination
-        '
-        Me.Denomination.HeaderText = "Denomination"
-        Me.Denomination.Name = "Denomination"
-        Me.Denomination.ReadOnly = True
-        '
-        'Quantity
-        '
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveCaption
-        DataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black
-        Me.Quantity.DefaultCellStyle = DataGridViewCellStyle1
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        Me.Quantity.ReadOnly = True
-        '
-        'Amount
-        '
-        Me.Amount.HeaderText = "Amount"
-        Me.Amount.Name = "Amount"
-        Me.Amount.ReadOnly = True
         '
         'frmCashDenomination
         '

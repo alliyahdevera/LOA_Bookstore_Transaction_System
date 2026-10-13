@@ -37,10 +37,8 @@ Public Class frmInventoryAdjustment
         Not Integer.TryParse(SystemQty, systemQuantity) OrElse
         systemQuantity < 0 Then
 
-            MsgBox(
-            "The saved physical or system quantity is invalid.",
-            vbCritical,
-            "Inventory Adjustment")
+            MsgBox("The reason mentions damage. Enter the number of Damaged Units so they are moved to Damaged Stocks.",
+        vbExclamation, "Inventory Adjustment")
 
             btnconfirm.Enabled = False
             Exit Sub
@@ -76,13 +74,13 @@ Public Class frmInventoryAdjustment
 
         lblDifference.Text =
         If(difference > 0,
-           "+" & difference.ToString(),
-           difference.ToString())
+            "+" & difference.ToString(),
+            difference.ToString())
 
         lblDifference.ForeColor =
         If(difference = 0,
-           Color.SeaGreen,
-           If(difference < 0, Color.DarkOrange, Color.Firebrick))
+            Color.SeaGreen,
+            If(difference < 0, Color.DarkOrange, Color.Firebrick))
 
         With NumericUpDown1
             .Minimum = 0
@@ -93,8 +91,6 @@ Public Class frmInventoryAdjustment
 
         txtReason.MaxLength = 255
     End Sub
-
-
 
     Private Sub btnconfirm_Click(sender As Object, e As EventArgs) Handles btnconfirm.Click
         If RolePermissions.IsViewOnly() Then
@@ -126,15 +122,15 @@ Public Class frmInventoryAdjustment
             Exit Sub
         End If
         If damaged = 0 AndAlso physical < currentQty AndAlso reasonText.ToLower().Contains("damag") Then
-            MsgBox("The reason mentions damage. Enter the number of Damaged Units so they are moved to Non-Saleable Stocks.",
-                   vbExclamation, "Inventory Adjustment")
+            MsgBox("The reason mentions damage. Enter the number of Damaged Units so they are moved to Damaged Stocks.",
+                    vbExclamation, "Inventory Adjustment")
             NumericUpDown1.Focus()
             Exit Sub
         End If
 
         Dim sellable As Integer = physical - damaged
         Dim msg As String = "Set the stock of " & ProductName & " (" & ItemSize & ") to " & sellable & " sellable"
-        If damaged > 0 Then msg &= " and move " & damaged & " damaged unit(s) to Non-Saleable Stocks"
+        If damaged > 0 Then msg &= " and move " & damaged & " damaged unit(s) to Damaged Stocks"
         msg &= "?"
         If currentQty <> systemAtCount Then
             msg &= vbCrLf & vbCrLf & "Note: stock changed since the count (was " & systemAtCount & ", now " & currentQty & ")."
@@ -142,7 +138,7 @@ Public Class frmInventoryAdjustment
         If MsgBox(msg, vbYesNo + vbQuestion, "Confirm Adjustment") <> MsgBoxResult.Yes Then Exit Sub
 
         Dim approver As String = RequireSupervisorApproval(Me, "Inventory adjustment of " & ProductCode & " (" & ItemSize & "): " &
-                                                           SystemQty & " to " & physical & If(damaged > 0, " (" & damaged & " damaged)", ""))
+                                                          SystemQty & " to " & physical & If(damaged > 0, " (" & damaged & " damaged)", ""))
         If approver Is Nothing Then Exit Sub
 
         Dim moveRemark As String = reasonText & " [Approved: " & approver & "]"
@@ -173,11 +169,11 @@ Public Class frmInventoryAdjustment
                             running = physical
                         End If
 
-                        ' 3) damaged units leave sellable stock and go to non-saleable
+                        ' 3) damaged units leave sellable stock and go to damaged stocks
                         If damaged > 0 Then
                             SetStock(c, tx, running - damaged)
                             AddMovement(c, tx, "Damaged", damaged, running, running - damaged, refValue,
-                                        (damaged & " damaged unit(s) moved to non-saleable. " & moveRemark).Substring(0, Math.Min(255, (damaged & " damaged unit(s) moved to non-saleable. " & moveRemark).Length)))
+                                        (damaged & " damaged unit(s) moved to Damaged Stocks. " & moveRemark).Substring(0, Math.Min(255, (damaged & " damaged unit(s) moved to Damaged Stocks. " & moveRemark).Length)))
                             Using q As New MySqlCommand(
                                 "INSERT INTO tbl_nonsaleable_stocks (variant_id, quantity, stock_condition, reason, reference_no, count_detail_id, reported_by) " &
                                 "VALUES (@v, @q, 'Damaged', @r, @ref, @d, @u)", c, tx)
@@ -222,11 +218,11 @@ Public Class frmInventoryAdjustment
 
             LogActivity("Inventory Adjustment", refNo,
                         ProductCode & " (" & ItemSize & "): " & SystemQty & " -> " & physical &
-                        If(damaged > 0, ", " & damaged & " moved to non-saleable (damaged)", "") &
+                        If(damaged > 0, ", " & damaged & " moved to Damaged Stocks", "") &
                         ". Reason: " & reasonText & " Approved by " & approver)
 
-            MsgBox("Inventory adjusted successfully." & If(damaged > 0, vbCrLf & damaged & " damaged unit(s) are now non-saleable.", ""),
-                   vbInformation, "Inventory Adjustment")
+            MsgBox("Inventory adjusted successfully." & If(damaged > 0, vbCrLf & damaged & " damaged unit(s) are now in Damaged Stocks.", ""),
+                    vbInformation, "Inventory Adjustment")
             Me.DialogResult = DialogResult.OK
             Me.Close()
 
