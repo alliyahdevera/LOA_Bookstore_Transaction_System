@@ -1,5 +1,6 @@
 ﻿Imports System.Data
 Imports System.Drawing.Drawing2D
+Imports System.Windows.Forms.DataVisualization.Charting
 Imports MySql.Data.MySqlClient
 
 Public Module UIHelper
@@ -16,6 +17,20 @@ Public Module UIHelper
 
         panel.Region = New Region(path)
 
+    End Sub
+    Public Sub StyleChart(chart As Chart)
+        With chart.ChartAreas(0)
+            .AxisX.MajorGrid.LineColor = Color.Gainsboro
+            .AxisY.MajorGrid.LineColor = Color.Gainsboro
+
+            .AxisX.MajorGrid.LineWidth = 1
+            .AxisY.MajorGrid.LineWidth = 1
+
+            .AxisX.LabelStyle.ForeColor = Color.FromArgb(50, 50, 50)
+            .AxisY.LabelStyle.ForeColor = Color.FromArgb(50, 50, 50)
+        End With
+
+        chart.Legends.Clear()
     End Sub
     Public Function GetDataTable(query As String, Optional paramNames As String() = Nothing, Optional paramValues As Object() = Nothing) As DataTable
         Dim dt As New DataTable()

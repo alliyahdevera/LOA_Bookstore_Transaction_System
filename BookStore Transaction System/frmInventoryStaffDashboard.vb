@@ -6,6 +6,9 @@ Public Class frmInventoryStaffDashboard
 
     Private Sub frmInventoryStaffDashboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetupFooter(Me, lblname, lblposition, lbldatetime)
+        StyleChart(chtdistsales)
+        StyleChart(chtmostpurchased)
+        StyleChart(chrtlowlevlprod)
 
         RoundPanel(pnldistrsale)
         RoundPanel(pnllowprod)

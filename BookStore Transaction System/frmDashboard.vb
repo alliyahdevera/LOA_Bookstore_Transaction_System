@@ -1,4 +1,5 @@
 ﻿Imports System.Drawing.Drawing2D
+Imports System.Windows.Forms.DataVisualization.Charting
 Imports MySql.Data.MySqlClient
 
 Public Class frmDashboard
@@ -11,6 +12,10 @@ Public Class frmDashboard
         Try
             lblname.Text = currentuser.FullName
             lblposition.Text = currentuser.Role
+            StyleChart(chtdistsales)
+            StyleChart(chrtlowlevlprod)
+            StyleChart(chtdistsales)
+            StyleChart(chtmostpurchased)
 
             RoundPanel(pnltotprod)
             RoundPanel(pnltotqprod)

@@ -22,8 +22,12 @@ Public Class frmCashierDashboard
         ' one-series charts do not need the "Series1" legend
         chrtsaleshr.Legends(0).Enabled = False
         chtmostpurchased.Legends(0).Enabled = False
+        chtsalepymeth.Legends(0).Enabled = False
+        StyleChart(chrtsaleshr)
+        StyleChart(chtmostpurchased)
+        StyleChart(chtsalepymeth)
 
-        tip.SetToolTip(pnltots, "Total of the transactions you processed today (cancelled ones are not counted).")
+        tip.SetToolTip(pnltots, "Total cash sales of all cashiers today (cancelled sales and pending salary deductions are not counted).")
         tip.SetToolTip(pnltottrant, "Number of transactions you processed today.")
         tip.SetToolTip(pnlcash, "Cash you collected today. This is what the Remittance and the denomination count must match.")
         tip.SetToolTip(pnlsalarydeduct, "Employee salary-deduction sales today: the count is in the title, the amount is the value.")
@@ -87,14 +91,24 @@ Public Class frmCashierDashboard
         New String() {"@userId"},
         New Object() {currentuser.UserID})
 
+        Dim allSales As DataTable = GetDataTable(
+        "SELECT IFNULL(SUM(total_amount), 0) AS total " &
+        "FROM tbl_transactions " &
+        "WHERE DATE(created_at) = CURDATE() " &
+        "AND status <> 'Cancelled' " &
+        "AND payment_method = 'Cash'",
+        New String() {},
+        New Object() {})
+
         If cash Is Nothing OrElse cash.Rows.Count = 0 OrElse
-           pending Is Nothing OrElse pending.Rows.Count = 0 Then
+           pending Is Nothing OrElse pending.Rows.Count = 0 OrElse
+           allSales Is Nothing OrElse allSales.Rows.Count = 0 Then
             Exit Sub
         End If
 
         Dim cashAmount As Decimal = Convert.ToDecimal(cash.Rows(0)("total"))
 
-        SetValue(lbltotp, Peso & cashAmount.ToString("N2"))
+        SetValue(lbltotp, Peso & Convert.ToDecimal(allSales.Rows(0)("total")).ToString("N2"))
         SetValue(lblsalest, Peso & cashAmount.ToString("N2"))
 
         SetValue(lbltotqprod,

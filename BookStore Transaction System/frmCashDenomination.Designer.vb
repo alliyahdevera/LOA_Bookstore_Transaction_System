@@ -29,19 +29,14 @@ Partial Class frmCashDenomination
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.lblcashtc = New System.Windows.Forms.Label()
-        Me.lblcashsales = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lbltottransac = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.lbltotsales = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.Label20 = New System.Windows.Forms.Label()
-        Me.Label17 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.lblamtcash = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -87,6 +82,11 @@ Partial Class frmCashDenomination
         Me.Label31 = New System.Windows.Forms.Label()
         Me.txtrefno = New System.Windows.Forms.TextBox()
         Me.txtCashier = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.lblcashtc = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.lblcashsales = New System.Windows.Forms.Label()
         Me.Panel4.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -160,37 +160,6 @@ Partial Class frmCashDenomination
         Me.Panel4.Size = New System.Drawing.Size(344, 280)
         Me.Panel4.TabIndex = 134
         '
-        'lblcashtc
-        '
-        Me.lblcashtc.AutoSize = True
-        Me.lblcashtc.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblcashtc.Location = New System.Drawing.Point(218, 185)
-        Me.lblcashtc.Name = "lblcashtc"
-        Me.lblcashtc.Size = New System.Drawing.Size(13, 17)
-        Me.lblcashtc.TabIndex = 110
-        Me.lblcashtc.Text = "-"
-        '
-        'lblcashsales
-        '
-        Me.lblcashsales.AutoSize = True
-        Me.lblcashsales.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblcashsales.Location = New System.Drawing.Point(218, 58)
-        Me.lblcashsales.Name = "lblcashsales"
-        Me.lblcashsales.Size = New System.Drawing.Size(13, 17)
-        Me.lblcashsales.TabIndex = 108
-        Me.lblcashsales.Text = "-"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.ForeColor = System.Drawing.Color.Silver
-        Me.Label6.Location = New System.Drawing.Point(18, 148)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(307, 17)
-        Me.Label6.TabIndex = 106
-        Me.Label6.Text = "———————————————————————" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(237, Byte), Integer), CType(CType(254, Byte), Integer))
@@ -255,16 +224,6 @@ Partial Class frmCashDenomination
         Me.Label2.TabIndex = 104
         Me.Label2.Text = "Total Sales"
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(30, 183)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(151, 17)
-        Me.Label3.TabIndex = 98
-        Me.Label3.Text = "Cash Transaction Count"
-        '
         'Panel9
         '
         Me.Panel9.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
@@ -284,16 +243,6 @@ Partial Class frmCashDenomination
         Me.Label20.Size = New System.Drawing.Size(177, 21)
         Me.Label20.TabIndex = 10
         Me.Label20.Text = "System Sales Summary"
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(30, 58)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(75, 17)
-        Me.Label17.TabIndex = 98
-        Me.Label17.Text = "Cash Sales "
         '
         'Panel5
         '
@@ -805,6 +754,57 @@ Partial Class frmCashDenomination
         Me.txtCashier.Size = New System.Drawing.Size(187, 25)
         Me.txtCashier.TabIndex = 153
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.Silver
+        Me.Label6.Location = New System.Drawing.Point(18, 148)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(307, 17)
+        Me.Label6.TabIndex = 106
+        Me.Label6.Text = "———————————————————————" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(30, 183)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(151, 17)
+        Me.Label3.TabIndex = 98
+        Me.Label3.Text = "Cash Transaction Count"
+        '
+        'lblcashtc
+        '
+        Me.lblcashtc.AutoSize = True
+        Me.lblcashtc.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblcashtc.Location = New System.Drawing.Point(218, 185)
+        Me.lblcashtc.Name = "lblcashtc"
+        Me.lblcashtc.Size = New System.Drawing.Size(13, 17)
+        Me.lblcashtc.TabIndex = 110
+        Me.lblcashtc.Text = "-"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Location = New System.Drawing.Point(30, 58)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(75, 17)
+        Me.Label17.TabIndex = 98
+        Me.Label17.Text = "Cash Sales "
+        '
+        'lblcashsales
+        '
+        Me.lblcashsales.AutoSize = True
+        Me.lblcashsales.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblcashsales.Location = New System.Drawing.Point(218, 58)
+        Me.lblcashsales.Name = "lblcashsales"
+        Me.lblcashsales.Size = New System.Drawing.Size(13, 17)
+        Me.lblcashsales.TabIndex = 108
+        Me.lblcashsales.Text = "-"
+        '
         'frmCashDenomination
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -858,9 +858,7 @@ Partial Class frmCashDenomination
     Friend WithEvents Panel4 As Panel
     Friend WithEvents Panel9 As Panel
     Friend WithEvents Label20 As Label
-    Friend WithEvents Label17 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Label1 As Label
     Friend WithEvents Panel3 As Panel
@@ -868,9 +866,6 @@ Partial Class frmCashDenomination
     Friend WithEvents dgvcashbreakdown As DataGridView
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents lblcashtc As Label
-    Friend WithEvents lblcashsales As Label
     Friend WithEvents lbltottransac As Label
     Friend WithEvents lbltotsales As Label
     Friend WithEvents Panel2 As Panel
@@ -914,4 +909,9 @@ Partial Class frmCashDenomination
     Friend WithEvents Denomination As DataGridViewTextBoxColumn
     Friend WithEvents Quantity As DataGridViewTextBoxColumn
     Friend WithEvents Amount As DataGridViewTextBoxColumn
+    Friend WithEvents lblcashtc As Label
+    Friend WithEvents lblcashsales As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label17 As Label
 End Class

@@ -336,6 +336,7 @@ Partial Class frmActivityHistory
         '
         'cbofilter
         '
+        Me.cbofilter.DropDownWidth = 200
         Me.cbofilter.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbofilter.FormattingEnabled = True
         Me.cbofilter.Location = New System.Drawing.Point(1029, 87)

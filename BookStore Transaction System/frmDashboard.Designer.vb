@@ -172,7 +172,7 @@ Partial Class frmDashboard
         Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.45455!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.54546!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 517.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 518.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Label12, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.PictureBox5, 1, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
@@ -189,7 +189,7 @@ Partial Class frmDashboard
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label12.Location = New System.Drawing.Point(55, 13)
+        Me.Label12.Location = New System.Drawing.Point(54, 13)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(272, 21)
         Me.Label12.TabIndex = 36
@@ -202,7 +202,7 @@ Partial Class frmDashboard
         Me.PictureBox5.Image = CType(resources.GetObject("PictureBox5.Image"), System.Drawing.Image)
         Me.PictureBox5.Location = New System.Drawing.Point(13, 10)
         Me.PictureBox5.Name = "PictureBox5"
-        Me.PictureBox5.Size = New System.Drawing.Size(36, 35)
+        Me.PictureBox5.Size = New System.Drawing.Size(35, 35)
         Me.PictureBox5.TabIndex = 37
         Me.PictureBox5.TabStop = False
         '
@@ -214,6 +214,7 @@ Partial Class frmDashboard
         Me.chtmostpurchased.Legends.Add(Legend2)
         Me.chtmostpurchased.Location = New System.Drawing.Point(17, 54)
         Me.chtmostpurchased.Name = "chtmostpurchased"
+        Me.chtmostpurchased.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel
         Series2.ChartArea = "ChartArea1"
         Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar
         Series2.Legend = "Legend1"
@@ -296,7 +297,7 @@ Partial Class frmDashboard
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.45455!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.54546!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 517.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 518.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.PictureBox6, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label13, 2, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
@@ -314,7 +315,7 @@ Partial Class frmDashboard
         Me.PictureBox6.Image = CType(resources.GetObject("PictureBox6.Image"), System.Drawing.Image)
         Me.PictureBox6.Location = New System.Drawing.Point(13, 10)
         Me.PictureBox6.Name = "PictureBox6"
-        Me.PictureBox6.Size = New System.Drawing.Size(36, 35)
+        Me.PictureBox6.Size = New System.Drawing.Size(35, 35)
         Me.PictureBox6.TabIndex = 38
         Me.PictureBox6.TabStop = False
         '
@@ -324,7 +325,7 @@ Partial Class frmDashboard
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label13.Location = New System.Drawing.Point(55, 13)
+        Me.Label13.Location = New System.Drawing.Point(54, 13)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(167, 21)
         Me.Label13.TabIndex = 36
