@@ -34,16 +34,6 @@ Partial Class frmLowLevelStocks
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvListOfProducts = New System.Windows.Forms.DataGridView()
-        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductDescription = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TypeofProduct = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ReorderLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -53,6 +43,15 @@ Partial Class frmLowLevelStocks
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.btnexportexcel = New System.Windows.Forms.Button()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TypeofProduct = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Size = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.UnitPrice = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ReorderLevel = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.dgvListOfProducts, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -71,9 +70,10 @@ Partial Class frmLowLevelStocks
         Me.Panel13.Controls.Add(Me.Label28)
         Me.Panel13.Controls.Add(Me.lblposition)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel13.Location = New System.Drawing.Point(0, 777)
+        Me.Panel13.Location = New System.Drawing.Point(0, 957)
+        Me.Panel13.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(1220, 27)
+        Me.Panel13.Size = New System.Drawing.Size(1627, 33)
         Me.Panel13.TabIndex = 89
         '
         'lblname
@@ -82,9 +82,10 @@ Partial Class frmLowLevelStocks
         Me.lblname.BackColor = System.Drawing.Color.Transparent
         Me.lblname.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblname.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.lblname.Location = New System.Drawing.Point(54, 3)
+        Me.lblname.Location = New System.Drawing.Point(72, 4)
+        Me.lblname.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblname.Name = "lblname"
-        Me.lblname.Size = New System.Drawing.Size(53, 21)
+        Me.lblname.Size = New System.Drawing.Size(66, 28)
         Me.lblname.TabIndex = 64
         Me.lblname.Text = "Name"
         '
@@ -94,9 +95,10 @@ Partial Class frmLowLevelStocks
         Me.lbldatetime.BackColor = System.Drawing.Color.Transparent
         Me.lbldatetime.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbldatetime.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.lbldatetime.Location = New System.Drawing.Point(576, 3)
+        Me.lbldatetime.Location = New System.Drawing.Point(768, 4)
+        Me.lbldatetime.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbldatetime.Name = "lbldatetime"
-        Me.lbldatetime.Size = New System.Drawing.Size(16, 21)
+        Me.lbldatetime.Size = New System.Drawing.Size(20, 28)
         Me.lbldatetime.TabIndex = 68
         Me.lbldatetime.Text = "-"
         '
@@ -106,9 +108,10 @@ Partial Class frmLowLevelStocks
         Me.Label29.BackColor = System.Drawing.Color.Transparent
         Me.Label29.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label29.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label29.Location = New System.Drawing.Point(4, 3)
+        Me.Label29.Location = New System.Drawing.Point(5, 4)
+        Me.Label29.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(55, 21)
+        Me.Label29.Size = New System.Drawing.Size(68, 28)
         Me.Label29.TabIndex = 63
         Me.Label29.Text = "Name:"
         '
@@ -118,9 +121,10 @@ Partial Class frmLowLevelStocks
         Me.Label27.BackColor = System.Drawing.Color.Transparent
         Me.Label27.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label27.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label27.Location = New System.Drawing.Point(504, 3)
+        Me.Label27.Location = New System.Drawing.Point(672, 4)
+        Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(65, 21)
+        Me.Label27.Size = New System.Drawing.Size(82, 28)
         Me.Label27.TabIndex = 67
         Me.Label27.Text = "Today is"
         '
@@ -130,9 +134,10 @@ Partial Class frmLowLevelStocks
         Me.Label28.BackColor = System.Drawing.Color.Transparent
         Me.Label28.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label28.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label28.Location = New System.Drawing.Point(249, 3)
+        Me.Label28.Location = New System.Drawing.Point(332, 4)
+        Me.Label28.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(68, 21)
+        Me.Label28.Size = New System.Drawing.Size(86, 28)
         Me.Label28.TabIndex = 65
         Me.Label28.Text = "Position:"
         '
@@ -142,9 +147,10 @@ Partial Class frmLowLevelStocks
         Me.lblposition.BackColor = System.Drawing.Color.Transparent
         Me.lblposition.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblposition.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.lblposition.Location = New System.Drawing.Point(315, 3)
+        Me.lblposition.Location = New System.Drawing.Point(420, 4)
+        Me.lblposition.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblposition.Name = "lblposition"
-        Me.lblposition.Size = New System.Drawing.Size(82, 21)
+        Me.lblposition.Size = New System.Drawing.Size(100, 28)
         Me.lblposition.TabIndex = 66
         Me.lblposition.Text = "NPosition"
         '
@@ -152,9 +158,10 @@ Partial Class frmLowLevelStocks
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(27, 80)
+        Me.Label14.Location = New System.Drawing.Point(36, 98)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(47, 17)
+        Me.Label14.Size = New System.Drawing.Size(61, 23)
         Me.Label14.TabIndex = 88
         Me.Label14.Text = "Search"
         '
@@ -163,9 +170,10 @@ Partial Class frmLowLevelStocks
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.dgvListOfProducts)
         Me.Panel5.Controls.Add(Me.Panel6)
-        Me.Panel5.Location = New System.Drawing.Point(30, 120)
+        Me.Panel5.Location = New System.Drawing.Point(40, 148)
+        Me.Panel5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1155, 619)
+        Me.Panel5.Size = New System.Drawing.Size(1539, 761)
         Me.Panel5.TabIndex = 86
         '
         'dgvListOfProducts
@@ -174,7 +182,7 @@ Partial Class frmLowLevelStocks
         Me.dgvListOfProducts.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvListOfProducts.BackgroundColor = System.Drawing.Color.White
         Me.dgvListOfProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvListOfProducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.ProductDescription, Me.Category, Me.TypeofProduct, Me.Size, Me.UnitPrice, Me.Quantity, Me.ReorderLevel, Me.Status})
+        Me.dgvListOfProducts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductCode, Me.ProductName, Me.Category, Me.TypeofProduct, Me.Size, Me.UnitPrice, Me.Quantity, Me.ReorderLevel, Me.Status})
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkRed
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -183,70 +191,23 @@ Partial Class frmLowLevelStocks
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvListOfProducts.DefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvListOfProducts.Location = New System.Drawing.Point(-1, 35)
+        Me.dgvListOfProducts.Location = New System.Drawing.Point(-1, 43)
+        Me.dgvListOfProducts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvListOfProducts.Name = "dgvListOfProducts"
         Me.dgvListOfProducts.RowHeadersVisible = False
+        Me.dgvListOfProducts.RowHeadersWidth = 51
         Me.dgvListOfProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvListOfProducts.Size = New System.Drawing.Size(1155, 588)
+        Me.dgvListOfProducts.Size = New System.Drawing.Size(1540, 724)
         Me.dgvListOfProducts.TabIndex = 1
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        '
-        'ProductDescription
-        '
-        Me.ProductDescription.HeaderText = "Product Description"
-        Me.ProductDescription.Name = "ProductDescription"
-        '
-        'Category
-        '
-        Me.Category.HeaderText = "Category"
-        Me.Category.Name = "Category"
-        '
-        'TypeofProduct
-        '
-        Me.TypeofProduct.HeaderText = "Type of Product"
-        Me.TypeofProduct.Name = "TypeofProduct"
-        '
-        'Size
-        '
-        Me.Size.HeaderText = "Size"
-        Me.Size.Name = "Size"
-        '
-        'UnitPrice
-        '
-        Me.UnitPrice.HeaderText = "Unit Price"
-        Me.UnitPrice.Name = "UnitPrice"
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        '
-        'ReorderLevel
-        '
-        Me.ReorderLevel.HeaderText = "Reorder Level"
-        Me.ReorderLevel.Name = "ReorderLevel"
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
         '
         'Panel6
         '
         Me.Panel6.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.Panel6.Controls.Add(Me.Label7)
         Me.Panel6.Location = New System.Drawing.Point(0, 0)
+        Me.Panel6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1166, 35)
+        Me.Panel6.Size = New System.Drawing.Size(1555, 43)
         Me.Panel6.TabIndex = 0
         '
         'Label7
@@ -254,9 +215,10 @@ Partial Class frmLowLevelStocks
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(9, 8)
+        Me.Label7.Location = New System.Drawing.Point(12, 10)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(127, 17)
+        Me.Label7.Size = New System.Drawing.Size(166, 23)
         Me.Label7.TabIndex = 25
         Me.Label7.Text = "LIST OF PRODUCTS"
         '
@@ -265,9 +227,10 @@ Partial Class frmLowLevelStocks
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label4.Location = New System.Drawing.Point(28, 44)
+        Me.Label4.Location = New System.Drawing.Point(37, 54)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(225, 15)
+        Me.Label4.Size = New System.Drawing.Size(285, 20)
         Me.Label4.TabIndex = 91
         Me.Label4.Text = "List of all products that are in critical level"
         '
@@ -276,9 +239,10 @@ Partial Class frmLowLevelStocks
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(24, 6)
+        Me.Label1.Location = New System.Drawing.Point(32, 7)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(204, 32)
+        Me.Label1.Size = New System.Drawing.Size(253, 41)
         Me.Label1.TabIndex = 90
         Me.Label1.Text = "Low Level Stocks"
         '
@@ -289,9 +253,10 @@ Partial Class frmLowLevelStocks
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.PictureBox1)
         Me.Panel1.Controls.Add(Me.txtSearch)
-        Me.Panel1.Location = New System.Drawing.Point(80, 76)
+        Me.Panel1.Location = New System.Drawing.Point(107, 94)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(263, 26)
+        Me.Panel1.Size = New System.Drawing.Size(350, 32)
         Me.Panel1.TabIndex = 95
         '
         'Label2
@@ -299,9 +264,10 @@ Partial Class frmLowLevelStocks
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label2.Location = New System.Drawing.Point(3, 3)
+        Me.Label2.Location = New System.Drawing.Point(4, 4)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(193, 17)
+        Me.Label2.Size = New System.Drawing.Size(252, 23)
         Me.Label2.TabIndex = 96
         Me.Label2.Text = "Product Code or Product Name"
         '
@@ -309,9 +275,10 @@ Partial Class frmLowLevelStocks
         '
         Me.PictureBox1.BackgroundImage = CType(resources.GetObject("PictureBox1.BackgroundImage"), System.Drawing.Image)
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PictureBox1.Location = New System.Drawing.Point(239, 3)
+        Me.PictureBox1.Location = New System.Drawing.Point(319, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(19, 19)
+        Me.PictureBox1.Size = New System.Drawing.Size(25, 23)
         Me.PictureBox1.TabIndex = 29
         Me.PictureBox1.TabStop = False
         '
@@ -319,9 +286,10 @@ Partial Class frmLowLevelStocks
         '
         Me.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSearch.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSearch.Location = New System.Drawing.Point(3, 3)
+        Me.txtSearch.Location = New System.Drawing.Point(4, 4)
+        Me.txtSearch.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(230, 20)
+        Me.txtSearch.Size = New System.Drawing.Size(307, 25)
         Me.txtSearch.TabIndex = 28
         '
         'btnexportexcel
@@ -330,18 +298,73 @@ Partial Class frmLowLevelStocks
         Me.btnexportexcel.FlatAppearance.BorderSize = 0
         Me.btnexportexcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnexportexcel.ForeColor = System.Drawing.Color.White
-        Me.btnexportexcel.Location = New System.Drawing.Point(1055, 68)
+        Me.btnexportexcel.Location = New System.Drawing.Point(1407, 84)
+        Me.btnexportexcel.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnexportexcel.Name = "btnexportexcel"
-        Me.btnexportexcel.Size = New System.Drawing.Size(130, 31)
+        Me.btnexportexcel.Size = New System.Drawing.Size(173, 38)
         Me.btnexportexcel.TabIndex = 76
         Me.btnexportexcel.Text = "Export to Excel"
         Me.btnexportexcel.UseVisualStyleBackColor = False
         '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.MinimumWidth = 6
+        Me.ProductCode.Name = "ProductCode"
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.MinimumWidth = 6
+        Me.ProductName.Name = "ProductName"
+        '
+        'Category
+        '
+        Me.Category.HeaderText = "Category"
+        Me.Category.MinimumWidth = 6
+        Me.Category.Name = "Category"
+        '
+        'TypeofProduct
+        '
+        Me.TypeofProduct.HeaderText = "Type of Product"
+        Me.TypeofProduct.MinimumWidth = 6
+        Me.TypeofProduct.Name = "TypeofProduct"
+        '
+        'Size
+        '
+        Me.Size.HeaderText = "Size"
+        Me.Size.MinimumWidth = 6
+        Me.Size.Name = "Size"
+        '
+        'UnitPrice
+        '
+        Me.UnitPrice.HeaderText = "Unit Price"
+        Me.UnitPrice.MinimumWidth = 6
+        Me.UnitPrice.Name = "UnitPrice"
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.MinimumWidth = 6
+        Me.Quantity.Name = "Quantity"
+        '
+        'ReorderLevel
+        '
+        Me.ReorderLevel.HeaderText = "Reorder Level"
+        Me.ReorderLevel.MinimumWidth = 6
+        Me.ReorderLevel.Name = "ReorderLevel"
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.MinimumWidth = 6
+        Me.Status.Name = "Status"
+        '
         'frmLowLevelStocks
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1220, 804)
+        Me.ClientSize = New System.Drawing.Size(1627, 990)
         Me.Controls.Add(Me.btnexportexcel)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label4)
@@ -350,6 +373,7 @@ Partial Class frmLowLevelStocks
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.Panel5)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "frmLowLevelStocks"
         Me.Text = "frmLowLevelStocks"
         Me.Panel13.ResumeLayout(False)
@@ -376,16 +400,6 @@ Partial Class frmLowLevelStocks
     Friend WithEvents Label14 As Label
     Friend WithEvents Panel5 As Panel
     Friend WithEvents dgvListOfProducts As DataGridView
-    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
-    Friend WithEvents ProductName As DataGridViewTextBoxColumn
-    Friend WithEvents ProductDescription As DataGridViewTextBoxColumn
-    Friend WithEvents Category As DataGridViewTextBoxColumn
-    Friend WithEvents TypeofProduct As DataGridViewTextBoxColumn
-    Friend WithEvents Size As DataGridViewTextBoxColumn
-    Friend WithEvents UnitPrice As DataGridViewTextBoxColumn
-    Friend WithEvents Quantity As DataGridViewTextBoxColumn
-    Friend WithEvents ReorderLevel As DataGridViewTextBoxColumn
-    Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents Panel6 As Panel
     Friend WithEvents Label7 As Label
     Friend WithEvents Label4 As Label
@@ -395,4 +409,13 @@ Partial Class frmLowLevelStocks
     Friend WithEvents txtSearch As TextBox
     Friend WithEvents btnexportexcel As Button
     Friend WithEvents Label2 As Label
+    Friend WithEvents ProductCode As DataGridViewTextBoxColumn
+    Friend WithEvents ProductName As DataGridViewTextBoxColumn
+    Friend WithEvents Category As DataGridViewTextBoxColumn
+    Friend WithEvents TypeofProduct As DataGridViewTextBoxColumn
+    Friend WithEvents Size As DataGridViewTextBoxColumn
+    Friend WithEvents UnitPrice As DataGridViewTextBoxColumn
+    Friend WithEvents Quantity As DataGridViewTextBoxColumn
+    Friend WithEvents ReorderLevel As DataGridViewTextBoxColumn
+    Friend WithEvents Status As DataGridViewTextBoxColumn
 End Class

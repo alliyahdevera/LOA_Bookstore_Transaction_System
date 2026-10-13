@@ -206,7 +206,7 @@ Public Class frmManageProducts
 
     Private Sub LoadGrid(searchText As String, categoryId As Integer)
         Dim query As String =
-        "SELECT v.variant_id, p.product_id, v.product_code, p.product_name, p.product_description, " &
+        "SELECT v.variant_id, p.product_id, v.product_code, p.product_name, " &
         "c.category_name, ct.type_name, v.size, p.unit_price, v.quantity_on_hand, v.reorder_level, p.status " &
         "FROM TBL_PRODUCT_VARIANTS v " &
         "INNER JOIN TBL_PRODUCTS p ON v.product_id = p.product_id " &

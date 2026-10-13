@@ -64,7 +64,7 @@ Public Class frmStockInHistory
 
     Private Sub LoadGrid()
         Dim query As String =
-        "SELECT si.reference_no, v.product_code, p.product_name, p.product_description, " &
+        "SELECT si.reference_no, v.product_code, p.product_name, " &
         "sid.quantity, si.stock_in_date, si.stock_in_time, si.received_by " &
         "FROM TBL_STOCK_IN_DETAILS sid " &
         "INNER JOIN TBL_STOCK_INS si ON sid.stock_in_id = si.stock_in_id " &
@@ -88,7 +88,7 @@ Public Class frmStockInHistory
         For Each r As DataRow In dt.Rows
             dgvstockinhistory.Rows.Add(
             r("reference_no").ToString(), r("product_code").ToString(), r("product_name").ToString(),
-            r("product_description").ToString(), Convert.ToInt32(r("quantity")),
+            Convert.ToInt32(r("quantity")),
             Convert.ToDateTime(r("stock_in_date")).ToString("yyyy-MM-dd"), r("stock_in_time").ToString(),
             If(IsDBNull(r("received_by")), "-", r("received_by").ToString()))
         Next

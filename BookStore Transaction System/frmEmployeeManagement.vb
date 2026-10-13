@@ -5,7 +5,13 @@ Public Class frmEmployeeManagement
     Private pg As GridPager
     Private selectedEmployeeId As Integer = 0
     Public Property InitialSearch As String = ""
-
+    Private Function NextEmployeeNo() As String
+        Dim v As Object = ExecScalar(
+        "SELECT MAX(CAST(SUBSTRING(employee_no, 5) AS UNSIGNED)) FROM tbl_employees WHERE employee_no REGEXP '^EMP-[0-9]+$'")
+        Dim n As Integer = 0
+        If v IsNot Nothing AndAlso Not IsDBNull(v) Then n = Convert.ToInt32(v)
+        Return "EMP-" & (n + 1).ToString("0000")
+    End Function
     Private Sub frmEmployeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ApplySearchPlaceholders(Me)
         SetupFooter(Me, lblname, lblposition, lbldatetime)
@@ -29,20 +35,21 @@ Public Class frmEmployeeManagement
             dgvemployee.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "colId", .DataPropertyName = "employee_id", .Visible = False})
         End If
 
-        cboGradeLevel.DropDownStyle = ComboBoxStyle.DropDown
-        cboGradeLevel.AutoCompleteMode = AutoCompleteMode.SuggestAppend
-        cboGradeLevel.AutoCompleteSource = AutoCompleteSource.ListItems
-        cboProgram.DropDownStyle = ComboBoxStyle.DropDown
-        cboProgram.AutoCompleteMode = AutoCompleteMode.SuggestAppend
-        cboProgram.AutoCompleteSource = AutoCompleteSource.ListItems
-        cboSection.DropDownStyle = ComboBoxStyle.DropDownList
-        cboSection.Items.Clear()
-        cboSection.Items.AddRange(New Object() {"Active", "Inactive"})
+        cbodepartment.DropDownStyle = ComboBoxStyle.DropDown
+        cbodepartment.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+        cbodepartment.AutoCompleteSource = AutoCompleteSource.ListItems
+        cboposition.DropDownStyle = ComboBoxStyle.DropDown
+        cboposition.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+        cboposition.AutoCompleteSource = AutoCompleteSource.ListItems
+        cbostatus.DropDownStyle = ComboBoxStyle.DropDownList
+        cbostatus.Items.Clear()
+        cbostatus.Items.AddRange(New Object() {"Active", "Inactive"})
         pg = New GridPager(dgvemployee, 20)
         AddHandler pg.PageChanged, Sub() LoadGrid(txtSearch.Text.Trim())
         txtSearch.Text = InitialSearch
         LoadLists()
         LoadGrid("")
+        txtemployeeno.ReadOnly = True
         ClearFields()
     End Sub
 
@@ -64,22 +71,22 @@ Public Class frmEmployeeManagement
 }
 
     Private Sub LoadLists()
-        cboGradeLevel.Items.Clear()
-        cboGradeLevel.Items.AddRange(DepartmentList)
+        cbodepartment.Items.Clear()
+        cbodepartment.Items.AddRange(DepartmentList)
 
         ' keep any department already saved in the database that is not in the list above
         Dim d As DataTable = GetDataTable("SELECT DISTINCT department FROM tbl_employees WHERE department IS NOT NULL AND department <> '' ORDER BY department")
         For Each r As DataRow In d.Rows
             Dim dept As String = r("department").ToString()
-            If Not cboGradeLevel.Items.Contains(dept) Then cboGradeLevel.Items.Add(dept)
+            If Not cbodepartment.Items.Contains(dept) Then cbodepartment.Items.Add(dept)
         Next
 
-        cboProgram.Items.Clear()
+        cboposition.Items.Clear()
         Dim p As DataTable = GetDataTable("SELECT DISTINCT job_position FROM tbl_employees WHERE job_position IS NOT NULL AND job_position <> '' ORDER BY job_position")
-        For Each r As DataRow In p.Rows : cboProgram.Items.Add(r("job_position").ToString()) : Next
+        For Each r As DataRow In p.Rows : cboposition.Items.Add(r("job_position").ToString()) : Next
     End Sub
 
-    Private Sub txtstudentno_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtstudentno.KeyPress
+    Private Sub txtstudentno_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtemployeeno.KeyPress
         If Not Char.IsLetterOrDigit(e.KeyChar) AndAlso e.KeyChar <> "-"c AndAlso Not Char.IsControl(e.KeyChar) Then e.Handled = True
     End Sub
 
@@ -88,9 +95,9 @@ Public Class frmEmployeeManagement
     End Sub
 
     Private Function ValidateInputs() As Boolean
-        If Not Regex.IsMatch(txtstudentno.Text.Trim(), "^[A-Za-z0-9-]{3,20}$") Then
+        If Not Regex.IsMatch(txtemployeeno.Text.Trim(), "^[A-Za-z0-9-]{3,20}$") Then
             MsgBox("Employee ID No. is required (3-20 letters, numbers or dashes).", vbExclamation, "Validation Error")
-            txtstudentno.Focus() : Return False
+            txtemployeeno.Focus() : Return False
         End If
         If String.IsNullOrWhiteSpace(txtlastname.Text) Then
             MsgBox("Last Name is required.", vbExclamation, "Validation Error")
@@ -100,17 +107,17 @@ Public Class frmEmployeeManagement
             MsgBox("First Name is required.", vbExclamation, "Validation Error")
             txtfirstname.Focus() : Return False
         End If
-        If String.IsNullOrWhiteSpace(cboGradeLevel.Text) Then
+        If String.IsNullOrWhiteSpace(cbodepartment.Text) Then
             MsgBox("Department is required.", vbExclamation, "Validation Error")
-            cboGradeLevel.Focus() : Return False
+            cbodepartment.Focus() : Return False
         End If
-        If String.IsNullOrWhiteSpace(cboProgram.Text) Then
+        If String.IsNullOrWhiteSpace(cboposition.Text) Then
             MsgBox("Position is required.", vbExclamation, "Validation Error")
-            cboProgram.Focus() : Return False
+            cboposition.Focus() : Return False
         End If
-        If cboSection.SelectedIndex < 0 Then
+        If cbostatus.SelectedIndex < 0 Then
             MsgBox("Please select the Status.", vbExclamation, "Validation Error")
-            cboSection.Focus() : Return False
+            cbostatus.Focus() : Return False
         End If
         Return True
     End Function
@@ -138,19 +145,19 @@ Public Class frmEmployeeManagement
         If row.Cells("colId").Value Is Nothing OrElse IsDBNull(row.Cells("colId").Value) Then Exit Sub
 
         selectedEmployeeId = Convert.ToInt32(row.Cells("colId").Value)
-        txtstudentno.Text = Convert.ToString(row.Cells("EmployeeNo").Value)
+        txtemployeeno.Text = Convert.ToString(row.Cells("EmployeeNo").Value)
         txtlastname.Text = Convert.ToString(row.Cells("LastName").Value)
         txtfirstname.Text = Convert.ToString(row.Cells("Firstname").Value)
-        cboGradeLevel.Text = Convert.ToString(row.Cells("Department").Value)
-        cboProgram.Text = Convert.ToString(row.Cells("Position").Value)
-        cboSection.SelectedIndex = cboSection.FindStringExact(Convert.ToString(row.Cells("Status").Value))
+        cbodepartment.Text = Convert.ToString(row.Cells("Department").Value)
+        cboposition.Text = Convert.ToString(row.Cells("Position").Value)
+        cbostatus.SelectedIndex = cbostatus.FindStringExact(Convert.ToString(row.Cells("Status").Value))
     End Sub
 
     Private Sub btnadd_Click(sender As Object, e As EventArgs) Handles btnadd.Click
         If Not ValidateInputs() Then Exit Sub
 
         Dim count As Integer = Convert.ToInt32(ExecScalar("SELECT COUNT(*) FROM tbl_employees WHERE employee_no = @n",
-                                                        New String() {"@n"}, New Object() {txtstudentno.Text.Trim()}))
+                                                        New String() {"@n"}, New Object() {txtemployeeno.Text.Trim()}))
         If count > 0 Then
             MsgBox("An employee with this Employee ID No. already exists.", vbExclamation, "Duplicate Entry")
             Exit Sub
@@ -159,9 +166,9 @@ Public Class frmEmployeeManagement
         If ExecNonQuery(
             "INSERT INTO tbl_employees (employee_no, last_name, first_name, department, job_position, status) VALUES (@n, @ln, @fn, @d, @p, @s)",
             New String() {"@n", "@ln", "@fn", "@d", "@p", "@s"},
-            New Object() {txtstudentno.Text.Trim(), txtlastname.Text.Trim(), txtfirstname.Text.Trim(),
-                          cboGradeLevel.Text.Trim(), cboProgram.Text.Trim(), cboSection.Text}) Then
-            LogActivity("Add Employee", txtstudentno.Text.Trim(), "Added " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+            New Object() {txtemployeeno.Text.Trim(), txtlastname.Text.Trim(), txtfirstname.Text.Trim(),
+                          cbodepartment.Text.Trim(), cboposition.Text.Trim(), cbostatus.Text}) Then
+            LogActivity("Add Employee", txtemployeeno.Text.Trim(), "Added " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
             MsgBox("Employee added successfully.", vbInformation, "Success")
             ClearFields()
             LoadLists()
@@ -179,7 +186,7 @@ Public Class frmEmployeeManagement
         If Not ValidateInputs() Then Exit Sub
 
         Dim count As Integer = Convert.ToInt32(ExecScalar("SELECT COUNT(*) FROM tbl_employees WHERE employee_no = @n AND employee_id <> @id",
-                                                        New String() {"@n", "@id"}, New Object() {txtstudentno.Text.Trim(), selectedEmployeeId}))
+                                                        New String() {"@n", "@id"}, New Object() {txtemployeeno.Text.Trim(), selectedEmployeeId}))
         If count > 0 Then
             MsgBox("Another employee is already using this Employee ID No.", vbExclamation, "Duplicate Entry")
             Exit Sub
@@ -190,9 +197,9 @@ Public Class frmEmployeeManagement
         If ExecNonQuery(
             "UPDATE tbl_employees SET employee_no=@n, last_name=@ln, first_name=@fn, department=@d, job_position=@p, status=@s WHERE employee_id=@id",
             New String() {"@n", "@ln", "@fn", "@d", "@p", "@s", "@id"},
-            New Object() {txtstudentno.Text.Trim(), txtlastname.Text.Trim(), txtfirstname.Text.Trim(),
-                          cboGradeLevel.Text.Trim(), cboProgram.Text.Trim(), cboSection.Text, selectedEmployeeId}) Then
-            LogActivity("Update Employee", txtstudentno.Text.Trim(), "Updated " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+            New Object() {txtemployeeno.Text.Trim(), txtlastname.Text.Trim(), txtfirstname.Text.Trim(),
+                          cbodepartment.Text.Trim(), cboposition.Text.Trim(), cbostatus.Text, selectedEmployeeId}) Then
+            LogActivity("Update Employee", txtemployeeno.Text.Trim(), "Updated " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
             MsgBox("Employee updated successfully.", vbInformation, "Success")
             ClearFields()
             LoadLists()
@@ -210,7 +217,7 @@ Public Class frmEmployeeManagement
         If MsgBox("Are you sure you want to delete this employee record?", vbYesNo + vbQuestion, "Confirm Delete") <> MsgBoxResult.Yes Then Exit Sub
 
         If ExecNonQuery("DELETE FROM tbl_employees WHERE employee_id = @id", New String() {"@id"}, New Object() {selectedEmployeeId}) Then
-            LogActivity("Delete Employee", txtstudentno.Text.Trim(), "Deleted " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
+            LogActivity("Delete Employee", txtemployeeno.Text.Trim(), "Deleted " & txtfirstname.Text.Trim() & " " & txtlastname.Text.Trim())
             MsgBox("Employee record deleted.", vbInformation, "Success")
             ClearFields()
             LoadGrid(txtSearch.Text.Trim())
@@ -224,14 +231,14 @@ Public Class frmEmployeeManagement
 
     Private Sub ClearFields()
         selectedEmployeeId = 0
-        txtstudentno.Clear()
+        txtemployeeno.Text = NextEmployeeNo()
         txtlastname.Clear()
         txtfirstname.Clear()
-        cboGradeLevel.SelectedIndex = -1
-        cboGradeLevel.Text = ""
-        cboProgram.SelectedIndex = -1
-        cboProgram.Text = ""
-        cboSection.SelectedIndex = 0
+        cbodepartment.SelectedIndex = -1
+        cbodepartment.Text = ""
+        cboposition.SelectedIndex = -1
+        cboposition.Text = ""
+        cbostatus.SelectedIndex = 0
         txtSearch.Clear()
         dgvemployee.ClearSelection()
     End Sub

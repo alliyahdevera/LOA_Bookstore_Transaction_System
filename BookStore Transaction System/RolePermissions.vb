@@ -39,41 +39,41 @@
     End Function
 
     Private Function CanAccessAs(roleName As String, moduleName As String) As Boolean
-        ' Block change password access ONLY for the Supervisor role
-        If (IsRole(roleName, ROLE_SUPERVISOR) OrElse IsRole(roleName, "Admin")) AndAlso moduleName = FRM_CHANGEPASSWORD Then
-            Return False
-        End If
+        Dim isSupervisor As Boolean = IsRole(roleName, ROLE_SUPERVISOR) OrElse IsRole(roleName, "Admin")
+
+        ' Change Password: every role EXCEPT the Supervisor (as your team set it)
+        If moduleName = FRM_CHANGEPASSWORD Then Return Not isSupervisor
 
         ' Dashboard is for everyone
         If moduleName = FRM_DASHBOARD Then Return True
 
         ' Supervisor: everything else
-        If IsRole(roleName, ROLE_SUPERVISOR) OrElse IsRole(roleName, "Admin") Then Return True
+        If isSupervisor Then Return True
 
         ' Management: monitoring only (all screens are read-only, see IsViewOnly)
         If IsRole(roleName, ROLE_MANAGEMENT) Then
             Select Case moduleName
-                Case FRM_TRANSACTION, FRM_INVENTORY, FRM_REPORTS, FRM_AUDITLOGS
+                Case FRM_TRANSACTION, FRM_INVENTORY, FRM_REPORTS, FRM_AUDITLOGS, FRM_STUDENTMGMT
                     Return True
                 Case Else
                     Return False
             End Select
         End If
 
-        ' Cashier: sales, payments, student lookup, daily cash report
+        ' Cashier: sales, payments, transaction history, daily cash report (no Student Management)
         If IsRole(roleName, ROLE_CASHIER) Then
             Select Case moduleName
-                Case FRM_POS, FRM_TRANSACTION, FRM_STUDENTMGMT, FRM_REPORTS
+                Case FRM_POS, FRM_TRANSACTION, FRM_REPORTS
                     Return True
                 Case Else
                     Return False
             End Select
         End If
 
-        ' Inventory Staff: receiving, stock records, counts, low-stock monitoring
+        ' Inventory Staff: receiving, stock records, counts, low-stock monitoring (no Student Management)
         If IsRole(roleName, ROLE_INVENTORY_STAFF) Then
             Select Case moduleName
-                Case FRM_INVENTORY, FRM_STUDENTMGMT
+                Case FRM_INVENTORY
                     Return True
                 Case Else
                     Return False

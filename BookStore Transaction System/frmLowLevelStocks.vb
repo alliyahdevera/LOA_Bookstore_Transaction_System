@@ -23,7 +23,7 @@ Public Class frmLowLevelStocks
 
     Private Sub LoadGrid(searchText As String)
         Dim query As String =
-        "SELECT v.product_code, p.product_name, p.product_description, c.category_name, ct.type_name, " &
+        "SELECT v.product_code, p.product_name, c.category_name, ct.type_name, " &
         "v.size, p.unit_price, v.quantity_on_hand, v.reorder_level, " &
         "CASE WHEN v.quantity_on_hand = 0 THEN 'Out of Stock' ELSE 'Low Stock' END AS calc_status " &
         "FROM TBL_PRODUCT_VARIANTS v " &
@@ -40,7 +40,6 @@ Public Class frmLowLevelStocks
         For Each r As DataRow In dt.Rows
             dgvListOfProducts.Rows.Add(
             r("product_code").ToString(), r("product_name").ToString(),
-            If(IsDBNull(r("product_description")), "", r("product_description").ToString()),
             r("category_name").ToString(), r("type_name").ToString(), r("size").ToString(),
             Convert.ToDecimal(r("unit_price")).ToString("N2"), r("quantity_on_hand").ToString(),
             r("reorder_level").ToString(), r("calc_status").ToString())

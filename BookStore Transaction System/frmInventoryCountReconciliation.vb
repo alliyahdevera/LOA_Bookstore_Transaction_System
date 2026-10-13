@@ -110,19 +110,8 @@ Public Class frmInventoryCountReconciliation
             dgvlistproducts.Columns.Insert(position, damagedColumn)
         End If
 
-        If Not dgvlistproducts.Columns.Contains("ProductDescription") Then
-            Dim descriptionColumn As New DataGridViewTextBoxColumn With {
-            .Name = "ProductDescription",
-            .HeaderText = "Description",
-            .Width = 180,
-            .ReadOnly = True,
-            .SortMode = DataGridViewColumnSortMode.NotSortable
-        }
-
-            Dim position As Integer =
-            dgvlistproducts.Columns("ProductName").Index + 1
-
-            dgvlistproducts.Columns.Insert(position, descriptionColumn)
+        If dgvlistproducts.Columns.Contains("ProductDescription") Then
+            dgvlistproducts.Columns.Remove("ProductDescription")
         End If
     End Sub
 
@@ -241,7 +230,7 @@ Public Class frmInventoryCountReconciliation
         Dim typeName As String = If(cboType.SelectedIndex <= 0, "", Convert.ToString(cboType.SelectedItem))
 
         Dim query As String =
-            "SELECT v.variant_id, v.product_code, p.product_name, p.product_description, c.category_name, ct.type_name, v.size, " &
+            "SELECT v.variant_id, v.product_code, p.product_name, c.category_name, ct.type_name, v.size, " &
             "v.quantity_on_hand, d.inventory_count_detail_id, d.system_quantity, d.physical_quantity, " &
             "d.status AS count_status, d.damaged_quantity, d.item_condition, d.remarks, d.adjusted " &
             "FROM tbl_product_variants v " &
@@ -280,7 +269,6 @@ Public Class frmInventoryCountReconciliation
 
                 row.Cells("ProductCode").Value = r("product_code").ToString()
                 row.Cells("ProductName").Value = r("product_name").ToString()
-                row.Cells("ProductDescription").Value = If(IsDBNull(r("product_description")), "", r("product_description").ToString())
                 row.Cells("Category").Value = r("category_name").ToString()
                 row.Cells("TypeofProduct").Value = r("type_name").ToString()
                 row.Cells("Size").Value = r("size").ToString()

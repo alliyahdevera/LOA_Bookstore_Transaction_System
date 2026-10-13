@@ -66,7 +66,6 @@ Partial Class frmTransactionDetails
         Me.btnprint = New System.Windows.Forms.Button()
         Me.btnclose = New System.Windows.Forms.Button()
         Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.btnsearch = New System.Windows.Forms.Button()
         Me.dtpORDate = New System.Windows.Forms.DateTimePicker()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtsize = New System.Windows.Forms.ComboBox()
@@ -115,9 +114,10 @@ Partial Class frmTransactionDetails
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(355, 54)
+        Me.Label7.Location = New System.Drawing.Point(473, 66)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(77, 17)
+        Me.Label7.Size = New System.Drawing.Size(102, 23)
         Me.Label7.TabIndex = 14
         Me.Label7.Text = "Department"
         '
@@ -125,9 +125,10 @@ Partial Class frmTransactionDetails
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(17, 128)
+        Me.Label8.Location = New System.Drawing.Point(23, 158)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(71, 17)
+        Me.Label8.Size = New System.Drawing.Size(93, 23)
         Me.Label8.TabIndex = 13
         Me.Label8.Text = "Buyer Type"
         '
@@ -135,9 +136,10 @@ Partial Class frmTransactionDetails
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(17, 91)
+        Me.Label6.Location = New System.Drawing.Point(23, 112)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(79, 17)
+        Me.Label6.Size = New System.Drawing.Size(104, 23)
         Me.Label6.TabIndex = 12
         Me.Label6.Text = "Buyer Name"
         '
@@ -145,9 +147,10 @@ Partial Class frmTransactionDetails
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(17, 56)
+        Me.Label3.Location = New System.Drawing.Point(23, 69)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(45, 17)
+        Me.Label3.Size = New System.Drawing.Size(59, 23)
         Me.Label3.TabIndex = 11
         Me.Label3.Text = "ID No."
         '
@@ -155,20 +158,22 @@ Partial Class frmTransactionDetails
         '
         Me.txtProgramStrand.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtProgramStrand.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtProgramStrand.Location = New System.Drawing.Point(472, 50)
+        Me.txtProgramStrand.Location = New System.Drawing.Point(629, 62)
+        Me.txtProgramStrand.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtProgramStrand.Name = "txtProgramStrand"
         Me.txtProgramStrand.ReadOnly = True
-        Me.txtProgramStrand.Size = New System.Drawing.Size(207, 25)
+        Me.txtProgramStrand.Size = New System.Drawing.Size(275, 29)
         Me.txtProgramStrand.TabIndex = 3
         '
         'txtStudentName
         '
         Me.txtStudentName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtStudentName.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStudentName.Location = New System.Drawing.Point(143, 87)
+        Me.txtStudentName.Location = New System.Drawing.Point(191, 107)
+        Me.txtStudentName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtStudentName.Name = "txtStudentName"
         Me.txtStudentName.ReadOnly = True
-        Me.txtStudentName.Size = New System.Drawing.Size(186, 25)
+        Me.txtStudentName.Size = New System.Drawing.Size(247, 29)
         Me.txtStudentName.TabIndex = 1
         '
         'Panel4
@@ -193,48 +198,53 @@ Partial Class frmTransactionDetails
         Me.Panel4.Controls.Add(Me.Label3)
         Me.Panel4.Controls.Add(Me.txtProgramStrand)
         Me.Panel4.Controls.Add(Me.txtStudentName)
-        Me.Panel4.Location = New System.Drawing.Point(24, 77)
+        Me.Panel4.Location = New System.Drawing.Point(32, 95)
+        Me.Panel4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(1063, 163)
+        Me.Panel4.Size = New System.Drawing.Size(1417, 200)
         Me.Panel4.TabIndex = 104
         '
         'txttdate
         '
         Me.txttdate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txttdate.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txttdate.Location = New System.Drawing.Point(472, 87)
+        Me.txttdate.Location = New System.Drawing.Point(629, 107)
+        Me.txttdate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txttdate.Name = "txttdate"
         Me.txttdate.ReadOnly = True
-        Me.txttdate.Size = New System.Drawing.Size(207, 25)
+        Me.txttdate.Size = New System.Drawing.Size(275, 29)
         Me.txttdate.TabIndex = 120
         '
         'txtpaymentmethod
         '
         Me.txtpaymentmethod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtpaymentmethod.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtpaymentmethod.Location = New System.Drawing.Point(472, 123)
+        Me.txtpaymentmethod.Location = New System.Drawing.Point(629, 151)
+        Me.txtpaymentmethod.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtpaymentmethod.Name = "txtpaymentmethod"
         Me.txtpaymentmethod.ReadOnly = True
-        Me.txtpaymentmethod.Size = New System.Drawing.Size(207, 25)
+        Me.txtpaymentmethod.Size = New System.Drawing.Size(275, 29)
         Me.txtpaymentmethod.TabIndex = 119
         '
         'txtachange
         '
         Me.txtachange.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtachange.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtachange.Location = New System.Drawing.Point(828, 122)
+        Me.txtachange.Location = New System.Drawing.Point(1104, 150)
+        Me.txtachange.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtachange.Name = "txtachange"
         Me.txtachange.ReadOnly = True
-        Me.txtachange.Size = New System.Drawing.Size(216, 25)
+        Me.txtachange.Size = New System.Drawing.Size(287, 29)
         Me.txtachange.TabIndex = 99
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(700, 123)
+        Me.Label9.Location = New System.Drawing.Point(933, 151)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(101, 17)
+        Me.Label9.Size = New System.Drawing.Size(136, 23)
         Me.Label9.TabIndex = 100
         Me.Label9.Text = "Amount Change"
         '
@@ -242,19 +252,21 @@ Partial Class frmTransactionDetails
         '
         Me.txtareceived.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtareceived.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtareceived.Location = New System.Drawing.Point(828, 85)
+        Me.txtareceived.Location = New System.Drawing.Point(1104, 105)
+        Me.txtareceived.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtareceived.Name = "txtareceived"
         Me.txtareceived.ReadOnly = True
-        Me.txtareceived.Size = New System.Drawing.Size(216, 25)
+        Me.txtareceived.Size = New System.Drawing.Size(287, 29)
         Me.txtareceived.TabIndex = 101
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(700, 87)
+        Me.Label5.Location = New System.Drawing.Point(933, 107)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(109, 17)
+        Me.Label5.Size = New System.Drawing.Size(144, 23)
         Me.Label5.TabIndex = 102
         Me.Label5.Text = "Amount Received"
         '
@@ -262,9 +274,10 @@ Partial Class frmTransactionDetails
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(700, 54)
+        Me.Label1.Location = New System.Drawing.Point(933, 66)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(43, 17)
+        Me.Label1.Size = New System.Drawing.Size(56, 23)
         Me.Label1.TabIndex = 118
         Me.Label1.Text = "Status"
         '
@@ -272,19 +285,21 @@ Partial Class frmTransactionDetails
         '
         Me.txtstatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtstatus.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtstatus.Location = New System.Drawing.Point(828, 52)
+        Me.txtstatus.Location = New System.Drawing.Point(1104, 64)
+        Me.txtstatus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtstatus.Name = "txtstatus"
         Me.txtstatus.ReadOnly = True
-        Me.txtstatus.Size = New System.Drawing.Size(216, 25)
+        Me.txtstatus.Size = New System.Drawing.Size(287, 29)
         Me.txtstatus.TabIndex = 117
         '
         'Label21
         '
         Me.Label21.AutoSize = True
         Me.Label21.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label21.Location = New System.Drawing.Point(354, 126)
+        Me.Label21.Location = New System.Drawing.Point(472, 155)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(107, 17)
+        Me.Label21.Size = New System.Drawing.Size(141, 23)
         Me.Label21.TabIndex = 115
         Me.Label21.Text = "Payment Method"
         '
@@ -292,9 +307,10 @@ Partial Class frmTransactionDetails
         '
         Me.Label24.AutoSize = True
         Me.Label24.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(354, 89)
+        Me.Label24.Location = New System.Drawing.Point(472, 110)
+        Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(105, 17)
+        Me.Label24.Size = New System.Drawing.Size(138, 23)
         Me.Label24.TabIndex = 112
         Me.Label24.Text = "Transaction Date"
         '
@@ -302,20 +318,22 @@ Partial Class frmTransactionDetails
         '
         Me.txtgrade.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtgrade.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtgrade.Location = New System.Drawing.Point(143, 123)
+        Me.txtgrade.Location = New System.Drawing.Point(191, 151)
+        Me.txtgrade.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtgrade.Name = "txtgrade"
         Me.txtgrade.ReadOnly = True
-        Me.txtgrade.Size = New System.Drawing.Size(186, 25)
+        Me.txtgrade.Size = New System.Drawing.Size(247, 29)
         Me.txtgrade.TabIndex = 110
         '
         'btnStudentno
         '
         Me.btnStudentno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.btnStudentno.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnStudentno.Location = New System.Drawing.Point(143, 52)
+        Me.btnStudentno.Location = New System.Drawing.Point(191, 64)
+        Me.btnStudentno.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnStudentno.Name = "btnStudentno"
         Me.btnStudentno.ReadOnly = True
-        Me.btnStudentno.Size = New System.Drawing.Size(186, 25)
+        Me.btnStudentno.Size = New System.Drawing.Size(247, 29)
         Me.btnStudentno.TabIndex = 107
         '
         'Panel9
@@ -324,8 +342,9 @@ Partial Class frmTransactionDetails
         Me.Panel9.Controls.Add(Me.Label20)
         Me.Panel9.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel9.Location = New System.Drawing.Point(0, 0)
+        Me.Panel9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(1061, 35)
+        Me.Panel9.Size = New System.Drawing.Size(1415, 43)
         Me.Panel9.TabIndex = 11
         '
         'Label20
@@ -333,9 +352,10 @@ Partial Class frmTransactionDetails
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label20.ForeColor = System.Drawing.Color.White
-        Me.Label20.Location = New System.Drawing.Point(7, 7)
+        Me.Label20.Location = New System.Drawing.Point(9, 9)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(184, 21)
+        Me.Label20.Size = New System.Drawing.Size(228, 28)
         Me.Label20.TabIndex = 10
         Me.Label20.Text = "Transaction Information"
         '
@@ -343,19 +363,21 @@ Partial Class frmTransactionDetails
         '
         Me.txtorno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtorno.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtorno.Location = New System.Drawing.Point(853, 30)
+        Me.txtorno.Location = New System.Drawing.Point(1137, 37)
+        Me.txtorno.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtorno.Name = "txtorno"
         Me.txtorno.ReadOnly = True
-        Me.txtorno.Size = New System.Drawing.Size(216, 25)
+        Me.txtorno.Size = New System.Drawing.Size(287, 29)
         Me.txtorno.TabIndex = 113
         '
         'Label17
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(786, 34)
+        Me.Label17.Location = New System.Drawing.Point(1048, 42)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(51, 17)
+        Me.Label17.Size = New System.Drawing.Size(65, 23)
         Me.Label17.TabIndex = 114
         Me.Label17.Text = "OR No."
         '
@@ -364,9 +386,10 @@ Partial Class frmTransactionDetails
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label19.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label19.Location = New System.Drawing.Point(10, 45)
+        Me.Label19.Location = New System.Drawing.Point(13, 55)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(90, 21)
+        Me.Label19.Size = New System.Drawing.Size(112, 28)
         Me.Label19.TabIndex = 100
         Me.Label19.Text = "Total Items"
         '
@@ -375,9 +398,10 @@ Partial Class frmTransactionDetails
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label18.Location = New System.Drawing.Point(10, 75)
+        Me.Label18.Location = New System.Drawing.Point(13, 92)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(111, 21)
+        Me.Label18.Size = New System.Drawing.Size(139, 28)
         Me.Label18.TabIndex = 102
         Me.Label18.Text = "Total Quantity"
         '
@@ -386,9 +410,10 @@ Partial Class frmTransactionDetails
         Me.lbltotitem.AutoSize = True
         Me.lbltotitem.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbltotitem.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.lbltotitem.Location = New System.Drawing.Point(129, 45)
+        Me.lbltotitem.Location = New System.Drawing.Point(172, 55)
+        Me.lbltotitem.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbltotitem.Name = "lbltotitem"
-        Me.lbltotitem.Size = New System.Drawing.Size(16, 21)
+        Me.lbltotitem.Size = New System.Drawing.Size(20, 28)
         Me.lbltotitem.TabIndex = 107
         Me.lbltotitem.Text = "-"
         '
@@ -397,9 +422,10 @@ Partial Class frmTransactionDetails
         Me.lbltotquantity.AutoSize = True
         Me.lbltotquantity.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbltotquantity.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.lbltotquantity.Location = New System.Drawing.Point(129, 75)
+        Me.lbltotquantity.Location = New System.Drawing.Point(172, 92)
+        Me.lbltotquantity.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbltotquantity.Name = "lbltotquantity"
-        Me.lbltotquantity.Size = New System.Drawing.Size(16, 21)
+        Me.lbltotquantity.Size = New System.Drawing.Size(20, 28)
         Me.lbltotquantity.TabIndex = 108
         Me.lbltotquantity.Text = "-"
         '
@@ -408,9 +434,10 @@ Partial Class frmTransactionDetails
         Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel7.Controls.Add(Me.dgvCart)
         Me.Panel7.Controls.Add(Me.Panel8)
-        Me.Panel7.Location = New System.Drawing.Point(24, 259)
+        Me.Panel7.Location = New System.Drawing.Point(32, 319)
+        Me.Panel7.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(1063, 215)
+        Me.Panel7.Size = New System.Drawing.Size(1417, 264)
         Me.Panel7.TabIndex = 109
         '
         'dgvCart
@@ -427,46 +454,54 @@ Partial Class frmTransactionDetails
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvCart.DefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvCart.Location = New System.Drawing.Point(-1, 35)
+        Me.dgvCart.Location = New System.Drawing.Point(-1, 43)
+        Me.dgvCart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvCart.Name = "dgvCart"
         Me.dgvCart.ReadOnly = True
         Me.dgvCart.RowHeadersVisible = False
-        Me.dgvCart.Size = New System.Drawing.Size(1063, 179)
+        Me.dgvCart.RowHeadersWidth = 51
+        Me.dgvCart.Size = New System.Drawing.Size(1417, 220)
         Me.dgvCart.TabIndex = 1
         '
         'ProductName
         '
         Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.MinimumWidth = 6
         Me.ProductName.Name = "ProductName"
         Me.ProductName.ReadOnly = True
         '
         'Category
         '
         Me.Category.HeaderText = "Category"
+        Me.Category.MinimumWidth = 6
         Me.Category.Name = "Category"
         Me.Category.ReadOnly = True
         '
         'Size
         '
         Me.Size.HeaderText = "Size"
+        Me.Size.MinimumWidth = 6
         Me.Size.Name = "Size"
         Me.Size.ReadOnly = True
         '
         'Quantity
         '
         Me.Quantity.HeaderText = "Quantity Purchased"
+        Me.Quantity.MinimumWidth = 6
         Me.Quantity.Name = "Quantity"
         Me.Quantity.ReadOnly = True
         '
         'UnitPrice
         '
         Me.UnitPrice.HeaderText = "Unit Price"
+        Me.UnitPrice.MinimumWidth = 6
         Me.UnitPrice.Name = "UnitPrice"
         Me.UnitPrice.ReadOnly = True
         '
         'SubTotal
         '
         Me.SubTotal.HeaderText = "SubTotal"
+        Me.SubTotal.MinimumWidth = 6
         Me.SubTotal.Name = "SubTotal"
         Me.SubTotal.ReadOnly = True
         '
@@ -476,8 +511,9 @@ Partial Class frmTransactionDetails
         Me.Panel8.Controls.Add(Me.Label15)
         Me.Panel8.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel8.Location = New System.Drawing.Point(0, 0)
+        Me.Panel8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(1061, 35)
+        Me.Panel8.Size = New System.Drawing.Size(1415, 43)
         Me.Panel8.TabIndex = 0
         '
         'Label15
@@ -485,9 +521,10 @@ Partial Class frmTransactionDetails
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.Color.White
-        Me.Label15.Location = New System.Drawing.Point(7, 6)
+        Me.Label15.Location = New System.Drawing.Point(9, 7)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(130, 21)
+        Me.Label15.Size = New System.Drawing.Size(163, 28)
         Me.Label15.TabIndex = 9
         Me.Label15.Text = "Items Purchased"
         '
@@ -496,9 +533,10 @@ Partial Class frmTransactionDetails
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label10.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label10.Location = New System.Drawing.Point(21, 43)
+        Me.Label10.Location = New System.Drawing.Point(28, 53)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(267, 15)
+        Me.Label10.Size = New System.Drawing.Size(335, 20)
         Me.Label10.TabIndex = 111
         Me.Label10.Text = "View the complete information of the transaction"
         '
@@ -507,9 +545,10 @@ Partial Class frmTransactionDetails
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label11.Location = New System.Drawing.Point(18, 10)
+        Me.Label11.Location = New System.Drawing.Point(24, 12)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(231, 32)
+        Me.Label11.Size = New System.Drawing.Size(285, 41)
         Me.Label11.TabIndex = 110
         Me.Label11.Text = "Transaction Details"
         '
@@ -518,9 +557,10 @@ Partial Class frmTransactionDetails
         Me.btnreturnexc.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btnreturnexc.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnreturnexc.ForeColor = System.Drawing.Color.White
-        Me.btnreturnexc.Location = New System.Drawing.Point(831, 616)
+        Me.btnreturnexc.Location = New System.Drawing.Point(1108, 758)
+        Me.btnreturnexc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnreturnexc.Name = "btnreturnexc"
-        Me.btnreturnexc.Size = New System.Drawing.Size(256, 40)
+        Me.btnreturnexc.Size = New System.Drawing.Size(341, 49)
         Me.btnreturnexc.TabIndex = 114
         Me.btnreturnexc.Text = "Return / Exchange"
         Me.btnreturnexc.UseVisualStyleBackColor = False
@@ -530,9 +570,10 @@ Partial Class frmTransactionDetails
         Me.btnprint.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btnprint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnprint.ForeColor = System.Drawing.Color.White
-        Me.btnprint.Location = New System.Drawing.Point(831, 664)
+        Me.btnprint.Location = New System.Drawing.Point(1108, 817)
+        Me.btnprint.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnprint.Name = "btnprint"
-        Me.btnprint.Size = New System.Drawing.Size(256, 40)
+        Me.btnprint.Size = New System.Drawing.Size(341, 49)
         Me.btnprint.TabIndex = 112
         Me.btnprint.Text = "Print Receipt"
         Me.btnprint.UseVisualStyleBackColor = False
@@ -542,9 +583,10 @@ Partial Class frmTransactionDetails
         Me.btnclose.BackColor = System.Drawing.Color.SlateGray
         Me.btnclose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnclose.ForeColor = System.Drawing.Color.White
-        Me.btnclose.Location = New System.Drawing.Point(831, 713)
+        Me.btnclose.Location = New System.Drawing.Point(1108, 878)
+        Me.btnclose.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnclose.Name = "btnclose"
-        Me.btnclose.Size = New System.Drawing.Size(256, 40)
+        Me.btnclose.Size = New System.Drawing.Size(341, 49)
         Me.btnclose.TabIndex = 116
         Me.btnclose.Text = "Close"
         Me.btnclose.UseVisualStyleBackColor = False
@@ -552,7 +594,6 @@ Partial Class frmTransactionDetails
         'Panel6
         '
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel6.Controls.Add(Me.btnsearch)
         Me.Panel6.Controls.Add(Me.dtpORDate)
         Me.Panel6.Controls.Add(Me.Label12)
         Me.Panel6.Controls.Add(Me.txtsize)
@@ -564,39 +605,30 @@ Partial Class frmTransactionDetails
         Me.Panel6.Controls.Add(Me.Panel10)
         Me.Panel6.Controls.Add(Me.Label22)
         Me.Panel6.Controls.Add(Me.Label23)
-        Me.Panel6.Location = New System.Drawing.Point(445, 493)
+        Me.Panel6.Location = New System.Drawing.Point(616, 607)
+        Me.Panel6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(351, 260)
+        Me.Panel6.Size = New System.Drawing.Size(467, 320)
         Me.Panel6.TabIndex = 131
-        '
-        'btnsearch
-        '
-        Me.btnsearch.BackColor = System.Drawing.Color.MidnightBlue
-        Me.btnsearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnsearch.ForeColor = System.Drawing.Color.White
-        Me.btnsearch.Location = New System.Drawing.Point(259, 50)
-        Me.btnsearch.Name = "btnsearch"
-        Me.btnsearch.Size = New System.Drawing.Size(69, 25)
-        Me.btnsearch.TabIndex = 134
-        Me.btnsearch.Text = "Search"
-        Me.btnsearch.UseVisualStyleBackColor = False
         '
         'dtpORDate
         '
         Me.dtpORDate.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpORDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpORDate.Location = New System.Drawing.Point(135, 215)
+        Me.dtpORDate.Location = New System.Drawing.Point(180, 265)
+        Me.dtpORDate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dtpORDate.Name = "dtpORDate"
-        Me.dtpORDate.Size = New System.Drawing.Size(193, 27)
+        Me.dtpORDate.Size = New System.Drawing.Size(256, 32)
         Me.dtpORDate.TabIndex = 133
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(15, 222)
+        Me.Label12.Location = New System.Drawing.Point(20, 273)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(35, 17)
+        Me.Label12.Size = New System.Drawing.Size(46, 23)
         Me.Label12.TabIndex = 132
         Me.Label12.Text = "Date"
         '
@@ -604,54 +636,60 @@ Partial Class frmTransactionDetails
         '
         Me.txtsize.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtsize.FormattingEnabled = True
-        Me.txtsize.Location = New System.Drawing.Point(135, 88)
+        Me.txtsize.Location = New System.Drawing.Point(180, 108)
+        Me.txtsize.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtsize.Name = "txtsize"
-        Me.txtsize.Size = New System.Drawing.Size(193, 25)
+        Me.txtsize.Size = New System.Drawing.Size(256, 29)
         Me.txtsize.TabIndex = 131
         '
         'txtProduct
         '
         Me.txtProduct.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtProduct.FormattingEnabled = True
-        Me.txtProduct.Location = New System.Drawing.Point(135, 50)
+        Me.txtProduct.Location = New System.Drawing.Point(180, 62)
+        Me.txtProduct.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtProduct.Name = "txtProduct"
-        Me.txtProduct.Size = New System.Drawing.Size(118, 25)
+        Me.txtProduct.Size = New System.Drawing.Size(257, 29)
         Me.txtProduct.TabIndex = 130
         '
         'txtAvailstock
         '
         Me.txtAvailstock.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtAvailstock.FormattingEnabled = True
-        Me.txtAvailstock.Location = New System.Drawing.Point(135, 129)
+        Me.txtAvailstock.Location = New System.Drawing.Point(180, 159)
+        Me.txtAvailstock.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtAvailstock.Name = "txtAvailstock"
-        Me.txtAvailstock.Size = New System.Drawing.Size(193, 25)
+        Me.txtAvailstock.Size = New System.Drawing.Size(256, 29)
         Me.txtAvailstock.TabIndex = 129
         '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(15, 173)
+        Me.Label13.Location = New System.Drawing.Point(20, 213)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(107, 17)
+        Me.Label13.Size = New System.Drawing.Size(141, 23)
         Me.Label13.TabIndex = 128
         Me.Label13.Text = "Replacement Qty"
         '
         'numupqty
         '
         Me.numupqty.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.numupqty.Location = New System.Drawing.Point(135, 169)
+        Me.numupqty.Location = New System.Drawing.Point(180, 208)
+        Me.numupqty.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.numupqty.Name = "numupqty"
-        Me.numupqty.Size = New System.Drawing.Size(193, 25)
+        Me.numupqty.Size = New System.Drawing.Size(257, 29)
         Me.numupqty.TabIndex = 125
         '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(15, 132)
+        Me.Label14.Location = New System.Drawing.Point(20, 162)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(95, 17)
+        Me.Label14.Size = New System.Drawing.Size(123, 23)
         Me.Label14.TabIndex = 127
         Me.Label14.Text = "Available Stock"
         '
@@ -661,8 +699,9 @@ Partial Class frmTransactionDetails
         Me.Panel10.Controls.Add(Me.Label16)
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel10.Location = New System.Drawing.Point(0, 0)
+        Me.Panel10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(349, 35)
+        Me.Panel10.Size = New System.Drawing.Size(465, 43)
         Me.Panel10.TabIndex = 11
         '
         'Label16
@@ -670,9 +709,10 @@ Partial Class frmTransactionDetails
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label16.ForeColor = System.Drawing.Color.White
-        Me.Label16.Location = New System.Drawing.Point(7, 6)
+        Me.Label16.Location = New System.Drawing.Point(9, 7)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(312, 21)
+        Me.Label16.Size = New System.Drawing.Size(388, 28)
         Me.Label16.TabIndex = 10
         Me.Label16.Text = "Replacement Item (Required if Exchange)"
         '
@@ -680,9 +720,10 @@ Partial Class frmTransactionDetails
         '
         Me.Label22.AutoSize = True
         Me.Label22.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label22.Location = New System.Drawing.Point(15, 91)
+        Me.Label22.Location = New System.Drawing.Point(20, 112)
+        Me.Label22.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(31, 17)
+        Me.Label22.Size = New System.Drawing.Size(40, 23)
         Me.Label22.TabIndex = 126
         Me.Label22.Text = "Size"
         '
@@ -690,9 +731,10 @@ Partial Class frmTransactionDetails
         '
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.Location = New System.Drawing.Point(15, 53)
+        Me.Label23.Location = New System.Drawing.Point(20, 65)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(53, 17)
+        Me.Label23.Size = New System.Drawing.Size(70, 23)
         Me.Label23.TabIndex = 125
         Me.Label23.Text = "Product"
         '
@@ -711,27 +753,30 @@ Partial Class frmTransactionDetails
         Me.Panel11.Controls.Add(Me.rbtnexchange)
         Me.Panel11.Controls.Add(Me.rbtnReturn)
         Me.Panel11.Controls.Add(Me.Panel12)
-        Me.Panel11.Location = New System.Drawing.Point(25, 493)
+        Me.Panel11.Location = New System.Drawing.Point(33, 607)
+        Me.Panel11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(385, 260)
+        Me.Panel11.Size = New System.Drawing.Size(556, 320)
         Me.Panel11.TabIndex = 130
         '
         'cbocondt
         '
         Me.cbocondt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbocondt.FormattingEnabled = True
-        Me.cbocondt.Location = New System.Drawing.Point(126, 177)
+        Me.cbocondt.Location = New System.Drawing.Point(168, 218)
+        Me.cbocondt.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cbocondt.Name = "cbocondt"
-        Me.cbocondt.Size = New System.Drawing.Size(241, 25)
+        Me.cbocondt.Size = New System.Drawing.Size(357, 29)
         Me.cbocondt.TabIndex = 134
         '
         'reason
         '
         Me.reason.AutoSize = True
         Me.reason.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.reason.Location = New System.Drawing.Point(21, 115)
+        Me.reason.Location = New System.Drawing.Point(28, 142)
+        Me.reason.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.reason.Name = "reason"
-        Me.reason.Size = New System.Drawing.Size(51, 17)
+        Me.reason.Size = New System.Drawing.Size(65, 23)
         Me.reason.TabIndex = 124
         Me.reason.Text = "Reason"
         '
@@ -739,9 +784,10 @@ Partial Class frmTransactionDetails
         '
         Me.lblcondition.AutoSize = True
         Me.lblcondition.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblcondition.Location = New System.Drawing.Point(20, 180)
+        Me.lblcondition.Location = New System.Drawing.Point(27, 222)
+        Me.lblcondition.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblcondition.Name = "lblcondition"
-        Me.lblcondition.Size = New System.Drawing.Size(64, 17)
+        Me.lblcondition.Size = New System.Drawing.Size(85, 23)
         Me.lblcondition.TabIndex = 121
         Me.lblcondition.Text = "Condition"
         '
@@ -749,30 +795,33 @@ Partial Class frmTransactionDetails
         '
         Me.txtcreatedby.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtcreatedby.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtcreatedby.Location = New System.Drawing.Point(126, 212)
+        Me.txtcreatedby.Location = New System.Drawing.Point(168, 261)
+        Me.txtcreatedby.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtcreatedby.Name = "txtcreatedby"
         Me.txtcreatedby.ReadOnly = True
-        Me.txtcreatedby.Size = New System.Drawing.Size(241, 25)
+        Me.txtcreatedby.Size = New System.Drawing.Size(358, 29)
         Me.txtcreatedby.TabIndex = 120
         '
         'txtReason
         '
         Me.txtReason.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtReason.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtReason.Location = New System.Drawing.Point(126, 115)
+        Me.txtReason.Location = New System.Drawing.Point(168, 142)
+        Me.txtReason.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtReason.Multiline = True
         Me.txtReason.Name = "txtReason"
         Me.txtReason.ReadOnly = True
-        Me.txtReason.Size = New System.Drawing.Size(241, 48)
+        Me.txtReason.Size = New System.Drawing.Size(358, 59)
         Me.txtReason.TabIndex = 107
         '
         'Label25
         '
         Me.Label25.AutoSize = True
         Me.Label25.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(20, 214)
+        Me.Label25.Location = New System.Drawing.Point(27, 263)
+        Me.Label25.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(85, 17)
+        Me.Label25.Size = New System.Drawing.Size(109, 23)
         Me.Label25.TabIndex = 121
         Me.Label25.Text = "Processed By"
         '
@@ -780,9 +829,10 @@ Partial Class frmTransactionDetails
         '
         Me.lblquantity.AutoSize = True
         Me.lblquantity.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblquantity.Location = New System.Drawing.Point(123, 83)
+        Me.lblquantity.Location = New System.Drawing.Point(164, 102)
+        Me.lblquantity.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblquantity.Name = "lblquantity"
-        Me.lblquantity.Size = New System.Drawing.Size(83, 17)
+        Me.lblquantity.Size = New System.Drawing.Size(115, 23)
         Me.lblquantity.TabIndex = 123
         Me.lblquantity.Text = "---------------"
         '
@@ -790,9 +840,10 @@ Partial Class frmTransactionDetails
         '
         Me.Label26.AutoSize = True
         Me.Label26.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label26.Location = New System.Drawing.Point(21, 83)
+        Me.Label26.Location = New System.Drawing.Point(28, 102)
+        Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(56, 17)
+        Me.Label26.Size = New System.Drawing.Size(76, 23)
         Me.Label26.TabIndex = 121
         Me.Label26.Text = "Quantity"
         '
@@ -800,18 +851,20 @@ Partial Class frmTransactionDetails
         '
         Me.Label27.AutoSize = True
         Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.Location = New System.Drawing.Point(21, 54)
+        Me.Label27.Location = New System.Drawing.Point(28, 66)
+        Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(75, 17)
+        Me.Label27.Size = New System.Drawing.Size(99, 23)
         Me.Label27.TabIndex = 120
         Me.Label27.Text = "Action Type"
         '
         'rbtnexchange
         '
         Me.rbtnexchange.AutoSize = True
-        Me.rbtnexchange.Location = New System.Drawing.Point(239, 54)
+        Me.rbtnexchange.Location = New System.Drawing.Point(319, 66)
+        Me.rbtnexchange.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnexchange.Name = "rbtnexchange"
-        Me.rbtnexchange.Size = New System.Drawing.Size(73, 17)
+        Me.rbtnexchange.Size = New System.Drawing.Size(88, 20)
         Me.rbtnexchange.TabIndex = 104
         Me.rbtnexchange.TabStop = True
         Me.rbtnexchange.Text = "Exchange"
@@ -820,9 +873,10 @@ Partial Class frmTransactionDetails
         'rbtnReturn
         '
         Me.rbtnReturn.AutoSize = True
-        Me.rbtnReturn.Location = New System.Drawing.Point(126, 54)
+        Me.rbtnReturn.Location = New System.Drawing.Point(168, 66)
+        Me.rbtnReturn.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnReturn.Name = "rbtnReturn"
-        Me.rbtnReturn.Size = New System.Drawing.Size(57, 17)
+        Me.rbtnReturn.Size = New System.Drawing.Size(67, 20)
         Me.rbtnReturn.TabIndex = 103
         Me.rbtnReturn.TabStop = True
         Me.rbtnReturn.Text = "Return"
@@ -834,8 +888,9 @@ Partial Class frmTransactionDetails
         Me.Panel12.Controls.Add(Me.Label28)
         Me.Panel12.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel12.Location = New System.Drawing.Point(0, 0)
+        Me.Panel12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(383, 35)
+        Me.Panel12.Size = New System.Drawing.Size(554, 43)
         Me.Panel12.TabIndex = 11
         '
         'Label28
@@ -843,9 +898,10 @@ Partial Class frmTransactionDetails
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label28.ForeColor = System.Drawing.Color.White
-        Me.Label28.Location = New System.Drawing.Point(7, 7)
+        Me.Label28.Location = New System.Drawing.Point(9, 9)
+        Me.Label28.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(196, 21)
+        Me.Label28.Size = New System.Drawing.Size(245, 28)
         Me.Label28.TabIndex = 10
         Me.Label28.Text = "Return / Exchange Details"
         '
@@ -857,9 +913,10 @@ Partial Class frmTransactionDetails
         Me.Panel2.Controls.Add(Me.lbltotitem)
         Me.Panel2.Controls.Add(Me.Label18)
         Me.Panel2.Controls.Add(Me.Label19)
-        Me.Panel2.Location = New System.Drawing.Point(831, 493)
+        Me.Panel2.Location = New System.Drawing.Point(1108, 607)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(255, 109)
+        Me.Panel2.Size = New System.Drawing.Size(339, 134)
         Me.Panel2.TabIndex = 133
         '
         'Panel3
@@ -868,8 +925,9 @@ Partial Class frmTransactionDetails
         Me.Panel3.Controls.Add(Me.Label4)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(253, 36)
+        Me.Panel3.Size = New System.Drawing.Size(337, 44)
         Me.Panel3.TabIndex = 12
         '
         'Label4
@@ -877,9 +935,10 @@ Partial Class frmTransactionDetails
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(7, 6)
+        Me.Label4.Location = New System.Drawing.Point(9, 7)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(144, 21)
+        Me.Label4.Size = New System.Drawing.Size(181, 28)
         Me.Label4.TabIndex = 10
         Me.Label4.Text = "Summary of Items"
         '
@@ -888,18 +947,19 @@ Partial Class frmTransactionDetails
         Me.btnFinanceApproval.BackColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
         Me.btnFinanceApproval.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnFinanceApproval.ForeColor = System.Drawing.Color.White
-        Me.btnFinanceApproval.Location = New System.Drawing.Point(524, 23)
+        Me.btnFinanceApproval.Location = New System.Drawing.Point(699, 28)
+        Me.btnFinanceApproval.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnFinanceApproval.Name = "btnFinanceApproval"
-        Me.btnFinanceApproval.Size = New System.Drawing.Size(256, 40)
+        Me.btnFinanceApproval.Size = New System.Drawing.Size(341, 49)
         Me.btnFinanceApproval.TabIndex = 134
         Me.btnFinanceApproval.Text = "Record Finance Approval"
         Me.btnFinanceApproval.UseVisualStyleBackColor = False
         '
         'frmTransactionDetails
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1108, 776)
+        Me.ClientSize = New System.Drawing.Size(1477, 955)
         Me.Controls.Add(Me.btnFinanceApproval)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel6)
@@ -913,6 +973,7 @@ Partial Class frmTransactionDetails
         Me.Controls.Add(Me.txtorno)
         Me.Controls.Add(Me.Label17)
         Me.Controls.Add(Me.Panel4)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "frmTransactionDetails"
         Me.Text = "frmTransactionDetails"
         Me.Panel4.ResumeLayout(False)
@@ -1009,7 +1070,6 @@ Partial Class frmTransactionDetails
     Friend WithEvents Label28 As Label
     Friend WithEvents txttdate As TextBox
     Friend WithEvents cbocondt As ComboBox
-    Friend WithEvents btnsearch As Button
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Label4 As Label

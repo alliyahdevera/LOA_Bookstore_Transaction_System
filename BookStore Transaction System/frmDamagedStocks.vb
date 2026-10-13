@@ -89,7 +89,7 @@
         Dim typeName As String = If(cbotype.SelectedIndex <= 0, "", Convert.ToString(cbotype.SelectedItem))
 
         Dim query As String =
-            "SELECT v.variant_id, v.product_code, p.product_name, p.product_description, c.category_name, ct.type_name, " &
+            "SELECT v.variant_id, v.product_code, p.product_name, c.category_name, ct.type_name, " &
             "v.size, p.unit_price, n.stock_condition, SUM(n.quantity) AS qty, " &
 "GROUP_CONCAT(DISTINCT n.reason SEPARATOR '; ') AS remarks " &
             "FROM tbl_nonsaleable_stocks n " &
@@ -131,7 +131,6 @@
                 Dim idx As Integer = dgvlistproducts.Rows.Add(
     r(“product_code”).ToString(),
     r("product_name").ToString(),
-    If(IsDBNull(r("product_description")), "", r("product_description").ToString()),
     r("category_name").ToString(),
     r("type_name").ToString(),
     r("size").ToString(),
