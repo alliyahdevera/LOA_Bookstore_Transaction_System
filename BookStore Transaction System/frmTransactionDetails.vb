@@ -47,25 +47,23 @@ Public Class frmTransactionDetails
 
         If txnId <= 0 Then Exit Sub
 
-        Dim reference As String = InputBox(
-        "Enter the reference from the returned finance approval form." &
-        vbCrLf &
-        "Proceed only after checking the approved form.",
-        "Record Finance Approval").Trim()
+        Dim reference As String = ""
+        Do
+            reference = InputBox(
+                "Enter the control number written on the approved Finance form." & vbCrLf &
+                "Format: " & SalaryDeductions.REFERENCE_FORMAT_HINT & vbCrLf &
+                "Proceed only after checking the approved form.",
+                "Record Finance Approval",
+                reference).Trim()
 
-        If reference = "" Then Exit Sub
+            If reference = "" Then Exit Sub
 
-        If MsgBox(
-        "Record finance approval for " & TransactionNo & "?" &
-        vbCrLf &
-        "The deduction will be marked paid through salary deduction." &
-        vbCrLf &
-        "No cash collection will be recorded.",
-        vbYesNo + vbQuestion + vbDefaultButton2,
-        "Confirm Finance Approval"
-    ) <> MsgBoxResult.Yes Then
-            Exit Sub
-        End If
+            reference = SalaryDeductions.NormalizeReference(reference)
+            If SalaryDeductions.IsValidReference(reference) Then Exit Do
+
+            MsgBox("Invalid reference. Use the format " & SalaryDeductions.REFERENCE_FORMAT_HINT & ".",
+                   vbExclamation, "Finance Approval")
+        Loop
 
         Try
             SalaryDeductions.RecordFinanceApproval(txnId, reference)

@@ -438,7 +438,7 @@ Partial Class frmTransactionHistory
         '
         'TransactionNo
         '
-        Me.TransactionNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.TransactionNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.TransactionNo.HeaderText = "Transaction No."
         Me.TransactionNo.Name = "TransactionNo"
         Me.TransactionNo.ReadOnly = True

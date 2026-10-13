@@ -2,12 +2,23 @@
 Imports System.Drawing
 Imports System.Drawing.Printing
 Imports System.Windows.Forms
+Imports System.Text.RegularExpressions
 Imports MySql.Data.MySqlClient
 
 Public Module SalaryDeductions
 
     Public Const METHOD As String = "Salary Deduction"
     Public Const PENDING_STATUS As String = "Pending Finance"
+    Public Const REFERENCE_FORMAT_HINT As String = "FA-YYYY-NNNN (example: FA-2026-0001)"
+    ' change this one line if you want a different format
+    Private Const REFERENCE_PATTERN As String = "^FA-\d{4}-\d{4}$"
+    Public Function NormalizeReference(reference As String) As String
+        Return If(reference, "").Trim().ToUpperInvariant()
+    End Function
+
+    Public Function IsValidReference(reference As String) As Boolean
+        Return Regex.IsMatch(NormalizeReference(reference), REFERENCE_PATTERN)
+    End Function
 
     Public Function VerifyEmployeeAndCart(
         connection As MySqlConnection,
@@ -126,13 +137,11 @@ Public Module SalaryDeductions
         transactionId As Integer,
         approvalReference As String)
 
-        approvalReference = If(approvalReference, "").Trim()
+        approvalReference = NormalizeReference(approvalReference)
 
-        If approvalReference.Length = 0 OrElse
-            approvalReference.Length > 100 Then
-
+        If Not IsValidReference(approvalReference) Then
             Throw New InvalidOperationException(
-                "Enter a finance approval reference of 1 to 100 characters.")
+        "The reference must follow the format " & REFERENCE_FORMAT_HINT & ".")
         End If
 
         Using connection As MySqlConnection = NewConnection()
@@ -199,7 +208,19 @@ Public Module SalaryDeductions
                         "Only a pending finance deduction request " &
                         "can be approved.")
                 End If
+                Using dupCommand As New MySqlCommand(
+                "SELECT COUNT(*) FROM tbl_transactions " &
+                "WHERE finance_approval_reference = @reference",
+                connection,
+                transaction)
 
+                    dupCommand.Parameters.AddWithValue("@reference", approvalReference)
+
+                    If Convert.ToInt32(dupCommand.ExecuteScalar()) > 0 Then
+                        Throw New InvalidOperationException(
+                        "This Finance reference was already used for another transaction.")
+                    End If
+                End Using
                 Using command As New MySqlCommand(
                     "UPDATE tbl_transactions " &
                     "SET finance_approval_reference = @reference, " &
