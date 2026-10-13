@@ -43,18 +43,6 @@ Partial Class frmReleasing
         Me.lblposition = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.dgvstockinhistory = New System.Windows.Forms.DataGridView()
-        Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ORNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IDNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PickUpdate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.InStock = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ReleasedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ReleasedTo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.btngenerate = New System.Windows.Forms.Button()
@@ -66,6 +54,17 @@ Partial Class frmReleasing
         Me.Label14 = New System.Windows.Forms.Label()
         Me.txtSearch = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TransactionNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ORNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BuyerName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IDNumber = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Quantity = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.InStock = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ReleasedBy = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ReleasedTo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel13.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -284,7 +283,7 @@ Partial Class frmReleasing
         '
         Me.dgvstockinhistory.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvstockinhistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvstockinhistory.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.ORNo, Me.BuyerName, Me.IDNumber, Me.ProductCode, Me.ProductName, Me.Quantity, Me.PickUpdate, Me.InStock, Me.Status, Me.ReleasedBy, Me.ReleasedTo})
+        Me.dgvstockinhistory.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.TransactionNo, Me.ORNo, Me.BuyerName, Me.IDNumber, Me.ProductCode, Me.ProductName, Me.Quantity, Me.InStock, Me.Status, Me.ReleasedBy, Me.ReleasedTo})
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -300,79 +299,6 @@ Partial Class frmReleasing
         Me.dgvstockinhistory.RowHeadersVisible = False
         Me.dgvstockinhistory.Size = New System.Drawing.Size(1169, 573)
         Me.dgvstockinhistory.TabIndex = 1
-        '
-        'TransactionNo
-        '
-        Me.TransactionNo.HeaderText = "Transaction No."
-        Me.TransactionNo.Name = "TransactionNo"
-        Me.TransactionNo.ReadOnly = True
-        Me.TransactionNo.Width = 110
-        '
-        'ORNo
-        '
-        Me.ORNo.HeaderText = "OR No."
-        Me.ORNo.Name = "ORNo"
-        Me.ORNo.ReadOnly = True
-        '
-        'BuyerName
-        '
-        Me.BuyerName.HeaderText = "Buyer Name"
-        Me.BuyerName.Name = "BuyerName"
-        Me.BuyerName.ReadOnly = True
-        '
-        'IDNumber
-        '
-        Me.IDNumber.HeaderText = "ID No."
-        Me.IDNumber.Name = "IDNumber"
-        Me.IDNumber.ReadOnly = True
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        Me.ProductCode.ReadOnly = True
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        Me.ProductName.ReadOnly = True
-        '
-        'Quantity
-        '
-        Me.Quantity.HeaderText = "Quantity"
-        Me.Quantity.Name = "Quantity"
-        Me.Quantity.ReadOnly = True
-        '
-        'PickUpdate
-        '
-        Me.PickUpdate.HeaderText = "PickUp Date"
-        Me.PickUpdate.Name = "PickUpdate"
-        Me.PickUpdate.ReadOnly = True
-        '
-        'InStock
-        '
-        Me.InStock.HeaderText = "In Stock"
-        Me.InStock.Name = "InStock"
-        Me.InStock.ReadOnly = True
-        '
-        'Status
-        '
-        Me.Status.HeaderText = "Status"
-        Me.Status.Name = "Status"
-        Me.Status.ReadOnly = True
-        '
-        'ReleasedBy
-        '
-        Me.ReleasedBy.HeaderText = "Released By"
-        Me.ReleasedBy.Name = "ReleasedBy"
-        Me.ReleasedBy.ReadOnly = True
-        '
-        'ReleasedTo
-        '
-        Me.ReleasedTo.HeaderText = "Released To"
-        Me.ReleasedTo.Name = "ReleasedTo"
-        Me.ReleasedTo.ReadOnly = True
         '
         'Panel6
         '
@@ -480,6 +406,75 @@ Partial Class frmReleasing
         Me.TextBox1.Size = New System.Drawing.Size(100, 20)
         Me.TextBox1.TabIndex = 183
         '
+        'TransactionNo
+        '
+        Me.TransactionNo.HeaderText = "Transaction No."
+        Me.TransactionNo.Name = "TransactionNo"
+        Me.TransactionNo.ReadOnly = True
+        Me.TransactionNo.Width = 110
+        '
+        'ORNo
+        '
+        Me.ORNo.HeaderText = "OR No."
+        Me.ORNo.Name = "ORNo"
+        Me.ORNo.ReadOnly = True
+        '
+        'BuyerName
+        '
+        Me.BuyerName.HeaderText = "Buyer Name"
+        Me.BuyerName.Name = "BuyerName"
+        Me.BuyerName.ReadOnly = True
+        Me.BuyerName.Width = 150
+        '
+        'IDNumber
+        '
+        Me.IDNumber.HeaderText = "ID No."
+        Me.IDNumber.Name = "IDNumber"
+        Me.IDNumber.ReadOnly = True
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        Me.ProductCode.ReadOnly = True
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        Me.ProductName.ReadOnly = True
+        Me.ProductName.Width = 105
+        '
+        'Quantity
+        '
+        Me.Quantity.HeaderText = "Quantity"
+        Me.Quantity.Name = "Quantity"
+        Me.Quantity.ReadOnly = True
+        '
+        'InStock
+        '
+        Me.InStock.HeaderText = "In Stock"
+        Me.InStock.Name = "InStock"
+        Me.InStock.ReadOnly = True
+        '
+        'Status
+        '
+        Me.Status.HeaderText = "Status"
+        Me.Status.Name = "Status"
+        Me.Status.ReadOnly = True
+        '
+        'ReleasedBy
+        '
+        Me.ReleasedBy.HeaderText = "Released By"
+        Me.ReleasedBy.Name = "ReleasedBy"
+        Me.ReleasedBy.ReadOnly = True
+        '
+        'ReleasedTo
+        '
+        Me.ReleasedTo.HeaderText = "Released To"
+        Me.ReleasedTo.Name = "ReleasedTo"
+        Me.ReleasedTo.ReadOnly = True
+        '
         'frmReleasing
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -556,7 +551,6 @@ Partial Class frmReleasing
     Friend WithEvents ProductCode As DataGridViewTextBoxColumn
     Friend WithEvents ProductName As DataGridViewTextBoxColumn
     Friend WithEvents Quantity As DataGridViewTextBoxColumn
-    Friend WithEvents PickUpdate As DataGridViewTextBoxColumn
     Friend WithEvents InStock As DataGridViewTextBoxColumn
     Friend WithEvents Status As DataGridViewTextBoxColumn
     Friend WithEvents ReleasedBy As DataGridViewTextBoxColumn

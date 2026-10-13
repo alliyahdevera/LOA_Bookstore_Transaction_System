@@ -140,5 +140,11 @@ Public Class frmInventoryDiscrepancies
             lbloutofstocks.Text = Convert.ToInt32(s.Rows(0)("excess_units")).ToString("N0")
         End If
     End Sub
-
+    Private Sub btnexportexcel_Click(sender As Object, e As EventArgs) Handles btnexportexcel.Click
+        If dgvlistproducts.Rows.Count = 0 Then
+            MsgBox("There is nothing to export.", vbInformation, "Export to Excel")
+            Exit Sub
+        End If
+        ExportGridToCsv(dgvlistproducts, "InventoryDiscrepancies")
+    End Sub
 End Class

@@ -58,10 +58,21 @@ Public Class frmEmployeeManagement
         Next
     End Sub
 
+    Private ReadOnly DepartmentList As String() = {
+    "CCS", "COE", "CBA", "CAS", "COED", "CTHM", "COA", "CCJ", "CCA",
+    "Accounting", "Registrar", "Library", "Guidance", "HR", "Bookstore"
+}
+
     Private Sub LoadLists()
         cboGradeLevel.Items.Clear()
+        cboGradeLevel.Items.AddRange(DepartmentList)
+
+        ' keep any department already saved in the database that is not in the list above
         Dim d As DataTable = GetDataTable("SELECT DISTINCT department FROM tbl_employees WHERE department IS NOT NULL AND department <> '' ORDER BY department")
-        For Each r As DataRow In d.Rows : cboGradeLevel.Items.Add(r("department").ToString()) : Next
+        For Each r As DataRow In d.Rows
+            Dim dept As String = r("department").ToString()
+            If Not cboGradeLevel.Items.Contains(dept) Then cboGradeLevel.Items.Add(dept)
+        Next
 
         cboProgram.Items.Clear()
         Dim p As DataTable = GetDataTable("SELECT DISTINCT job_position FROM tbl_employees WHERE job_position IS NOT NULL AND job_position <> '' ORDER BY job_position")
@@ -224,5 +235,4 @@ Public Class frmEmployeeManagement
         txtSearch.Clear()
         dgvemployee.ClearSelection()
     End Sub
-
 End Class

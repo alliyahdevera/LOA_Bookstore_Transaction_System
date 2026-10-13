@@ -19,7 +19,7 @@ Public Class frmReleasing
             .AutoGenerateColumns = False
             .AllowUserToAddRows = False
             .AllowUserToDeleteRows = False
-            .ReadOnly = True
+            .ReadOnly = RolePermissions.IsViewOnly()
             .MultiSelect = True
             .SelectionMode = DataGridViewSelectionMode.FullRowSelect
         End With
@@ -30,12 +30,13 @@ Public Class frmReleasing
         BindCol("ProductCode", "product_code")
         BindCol("ProductName", "item_name")
         BindCol("Quantity", "qty_n")
-        BindCol("PickUpdate", "pickup_date")
         BindCol("InStock", "in_stock")
         BindCol("Status", "rel_status")
         BindCol("ReleasedBy", "released_by_name")
         BindCol("ReleasedTo", "received_by")
-        dgvstockinhistory.Columns("PickUpdate").DefaultCellStyle.Format = "MMM d, yyyy"
+        For Each col As DataGridViewColumn In dgvstockinhistory.Columns
+            col.ReadOnly = Not (col.Name = "ORNo" OrElse col.Name = "ReleasedTo")
+        Next
 
         cbocategory.DropDownStyle = ComboBoxStyle.DropDownList
         cbocategory.Items.Clear()
@@ -162,18 +163,46 @@ Public Class frmReleasing
 
         Label3.Text = pg.TotalRows.ToString("N0")
     End Sub
-
-    ' overdue pick-up = red, already released = grey
     Private Sub dgvstockinhistory_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles dgvstockinhistory.DataBindingComplete
         For Each row As DataGridViewRow In dgvstockinhistory.Rows
             Dim d As DataRowView = TryCast(row.DataBoundItem, DataRowView)
             If d Is Nothing Then Continue For
-            Dim st As String = d("rel_status").ToString()
-            Dim overdue As Boolean = st <> ST_RELEASED AndAlso Not IsDBNull(d("pickup_date")) AndAlso
-                                     Convert.ToDateTime(d("pickup_date")).Date < Date.Today
-            row.DefaultCellStyle.ForeColor = If(st = ST_RELEASED, Color.Gray, If(overdue, Color.Firebrick, Color.Black))
+            row.DefaultCellStyle.ForeColor = If(d("rel_status").ToString() = ST_RELEASED, Color.Gray, Color.Black)
         Next
         dgvstockinhistory.ClearSelection()
+    End Sub
+    Private Sub dgvstockinhistory_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgvstockinhistory.CellEndEdit
+        If isLoading OrElse e.RowIndex < 0 Then Exit Sub
+        Dim colName As String = dgvstockinhistory.Columns(e.ColumnIndex).Name
+        If colName <> "ORNo" AndAlso colName <> "ReleasedTo" Then Exit Sub
+
+        Dim d As DataRowView = TryCast(dgvstockinhistory.Rows(e.RowIndex).DataBoundItem, DataRowView)
+        If d Is Nothing Then Exit Sub
+
+        Dim newValue As String = Convert.ToString(dgvstockinhistory.Rows(e.RowIndex).Cells(e.ColumnIndex).Value).Trim()
+        Dim isReleased As Boolean = d("rel_status").ToString() = ST_RELEASED
+
+        If colName = "ORNo" Then
+            If isReleased Then
+                MsgBox("This order is already completed. The OR No. can no longer be changed.", vbExclamation, "Releasing")
+            ElseIf newValue.Length > 30 OrElse newValue.Any(Function(ch) Char.IsControl(ch)) Then
+                MsgBox("The OR number must be 1 to 30 printable characters.", vbExclamation, "Releasing")
+            Else
+                ExecNonQuery("UPDATE tbl_transactions SET or_no = NULLIF(@v, '') WHERE transaction_id = @id",
+                         New String() {"@v", "@id"},
+                         New Object() {newValue, Convert.ToInt32(d("transaction_id"))})
+            End If
+        Else
+            If newValue.Length > 100 Then
+                MsgBox("Released To must not exceed 100 characters.", vbExclamation, "Releasing")
+            Else
+                ExecNonQuery("UPDATE tbl_transaction_items SET received_by = NULLIF(@v, '') WHERE transaction_item_id = @id",
+                         New String() {"@v", "@id"},
+                         New Object() {newValue, Convert.ToInt32(d("transaction_item_id"))})
+            End If
+        End If
+
+        BeginInvoke(Sub() LoadRows())
     End Sub
 
     Private Function SelectedItems() As List(Of DataRowView)
