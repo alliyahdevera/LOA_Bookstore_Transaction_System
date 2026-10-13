@@ -27,7 +27,6 @@ Public Class frmRemittance
 
         cbocashier.DropDownStyle = ComboBoxStyle.DropDownList
 
-        dgvsalesreport.Columns("Difference").Visible = False
         dgvsalesreport.AllowUserToAddRows = False
         dgvsalesreport.AllowUserToDeleteRows = False
         dgvsalesreport.MultiSelect = False
@@ -140,7 +139,7 @@ Public Class frmRemittance
                 row.Cells("CashierStaff").Value = r("cashier").ToString()
                 row.Cells("TotalSales").Value = Peso & Convert.ToDecimal(r("total_sales")).ToString("N2")
                 row.Cells("CashCollected").Value = Peso & Convert.ToDecimal(r("actual_cash")).ToString("N2")
-                row.Cells("Difference").Value = Peso & Convert.ToDecimal(r("salary_deduction")).ToString("N2")
+
                 row.Cells("TotalRemittance").Value = Peso & Convert.ToDecimal(r("cash_sales")).ToString("N2")
                 row.Cells("ORARRange").Value = Txt(r, "or_from") & " - " & Txt(r, "or_to")
                 row.Cells("AmtAccounting").Value = Peso & Convert.ToDecimal(r("remittance_amount")).ToString("N2")

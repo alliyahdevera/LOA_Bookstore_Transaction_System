@@ -770,13 +770,13 @@ Public Class frmPOS
                 End If
                 Dim transactionId As Long = 0
                 Dim insTxn As String =
-    "INSERT INTO tbl_transactions " &
-    "(transaction_no, buyer_type, student_id, id_number, " &
-    "buyer_name, or_no, or_date, payment_method, employee_name, " &
-    "total_amount, amount_paid, amount_change, created_by, " &
-    "status, salary_employee_id) " &
-    "VALUES (@tno, @bt, @sid, @idn, @bn, @orno, @ord, " &
-    "@pm, @emp, @tot, @paid, @chg, @by, @status, @salaryEmployeeId)"
+                "INSERT INTO tbl_transactions " &
+                "(transaction_no, buyer_type, student_id, id_number, " &
+                "buyer_name, or_no, or_date, payment_method, employee_name, " &
+                "total_amount, amount_paid, amount_change, created_by, " &
+                "status, salary_employee_id) " &
+                "VALUES (@tno, @bt, @sid, @idn, @bn, @orno, @ord, " &
+                "@pm, @emp, @tot, @paid, @chg, @by, @status, @salaryEmployeeId)"
 
                 Using c1 As New MySqlCommand(insTxn, cn, trans)
                     c1.Parameters.AddWithValue("@tno", txnNo)
@@ -784,9 +784,7 @@ Public Class frmPOS
                     c1.Parameters.AddWithValue("@sid", studentId)
                     c1.Parameters.AddWithValue("@idn", idNumber)
                     c1.Parameters.AddWithValue("@bn", buyerName)
-                    c1.Parameters.AddWithValue(
-    "@orno",
-    If(isSalary, "", txtReferenceNo.Text.Trim()))
+                    c1.Parameters.AddWithValue("@orno", If(isSalary, CType(DBNull.Value, Object), CType(txtReferenceNo.Text.Trim(), Object)))
                     c1.Parameters.AddWithValue("@ord", paymentDate.Date)
                     c1.Parameters.AddWithValue("@pm", method)
                     c1.Parameters.AddWithValue("@emp", empName)
@@ -795,14 +793,14 @@ Public Class frmPOS
                     c1.Parameters.AddWithValue("@chg", change)
                     c1.Parameters.AddWithValue("@by", currentuser.UserID)
                     c1.Parameters.AddWithValue(
-    "@status",
-    If(isSalary,
-       SalaryDeductions.PENDING_STATUS,
-       "Completed"))
+                    "@status",
+                    If(isSalary,
+                       SalaryDeductions.PENDING_STATUS,
+                       "Completed"))
 
                     c1.Parameters.AddWithValue(
-    "@salaryEmployeeId",
-    salaryEmployeeId)
+                    "@salaryEmployeeId",
+                    salaryEmployeeId)
                     c1.ExecuteNonQuery()
                     transactionId = c1.LastInsertedId
                 End Using
@@ -812,22 +810,25 @@ Public Class frmPOS
                     Dim subtotal As Decimal = Convert.ToDecimal(row.Cells("SubTotal").Value)
                     Dim qty As Integer = Convert.ToInt32(row.Cells("Quantity").Value)
                     Dim isBack As Boolean = backorders.ContainsKey(variantId)
+                    ' pick-up items and salary-deduction items are held; they are released later
+                    Dim hold As Boolean = isBack OrElse isSalary
 
                     Using c2 As New MySqlCommand(
-                        "INSERT INTO TBL_TRANSACTION_ITEMS (transaction_id, variant_id, quantity, subtotal, is_backorder, pickup_date, released_at, released_by, received_by) " &
-                        "VALUES (@t, @v, @q, @s, @bo, @pd, IF(@bo = 1, NULL, NOW()), IF(@bo = 1, NULL, @by), IF(@bo = 1, NULL, @rb))", cn, trans)
+                    "INSERT INTO TBL_TRANSACTION_ITEMS (transaction_id, variant_id, quantity, subtotal, is_backorder, pickup_date, released_at, released_by, received_by) " &
+                    "VALUES (@t, @v, @q, @s, @bo, @pd, IF(@hold = 1, NULL, NOW()), IF(@hold = 1, NULL, @by), IF(@hold = 1, NULL, @rb))", cn, trans)
                         c2.Parameters.AddWithValue("@t", transactionId)
                         c2.Parameters.AddWithValue("@v", variantId)
                         c2.Parameters.AddWithValue("@q", qty)
                         c2.Parameters.AddWithValue("@s", subtotal)
                         c2.Parameters.AddWithValue("@bo", If(isBack, 1, 0))
+                        c2.Parameters.AddWithValue("@hold", If(hold, 1, 0))
                         c2.Parameters.AddWithValue("@pd", If(isBack, CType(backorders(variantId), Object), DBNull.Value))
                         c2.Parameters.AddWithValue("@by", currentuser.UserID)
                         c2.Parameters.AddWithValue("@rb", buyerName)
                         c2.ExecuteNonQuery()
                     End Using
 
-                    If Not isBack Then
+                    If Not hold Then
                         Using c3 As New MySqlCommand("UPDATE TBL_PRODUCT_VARIANTS SET quantity_on_hand = quantity_on_hand - @q WHERE variant_id = @v AND quantity_on_hand >= @q", cn, trans)
                             c3.Parameters.AddWithValue("@q", qty)
                             c3.Parameters.AddWithValue("@v", variantId)
@@ -845,31 +846,31 @@ Public Class frmPOS
 
                 trans.Commit()
                 LogActivity(
-    If(isSalary, "Salary Deduction Request", "Sale"),
-    txnNo,
-    "Transaction for " & buyerName &
-    ". Total: " & total.ToString("N2") &
-    ". Method: " & method &
-    If(isSalary,
-       ". Pending finance approval; no cash collected.",
-       ". OR: " & txtReferenceNo.Text.Trim()) &
-    ". Items: " & String.Join(", ", itemParts))
+                If(isSalary, "Salary Deduction Request", "Sale"),
+                txnNo,
+                "Transaction for " & buyerName &
+                ". Total: " & total.ToString("N2") &
+                ". Method: " & method &
+                If(isSalary,
+                   ". Pending finance approval; no cash collected.",
+                   ". OR: " & txtReferenceNo.Text.Trim()) &
+                ". Items: " & String.Join(", ", itemParts))
                 If isSalary Then
                     Try
-                        SalaryDeductions.PrintSlip(
-            Convert.ToInt32(transactionId),
-            Me)
+                        SalaryDeductions.PrintSlip(Convert.ToInt32(transactionId), Me)
                     Catch printError As Exception
-                        MsgBox(
-            "The deduction request was saved, but the slip " &
-            "could not be opened: " & printError.Message &
-            vbCrLf &
-            "Open Transaction Details to print it again.",
-            vbExclamation,
-            "Salary Deduction Slip")
+                        MsgBox("The deduction request was saved, but the slip could not be opened: " &
+               printError.Message & vbCrLf & "Open Transaction Details to print it again.",
+               vbExclamation, "Salary Deduction Slip")
                     End Try
+                    MsgBox("The salary deduction request was saved." & vbCrLf & vbCrLf &
+                   "A slip has been printed for the Finance Department. DO NOT hand over the items yet." & vbCrLf &
+                   "After Finance approves, the supervisor records the approval, and the items " &
+                   "will appear in Releasing.",
+                   vbInformation, "Salary Deduction Slip")
+                Else
+                    MsgBox("Transaction saved successfully!", vbInformation, "Point of Sale")
                 End If
-                MsgBox("Transaction saved successfully!", vbInformation, "Point of Sale")
                 backorders.Clear()
                 ResetAll()
 

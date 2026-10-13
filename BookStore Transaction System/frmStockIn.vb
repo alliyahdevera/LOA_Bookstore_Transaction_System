@@ -56,7 +56,7 @@ Public Class frmStockIn
 
     Private Sub LoadProducts()
         Dim query As String =
-        "SELECT v.variant_id, v.product_code, p.product_name, p.product_description, " &
+        "SELECT v.variant_id, v.product_code, p.product_name, " &
         "c.category_name, ct.type_name, p.unit_price, v.quantity_on_hand, v.reorder_level, " &
         "CASE WHEN v.quantity_on_hand = 0 THEN 'Out of Stock' WHEN v.quantity_on_hand <= v.reorder_level THEN 'Low Stock' ELSE 'In Stock' END AS calc_status " &
         "FROM TBL_PRODUCT_VARIANTS v " &

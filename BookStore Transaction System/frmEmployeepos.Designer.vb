@@ -101,9 +101,9 @@ Partial Class frmEmployeepos
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(18, 18)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(90, 17)
+        Me.Label3.Size = New System.Drawing.Size(106, 17)
         Me.Label3.TabIndex = 136
-        Me.Label3.Text = "Employee No."
+        Me.Label3.Text = "Employee ID No."
         '
         'txtProgramStrand
         '

@@ -40,7 +40,7 @@ Public Class frmEmployeepos
             Return False
         End If
         If Not Regex.IsMatch(no, "^[A-Za-z0-9-]{3,20}$") Then
-            message = "Employee number may only contain letters, numbers and dashes."
+            message = "Employee ID No. may only contain letters, numbers and dashes."
             Return False
         End If
         If foundId = 0 OrElse Not String.Equals(no, foundNo, StringComparison.OrdinalIgnoreCase) Then

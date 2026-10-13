@@ -109,6 +109,7 @@ Public Class frmReleasing
         "SELECT t.transaction_id, ti.transaction_item_id, " &
         "ti.variant_id, ti.quantity AS qty_n, " &
         "t.transaction_no, t.or_no, t.buyer_name, t.id_number, " &
+        "t.payment_method, t.status AS txn_status, " &
         "v.product_code, c.category_name, " &
         "CONCAT(p.product_name, " &
         "IF(v.size IS NULL OR v.size IN ('', 'N/A'), '', " &
@@ -116,7 +117,9 @@ Public Class frmReleasing
         "ti.pickup_date, v.quantity_on_hand AS in_stock, " &
         "CASE " &
         "WHEN ti.released_at IS NOT NULL THEN 'Completed' " &
-        "WHEN NULLIF(TRIM(t.or_no), '') IS NULL " &
+        "WHEN t.payment_method = 'Salary Deduction' AND t.status = 'Pending Finance' " &
+        "THEN 'Waiting for Finance' " &
+        "WHEN t.payment_method <> 'Salary Deduction' AND NULLIF(TRIM(t.or_no), '') IS NULL " &
         "THEN 'Waiting for OR No.' " &
         "WHEN v.quantity_on_hand < ti.quantity " &
         "THEN 'Waiting for stock' " &
@@ -134,8 +137,8 @@ Public Class frmReleasing
         "INNER JOIN tbl_categories c " &
         "ON ct.category_id = c.category_id " &
         "LEFT JOIN tbl_users u ON ti.released_by = u.user_id " &
-        "WHERE c.category_name = 'Modules' " &
-        "AND t.payment_method = @method " &
+        "WHERE ((c.category_name = 'Modules' AND t.payment_method = @method) " &
+        "OR t.payment_method = 'Salary Deduction') " &
         "AND t.status <> 'Cancelled' " &
         "AND t.created_at >= @dateFrom " &
         "AND t.created_at < @dateTo" &
@@ -257,53 +260,50 @@ Public Class frmReleasing
             End If
         Next
 
-        Dim orNumber As String = InputBox(
-        "Enter the OR number from the school cashier." &
-        vbCrLf &
+        Dim isSalary As Boolean = items(0)("payment_method").ToString() = SalaryDeductions.METHOD
+
+        If isSalary Then
+            For Each item As DataRowView In items
+                If item("rel_status").ToString() = "Waiting for Finance" Then
+                    MsgBox("This salary deduction request is still waiting for Finance approval." & vbCrLf &
+                   "Record the approval in Transaction Details first.",
+                   vbExclamation, "Release")
+                    Exit Sub
+                End If
+            Next
+        End If
+
+        Dim orNumber As String = ""
+        If Not isSalary Then
+            orNumber = InputBox(
+        "Enter the OR number from the school cashier." & vbCrLf &
         "Check it against the customer's receipt.",
         "School Cashier OR",
         items(0)("or_no").ToString()).Trim()
 
-        If orNumber = "" Then Exit Sub
+            If orNumber = "" Then Exit Sub
 
-        If orNumber.Length > 30 OrElse
-        orNumber.Any(Function(character) Char.IsControl(character)) Then
-
-            MsgBox(
-            "The OR number must contain 1 to 30 printable characters.",
-            vbExclamation,
-            "Module Release")
-            Exit Sub
+            If orNumber.Length > 30 OrElse orNumber.Any(Function(character) Char.IsControl(character)) Then
+                MsgBox("The OR number must contain 1 to 30 printable characters.", vbExclamation, "Release")
+                Exit Sub
+            End If
         End If
 
         Dim receiver As String = InputBox(
-        "Who is receiving the modules?",
-        "Module Receiver",
-        items(0)("buyer_name").ToString()).Trim()
+        "Who is receiving the items?", "Receiver", items(0)("buyer_name").ToString()).Trim()
 
         If receiver = "" Then Exit Sub
 
         If receiver.Length > 100 Then
-            MsgBox(
-            "Receiver name must not exceed 100 characters.",
-            vbExclamation,
-            "Module Release")
+            MsgBox("Receiver name must not exceed 100 characters.", vbExclamation, "Release")
             Exit Sub
         End If
 
         If MsgBox(
-        "Record OR No. " & orNumber &
-        " and release ALL remaining modules in transaction " &
-        items(0)("transaction_no").ToString() &
-        " to " & receiver & "?" &
-        vbCrLf & vbCrLf &
-        "Stock will decrease. No bookstore cash payment " &
-        "will be recorded.",
-        vbYesNo + vbQuestion + vbDefaultButton2,
-        "Confirm Module Release"
-    ) <> MsgBoxResult.Yes Then
-            Exit Sub
-        End If
+        If(isSalary, "Release ALL remaining items in transaction ", "Record OR No. " & orNumber & " and release ALL remaining modules in transaction ") &
+        items(0)("transaction_no").ToString() & " to " & receiver & "?" & vbCrLf & vbCrLf &
+        "Stock will decrease. No bookstore cash payment will be recorded.",
+        vbYesNo + vbQuestion + vbDefaultButton2, "Confirm Release") <> MsgBoxResult.Yes Then Exit Sub
 
         Try
             ReleaseModuleOrder(transactionId, orNumber, receiver)
@@ -357,18 +357,19 @@ Public Class frmReleasing
 
                 Dim order As DataRow = header.Rows(0)
                 transactionNo = order("transaction_no").ToString()
+                Dim isSalary As Boolean = order("payment_method").ToString() = SalaryDeductions.METHOD
 
-                If order("payment_method").ToString() <>
-                ModuleOrders.PAYMENT_METHOD OrElse
-                order("status").ToString() = "Cancelled" Then
+                If (order("payment_method").ToString() <> ModuleOrders.PAYMENT_METHOD AndAlso Not isSalary) OrElse
+               order("status").ToString() = "Cancelled" OrElse
+               (isSalary AndAlso order("status").ToString() <> "Completed") Then
 
                     Throw New InvalidOperationException(
-                    "This transaction cannot be released as a module order.")
+                 "This transaction cannot be released yet. Salary deduction orders need recorded Finance approval.")
                 End If
 
                 Dim existingOR As String = order("or_no").ToString().Trim()
 
-                If existingOR <> "" AndAlso
+                If Not isSalary AndAlso existingOR <> "" AndAlso
                 Not String.Equals(
                     existingOR,
                     orNumber,
@@ -412,7 +413,7 @@ Public Class frmReleasing
                 Dim releaseCount As Integer = 0
 
                 For Each item As DataRow In details.Rows
-                    If item("category_name").ToString() <> "Modules" Then
+                    If Not isSalary AndAlso item("category_name").ToString() <> "Modules" Then
                         Throw New InvalidOperationException(
                         "This order contains a non-module product.")
                     End If
@@ -511,9 +512,10 @@ Public Class frmReleasing
                         command.Parameters.AddWithValue(
                         "@reference", transactionNo)
                         command.Parameters.AddWithValue(
-                        "@remarks",
-                        "Module released to " & receiver &
-                        "; school cashier OR " & orNumber)
+                "@remarks",
+                If(isSalary,
+                   "Released to " & receiver & " after Finance approval (salary deduction)",
+                   "Module released to " & receiver & "; school cashier OR " & orNumber))
                         command.Parameters.AddWithValue(
                         "@userId", currentuser.UserID)
 
@@ -530,7 +532,7 @@ Public Class frmReleasing
 
                 Using command As New MySqlCommand(
                 "UPDATE tbl_transactions " &
-                "SET or_no = @orNumber, status = 'Completed' " &
+                "SET or_no = IF(@orNumber = '', or_no, @orNumber), status = 'Completed' " &
                 "WHERE transaction_id = @id",
                 connection,
                 transaction)
@@ -544,12 +546,15 @@ Public Class frmReleasing
             End Using
         End Using
 
+        Dim isSalaryOrder As Boolean = String.IsNullOrEmpty(orNumber)
+
         LogActivity(
-        "Module Release",
+        "Release",
         transactionNo,
-        "Modules released to " & receiver &
-        ". School cashier OR: " & orNumber &
-        ". No bookstore cash collected.")
+        "Items released to " & receiver &
+        If(isSalaryOrder,
+           ". Salary deduction approved by Finance.",
+       ". School cashier OR: " & orNumber & ". No bookstore cash collected."))
     End Sub
 
     ' ==================== PRINT SLIP ====================
@@ -582,6 +587,16 @@ Public Class frmReleasing
                 Exit Sub
             End If
         Next
+
+        If items(0)("payment_method").ToString() = SalaryDeductions.METHOD Then
+            Try
+                SalaryDeductions.PrintSlip(transactionId, Me)
+            Catch ex As Exception
+                MsgBox("Could not open the deduction slip: " & ex.Message,
+                       vbCritical, "Salary Deduction Slip")
+            End Try
+            Exit Sub
+        End If
 
         Try
             ModuleOrders.PrintPaymentSlip(transactionId, Me)

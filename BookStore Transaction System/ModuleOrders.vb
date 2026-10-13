@@ -164,7 +164,7 @@ Public Module ModuleOrders
                     "total_amount, amount_paid, amount_change, " &
                     "created_by, status) " &
                     "VALUES (@number, @type, @studentId, @idNumber, " &
-                    "@buyerName, '', CURDATE(), @method, @total, " &
+                    "@buyerName, NULL, CURDATE(), @method, @total, " &
                     "0, 0, @userId, @status)",
                     connection,
                     transaction)
