@@ -22,7 +22,7 @@ Partial Class frmTransactionDetails
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -446,14 +446,14 @@ Partial Class frmTransactionDetails
         Me.dgvCart.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvCart.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ProductName, Me.Category, Me.Size, Me.Quantity, Me.UnitPrice, Me.SubTotal})
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvCart.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvCart.DefaultCellStyle = DataGridViewCellStyle3
         Me.dgvCart.Location = New System.Drawing.Point(-1, 43)
         Me.dgvCart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvCart.Name = "dgvCart"
@@ -605,7 +605,7 @@ Partial Class frmTransactionDetails
         Me.Panel6.Controls.Add(Me.Panel10)
         Me.Panel6.Controls.Add(Me.Label22)
         Me.Panel6.Controls.Add(Me.Label23)
-        Me.Panel6.Location = New System.Drawing.Point(616, 607)
+        Me.Panel6.Location = New System.Drawing.Point(625, 607)
         Me.Panel6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(467, 320)
@@ -756,14 +756,14 @@ Partial Class frmTransactionDetails
         Me.Panel11.Location = New System.Drawing.Point(33, 607)
         Me.Panel11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(556, 320)
+        Me.Panel11.Size = New System.Drawing.Size(575, 320)
         Me.Panel11.TabIndex = 130
         '
         'cbocondt
         '
         Me.cbocondt.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbocondt.FormattingEnabled = True
-        Me.cbocondt.Location = New System.Drawing.Point(168, 218)
+        Me.cbocondt.Location = New System.Drawing.Point(131, 226)
         Me.cbocondt.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cbocondt.Name = "cbocondt"
         Me.cbocondt.Size = New System.Drawing.Size(357, 29)
@@ -773,7 +773,7 @@ Partial Class frmTransactionDetails
         '
         Me.reason.AutoSize = True
         Me.reason.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.reason.Location = New System.Drawing.Point(28, 142)
+        Me.reason.Location = New System.Drawing.Point(12, 147)
         Me.reason.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.reason.Name = "reason"
         Me.reason.Size = New System.Drawing.Size(65, 23)
@@ -784,7 +784,7 @@ Partial Class frmTransactionDetails
         '
         Me.lblcondition.AutoSize = True
         Me.lblcondition.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblcondition.Location = New System.Drawing.Point(27, 222)
+        Me.lblcondition.Location = New System.Drawing.Point(11, 230)
         Me.lblcondition.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblcondition.Name = "lblcondition"
         Me.lblcondition.Size = New System.Drawing.Size(85, 23)
@@ -795,7 +795,7 @@ Partial Class frmTransactionDetails
         '
         Me.txtcreatedby.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtcreatedby.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtcreatedby.Location = New System.Drawing.Point(168, 261)
+        Me.txtcreatedby.Location = New System.Drawing.Point(131, 273)
         Me.txtcreatedby.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtcreatedby.Name = "txtcreatedby"
         Me.txtcreatedby.ReadOnly = True
@@ -806,7 +806,7 @@ Partial Class frmTransactionDetails
         '
         Me.txtReason.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtReason.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtReason.Location = New System.Drawing.Point(168, 142)
+        Me.txtReason.Location = New System.Drawing.Point(131, 147)
         Me.txtReason.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtReason.Multiline = True
         Me.txtReason.Name = "txtReason"
@@ -818,7 +818,7 @@ Partial Class frmTransactionDetails
         '
         Me.Label25.AutoSize = True
         Me.Label25.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(27, 263)
+        Me.Label25.Location = New System.Drawing.Point(11, 275)
         Me.Label25.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(109, 23)
@@ -829,7 +829,7 @@ Partial Class frmTransactionDetails
         '
         Me.lblquantity.AutoSize = True
         Me.lblquantity.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblquantity.Location = New System.Drawing.Point(164, 102)
+        Me.lblquantity.Location = New System.Drawing.Point(127, 104)
         Me.lblquantity.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblquantity.Name = "lblquantity"
         Me.lblquantity.Size = New System.Drawing.Size(115, 23)
@@ -840,7 +840,7 @@ Partial Class frmTransactionDetails
         '
         Me.Label26.AutoSize = True
         Me.Label26.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label26.Location = New System.Drawing.Point(28, 102)
+        Me.Label26.Location = New System.Drawing.Point(12, 104)
         Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(76, 23)
@@ -851,7 +851,7 @@ Partial Class frmTransactionDetails
         '
         Me.Label27.AutoSize = True
         Me.Label27.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.Location = New System.Drawing.Point(28, 66)
+        Me.Label27.Location = New System.Drawing.Point(12, 64)
         Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(99, 23)
@@ -861,7 +861,7 @@ Partial Class frmTransactionDetails
         'rbtnexchange
         '
         Me.rbtnexchange.AutoSize = True
-        Me.rbtnexchange.Location = New System.Drawing.Point(319, 66)
+        Me.rbtnexchange.Location = New System.Drawing.Point(282, 64)
         Me.rbtnexchange.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnexchange.Name = "rbtnexchange"
         Me.rbtnexchange.Size = New System.Drawing.Size(88, 20)
@@ -873,7 +873,7 @@ Partial Class frmTransactionDetails
         'rbtnReturn
         '
         Me.rbtnReturn.AutoSize = True
-        Me.rbtnReturn.Location = New System.Drawing.Point(168, 66)
+        Me.rbtnReturn.Location = New System.Drawing.Point(131, 64)
         Me.rbtnReturn.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.rbtnReturn.Name = "rbtnReturn"
         Me.rbtnReturn.Size = New System.Drawing.Size(67, 20)
@@ -890,7 +890,7 @@ Partial Class frmTransactionDetails
         Me.Panel12.Location = New System.Drawing.Point(0, 0)
         Me.Panel12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Panel12.Name = "Panel12"
-        Me.Panel12.Size = New System.Drawing.Size(554, 43)
+        Me.Panel12.Size = New System.Drawing.Size(573, 43)
         Me.Panel12.TabIndex = 11
         '
         'Label28

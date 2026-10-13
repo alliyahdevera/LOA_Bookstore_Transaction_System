@@ -70,7 +70,7 @@ Public Class frmReleasing
     End Sub
 
     ' ==================== FILTERS ====================
-    Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtsearch.TextChanged
+    Private Sub txtsearch_TextChanged(sender As Object, e As EventArgs) Handles txtSearch.TextChanged
         If isLoading Then Exit Sub
         tmrSearch.Stop()
         tmrSearch.Start()
@@ -188,12 +188,18 @@ Public Class frmReleasing
         If colName = "ORNo" Then
             If isReleased Then
                 MsgBox("This order is already completed. The OR No. can no longer be changed.", vbExclamation, "Releasing")
-            ElseIf newValue.Length > 30 OrElse newValue.Any(Function(ch) Char.IsControl(ch)) Then
-                MsgBox("The OR number must be 1 to 30 printable characters.", vbExclamation, "Releasing")
             Else
-                ExecNonQuery("UPDATE tbl_transactions SET or_no = NULLIF(@v, '') WHERE transaction_id = @id",
-                         New String() {"@v", "@id"},
-                         New Object() {newValue, Convert.ToInt32(d("transaction_id"))})
+                Dim formatted As String = ""
+                If newValue <> "" Then formatted = NormalizeOrNo(newValue)
+                If newValue <> "" AndAlso formatted = "" Then
+                    MsgBox("The OR number must be in the format OR-123456 (OR- followed by 6 digits).", vbExclamation, "Releasing")
+                ElseIf formatted <> "" AndAlso OrNoExists(formatted, Convert.ToInt32(d("transaction_id"))) Then
+                    MsgBox("OR No. " & formatted & " is already used by another transaction.", vbExclamation, "Duplicate OR No.")
+                Else
+                    ExecNonQuery("UPDATE tbl_transactions SET or_no = NULLIF(@v, '') WHERE transaction_id = @id",
+                             New String() {"@v", "@id"},
+                             New Object() {formatted, Convert.ToInt32(d("transaction_id"))})
+                End If
             End If
         Else
             If newValue.Length > 100 Then
@@ -283,10 +289,16 @@ Public Class frmReleasing
 
             If orNumber = "" Then Exit Sub
 
-            If orNumber.Length > 30 OrElse orNumber.Any(Function(character) Char.IsControl(character)) Then
-                MsgBox("The OR number must contain 1 to 30 printable characters.", vbExclamation, "Release")
+            Dim formattedOR As String = NormalizeOrNo(orNumber)
+            If formattedOR = "" Then
+                MsgBox("The OR number must be in the format OR-123456 (OR- followed by 6 digits).", vbExclamation, "Release")
                 Exit Sub
             End If
+            If OrNoExists(formattedOR, transactionId) Then
+                MsgBox("OR No. " & formattedOR & " is already used by another transaction.", vbExclamation, "Duplicate OR No.")
+                Exit Sub
+            End If
+            orNumber = formattedOR
         End If
 
         Dim receiver As String = InputBox(
@@ -321,6 +333,21 @@ Public Class frmReleasing
             "Module Release")
         End Try
     End Sub
+    ' OR numbers are OR- followed by exactly 6 digits. Accepts "123456" or "OR-123456"; returns "" if invalid.
+    Private Function NormalizeOrNo(input As String) As String
+        Dim s As String = If(input, "").Trim()
+        If s.StartsWith("OR-", StringComparison.OrdinalIgnoreCase) Then s = s.Substring(3)
+        If s.Length = 6 AndAlso s.All(Function(ch) ch >= "0"c AndAlso ch <= "9"c) Then Return "OR-" & s
+        Return ""
+    End Function
+
+    Private Function OrNoExists(orNo As String, transactionId As Integer) As Boolean
+        Dim n As Object = ExecScalar(
+            "SELECT COUNT(*) FROM tbl_transactions WHERE or_no = @o AND transaction_id <> @id",
+            New String() {"@o", "@id"}, New Object() {orNo, transactionId})
+        Return n IsNot Nothing AndAlso Not IsDBNull(n) AndAlso Convert.ToInt32(n) > 0
+    End Function
+
     Private Sub ReleaseModuleOrder(
     transactionId As Integer,
     orNumber As String,
@@ -368,6 +395,18 @@ Public Class frmReleasing
                 End If
 
                 Dim existingOR As String = order("or_no").ToString().Trim()
+
+                If Not isSalary Then
+                    Using dup As New MySqlCommand(
+                    "SELECT COUNT(*) FROM tbl_transactions WHERE or_no = @o AND transaction_id <> @id",
+                    connection, transaction)
+                        dup.Parameters.AddWithValue("@o", orNumber)
+                        dup.Parameters.AddWithValue("@id", transactionId)
+                        If Convert.ToInt32(dup.ExecuteScalar()) > 0 Then
+                            Throw New InvalidOperationException("OR No. " & orNumber & " is already used by another transaction.")
+                        End If
+                    End Using
+                End If
 
                 If Not isSalary AndAlso existingOR <> "" AndAlso
                 Not String.Equals(
