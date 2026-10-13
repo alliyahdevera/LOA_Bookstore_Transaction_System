@@ -307,132 +307,198 @@ Public Module SalaryDeductions
                 "This deduction request was cancelled.")
         End If
 
-        Dim lines As New List(Of String) From {
-            "LOA BOOKSTORE",
-            "SALARY DEDUCTION SLIP",
-            "",
-            "Transaction: " & first("transaction_no").ToString(),
-            "Employee: " & first("buyer_name").ToString(),
-            "Employee ID No.: " & first("id_number").ToString(),
-            "Status: " & first("status").ToString(),
-            ""
-        }
+        Dim isPending As Boolean = first("status").ToString() = PENDING_STATUS
+
+        Dim itemNames As New List(Of String)
+        Dim itemAmounts As New List(Of Decimal)
 
         For Each item As DataRow In records.Rows
-            Dim itemName As String = item("product_name").ToString()
+            Dim itemName As String =
+                item("quantity").ToString() & " x " & item("product_name").ToString()
             Dim itemSize As String = item("size").ToString()
 
             If itemSize <> "" AndAlso itemSize <> "N/A" Then
                 itemName &= " (" & itemSize & ")"
             End If
 
-            lines.Add(item("quantity").ToString() & " x " & itemName)
-            lines.Add(
-                "    PHP " &
-                Convert.ToDecimal(item("subtotal")).ToString("N2"))
+            itemNames.Add(itemName)
+            itemAmounts.Add(Convert.ToDecimal(item("subtotal")))
         Next
 
-        lines.Add("")
-        lines.Add(
-            "Deduction amount: PHP " &
-            Convert.ToDecimal(first("total_amount")).ToString("N2"))
-        lines.Add("Cash collected by bookstore: PHP 0.00")
+        Dim txnNo As String = first("transaction_no").ToString()
+        Dim employeeName As String = first("buyer_name").ToString()
+        Dim employeeId As String = first("id_number").ToString()
+        Dim total As Decimal = Convert.ToDecimal(first("total_amount"))
+        Dim reference As String = first("finance_approval_reference").ToString()
+        Dim logo As Image = LoadSlipLogo()   ' do not dispose: shared with the Login form
 
-        If first("status").ToString() = PENDING_STATUS Then
-            lines.Add("")
-            lines.Add("PENDING FINANCE APPROVAL - NOT PAID")
-            lines.Add("Submit this slip to the Finance Department.")
-            lines.Add("Return the approved form to the supervisor.")
-        Else
-            lines.Add(
-                "Finance reference: " &
-                first("finance_approval_reference").ToString())
-        End If
+        ' 80 mm roll slip. Paper size is in hundredths of an inch (315 = 3.15 in).
+        Const SLIP_WIDTH As Integer = 315
+        Dim slipHeight As Integer = 540 + (itemNames.Count * 34)
 
         Using document As New PrintDocument(),
-            font As New Font("Consolas", 10)
+              fTitle As New Font("Segoe UI", 11, FontStyle.Bold),
+              fBold As New Font("Segoe UI", 8, FontStyle.Bold),
+              fBody As New Font("Segoe UI", 8),
+              fSmall As New Font("Segoe UI", 7),
+              dashPen As New Pen(Color.Black) With {
+                  .DashStyle = System.Drawing.Drawing2D.DashStyle.Dash
+              }
 
-            document.DefaultPageSettings.Margins =
-                New Margins(40, 40, 40, 40)
-
-            Dim wrappedLines As New List(Of String)
-            Dim nextLine As Integer = 0
-
-            AddHandler document.BeginPrint,
-                Sub(sender, args)
-                    nextLine = 0
-                    wrappedLines.Clear()
-                End Sub
+            document.DefaultPageSettings.PaperSize =
+                New PaperSize("Salary Deduction Slip", SLIP_WIDTH, slipHeight)
+            document.DefaultPageSettings.Margins = New Margins(12, 12, 12, 12)
 
             AddHandler document.PrintPage,
                 Sub(sender, args)
-                    If wrappedLines.Count = 0 Then
-                        For Each line As String In lines
-                            Dim remaining As String = line
+                    Dim g As Graphics = args.Graphics
+                    Dim x0 As Single = 12
+                    Dim x1 As Single = SLIP_WIDTH - 12
+                    Dim w As Single = x1 - x0
+                    Dim y As Single = 12
 
-                            If remaining = "" Then
-                                wrappedLines.Add("")
-                                Continue For
-                            End If
+                    Dim centered As New StringFormat With {.Alignment = StringAlignment.Center}
+                    Dim farRight As New StringFormat With {.Alignment = StringAlignment.Far}
 
-                            While remaining.Length > 0
-                                Dim length As Integer = remaining.Length
+                    Dim separator As Action =
+                        Sub()
+                            y += 3
+                            g.DrawLine(dashPen, x0, y, x1, y)
+                            y += 6
+                        End Sub
 
-                                While length > 1 AndAlso
-                                    args.Graphics.MeasureString(
-                                        remaining.Substring(0, length),
-                                        font).Width >
-                                    args.MarginBounds.Width
+                    Dim row As Action(Of String, String) =
+                        Sub(label As String, value As String)
+                            g.DrawString(label, fBody, Brushes.Black, x0, y)
+                            g.DrawString(value, fBold, Brushes.Black,
+                                         New RectangleF(x0 + 70, y, w - 70, 16), farRight)
+                            y += 15
+                        End Sub
 
-                                    length -= 1
-                                End While
-
-                                If length < remaining.Length Then
-                                    Dim space As Integer =
-                                        remaining.LastIndexOf(
-                                            " "c, length - 1)
-
-                                    If space > 0 Then length = space
-                                End If
-
-                                wrappedLines.Add(
-                                    remaining.Substring(0, length).
-                                        TrimEnd())
-
-                                remaining =
-                                    remaining.Substring(length).TrimStart()
-                            End While
-                        Next
+                    ' ---- header ----
+                    If logo IsNot Nothing Then
+                        Dim logoSize As Single = 58
+                        g.DrawImage(logo, x0 + (w - logoSize) / 2, y, logoSize, logoSize)
+                        y += logoSize + 4
                     End If
 
-                    Dim height As Single =
-                        font.GetHeight(args.Graphics) + 4
+                    g.DrawString("LYCEUM OF ALABANG", fTitle, Brushes.Black,
+                                 New RectangleF(x0, y, w, 20), centered)
+                    y += 19
+                    g.DrawString("BOOKSTORE", fBold, Brushes.Black,
+                                 New RectangleF(x0, y, w, 14), centered)
+                    y += 15
+                    g.DrawString("SALARY DEDUCTION SLIP", fBold, Brushes.Black,
+                                 New RectangleF(x0, y, w, 14), centered)
+                    y += 16
+                    separator()
 
-                    Dim y As Single = args.MarginBounds.Top
+                    ' ---- details ----
+                    row("Transaction:", txnNo)
+                    row("Employee:", employeeName)
+                    row("Employee ID No.:", employeeId)
+                    row("Date:", Date.Now.ToString("MMM dd, yyyy  h:mm tt"))
+                    separator()
 
-                    While nextLine < wrappedLines.Count AndAlso
-                        y + height <= args.MarginBounds.Bottom
+                    ' ---- items ----
+                    For i As Integer = 0 To itemNames.Count - 1
+                        Dim nameBox As New RectangleF(x0, y, w - 62, 60)
+                        Dim size As SizeF = g.MeasureString(itemNames(i), fBody, CInt(nameBox.Width))
 
-                        args.Graphics.DrawString(
-                            wrappedLines(nextLine),
-                            font,
-                            Brushes.Black,
-                            args.MarginBounds.Left,
-                            y)
+                        g.DrawString(itemNames(i), fBody, Brushes.Black, nameBox)
+                        g.DrawString("PHP " & itemAmounts(i).ToString("N2"), fBody, Brushes.Black,
+                                     New RectangleF(x1 - 62, y, 62, 16), farRight)
+                        y += Math.Max(size.Height, 14) + 3
+                    Next
+                    separator()
 
-                        nextLine += 1
-                        y += height
-                    End While
+                    ' ---- totals ----
+                    g.DrawString("DEDUCTION AMOUNT", fBold, Brushes.Black, x0, y)
+                    g.DrawString("PHP " & total.ToString("N2"), fBold, Brushes.Black,
+                                 New RectangleF(x0 + 70, y, w - 70, 16), farRight)
+                    y += 16
+                    g.DrawString("Cash collected by bookstore", fSmall, Brushes.Black, x0, y)
+                    g.DrawString("PHP 0.00", fSmall, Brushes.Black,
+                                 New RectangleF(x0 + 70, y, w - 70, 14), farRight)
+                    y += 18
 
-                    args.HasMorePages = nextLine < wrappedLines.Count
+                    ' ---- status box ----
+                    Dim boxHeight As Single = 34
+                    g.DrawRectangle(Pens.Black, x0, y, w, boxHeight)
+
+                    If isPending Then
+                        g.DrawString("PENDING FINANCE APPROVAL", fBold, Brushes.Black,
+                                     New RectangleF(x0, y + 5, w, 14), centered)
+                        g.DrawString("NOT YET PAID", fBody, Brushes.Black,
+                                     New RectangleF(x0, y + 18, w, 14), centered)
+                    Else
+                        g.DrawString("APPROVED BY FINANCE", fBold, Brushes.Black,
+                                     New RectangleF(x0, y + 5, w, 14), centered)
+                        g.DrawString("Ref: " & reference, fBody, Brushes.Black,
+                                     New RectangleF(x0, y + 18, w, 14), centered)
+                    End If
+                    y += boxHeight + 10
+
+                    ' ---- finance section (blank lines to be filled in by Finance) ----
+                    If isPending Then
+                        g.DrawString("FOR FINANCE USE", fBold, Brushes.Black, x0, y)
+                        y += 20
+
+                        g.DrawString("Control No.:  FA-____-______", fBody, Brushes.Black, x0, y)
+                        y += 22
+
+                        g.DrawString("Approved by: ", fBody, Brushes.Black, x0, y)
+                        g.DrawLine(Pens.Black, x0 + 62, y + 12, x1, y + 12)
+                        y += 22
+
+                        g.DrawString("Date: ", fBody, Brushes.Black, x0, y)
+                        g.DrawLine(Pens.Black, x0 + 30, y + 12, x1, y + 12)
+                        y += 20
+                        separator()
+
+                        g.DrawString(
+                            "1. Submit this slip to the Finance Department." & vbCrLf &
+                            "2. Return the approved form to the bookstore supervisor." & vbCrLf &
+                            "3. Items are released only after approval.",
+                            fSmall, Brushes.Black, New RectangleF(x0, y, w, 50))
+                        y += 46
+                    End If
+
+                    g.DrawString("Thank you!", fSmall, Brushes.Black,
+                                 New RectangleF(x0, y, w, 12), centered)
+
+                    args.HasMorePages = False
                 End Sub
 
             Using preview As New PrintPreviewDialog()
                 preview.Document = document
-                preview.WindowState = FormWindowState.Maximized
+                preview.UseAntiAlias = True
+                preview.StartPosition = FormStartPosition.CenterParent
+                preview.Width = 520
+                preview.Height = 760
+                preview.PrintPreviewControl.Zoom = 1.4
                 preview.ShowDialog(owner)
             End Using
         End Using
     End Sub
+
+    ' loads the school logo from the picture on the Login form
+    Public Function LoadSlipLogo() As Image
+        Try
+            Dim resources As New System.ComponentModel.ComponentResourceManager(GetType(Login))
+            Dim picture As Image = TryCast(resources.GetObject("Logo.BackgroundImage"), Image)
+            If picture IsNot Nothing Then Return picture
+        Catch
+        End Try
+
+        ' fallback: a logo.png placed next to the .exe
+        Try
+            Dim path As String = System.IO.Path.Combine(Application.StartupPath, "logo.png")
+            If System.IO.File.Exists(path) Then Return Image.FromFile(path)
+        Catch
+        End Try
+
+        Return Nothing
+    End Function
 
 End Module

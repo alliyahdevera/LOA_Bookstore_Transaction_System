@@ -267,131 +267,161 @@ Public Module ModuleOrders
                 "A cancelled order cannot have a payment slip.")
         End If
 
-        Dim lines As New List(Of String) From {
-            "LOA BOOKSTORE",
-            "MODULE PAYMENT SLIP",
-            "",
-            "Transaction: " &
-                result.Rows(0)("transaction_no").ToString(),
-            "Buyer: " & result.Rows(0)("buyer_name").ToString(),
-            "ID No.: " &
-                If(String.IsNullOrWhiteSpace(
-                       result.Rows(0)("id_number").ToString()),
-                   "N/A",
-                   result.Rows(0)("id_number").ToString()),
-            "",
-            "Present this slip to the school cashier.",
-            "This slip is not proof of payment or release.",
-            ""
-        }
+        Dim itemNames As New List(Of String)
+        Dim itemAmounts As New List(Of Decimal)
 
         For Each row As DataRow In result.Rows
-            Dim itemName As String = row("product_name").ToString()
+            Dim itemName As String =
+                row("quantity").ToString() & " x " & row("product_name").ToString()
             Dim itemSize As String = row("size").ToString()
 
             If itemSize <> "" AndAlso itemSize <> "N/A" Then
                 itemName &= " (" & itemSize & ")"
             End If
 
-            lines.Add(row("quantity").ToString() & " x " & itemName)
-            lines.Add(
-                "    Amount: PHP " &
-                Convert.ToDecimal(row("subtotal")).ToString("N2"))
+            itemNames.Add(itemName)
+            itemAmounts.Add(Convert.ToDecimal(row("subtotal")))
         Next
 
-        lines.Add("")
-        lines.Add(
-            "TOTAL: PHP " &
-            Convert.ToDecimal(
-                result.Rows(0)("total_amount")).ToString("N2"))
-        lines.Add("")
-        lines.Add("Return with the school cashier's receipt or OR No.")
-        lines.Add("Modules are released after the OR is recorded.")
+        Dim txnNo As String = result.Rows(0)("transaction_no").ToString()
+        Dim buyerName As String = result.Rows(0)("buyer_name").ToString()
+        Dim idNo As String =
+            If(String.IsNullOrWhiteSpace(result.Rows(0)("id_number").ToString()),
+               "N/A",
+               result.Rows(0)("id_number").ToString())
+        Dim total As Decimal = Convert.ToDecimal(result.Rows(0)("total_amount"))
+        Dim logo As Image = SalaryDeductions.LoadSlipLogo()   ' do not dispose: shared with the Login form
+
+        ' 80 mm roll slip. Paper size is in hundredths of an inch (315 = 3.15 in).
+        Const SLIP_WIDTH As Integer = 315
+        Dim slipHeight As Integer = 500 + (itemNames.Count * 34)
 
         Using document As New PrintDocument(),
-            bodyFont As New Font("Consolas", 10)
+              fTitle As New Font("Segoe UI", 11, FontStyle.Bold),
+              fBold As New Font("Segoe UI", 8, FontStyle.Bold),
+              fBody As New Font("Segoe UI", 8),
+              fSmall As New Font("Segoe UI", 7),
+              dashPen As New Pen(Color.Black) With {
+                  .DashStyle = System.Drawing.Drawing2D.DashStyle.Dash
+              }
 
-            document.DefaultPageSettings.Margins =
-                New Margins(40, 40, 40, 40)
-
-            Dim printableLines As New List(Of String)
-            Dim nextLine As Integer = 0
-
-            AddHandler document.BeginPrint,
-                Sub(sender, args)
-                    nextLine = 0
-                    printableLines.Clear()
-                End Sub
+            document.DefaultPageSettings.PaperSize =
+                New PaperSize("Module Payment Slip", SLIP_WIDTH, slipHeight)
+            document.DefaultPageSettings.Margins = New Margins(12, 12, 12, 12)
 
             AddHandler document.PrintPage,
                 Sub(sender, args)
-                    ' Wrap long lines to fit the actual printer page.
-                    If printableLines.Count = 0 Then
-                        For Each originalLine As String In lines
-                            If originalLine = "" Then
-                                printableLines.Add("")
-                                Continue For
-                            End If
+                    Dim g As Graphics = args.Graphics
+                    Dim x0 As Single = 12
+                    Dim x1 As Single = SLIP_WIDTH - 12
+                    Dim w As Single = x1 - x0
+                    Dim y As Single = 12
 
-                            Dim remaining As String = originalLine
+                    Dim centered As New StringFormat With {.Alignment = StringAlignment.Center}
+                    Dim farRight As New StringFormat With {.Alignment = StringAlignment.Far}
 
-                            While remaining.Length > 0
-                                Dim length As Integer = remaining.Length
+                    Dim separator As Action =
+                        Sub()
+                            y += 3
+                            g.DrawLine(dashPen, x0, y, x1, y)
+                            y += 6
+                        End Sub
 
-                                While length > 1 AndAlso
-                                    args.Graphics.MeasureString(
-                                        remaining.Substring(0, length),
-                                        bodyFont).Width >
-                                    args.MarginBounds.Width
+                    Dim detail As Action(Of String, String) =
+                        Sub(label As String, value As String)
+                            g.DrawString(label, fBody, Brushes.Black, x0, y)
+                            g.DrawString(value, fBold, Brushes.Black,
+                                         New RectangleF(x0 + 70, y, w - 70, 16), farRight)
+                            y += 15
+                        End Sub
 
-                                    length -= 1
-                                End While
-
-                                If length < remaining.Length Then
-                                    Dim space As Integer =
-                                        remaining.LastIndexOf(
-                                            " "c, length - 1)
-
-                                    If space > 0 Then length = space
-                                End If
-
-                                printableLines.Add(
-                                    remaining.Substring(0, length).
-                                        TrimEnd())
-
-                                remaining =
-                                    remaining.Substring(length).
-                                        TrimStart()
-                            End While
-                        Next
+                    ' ---- header ----
+                    If logo IsNot Nothing Then
+                        Dim logoSize As Single = 58
+                        g.DrawImage(logo, x0 + (w - logoSize) / 2, y, logoSize, logoSize)
+                        y += logoSize + 4
                     End If
 
-                    Dim lineHeight As Single =
-                        bodyFont.GetHeight(args.Graphics) + 4
+                    g.DrawString("LYCEUM OF ALABANG", fTitle, Brushes.Black,
+                                 New RectangleF(x0, y, w, 20), centered)
+                    y += 19
+                    g.DrawString("BOOKSTORE", fBold, Brushes.Black,
+                                 New RectangleF(x0, y, w, 14), centered)
+                    y += 15
+                    g.DrawString("MODULE PAYMENT SLIP", fBold, Brushes.Black,
+                                 New RectangleF(x0, y, w, 14), centered)
+                    y += 16
+                    separator()
 
-                    Dim y As Single = args.MarginBounds.Top
+                    ' ---- details ----
+                    detail("Transaction:", txnNo)
+                    detail("Buyer:", buyerName)
+                    detail("ID No.:", idNo)
+                    detail("Date:", Date.Now.ToString("MMM dd, yyyy  h:mm tt"))
+                    separator()
 
-                    While nextLine < printableLines.Count AndAlso
-                        y + lineHeight <= args.MarginBounds.Bottom
+                    ' ---- items ----
+                    For i As Integer = 0 To itemNames.Count - 1
+                        Dim nameBox As New RectangleF(x0, y, w - 62, 60)
+                        Dim size As SizeF = g.MeasureString(itemNames(i), fBody, CInt(nameBox.Width))
 
-                        args.Graphics.DrawString(
-                            printableLines(nextLine),
-                            bodyFont,
-                            Brushes.Black,
-                            args.MarginBounds.Left,
-                            y)
+                        g.DrawString(itemNames(i), fBody, Brushes.Black, nameBox)
+                        g.DrawString("PHP " & itemAmounts(i).ToString("N2"), fBody, Brushes.Black,
+                                     New RectangleF(x1 - 62, y, 62, 16), farRight)
+                        y += Math.Max(size.Height, 14) + 3
+                    Next
+                    separator()
 
-                        y += lineHeight
-                        nextLine += 1
-                    End While
+                    ' ---- total ----
+                    g.DrawString("TOTAL TO PAY", fBold, Brushes.Black, x0, y)
+                    g.DrawString("PHP " & total.ToString("N2"), fBold, Brushes.Black,
+                                 New RectangleF(x0 + 70, y, w - 70, 16), farRight)
+                    y += 16
+                    g.DrawString("Please pay at the school cashier", fSmall, Brushes.Black, x0, y)
+                    y += 18
 
-                    args.HasMorePages =
-                        nextLine < printableLines.Count
+                    ' ---- notice box ----
+                    Dim boxHeight As Single = 34
+                    g.DrawRectangle(Pens.Black, x0, y, w, boxHeight)
+                    g.DrawString("PRESENT TO THE SCHOOL CASHIER", fBold, Brushes.Black,
+                                 New RectangleF(x0, y + 5, w, 14), centered)
+                    g.DrawString("Not proof of payment or release", fBody, Brushes.Black,
+                                 New RectangleF(x0, y + 18, w, 14), centered)
+                    y += boxHeight + 10
+
+                    ' ---- school cashier section ----
+                    g.DrawString("FOR SCHOOL CASHIER USE", fBold, Brushes.Black, x0, y)
+                    y += 20
+
+                    g.DrawString("OR No.:", fBody, Brushes.Black, x0, y)
+                    g.DrawLine(Pens.Black, x0 + 38, y + 12, x1, y + 12)
+                    y += 22
+
+                    g.DrawString("Date paid:", fBody, Brushes.Black, x0, y)
+                    g.DrawLine(Pens.Black, x0 + 52, y + 12, x1, y + 12)
+                    y += 20
+                    separator()
+
+                    g.DrawString(
+                        "1. Pay the total at the school cashier." & vbCrLf &
+                        "2. Return to the bookstore with the receipt or OR No." & vbCrLf &
+                        "3. Modules are released after the OR is recorded.",
+                        fSmall, Brushes.Black, New RectangleF(x0, y, w, 50))
+                    y += 46
+
+                    g.DrawString("Thank you!", fSmall, Brushes.Black,
+                                 New RectangleF(x0, y, w, 12), centered)
+
+                    args.HasMorePages = False
                 End Sub
 
             Using preview As New PrintPreviewDialog()
                 preview.Document = document
-                preview.WindowState = FormWindowState.Maximized
+                preview.UseAntiAlias = True
+                preview.StartPosition = FormStartPosition.CenterParent
+                preview.Width = 520
+                preview.Height = 760
+                preview.PrintPreviewControl.Zoom = 1.4
                 preview.ShowDialog(owner)
             End Using
         End Using

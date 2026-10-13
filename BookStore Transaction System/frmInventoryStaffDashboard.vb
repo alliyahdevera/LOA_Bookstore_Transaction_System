@@ -19,8 +19,8 @@ Public Class frmInventoryStaffDashboard
         Label11.Text = "Active School Year: " & ActiveSchoolYearLabel()
 
         ' each chart has a single series, so hide the "Series1" legend
-        For Each ch As Chart In New Chart() {chrtlowlevlprod, chtmostpurchased, chtdistsales}
-            If ch.Legends.Count > 0 Then ch.Legends(0).Enabled = False
+        For Each ch As System.Windows.Forms.DataVisualization.Charting.Chart In
+        New System.Windows.Forms.DataVisualization.Charting.Chart() {chrtlowlevlprod, chtmostpurchased, chtdistsales}
         Next
 
         With dgvstockin

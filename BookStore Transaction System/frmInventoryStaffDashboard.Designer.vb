@@ -22,17 +22,17 @@ Partial Class frmInventoryStaffDashboard
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmInventoryStaffDashboard))
-        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series5 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea6 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend6 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series6 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel13 = New System.Windows.Forms.Panel()
         Me.lblname = New System.Windows.Forms.Label()
@@ -52,6 +52,13 @@ Partial Class frmInventoryStaffDashboard
         Me.Label12 = New System.Windows.Forms.Label()
         Me.PictureBox5 = New System.Windows.Forms.PictureBox()
         Me.pnlsalespmonth = New System.Windows.Forms.Panel()
+        Me.dgvstockin = New System.Windows.Forms.DataGridView()
+        Me.ReferenceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.sDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Receivedby = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.PictureBox7 = New System.Windows.Forms.PictureBox()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -81,14 +88,7 @@ Partial Class frmInventoryStaffDashboard
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.lbltotp = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.dgvstockin = New System.Windows.Forms.DataGridView()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.ReferenceNo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ProductName = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Category = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.sDate = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Receivedby = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel13.SuspendLayout()
         Me.pnllowprod.SuspendLayout()
         CType(Me.chrtlowlevlprod, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -99,6 +99,7 @@ Partial Class frmInventoryStaffDashboard
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlsalespmonth.SuspendLayout()
+        CType(Me.dgvstockin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel4.SuspendLayout()
         CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnldistrsale.SuspendLayout()
@@ -113,7 +114,6 @@ Partial Class frmInventoryStaffDashboard
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnltotprod.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvstockin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label4
@@ -226,18 +226,19 @@ Partial Class frmInventoryStaffDashboard
         '
         'chrtlowlevlprod
         '
-        ChartArea4.Name = "ChartArea1"
-        Me.chrtlowlevlprod.ChartAreas.Add(ChartArea4)
+        Me.chrtlowlevlprod.BorderlineColor = System.Drawing.Color.DarkGray
+        ChartArea1.Name = "ChartArea1"
+        Me.chrtlowlevlprod.ChartAreas.Add(ChartArea1)
         Me.chrtlowlevlprod.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend4.Name = "Legend1"
-        Me.chrtlowlevlprod.Legends.Add(Legend4)
+        Legend1.Name = "Legend1"
+        Me.chrtlowlevlprod.Legends.Add(Legend1)
         Me.chrtlowlevlprod.Location = New System.Drawing.Point(0, 48)
         Me.chrtlowlevlprod.Name = "chrtlowlevlprod"
-        Series4.ChartArea = "ChartArea1"
-        Series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
-        Series4.Legend = "Legend1"
-        Series4.Name = "Series1"
-        Me.chrtlowlevlprod.Series.Add(Series4)
+        Series1.ChartArea = "ChartArea1"
+        Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.chrtlowlevlprod.Series.Add(Series1)
         Me.chrtlowlevlprod.Size = New System.Drawing.Size(570, 227)
         Me.chrtlowlevlprod.TabIndex = 35
         Me.chrtlowlevlprod.Text = "Chart3"
@@ -247,7 +248,7 @@ Partial Class frmInventoryStaffDashboard
         Me.TableLayoutPanel3.ColumnCount = 3
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.45455!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.54546!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 514.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 515.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.PictureBox8, 1, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.Label14, 2, 0)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top
@@ -265,7 +266,7 @@ Partial Class frmInventoryStaffDashboard
         Me.PictureBox8.Image = CType(resources.GetObject("PictureBox8.Image"), System.Drawing.Image)
         Me.PictureBox8.Location = New System.Drawing.Point(14, 10)
         Me.PictureBox8.Name = "PictureBox8"
-        Me.PictureBox8.Size = New System.Drawing.Size(38, 35)
+        Me.PictureBox8.Size = New System.Drawing.Size(37, 35)
         Me.PictureBox8.TabIndex = 38
         Me.PictureBox8.TabStop = False
         '
@@ -275,7 +276,7 @@ Partial Class frmInventoryStaffDashboard
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label14.Location = New System.Drawing.Point(58, 13)
+        Me.Label14.Location = New System.Drawing.Point(57, 13)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(152, 21)
         Me.Label14.TabIndex = 36
@@ -293,18 +294,19 @@ Partial Class frmInventoryStaffDashboard
         '
         'chtmostpurchased
         '
-        ChartArea5.Name = "ChartArea1"
-        Me.chtmostpurchased.ChartAreas.Add(ChartArea5)
+        Me.chtmostpurchased.BorderlineColor = System.Drawing.Color.DarkGray
+        ChartArea2.Name = "ChartArea1"
+        Me.chtmostpurchased.ChartAreas.Add(ChartArea2)
         Me.chtmostpurchased.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend5.Name = "Legend1"
-        Me.chtmostpurchased.Legends.Add(Legend5)
+        Legend2.Name = "Legend1"
+        Me.chtmostpurchased.Legends.Add(Legend2)
         Me.chtmostpurchased.Location = New System.Drawing.Point(0, 48)
         Me.chtmostpurchased.Name = "chtmostpurchased"
-        Series5.ChartArea = "ChartArea1"
-        Series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar
-        Series5.Legend = "Legend1"
-        Series5.Name = "Series1"
-        Me.chtmostpurchased.Series.Add(Series5)
+        Series2.ChartArea = "ChartArea1"
+        Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.chtmostpurchased.Series.Add(Series2)
         Me.chtmostpurchased.Size = New System.Drawing.Size(570, 227)
         Me.chtmostpurchased.TabIndex = 35
         Me.chtmostpurchased.Text = "Chart3"
@@ -314,7 +316,7 @@ Partial Class frmInventoryStaffDashboard
         Me.TableLayoutPanel1.ColumnCount = 3
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.45455!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.54546!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 514.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 515.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Label12, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.PictureBox5, 1, 0)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
@@ -331,7 +333,7 @@ Partial Class frmInventoryStaffDashboard
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label12.Location = New System.Drawing.Point(58, 13)
+        Me.Label12.Location = New System.Drawing.Point(57, 13)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(220, 21)
         Me.Label12.TabIndex = 36
@@ -344,7 +346,7 @@ Partial Class frmInventoryStaffDashboard
         Me.PictureBox5.Image = CType(resources.GetObject("PictureBox5.Image"), System.Drawing.Image)
         Me.PictureBox5.Location = New System.Drawing.Point(14, 10)
         Me.PictureBox5.Name = "PictureBox5"
-        Me.PictureBox5.Size = New System.Drawing.Size(38, 35)
+        Me.PictureBox5.Size = New System.Drawing.Size(37, 35)
         Me.PictureBox5.TabIndex = 37
         Me.PictureBox5.TabStop = False
         '
@@ -358,12 +360,64 @@ Partial Class frmInventoryStaffDashboard
         Me.pnlsalespmonth.Size = New System.Drawing.Size(570, 275)
         Me.pnlsalespmonth.TabIndex = 106
         '
+        'dgvstockin
+        '
+        Me.dgvstockin.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvstockin.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.dgvstockin.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvstockin.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ReferenceNo, Me.ProductCode, Me.ProductName, Me.Category, Me.sDate, Me.Receivedby})
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvstockin.DefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvstockin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvstockin.Location = New System.Drawing.Point(0, 48)
+        Me.dgvstockin.Name = "dgvstockin"
+        Me.dgvstockin.RowHeadersVisible = False
+        Me.dgvstockin.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvstockin.Size = New System.Drawing.Size(570, 227)
+        Me.dgvstockin.TabIndex = 41
+        '
+        'ReferenceNo
+        '
+        Me.ReferenceNo.HeaderText = "Reference No."
+        Me.ReferenceNo.Name = "ReferenceNo"
+        '
+        'ProductCode
+        '
+        Me.ProductCode.HeaderText = "Product Code"
+        Me.ProductCode.Name = "ProductCode"
+        '
+        'ProductName
+        '
+        Me.ProductName.HeaderText = "Product Name"
+        Me.ProductName.Name = "ProductName"
+        '
+        'Category
+        '
+        Me.Category.HeaderText = "Category"
+        Me.Category.Name = "Category"
+        '
+        'sDate
+        '
+        Me.sDate.HeaderText = "Date"
+        Me.sDate.Name = "sDate"
+        '
+        'Receivedby
+        '
+        Me.Receivedby.HeaderText = "Received by"
+        Me.Receivedby.Name = "Receivedby"
+        '
         'TableLayoutPanel4
         '
         Me.TableLayoutPanel4.ColumnCount = 3
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.45455!))
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.54546!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 514.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 515.0!))
         Me.TableLayoutPanel4.Controls.Add(Me.PictureBox7, 1, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.Label15, 2, 0)
         Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top
@@ -381,7 +435,7 @@ Partial Class frmInventoryStaffDashboard
         Me.PictureBox7.Image = CType(resources.GetObject("PictureBox7.Image"), System.Drawing.Image)
         Me.PictureBox7.Location = New System.Drawing.Point(14, 10)
         Me.PictureBox7.Name = "PictureBox7"
-        Me.PictureBox7.Size = New System.Drawing.Size(38, 35)
+        Me.PictureBox7.Size = New System.Drawing.Size(37, 35)
         Me.PictureBox7.TabIndex = 39
         Me.PictureBox7.TabStop = False
         '
@@ -391,7 +445,7 @@ Partial Class frmInventoryStaffDashboard
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label15.Location = New System.Drawing.Point(58, 13)
+        Me.Label15.Location = New System.Drawing.Point(57, 13)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(150, 21)
         Me.Label15.TabIndex = 38
@@ -409,17 +463,19 @@ Partial Class frmInventoryStaffDashboard
         '
         'chtdistsales
         '
-        ChartArea6.Name = "ChartArea1"
-        Me.chtdistsales.ChartAreas.Add(ChartArea6)
+        Me.chtdistsales.BorderlineColor = System.Drawing.Color.DarkGray
+        ChartArea3.Name = "ChartArea1"
+        Me.chtdistsales.ChartAreas.Add(ChartArea3)
         Me.chtdistsales.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend6.Name = "Legend1"
-        Me.chtdistsales.Legends.Add(Legend6)
+        Legend3.Name = "Legend1"
+        Me.chtdistsales.Legends.Add(Legend3)
         Me.chtdistsales.Location = New System.Drawing.Point(0, 48)
         Me.chtdistsales.Name = "chtdistsales"
-        Series6.ChartArea = "ChartArea1"
-        Series6.Legend = "Legend1"
-        Series6.Name = "Series1"
-        Me.chtdistsales.Series.Add(Series6)
+        Me.chtdistsales.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.chtdistsales.Series.Add(Series3)
         Me.chtdistsales.Size = New System.Drawing.Size(570, 227)
         Me.chtdistsales.TabIndex = 35
         Me.chtdistsales.Text = "Chart1"
@@ -429,7 +485,7 @@ Partial Class frmInventoryStaffDashboard
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.45455!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.54546!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 514.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 515.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.PictureBox6, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label13, 2, 0)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
@@ -447,7 +503,7 @@ Partial Class frmInventoryStaffDashboard
         Me.PictureBox6.Image = CType(resources.GetObject("PictureBox6.Image"), System.Drawing.Image)
         Me.PictureBox6.Location = New System.Drawing.Point(14, 10)
         Me.PictureBox6.Name = "PictureBox6"
-        Me.PictureBox6.Size = New System.Drawing.Size(38, 35)
+        Me.PictureBox6.Size = New System.Drawing.Size(37, 35)
         Me.PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox6.TabIndex = 38
         Me.PictureBox6.TabStop = False
@@ -458,7 +514,7 @@ Partial Class frmInventoryStaffDashboard
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(1, Byte), Integer), CType(CType(21, Byte), Integer), CType(CType(78, Byte), Integer))
-        Me.Label13.Location = New System.Drawing.Point(58, 13)
+        Me.Label13.Location = New System.Drawing.Point(57, 13)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(148, 21)
         Me.Label13.TabIndex = 36
@@ -703,28 +759,6 @@ Partial Class frmInventoryStaffDashboard
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Out of Stock Items"
         '
-        'dgvstockin
-        '
-        Me.dgvstockin.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvstockin.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.dgvstockin.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvstockin.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ReferenceNo, Me.ProductCode, Me.ProductName, Me.Category, Me.sDate, Me.Receivedby})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvstockin.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvstockin.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvstockin.Location = New System.Drawing.Point(0, 48)
-        Me.dgvstockin.Name = "dgvstockin"
-        Me.dgvstockin.RowHeadersVisible = False
-        Me.dgvstockin.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvstockin.Size = New System.Drawing.Size(570, 227)
-        Me.dgvstockin.TabIndex = 41
-        '
         'Label11
         '
         Me.Label11.AutoSize = True
@@ -735,36 +769,6 @@ Partial Class frmInventoryStaffDashboard
         Me.Label11.Size = New System.Drawing.Size(188, 17)
         Me.Label11.TabIndex = 140
         Me.Label11.Text = "Active School Year: xxxx-xxxx"
-        '
-        'ReferenceNo
-        '
-        Me.ReferenceNo.HeaderText = "Reference No."
-        Me.ReferenceNo.Name = "ReferenceNo"
-        '
-        'ProductCode
-        '
-        Me.ProductCode.HeaderText = "Product Code"
-        Me.ProductCode.Name = "ProductCode"
-        '
-        'ProductName
-        '
-        Me.ProductName.HeaderText = "Product Name"
-        Me.ProductName.Name = "ProductName"
-        '
-        'Category
-        '
-        Me.Category.HeaderText = "Category"
-        Me.Category.Name = "Category"
-        '
-        'sDate
-        '
-        Me.sDate.HeaderText = "Date"
-        Me.sDate.Name = "sDate"
-        '
-        'Receivedby
-        '
-        Me.Receivedby.HeaderText = "Received by"
-        Me.Receivedby.Name = "Receivedby"
         '
         'frmInventoryStaffDashboard
         '
@@ -799,6 +803,7 @@ Partial Class frmInventoryStaffDashboard
         Me.TableLayoutPanel1.PerformLayout()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlsalespmonth.ResumeLayout(False)
+        CType(Me.dgvstockin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel4.ResumeLayout(False)
         Me.TableLayoutPanel4.PerformLayout()
         CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
@@ -819,7 +824,6 @@ Partial Class frmInventoryStaffDashboard
         Me.pnltotprod.ResumeLayout(False)
         Me.pnltotprod.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvstockin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

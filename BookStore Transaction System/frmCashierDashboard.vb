@@ -1,5 +1,4 @@
 ﻿Imports System.Windows.Forms.DataVisualization.Charting
-
 Public Class frmCashierDashboard
 
     Private ReadOnly Peso As String = ChrW(&H20B1)
@@ -160,49 +159,72 @@ Public Class frmCashierDashboard
         Dim payments As Series = chtsalepymeth.Series("Series1")
 
         payments.Points.Clear()
+        payments.ChartType = SeriesChartType.Pie        ' use SeriesChartType.Doughnut for a doughnut
+        payments.IsValueShownAsLabel = False
+        payments.BorderColor = Color.White
+        payments.BorderWidth = 2
+        payments("PieStartAngle") = "270"
+        payments("PieLabelStyle") = "Inside"
 
-        ' Bars keep zero-value payment methods visible.
-        payments.ChartType = SeriesChartType.Column
-        payments.IsValueShownAsLabel = True
-        payments.Label = Peso & "#VAL{N2}"
-        payments.ToolTip = "#AXISLABEL: " & Peso & "#VAL{N2}"
-        payments.SmartLabelStyle.Enabled = True
-
-        Dim hasAmounts As Boolean = False
-
+        Dim total As Decimal = 0D
         For Each methodName As String In methodOrder
-            Dim amount As Decimal = totals(methodName)
-
-            Dim pointIndex As Integer =
-            payments.Points.AddXY(
-                methodName,
-                Convert.ToDouble(amount))
-
-            payments.Points(pointIndex).Color =
-            If(methodName = "Cash",
-               Color.SeaGreen,
-               Color.SteelBlue)
-
-            If amount <> 0D Then hasAmounts = True
+            total += totals(methodName)
         Next
 
-        For Each legend As Legend In chtsalepymeth.Legends
-            legend.Enabled = False
+        Dim hasAmounts As Boolean = (total <> 0D)
+
+        If hasAmounts Then
+            For Each methodName As String In methodOrder
+                Dim amount As Decimal = totals(methodName)
+
+                Dim pointIndex As Integer =
+                    payments.Points.AddXY(methodName, Convert.ToDouble(amount))
+
+                Dim slice As DataPoint = payments.Points(pointIndex)
+
+                Select Case methodName
+                    Case "Cash" : slice.Color = Color.SeaGreen
+                    Case "Salary Deduction" : slice.Color = Color.SteelBlue
+                    Case Else : slice.Color = Color.Gray
+                End Select
+
+                slice.LegendText = methodName & "  " & Peso & amount.ToString("N2")
+                slice.ToolTip = methodName & ": " & Peso & amount.ToString("N2") &
+                                " (" & (amount / total).ToString("P0") & ")"
+
+                ' a zero slice has no area, so no label for it; it still appears in the legend
+                If amount = 0D Then
+                    slice.Label = ""
+                Else
+                    slice.Label = (amount / total).ToString("P0")
+                    slice.LabelForeColor = Color.White
+                    slice.Font = New Font("Segoe UI", 9, FontStyle.Bold)
+                End If
+            Next
+        End If
+
+        If chtsalepymeth.Legends.Count = 0 Then
+            chtsalepymeth.Legends.Add(New Legend("Legend1"))
+        End If
+
+        For Each chartLegend As Legend In chtsalepymeth.Legends
+            chartLegend.Enabled = hasAmounts
+            chartLegend.Docking = Docking.Bottom
         Next
 
         With chtsalepymeth.ChartAreas(0)
-            .AxisX.Enabled = AxisEnabled.True
-            .AxisY.Enabled = AxisEnabled.True
-            .AxisX.Interval = 1
-            .AxisX.LabelStyle.Angle = 0
-            .AxisY.Minimum = 0
-            .AxisY.Maximum = If(hasAmounts, Double.NaN, 1.0)
-            .AxisY.LabelStyle.Format = Peso & "#,##0"
+            .AxisX.Enabled = AxisEnabled.False
+            .AxisY.Enabled = AxisEnabled.False
+            .AxisX.MajorGrid.Enabled = False
+            .AxisY.MajorGrid.Enabled = False
+            .AxisY.Minimum = Double.NaN
+            .AxisY.Maximum = Double.NaN
+            .Area3DStyle.Enable3D = False
         End With
 
         SetDashboardChartMessage(
-        chtsalepymeth,
-        If(hasAmounts, "", "No transactions recorded today"))
+            chtsalepymeth,
+            If(hasAmounts, "", "No transactions recorded today"))
     End Sub
 
     Private Sub LoadSalesByHour()
@@ -267,12 +289,12 @@ Public Class frmCashierDashboard
     End Sub
 
     Private Sub SetDashboardChartMessage(
-    target As Chart,
+    target As System.Windows.Forms.DataVisualization.Charting.Chart,
     message As String)
 
         Const messageTitleName As String = "DashboardMessage"
 
-        Dim messageTitle As Title =
+        Dim messageTitle As System.Windows.Forms.DataVisualization.Charting.Title =
         target.Titles.FindByName(messageTitleName)
 
         If message = "" Then
@@ -284,9 +306,9 @@ Public Class frmCashierDashboard
         End If
 
         If messageTitle Is Nothing Then
-            messageTitle = New Title()
+            messageTitle = New System.Windows.Forms.DataVisualization.Charting.Title()
             messageTitle.Name = messageTitleName
-            messageTitle.Docking = Docking.Top
+            messageTitle.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
             messageTitle.ForeColor = Color.DimGray
 
             target.Titles.Add(messageTitle)
